@@ -1,5 +1,5 @@
 import type { Endpoint } from 'payload'
-import { isEditor } from '../lib/access'
+import { isEditor, isSdgManager } from '../lib/access'
 import { type I18n, type Lang, pick } from '../lib/i18n'
 import { fileOf, imageOf, json, langOf, sizeLabel } from '../lib/public'
 
@@ -67,7 +67,7 @@ const counts: Endpoint = {
   path: '/panel/sdg-counts',
   method: 'get',
   handler: async (req) => {
-    if (!isEditor(req.user as never)) return json({ message: 'Unauthorized' }, 401)
+    if (!isEditor(req.user as never) && !isSdgManager(req.user as never)) return json({ message: 'Unauthorized' }, 401)
     const res = await req.payload.find({ collection: 'posts', where: { sdg: { greater_than: 0 } }, pagination: false, depth: 0, overrideAccess: true, select: { sdg: true } })
     const out: Record<number, number> = {}
     for (const p of res.docs as Doc[]) out[p.sdg] = (out[p.sdg] ?? 0) + 1

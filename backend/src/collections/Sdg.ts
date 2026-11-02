@@ -1,5 +1,5 @@
 import type { CollectionConfig, GlobalConfig } from 'payload'
-import { superOnly } from '../lib/access'
+import { sdgManagers, superOnly } from '../lib/access'
 import { cleanHtml } from '../lib/html'
 import { i18nGroup, LOCALES } from '../lib/i18n'
 import { track, trackGlobal } from '../lib/track'
@@ -11,7 +11,8 @@ export const SdgGoals: CollectionConfig = {
   slug: 'sdg-goals',
   labels: { singular: 'BRM maqsadi', plural: 'BRM maqsadlari' },
   defaultSort: 'n',
-  access: { read: () => true, create: superOnly, update: superOnly, delete: superOnly },
+  // 17 maqsad o'zgarmaydi (qo'shilmaydi, o'chirilmaydi); mazmunini superadmin va BRM menejeri tahrirlaydi
+  access: { read: () => true, create: superOnly, update: sdgManagers, delete: superOnly },
   fields: [
     { name: 'n', label: 'Raqami', type: 'number', required: true, unique: true, min: 1, max: 17 },
     i18nGroup('title', 'Nomi', { required: true }),
@@ -73,7 +74,7 @@ export const SdgGoals: CollectionConfig = {
 export const SdgPage: GlobalConfig = {
   slug: 'sdg-page',
   label: 'BRM sahifasi',
-  access: { read: () => true, update: superOnly },
+  access: { read: () => true, update: sdgManagers },
   fields: [
     { name: 'impactYear', label: 'THE Impact Rankings yili', type: 'number', defaultValue: 2025 },
   ],

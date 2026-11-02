@@ -12,7 +12,9 @@ type L = { uz: string; ru: string; en: string; zh: string }
 const ctx = { seed: true }
 const dir = path.dirname(fileURLToPath(import.meta.url))
 
-async function upload(payload: Payload, file: string, folder: string, alt?: L) {
+type Folder = 'posts' | 'carousel' | 'docs' | 'staff' | 'logos' | 'audio'
+
+async function upload(payload: Payload, file: string, folder: Folder, alt?: L) {
   const doc = await payload.create({ collection: 'media', overrideAccess: true, context: ctx, filePath: path.join(dir, 'files', file), data: { folder, alt } })
   return doc.id as number
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue'
 import { api, type I18n, type MediaDoc, type Paginated, uploadMedia } from '@/lib/api'
+import { auth } from '@/lib/auth'
 import { LANGS, type Lang, PDF_MODES, SDG_COLORS, SITE_URL } from '@/lib/constants'
 import { fileSize } from '@/lib/format'
 import { mediaUrl } from '@/lib/posts'
@@ -279,7 +280,7 @@ function addLink() {
           <section class="card flex flex-col gap-2 px-5 py-[18px]">
             <h3 class="text-base font-bold">Boğlangan postlar</h3>
             <p class="text-[13px] leading-normal text-muted"><b class="text-ink">{{ counts[current.n] ?? 0 }} ta</b> yangilik bu maqsadga boğlangan — ular sahifaning “Faoliyat” qismida öz-özidan çiqadi.</p>
-            <RouterLink :to="{ path: '/postlar/news', query: { sdg: String(current.n) } }" class="btn-ghost h-10!">Postlar röyxatida köriş</RouterLink>
+            <RouterLink v-if="auth.user.value?.role !== 'sdg'" :to="{ path: '/postlar/news', query: { sdg: String(current.n) } }" class="btn-ghost h-10!">Postlar röyxatida köriş</RouterLink>
           </section>
 
           <div class="sticky bottom-4 flex flex-col gap-2">

@@ -76,7 +76,7 @@ export type User = {
   name: string
   username?: string | null
   email?: string | null
-  role: 'superadmin' | 'editor' | 'faculty' | 'pages'
+  role: 'superadmin' | 'editor' | 'faculty' | 'pages' | 'sdg'
   status?: 'active' | 'invited' | 'disabled'
   position?: string | null
   department?: string | null

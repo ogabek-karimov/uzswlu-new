@@ -21,7 +21,7 @@ async function logout() {
     </button>
 
     <div class="ml-auto flex items-center gap-2.5">
-      <RouterLink to="/postlar/news/yangi" class="btn-primary h-[42px]">
+      <RouterLink v-if="auth.user.value?.role !== 'sdg'" to="/postlar/news/yangi" class="btn-primary h-[42px]">
         <Icon name="plus" :size="16" />
         <span class="hidden sm:inline">Yangi qöşiş</span>
       </RouterLink>

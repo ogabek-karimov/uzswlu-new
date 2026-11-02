@@ -17,6 +17,7 @@ const ROLE_SCOPE: Record<User['role'], string> = {
   editor: 'Yangiliklar, e’lonlar, tadbirlar, media',
   faculty: 'Faqat öz fakulteti sahifasi va yangiliklari',
   pages: 'Sahifalar, hujjatlar, video darsliklar',
+  sdg: 'Faqat BRM: 17 maqsad matni, rasmlari va PDF hisobotlari',
 }
 const STATUS: Record<string, [string, string]> = {
   active: ['Faol', 'bg-[#DDFBF0] text-[#0B5A43]'],
@@ -110,7 +111,7 @@ const locked = (u: User) => !!u.lockUntil && new Date(u.lockUntil).getTime() > D
         </div>
         <div class="sm:col-span-2">
           <span class="label">Rol</span>
-          <div role="radiogroup" aria-label="Rol" class="grid gap-2 sm:grid-cols-4">
+          <div role="radiogroup" aria-label="Rol" class="grid gap-2 sm:grid-cols-3 xl:grid-cols-5">
             <button
               v-for="(label, r) in ROLE_LABELS" :key="r" type="button" role="radio" :aria-checked="form.role === r"
               class="min-h-[76px] rounded-[14px] px-3.5 py-3 text-left" :class="form.role === r ? 'border-2 border-brand-700 bg-brand-50' : 'border border-field bg-white'"

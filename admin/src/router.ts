@@ -11,9 +11,9 @@ export const router = createRouter({
       component: AdminLayout,
       children: [
         { path: '', name: 'dashboard', component: () => import('./pages/DashboardPage.vue'), meta: { title: 'Boşqaruv paneli' } },
-        { path: 'postlar/:type(news|announcements|events)', name: 'posts', component: () => import('./pages/PostsPage.vue'), meta: { title: 'Postlar' } },
-        { path: 'postlar/:type(news|announcements|events)/yangi', name: 'post-new', component: () => import('./pages/PostEditPage.vue'), meta: { title: 'Yangi post' } },
-        { path: 'postlar/:type(news|announcements|events)/:id(\\d+)', name: 'post-edit', component: () => import('./pages/PostEditPage.vue'), meta: { title: 'Postni tahrirlaş' } },
+        { path: 'postlar/:type(news|announcements|events)', name: 'posts', component: () => import('./pages/PostsPage.vue'), meta: { title: 'Postlar', roles: ['superadmin', 'editor', 'faculty', 'pages'] } },
+        { path: 'postlar/:type(news|announcements|events)/yangi', name: 'post-new', component: () => import('./pages/PostEditPage.vue'), meta: { title: 'Yangi post', roles: ['superadmin', 'editor', 'faculty', 'pages'] } },
+        { path: 'postlar/:type(news|announcements|events)/:id(\\d+)', name: 'post-edit', component: () => import('./pages/PostEditPage.vue'), meta: { title: 'Postni tahrirlaş', roles: ['superadmin', 'editor', 'faculty', 'pages'] } },
         { path: 'foydalanuvchilar', name: 'users', component: () => import('./pages/UsersPage.vue'), meta: { title: 'Foydalanuvçilar', superOnly: true } },
         { path: 'kirish-tarixi', name: 'logins', component: () => import('./pages/LoginHistoryPage.vue'), meta: { title: 'Kiriş tarixi', superOnly: true } },
         { path: 'faollik', name: 'activity', component: () => import('./pages/ActivityPage.vue'), meta: { title: 'Faollik jurnali', superOnly: true } },
@@ -28,7 +28,7 @@ export const router = createRouter({
         { path: 'fakultetlar', name: 'faculties', component: () => import('./pages/FacultiesPage.vue'), meta: { title: 'Fakultetlar', roles: ['superadmin', 'faculty'] } },
         { path: 'kafedralar', name: 'departments', component: () => import('./pages/DepartmentsPage.vue'), meta: { title: 'Kafedralar', roles: ['superadmin', 'faculty'] } },
         { path: 'xodimlar', name: 'staff', component: () => import('./pages/StaffPage.vue'), meta: { title: 'Xodimlar', roles: ['superadmin'] } },
-        { path: 'brm', name: 'sdg', component: () => import('./pages/BrmPage.vue'), meta: { title: 'BRM', roles: ['superadmin'] } },
+        { path: 'brm', name: 'sdg', component: () => import('./pages/BrmPage.vue'), meta: { title: 'BRM', roles: ['superadmin', 'sdg'] } },
         { path: 'sahifalar', name: 'pages', component: () => import('./pages/PagesPage.vue'), meta: { title: 'Sahifalar', roles: ['superadmin', 'pages'] } },
         { path: 'statistika', name: 'stats', component: () => import('./pages/StatsPage.vue'), meta: { title: 'Statistika', superOnly: true } },
         { path: ':rest(.*)*', redirect: '/' },
@@ -42,9 +42,12 @@ router.beforeEach(async (to) => {
   const user = auth.state.user
   if (to.meta.public) return user && to.name === 'login' ? '/' : true
   if (!user) return { name: 'login', query: to.fullPath !== '/' ? { r: to.fullPath } : undefined }
-  if (to.meta.superOnly && user.role !== 'superadmin') return '/'
+  // BRM menejeri faqat BRM bo'limida ishlaydi — bosh sahifasi ham shu
+  const home = user.role === 'sdg' ? '/brm' : '/'
+  if (to.name === 'dashboard' && home !== '/') return home
+  if (to.meta.superOnly && user.role !== 'superadmin') return home
   const roles = to.meta.roles as string[] | undefined
-  if (roles && !roles.includes(user.role)) return '/'
+  if (roles && !roles.includes(user.role)) return home
   return true
 })
 

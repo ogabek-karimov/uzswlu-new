@@ -1,6 +1,6 @@
 import path from 'path'
 import { APIError, type CollectionConfig } from 'payload'
-import { editorsOnly, superOnly } from '../lib/access'
+import { mediaUsers, superOnly } from '../lib/access'
 import { logActivity } from '../lib/activity'
 import { i18nGroup } from '../lib/i18n'
 import { mediaUsage } from '../lib/usage'
@@ -11,8 +11,8 @@ export const Media: CollectionConfig = {
   labels: { singular: 'Fayl', plural: 'Media' },
   access: {
     read: () => true,
-    create: editorsOnly,
-    update: editorsOnly,
+    create: mediaUsers,
+    update: mediaUsers,
     delete: superOnly,
   },
   upload: {

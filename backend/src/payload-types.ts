@@ -176,7 +176,7 @@ export interface UserAuthOperations {
 export interface User {
   id: number;
   name: string;
-  role: 'superadmin' | 'editor' | 'faculty' | 'pages';
+  role: 'superadmin' | 'editor' | 'faculty' | 'pages' | 'sdg';
   status?: ('active' | 'invited' | 'disabled') | null;
   position?: string | null;
   department?: string | null;

@@ -1,7 +1,7 @@
 import { statfs } from 'node:fs/promises'
 import path from 'node:path'
 import type { Endpoint } from 'payload'
-import { isEditor } from '../lib/access'
+import { canUseMedia } from '../lib/access'
 import { json } from '../lib/public'
 import { mediaUsage, usedMediaIds } from '../lib/usage'
 import { youtubeId } from '../collections/Videos'
@@ -15,7 +15,7 @@ const stats: Endpoint = {
   path: '/panel/media-stats',
   method: 'get',
   handler: async (req) => {
-    if (!isEditor(req.user as never)) return json({ message: 'Unauthorized' }, 401)
+    if (!canUseMedia(req.user as never)) return json({ message: 'Unauthorized' }, 401)
     const res = await req.payload.find({
       collection: 'media',
       pagination: false,
@@ -53,7 +53,7 @@ const usage: Endpoint = {
   path: '/panel/media-usage/:id',
   method: 'get',
   handler: async (req) => {
-    if (!isEditor(req.user as never)) return json({ message: 'Unauthorized' }, 401)
+    if (!canUseMedia(req.user as never)) return json({ message: 'Unauthorized' }, 401)
     const id = Number(req.routeParams?.id)
     if (!Number.isInteger(id)) return json({ message: 'Not found' }, 404)
     return json({ used: await mediaUsage(req.payload, id, req) })
@@ -65,7 +65,7 @@ const used: Endpoint = {
   path: '/panel/media-used',
   method: 'get',
   handler: async (req) => {
-    if (!isEditor(req.user as never)) return json({ message: 'Unauthorized' }, 401)
+    if (!canUseMedia(req.user as never)) return json({ message: 'Unauthorized' }, 401)
     return json({ ids: [...await usedMediaIds(req.payload)].map(Number) })
   },
 }
@@ -75,7 +75,7 @@ const youtube: Endpoint = {
   path: '/panel/youtube',
   method: 'get',
   handler: async (req) => {
-    if (!isEditor(req.user as never)) return json({ message: 'Unauthorized' }, 401)
+    if (!canUseMedia(req.user as never)) return json({ message: 'Unauthorized' }, 401)
     const id = youtubeId(req.searchParams.get('url'))
     if (!id) return json({ message: 'YouTube havolasi notoğri' }, 400)
     const watch = `https://www.youtube.com/watch?v=${id}`

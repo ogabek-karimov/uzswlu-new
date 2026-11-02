@@ -13,7 +13,7 @@ const SPECIAL = /^\/(aloqa|bakalavriat|brm|brm-[\w-]+|fakultetlar-va-kafedralar|
 export async function seedPages(payload: Payload) {
   if ((await payload.count({ collection: 'pages', overrideAccess: true })).totalDocs) return
   const ctx = { seed: true }
-  const contents = data.pages as Record<string, Content>
+  const contents = data.pages as unknown as Record<string, Content>
   const sample = data.sample as L
   const seen = new Set<string>()
   for (const [gi, g] of (data.menu as Group[]).entries()) {

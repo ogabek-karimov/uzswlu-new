@@ -42,6 +42,7 @@ export const ROLE_LABELS: Record<User['role'], string> = {
   editor: 'Kontent muharriri',
   faculty: 'Fakultet admini',
   pages: 'Sahifalar muharriri',
+  sdg: 'BRM menejeri',
 }
 
 export function initials(name?: string | null) {

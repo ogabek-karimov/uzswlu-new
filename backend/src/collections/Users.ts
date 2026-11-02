@@ -37,6 +37,8 @@ export const Users: CollectionConfig = {
         { label: 'Kontent muharriri', value: 'editor' },
         { label: 'Fakultet admini', value: 'faculty' },
         { label: 'Sahifalar muharriri', value: 'pages' },
+        // Faqat BRM bo'limi: 17 maqsad matni, rasmlari va PDF hisobotlari
+        { label: 'BRM menejeri', value: 'sdg' },
       ],
       access: { update: ({ req }) => isSuper(req.user as { role?: string }) },
     },

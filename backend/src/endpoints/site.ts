@@ -144,7 +144,7 @@ const one: Endpoint = {
       body,
       author,
       publishedAt: doc.publishedAt,
-      gallery: (doc.gallery ?? []).map((m: MediaDoc) => imageOf(m, 'hero')).filter(Boolean),
+      gallery: (doc.gallery ?? []).map((m: MediaDoc | number) => imageOf(m, 'hero')).filter(Boolean),
       tags: doc.tags?.[lang] ?? [],
       readingMinutes,
       startsAt: doc.type === 'events' ? doc.startsAt ?? null : null,

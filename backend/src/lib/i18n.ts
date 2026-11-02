@@ -26,13 +26,8 @@ export function i18nGroup(name: string, label: string, opts: GroupOptions = {}):
     type: 'group',
     fields: LOCALES.map((lang): Field => {
       if (opts.hasMany) return { name: lang, label: LOCALE_LABELS[lang], type: 'text', hasMany: true }
-      return {
-        name: lang,
-        label: LOCALE_LABELS[lang],
-        type: opts.type ?? 'text',
-        required: Boolean(opts.required && lang === 'uz'),
-        defaultValue: opts.defaults?.[lang],
-      }
+      const base = { name: lang, label: LOCALE_LABELS[lang], required: Boolean(opts.required && lang === 'uz'), defaultValue: opts.defaults?.[lang] }
+      return opts.type === 'textarea' ? { ...base, type: 'textarea' } : { ...base, type: 'text' }
     }),
   }
 }

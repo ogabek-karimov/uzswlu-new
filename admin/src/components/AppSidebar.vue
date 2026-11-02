@@ -16,13 +16,13 @@ const route = useRoute()
 // Muharrir (kichik admin) faqat o'ziga ruxsat berilgan bo'limlarni ko'radi
 const groups: { label: string; items: Item[] }[] = [
   { label: 'Asosiy', items: [
-    { to: '/', label: 'Boşqaruv paneli', icon: 'dashboard' },
+    { to: '/', label: 'Boşqaruv paneli', icon: 'dashboard', roles: ['superadmin', 'editor', 'faculty', 'pages'] },
     { to: '/statistika', label: 'Statistika', icon: 'stats', roles: ['superadmin'] },
   ] },
   { label: 'Kontent', items: [
-    { to: '/postlar/news', label: 'Yangiliklar', icon: 'news' },
-    { to: '/postlar/announcements', label: 'E’lonlar', icon: 'announcements' },
-    { to: '/postlar/events', label: 'Tadbirlar', icon: 'events' },
+    { to: '/postlar/news', label: 'Yangiliklar', icon: 'news', roles: ['superadmin', 'editor', 'faculty', 'pages'] },
+    { to: '/postlar/announcements', label: 'E’lonlar', icon: 'announcements', roles: ['superadmin', 'editor', 'faculty', 'pages'] },
+    { to: '/postlar/events', label: 'Tadbirlar', icon: 'events', roles: ['superadmin', 'editor', 'faculty', 'pages'] },
     { to: '/sahifalar', label: 'Sahifalar', icon: 'pages', roles: ['superadmin', 'pages'] },
     { to: '/karusel', label: 'Boş sahifa karuseli', icon: 'carousel', roles: ['superadmin'] },
     { to: '/media', label: 'Media kutubxona', icon: 'media' },
@@ -34,7 +34,7 @@ const groups: { label: string; items: Item[] }[] = [
     { to: '/kafedralar', label: 'Kafedralar', icon: 'departments', roles: ['superadmin', 'faculty'] },
     { to: '/rahbariyat', label: 'Rahbariyat', icon: 'leaders', roles: ['superadmin'] },
     { to: '/xodimlar', label: 'Xodimlar', icon: 'staff', roles: ['superadmin'] },
-    { to: '/brm', label: 'BRM', icon: 'sdg', roles: ['superadmin'] },
+    { to: '/brm', label: 'BRM', icon: 'sdg', roles: ['superadmin', 'sdg'] },
     { to: '/ramzlar', label: 'Ramzlar', icon: 'symbols', roles: ['superadmin'] },
   ] },
   { label: 'Tizim', items: [
