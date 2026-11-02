@@ -1,0 +1,80 @@
+@import 'tailwindcss';
+
+/* ÖzDJTU ranglari (canvas'dagi admin dizayni): töq indigo yon menyu, yalpiz urg'u */
+@theme {
+  --font-sans: 'Onest', system-ui, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+
+  --color-night: #110c2e;
+  --color-brand-950: #13112f;
+  --color-brand-900: #1c1548;
+  --color-brand-800: #2a2066;
+  --color-brand-700: #382b85;
+  --color-brand-500: #6d5fd3;
+  --color-brand-100: #ecebfb;
+  --color-brand-50: #f4f2fd;
+  --color-mint: #00fcb4;
+  --color-mint-text: #0e7a5a;
+  --color-ink: #13112f;
+  --color-muted: #5e5a72;
+  --color-subtle: #8c88a0;
+  --color-line: #e9e7f1;
+  --color-field: #e1deec;
+  --color-canvas: #f5f4fa;
+  --color-tg: #26a5e4;
+}
+
+@layer base {
+  html { background: var(--color-canvas); color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+  body { margin: 0; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  :focus-visible { outline: 3px solid color-mix(in srgb, var(--color-brand-700) 45%, transparent); outline-offset: 2px; }
+}
+
+/* Tailwind 4: @apply ichida ishlatiladigan umumiy bo'laklar @utility bo'lishi kerak */
+@utility btn {
+  display: inline-flex;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  padding-inline: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+  &:disabled { cursor: not-allowed; opacity: 0.5; }
+}
+
+@layer components {
+  .card { @apply rounded-[20px] border border-line bg-white; }
+  .field { @apply h-11 w-full rounded-xl border border-field bg-white px-3 text-sm text-ink outline-none transition focus:border-brand-700 focus:ring-4 focus:ring-brand-700/12; }
+  .label { @apply mb-1.5 block text-xs font-semibold text-muted; }
+  .btn-primary { @apply btn bg-brand-800 text-white hover:bg-brand-900; }
+  .btn-ghost { @apply btn border border-field bg-white text-ink hover:border-brand-700; }
+  .btn-danger { @apply btn border border-red-200 bg-white text-red-700 hover:bg-red-50; }
+  .chip { @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold; }
+}
+
+/* Matn muharriri (TipTap) */
+.prose-editor { min-height: 260px; padding: 18px 20px; font-size: 16px; line-height: 1.7; outline: none; }
+.prose-editor p { margin: 0 0 14px; }
+.prose-editor h2 { font-size: 22px; font-weight: 700; margin: 18px 0 10px; }
+.prose-editor h3 { font-size: 18px; font-weight: 700; margin: 16px 0 8px; }
+.prose-editor ul, .prose-editor ol { padding-left: 22px; margin: 0 0 14px; }
+.prose-editor blockquote { border-left: 3px solid var(--color-brand-700); padding-left: 14px; color: var(--color-muted); margin: 0 0 14px; }
+.prose-editor a { color: var(--color-brand-700); text-decoration: underline; }
+.prose-editor img { max-width: 100%; border-radius: 12px; }
+.prose-editor p.is-editor-empty:first-child::before { content: attr(data-placeholder); color: #9b97ae; float: left; height: 0; pointer-events: none; }
+.prose-editor h4 { font-size: 16px; font-weight: 700; margin: 14px 0 6px; }
+.prose-editor hr { border: 0; border-top: 2px solid var(--color-line); margin: 18px 0; }
+.prose-editor table { width: 100%; border-collapse: collapse; margin: 0 0 14px; font-size: 15px; }
+.prose-editor th, .prose-editor td { border: 1px solid var(--color-field); padding: 8px 10px; vertical-align: top; }
+.prose-editor th { background: #faf9fd; font-weight: 700; text-align: left; }
+.prose-editor .selectedCell { background: #ecebfb; }
+.prose-editor div[data-youtube-video] iframe { width: 100%; max-width: 640px; aspect-ratio: 16 / 9; height: auto; border-radius: 12px; }
+.prose-editor ::selection { background: #c9c2f0; }
+/* "Bloklarni ko'rsatish" */
+.show-blocks .prose-editor > * { outline: 1px dashed #c9c2f0; outline-offset: 3px; }

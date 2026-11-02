@@ -1,0 +1,834 @@
+{
+  "meta": {
+    "description": "乌兹别克斯坦国立世界语言大学——外语、语文学、翻译与国际新闻领域的高等教育。"
+  },
+  "university": {
+    "name": "Özbekiston davlat jahon tillari universiteti",
+    "short": "ÖzDJTU",
+    "line1": "Özbekiston davlat",
+    "line2": "jahon tillari universiteti"
+  },
+  "nav": {
+    "skip": "跳至主要内容",
+    "home": "首页",
+    "news": "新闻",
+    "contact": "联系我们",
+    "search": "搜索",
+    "admission": "2026招生",
+    "menu": "菜单",
+    "close": "关闭",
+    "more": "更多",
+    "moreTitle": "更多栏目",
+    "pages": "{n} 个页面",
+    "featured": "重点推荐",
+    "open": "打开",
+    "searchPlaceholder": "站内搜索…",
+    "breadcrumb": "面包屑导航",
+    "overview": "栏目首页"
+  },
+  "topbar": {
+    "hotline": "热线电话",
+    "fontSize": "字号",
+    "decrease": "缩小",
+    "increase": "放大",
+    "contrast": "高对比度",
+    "language": "语言",
+    "a11y": "无障碍功能",
+    "contrastShort": "高对比度"
+  },
+  "auth": {
+    "login": "登录",
+    "staff": "教职工",
+    "students": "学生",
+    "hemisStaff": "HEMIS — 教职工账户",
+    "hemisStudent": "HEMIS — 学生账户",
+    "kpi": "KPI系统"
+  },
+  "menu": {
+    "university": {
+      "title": "大学概况",
+      "desc": "自1949年起，以语言连接世界的大学。",
+      "items": {
+        "about": "学校简介",
+        "rectorate": "校领导",
+        "structure": "组织机构",
+        "history": "校史",
+        "faculties": "学院与教研室",
+        "staff": "教师队伍",
+        "library": "信息资源中心",
+        "campus": "校园与宿舍"
+      }
+    },
+    "applicants": {
+      "title": "招生",
+      "desc": "关于招生、专业、学费和奖学金的全部信息。",
+      "items": {
+        "admission": "2026/2027招生",
+        "bachelor": "本科专业",
+        "master": "硕士研究生",
+        "phd": "博士研究生（PhD）",
+        "fees": "学费",
+        "scholarships": "奖学金",
+        "international": "留学生",
+        "joint": "合作办学项目"
+      }
+    },
+    "activity": {
+      "title": "学校工作",
+      "desc": "科研、国际合作与校园生活。",
+      "items": {
+        "research": "科学研究",
+        "international": "国际交流",
+        "culture": "文化教育工作",
+        "green": "绿色大学",
+        "sdg": "可持续发展目标",
+        "anticorruption": "反腐败",
+        "documents": "规章制度",
+        "accreditation": "国际认证"
+      }
+    },
+    "promo": {
+      "title": "2026/2027招生",
+      "text": "本科、硕士及合作办学项目开始接受申请。",
+      "cta": "了解详情"
+    }
+  },
+  "carousel": {
+    "label": "主要横幅",
+    "prev": "上一张",
+    "next": "下一张",
+    "goTo": "转到第{n}张",
+    "pause": "暂停轮播",
+    "play": "继续轮播"
+  },
+  "hero": {
+    "eyebrow": "始于1949年",
+    "title1": "语言，",
+    "title2": "通往世界之门",
+    "text": "培养外语、语文学、翻译与国际新闻专业人才的大学。",
+    "ctaPrimary": "2026/2027招生",
+    "ctaSecondary": "专业设置",
+    "searchLabel": "站内搜索",
+    "searchPlaceholder": "例如：学费、课程表……",
+    "searchButton": "搜索",
+    "popular": "热门搜索：",
+    "chips": {
+      "fees": "学费",
+      "schedule": "课程表",
+      "master": "硕士",
+      "grants": "奖学金"
+    },
+    "students": "名在校学生",
+    "greeting": "你好，世界！"
+  },
+  "quick": {
+    "title": "快捷服务",
+    "items": {
+      "reception": {
+        "title": "网上接待室",
+        "text": "向校长提交申请"
+      },
+      "student": {
+        "title": "学生门户",
+        "text": "成绩、课表、考勤"
+      },
+      "hemis": {
+        "title": "HEMIS",
+        "text": "高等教育信息系统"
+      },
+      "mail": {
+        "title": "企业邮箱",
+        "text": "教职工电子邮箱"
+      },
+      "career": {
+        "title": "就业中心",
+        "text": "实习与就业"
+      },
+      "brm": {
+        "title": "SDG",
+        "text": "可持续发展目标"
+      },
+      "glossary": {
+        "title": "信息通信技术词典",
+        "text": "移动应用"
+      }
+    }
+  },
+  "about": {
+    "eyebrow": "学校简介",
+    "title": "七十余年办学经验，服务新一代",
+    "text": "学校成立于1949年，前身为外国语师范学院。如今，它是一所培养外语、语文学、翻译和国际新闻人才的大型高等院校。",
+    "link": "校史"
+  },
+  "stats": {
+    "faculties": "个学院",
+    "staff": "名教师",
+    "departments": "个教研室",
+    "students": "名学生",
+    "source": "数据来自HEMIS系统"
+  },
+  "faculties": {
+    "eyebrow": "教学",
+    "title": "学院",
+    "text": "每个学院都是一个拥有自己语言、学派与传统的独特世界。",
+    "all": "全部学院"
+  },
+  "news": {
+    "eyebrow": "校园生活",
+    "title": "新闻",
+    "all": "全部新闻",
+    "announcements": "通知公告",
+    "allAnnouncements": "全部公告",
+    "readMore": "阅读全文"
+  },
+  "events": {
+    "eyebrow": "日历",
+    "title": "近期活动",
+    "all": "全部活动",
+    "empty": "近期暂无活动安排。",
+    "time": "时间",
+    "place": "地点"
+  },
+  "languages": {
+    "eyebrow": "语言",
+    "title": "我们教授的语言",
+    "text": "东西方语言，汇聚一校。"
+  },
+  "symbols": {
+    "eyebrow": "乌兹别克斯坦共和国",
+    "title": "国家象征",
+    "flag": "乌兹别克斯坦共和国国旗",
+    "emblem": "乌兹别克斯坦共和国国徽",
+    "anthem": "乌兹别克斯坦共和国国歌",
+    "view": "了解更多",
+    "listen": "收听",
+    "newTab": "在新标签页中打开"
+  },
+  "partners": {
+    "eyebrow": "国际合作",
+    "title": "合作伙伴",
+    "text": "学校与国内外机构及高校开展合作。",
+    "all": "全部合作伙伴"
+  },
+  "admission": {
+    "eyebrow": "招生",
+    "title": "2026/2027招生",
+    "text": "本科、硕士及博士研究生申请流程。",
+    "steps": {
+      "s1": {
+        "title": "选择专业",
+        "text": "了解本科与硕士专业。"
+      },
+      "s2": {
+        "title": "提交申请",
+        "text": "在线提交材料。"
+      },
+      "s3": {
+        "title": "考试",
+        "text": "笔试与专业考试安排。"
+      },
+      "s4": {
+        "title": "成为学生",
+        "text": "公布录取结果并签订合同。"
+      }
+    },
+    "cta": "立即申请",
+    "ctaSecondary": "学费"
+  },
+  "footer": {
+    "about": "外语、语文学、翻译与国际新闻领域的高等院校。",
+    "contacts": "联系方式",
+    "campuses": "校区",
+    "links": "常用链接",
+    "symbols": {
+      "title": "国家象征",
+      "flag": "国旗",
+      "emblem": "国徽",
+      "anthem": "国歌"
+    },
+    "social": "社交媒体",
+    "rights": "版权所有。",
+    "phone": "电话",
+    "email": "电子邮箱",
+    "ext": "分机"
+  },
+  "placeholder": {
+    "title": "页面建设中",
+    "text": "该栏目即将在新网站上线。",
+    "back": "返回首页"
+  },
+  "staff": {
+    "university": "大学",
+    "title": "教职工",
+    "lead": "教职员工——所属部门、职务及联系方式。",
+    "statPeople": "名教职工",
+    "statDepartments": "个部门和教研室",
+    "searchLabel": "按姓名搜索",
+    "searchPlaceholder": "按姓名搜索教职工…",
+    "departmentLabel": "部门",
+    "allDepartments": "全部部门",
+    "groupsLabel": "类别",
+    "groups": {
+      "all": "全部",
+      "lead": "校领导",
+      "faculty": "学院",
+      "chair": "教研室",
+      "unit": "中心与处室"
+    },
+    "results": "共 {n} 条结果",
+    "empty": "未找到相关人员",
+    "emptyHint": "请尝试其他姓名或部门。",
+    "reset": "清除筛选",
+    "pages": "分页",
+    "prev": "上一页",
+    "next": "下一页",
+    "pageOf": "第 {page} 页，共 {total} 页",
+    "profile": {
+      "photo": "{name} 的照片",
+      "fullName": "姓名（含父名）",
+      "department": "部门",
+      "position": "职务",
+      "contact": "联系方式",
+      "socials": "社交媒体",
+      "writeMessage": "发送消息",
+      "personalPage": "个人主页",
+      "connect": "联系",
+      "writeTelegram": "在 Telegram 上留言",
+      "sendEmail": "发送邮件",
+      "call": "拨打电话",
+      "qr": "二维码",
+      "qrAlt": "个人主页链接二维码",
+      "downloadQr": "下载二维码",
+      "share": "分享",
+      "copyLink": "复制链接",
+      "copied": "链接已复制",
+      "shareTelegram": "通过 Telegram",
+      "shareFacebook": "通过 Facebook",
+      "noContacts": "该教职工尚未添加联系方式。",
+      "note": "姓名、部门和职务来自 HEMIS；联系方式和社交媒体由本人在个人后台更新。",
+      "banners": "大学横幅",
+      "newTab": "在新窗口中打开",
+      "qrTitle": "教职工主页二维码",
+      "cardTitle": "分享名片",
+      "downloadCard": "下载为图片",
+      "send": "发送",
+      "close": "关闭",
+      "preparing": "正在生成…",
+      "shareWhatsapp": "通过 WhatsApp",
+      "about": "个人简介",
+      "science": "学术主页",
+      "documents": "文件",
+      "writeWhatsapp": "在 WhatsApp 上留言",
+      "showOnMap": "在地图上查看",
+      "count": "{n} 份",
+      "open": "打开"
+    },
+    "contact": {
+      "email": "电子邮箱",
+      "telegram": "Telegram",
+      "whatsapp": "WhatsApp",
+      "mobile": "手机",
+      "phone": "办公电话",
+      "office": "接待地点"
+    },
+    "docs": {
+      "cv": "简历",
+      "books": "著作",
+      "articles": "论文"
+    }
+  },
+  "cabinet": {
+    "title": "个人后台",
+    "menu": {
+      "label": "个人后台",
+      "dashboard": "个人后台 (UzSWLU)",
+      "staffPage": "我的主页",
+      "logout": "退出"
+    },
+    "myPage": "我的主页",
+    "support": {
+      "title": "技术支持",
+      "text": "如需帮助或申请更多权限：",
+      "link": "联系管理员"
+    },
+    "banner": {
+      "title": "尊敬的用户！",
+      "text": "姓名、职务、部门和照片来自 HEMIS 系统。如需修改，请登录您的 HEMIS 个人资料。"
+    },
+    "hemis": {
+      "title": "我的资料",
+      "badge": "来自 HEMIS",
+      "lastName": "姓",
+      "firstName": "名",
+      "patronymic": "父名",
+      "birthDate": "出生日期",
+      "phone": "电话",
+      "email": "电子邮箱",
+      "jobs": "职务",
+      "rate": "编制 {n}"
+    },
+    "edit": "编辑",
+    "close": "关闭",
+    "save": "保存",
+    "saved": "已保存",
+    "cancel": "取消",
+    "remove": "删除",
+    "about": {
+      "placeholder": "简要介绍一下自己",
+      "add": "添加个人简介",
+      "field": "个人简介 — {lang}"
+    },
+    "langs": {
+      "uz": "O‘zbekcha",
+      "ru": "Русский",
+      "en": "English",
+      "zh": "中文"
+    },
+    "discard": {
+      "title": "输入的内容将不会保存",
+      "text": "确定要取消吗？",
+      "yes": "是，取消",
+      "no": "否，继续编辑"
+    },
+    "links": {
+      "addEmail": "添加邮箱",
+      "officeHint": "请填写准确地址（城市、街道、门牌号）——将在您的主页上以地图打开",
+      "empty": "尚未添加。",
+      "invalid": "无效值：链接必须以 https:// 开头"
+    },
+    "docs": {
+      "title": "我的文件",
+      "count": "份",
+      "visible": "在教职工主页显示",
+      "hidden": "在教职工主页隐藏",
+      "dashboardOnly": "仅在后台",
+      "upload": "上传文件",
+      "addLink": "添加链接",
+      "sections": {
+        "cv": "简历",
+        "books": "我的著作",
+        "presentations": "我的演示文稿",
+        "articles": "我的论文",
+        "videos": "我的视频"
+      }
+    },
+    "upload": {
+      "rules": "允许的格式：{types} · 20 MB",
+      "linkRules": "仅限链接（https）：YouTube 等",
+      "drop": "将文件拖到此处",
+      "dropSub": "或点击选择",
+      "link": "视频链接",
+      "name": "名称（{lang}）",
+      "zhHint": "留空则显示英文名称",
+      "submit": "上传",
+      "uploading": "正在上传…",
+      "search": "按名称搜索",
+      "uploaded": "已上传",
+      "empty": "尚未上传任何文件。",
+      "notFound": "未找到。",
+      "open": "打开",
+      "deleteTitle": "删除此文件？",
+      "deleteText": "文件将被永久删除，无法恢复。",
+      "deleteYes": "是，删除",
+      "warnFile": "所选文件尚未上传。是否上传？",
+      "warnLink": "链接尚未保存。是否保存？",
+      "closeAnyway": "不上传，直接关闭",
+      "nameRequired": "请输入名称（乌兹别克语）",
+      "badFile": "不接受此类文件或大小超过 20 MB",
+      "badLink": "链接必须以 https:// 开头",
+      "error": "出错了，请重试"
+    },
+    "photo": {
+      "change": "更换照片",
+      "remove": "恢复 HEMIS 照片",
+      "removeTitle": "删除您的照片？",
+      "removeText": "网站将重新显示您在 HEMIS 中的照片。",
+      "removeYes": "是，恢复",
+      "bad": "仅限 JPG、PNG 或 WEBP，最大 10 MB"
+    },
+    "error": "出错了，请重试"
+  },
+  "page": {
+    "share": "分享",
+    "print": "打印",
+    "copied": "链接已复制",
+    "sectionPages": "本栏目页面",
+    "sectionNav": "本栏目导航",
+    "helpful": "此页面对您有帮助吗？",
+    "yes": "是",
+    "no": "否",
+    "thanks": "感谢您的反馈！",
+    "updated": "最后更新：{date}",
+    "prev": "上一页",
+    "next": "下一页",
+    "first": "本栏目第一页",
+    "last": "本栏目最后一页",
+    "download": "下载"
+  },
+  "posts": {
+    "title": "校园生活",
+    "lead": "我校新闻、公告和活动。",
+    "tabs": {
+      "news": "新闻",
+      "events": "活动",
+      "announcements": "公告"
+    },
+    "typeLabel": "类型",
+    "search": "搜索新闻",
+    "searchPlaceholder": "搜索…",
+    "month": "按月份",
+    "allMonths": "全部月份",
+    "read": "阅读",
+    "empty": "未找到内容",
+    "calendar": "活动日历",
+    "telegram": {
+      "title": "在 Telegram 关注我们的新闻",
+      "text": "t.me/UzSWLU——官方频道",
+      "cta": "订阅"
+    },
+    "minutes": "阅读约 {n} 分钟",
+    "shareTelegram": "分享到 Telegram",
+    "shareFacebook": "分享到 Facebook",
+    "copyLink": "复制链接",
+    "when": "时间",
+    "where": "地点",
+    "latest": "最新新闻",
+    "allNews": "全部新闻",
+    "related": "相关新闻"
+  },
+  "calendar": {
+    "title": "活动日历",
+    "lead": "学术会议、节日庆典、见面会和开放日。",
+    "subscribe": "添加到日历（.ics）",
+    "prevMonth": "上个月",
+    "nextMonth": "下个月",
+    "weekdays": "一,二,三,四,五,六,日",
+    "hasEvents": "有活动",
+    "today": "今天",
+    "selected": "所选日期",
+    "none": "当天没有活动",
+    "upcoming": "近期活动",
+    "filter": "类别",
+    "all": "全部",
+    "plan": {
+      "title": "正在筹划活动？",
+      "text": "各学院和部门通过管理后台将活动添加到日历。"
+    }
+  },
+  "leaders": {
+    "title": "校领导",
+    "lead": "学校领导、接待时间和联系方式。",
+    "rectorLine": "乌兹别克斯坦国立世界语言大学校长",
+    "hours": "接待日",
+    "phone": "电话",
+    "email": "电子邮箱",
+    "write": "在线留言",
+    "welcome": "校长致辞",
+    "profile": "查看个人主页",
+    "prorectors": "副校长",
+    "press": "新闻秘书",
+    "appeal": {
+      "title": "向校领导反映",
+      "text": "通过在线接待室留言，回复将发送到您的邮箱。",
+      "cta": "提交留言"
+    }
+  },
+  "docs": {
+    "title": "规章制度",
+    "lead": "大学章程、内部规定、法律法规和教学文件——一站汇集。",
+    "search": "按文件名称搜索",
+    "placeholder": "例如：道德",
+    "categories": "按类别筛选",
+    "all": "全部",
+    "link": "链接",
+    "view": "查看",
+    "open": "打开",
+    "download": "下载",
+    "empty": "未找到文件",
+    "shown": "共显示 {n} 份文件"
+  },
+  "programs": {
+    "section": "专业设置",
+    "accent": "专业",
+    "levels": "学历层次",
+    "tabs": {
+      "bachelor": "本科",
+      "master": "硕士",
+      "phd": "博士（PhD）",
+      "joint": "合作办学项目"
+    },
+    "bachelor": {
+      "name": "本科",
+      "title": "本科专业",
+      "lead": "语文学、翻译、国际关系与新闻——涵盖11种语言的全日制和夜校教育。"
+    },
+    "master": {
+      "name": "硕士",
+      "title": "硕士专业",
+      "lead": "语言学、翻译学、新闻学和国际关系方向的两年制项目。"
+    },
+    "groups": "专业类别",
+    "all": "全部",
+    "shown": "共 {n} 个专业",
+    "years": "{n} 年",
+    "evening": {
+      "title": "夜校教育",
+      "text": "60110900 外国语言文学（英语）、60230100 语文学与语言教学（英语）等专业。",
+      "cta": "夜校专业"
+    },
+    "admission": "学费、奖学金名额和报名流程",
+    "admissionCta": "前往招生页面"
+  },
+  "facultyList": {
+    "title": "学院与教研室",
+    "faculties": "个学院",
+    "departments": "个教研室",
+    "meta": "教研室：{departments} · 专业：{programs}",
+    "units": {
+      "title": "部门与中心",
+      "text": "学校机构中的职能部门"
+    },
+    "structure": {
+      "title": "组织机构",
+      "text": "校领导、学院和部门结构图"
+    },
+    "view": "查看"
+  },
+  "faculty": {
+    "label": "学院",
+    "logo": "{name}标志",
+    "stats": {
+      "students": "学生",
+      "departments": "教研室",
+      "programs": "专业",
+      "teachers": "教师"
+    },
+    "source": "数据来自 HEMIS 系统",
+    "hours": "接待时间",
+    "contactDean": "联系院长",
+    "sections": "学院栏目",
+    "tabs": {
+      "about": "学院简介",
+      "programs": "专业设置",
+      "departments": "教研室",
+      "deanery": "院办",
+      "news": "新闻"
+    },
+    "study": "学习",
+    "table": {
+      "program": "专业",
+      "level": "层次",
+      "form": "学习形式",
+      "years": "学制"
+    },
+    "levels": {
+      "bachelor": "本科",
+      "master": "硕士",
+      "phd": "博士"
+    },
+    "structure": "机构",
+    "head": "主任：{name}",
+    "leadership": "领导",
+    "newsTitle": "学院新闻",
+    "contact": "联系方式",
+    "map": "在地图上查看"
+  },
+  "admissionPage": {
+    "eyebrow": "招生委员会",
+    "title": "招生",
+    "lead": "本科、硕士和博士报名——一页了解：专业、时间、费用和所需材料。",
+    "apply": "在线报名",
+    "contact": "联系招生委员会",
+    "dates": "重要日期",
+    "how": "报名流程",
+    "stepsTitle": "四步成为我校学生",
+    "programsEyebrow": "专业",
+    "programsTitle": "找到适合您的专业",
+    "levelLabel": "按层次筛选",
+    "search": "按专业名称搜索",
+    "searchPlaceholder": "专业名称…",
+    "form": "形式",
+    "duration": "学制",
+    "price": "学费",
+    "empty": "未找到专业",
+    "fees": {
+      "title": "学费标准",
+      "text": "学费取决于层次和学习形式，可分期支付。",
+      "cta": "学费表"
+    },
+    "grants": {
+      "title": "公费名额与奖学金",
+      "text": "国家公费名额、冠名奖学金和优惠政策。",
+      "cta": "了解更多"
+    },
+    "documents": "所需材料",
+    "documentsFull": "完整清单（PDF）",
+    "faqEyebrow": "问答",
+    "faqTitle": "常见问题",
+    "faqText": "没有找到答案？请写信给招生委员会，我们会在工作日回复。",
+    "commission": "招生委员会"
+  },
+  "sdg": {
+    "crumb": "可持续发展目标",
+    "eyebrow": "可持续发展目标",
+    "title": "联合国17项目标——",
+    "titleAccent": "我们的议程",
+    "lead": "每项目标的工作、文件、报告和国际排名成绩。请在圆环上选择目标。",
+    "world": "全球",
+    "asia": "亚洲",
+    "country": "乌兹别克斯坦",
+    "categoriesTitle": "绿色校园的6个方面",
+    "goalsTitle": "17项目标成绩",
+    "goalsText": "每个方块链接到目标页面：栏目、文件和新闻。",
+    "rank": "排名",
+    "score": "得分",
+    "notRanked": "未参评",
+    "reports": "报告与政策",
+    "page": "页面",
+    "education": "教育与可持续发展",
+    "green": "绿色大学",
+    "allNews": "全部新闻",
+    "wheel": {
+      "caption": "可持续发展目标",
+      "hint": "选择一个目标",
+      "more": "了解更多"
+    },
+    "short": {
+      "1": "无贫穷",
+      "2": "零饥饿",
+      "3": "良好健康与福祉",
+      "4": "优质教育",
+      "5": "性别平等",
+      "6": "清洁饮水和卫生设施",
+      "7": "经济适用的清洁能源",
+      "8": "体面工作和经济增长",
+      "9": "产业、创新和基础设施",
+      "10": "减少不平等",
+      "11": "可持续城市和社区",
+      "12": "负责任消费和生产",
+      "13": "气候行动",
+      "14": "水下生物",
+      "15": "陆地生物",
+      "16": "和平、正义与强大机构",
+      "17": "促进目标实现的伙伴关系"
+    },
+    "goal": {
+      "short": "目标 {n}",
+      "eyebrow": "联合国可持续发展目标 · {n}",
+      "points": "{n} 分",
+      "goals": "目标",
+      "sections": "目标 {n} 栏目",
+      "documents": "文件与报告",
+      "activity": "目标 {n} 相关工作",
+      "perPage": "每页 10 条——记录不会一次性全部加载",
+      "prev": "上一个目标",
+      "next": "下一个目标"
+    }
+  },
+  "video": {
+    "section": "视频",
+    "title": "视频课程",
+    "lead": "语言教学法与实践课程——随时随地学习。",
+    "channel": "我们的 YouTube 频道",
+    "live": "在线直播",
+    "onAir": "正在直播",
+    "offAir": "当前未直播",
+    "next": "下一场直播",
+    "nextTba": "即将公布",
+    "watch": "观看",
+    "categories": "类别"
+  },
+  "contact": {
+    "title": "联系我们",
+    "lead": "学校主要部门、电子邮箱和联系方式。",
+    "hotline": "热线电话",
+    "ext": "分机：{ext}",
+    "channel": "官方频道",
+    "campuses": "校区楼宇",
+    "route": "获取路线",
+    "leaders": "校领导电话",
+    "table": {
+      "name": "姓名与职务",
+      "ext": "分机",
+      "phone": "办公电话"
+    },
+    "reception": "接待室：{phone}",
+    "form": {
+      "title": "在线接待室",
+      "text": "您的留言将被登记，回复将发送到您的邮箱。",
+      "name": "姓名",
+      "phone": "电话",
+      "email": "电子邮箱",
+      "to": "收件人",
+      "message": "留言内容",
+      "consent": "我同意为处理本次留言而使用我的个人信息",
+      "submit": "提交留言",
+      "sending": "正在发送…",
+      "attach": "添加附件",
+      "fileHint": "PDF、JPG、PNG 或 DOC，不超过 10 MB",
+      "fileTooBig": "文件大小不得超过 10 MB",
+      "success": "您的留言已收到",
+      "number": "留言编号：{number}。回复将发送到您的邮箱。",
+      "another": "再次留言",
+      "error": "留言未发送，请检查填写内容后重试。"
+    }
+  },
+  "search": {
+    "title": "搜索",
+    "label": "搜索内容",
+    "submit": "搜索",
+    "types": "结果类型",
+    "all": "全部",
+    "kinds": {
+      "pages": "页面",
+      "news": "新闻",
+      "documents": "文件"
+    },
+    "quick": "快速答案",
+    "open": "打开",
+    "empty": "未找到与“{q}”相关的内容",
+    "emptyHint": "请尝试其他写法或更短的关键词。",
+    "notFound": "没有找到需要的内容？",
+    "popular": "热门搜索：",
+    "scholarships": "奖学金"
+  },
+  "notFound": {
+    "title": "页面未找到",
+    "text": "我们能用11种语言说出这句话——却找不到这个页面。网址可能已更改，或页面已被删除。",
+    "placeholder": "您在找什么？",
+    "errorTitle": "出现了问题",
+    "errorText": "页面加载时出错，请稍后重试。"
+  },
+  "a11y": {
+    "title": "显示",
+    "font": "字体",
+    "reset": "恢复默认",
+    "color": "颜色",
+    "schemes": {
+      "default": "默认",
+      "dark": "黑底白字（高对比度）",
+      "blue": "蓝色背景",
+      "sepia": "护眼米色",
+      "green": "黑底绿字"
+    },
+    "voice": "语音",
+    "voiceOn": "语音已开启",
+    "voiceOff": "开启语音",
+    "readPage": "朗读本页",
+    "stop": "停止",
+    "reading": "正在朗读…",
+    "hintOff": "免费：使用浏览器自带的语音，无需付费。",
+    "hintOn": "将鼠标指向文字即可朗读（手机上点按文字），也可以收听整个页面。",
+    "noUz": "您的浏览器没有乌兹别克语语音，将使用相近语言的语音。Microsoft Edge 浏览器免费提供乌兹别克语语音。",
+    "unsupported": "此浏览器不支持朗读。",
+    "failed": "无法朗读：此设备或浏览器没有语音引擎。请尝试使用 Chrome 或 Edge。"
+  },
+  "pdf": {
+    "open": "打开",
+    "download": "下载",
+    "fullscreen": "全屏查看",
+    "scroll": "滚动阅读",
+    "viewer": "PDF 查看：{title}",
+    "files": "附件"
+  }
+}

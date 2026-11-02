@@ -1,0 +1,834 @@
+{
+  "meta": {
+    "description": "Uzbekistan State University of World Languages — higher education in foreign languages, philology, translation and international journalism."
+  },
+  "university": {
+    "name": "Özbekiston davlat jahon tillari universiteti",
+    "short": "ÖzDJTU",
+    "line1": "Özbekiston davlat",
+    "line2": "jahon tillari universiteti"
+  },
+  "nav": {
+    "skip": "Skip to main content",
+    "home": "Home",
+    "news": "News",
+    "contact": "Contact",
+    "search": "Search",
+    "admission": "Admission 2026",
+    "menu": "Menu",
+    "close": "Close",
+    "more": "More",
+    "moreTitle": "More sections",
+    "pages": "{n} pages",
+    "featured": "Featured",
+    "open": "Open",
+    "searchPlaceholder": "Search the site…",
+    "breadcrumb": "Breadcrumb",
+    "overview": "Section overview"
+  },
+  "topbar": {
+    "hotline": "Hotline",
+    "fontSize": "Font size",
+    "decrease": "Decrease",
+    "increase": "Increase",
+    "contrast": "High contrast",
+    "language": "Language",
+    "a11y": "Accessibility",
+    "contrastShort": "Contrast"
+  },
+  "auth": {
+    "login": "Sign in",
+    "staff": "For staff",
+    "students": "For students",
+    "hemisStaff": "HEMIS — staff account",
+    "hemisStudent": "HEMIS — student account",
+    "kpi": "KPI system"
+  },
+  "menu": {
+    "university": {
+      "title": "University",
+      "desc": "About the university that has connected the world through languages since 1949.",
+      "items": {
+        "about": "About the university",
+        "rectorate": "Rectorate",
+        "structure": "Structure",
+        "history": "History",
+        "faculties": "Faculties and departments",
+        "staff": "Academic staff",
+        "library": "Information resource centre",
+        "campus": "Campus and dormitories"
+      }
+    },
+    "applicants": {
+      "title": "Admissions",
+      "desc": "Everything about admission, programmes, tuition and grants.",
+      "items": {
+        "admission": "Admission 2026/2027",
+        "bachelor": "Bachelor's programmes",
+        "master": "Master's programmes",
+        "phd": "Doctoral studies (PhD)",
+        "fees": "Tuition fees",
+        "scholarships": "Scholarships",
+        "international": "International students",
+        "joint": "Joint programmes"
+      }
+    },
+    "activity": {
+      "title": "Activities",
+      "desc": "Research, international cooperation and university life.",
+      "items": {
+        "research": "Research",
+        "international": "International relations",
+        "culture": "Cultural and educational work",
+        "green": "Green university",
+        "sdg": "Sustainable Development Goals",
+        "anticorruption": "Anti-corruption",
+        "documents": "Regulatory documents",
+        "accreditation": "International accreditation"
+      }
+    },
+    "promo": {
+      "title": "Admission 2026/2027",
+      "text": "Applications open for bachelor's, master's and joint programmes.",
+      "cta": "Learn more"
+    }
+  },
+  "carousel": {
+    "label": "Featured banners",
+    "prev": "Previous slide",
+    "next": "Next slide",
+    "goTo": "Go to slide {n}",
+    "pause": "Pause slideshow",
+    "play": "Play slideshow"
+  },
+  "hero": {
+    "eyebrow": "Since 1949",
+    "title1": "Languages —",
+    "title2": "a door to the world",
+    "text": "A university preparing specialists in foreign languages, philology, translation and international journalism.",
+    "ctaPrimary": "Admission 2026/2027",
+    "ctaSecondary": "Study programmes",
+    "searchLabel": "Search the site",
+    "searchPlaceholder": "E.g. tuition fees, class schedule…",
+    "searchButton": "Search",
+    "popular": "Popular:",
+    "chips": {
+      "fees": "Tuition fees",
+      "schedule": "Class schedule",
+      "master": "Master's",
+      "grants": "Grants"
+    },
+    "students": "students enrolled",
+    "greeting": "Hello, world!"
+  },
+  "quick": {
+    "title": "Quick services",
+    "items": {
+      "reception": {
+        "title": "Virtual reception",
+        "text": "Send an appeal to the rector"
+      },
+      "student": {
+        "title": "Student portal",
+        "text": "Grades, schedule, attendance"
+      },
+      "hemis": {
+        "title": "HEMIS",
+        "text": "Higher education information system"
+      },
+      "mail": {
+        "title": "Corporate mail",
+        "text": "Email for staff"
+      },
+      "career": {
+        "title": "Career centre",
+        "text": "Internships and jobs"
+      },
+      "brm": {
+        "title": "SDG",
+        "text": "Sustainable Development Goals"
+      },
+      "glossary": {
+        "title": "ICT glossary",
+        "text": "Mobile app"
+      }
+    }
+  },
+  "about": {
+    "eyebrow": "About us",
+    "title": "Over seventy years of experience — for a new generation",
+    "text": "The university was founded in 1949 as a pedagogical institute of foreign languages. Today it is a major higher education institution training specialists in foreign languages, philology, translation and international journalism.",
+    "link": "University history"
+  },
+  "stats": {
+    "faculties": "Faculties",
+    "staff": "Academic staff",
+    "departments": "Departments",
+    "students": "Students",
+    "source": "Data from the HEMIS system"
+  },
+  "faculties": {
+    "eyebrow": "Education",
+    "title": "Faculties",
+    "text": "Each faculty is a world of its own, with its own languages, school and traditions.",
+    "all": "All faculties"
+  },
+  "news": {
+    "eyebrow": "University life",
+    "title": "News",
+    "all": "All news",
+    "announcements": "Announcements",
+    "allAnnouncements": "All announcements",
+    "readMore": "Read more"
+  },
+  "events": {
+    "eyebrow": "Calendar",
+    "title": "Upcoming events",
+    "all": "All events",
+    "empty": "No upcoming events scheduled.",
+    "time": "Time",
+    "place": "Venue"
+  },
+  "languages": {
+    "eyebrow": "Languages",
+    "title": "Languages we teach",
+    "text": "Languages of the West and the East — on one campus."
+  },
+  "symbols": {
+    "eyebrow": "Republic of Uzbekistan",
+    "title": "State symbols",
+    "flag": "State Flag of the Republic of Uzbekistan",
+    "emblem": "State Emblem of the Republic of Uzbekistan",
+    "anthem": "State Anthem of the Republic of Uzbekistan",
+    "view": "Learn more",
+    "listen": "Listen",
+    "newTab": "opens in a new tab"
+  },
+  "partners": {
+    "eyebrow": "International cooperation",
+    "title": "Our partners",
+    "text": "The university cooperates with international and national organisations and universities.",
+    "all": "All partners"
+  },
+  "admission": {
+    "eyebrow": "Admissions",
+    "title": "Admission 2026/2027",
+    "text": "Steps to apply for bachelor's, master's and doctoral programmes.",
+    "steps": {
+      "s1": {
+        "title": "Choose a programme",
+        "text": "Explore our bachelor's and master's programmes."
+      },
+      "s2": {
+        "title": "Apply",
+        "text": "Submit your documents online."
+      },
+      "s3": {
+        "title": "Exams",
+        "text": "Schedule of tests and creative exams."
+      },
+      "s4": {
+        "title": "Become a student",
+        "text": "Results are published and the contract is signed."
+      }
+    },
+    "cta": "Apply now",
+    "ctaSecondary": "Tuition fees"
+  },
+  "footer": {
+    "about": "A higher education institution for foreign languages, philology, translation and international journalism.",
+    "contacts": "Contact",
+    "campuses": "Campuses",
+    "links": "Useful links",
+    "symbols": {
+      "title": "State symbols",
+      "flag": "State flag",
+      "emblem": "State emblem",
+      "anthem": "State anthem"
+    },
+    "social": "Social media",
+    "rights": "All rights reserved.",
+    "phone": "Phone",
+    "email": "Email",
+    "ext": "ext."
+  },
+  "placeholder": {
+    "title": "Page coming soon",
+    "text": "This section will be available on the new website soon.",
+    "back": "Back to home"
+  },
+  "staff": {
+    "university": "University",
+    "title": "Staff",
+    "lead": "Faculty and staff — department, position and contact details.",
+    "statPeople": "staff members",
+    "statDepartments": "departments and offices",
+    "searchLabel": "Search by name",
+    "searchPlaceholder": "Search staff by name…",
+    "departmentLabel": "Department",
+    "allDepartments": "All departments",
+    "groupsLabel": "Group",
+    "groups": {
+      "all": "All",
+      "lead": "Leadership",
+      "faculty": "Faculties",
+      "chair": "Departments",
+      "unit": "Centres and offices"
+    },
+    "results": "{n} results",
+    "empty": "No one found",
+    "emptyHint": "Try another name or department.",
+    "reset": "Clear filters",
+    "pages": "Pages",
+    "prev": "Previous",
+    "next": "Next",
+    "pageOf": "Page {page} of {total}",
+    "profile": {
+      "photo": "Photo of {name}",
+      "fullName": "Full name",
+      "department": "Department",
+      "position": "Position",
+      "contact": "Contact",
+      "socials": "Social media",
+      "writeMessage": "Send a message",
+      "personalPage": "Personal page",
+      "connect": "Get in touch",
+      "writeTelegram": "Message on Telegram",
+      "sendEmail": "Send an email",
+      "call": "Call",
+      "qr": "QR code",
+      "qrAlt": "QR code of the profile link",
+      "downloadQr": "Download QR code",
+      "share": "Share",
+      "copyLink": "Copy link",
+      "copied": "Link copied",
+      "shareTelegram": "Via Telegram",
+      "shareFacebook": "Via Facebook",
+      "noContacts": "This staff member hasn’t added contact details yet.",
+      "note": "Name, department and position come from HEMIS; contacts and social links are updated by the staff member in their dashboard.",
+      "banners": "University banners",
+      "newTab": "opens in a new tab",
+      "qrTitle": "Staff page QR code",
+      "cardTitle": "Share business card",
+      "downloadCard": "Download as image",
+      "send": "Send",
+      "close": "Close",
+      "preparing": "Preparing…",
+      "shareWhatsapp": "Via WhatsApp",
+      "about": "About",
+      "science": "Research profiles",
+      "documents": "Documents",
+      "writeWhatsapp": "Message on WhatsApp",
+      "showOnMap": "Show on map",
+      "count": "{n}",
+      "open": "Open"
+    },
+    "contact": {
+      "email": "Email",
+      "telegram": "Telegram",
+      "whatsapp": "WhatsApp",
+      "mobile": "Mobile phone",
+      "phone": "Office phone",
+      "office": "Reception"
+    },
+    "docs": {
+      "cv": "CV",
+      "books": "Books",
+      "articles": "Articles"
+    }
+  },
+  "cabinet": {
+    "title": "Dashboard",
+    "menu": {
+      "label": "Dashboard",
+      "dashboard": "Dashboard (UzSWLU)",
+      "staffPage": "My staff page",
+      "logout": "Log out"
+    },
+    "myPage": "My page",
+    "support": {
+      "title": "Technical support",
+      "text": "For help or additional roles:",
+      "link": "Contact the administrator"
+    },
+    "banner": {
+      "title": "Dear user!",
+      "text": "Your name, position, department and photo come from HEMIS. To change them, sign in to your HEMIS profile."
+    },
+    "hemis": {
+      "title": "My profile",
+      "badge": "from HEMIS",
+      "lastName": "Last name",
+      "firstName": "First name",
+      "patronymic": "Patronymic",
+      "birthDate": "Date of birth",
+      "phone": "Phone",
+      "email": "Email",
+      "jobs": "Positions",
+      "rate": "{n} rate"
+    },
+    "edit": "Edit",
+    "close": "Close",
+    "save": "Save",
+    "saved": "Saved",
+    "cancel": "Cancel",
+    "remove": "Remove",
+    "about": {
+      "placeholder": "Write a few words about yourself",
+      "add": "Add information about yourself",
+      "field": "About — {lang}"
+    },
+    "langs": {
+      "uz": "O‘zbekcha",
+      "ru": "Русский",
+      "en": "English",
+      "zh": "中文"
+    },
+    "discard": {
+      "title": "Your changes will not be saved",
+      "text": "Do you really want to cancel?",
+      "yes": "Yes, cancel",
+      "no": "No, keep editing"
+    },
+    "links": {
+      "addEmail": "Add email",
+      "officeHint": "Enter the exact address (city, street, building) — it opens on the map on your staff page",
+      "empty": "Nothing added yet.",
+      "invalid": "Invalid value: links must start with https://"
+    },
+    "docs": {
+      "title": "My documents",
+      "count": "items",
+      "visible": "Shown on staff page",
+      "hidden": "Hidden on staff page",
+      "dashboardOnly": "Dashboard only",
+      "upload": "Upload document",
+      "addLink": "Add link",
+      "sections": {
+        "cv": "CV",
+        "books": "My books",
+        "presentations": "My presentations",
+        "articles": "My articles",
+        "videos": "My videos"
+      }
+    },
+    "upload": {
+      "rules": "Allowed types: {types} · 20 MB",
+      "linkRules": "Link only (https): YouTube and others",
+      "drop": "Drop the file here",
+      "dropSub": "or click to choose",
+      "link": "Video link",
+      "name": "Title ({lang})",
+      "zhHint": "If empty, the English title is shown",
+      "submit": "Upload",
+      "uploading": "Uploading…",
+      "search": "Search by title",
+      "uploaded": "Uploaded",
+      "empty": "Nothing uploaded yet.",
+      "notFound": "Nothing found.",
+      "open": "Open",
+      "deleteTitle": "Delete this file?",
+      "deleteText": "The file will be deleted permanently and cannot be restored.",
+      "deleteYes": "Yes, delete",
+      "warnFile": "The selected file has not been uploaded yet. Upload it?",
+      "warnLink": "The link has not been saved yet. Save it?",
+      "closeAnyway": "Close without uploading",
+      "nameRequired": "Enter the title (Uzbek)",
+      "badFile": "This file type is not accepted or it is larger than 20 MB",
+      "badLink": "The link must start with https://",
+      "error": "Something went wrong, please try again"
+    },
+    "photo": {
+      "change": "Change photo",
+      "remove": "Restore HEMIS photo",
+      "removeTitle": "Remove your photo?",
+      "removeText": "The site will show your HEMIS photo again.",
+      "removeYes": "Yes, restore",
+      "bad": "JPG, PNG or WEBP only, up to 10 MB"
+    },
+    "error": "Something went wrong, please try again"
+  },
+  "page": {
+    "share": "Share",
+    "print": "Print",
+    "copied": "Link copied",
+    "sectionPages": "Section pages",
+    "sectionNav": "Within this section",
+    "helpful": "Was this page helpful?",
+    "yes": "Yes",
+    "no": "No",
+    "thanks": "Thank you for your feedback!",
+    "updated": "Last updated: {date}",
+    "prev": "Previous page",
+    "next": "Next page",
+    "first": "First page of the section",
+    "last": "Last page of the section",
+    "download": "Download"
+  },
+  "posts": {
+    "title": "University life",
+    "lead": "UzSWLU news, announcements and events.",
+    "tabs": {
+      "news": "News",
+      "events": "Events",
+      "announcements": "Announcements"
+    },
+    "typeLabel": "Type",
+    "search": "Search news",
+    "searchPlaceholder": "Search…",
+    "month": "By month",
+    "allMonths": "All months",
+    "read": "Read",
+    "empty": "Nothing found",
+    "calendar": "Events calendar",
+    "telegram": {
+      "title": "Follow our news on Telegram",
+      "text": "t.me/UzSWLU — official channel",
+      "cta": "Subscribe"
+    },
+    "minutes": "{n} min read",
+    "shareTelegram": "Share on Telegram",
+    "shareFacebook": "Share on Facebook",
+    "copyLink": "Copy link",
+    "when": "When",
+    "where": "Where",
+    "latest": "Latest news",
+    "allNews": "All news",
+    "related": "Related news"
+  },
+  "calendar": {
+    "title": "Events calendar",
+    "lead": "Conferences, celebrations, meetings and open days.",
+    "subscribe": "Add to calendar (.ics)",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "weekdays": "Mo,Tu,We,Th,Fr,Sa,Su",
+    "hasEvents": "Has events",
+    "today": "today",
+    "selected": "Selected day",
+    "none": "No events on this day",
+    "upcoming": "Upcoming events",
+    "filter": "Category",
+    "all": "All",
+    "plan": {
+      "title": "Planning an event?",
+      "text": "Faculties and offices add events to the calendar through the admin panel."
+    }
+  },
+  "leaders": {
+    "title": "Rectorate",
+    "lead": "University leadership, office hours and contact details.",
+    "rectorLine": "Rector of Uzbekistan State University of World Languages",
+    "hours": "Office hours",
+    "phone": "Phone",
+    "email": "Email",
+    "write": "Write to the virtual reception",
+    "welcome": "Rector’s welcome",
+    "profile": "View profile",
+    "prorectors": "Vice-Rectors",
+    "press": "Press Secretary",
+    "appeal": {
+      "title": "Contact the leadership",
+      "text": "Write online through the virtual reception — the reply will come to your email.",
+      "cta": "Send an appeal"
+    }
+  },
+  "docs": {
+    "title": "Regulations",
+    "lead": "The university charter, internal rules, legislation and teaching documents — all in one place.",
+    "search": "Search by document title",
+    "placeholder": "For example: ethics",
+    "categories": "Filter by category",
+    "all": "All",
+    "link": "Link",
+    "view": "View",
+    "open": "Open",
+    "download": "Download",
+    "empty": "No documents found",
+    "shown": "Showing {n} documents"
+  },
+  "programs": {
+    "section": "Programmes",
+    "accent": "programmes",
+    "levels": "Levels of study",
+    "tabs": {
+      "bachelor": "Bachelor’s",
+      "master": "Master’s",
+      "phd": "Doctoral (PhD)",
+      "joint": "Joint programmes"
+    },
+    "bachelor": {
+      "name": "Bachelor’s",
+      "title": "Bachelor’s programmes",
+      "lead": "Philology, translation, international relations and journalism — full-time and evening study in 11 languages."
+    },
+    "master": {
+      "name": "Master’s",
+      "title": "Master’s programmes",
+      "lead": "Two-year programmes in linguistics, translation studies, journalism and international relations."
+    },
+    "groups": "Programme group",
+    "all": "All",
+    "shown": "{n} programmes",
+    "years": "{n} yrs",
+    "evening": {
+      "title": "Evening study",
+      "text": "60110900 Foreign Language and Literature (English), 60230100 Philology and Language Teaching (English) and other programmes.",
+      "cta": "Evening programmes"
+    },
+    "admission": "Tuition fees, number of grants and how to apply",
+    "admissionCta": "Go to Admissions"
+  },
+  "facultyList": {
+    "title": "Faculties and Departments",
+    "faculties": "faculties",
+    "departments": "departments",
+    "meta": "Departments: {departments} · Programmes: {programs}",
+    "units": {
+      "title": "Offices and centres",
+      "text": "Offices within the university structure"
+    },
+    "structure": {
+      "title": "University structure",
+      "text": "Chart of leadership, faculties and offices"
+    },
+    "view": "View"
+  },
+  "faculty": {
+    "label": "Faculty",
+    "logo": "{name} logo",
+    "stats": {
+      "students": "Students",
+      "departments": "Departments",
+      "programs": "Programmes",
+      "teachers": "Teachers"
+    },
+    "source": "Figures from HEMIS",
+    "hours": "Office hours",
+    "contactDean": "Contact the dean",
+    "sections": "Faculty sections",
+    "tabs": {
+      "about": "About",
+      "programs": "Programmes",
+      "departments": "Departments",
+      "deanery": "Dean’s office",
+      "news": "News"
+    },
+    "study": "Study",
+    "table": {
+      "program": "Programme",
+      "level": "Level",
+      "form": "Mode of study",
+      "years": "Duration"
+    },
+    "levels": {
+      "bachelor": "Bachelor’s",
+      "master": "Master’s",
+      "phd": "Doctoral"
+    },
+    "structure": "Structure",
+    "head": "Head: {name}",
+    "leadership": "Leadership",
+    "newsTitle": "Faculty news",
+    "contact": "Contact",
+    "map": "View on map"
+  },
+  "admissionPage": {
+    "eyebrow": "Admissions Committee",
+    "title": "Admission",
+    "lead": "Applying to bachelor’s, master’s and doctoral programmes — all on one page: programmes, deadlines, fees and required documents.",
+    "apply": "Apply online",
+    "contact": "Contact the committee",
+    "dates": "Key dates",
+    "how": "How to apply",
+    "stepsTitle": "Become a student in four steps",
+    "programsEyebrow": "Programmes",
+    "programsTitle": "Find the right programme",
+    "levelLabel": "Filter by level",
+    "search": "Search by programme name",
+    "searchPlaceholder": "Programme name…",
+    "form": "Mode",
+    "duration": "Duration",
+    "price": "Tuition",
+    "empty": "No programmes found",
+    "fees": {
+      "title": "Tuition fees",
+      "text": "Fees depend on the level and mode of study. Payment can be made in instalments.",
+      "cta": "Fee table"
+    },
+    "grants": {
+      "title": "Grants and scholarships",
+      "text": "State-funded places, named scholarships and benefits.",
+      "cta": "Learn more"
+    },
+    "documents": "Required documents",
+    "documentsFull": "Full list (PDF)",
+    "faqEyebrow": "FAQ",
+    "faqTitle": "Frequently asked questions",
+    "faqText": "Didn’t find an answer? Write to the Admissions Committee — we reply on working days.",
+    "commission": "Admissions Committee"
+  },
+  "sdg": {
+    "crumb": "SDGs",
+    "eyebrow": "Sustainable Development Goals",
+    "title": "17 UN goals —",
+    "titleAccent": "our agenda",
+    "lead": "Activities, documents, reports and international ranking results for every goal. Choose a goal on the wheel.",
+    "world": "World",
+    "asia": "Asia",
+    "country": "Uzbekistan",
+    "categoriesTitle": "6 areas of a green campus",
+    "goalsTitle": "Results across the 17 goals",
+    "goalsText": "Each tile links to the goal page: sections, documents and news.",
+    "rank": "Rank",
+    "score": "Score",
+    "notRanked": "not ranked",
+    "reports": "Reports and policies",
+    "page": "PAGE",
+    "education": "Education and sustainability",
+    "green": "Green University",
+    "allNews": "All news",
+    "wheel": {
+      "caption": "Sustainable Development Goals",
+      "hint": "Choose a goal",
+      "more": "Learn more"
+    },
+    "short": {
+      "1": "No poverty",
+      "2": "Zero hunger",
+      "3": "Good health and well-being",
+      "4": "Quality education",
+      "5": "Gender equality",
+      "6": "Clean water and sanitation",
+      "7": "Affordable and clean energy",
+      "8": "Decent work and economic growth",
+      "9": "Industry, innovation and infrastructure",
+      "10": "Reduced inequalities",
+      "11": "Sustainable cities and communities",
+      "12": "Responsible consumption and production",
+      "13": "Climate action",
+      "14": "Life below water",
+      "15": "Life on land",
+      "16": "Peace, justice and strong institutions",
+      "17": "Partnerships for the goals"
+    },
+    "goal": {
+      "short": "SDG {n}",
+      "eyebrow": "UN Sustainable Development Goal · {n}",
+      "points": "{n} points",
+      "goals": "Goals",
+      "sections": "SDG {n} sections",
+      "documents": "Documents and reports",
+      "activity": "SDG {n} activities",
+      "perPage": "10 items per page — records are not loaded all at once",
+      "prev": "Previous goal",
+      "next": "Next goal"
+    }
+  },
+  "video": {
+    "section": "Video",
+    "title": "Video lessons",
+    "lead": "Language teaching methodology and practical lessons — anywhere, any time.",
+    "channel": "Our YouTube channel",
+    "live": "Live stream",
+    "onAir": "on air now",
+    "offAir": "not on air",
+    "next": "Next stream",
+    "nextTba": "To be announced soon",
+    "watch": "Watch",
+    "categories": "Category"
+  },
+  "contact": {
+    "title": "Contact us",
+    "lead": "The university’s main offices, email addresses and points of contact.",
+    "hotline": "Hotline",
+    "ext": "extensions: {ext}",
+    "channel": "Official channel",
+    "campuses": "Buildings",
+    "route": "Get directions",
+    "leaders": "Leadership phone numbers",
+    "table": {
+      "name": "Name and position",
+      "ext": "Ext.",
+      "phone": "Office phone"
+    },
+    "reception": "Reception: {phone}",
+    "form": {
+      "title": "Virtual reception",
+      "text": "Your appeal will be registered and the reply sent to your email.",
+      "name": "Full name",
+      "phone": "Phone",
+      "email": "Email",
+      "to": "To",
+      "message": "Message",
+      "consent": "I agree to the processing of my personal data for the purpose of reviewing this appeal",
+      "submit": "Send appeal",
+      "sending": "Sending…",
+      "attach": "Attach a file",
+      "fileHint": "PDF, JPG, PNG or DOC — up to 10 MB",
+      "fileTooBig": "The file must not exceed 10 MB",
+      "success": "Your appeal has been received",
+      "number": "Appeal number: {number}. The reply will be sent to your email.",
+      "another": "Send another appeal",
+      "error": "The appeal was not sent. Please check the fields and try again."
+    }
+  },
+  "search": {
+    "title": "Search",
+    "label": "Search query",
+    "submit": "Search",
+    "types": "Result type",
+    "all": "All",
+    "kinds": {
+      "pages": "Page",
+      "news": "News",
+      "documents": "Document"
+    },
+    "quick": "Quick answer",
+    "open": "Open",
+    "empty": "Nothing found for “{q}”",
+    "emptyHint": "Try different wording or a shorter query.",
+    "notFound": "Didn’t find what you need?",
+    "popular": "Popular searches:",
+    "scholarships": "Scholarships"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "We can say it in 11 languages — but we couldn’t find the page. The address may have changed or the page may have been removed.",
+    "placeholder": "What were you looking for?",
+    "errorTitle": "Something went wrong",
+    "errorText": "An error occurred while loading the page. Please try again a little later."
+  },
+  "a11y": {
+    "title": "Display",
+    "font": "Font",
+    "reset": "Restore default view",
+    "color": "Colour",
+    "schemes": {
+      "default": "Default",
+      "dark": "Black background, white text (contrast)",
+      "blue": "Blue background",
+      "sepia": "Sepia — easy on the eyes",
+      "green": "Black background, green text"
+    },
+    "voice": "Voice",
+    "voiceOn": "Voice is on",
+    "voiceOff": "Turn on voice",
+    "readPage": "Read the page",
+    "stop": "Stop",
+    "reading": "Reading…",
+    "hintOff": "Free: uses your browser’s built-in voice, no payment needed.",
+    "hintOn": "Point at any text with the mouse to hear it read aloud (on a phone, tap the text), or listen to the whole page.",
+    "noUz": "Your browser has no Uzbek voice, so a voice for a similar language is used. Microsoft Edge offers a free Uzbek voice.",
+    "unsupported": "This browser does not support reading aloud.",
+    "failed": "Reading aloud could not start: this device or browser has no speech engine. Try Chrome or Edge."
+  },
+  "pdf": {
+    "open": "Open",
+    "download": "Download",
+    "fullscreen": "Full screen",
+    "scroll": "Scroll to read",
+    "viewer": "PDF viewer: {title}",
+    "files": "Files"
+  }
+}

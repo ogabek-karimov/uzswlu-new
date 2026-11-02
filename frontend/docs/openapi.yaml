@@ -1,0 +1,1345 @@
+openapi: 3.1.0
+info:
+  title: UzSWLU sayti — backend API
+  version: 1.0.0
+  description: |
+    Yangi uzswlu.uz frontendi (Nuxt) kutayotgan API shartnomasi.
+    Frontenddagi manba: `shared/types/api.ts` — shu fayl bilan bir xil bo'lishi kerak.
+
+    **Umumiy qoidalar**
+    - Barcha endpointlar `lang` parametrini qabul qiladi va matnli maydonlarni shu tilda qaytaradi.
+      Tarjima bo'lmasa — o'zbekcha (`uz`) matn qaytariladi, maydon bo'sh qolmaydi.
+    - Rasm/logo maydonlari — **to'liq URL** (`https://...`), chunki frontend boshqa domenda ishlaydi.
+    - Sanalar ISO 8601 formatida. Vaqtli maydonlar vaqt mintaqasi bilan: `2026-11-07T10:00:00+05:00`.
+    - `id` — satr (string), raqamli ID bo'lsa ham satr qilib yuboriladi.
+    - Frontend so'rovni o'z serveridan yuboradi (brauzer emas) va javobni keshlaydi:
+      `/home` — 5 daqiqa, `/site` — 1 soat, ichki sahifalar — 5 daqiqa, ro'yxatlar — 1 daqiqa, `/search` — keshlanmaydi.
+    - Autentifikatsiya: `Authorization: Bearer <token>` (frontend serverida `NUXT_API_TOKEN`).
+servers:
+  - url: https://api.uzswlu.uz
+    description: Namuna manzil — haqiqiysini backend belgilaydi (frontendda `NUXT_API_BASE`)
+security:
+  - bearerAuth: []
+
+paths:
+  /home:
+    get:
+      summary: Bosh sahifa uchun barcha ma'lumot
+      description: |
+        Bitta so'rovda bosh sahifaning hamma bloklari.
+        `stats` HEMIS'dan olinadi — backend HEMIS javobini o'zi keshlashi tavsiya etiladi (masalan, soatiga bir marta yangilash).
+      parameters:
+        - $ref: '#/components/parameters/Lang'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomeData'
+  /site:
+    get:
+      summary: Har bir sahifada kerak bo'ladigan umumiy ma'lumot (yuqori panel, footer)
+      parameters:
+        - $ref: '#/components/parameters/Lang'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteData'
+  /staff:
+    get:
+      summary: Xodimlar ro'yxati (sayt /staff sahifasi)
+      description: |
+        Ism, surat, bo'lim va lavozim HEMIS'dan. Qidiruv ism bo'yicha, katta-kichik harf va
+        tutuq belgilari (‘ ’ ') farqisiz: `yo'ldoshev` → "Yo‘ldoshev".
+        Bir xodim bir necha bo'limda bo'lsa, ro'yxatda bir marta chiqadi (asosiy bo'limi bilan),
+        lekin har bir bo'lim filtrida topiladi. Frontend keshi: 1 daqiqa.
+      parameters:
+        - $ref: '#/components/parameters/Lang'
+        - { name: q, in: query, required: false, schema: { type: string, maxLength: 100 }, description: Ism bo'yicha qidiruv }
+        - { name: department, in: query, required: false, schema: { type: string }, description: Bo'lim ID'si (StaffDepartment.id) }
+        - { name: group, in: query, required: false, schema: { type: string, enum: [all, lead, faculty, chair, unit], default: all } }
+        - { name: page, in: query, required: false, schema: { type: integer, minimum: 1, default: 1 } }
+        - { name: perPage, in: query, required: false, schema: { type: integer, minimum: 1, maximum: 48, default: 24 } }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffList'
+  /staff/{id}:
+    get:
+      summary: Xodim profili (sayt /teacher/{id} sahifasi)
+      description: |
+        Ism, surat, bo'lim, lavozim — HEMIS'dan. E-pochta, telefon va ijtimoiy tarmoqlarni xodimning o'zi
+        saytga kirib, kabinetda (dashboard) qo'shadi va o'zgartiradi — javobda faqat to'ldirilganlari bo'ladi.
+        Frontend keshlamaydi: kabinetdagi o'zgarish Staff sahifasida darrov ko'rinishi kerak (HEMIS ma'lumotini backend o'zi keshlasin).
+      parameters:
+        - $ref: '#/components/parameters/Lang'
+        - { name: id, in: path, required: true, schema: { type: string, pattern: '^\d+$' }, example: '7731' }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffProfile'
+        '404':
+          description: Bunday xodim yo'q
+
+  /me:
+    get:
+      summary: Xodim kabineti (dashboard)
+      description: |
+        Faqat saytga HEMIS (my.gov) orqali kirgan xodimga — sessiya cookie'si yoki `Authorization` sarlavhasi
+        (frontend serveri brauzerdagisini o'zgartirmasdan uzatadi). Kirmagan bo'lsa 401.
+        Ism, sharif, tug'ilgan kun, telefon, e-pochta, ish joylari — HEMIS'dan, faqat o'qish.
+        Kesh yo'q (shaxsiy ma'lumot).
+      security: [{ userSession: [] }]
+      parameters:
+        - $ref: '#/components/parameters/Lang'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/StaffCabinet' }
+        '401': { description: Kirilmagan }
+    patch:
+      summary: Kabinetdagi o'zgarishlarni saqlash
+      description: |
+        Faqat yuborilgan qismlar o'zgaradi. Server tekshiradi: havolalar faqat `https://`, e-pochta formati,
+        matn uzunligi (about ≤ 2000, qiymatlar ≤ 300). Bo'sh qiymatlar yuborilmaydi (maydon o'chiriladi).
+        O'zgarish darrov ommaviy `/staff/{id}` javobida ko'rinishi kerak (keshni tozalang).
+      security: [{ userSession: [] }]
+      parameters:
+        - $ref: '#/components/parameters/Lang'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CabinetPatch' }
+      responses:
+        '200':
+          description: Yangilangan kabinet
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/StaffCabinet' }
+        '401': { description: Kirilmagan }
+        '422': { description: Noto'g'ri qiymat }
+  /me/avatar:
+    post:
+      summary: O'z suratini yuklash
+      description: |
+        JPG, PNG, WEBP, 10 MB gacha; tarkibi tekshiriladi, EXIF bo'yicha aylantiriladi, kvadrat qilib kesiladi (~600 px).
+        HEMIS surati o'zgarmaydi — zaxira sifatida saqlanadi; HEMIS orqali qayta kirishda o'z surati ustidan yozilmasligi kerak.
+        Yangi surat saytning hamma joyida (Staff, ro'yxat, vizitka, tepadagi avatar) ko'rinadi.
+      security: [{ userSession: [] }]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file: { type: string, format: binary }
+      responses:
+        '200': { description: OK }
+        '422': { description: Fayl turi yoki hajmi noto'g'ri }
+    delete:
+      summary: O'z suratini olib tashlash (HEMIS suratiga qaytish)
+      security: [{ userSession: [] }]
+      responses:
+        '200': { description: OK }
+  /me/documents/{section}:
+    parameters:
+      - { name: section, in: path, required: true, schema: { $ref: '#/components/schemas/CabinetDocSection' } }
+    get:
+      summary: Bo'limdagi hujjatlar (yangisi birinchi)
+      security: [{ userSession: [] }]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/CabinetDocument' }
+    post:
+      summary: Hujjat yuklash
+      description: |
+        cv, books, articles — PDF, DOC, DOCX; presentations — PPT, PPTX, PDF; 20 MB gacha, tarkibi ham tekshiriladi.
+        videos — fayl emas, `url` (faqat https). title_uz majburiy; title_zh bo'sh bo'lsa ko'rsatishda title_en ishlatiladi.
+      security: [{ userSession: [] }]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [title_uz]
+              properties:
+                file: { type: string, format: binary }
+                url: { type: string, format: uri }
+                title_uz: { type: string, maxLength: 255 }
+                title_ru: { type: string, maxLength: 255 }
+                title_en: { type: string, maxLength: 255 }
+                title_zh: { type: string, maxLength: 255 }
+      responses:
+        '200':
+          description: Yuklangan hujjat
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CabinetDocument' }
+        '422': { description: Fayl/havola yoki nom noto'g'ri }
+  /me/documents/{section}/{id}:
+    delete:
+      summary: Hujjatni butunlay o'chirish (yozuv va fayl) — faqat o'zinikini
+      security: [{ userSession: [] }]
+      parameters:
+        - { name: section, in: path, required: true, schema: { $ref: '#/components/schemas/CabinetDocSection' } }
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200': { description: OK }
+        '404': { description: Topilmadi yoki boshqa xodimniki }
+
+  # ─── Ichki sahifalar ──────────────────────────────────────────────────────
+  /pages/{slug}:
+    get:
+      summary: Matnli sahifa (Universitet haqida, Tuzilma, Stipendiyalar …)
+      description: |
+        slug — menyudagi manzil (`/universitet-haqida` → `universitet-haqida`). Menyuda bo'lmagan sahifa — 404.
+        Yon menyu va "Oldingi/Keyingi" frontend'da /site menyusidan olinadi. Frontend keshi: 5 daqiqa.
+      parameters:
+        - $ref: '#/components/parameters/Lang'
+        - { name: slug, in: path, required: true, schema: { type: string, pattern: '^[a-z0-9-]{1,120}$' }, example: universitet-haqida }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/ContentPage' } } } }
+        '404': { description: Sahifa yo'q }
+  /posts:
+    get:
+      summary: Yangiliklar, e'lonlar yoki tadbirlar ro'yxati (/yangiliklar, BRM sahifasidagi faoliyat)
+      description: Yangidan eskiga. counts — q, month va sdg filtrlari bilan har bir tur soni (tablar uchun). Frontend keshi — 1 daqiqa.
+      parameters:
+        - $ref: '#/components/parameters/Lang'
+        - { name: type, in: query, required: false, schema: { $ref: '#/components/schemas/PostType' } }
+        - { name: q, in: query, required: false, schema: { type: string, maxLength: 100 }, description: Sarlavha va matn bo'yicha qidiruv }
+        - { name: month, in: query, required: false, schema: { type: string, pattern: '^\d{4}-(0[1-9]|1[0-2])$' }, example: '2026-10' }
+        - { name: sdg, in: query, required: false, schema: { type: integer, minimum: 1, maximum: 17 }, description: Shu BRM maqsadiga bog'langan postlar }
+        - { name: page, in: query, required: false, schema: { type: integer, minimum: 1, default: 1 } }
+        - { name: perPage, in: query, required: false, schema: { type: integer, minimum: 1, maximum: 48, default: 12 } }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/PostList' } } } }
+  /posts/{type}/{slug}:
+    get:
+      summary: Bitta yangilik / e'lon / tadbir (/news/{slug}, /announcements/{slug}, /events/{slug})
+      parameters:
+        - $ref: '#/components/parameters/Lang'
+        - { name: type, in: path, required: true, schema: { $ref: '#/components/schemas/PostType' } }
+        - { name: slug, in: path, required: true, schema: { type: string }, example: italyan-tili-anjumani }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/Post' } } } }
+        '404': { description: Topilmadi }
+  /events:
+    get:
+      summary: Tadbirlar taqvimi — bitta oy
+      description: month berilmasa — joriy oy (Toshkent vaqti). upcoming — bugundan keyingi 3 ta tadbir.
+      parameters:
+        - $ref: '#/components/parameters/Lang'
+        - { name: month, in: query, required: false, schema: { type: string, pattern: '^\d{4}-(0[1-9]|1[0-2])$' }, example: '2026-10' }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/EventMonth' } } } }
+  /leadership:
+    get:
+      summary: Rektorat — rektor, prorektorlar, matbuot kotibi
+      parameters: [{ $ref: '#/components/parameters/Lang' }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/Leadership' } } } }
+  /documents:
+    get:
+      summary: Me'yoriy hujjatlar — to'liq ro'yxat (qidiruv va toifa filtri frontend'da)
+      parameters: [{ $ref: '#/components/parameters/Lang' }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/DocumentList' } } } }
+  /programs:
+    get:
+      summary: Ta'lim yo'nalishlari (/bakalavriat, /magistratura)
+      parameters:
+        - $ref: '#/components/parameters/Lang'
+        - { name: level, in: query, required: false, schema: { type: string, enum: [bachelor, master], default: bachelor } }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/ProgramList' } } } }
+  /faculties:
+    get:
+      summary: Fakultetlar ro'yxati (kafedra va yo'nalishlar soni bilan)
+      parameters: [{ $ref: '#/components/parameters/Lang' }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/FacultyList' } } } }
+  /faculties/{slug}:
+    get:
+      summary: Fakultet sahifasi (/faculty/{slug})
+      description: stats, dekan va dekanat — HEMIS'dan.
+      parameters:
+        - $ref: '#/components/parameters/Lang'
+        - { name: slug, in: path, required: true, schema: { type: string }, example: english-philology }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/FacultyDetail' } } } }
+        '404': { description: Topilmadi }
+  /admission:
+    get:
+      summary: Qabul sahifasi (/qabul-20262027)
+      parameters: [{ $ref: '#/components/parameters/Lang' }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/Admission' } } } }
+  /sdg:
+    get:
+      summary: BRM bosh sahifasi (/brm) — GreenMetric, THE Impact natijalari, hisobotlar
+      description: Aylanadagi qisqa yozuvlar (17 ta) frontend tarjima fayllarida; goals[].title — to'liq nom.
+      parameters: [{ $ref: '#/components/parameters/Lang' }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/SdgOverview' } } } }
+  /sdg/{n}:
+    get:
+      summary: BRM maqsad sahifasi (/brm-6-toza-suv-va-sanitariya)
+      description: Faoliyat (yangiliklar/tadbirlar/e'lonlar) — alohida, GET /posts?sdg={n} orqali, 10 tadan sahifalab.
+      parameters:
+        - $ref: '#/components/parameters/Lang'
+        - { name: n, in: path, required: true, schema: { type: integer, minimum: 1, maximum: 17 } }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/SdgGoal' } } } }
+        '404': { description: Topilmadi }
+  /videos:
+    get:
+      summary: Video darsliklar va onlayn translatsiya holati
+      parameters: [{ $ref: '#/components/parameters/Lang' }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/VideoList' } } } }
+  /contact:
+    get:
+      summary: Aloqa sahifasi
+      parameters: [{ $ref: '#/components/parameters/Lang' }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/ContactPage' } } } }
+  /appeals:
+    post:
+      summary: Virtual qabulxona murojaati
+      description: |
+        Frontend serveri maydonlarni tekshiradi (quyidagi chegaralar) va so'rovni o'zgartirmasdan uzatadi.
+        Backend ham tekshirsin, spamdan himoya (rate limit) qilsin va murojaatni ro'yxatga olib, raqam qaytarsin.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [name, phone, email, recipient, message, consent]
+              properties:
+                name: { type: string, minLength: 3, maxLength: 200 }
+                phone: { type: string, pattern: '^\+?[\d\s()-]{7,20}$' }
+                email: { type: string, format: email, maxLength: 200 }
+                recipient: { type: string, description: 'ContactPage.recipients[].id' }
+                message: { type: string, minLength: 10, maxLength: 5000 }
+                consent: { type: string, enum: ['yes'] }
+                file: { type: string, format: binary, description: 'Ixtiyoriy: PDF, JPG, PNG, DOC, DOCX — 10 MB gacha' }
+      responses:
+        '200': { description: Qabul qilindi, content: { application/json: { schema: { $ref: '#/components/schemas/AppealResult' } } } }
+        '422': { description: Maydonlar noto'g'ri }
+  /search:
+    get:
+      summary: Sayt bo'yicha qidiruv (/search)
+      description: Natijalar keshlanmaydi. excerpt — oddiy matn; topilgan so'zni frontend ajratib ko'rsatadi.
+      parameters:
+        - $ref: '#/components/parameters/Lang'
+        - { name: q, in: query, required: true, schema: { type: string, maxLength: 100 } }
+        - { name: type, in: query, required: false, schema: { $ref: '#/components/schemas/SearchKind' } }
+        - { name: page, in: query, required: false, schema: { type: integer, minimum: 1, default: 1 } }
+        - { name: perPage, in: query, required: false, schema: { type: integer, default: 10 } }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/SearchResults' } } } }
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    userSession:
+      type: apiKey
+      in: cookie
+      name: session
+      description: HEMIS (my.gov) orqali kirgan xodim sessiyasi — backend o'zi beradi; frontend serveri brauzerdagi cookie/Authorization ni o'zgartirmasdan uzatadi
+
+  parameters:
+    Lang:
+      name: lang
+      in: query
+      required: false
+      schema:
+        type: string
+        enum: [uz, ru, en, zh]
+        default: uz
+
+  schemas:
+    HomeData:
+      type: object
+      required: [slides, stats, faculties, news, announcements, events, languages, partners, updatedAt]
+      properties:
+        slides:
+          type: array
+          description: Bosh sahifa karuseli, ko'rsatish tartibida (faqat faol bannerlar)
+          items: { $ref: '#/components/schemas/Slide' }
+        stats:
+          type: array
+          description: To'rtala `key` ham bo'lishi kerak
+          items: { $ref: '#/components/schemas/Stat' }
+        faculties:
+          type: array
+          description: Barcha fakultetlar, ko'rsatish tartibida
+          items: { $ref: '#/components/schemas/Faculty' }
+        news:
+          type: array
+          description: Oxirgi 4 ta yangilik, yangisi birinchi (birinchisi katta kartada chiqadi)
+          maxItems: 4
+          items: { $ref: '#/components/schemas/NewsItem' }
+        announcements:
+          type: array
+          description: Oxirgi 4 ta e'lon, yangisi birinchi
+          maxItems: 4
+          items: { $ref: '#/components/schemas/Announcement' }
+        events:
+          type: array
+          description: Hali boshlanmagan eng yaqin 3 ta tadbir, `startsAt` bo'yicha o'sish tartibida. Bo'lmasa — bo'sh massiv
+          maxItems: 3
+          items: { $ref: '#/components/schemas/EventItem' }
+        languages:
+          type: array
+          description: Universitetda o'qitiladigan tillar
+          items: { $ref: '#/components/schemas/TaughtLanguage' }
+        partners:
+          type: array
+          items: { $ref: '#/components/schemas/Partner' }
+        updatedAt:
+          type: string
+          format: date-time
+          description: HEMIS ma'lumotlari oxirgi marta yangilangan vaqt
+          example: '2026-10-21T10:04:00+05:00'
+
+    Slide:
+      type: object
+      required: [id, image, alt]
+      properties:
+        id: { type: string, example: '1' }
+        image:
+          type: string
+          format: uri
+          description: |
+            Banner rasmi. **Nisbati 16:9 bo'lishi shart** (1920×1080), WebP/JPEG, 500 KB dan kam.
+            Karusel aynan 16:9 o'lchamda, shuning uchun bunday banner chetdan chetgacha to'liq ko'rinadi.
+            Boshqa nisbatdagi rasm qirqilmaydi, lekin chetlarida xira fon chiqadi — admin panelda yuklashda 16:9 ni tekshirish tavsiya etiladi.
+          example: https://uzswlu.uz/uploads/slides/greenmetric-2026.webp
+        alt:
+          type: string
+          description: Rasm mazmuni (ekran o'quvchilar uchun), so'ralgan tilda
+          example: 'UI GreenMetric 2026: dunyoda 512-, Osiyoda 296-, O‘zbekistonda 11-o‘rin'
+        link:
+          type: [string, 'null']
+          description: Bosilganda ochiladigan sahifa (ixtiyoriy)
+          example: /news/greenmetric-2026
+
+    Stat:
+      type: object
+      required: [key, value]
+      properties:
+        key:
+          type: string
+          enum: [faculties, staff, departments, students]
+        value:
+          type: integer
+          description: Aniq son. Frontend o'zi qisqartiradi (17384 → "17K+", 1137 → "1100+")
+          example: 17384
+
+    Faculty:
+      type: object
+      required: [id, slug, name]
+      properties:
+        id: { type: string, example: '1' }
+        slug: { type: string, example: english-philology }
+        name: { type: string, example: Ingliz filologiyasi fakulteti }
+        logo:
+          type: [string, 'null']
+          format: uri
+          description: Kvadrat logo, kamida 240×240
+          example: https://uzswlu.uz/uploads/faculty/english-philology.webp
+
+    NewsItem:
+      type: object
+      required: [id, slug, title, category, date]
+      properties:
+        id: { type: string, example: '154' }
+        slug:
+          type: string
+          description: Yangilik manzili `/news/<slug>` — hozirgi saytdagi bilan bir xil bo'lsin (eski havolalar saqlanadi)
+          example: ozdjtuda-italyan-tilini-oqitishning-dolzarb-masalalariga-bagishlangan-xalqaro-anjuman-bolib-otdi-1792170691
+        title: { type: string, example: '“Tilim — faxrim, g‘ururim va iftixorim!”' }
+        category: { type: string, example: Ma’naviyat }
+        date: { type: string, format: date, example: '2026-10-20' }
+        image:
+          type: [string, 'null']
+          format: uri
+          description: Muqova rasmi (bo'lmasa, frontend bezak muqova chizadi)
+
+    Announcement:
+      type: object
+      required: [id, slug, title, date]
+      properties:
+        id: { type: string, example: '87' }
+        slug: { type: string, example: phd-himoya-pedagogika }
+        title: { type: string, example: Pedagogika fanlari bo‘yicha falsafa doktori (PhD) dissertatsiyasi himoyasi }
+        date: { type: string, format: date, example: '2026-10-20' }
+
+    EventItem:
+      type: object
+      required: [id, slug, title, category, startsAt, location]
+      properties:
+        id: { type: string, example: '12' }
+        slug: { type: string, example: ochiq-eshiklar-kuni }
+        title: { type: string, example: Ochiq eshiklar kuni }
+        category: { type: string, example: Abituriyentlar }
+        startsAt: { type: string, format: date-time, example: '2026-11-07T10:00:00+05:00' }
+        endsAt: { type: [string, 'null'], format: date-time, example: '2026-11-07T14:00:00+05:00' }
+        location: { type: string, example: Bosh bino }
+        image: { type: [string, 'null'], format: uri }
+
+    TaughtLanguage:
+      type: object
+      required: [code, native]
+      properties:
+        code: { type: string, description: ISO 639-1 kodi, example: de }
+        native: { type: string, description: Tilning o'z yozuvidagi nomi, example: Deutsch }
+
+    Partner:
+      type: object
+      required: [id, name, logo]
+      properties:
+        id: { type: string, example: '9' }
+        name: { type: string, example: DAAD }
+        logo:
+          type: string
+          format: uri
+          description: Shaffof yoki oq fonli logo, kengligi kamida 400px
+          example: https://uzswlu.uz/uploads/partners/daad.webp
+        url: { type: [string, 'null'], format: uri, example: https://www.daad.de }
+
+    SiteData:
+      type: object
+      required: [menu, phone, phoneExt, emails, campuses, socials]
+      properties:
+        menu:
+          type: array
+          description: |
+            Asosiy menyu, ko'rsatish tartibida — admin panelda boshqariladi.
+            Sig'magan bo'limlarni frontend o'zi "⋯" tugmasi ichiga oladi.
+          items: { $ref: '#/components/schemas/MenuGroup' }
+        phone: { type: string, example: '+998 71 230 13 73' }
+        phoneExt: { type: string, description: Ichki raqamlar, example: '1061–1064' }
+        emails:
+          type: array
+          items: { type: string, format: email }
+          example: [uzdjtu@uzswlu.uz, international@uzswlu.uz]
+        campuses:
+          type: array
+          items: { $ref: '#/components/schemas/Campus' }
+        socials:
+          type: array
+          items: { $ref: '#/components/schemas/SocialLink' }
+        symbols:
+          type: array
+          nullable: true
+          description: Davlat ramzlari (bosh sahifa bloki va footer) — admin panelda boshqariladi; berilmasa saytdagi standart havolalar
+          items: { $ref: '#/components/schemas/StateSymbol' }
+
+    StateSymbol:
+      type: object
+      description: Davlat ramzi — bayroq, gerb yoki madhiya
+      required: [key, title]
+      properties:
+        key: { type: string, enum: [flag, emblem, anthem] }
+        title: { type: string, example: Özbekiston Respublikasi davlat bayroği }
+        description: { type: string, nullable: true, description: Qisqa tavsif (ixtiyoriy) }
+        image: { type: string, format: uri, nullable: true }
+        audio: { type: string, format: uri, nullable: true, description: Madhiya audio fayli (MP3) }
+        href: { type: string, format: uri, nullable: true, description: Rasmiy manba sahifasi (archive.uz, YouTube) }
+        source: { type: string, nullable: true, example: archive.uz }
+
+    MenuGroup:
+      type: object
+      required: [id, title, links]
+      properties:
+        id:
+          type: string
+          description: Barqaror kalit (frontend ikonkani shunga qarab tanlaydi)
+          enum: [university, applicants, activity, news, sdg, programs, video, contact]
+          example: applicants
+        title: { type: string, example: Abituriyentlar }
+        description: { type: [string, 'null'], example: 'Qabul, yo‘nalishlar, kontrakt va grantlar — kerakli hamma narsa.' }
+        url:
+          type: [string, 'null']
+          description: Bitta sahifali bo'lim (Yangiliklar, Aloqa) — ochiladigan menyu o'rniga to'g'ridan-to'g'ri havola; bunda `links` bo'sh
+          example: null
+        overview: { type: [string, 'null'], description: "Bo'limning umumiy sahifasi (BRM → /brm) — mega-menyuda nom va belgi shu sahifaga havola", example: /brm }
+        links:
+          type: array
+          items: { $ref: '#/components/schemas/MenuLink' }
+
+    MenuLink:
+      type: object
+      required: [title, url]
+      properties:
+        title: { type: string, example: Qabul – 2026/2027 }
+        url:
+          type: string
+          description: Ichki yo'l (tilsiz, masalan `/qabul-20262027` — hozirgi sayt manzillari saqlangan) yoki to'liq URL (PDF, tashqi sayt)
+          example: /qabul-20262027
+        file: { type: [string, 'null'], enum: [pdf, null], description: Fayl bo'lsa — yonida belgi chiqadi }
+        highlight: { type: boolean, description: Ajratib ko'rsatish (mega-menyuda alohida karta), example: true }
+        sdg: { type: [integer, 'null'], minimum: 1, maximum: 17, description: 'BRM bo''limi: BMT maqsadi raqami — rangli plitka bo''lib chiqadi' }
+
+    Campus:
+      type: object
+      required: [id, name, address]
+      properties:
+        id: { type: string, example: main }
+        name: { type: string, example: Bosh bino }
+        address: { type: string, example: 'Toshkent sh., Kichik halqa yo‘li ko‘chasi, G9-A, 21-uy' }
+
+    SocialLink:
+      type: object
+      required: [network, url]
+      properties:
+        network:
+          type: string
+          enum: [telegram, instagram, facebook, youtube, x]
+        url: { type: string, format: uri, example: https://t.me/UzSWLU }
+
+    StaffDepartment:
+      type: object
+      required: [id, name, group, count]
+      properties:
+        id: { type: string, example: pedagogika-va-psixologiya-kafedrasi }
+        name: { type: string, example: Pedagogika va psixologiya kafedrasi }
+        group: { $ref: '#/components/schemas/StaffGroup' }
+        count: { type: integer, description: Bo'limdagi xodimlar soni, example: 24 }
+
+    StaffGroup:
+      type: string
+      enum: [lead, faculty, chair, unit]
+      description: 'lead — rahbariyat, faculty — fakultet (dekanat, tyutorlar), chair — kafedra, unit — markaz va bo''limlar'
+
+    HemisRef:
+      type: object
+      description: HEMIS kod + nom juftligi (staffPosition, employmentForm, employeeStatus, employeeType) — HEMIS javobidagidek
+      required: [code, name]
+      properties:
+        code: { type: string, example: '15' }
+        name: { type: string, example: Professor }
+
+    HemisEmployment:
+      type: object
+      description: |
+        Xodimning bitta ish joyi — HEMIS'dagi bitta qator, o'zgartirmasdan va HEMIS tartibida.
+        Frontend oldingi saytdagi qoidalarni o'zi qo'llaydi: status 14 (ishdan bo'shagan) ko'rsatilmaydi;
+        lavozimlarda avval boshqaruv/asosiy lavozim, keyin o'qituvchilik lavozimlari (kod 11–15); bo'limlar shu tartibda.
+      required: [department, position]
+      properties:
+        department:
+          type: object
+          required: [id, name]
+          properties:
+            id: { type: string, example: rahbariyat }
+            name: { type: string, example: Rahbariyat }
+        position:
+          allOf: [{ $ref: '#/components/schemas/HemisRef' }]
+          description: 'HEMIS staffPosition. Kod 11–15 — o''qituvchilik lavozimlari (Stajer-o''qituvchi … Professor); HEMIS''da alohida "unvon" maydoni yo''q'
+        form:
+          description: 'HEMIS employmentForm: "Asosiy ish joy", "O''rindoshlik (ichki-asosiy)" …'
+          oneOf: [{ $ref: '#/components/schemas/HemisRef' }, { type: 'null' }]
+        rate: { type: [number, 'null'], description: Stavka, example: 1 }
+        status:
+          description: HEMIS employeeStatus. Kod 14 — ishdan bo'shagan
+          oneOf: [{ $ref: '#/components/schemas/HemisRef' }, { type: 'null' }]
+        type:
+          description: HEMIS employeeType. Kod 10 — "Boshqa" (dashboard'da ko'rsatilmaydi)
+          oneOf: [{ $ref: '#/components/schemas/HemisRef' }, { type: 'null' }]
+
+    StaffSummary:
+      type: object
+      description: Ro'yxat kartasi — HEMIS ma'lumoti (backend HEMIS API'dan oladi va keshlaydi)
+      required: [id, name, employments, group]
+      properties:
+        id: { type: string, description: Saytdagi xodim ID'si (/teacher/7731), example: '7731' }
+        name: { type: string, description: 'HEMIS dagi ism, tartibi o''zgarishsiz', example: IBRAGIMOV OTABEK }
+        patronymic: { type: [string, 'null'], description: 'HEMIS sharifi. name da bo''lmasa frontend oxiriga qo''shadi; vizitkada alohida qatorda', example: ALISHEROVICH }
+        photo: { type: [string, 'null'], format: uri, description: 'Ko''rsatiladigan surat: xodim saytga o''zi yuklagan bo''lsa — o''shasi, aks holda HEMIS surati' }
+        photoFallback: { type: [string, 'null'], format: uri, description: 'O''z surati ochilmasa ishlatiladigan HEMIS surati (ikkalasi ham bo''lmasa — bosh harflar)' }
+        employments:
+          type: array
+          description: HEMIS ish joylari, HEMIS tartibida
+          items: { $ref: '#/components/schemas/HemisEmployment' }
+        group: { $ref: '#/components/schemas/StaffGroup' }
+
+    StaffList:
+      type: object
+      required: [items, total, page, perPage, groups, departments, summary]
+      properties:
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/StaffSummary' }
+        total: { type: integer, description: Filtrlangan natijalar soni, example: 1312 }
+        page: { type: integer, example: 1 }
+        perPage: { type: integer, example: 24 }
+        groups:
+          type: object
+          description: Har bir guruhdagi xodimlar soni — q va department hisobga olinadi, group esa yo'q (filtr tugmalaridagi raqamlar)
+          required: [all, lead, faculty, chair, unit]
+          properties:
+            all: { type: integer, example: 1540 }
+            lead: { type: integer, example: 7 }
+            faculty: { type: integer, example: 151 }
+            chair: { type: integer, example: 1312 }
+            unit: { type: integer, example: 178 }
+        departments:
+          type: array
+          description: Bo'lim tanlash ro'yxati, nom bo'yicha tartiblangan
+          items: { $ref: '#/components/schemas/StaffDepartment' }
+        summary:
+          type: object
+          description: Filtrsiz umumiy sonlar (sahifa sarlavhasi)
+          required: [staff, departments]
+          properties:
+            staff: { type: integer, example: 1540 }
+            departments: { type: integer, example: 95 }
+
+    StaffProfile:
+      description: |
+        StaffSummary maydonlari (HEMIS) + xodim saytga HEMIS orqali kirib, dashboard'da o'zi kiritgan ma'lumotlar.
+        Bo'sh maydonlar/bo'limlar yuborilmaydi — Staff sahifasida umuman chiqmaydi.
+      type: object
+      required: [id, name, employments, group, contacts, socials, science, documents]
+      properties:
+        id: { type: string, example: '9300' }
+        name: { type: string, example: TUXTASINOV ILXOMJON MADAMINOVICH }
+        patronymic: { type: [string, 'null'], example: MADAMINOVICH }
+        photo: { type: [string, 'null'], format: uri }
+        photoFallback: { type: [string, 'null'], format: uri }
+        employments:
+          type: array
+          items: { $ref: '#/components/schemas/HemisEmployment' }
+        group: { $ref: '#/components/schemas/StaffGroup' }
+        about:
+          type: [string, 'null']
+          description: '"Xodim haqida" — so''ralgan tilda (uz/ru/en/zh), tarjima bo''lmasa o''zbekchasi; kiritilmagan bo''lsa null'
+          example: Rector, Doctor of Pedagogical Sciences (DSc), Professor
+        contacts:
+          type: array
+          description: 'Aloqa: faqat to''ldirilganlari, ko''rsatish tartibida. E-pochta bir nechta bo''lishi mumkin. office — "Qabul joyi" (manzil; frontend Google Maps qidiruviga havola qiladi)'
+          items:
+            type: object
+            required: [type, value]
+            properties:
+              type: { type: string, enum: [email, telegram, whatsapp, mobile, phone, office] }
+              value: { type: string, example: rector@uzswlu.uz }
+        socials:
+          type: array
+          description: Ijtimoiy tarmoqlar — faqat to'ldirilganlari
+          items:
+            type: object
+            required: [network, url]
+            properties:
+              network: { type: string, enum: [instagram, threads, facebook, linkedin, x, youtube] }
+              url: { type: string, format: uri }
+        science:
+          type: array
+          description: Ilmiy profillar — faqat to'ldirilganlari
+          items:
+            type: object
+            required: [network, url]
+            properties:
+              network: { type: string, enum: [orcid, scholar, scopus, researchgate] }
+              url: { type: string, format: uri }
+        documents:
+          type: array
+          description: 'Hujjatlar: faqat xodim "Staff''da ko''rinadi" qoldirgan (boshlanishida ochiq) va bo''sh bo''lmagan bo''limlar. Taqdimotlar va Videolar Staff''da chiqmaydi'
+          items:
+            type: object
+            required: [section, items]
+            properties:
+              section: { type: string, enum: [cv, books, articles] }
+              items:
+                type: array
+                items:
+                  type: object
+                  required: [title, url]
+                  properties:
+                    title: { type: string, description: So'ralgan tildagi nom (uz/ru/en/zh; bo'lmasa o'zbekchasi) }
+                    url: { type: string, format: uri }
+        cardImage: { type: [string, 'null'], format: uri, description: 'Server yaratgan vizitka rasmi (PNG), ixtiyoriy — bo''lmasa frontend o''zi chizadi' }
+
+    CabinetDocSection:
+      type: string
+      enum: [cv, books, presentations, articles, videos]
+      description: Taqdimotlar va Videolar faqat kabinetda; cv, books, articles — Staff sahifasida ham (xodim yashirmasa)
+
+    LocalizedText:
+      type: object
+      description: 4 tildagi matn
+      required: [uz, ru, en, zh]
+      properties:
+        uz: { type: string }
+        ru: { type: string }
+        en: { type: string }
+        zh: { type: string }
+
+    CabinetDocument:
+      type: object
+      required: [id, title, url, createdAt]
+      properties:
+        id: { type: string }
+        title: { $ref: '#/components/schemas/LocalizedText' }
+        url: { type: string, description: Fayl havolasi (videolarda — tashqi havola) }
+        createdAt: { type: string, format: date-time }
+
+    StaffCabinet:
+      type: object
+      required: [profile, hemis, about, hasOwnPhoto, documents]
+      properties:
+        profile: { $ref: '#/components/schemas/StaffProfile' }
+        hemis:
+          type: object
+          description: HEMIS'dan, faqat o'qish
+          required: [firstName, lastName]
+          properties:
+            firstName: { type: string }
+            lastName: { type: string }
+            patronymic: { type: [string, 'null'] }
+            birthDate: { type: [string, 'null'], format: date }
+            phone: { type: [string, 'null'] }
+            email: { type: [string, 'null'] }
+        about: { $ref: '#/components/schemas/LocalizedText' }
+        hasOwnPhoto: { type: boolean, description: 'Xodim o''zi yuklagan surat bormi ("✕" faqat shunda chiqadi)' }
+        documents:
+          type: object
+          description: Har bir bo'lim uchun soni va Staff'da ko'rinishi (presentations/videos uchun doim false)
+          required: [cv, books, presentations, articles, videos]
+          properties:
+            cv: { $ref: '#/components/schemas/CabinetDocStat' }
+            books: { $ref: '#/components/schemas/CabinetDocStat' }
+            presentations: { $ref: '#/components/schemas/CabinetDocStat' }
+            articles: { $ref: '#/components/schemas/CabinetDocStat' }
+            videos: { $ref: '#/components/schemas/CabinetDocStat' }
+
+    CabinetDocStat:
+      type: object
+      required: [count, visible]
+      properties:
+        count: { type: integer }
+        visible: { type: boolean }
+
+    CabinetPatch:
+      type: object
+      description: Faqat o'zgargan qismlar
+      properties:
+        about: { $ref: '#/components/schemas/LocalizedText' }
+        contacts:
+          type: array
+          items:
+            type: object
+            required: [type, value]
+            properties:
+              type: { type: string, enum: [email, telegram, whatsapp, mobile, phone, office] }
+              value: { type: string, maxLength: 300 }
+        socials:
+          type: array
+          items:
+            type: object
+            required: [network, url]
+            properties:
+              network: { type: string, enum: [instagram, threads, facebook, linkedin, x, youtube] }
+              url: { type: string, format: uri }
+        science:
+          type: array
+          items:
+            type: object
+            required: [network, url]
+            properties:
+              network: { type: string, enum: [orcid, scholar, scopus, researchgate] }
+              url: { type: string, format: uri }
+        visibility:
+          type: object
+          description: Staff sahifasida ko'rinishi (boshida hammasi true)
+          properties:
+            cv: { type: boolean }
+            books: { type: boolean }
+            articles: { type: boolean }
+
+    # ─── Ichki sahifalar ────────────────────────────────────────────────────
+    Attachment:
+      type: object
+      required: [title, url, kind]
+      properties:
+        title: { type: string }
+        url: { type: string, description: To'liq URL yoki saytdagi ichki manzil ("/sdg-report") }
+        kind: { type: string, enum: [pdf, link] }
+        meta: { type: [string, 'null'], example: 'PDF · 22.02.2023' }
+        display:
+          type: [string, 'null']
+          enum: [embed, open, download, link, null]
+          description: 'PDF ko‘rinishi: embed — ichi ko‘rinadi, open — yangi oynada, download — yuklab olinadi, link — matn ostida faqat nomi (avtoreferat)'
+        height: { type: [integer, 'null'], description: 'embed ramkasi balandligi, px' }
+
+    ContentPage:
+      type: object
+      required: [slug, title, facts, body, timeline, attachments, updatedAt]
+      properties:
+        slug: { type: string, example: universitet-haqida }
+        title: { type: string }
+        lead: { type: [string, 'null'] }
+        facts:
+          type: array
+          items: { type: object, required: [value, label], properties: { value: { type: string, example: '23 168' }, label: { type: string, example: talaba } } }
+        body:
+          type: string
+          description: |
+            HTML. Ruxsat etilgan teglar: h2, h3, p, ul, ol, li, a, strong, em, blockquote, figure, img, figcaption, table.
+            Backend tozalab (sanitize) beradi. `<!-- timeline -->` belgisi bo'lsa — vaqt chizig'i shu joyga qo'yiladi.
+            Ichki havolalar tilsiz yoziladi ("/fakultetlar-va-kafedralar") — frontend til prefiksini o'zi qo'shadi.
+        timeline:
+          type: array
+          items: { type: object, required: [label, text], properties: { label: { type: string, example: '1949' }, text: { type: string }, highlight: { type: boolean } } }
+        attachments: { type: array, items: { $ref: '#/components/schemas/Attachment' } }
+        updatedAt: { type: string, format: date-time }
+
+    PostType:
+      type: string
+      enum: [news, announcements, events]
+
+    PostSummary:
+      type: object
+      required: [id, slug, title, category, date, type]
+      properties:
+        id: { type: string }
+        slug: { type: string }
+        title: { type: string }
+        category: { type: string }
+        date: { type: string, format: date }
+        image: { type: [string, 'null'], format: uri }
+        type: { $ref: '#/components/schemas/PostType' }
+        excerpt: { type: [string, 'null'] }
+
+    PostList:
+      type: object
+      required: [items, total, page, perPage, counts, months]
+      properties:
+        items: { type: array, items: { $ref: '#/components/schemas/PostSummary' } }
+        total: { type: integer }
+        page: { type: integer }
+        perPage: { type: integer }
+        counts:
+          type: object
+          required: [news, announcements, events]
+          properties: { news: { type: integer }, announcements: { type: integer }, events: { type: integer } }
+        months: { type: array, items: { type: string, example: '2026-10' }, description: 'Post bor oylar, yangidan eskiga' }
+
+    Post:
+      description: PostSummary maydonlari + to'liq matn
+      type: object
+      required: [id, slug, title, category, date, type, body, gallery, tags, readingMinutes, related, latest]
+      properties:
+        id: { type: string }
+        slug: { type: string }
+        title: { type: string }
+        category: { type: string }
+        date: { type: string, format: date }
+        image: { type: [string, 'null'], format: uri }
+        type: { $ref: '#/components/schemas/PostType' }
+        excerpt: { type: [string, 'null'] }
+        body: { type: string, description: HTML (ContentPage.body qoidalari bilan) }
+        author:
+          type: [object, 'null']
+          required: [name]
+          description: Kim joylagan — admin'ning HEMIS profilidan avtomatik
+          properties:
+            name: { type: string }
+            role: { type: [string, 'null'] }
+            avatar: { type: [string, 'null'], format: uri, description: HEMIS profil surati }
+        publishedAt: { type: [string, 'null'], format: date-time, example: '2026-10-23T19:00:00+05:00', description: 'Nashr vaqti; saytda 24 soatlik formatda (19:00)' }
+        gallery: { type: array, items: { type: string, format: uri } }
+        attachments: { type: array, items: { $ref: '#/components/schemas/Attachment' }, description: 'Biriktirilgan PDF’lar (dastur, avtoreferat …)' }
+        tags: { type: array, items: { type: string } }
+        readingMinutes: { type: integer }
+        startsAt: { type: [string, 'null'], format: date-time, description: Faqat tadbirlarda }
+        endsAt: { type: [string, 'null'], format: date-time }
+        location: { type: [string, 'null'] }
+        related: { type: array, items: { $ref: '#/components/schemas/PostSummary' }, description: O'xshash postlar (3 ta) }
+        latest: { type: array, items: { $ref: '#/components/schemas/PostSummary' }, description: So'nggi yangiliklar (4 ta) }
+
+    EventMonth:
+      type: object
+      required: [month, items, upcoming]
+      properties:
+        month: { type: string, example: '2026-10' }
+        items: { type: array, items: { $ref: '#/components/schemas/EventItem' } }
+        upcoming: { type: array, items: { $ref: '#/components/schemas/EventItem' } }
+
+    Leader:
+      type: object
+      required: [name, role]
+      properties:
+        staffId: { type: [string, 'null'], description: 'Staff sahifasidagi ID (/teacher/{id})' }
+        name: { type: string }
+        role: { type: string }
+        photo: { type: [string, 'null'], format: uri }
+        hours: { type: [string, 'null'], example: 'Dushanba, 15:00–17:00' }
+        phone: { type: [string, 'null'] }
+        ext: { type: [string, 'null'], description: Ichki raqam }
+        email: { type: [string, 'null'] }
+
+    Leadership:
+      type: object
+      required: [rector, prorectors]
+      properties:
+        rector: { $ref: '#/components/schemas/Leader' }
+        prorectors: { type: array, items: { $ref: '#/components/schemas/Leader' } }
+        press: { oneOf: [{ $ref: '#/components/schemas/Leader' }, { type: 'null' }] }
+
+    DocumentItem:
+      type: object
+      required: [id, category, title, url, kind]
+      properties:
+        id: { type: string }
+        category: { type: string, description: 'DocumentList.categories[].id' }
+        title: { type: string }
+        url: { type: string }
+        kind: { type: string, enum: [pdf, link] }
+        meta: { type: [string, 'null'] }
+        display: { type: [string, 'null'], enum: [embed, open, download, link, null], description: 'PDF ko‘rinishi (Attachment.display bilan bir xil)' }
+        height: { type: [integer, 'null'] }
+
+    DocumentList:
+      type: object
+      required: [categories, items]
+      properties:
+        categories:
+          type: array
+          items: { type: object, required: [id, title], properties: { id: { type: string }, title: { type: string } } }
+        items: { type: array, items: { $ref: '#/components/schemas/DocumentItem' } }
+
+    Program:
+      type: object
+      required: [id, code, title, group, form, years]
+      properties:
+        id: { type: string }
+        code: { type: string, example: '60230100' }
+        title: { type: string }
+        language: { oneOf: [{ $ref: '#/components/schemas/TaughtLanguage' }, { type: 'null' }], description: O'qitiladigan til (yo'q bo'lsa — o'zbek tilida) }
+        group: { type: string, description: 'ProgramList.groups[].id' }
+        form: { type: string, example: Kunduzgi }
+        years: { type: integer }
+
+    ProgramList:
+      type: object
+      required: [level, groups, items]
+      properties:
+        level: { type: string, enum: [bachelor, master] }
+        groups:
+          type: array
+          items: { type: object, required: [id, title], properties: { id: { type: string }, title: { type: string } } }
+        items: { type: array, items: { $ref: '#/components/schemas/Program' } }
+
+    FacultySummary:
+      type: object
+      required: [id, slug, name, departments, programs]
+      properties:
+        id: { type: string }
+        slug: { type: string }
+        name: { type: string }
+        logo: { type: [string, 'null'], format: uri }
+        departments: { type: integer }
+        programs: { type: integer }
+
+    FacultyList:
+      type: object
+      required: [items, summary]
+      properties:
+        items: { type: array, items: { $ref: '#/components/schemas/FacultySummary' } }
+        summary:
+          type: object
+          required: [faculties, departments]
+          properties: { faculties: { type: integer }, departments: { type: integer } }
+
+    FacultyPerson:
+      type: object
+      required: [name, role]
+      properties:
+        staffId: { type: [string, 'null'] }
+        name: { type: string }
+        role: { type: string }
+        degree: { type: [string, 'null'], description: 'Ilmiy daraja, unvon' }
+        photo: { type: [string, 'null'], format: uri }
+
+    FacultyProgram:
+      type: object
+      required: [code, title, level, form, years]
+      properties:
+        code: { type: string }
+        title: { type: string }
+        level: { type: string, enum: [bachelor, master, phd] }
+        form: { type: string }
+        years: { type: integer }
+
+    FacultyDetail:
+      type: object
+      required: [id, slug, name, number, about, stats, dean, programs, departments, deanery, news, contact]
+      properties:
+        id: { type: string }
+        slug: { type: string }
+        name: { type: string }
+        logo: { type: [string, 'null'], format: uri }
+        number: { type: integer, description: Tartib raqami }
+        about: { type: string }
+        stats:
+          type: object
+          description: HEMIS'dan
+          required: [students, departments, programs, teachers]
+          properties: { students: { type: integer }, departments: { type: integer }, programs: { type: integer }, teachers: { type: integer } }
+        dean:
+          type: object
+          description: FacultyPerson + qabul kunlari va aloqa
+          required: [name, role]
+          properties:
+            staffId: { type: [string, 'null'] }
+            name: { type: string }
+            role: { type: string }
+            degree: { type: [string, 'null'] }
+            photo: { type: [string, 'null'], format: uri }
+            hours: { type: [string, 'null'] }
+            phone: { type: [string, 'null'] }
+            email: { type: [string, 'null'] }
+        programs: { type: array, items: { $ref: '#/components/schemas/FacultyProgram' } }
+        departments:
+          type: array
+          items: { type: object, required: [id, name], properties: { id: { type: string }, name: { type: string }, head: { type: [string, 'null'] } } }
+        deanery: { type: array, items: { $ref: '#/components/schemas/FacultyPerson' } }
+        news: { type: array, items: { $ref: '#/components/schemas/PostSummary' } }
+        contact:
+          type: object
+          required: [address, phone]
+          properties: { address: { type: string }, phone: { type: string }, email: { type: [string, 'null'] }, mapUrl: { type: [string, 'null'], format: uri } }
+
+    Admission:
+      type: object
+      required: [year, applyUrl, dates, programs, documents, faq, contact]
+      properties:
+        year: { type: string, example: 2026/2027 }
+        applyUrl: { type: string, format: uri }
+        dates:
+          type: array
+          items: { type: object, required: [title, period], properties: { title: { type: string }, period: { type: string }, current: { type: boolean } } }
+        programs:
+          type: array
+          items:
+            type: object
+            required: [id, code, title, faculty, level, form, years]
+            properties:
+              id: { type: string }
+              code: { type: string }
+              title: { type: string }
+              faculty: { type: string }
+              level: { type: string, enum: [bachelor, master, phd] }
+              form: { type: string }
+              years: { type: integer }
+              price: { type: [string, 'null'], example: '16 500 000 so‘m' }
+        documents: { type: array, items: { type: string } }
+        documentsUrl: { type: [string, 'null'], format: uri }
+        faq:
+          type: array
+          items: { type: object, required: [q, a], properties: { q: { type: string }, a: { type: string } } }
+        contact:
+          type: object
+          required: [address, hours, phone, telegram]
+          properties: { address: { type: string }, hours: { type: string }, phone: { type: string }, telegram: { type: string, format: uri } }
+
+    RankValue:
+      type: object
+      required: [rank]
+      properties:
+        rank: { type: string, example: '#512' }
+        change: { type: [integer, 'null'], example: 57, description: O'tgan yilga nisbatan ko'tarilish }
+
+    SdgGoalSummary:
+      type: object
+      required: [n, url, title]
+      properties:
+        n: { type: integer, minimum: 1, maximum: 17 }
+        url: { type: string, example: /brm-6-toza-suv-va-sanitariya }
+        title: { type: string }
+        rank: { type: [string, 'null'], example: 401–600, description: "THE Impact o'rni; ishtirok etmagan bo'lsa null" }
+        score: { type: [string, 'null'], example: '43.5' }
+
+    SdgOverview:
+      type: object
+      required: [greenmetric, categories, goals, impactYear, reports, education, news]
+      properties:
+        greenmetric:
+          type: object
+          required: [year, world, asia, country]
+          properties:
+            year: { type: integer, example: 2026 }
+            world: { $ref: '#/components/schemas/RankValue' }
+            asia: { $ref: '#/components/schemas/RankValue' }
+            country: { $ref: '#/components/schemas/RankValue' }
+            highlight:
+              type: [object, 'null']
+              required: [text, url]
+              properties: { text: { type: string }, url: { type: string } }
+        categories:
+          type: array
+          description: GreenMetric 6 yo'nalishi
+          items:
+            type: object
+            required: [code, title, subtitle, url]
+            properties: { code: { type: string, example: WR }, title: { type: string }, subtitle: { type: string, example: Water }, badge: { type: [string, 'null'] }, url: { type: string } }
+        goals: { type: array, items: { $ref: '#/components/schemas/SdgGoalSummary' }, description: '17 ta, 1 dan 17 gacha' }
+        impactYear: { type: integer, example: 2025 }
+        reports: { type: array, items: { $ref: '#/components/schemas/Attachment' } }
+        education:
+          type: object
+          required: [title, text, tags, url]
+          properties: { title: { type: string }, text: { type: string }, tags: { type: array, items: { type: string } }, url: { type: string } }
+        news: { type: array, items: { $ref: '#/components/schemas/PostSummary' } }
+
+    SdgGoal:
+      description: SdgGoalSummary maydonlari + sahifa mazmuni
+      type: object
+      required: [n, url, title, subtitle, sections, documents]
+      properties:
+        n: { type: integer, minimum: 1, maximum: 17 }
+        url: { type: string }
+        title: { type: string }
+        rank: { type: [string, 'null'] }
+        score: { type: [string, 'null'] }
+        subtitle: { type: string, description: BMT maqsadi ta'rifi }
+        highlight:
+          type: [object, 'null']
+          required: [label, value]
+          properties: { label: { type: string, example: GreenMetric 2026 · Water }, value: { type: string } }
+        sections:
+          type: array
+          description: Ichki bo'limlar (tablar); body — HTML
+          items:
+            type: object
+            required: [id, title, body, images]
+            properties: { id: { type: string }, title: { type: string }, body: { type: string }, images: { type: array, items: { type: string, format: uri } } }
+        documents: { type: array, items: { $ref: '#/components/schemas/Attachment' } }
+
+    VideoList:
+      type: object
+      required: [live, channelUrl, categories, items]
+      properties:
+        live:
+          type: object
+          required: [isLive, url]
+          properties:
+            isLive: { type: boolean }
+            url: { type: string, format: uri }
+            next:
+              type: [object, 'null']
+              required: [title, startsAt]
+              properties: { title: { type: string }, startsAt: { type: string, format: date-time } }
+        channelUrl: { type: string, format: uri }
+        categories:
+          type: array
+          items:
+            type: object
+            required: [id, title, greeting, lang]
+            properties: { id: { type: string }, title: { type: string }, greeting: { type: string, example: Hello }, lang: { type: string, example: en } }
+        items:
+          type: array
+          items:
+            type: object
+            required: [id, category, title, url]
+            properties:
+              id: { type: string }
+              category: { type: string }
+              title: { type: string }
+              teacher: { type: [string, 'null'] }
+              duration: { type: [string, 'null'], example: '12:40' }
+              url: { type: string, format: uri }
+              thumbnail: { type: [string, 'null'], format: uri }
+
+    ContactPage:
+      type: object
+      required: [hotline, emails, campuses, leaders, reception, recipients]
+      properties:
+        hotline:
+          type: object
+          required: [phone]
+          properties: { phone: { type: string }, ext: { type: [string, 'null'] } }
+        emails:
+          type: array
+          items: { type: object, required: [title, value, extra], properties: { title: { type: string }, value: { type: string }, extra: { type: array, items: { type: string } } } }
+        campuses:
+          type: array
+          items:
+            type: object
+            required: [id, name, address, phone, mapUrl]
+            properties: { id: { type: string }, name: { type: string }, address: { type: string }, phone: { type: string }, mapUrl: { type: string, format: uri } }
+        leaders:
+          type: array
+          items: { type: object, required: [name, role, ext, phone], properties: { name: { type: string }, role: { type: string }, ext: { type: string }, phone: { type: string } } }
+        reception: { type: string }
+        recipients:
+          type: array
+          items: { type: object, required: [id, title], properties: { id: { type: string }, title: { type: string } } }
+
+    AppealResult:
+      type: object
+      required: [number]
+      properties:
+        number: { type: string, example: VQ-2026-00125 }
+
+    SearchKind:
+      type: string
+      enum: [pages, news, documents]
+
+    SearchResults:
+      type: object
+      required: [q, counts, items, total, page, perPage]
+      properties:
+        q: { type: string }
+        counts:
+          type: object
+          required: [pages, news, documents]
+          properties: { pages: { type: integer }, news: { type: integer }, documents: { type: integer } }
+        quick:
+          type: [object, 'null']
+          required: [title, text, url]
+          properties: { title: { type: string }, text: { type: string }, url: { type: string } }
+        items:
+          type: array
+          items:
+            type: object
+            required: [kind, title, url, meta]
+            properties:
+              kind: { $ref: '#/components/schemas/SearchKind' }
+              title: { type: string }
+              url: { type: string }
+              excerpt: { type: [string, 'null'], description: Oddiy matn (HTML emas) }
+              meta: { type: string }
+              date: { type: [string, 'null'], format: date }
+        total: { type: integer }
+        page: { type: integer }
+        perPage: { type: integer }

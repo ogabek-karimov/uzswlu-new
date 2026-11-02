@@ -1,0 +1,254 @@
+import type { EventItem, EventMonth, Post, PostList, PostSummary, PostType } from '#shared/types/api'
+
+// VAQTINCHALIK MA'LUMOT — yangiliklar, e'lonlar va tadbirlar (backend tayyor bo'lguncha).
+// Sarlavhalar uzswlu.uz/yangiliklar sahifasidan (2026-10-21); ru/en/zh tarjimalari tekshirilishi kerak.
+// Noyabr tadbirlari — NAMUNA, faqat dizaynni ko'rsatish uchun.
+
+type L = Record<Locale, string>
+
+const cat = {
+  culture: { uz: 'Ma’naviyat', ru: 'Духовность', en: 'Culture', zh: '文化' },
+  student: { uz: 'Talabalar hayoti', ru: 'Студенческая жизнь', en: 'Student life', zh: '学生生活' },
+  events: { uz: 'Tadbirlar', ru: 'Мероприятия', en: 'Events', zh: '活动' },
+  arts: { uz: 'Madaniyat', ru: 'Культура', en: 'Arts', zh: '艺术' },
+  intl: { uz: 'Xalqaro hamkorlik', ru: 'Международное сотрудничество', en: 'International cooperation', zh: '国际合作' },
+  green: { uz: 'Yaşil universitet', ru: 'Зелёный университет', en: 'Green University', zh: '绿色大学' },
+  announcement: { uz: 'E’lon', ru: 'Объявление', en: 'Announcement', zh: '公告' },
+  meeting: { uz: 'Uçraşuv', ru: 'Встреча', en: 'Meeting', zh: '会见' },
+  seminar: { uz: 'Seminar', ru: 'Семинар', en: 'Seminar', zh: '研讨会' },
+  science: { uz: 'Ilmiy', ru: 'Наука', en: 'Research', zh: '科研' },
+  cultural: { uz: 'Madaniy', ru: 'Культура', en: 'Culture', zh: '文化' },
+  outreach: { uz: 'Ma’rifiy', ru: 'Просвещение', en: 'Outreach', zh: '宣传教育' },
+  applicants: { uz: 'Abituriyentlar', ru: 'Абитуриентам', en: 'Admissions', zh: '招生' },
+} satisfies Record<string, L>
+
+const UZSWLU: L = { uz: 'ÖzDJTU', ru: 'УзГУМЯ', en: 'UzSWLU', zh: '我校' }
+
+const SAMPLE: L = {
+  uz: 'Töliq matn, rasmlar va videolar admin panel orqali kiritiladi — bu namunaviy sahifa.',
+  ru: 'Полный текст, фотографии и видео добавляются через админ-панель — это демонстрационная страница.',
+  en: 'The full text, photos and videos are added in the admin panel — this is a sample page.',
+  zh: '全文、图片和视频通过管理后台添加——此为示例页面。',
+}
+
+interface Seed {
+  type: PostType
+  slug: string
+  /** ISO sana yoki tadbir boshlanishi */
+  date: string
+  category: L
+  title: L
+  excerpt?: L
+  /** Matn paragraflari (tilga qarab) */
+  body?: Record<Locale, string[]>
+  tags?: Record<Locale, string[]>
+  author?: { name: string; role: L }
+  location?: L
+  /** Bog'langan BRM maqsadi (bitta post — ko'pi bilan bitta maqsad) */
+  sdg?: number
+}
+
+// Admin HEMIS orqali kirganda muallif ma'lumotlari profilidan olinadi; namunada — matbuot xizmati
+const PRESS: NonNullable<Seed['author']> = { name: 'Otabek Ibragimov', role: { uz: 'Matbuot xizmati', ru: 'Пресс-служба', en: 'Press Office', zh: '新闻处' } }
+
+/** Nashr vaqti: sanasi bor, vaqti yo'q namunalar uchun barqaror soxta vaqt (09:00–18:59) */
+function publishedAt(seed: Seed, index: number) {
+  if (seed.date.includes('T')) return seed.date
+  const hour = 9 + (index * 7) % 10
+  const minute = (index * 23) % 60
+  return `${seed.date}T${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00+05:00`
+}
+
+const italianBody: Record<Locale, string[]> = {
+  uz: [
+    'Dastlab konferensiya mehmonlarini O‘zDJTU rektori, pedagogika fanlari doktori, professor Ilxomjon Tuxtasinov kutib oldi. Shundan so‘ng rektor anjumanni ochib berib, xorijiy tillarni o‘qitish sifatini oshirish, zamonaviy ta’lim metodlarini joriy etish va xalqaro ilmiy hamkorlikni rivojlantirish masalalarining ahamiyatini ta’kidladi.',
+    'Anjumanning ochilish qismida Italiya Respublikasining O‘zbekistondagi Favqulodda va Muxtor Elchisi Guido De Sanctis, O‘zDJTU ilmiy ishlar va innovatsiyalar bo‘yicha prorektori Otabek Yusupov, O‘zDJTU vakili Ulug‘bek Yo‘ldoshev, “Jadid.uz” loyihasi rahbari, professor G‘anisher Raximov hamda Siena xorijliklar uchun universiteti xalqaro ishlar bo‘yicha prorektori, professor Carla Bagna so‘zga chiqdi.',
+    'Xalqaro konferensiya italyan tilini xorijiy til sifatida o‘qitishdagi dolzarb masalalarni muhokama qilish, ilg‘or tajribalarni o‘rganish va ta’lim jarayoniga zamonaviy yondashuvlarni tatbiq etish uchun muhim ilmiy muloqot maydoniga aylandi.',
+  ],
+  ru: [
+    'Гостей конференции встретил ректор УзГУМЯ, доктор педагогических наук, профессор Илхомжон Тухтасинов. Открывая конференцию, ректор подчеркнул важность повышения качества преподавания иностранных языков, внедрения современных методов обучения и развития международного научного сотрудничества.',
+    'На открытии выступили Чрезвычайный и Полномочный Посол Итальянской Республики в Узбекистане Гвидо Де Санктис, проректор УзГУМЯ по научной работе и инновациям Отабек Юсупов, представитель УзГУМЯ Улугбек Юлдашев, руководитель проекта «Jadid.uz» профессор Ганишер Рахимов и проректор по международным делам Университета для иностранцев Сиены профессор Карла Баньа.',
+    'Международная конференция стала важной площадкой научного диалога для обсуждения актуальных вопросов преподавания итальянского языка как иностранного, изучения передового опыта и внедрения современных подходов в учебный процесс.',
+  ],
+  en: [
+    'Conference guests were welcomed by the Rector of UzSWLU, Doctor of Pedagogical Sciences, Professor Ilkhomjon Tukhtasinov. Opening the conference, the Rector stressed the importance of improving the quality of foreign language teaching, introducing modern teaching methods and developing international research cooperation.',
+    'The opening session featured speeches by Guido De Sanctis, Ambassador Extraordinary and Plenipotentiary of the Italian Republic to Uzbekistan; Otabek Yusupov, UzSWLU Vice-Rector for Research and Innovation; Ulugbek Yuldoshev of UzSWLU; Professor Ganisher Rakhimov, head of the “Jadid.uz” project; and Professor Carla Bagna, Vice-Rector for International Affairs of the University for Foreigners of Siena.',
+    'The conference became an important platform for scholarly dialogue on teaching Italian as a foreign language, sharing best practice and bringing modern approaches into the classroom.',
+  ],
+  zh: [
+    '我校校长、教育学博士伊尔霍姆容·图赫塔西诺夫教授迎接了与会嘉宾。校长在开幕致辞中强调了提高外语教学质量、推广现代教学方法和发展国际科研合作的重要意义。',
+    '意大利共和国驻乌兹别克斯坦特命全权大使圭多·德桑克蒂斯、我校科研与创新副校长奥塔别克·尤苏波夫、我校代表乌卢格别克·尤尔达舍夫、“Jadid.uz”项目负责人加尼舍尔·拉希莫夫教授以及锡耶纳外国人大学国际事务副校长卡拉·巴尼亚教授在开幕式上发言。',
+    '本次国际研讨会成为探讨意大利语作为外语教学现实问题、交流先进经验并将现代方法引入教学过程的重要学术交流平台。',
+  ],
+}
+
+const seeds: Seed[] = [
+  // ── Yangiliklar ──
+  { type: 'news', slug: 'ttj-sharoitlar', date: '2026-10-20', category: cat.student, sdg: 11, title: { uz: 'Talabalar turar joyidagi shart-sharoitlar o‘rganildi', ru: 'Изучены условия в студенческом общежитии', en: 'Conditions in student dormitories reviewed', zh: '学生宿舍条件调研' } },
+  { type: 'news', slug: 'tilim-faxrim', date: '2026-10-20', category: cat.culture, title: { uz: '“Tilim — faxrim, g‘ururim va iftixorim!”', ru: '«Мой язык — моя гордость и честь!»', en: '“My language is my pride and honour!”', zh: '“我的语言——我的骄傲与荣耀！”' } },
+  { type: 'news', slug: 'giyohvandlikka-qarshi', date: '2026-10-20', category: cat.events, sdg: 3, title: { uz: 'Biz giyohvandlikka qarshimiz!', ru: 'Мы против наркомании!', en: 'We stand against drug addiction!', zh: '我们反对吸毒！' } },
+  { type: 'news', slug: 'istedod-togaragi', date: '2026-10-20', category: cat.arts, title: { uz: '“Iste’dod” musiqa to‘garagi faoliyati', ru: 'Деятельность музыкального кружка «Истеъдод»', en: 'Activities of the “Iste’dod” music club', zh: '“才华”音乐社团活动' } },
+  { type: 'news', slug: 'rektor-3-ttj', date: '2026-10-16', category: cat.student, sdg: 11, title: { uz: 'O‘zDJTU rektori 3-talabalar turar joyidagi yashash sharoitlari bilan tanishdi', ru: 'Ректор УзГУМЯ ознакомился с условиями проживания в студенческом общежитии №3', en: 'UzSWLU Rector visits Student Dormitory No. 3', zh: '校长视察第三学生宿舍居住条件' } },
+  { type: 'news', slug: 'rektor-xorijiy-talabalar', date: '2026-10-16', category: cat.intl, sdg: 4, title: { uz: 'O‘zDJTUda rektor va xorijiy talabalar uchrashuvi bo‘lib o‘tdi', ru: 'В УзГУМЯ состоялась встреча ректора с иностранными студентами', en: 'Rector meets international students', zh: '校长与国际学生见面' } },
+  {
+    type: 'news',
+    slug: 'italyan-tili-anjumani',
+    date: '2026-10-16T10:11:00+05:00',
+    category: cat.intl,
+    sdg: 4,
+    title: {
+      uz: 'O‘zDJTUda italyan tilini o‘qitishning dolzarb masalalariga bag‘ishlangan xalqaro anjuman bo‘lib o‘tdi',
+      ru: 'В УзГУМЯ прошла международная конференция по актуальным вопросам преподавания итальянского языка',
+      en: 'UzSWLU hosts an international conference on teaching Italian',
+      zh: '我校举办意大利语教学现实问题国际研讨会',
+    },
+    excerpt: {
+      uz: '2026-yil 16-oktabr kuni O‘zbekiston davlat jahon tillari universitetida “Italyan tilini xorijiy til sifatida o‘qitishning dolzarb masalalari va yechimlari” mavzusida xalqaro ilmiy-amaliy konferensiya bo‘lib o‘tdi.',
+      ru: '16 октября 2026 года в Узбекском государственном университете мировых языков прошла международная научно-практическая конференция «Актуальные проблемы и решения преподавания итальянского языка как иностранного».',
+      en: 'On 16 October 2026, Uzbekistan State University of World Languages hosted the international conference “Current Issues and Solutions in Teaching Italian as a Foreign Language”.',
+      zh: '2026年10月16日，乌兹别克斯坦国立世界语言大学举办了“意大利语作为外语教学的现实问题与解决方案”国际学术研讨会。',
+    },
+    body: italianBody,
+    tags: { uz: ['italyan tili', 'xalqaro hamkorlik', 'konferensiya'], ru: ['итальянский язык', 'международное сотрудничество', 'конференция'], en: ['Italian', 'international cooperation', 'conference'], zh: ['意大利语', '国际合作', '研讨会'] },
+    author: { name: 'Otabek Ibragimov', role: { uz: 'Matbuot xizmati', ru: 'Пресс-служба', en: 'Press Office', zh: '新闻处' } },
+  },
+  { type: 'news', slug: 'at-tanal-al-arabiy', date: '2026-10-16', category: cat.intl, sdg: 17, title: { uz: 'O‘zDJTUda “At-Tanal al-Arabiy” xalqaro markazi bilan hamkorlik istiqbollari muhokama qilindi', ru: 'В УзГУМЯ обсудили перспективы сотрудничества с международным центром «Ат-Танал аль-Арабий»', en: 'Cooperation prospects discussed with the At-Tanal al-Arabiy International Centre', zh: '我校与“At-Tanal al-Arabiy”国际中心探讨合作前景' } },
+  { type: 'news', slug: 'dia-de-la-hispanidad', date: '2026-10-16', category: cat.intl, title: { uz: 'O‘zDJTUda “Día de la Hispanidad” bayrami nishonlandi!', ru: 'В УзГУМЯ отметили «Día de la Hispanidad»!', en: 'UzSWLU celebrates Día de la Hispanidad!', zh: '我校庆祝“西班牙语世界日”！' } },
+  { type: 'news', slug: 'erasmus-ispaniya', date: '2026-10-16', category: cat.intl, sdg: 4, title: { uz: 'Ispaniyaga Erasmus+ bilan!', ru: 'В Испанию с Erasmus+!', en: 'To Spain with Erasmus+!', zh: '通过Erasmus+前往西班牙！' } },
+  { type: 'news', slug: 'yashil-makon', date: '2026-03-20', category: cat.green, sdg: 13, title: { uz: 'O‘zDJTUda “Yashil makon” loyihasi doirasida ko‘chat ekish aksiyasi davom etmoqda', ru: 'В УзГУМЯ продолжается посадка деревьев в рамках проекта «Зелёное пространство»', en: 'Tree planting continues under the “Green Space” project', zh: '我校“绿色空间”项目植树活动持续进行' } },
+  { type: 'news', slug: 'yangi-daraxt-yangi-nafas', date: '2026-03-20', category: cat.green, sdg: 13, title: { uz: 'O‘zDJTUda “Yangi daraxt — yangi nafas” shiori ostida hashar tashkil etildi', ru: 'В УзГУМЯ прошёл субботник под девизом «Новое дерево — новое дыхание»', en: 'Clean-up day held under the motto “A new tree is a new breath”', zh: '我校开展“新树·新呼吸”义务劳动' } },
+  { type: 'news', slug: 'xalqaro-yer-kuni', date: '2025-04-22', category: cat.green, sdg: 13, title: { uz: '“Xalqaro Yer kuni” munosabati bilan maketlar ko‘rgazmasi', ru: 'Выставка макетов ко Всемирному дню Земли', en: 'Model exhibition for International Earth Day', zh: '“世界地球日”模型展' } },
+  { type: 'news', slug: 'ttj-navbatchilik', date: '2023-12-09', category: cat.student, sdg: 6, title: { uz: 'Talabalar turar joyida navbatchilik tashkil qilindi', ru: 'В студенческом общежитии организовано дежурство', en: 'Duty roster organised in the student dormitory', zh: '学生宿舍组织值班' } },
+
+  // ── E'lonlar ──
+  { type: 'announcements', slug: 'phd-filologiya', date: '2026-10-21', category: cat.announcement, title: { uz: 'Filologiya fanlari bo‘yicha falsafa doktori (PhD) dissertatsiyasi himoyasi', ru: 'Защита диссертации доктора философии (PhD) по филологическим наукам', en: 'PhD dissertation defence in Philological Sciences', zh: '语文学哲学博士（PhD）学位论文答辩' } },
+  { type: 'announcements', slug: 'kengaytirilgan-kafedra-muhokamasi', date: '2026-10-20', category: cat.announcement, title: { uz: 'Dissertatsiya ishining kengaytirilgan kafedra yig‘ilishidagi ilmiy muhokamasi', ru: 'Научное обсуждение диссертации на расширенном заседании кафедры', en: 'Scientific discussion of a dissertation at an extended department meeting', zh: '扩大教研室会议上的学位论文学术讨论' } },
+  { type: 'announcements', slug: 'phd-himoya-pedagogika', date: '2026-10-20', category: cat.announcement, title: { uz: 'Pedagogika fanlari bo‘yicha falsafa doktori (PhD) dissertatsiyasi himoyasi Ilmiy kengash majlisi', ru: 'Заседание Научного совета: защита диссертации доктора философии (PhD) по педагогическим наукам', en: 'Scientific Council meeting: PhD dissertation defence in Pedagogical Sciences', zh: '学术委员会会议：教育学哲学博士（PhD）学位论文答辩' } },
+  { type: 'announcements', slug: 'ilmiy-seminar-1', date: '2026-10-20', category: cat.announcement, title: { uz: 'Dissertatsiya ishining ilmiy seminar muhokamasi', ru: 'Обсуждение диссертации на научном семинаре', en: 'Dissertation discussion at a research seminar', zh: '学位论文学术研讨会讨论' } },
+  { type: 'announcements', slug: 'ilmiy-seminar-2', date: '2026-10-19', category: cat.announcement, title: { uz: 'Dissertatsiya ishining ilmiy seminar muhokamasi', ru: 'Обсуждение диссертации на научном семинаре', en: 'Dissertation discussion at a research seminar', zh: '学位论文学术研讨会讨论' } },
+
+  // ── Tadbirlar (oktabr — o'tgan, uzswlu.uz yangiliklaridan; noyabr — NAMUNA) ──
+  { type: 'events', slug: 'rahbar-va-yoshlar', date: '2026-10-15T14:00:00+05:00', category: cat.meeting, location: UZSWLU, title: { uz: 'Magistrantlar bilan “Rahbar va yoshlar” uchrashuvi', ru: 'Встреча «Руководитель и молодёжь» с магистрантами', en: '“Leader and Youth” meeting with master’s students', zh: '与硕士生的“领导与青年”见面会' } },
+  { type: 'events', slug: 'work-and-travel', date: '2026-10-15T10:00:00+05:00', category: cat.seminar, sdg: 8, location: { uz: 'Angren fakulteti', ru: 'Ангренский факультет', en: 'Angren faculty', zh: '安格连分院' }, title: { uz: '«Work and Travel» dasturi bo‘yicha seminar-trening va workshoplar', ru: 'Семинар-тренинг и воркшопы по программе «Work and Travel»', en: 'Work and Travel programme seminar and workshops', zh: '“Work and Travel”项目研讨培训与工作坊' } },
+  { type: 'events', slug: 'italyan-tili-konferensiyasi', date: '2026-10-16T10:00:00+05:00', category: cat.science, sdg: 4, location: UZSWLU, title: { uz: '“Italyan tilini xorijiy til sifatida o‘qitishning dolzarb masalalari va yechimlari” xalqaro ilmiy-amaliy konferensiyasi', ru: 'Международная конференция «Актуальные проблемы и решения преподавания итальянского языка как иностранного»', en: 'International conference “Current Issues and Solutions in Teaching Italian as a Foreign Language”', zh: '“意大利语作为外语教学的现实问题与解决方案”国际研讨会' } },
+  { type: 'events', slug: 'dia-de-la-hispanidad-bayrami', date: '2026-10-16T15:00:00+05:00', category: cat.cultural, location: UZSWLU, title: { uz: '“Día de la Hispanidad” bayrami', ru: 'Праздник «Día de la Hispanidad»', en: 'Día de la Hispanidad celebration', zh: '“西班牙语世界日”庆祝活动' } },
+  { type: 'events', slug: 'zakovat-giyohvandlikka-qarshi', date: '2026-10-16T14:00:00+05:00', category: cat.outreach, sdg: 3, location: UZSWLU, title: { uz: '“Biz — giyohvandlikka qarshimiz!” mavzusida Zakovat bilimlar bellashuvi', ru: 'Интеллектуальная игра «Заковат» на тему «Мы против наркомании!»', en: '“Zakovat” quiz: “We Stand Against Drugs!”', zh: '“我们反对毒品！”主题知识竞赛' } },
+  { type: 'events', slug: 'ochiq-eshiklar-kuni', date: '2026-11-07T10:00:00+05:00', category: cat.applicants, location: { uz: 'Boş bino', ru: 'Главный корпус', en: 'Main building', zh: '主楼' }, title: { uz: 'Oçiq eşiklar kuni', ru: 'День открытых дверей', en: 'Open Day', zh: '开放日' } },
+  { type: 'events', slug: 'tillar-va-madaniyatlar-konferensiyasi', date: '2026-11-14T09:30:00+05:00', category: cat.science, location: { uz: 'Boş bino, majlislar zali', ru: 'Главный корпус, актовый зал', en: 'Main building, assembly hall', zh: '主楼礼堂' }, title: { uz: '“Tillar va madaniyatlar muloqoti” xalqaro ilmiy-amaliy konferensiyasi', ru: 'Международная научно-практическая конференция «Диалог языков и культур»', en: 'International conference “Dialogue of Languages and Cultures”', zh: '“语言与文化对话”国际学术研讨会' } },
+  { type: 'events', slug: 'talabalar-ijodiy-festivali', date: '2026-11-21T15:00:00+05:00', category: cat.cultural, location: { uz: 'Filologiya fakulteti binosi', ru: 'Корпус факультета филологии', en: 'Philology building', zh: '语文学院楼' }, title: { uz: 'Talabalar ijodiy festivali', ru: 'Фестиваль студенческого творчества', en: 'Student Creativity Festival', zh: '学生创意艺术节' } },
+]
+
+// Yangidan eskiga
+const sorted = [...seeds].sort((a, b) => b.date.localeCompare(a.date))
+
+const ymd = (iso: string) => iso.slice(0, 10)
+
+function toSummary(s: Seed, lang: Locale, i: number): PostSummary {
+  return {
+    id: `${s.type}-${i + 1}`,
+    type: s.type,
+    slug: s.slug,
+    date: ymd(s.date),
+    category: s.category[lang],
+    title: s.title[lang],
+    image: null,
+    excerpt: s.excerpt?.[lang] ?? null,
+  }
+}
+
+const summaries = (lang: Locale, filter: (s: Seed) => boolean) =>
+  sorted.filter(filter).map(s => toSummary(s, lang, seeds.indexOf(s)))
+
+function toEvent(s: Seed, lang: Locale): EventItem {
+  return {
+    id: `events-${seeds.indexOf(s) + 1}`,
+    slug: s.slug,
+    title: s.title[lang],
+    category: s.category[lang],
+    startsAt: s.date,
+    endsAt: null,
+    location: s.location?.[lang] ?? '',
+    image: null,
+  }
+}
+
+/** Bosh sahifa uchun: so'nggi postlar */
+export function getMockLatest(lang: Locale, type: PostType, limit: number): PostSummary[] {
+  return summaries(lang, s => s.type === type).slice(0, limit)
+}
+
+/** Bosh sahifa uchun: yaqin tadbirlar (bugundan keyin, eng yaqini birinchi) */
+export function getMockUpcomingEvents(lang: Locale, limit: number): EventItem[] {
+  const now = Date.now()
+  return seeds
+    .filter(s => s.type === 'events' && new Date(s.date).getTime() >= now)
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .slice(0, limit)
+    .map(s => toEvent(s, lang))
+}
+
+const fold = (v: string) => v.toLocaleLowerCase().replace(/[‘’ʻʼ`']/g, '\'')
+
+export function getMockPostList(lang: Locale, query: { type: PostType; q?: string; month?: string; sdg?: number; page: number; perPage: number }): PostList {
+  const q = query.q ? fold(query.q) : ''
+  const base = sorted.filter(s =>
+    (!q || fold(s.title[lang]).includes(q))
+    && (!query.month || s.date.startsWith(query.month))
+    && (!query.sdg || s.sdg === query.sdg))
+
+  const ofType = base.filter(s => s.type === query.type)
+  const start = (query.page - 1) * query.perPage
+
+  return {
+    items: ofType.slice(start, start + query.perPage).map(s => toSummary(s, lang, seeds.indexOf(s))),
+    total: ofType.length,
+    page: query.page,
+    perPage: query.perPage,
+    counts: {
+      news: base.filter(s => s.type === 'news').length,
+      announcements: base.filter(s => s.type === 'announcements').length,
+      events: base.filter(s => s.type === 'events').length,
+    },
+    months: [...new Set(sorted.filter(s => s.type === query.type).map(s => s.date.slice(0, 7)))],
+  }
+}
+
+export function getMockPost(lang: Locale, type: PostType, slug: string): Post | null {
+  const seed = seeds.find(s => s.type === type && s.slug === slug)
+  if (!seed) return null
+
+  const paragraphs = [seed.excerpt?.[lang], ...(seed.body?.[lang] ?? [SAMPLE[lang]])].filter(Boolean) as string[]
+  const words = paragraphs.join(' ').split(/\s+/).length
+  const others = summaries(lang, s => s.type === type && s.slug !== slug)
+
+  return {
+    ...toSummary(seed, lang, seeds.indexOf(seed)),
+    body: paragraphs.map(p => `<p>${p}</p>`).join(''),
+    author: type === 'events' && !seed.author ? null : { name: (seed.author ?? PRESS).name, role: (seed.author ?? PRESS).role[lang], avatar: null },
+    publishedAt: type === 'events' ? null : publishedAt(seed, seeds.indexOf(seed)),
+    gallery: [],
+    tags: seed.tags?.[lang] ?? [],
+    readingMinutes: Math.max(1, Math.round(words / 180)),
+    startsAt: type === 'events' ? seed.date : null,
+    endsAt: null,
+    location: seed.location?.[lang] ?? null,
+    related: others.filter(o => o.category === seed.category[lang]).concat(others).filter((o, i, a) => a.indexOf(o) === i).slice(0, 3),
+    latest: summaries(lang, s => s.type === 'news' && s.slug !== slug).slice(0, 4),
+  }
+}
+
+export function getMockEventMonth(lang: Locale, month: string): EventMonth {
+  return {
+    month,
+    items: seeds
+      .filter(s => s.type === 'events' && s.date.startsWith(month))
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .map(s => toEvent(s, lang)),
+    upcoming: getMockUpcomingEvents(lang, 3),
+  }
+}
+
+/** Qidiruv uchun barcha postlar (joriy tilda) */
+export function getMockPostIndex(lang: Locale) {
+  return sorted.map(s => ({ ...toSummary(s, lang, seeds.indexOf(s)), text: s.excerpt?.[lang] ?? s.body?.[lang]?.[0] ?? '' }))
+}

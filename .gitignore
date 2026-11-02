@@ -1,0 +1,29 @@
+# Bog'liqliklar va build natijalari
+node_modules/
+dist/
+.output/
+.nuxt/
+.nitro/
+.cache/
+.data/
+.next/
+*.tsbuildinfo
+*.log
+
+# Maxfiy sozlamalar (parollar, kalitlar) — faqat .env.example yuklanadi
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Admin panelda yuklangan fayllar (rasm, PDF) — serverda saqlanadi
+backend/media/
+
+# TailAdmin shablonining asl nusxasi (alohida repozitoriy, faqat namuna uchun)
+admin-template/
+
+# Shaxsiy sozlamalar
+.claude/settings.local.json
+.DS_Store
+.idea/
+.vscode/

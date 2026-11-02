@@ -1,0 +1,4896 @@
+{
+ "syncedAt": null,
+ "faculties": [
+  {
+   "slug": "english-philology",
+   "order": 1,
+   "logo": "/logos/faculties/english-philology.webp",
+   "name": {
+    "uz": "Ingliz filologiyasi fakulteti",
+    "ru": "Факультет английской филологии",
+    "en": "Faculty of English Philology",
+    "zh": "英语语文学院"
+   },
+   "about": {
+    "uz": "Fakultet ingliz tili va adabiyoti, tilşunoslik va til öqitiş metodikasi böyiça bakalavr, magistr va tadqiqotçilar tayyorlaydi. Tavsif matni admin panel orqali kiritiladi — bu namunaviy matn.",
+    "ru": "Факультет готовит бакалавров, магистров и исследователей в области английского языка и литературы, лингвистики и методики преподавания. Описание добавляется через админ-панель — это демонстрационный текст.",
+    "en": "The faculty trains bachelor’s and master’s students and researchers in English language and literature, linguistics and language teaching. The description is added in the admin panel — this is sample text.",
+    "zh": "学院培养英语语言文学、语言学和语言教学方向的本科生、硕士生和研究人员。简介通过管理后台添加——此为示例文字。"
+   },
+   "stats": {
+    "students": 1850,
+    "departments": 5,
+    "programs": 6,
+    "teachers": 96
+   },
+   "dean": {
+    "uz": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dekan",
+     "degree": "Filologiya fanlari doktori, professor",
+     "photo": null,
+     "hours": "Seşanba, payşanba · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-philology@uzswlu.uz"
+    },
+    "ru": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Декан",
+     "degree": "Доктор филологических наук, профессор",
+     "photo": null,
+     "hours": "Вторник, четверг · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-philology@uzswlu.uz"
+    },
+    "en": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dean",
+     "degree": "Doctor of Philology, Professor",
+     "photo": null,
+     "hours": "Tue, Thu · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-philology@uzswlu.uz"
+    },
+    "zh": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "院长",
+     "degree": "语文学博士，教授",
+     "photo": null,
+     "hours": "周二、周四 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-philology@uzswlu.uz"
+    }
+   },
+   "deanery": {
+    "uz": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (öquv işlari)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (yoşlar bilan işlaş)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekanat uslubçisi",
+      "photo": null
+     }
+    ],
+    "ru": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Декан",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по учебной работе",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по работе с молодёжью",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Методист деканата",
+      "photo": null
+     }
+    ],
+    "en": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Academic Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Youth Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean’s Office Coordinator",
+      "photo": null
+     }
+    ],
+    "zh": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院长",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（教学）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（青年工作）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院办教学秘书",
+      "photo": null
+     }
+    ]
+   },
+   "programs": {
+    "uz": [
+     {
+      "code": "60230100",
+      "title": "Filologiya va tillarni o‘qitish",
+      "level": "bachelor",
+      "form": "Kunduzgi",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Xorijiy til va adabiyoti",
+      "level": "bachelor",
+      "form": "Sirtqi",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Lingvistika (ingliz tili)",
+      "level": "master",
+      "form": "Kunduzgi",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Yevropa, Amerika va Avstraliya xalqlari tili va adabiyoti",
+      "level": "phd",
+      "form": "Kunduzgi",
+      "years": 3
+     }
+    ],
+    "ru": [
+     {
+      "code": "60230100",
+      "title": "Филология и преподавание языков",
+      "level": "bachelor",
+      "form": "Очная",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Иностранный язык и литература",
+      "level": "bachelor",
+      "form": "Заочная",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Лингвистика (английский язык)",
+      "level": "master",
+      "form": "Очная",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Языки и литература народов Европы, Америки и Австралии",
+      "level": "phd",
+      "form": "Очная",
+      "years": 3
+     }
+    ],
+    "en": [
+     {
+      "code": "60230100",
+      "title": "Philology and Language Teaching",
+      "level": "bachelor",
+      "form": "Full-time",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Foreign Language and Literature",
+      "level": "bachelor",
+      "form": "Distance",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Linguistics (English)",
+      "level": "master",
+      "form": "Full-time",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Languages and Literature of the Peoples of Europe, America and Australia",
+      "level": "phd",
+      "form": "Full-time",
+      "years": 3
+     }
+    ],
+    "zh": [
+     {
+      "code": "60230100",
+      "title": "语文学与语言教学",
+      "level": "bachelor",
+      "form": "全日制",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "外国语言文学",
+      "level": "bachelor",
+      "form": "函授",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "语言学（英语）",
+      "level": "master",
+      "form": "全日制",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "欧洲、美洲和澳大利亚民族语言与文学",
+      "level": "phd",
+      "form": "全日制",
+      "years": 3
+     }
+    ]
+   },
+   "departments": [
+    {
+     "id": "english-philology-1",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili leksikologiyasi kafedrasi",
+      "ru": "Кафедра лексикологии английского языка",
+      "en": "Department of English Lexicology",
+      "zh": "英语词汇学教研室"
+     }
+    },
+    {
+     "id": "english-philology-2",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili grammatikasi kafedrasi",
+      "ru": "Кафедра грамматики английского языка",
+      "en": "Department of English Grammar",
+      "zh": "英语语法教研室"
+     }
+    },
+    {
+     "id": "english-philology-3",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili stilistikasi kafedrasi",
+      "ru": "Кафедра стилистики английского языка",
+      "en": "Department of English Stylistics",
+      "zh": "英语文体学教研室"
+     }
+    },
+    {
+     "id": "english-philology-4",
+     "head": null,
+     "name": {
+      "uz": "Ingliz adabiyoti kafedrasi",
+      "ru": "Кафедра английской литературы",
+      "en": "Department of English Literature",
+      "zh": "英国文学教研室"
+     }
+    },
+    {
+     "id": "english-philology-5",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili öqitiş metodikasi kafedrasi",
+      "ru": "Кафедра методики преподавания английского языка",
+      "en": "Department of English Teaching Methodology",
+      "zh": "英语教学法教研室"
+     }
+    }
+   ],
+   "contact": {
+    "uz": {
+     "address": "Boş bino, 2-qavat, 214-xona",
+     "phone": "+998 71 230 13 73",
+     "email": "english-philology@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "ru": {
+     "address": "Главный корпус, 2-й этаж, каб. 214",
+     "phone": "+998 71 230 13 73",
+     "email": "english-philology@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "en": {
+     "address": "Main building, 2nd floor, room 214",
+     "phone": "+998 71 230 13 73",
+     "email": "english-philology@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "zh": {
+     "address": "主楼二层214室",
+     "phone": "+998 71 230 13 73",
+     "email": "english-philology@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    }
+   }
+  },
+  {
+   "slug": "english-1",
+   "order": 2,
+   "logo": "/logos/faculties/english-1.webp",
+   "name": {
+    "uz": "Ingliz tili №1 fakulteti",
+    "ru": "Факультет английского языка №1",
+    "en": "Faculty of English Language No. 1",
+    "zh": "第一英语学院"
+   },
+   "about": {
+    "uz": "Fakultet ingliz tili va adabiyoti, tilşunoslik va til öqitiş metodikasi böyiça bakalavr, magistr va tadqiqotçilar tayyorlaydi. Tavsif matni admin panel orqali kiritiladi — bu namunaviy matn.",
+    "ru": "Факультет готовит бакалавров, магистров и исследователей в области английского языка и литературы, лингвистики и методики преподавания. Описание добавляется через админ-панель — это демонстрационный текст.",
+    "en": "The faculty trains bachelor’s and master’s students and researchers in English language and literature, linguistics and language teaching. The description is added in the admin panel — this is sample text.",
+    "zh": "学院培养英语语言文学、语言学和语言教学方向的本科生、硕士生和研究人员。简介通过管理后台添加——此为示例文字。"
+   },
+   "stats": {
+    "students": 1850,
+    "departments": 4,
+    "programs": 3,
+    "teachers": 96
+   },
+   "dean": {
+    "uz": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dekan",
+     "degree": "Filologiya fanlari doktori, professor",
+     "photo": null,
+     "hours": "Seşanba, payşanba · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-1@uzswlu.uz"
+    },
+    "ru": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Декан",
+     "degree": "Доктор филологических наук, профессор",
+     "photo": null,
+     "hours": "Вторник, четверг · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-1@uzswlu.uz"
+    },
+    "en": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dean",
+     "degree": "Doctor of Philology, Professor",
+     "photo": null,
+     "hours": "Tue, Thu · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-1@uzswlu.uz"
+    },
+    "zh": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "院长",
+     "degree": "语文学博士，教授",
+     "photo": null,
+     "hours": "周二、周四 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-1@uzswlu.uz"
+    }
+   },
+   "deanery": {
+    "uz": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (öquv işlari)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (yoşlar bilan işlaş)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekanat uslubçisi",
+      "photo": null
+     }
+    ],
+    "ru": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Декан",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по учебной работе",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по работе с молодёжью",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Методист деканата",
+      "photo": null
+     }
+    ],
+    "en": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Academic Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Youth Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean’s Office Coordinator",
+      "photo": null
+     }
+    ],
+    "zh": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院长",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（教学）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（青年工作）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院办教学秘书",
+      "photo": null
+     }
+    ]
+   },
+   "programs": {
+    "uz": [
+     {
+      "code": "60230100",
+      "title": "Filologiya va tillarni o‘qitish",
+      "level": "bachelor",
+      "form": "Kunduzgi",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Xorijiy til va adabiyoti",
+      "level": "bachelor",
+      "form": "Sirtqi",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Lingvistika (ingliz tili)",
+      "level": "master",
+      "form": "Kunduzgi",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Yevropa, Amerika va Avstraliya xalqlari tili va adabiyoti",
+      "level": "phd",
+      "form": "Kunduzgi",
+      "years": 3
+     }
+    ],
+    "ru": [
+     {
+      "code": "60230100",
+      "title": "Филология и преподавание языков",
+      "level": "bachelor",
+      "form": "Очная",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Иностранный язык и литература",
+      "level": "bachelor",
+      "form": "Заочная",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Лингвистика (английский язык)",
+      "level": "master",
+      "form": "Очная",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Языки и литература народов Европы, Америки и Австралии",
+      "level": "phd",
+      "form": "Очная",
+      "years": 3
+     }
+    ],
+    "en": [
+     {
+      "code": "60230100",
+      "title": "Philology and Language Teaching",
+      "level": "bachelor",
+      "form": "Full-time",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Foreign Language and Literature",
+      "level": "bachelor",
+      "form": "Distance",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Linguistics (English)",
+      "level": "master",
+      "form": "Full-time",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Languages and Literature of the Peoples of Europe, America and Australia",
+      "level": "phd",
+      "form": "Full-time",
+      "years": 3
+     }
+    ],
+    "zh": [
+     {
+      "code": "60230100",
+      "title": "语文学与语言教学",
+      "level": "bachelor",
+      "form": "全日制",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "外国语言文学",
+      "level": "bachelor",
+      "form": "函授",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "语言学（英语）",
+      "level": "master",
+      "form": "全日制",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "欧洲、美洲和澳大利亚民族语言与文学",
+      "level": "phd",
+      "form": "全日制",
+      "years": 3
+     }
+    ]
+   },
+   "departments": [
+    {
+     "id": "english-1-1",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili leksikologiyasi kafedrasi",
+      "ru": "Кафедра лексикологии английского языка",
+      "en": "Department of English Lexicology",
+      "zh": "英语词汇学教研室"
+     }
+    },
+    {
+     "id": "english-1-2",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili grammatikasi kafedrasi",
+      "ru": "Кафедра грамматики английского языка",
+      "en": "Department of English Grammar",
+      "zh": "英语语法教研室"
+     }
+    },
+    {
+     "id": "english-1-3",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili stilistikasi kafedrasi",
+      "ru": "Кафедра стилистики английского языка",
+      "en": "Department of English Stylistics",
+      "zh": "英语文体学教研室"
+     }
+    },
+    {
+     "id": "english-1-4",
+     "head": null,
+     "name": {
+      "uz": "Ingliz adabiyoti kafedrasi",
+      "ru": "Кафедра английской литературы",
+      "en": "Department of English Literature",
+      "zh": "英国文学教研室"
+     }
+    }
+   ],
+   "contact": {
+    "uz": {
+     "address": "Boş bino, 2-qavat, 214-xona",
+     "phone": "+998 71 230 13 73",
+     "email": "english-1@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "ru": {
+     "address": "Главный корпус, 2-й этаж, каб. 214",
+     "phone": "+998 71 230 13 73",
+     "email": "english-1@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "en": {
+     "address": "Main building, 2nd floor, room 214",
+     "phone": "+998 71 230 13 73",
+     "email": "english-1@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "zh": {
+     "address": "主楼二层214室",
+     "phone": "+998 71 230 13 73",
+     "email": "english-1@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    }
+   }
+  },
+  {
+   "slug": "english-2",
+   "order": 3,
+   "logo": "/logos/faculties/english-2.webp",
+   "name": {
+    "uz": "Ingliz tili №2 fakulteti",
+    "ru": "Факультет английского языка №2",
+    "en": "Faculty of English Language No. 2",
+    "zh": "第二英语学院"
+   },
+   "about": {
+    "uz": "Fakultet ingliz tili va adabiyoti, tilşunoslik va til öqitiş metodikasi böyiça bakalavr, magistr va tadqiqotçilar tayyorlaydi. Tavsif matni admin panel orqali kiritiladi — bu namunaviy matn.",
+    "ru": "Факультет готовит бакалавров, магистров и исследователей в области английского языка и литературы, лингвистики и методики преподавания. Описание добавляется через админ-панель — это демонстрационный текст.",
+    "en": "The faculty trains bachelor’s and master’s students and researchers in English language and literature, linguistics and language teaching. The description is added in the admin panel — this is sample text.",
+    "zh": "学院培养英语语言文学、语言学和语言教学方向的本科生、硕士生和研究人员。简介通过管理后台添加——此为示例文字。"
+   },
+   "stats": {
+    "students": 1850,
+    "departments": 4,
+    "programs": 3,
+    "teachers": 96
+   },
+   "dean": {
+    "uz": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dekan",
+     "degree": "Filologiya fanlari doktori, professor",
+     "photo": null,
+     "hours": "Seşanba, payşanba · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-2@uzswlu.uz"
+    },
+    "ru": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Декан",
+     "degree": "Доктор филологических наук, профессор",
+     "photo": null,
+     "hours": "Вторник, четверг · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-2@uzswlu.uz"
+    },
+    "en": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dean",
+     "degree": "Doctor of Philology, Professor",
+     "photo": null,
+     "hours": "Tue, Thu · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-2@uzswlu.uz"
+    },
+    "zh": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "院长",
+     "degree": "语文学博士，教授",
+     "photo": null,
+     "hours": "周二、周四 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-2@uzswlu.uz"
+    }
+   },
+   "deanery": {
+    "uz": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (öquv işlari)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (yoşlar bilan işlaş)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekanat uslubçisi",
+      "photo": null
+     }
+    ],
+    "ru": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Декан",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по учебной работе",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по работе с молодёжью",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Методист деканата",
+      "photo": null
+     }
+    ],
+    "en": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Academic Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Youth Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean’s Office Coordinator",
+      "photo": null
+     }
+    ],
+    "zh": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院长",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（教学）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（青年工作）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院办教学秘书",
+      "photo": null
+     }
+    ]
+   },
+   "programs": {
+    "uz": [
+     {
+      "code": "60230100",
+      "title": "Filologiya va tillarni o‘qitish",
+      "level": "bachelor",
+      "form": "Kunduzgi",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Xorijiy til va adabiyoti",
+      "level": "bachelor",
+      "form": "Sirtqi",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Lingvistika (ingliz tili)",
+      "level": "master",
+      "form": "Kunduzgi",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Yevropa, Amerika va Avstraliya xalqlari tili va adabiyoti",
+      "level": "phd",
+      "form": "Kunduzgi",
+      "years": 3
+     }
+    ],
+    "ru": [
+     {
+      "code": "60230100",
+      "title": "Филология и преподавание языков",
+      "level": "bachelor",
+      "form": "Очная",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Иностранный язык и литература",
+      "level": "bachelor",
+      "form": "Заочная",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Лингвистика (английский язык)",
+      "level": "master",
+      "form": "Очная",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Языки и литература народов Европы, Америки и Австралии",
+      "level": "phd",
+      "form": "Очная",
+      "years": 3
+     }
+    ],
+    "en": [
+     {
+      "code": "60230100",
+      "title": "Philology and Language Teaching",
+      "level": "bachelor",
+      "form": "Full-time",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Foreign Language and Literature",
+      "level": "bachelor",
+      "form": "Distance",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Linguistics (English)",
+      "level": "master",
+      "form": "Full-time",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Languages and Literature of the Peoples of Europe, America and Australia",
+      "level": "phd",
+      "form": "Full-time",
+      "years": 3
+     }
+    ],
+    "zh": [
+     {
+      "code": "60230100",
+      "title": "语文学与语言教学",
+      "level": "bachelor",
+      "form": "全日制",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "外国语言文学",
+      "level": "bachelor",
+      "form": "函授",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "语言学（英语）",
+      "level": "master",
+      "form": "全日制",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "欧洲、美洲和澳大利亚民族语言与文学",
+      "level": "phd",
+      "form": "全日制",
+      "years": 3
+     }
+    ]
+   },
+   "departments": [
+    {
+     "id": "english-2-1",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili leksikologiyasi kafedrasi",
+      "ru": "Кафедра лексикологии английского языка",
+      "en": "Department of English Lexicology",
+      "zh": "英语词汇学教研室"
+     }
+    },
+    {
+     "id": "english-2-2",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili grammatikasi kafedrasi",
+      "ru": "Кафедра грамматики английского языка",
+      "en": "Department of English Grammar",
+      "zh": "英语语法教研室"
+     }
+    },
+    {
+     "id": "english-2-3",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili stilistikasi kafedrasi",
+      "ru": "Кафедра стилистики английского языка",
+      "en": "Department of English Stylistics",
+      "zh": "英语文体学教研室"
+     }
+    },
+    {
+     "id": "english-2-4",
+     "head": null,
+     "name": {
+      "uz": "Ingliz adabiyoti kafedrasi",
+      "ru": "Кафедра английской литературы",
+      "en": "Department of English Literature",
+      "zh": "英国文学教研室"
+     }
+    }
+   ],
+   "contact": {
+    "uz": {
+     "address": "Boş bino, 2-qavat, 214-xona",
+     "phone": "+998 71 230 13 73",
+     "email": "english-2@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "ru": {
+     "address": "Главный корпус, 2-й этаж, каб. 214",
+     "phone": "+998 71 230 13 73",
+     "email": "english-2@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "en": {
+     "address": "Main building, 2nd floor, room 214",
+     "phone": "+998 71 230 13 73",
+     "email": "english-2@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "zh": {
+     "address": "主楼二层214室",
+     "phone": "+998 71 230 13 73",
+     "email": "english-2@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    }
+   }
+  },
+  {
+   "slug": "english-3",
+   "order": 4,
+   "logo": "/logos/faculties/english-3.webp",
+   "name": {
+    "uz": "Ingliz tili №3 fakulteti",
+    "ru": "Факультет английского языка №3",
+    "en": "Faculty of English Language No. 3",
+    "zh": "第三英语学院"
+   },
+   "about": {
+    "uz": "Fakultet ingliz tili va adabiyoti, tilşunoslik va til öqitiş metodikasi böyiça bakalavr, magistr va tadqiqotçilar tayyorlaydi. Tavsif matni admin panel orqali kiritiladi — bu namunaviy matn.",
+    "ru": "Факультет готовит бакалавров, магистров и исследователей в области английского языка и литературы, лингвистики и методики преподавания. Описание добавляется через админ-панель — это демонстрационный текст.",
+    "en": "The faculty trains bachelor’s and master’s students and researchers in English language and literature, linguistics and language teaching. The description is added in the admin panel — this is sample text.",
+    "zh": "学院培养英语语言文学、语言学和语言教学方向的本科生、硕士生和研究人员。简介通过管理后台添加——此为示例文字。"
+   },
+   "stats": {
+    "students": 1850,
+    "departments": 4,
+    "programs": 3,
+    "teachers": 96
+   },
+   "dean": {
+    "uz": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dekan",
+     "degree": "Filologiya fanlari doktori, professor",
+     "photo": null,
+     "hours": "Seşanba, payşanba · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-3@uzswlu.uz"
+    },
+    "ru": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Декан",
+     "degree": "Доктор филологических наук, профессор",
+     "photo": null,
+     "hours": "Вторник, четверг · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-3@uzswlu.uz"
+    },
+    "en": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dean",
+     "degree": "Doctor of Philology, Professor",
+     "photo": null,
+     "hours": "Tue, Thu · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-3@uzswlu.uz"
+    },
+    "zh": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "院长",
+     "degree": "语文学博士，教授",
+     "photo": null,
+     "hours": "周二、周四 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "english-3@uzswlu.uz"
+    }
+   },
+   "deanery": {
+    "uz": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (öquv işlari)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (yoşlar bilan işlaş)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekanat uslubçisi",
+      "photo": null
+     }
+    ],
+    "ru": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Декан",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по учебной работе",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по работе с молодёжью",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Методист деканата",
+      "photo": null
+     }
+    ],
+    "en": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Academic Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Youth Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean’s Office Coordinator",
+      "photo": null
+     }
+    ],
+    "zh": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院长",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（教学）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（青年工作）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院办教学秘书",
+      "photo": null
+     }
+    ]
+   },
+   "programs": {
+    "uz": [
+     {
+      "code": "60230100",
+      "title": "Filologiya va tillarni o‘qitish",
+      "level": "bachelor",
+      "form": "Kunduzgi",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Xorijiy til va adabiyoti",
+      "level": "bachelor",
+      "form": "Sirtqi",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Lingvistika (ingliz tili)",
+      "level": "master",
+      "form": "Kunduzgi",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Yevropa, Amerika va Avstraliya xalqlari tili va adabiyoti",
+      "level": "phd",
+      "form": "Kunduzgi",
+      "years": 3
+     }
+    ],
+    "ru": [
+     {
+      "code": "60230100",
+      "title": "Филология и преподавание языков",
+      "level": "bachelor",
+      "form": "Очная",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Иностранный язык и литература",
+      "level": "bachelor",
+      "form": "Заочная",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Лингвистика (английский язык)",
+      "level": "master",
+      "form": "Очная",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Языки и литература народов Европы, Америки и Австралии",
+      "level": "phd",
+      "form": "Очная",
+      "years": 3
+     }
+    ],
+    "en": [
+     {
+      "code": "60230100",
+      "title": "Philology and Language Teaching",
+      "level": "bachelor",
+      "form": "Full-time",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Foreign Language and Literature",
+      "level": "bachelor",
+      "form": "Distance",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Linguistics (English)",
+      "level": "master",
+      "form": "Full-time",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Languages and Literature of the Peoples of Europe, America and Australia",
+      "level": "phd",
+      "form": "Full-time",
+      "years": 3
+     }
+    ],
+    "zh": [
+     {
+      "code": "60230100",
+      "title": "语文学与语言教学",
+      "level": "bachelor",
+      "form": "全日制",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "外国语言文学",
+      "level": "bachelor",
+      "form": "函授",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "语言学（英语）",
+      "level": "master",
+      "form": "全日制",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "欧洲、美洲和澳大利亚民族语言与文学",
+      "level": "phd",
+      "form": "全日制",
+      "years": 3
+     }
+    ]
+   },
+   "departments": [
+    {
+     "id": "english-3-1",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili leksikologiyasi kafedrasi",
+      "ru": "Кафедра лексикологии английского языка",
+      "en": "Department of English Lexicology",
+      "zh": "英语词汇学教研室"
+     }
+    },
+    {
+     "id": "english-3-2",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili grammatikasi kafedrasi",
+      "ru": "Кафедра грамматики английского языка",
+      "en": "Department of English Grammar",
+      "zh": "英语语法教研室"
+     }
+    },
+    {
+     "id": "english-3-3",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili stilistikasi kafedrasi",
+      "ru": "Кафедра стилистики английского языка",
+      "en": "Department of English Stylistics",
+      "zh": "英语文体学教研室"
+     }
+    },
+    {
+     "id": "english-3-4",
+     "head": null,
+     "name": {
+      "uz": "Ingliz adabiyoti kafedrasi",
+      "ru": "Кафедра английской литературы",
+      "en": "Department of English Literature",
+      "zh": "英国文学教研室"
+     }
+    }
+   ],
+   "contact": {
+    "uz": {
+     "address": "Boş bino, 2-qavat, 214-xona",
+     "phone": "+998 71 230 13 73",
+     "email": "english-3@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "ru": {
+     "address": "Главный корпус, 2-й этаж, каб. 214",
+     "phone": "+998 71 230 13 73",
+     "email": "english-3@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "en": {
+     "address": "Main building, 2nd floor, room 214",
+     "phone": "+998 71 230 13 73",
+     "email": "english-3@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "zh": {
+     "address": "主楼二层214室",
+     "phone": "+998 71 230 13 73",
+     "email": "english-3@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    }
+   }
+  },
+  {
+   "slug": "russian-philology",
+   "order": 5,
+   "logo": "/logos/faculties/russian-philology.webp",
+   "name": {
+    "uz": "Rus filologiyasi fakulteti",
+    "ru": "Факультет русской филологии",
+    "en": "Faculty of Russian Philology",
+    "zh": "俄语语文学院"
+   },
+   "about": {
+    "uz": "Fakultet ingliz tili va adabiyoti, tilşunoslik va til öqitiş metodikasi böyiça bakalavr, magistr va tadqiqotçilar tayyorlaydi. Tavsif matni admin panel orqali kiritiladi — bu namunaviy matn.",
+    "ru": "Факультет готовит бакалавров, магистров и исследователей в области английского языка и литературы, лингвистики и методики преподавания. Описание добавляется через админ-панель — это демонстрационный текст.",
+    "en": "The faculty trains bachelor’s and master’s students and researchers in English language and literature, linguistics and language teaching. The description is added in the admin panel — this is sample text.",
+    "zh": "学院培养英语语言文学、语言学和语言教学方向的本科生、硕士生和研究人员。简介通过管理后台添加——此为示例文字。"
+   },
+   "stats": {
+    "students": 1850,
+    "departments": 4,
+    "programs": 4,
+    "teachers": 96
+   },
+   "dean": {
+    "uz": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dekan",
+     "degree": "Filologiya fanlari doktori, professor",
+     "photo": null,
+     "hours": "Seşanba, payşanba · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "russian-philology@uzswlu.uz"
+    },
+    "ru": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Декан",
+     "degree": "Доктор филологических наук, профессор",
+     "photo": null,
+     "hours": "Вторник, четверг · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "russian-philology@uzswlu.uz"
+    },
+    "en": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dean",
+     "degree": "Doctor of Philology, Professor",
+     "photo": null,
+     "hours": "Tue, Thu · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "russian-philology@uzswlu.uz"
+    },
+    "zh": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "院长",
+     "degree": "语文学博士，教授",
+     "photo": null,
+     "hours": "周二、周四 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "russian-philology@uzswlu.uz"
+    }
+   },
+   "deanery": {
+    "uz": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (öquv işlari)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (yoşlar bilan işlaş)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekanat uslubçisi",
+      "photo": null
+     }
+    ],
+    "ru": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Декан",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по учебной работе",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по работе с молодёжью",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Методист деканата",
+      "photo": null
+     }
+    ],
+    "en": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Academic Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Youth Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean’s Office Coordinator",
+      "photo": null
+     }
+    ],
+    "zh": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院长",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（教学）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（青年工作）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院办教学秘书",
+      "photo": null
+     }
+    ]
+   },
+   "programs": {
+    "uz": [
+     {
+      "code": "60230100",
+      "title": "Filologiya va tillarni o‘qitish",
+      "level": "bachelor",
+      "form": "Kunduzgi",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Xorijiy til va adabiyoti",
+      "level": "bachelor",
+      "form": "Sirtqi",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Lingvistika (ingliz tili)",
+      "level": "master",
+      "form": "Kunduzgi",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Yevropa, Amerika va Avstraliya xalqlari tili va adabiyoti",
+      "level": "phd",
+      "form": "Kunduzgi",
+      "years": 3
+     }
+    ],
+    "ru": [
+     {
+      "code": "60230100",
+      "title": "Филология и преподавание языков",
+      "level": "bachelor",
+      "form": "Очная",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Иностранный язык и литература",
+      "level": "bachelor",
+      "form": "Заочная",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Лингвистика (английский язык)",
+      "level": "master",
+      "form": "Очная",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Языки и литература народов Европы, Америки и Австралии",
+      "level": "phd",
+      "form": "Очная",
+      "years": 3
+     }
+    ],
+    "en": [
+     {
+      "code": "60230100",
+      "title": "Philology and Language Teaching",
+      "level": "bachelor",
+      "form": "Full-time",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Foreign Language and Literature",
+      "level": "bachelor",
+      "form": "Distance",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Linguistics (English)",
+      "level": "master",
+      "form": "Full-time",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Languages and Literature of the Peoples of Europe, America and Australia",
+      "level": "phd",
+      "form": "Full-time",
+      "years": 3
+     }
+    ],
+    "zh": [
+     {
+      "code": "60230100",
+      "title": "语文学与语言教学",
+      "level": "bachelor",
+      "form": "全日制",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "外国语言文学",
+      "level": "bachelor",
+      "form": "函授",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "语言学（英语）",
+      "level": "master",
+      "form": "全日制",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "欧洲、美洲和澳大利亚民族语言与文学",
+      "level": "phd",
+      "form": "全日制",
+      "years": 3
+     }
+    ]
+   },
+   "departments": [
+    {
+     "id": "russian-philology-1",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili leksikologiyasi kafedrasi",
+      "ru": "Кафедра лексикологии английского языка",
+      "en": "Department of English Lexicology",
+      "zh": "英语词汇学教研室"
+     }
+    },
+    {
+     "id": "russian-philology-2",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili grammatikasi kafedrasi",
+      "ru": "Кафедра грамматики английского языка",
+      "en": "Department of English Grammar",
+      "zh": "英语语法教研室"
+     }
+    },
+    {
+     "id": "russian-philology-3",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili stilistikasi kafedrasi",
+      "ru": "Кафедра стилистики английского языка",
+      "en": "Department of English Stylistics",
+      "zh": "英语文体学教研室"
+     }
+    },
+    {
+     "id": "russian-philology-4",
+     "head": null,
+     "name": {
+      "uz": "Ingliz adabiyoti kafedrasi",
+      "ru": "Кафедра английской литературы",
+      "en": "Department of English Literature",
+      "zh": "英国文学教研室"
+     }
+    }
+   ],
+   "contact": {
+    "uz": {
+     "address": "Boş bino, 2-qavat, 214-xona",
+     "phone": "+998 71 230 13 73",
+     "email": "russian-philology@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "ru": {
+     "address": "Главный корпус, 2-й этаж, каб. 214",
+     "phone": "+998 71 230 13 73",
+     "email": "russian-philology@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "en": {
+     "address": "Main building, 2nd floor, room 214",
+     "phone": "+998 71 230 13 73",
+     "email": "russian-philology@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "zh": {
+     "address": "主楼二层214室",
+     "phone": "+998 71 230 13 73",
+     "email": "russian-philology@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    }
+   }
+  },
+  {
+   "slug": "romance-germanic",
+   "order": 6,
+   "logo": "/logos/faculties/romance-germanic.webp",
+   "name": {
+    "uz": "Roman-german filologiyasi fakulteti",
+    "ru": "Факультет романо-германской филологии",
+    "en": "Faculty of Romance and Germanic Philology",
+    "zh": "罗曼-日耳曼语文学院"
+   },
+   "about": {
+    "uz": "Fakultet ingliz tili va adabiyoti, tilşunoslik va til öqitiş metodikasi böyiça bakalavr, magistr va tadqiqotçilar tayyorlaydi. Tavsif matni admin panel orqali kiritiladi — bu namunaviy matn.",
+    "ru": "Факультет готовит бакалавров, магистров и исследователей в области английского языка и литературы, лингвистики и методики преподавания. Описание добавляется через админ-панель — это демонстрационный текст.",
+    "en": "The faculty trains bachelor’s and master’s students and researchers in English language and literature, linguistics and language teaching. The description is added in the admin panel — this is sample text.",
+    "zh": "学院培养英语语言文学、语言学和语言教学方向的本科生、硕士生和研究人员。简介通过管理后台添加——此为示例文字。"
+   },
+   "stats": {
+    "students": 1850,
+    "departments": 6,
+    "programs": 8,
+    "teachers": 96
+   },
+   "dean": {
+    "uz": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dekan",
+     "degree": "Filologiya fanlari doktori, professor",
+     "photo": null,
+     "hours": "Seşanba, payşanba · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "romance-germanic@uzswlu.uz"
+    },
+    "ru": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Декан",
+     "degree": "Доктор филологических наук, профессор",
+     "photo": null,
+     "hours": "Вторник, четверг · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "romance-germanic@uzswlu.uz"
+    },
+    "en": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dean",
+     "degree": "Doctor of Philology, Professor",
+     "photo": null,
+     "hours": "Tue, Thu · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "romance-germanic@uzswlu.uz"
+    },
+    "zh": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "院长",
+     "degree": "语文学博士，教授",
+     "photo": null,
+     "hours": "周二、周四 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "romance-germanic@uzswlu.uz"
+    }
+   },
+   "deanery": {
+    "uz": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (öquv işlari)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (yoşlar bilan işlaş)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekanat uslubçisi",
+      "photo": null
+     }
+    ],
+    "ru": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Декан",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по учебной работе",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по работе с молодёжью",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Методист деканата",
+      "photo": null
+     }
+    ],
+    "en": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Academic Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Youth Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean’s Office Coordinator",
+      "photo": null
+     }
+    ],
+    "zh": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院长",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（教学）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（青年工作）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院办教学秘书",
+      "photo": null
+     }
+    ]
+   },
+   "programs": {
+    "uz": [
+     {
+      "code": "60230100",
+      "title": "Filologiya va tillarni o‘qitish",
+      "level": "bachelor",
+      "form": "Kunduzgi",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Xorijiy til va adabiyoti",
+      "level": "bachelor",
+      "form": "Sirtqi",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Lingvistika (ingliz tili)",
+      "level": "master",
+      "form": "Kunduzgi",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Yevropa, Amerika va Avstraliya xalqlari tili va adabiyoti",
+      "level": "phd",
+      "form": "Kunduzgi",
+      "years": 3
+     }
+    ],
+    "ru": [
+     {
+      "code": "60230100",
+      "title": "Филология и преподавание языков",
+      "level": "bachelor",
+      "form": "Очная",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Иностранный язык и литература",
+      "level": "bachelor",
+      "form": "Заочная",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Лингвистика (английский язык)",
+      "level": "master",
+      "form": "Очная",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Языки и литература народов Европы, Америки и Австралии",
+      "level": "phd",
+      "form": "Очная",
+      "years": 3
+     }
+    ],
+    "en": [
+     {
+      "code": "60230100",
+      "title": "Philology and Language Teaching",
+      "level": "bachelor",
+      "form": "Full-time",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Foreign Language and Literature",
+      "level": "bachelor",
+      "form": "Distance",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Linguistics (English)",
+      "level": "master",
+      "form": "Full-time",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Languages and Literature of the Peoples of Europe, America and Australia",
+      "level": "phd",
+      "form": "Full-time",
+      "years": 3
+     }
+    ],
+    "zh": [
+     {
+      "code": "60230100",
+      "title": "语文学与语言教学",
+      "level": "bachelor",
+      "form": "全日制",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "外国语言文学",
+      "level": "bachelor",
+      "form": "函授",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "语言学（英语）",
+      "level": "master",
+      "form": "全日制",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "欧洲、美洲和澳大利亚民族语言与文学",
+      "level": "phd",
+      "form": "全日制",
+      "years": 3
+     }
+    ]
+   },
+   "departments": [
+    {
+     "id": "romance-germanic-1",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili leksikologiyasi kafedrasi",
+      "ru": "Кафедра лексикологии английского языка",
+      "en": "Department of English Lexicology",
+      "zh": "英语词汇学教研室"
+     }
+    },
+    {
+     "id": "romance-germanic-2",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili grammatikasi kafedrasi",
+      "ru": "Кафедра грамматики английского языка",
+      "en": "Department of English Grammar",
+      "zh": "英语语法教研室"
+     }
+    },
+    {
+     "id": "romance-germanic-3",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili stilistikasi kafedrasi",
+      "ru": "Кафедра стилистики английского языка",
+      "en": "Department of English Stylistics",
+      "zh": "英语文体学教研室"
+     }
+    },
+    {
+     "id": "romance-germanic-4",
+     "head": null,
+     "name": {
+      "uz": "Ingliz adabiyoti kafedrasi",
+      "ru": "Кафедра английской литературы",
+      "en": "Department of English Literature",
+      "zh": "英国文学教研室"
+     }
+    },
+    {
+     "id": "romance-germanic-5",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili öqitiş metodikasi kafedrasi",
+      "ru": "Кафедра методики преподавания английского языка",
+      "en": "Department of English Teaching Methodology",
+      "zh": "英语教学法教研室"
+     }
+    }
+   ],
+   "contact": {
+    "uz": {
+     "address": "Boş bino, 2-qavat, 214-xona",
+     "phone": "+998 71 230 13 73",
+     "email": "romance-germanic@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "ru": {
+     "address": "Главный корпус, 2-й этаж, каб. 214",
+     "phone": "+998 71 230 13 73",
+     "email": "romance-germanic@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "en": {
+     "address": "Main building, 2nd floor, room 214",
+     "phone": "+998 71 230 13 73",
+     "email": "romance-germanic@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "zh": {
+     "address": "主楼二层214室",
+     "phone": "+998 71 230 13 73",
+     "email": "romance-germanic@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    }
+   }
+  },
+  {
+   "slug": "oriental-philology",
+   "order": 7,
+   "logo": "/logos/faculties/oriental-philology.webp",
+   "name": {
+    "uz": "Sharq filologiyasi fakulteti",
+    "ru": "Факультет восточной филологии",
+    "en": "Faculty of Oriental Philology",
+    "zh": "东方语文学院"
+   },
+   "about": {
+    "uz": "Fakultet ingliz tili va adabiyoti, tilşunoslik va til öqitiş metodikasi böyiça bakalavr, magistr va tadqiqotçilar tayyorlaydi. Tavsif matni admin panel orqali kiritiladi — bu namunaviy matn.",
+    "ru": "Факультет готовит бакалавров, магистров и исследователей в области английского языка и литературы, лингвистики и методики преподавания. Описание добавляется через админ-панель — это демонстрационный текст.",
+    "en": "The faculty trains bachelor’s and master’s students and researchers in English language and literature, linguistics and language teaching. The description is added in the admin panel — this is sample text.",
+    "zh": "学院培养英语语言文学、语言学和语言教学方向的本科生、硕士生和研究人员。简介通过管理后台添加——此为示例文字。"
+   },
+   "stats": {
+    "students": 1850,
+    "departments": 6,
+    "programs": 7,
+    "teachers": 96
+   },
+   "dean": {
+    "uz": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dekan",
+     "degree": "Filologiya fanlari doktori, professor",
+     "photo": null,
+     "hours": "Seşanba, payşanba · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "oriental-philology@uzswlu.uz"
+    },
+    "ru": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Декан",
+     "degree": "Доктор филологических наук, профессор",
+     "photo": null,
+     "hours": "Вторник, четверг · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "oriental-philology@uzswlu.uz"
+    },
+    "en": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dean",
+     "degree": "Doctor of Philology, Professor",
+     "photo": null,
+     "hours": "Tue, Thu · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "oriental-philology@uzswlu.uz"
+    },
+    "zh": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "院长",
+     "degree": "语文学博士，教授",
+     "photo": null,
+     "hours": "周二、周四 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "oriental-philology@uzswlu.uz"
+    }
+   },
+   "deanery": {
+    "uz": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (öquv işlari)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (yoşlar bilan işlaş)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekanat uslubçisi",
+      "photo": null
+     }
+    ],
+    "ru": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Декан",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по учебной работе",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по работе с молодёжью",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Методист деканата",
+      "photo": null
+     }
+    ],
+    "en": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Academic Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Youth Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean’s Office Coordinator",
+      "photo": null
+     }
+    ],
+    "zh": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院长",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（教学）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（青年工作）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院办教学秘书",
+      "photo": null
+     }
+    ]
+   },
+   "programs": {
+    "uz": [
+     {
+      "code": "60230100",
+      "title": "Filologiya va tillarni o‘qitish",
+      "level": "bachelor",
+      "form": "Kunduzgi",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Xorijiy til va adabiyoti",
+      "level": "bachelor",
+      "form": "Sirtqi",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Lingvistika (ingliz tili)",
+      "level": "master",
+      "form": "Kunduzgi",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Yevropa, Amerika va Avstraliya xalqlari tili va adabiyoti",
+      "level": "phd",
+      "form": "Kunduzgi",
+      "years": 3
+     }
+    ],
+    "ru": [
+     {
+      "code": "60230100",
+      "title": "Филология и преподавание языков",
+      "level": "bachelor",
+      "form": "Очная",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Иностранный язык и литература",
+      "level": "bachelor",
+      "form": "Заочная",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Лингвистика (английский язык)",
+      "level": "master",
+      "form": "Очная",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Языки и литература народов Европы, Америки и Австралии",
+      "level": "phd",
+      "form": "Очная",
+      "years": 3
+     }
+    ],
+    "en": [
+     {
+      "code": "60230100",
+      "title": "Philology and Language Teaching",
+      "level": "bachelor",
+      "form": "Full-time",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Foreign Language and Literature",
+      "level": "bachelor",
+      "form": "Distance",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Linguistics (English)",
+      "level": "master",
+      "form": "Full-time",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Languages and Literature of the Peoples of Europe, America and Australia",
+      "level": "phd",
+      "form": "Full-time",
+      "years": 3
+     }
+    ],
+    "zh": [
+     {
+      "code": "60230100",
+      "title": "语文学与语言教学",
+      "level": "bachelor",
+      "form": "全日制",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "外国语言文学",
+      "level": "bachelor",
+      "form": "函授",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "语言学（英语）",
+      "level": "master",
+      "form": "全日制",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "欧洲、美洲和澳大利亚民族语言与文学",
+      "level": "phd",
+      "form": "全日制",
+      "years": 3
+     }
+    ]
+   },
+   "departments": [
+    {
+     "id": "oriental-philology-1",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili leksikologiyasi kafedrasi",
+      "ru": "Кафедра лексикологии английского языка",
+      "en": "Department of English Lexicology",
+      "zh": "英语词汇学教研室"
+     }
+    },
+    {
+     "id": "oriental-philology-2",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili grammatikasi kafedrasi",
+      "ru": "Кафедра грамматики английского языка",
+      "en": "Department of English Grammar",
+      "zh": "英语语法教研室"
+     }
+    },
+    {
+     "id": "oriental-philology-3",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili stilistikasi kafedrasi",
+      "ru": "Кафедра стилистики английского языка",
+      "en": "Department of English Stylistics",
+      "zh": "英语文体学教研室"
+     }
+    },
+    {
+     "id": "oriental-philology-4",
+     "head": null,
+     "name": {
+      "uz": "Ingliz adabiyoti kafedrasi",
+      "ru": "Кафедра английской литературы",
+      "en": "Department of English Literature",
+      "zh": "英国文学教研室"
+     }
+    },
+    {
+     "id": "oriental-philology-5",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili öqitiş metodikasi kafedrasi",
+      "ru": "Кафедра методики преподавания английского языка",
+      "en": "Department of English Teaching Methodology",
+      "zh": "英语教学法教研室"
+     }
+    }
+   ],
+   "contact": {
+    "uz": {
+     "address": "Boş bino, 2-qavat, 214-xona",
+     "phone": "+998 71 230 13 73",
+     "email": "oriental-philology@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "ru": {
+     "address": "Главный корпус, 2-й этаж, каб. 214",
+     "phone": "+998 71 230 13 73",
+     "email": "oriental-philology@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "en": {
+     "address": "Main building, 2nd floor, room 214",
+     "phone": "+998 71 230 13 73",
+     "email": "oriental-philology@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "zh": {
+     "address": "主楼二层214室",
+     "phone": "+998 71 230 13 73",
+     "email": "oriental-philology@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    }
+   }
+  },
+  {
+   "slug": "international-journalism",
+   "order": 8,
+   "logo": "/logos/faculties/international-journalism.webp",
+   "name": {
+    "uz": "Xalqaro jurnalistika fakulteti",
+    "ru": "Факультет международной журналистики",
+    "en": "Faculty of International Journalism",
+    "zh": "国际新闻学院"
+   },
+   "about": {
+    "uz": "Fakultet ingliz tili va adabiyoti, tilşunoslik va til öqitiş metodikasi böyiça bakalavr, magistr va tadqiqotçilar tayyorlaydi. Tavsif matni admin panel orqali kiritiladi — bu namunaviy matn.",
+    "ru": "Факультет готовит бакалавров, магистров и исследователей в области английского языка и литературы, лингвистики и методики преподавания. Описание добавляется через админ-панель — это демонстрационный текст.",
+    "en": "The faculty trains bachelor’s and master’s students and researchers in English language and literature, linguistics and language teaching. The description is added in the admin panel — this is sample text.",
+    "zh": "学院培养英语语言文学、语言学和语言教学方向的本科生、硕士生和研究人员。简介通过管理后台添加——此为示例文字。"
+   },
+   "stats": {
+    "students": 1850,
+    "departments": 4,
+    "programs": 4,
+    "teachers": 96
+   },
+   "dean": {
+    "uz": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dekan",
+     "degree": "Filologiya fanlari doktori, professor",
+     "photo": null,
+     "hours": "Seşanba, payşanba · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "international-journalism@uzswlu.uz"
+    },
+    "ru": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Декан",
+     "degree": "Доктор филологических наук, профессор",
+     "photo": null,
+     "hours": "Вторник, четверг · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "international-journalism@uzswlu.uz"
+    },
+    "en": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dean",
+     "degree": "Doctor of Philology, Professor",
+     "photo": null,
+     "hours": "Tue, Thu · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "international-journalism@uzswlu.uz"
+    },
+    "zh": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "院长",
+     "degree": "语文学博士，教授",
+     "photo": null,
+     "hours": "周二、周四 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "international-journalism@uzswlu.uz"
+    }
+   },
+   "deanery": {
+    "uz": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (öquv işlari)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (yoşlar bilan işlaş)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekanat uslubçisi",
+      "photo": null
+     }
+    ],
+    "ru": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Декан",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по учебной работе",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по работе с молодёжью",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Методист деканата",
+      "photo": null
+     }
+    ],
+    "en": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Academic Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Youth Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean’s Office Coordinator",
+      "photo": null
+     }
+    ],
+    "zh": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院长",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（教学）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（青年工作）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院办教学秘书",
+      "photo": null
+     }
+    ]
+   },
+   "programs": {
+    "uz": [
+     {
+      "code": "60230100",
+      "title": "Filologiya va tillarni o‘qitish",
+      "level": "bachelor",
+      "form": "Kunduzgi",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Xorijiy til va adabiyoti",
+      "level": "bachelor",
+      "form": "Sirtqi",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Lingvistika (ingliz tili)",
+      "level": "master",
+      "form": "Kunduzgi",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Yevropa, Amerika va Avstraliya xalqlari tili va adabiyoti",
+      "level": "phd",
+      "form": "Kunduzgi",
+      "years": 3
+     }
+    ],
+    "ru": [
+     {
+      "code": "60230100",
+      "title": "Филология и преподавание языков",
+      "level": "bachelor",
+      "form": "Очная",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Иностранный язык и литература",
+      "level": "bachelor",
+      "form": "Заочная",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Лингвистика (английский язык)",
+      "level": "master",
+      "form": "Очная",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Языки и литература народов Европы, Америки и Австралии",
+      "level": "phd",
+      "form": "Очная",
+      "years": 3
+     }
+    ],
+    "en": [
+     {
+      "code": "60230100",
+      "title": "Philology and Language Teaching",
+      "level": "bachelor",
+      "form": "Full-time",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Foreign Language and Literature",
+      "level": "bachelor",
+      "form": "Distance",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Linguistics (English)",
+      "level": "master",
+      "form": "Full-time",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Languages and Literature of the Peoples of Europe, America and Australia",
+      "level": "phd",
+      "form": "Full-time",
+      "years": 3
+     }
+    ],
+    "zh": [
+     {
+      "code": "60230100",
+      "title": "语文学与语言教学",
+      "level": "bachelor",
+      "form": "全日制",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "外国语言文学",
+      "level": "bachelor",
+      "form": "函授",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "语言学（英语）",
+      "level": "master",
+      "form": "全日制",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "欧洲、美洲和澳大利亚民族语言与文学",
+      "level": "phd",
+      "form": "全日制",
+      "years": 3
+     }
+    ]
+   },
+   "departments": [
+    {
+     "id": "international-journalism-1",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili leksikologiyasi kafedrasi",
+      "ru": "Кафедра лексикологии английского языка",
+      "en": "Department of English Lexicology",
+      "zh": "英语词汇学教研室"
+     }
+    },
+    {
+     "id": "international-journalism-2",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili grammatikasi kafedrasi",
+      "ru": "Кафедра грамматики английского языка",
+      "en": "Department of English Grammar",
+      "zh": "英语语法教研室"
+     }
+    },
+    {
+     "id": "international-journalism-3",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili stilistikasi kafedrasi",
+      "ru": "Кафедра стилистики английского языка",
+      "en": "Department of English Stylistics",
+      "zh": "英语文体学教研室"
+     }
+    },
+    {
+     "id": "international-journalism-4",
+     "head": null,
+     "name": {
+      "uz": "Ingliz adabiyoti kafedrasi",
+      "ru": "Кафедра английской литературы",
+      "en": "Department of English Literature",
+      "zh": "英国文学教研室"
+     }
+    }
+   ],
+   "contact": {
+    "uz": {
+     "address": "Boş bino, 2-qavat, 214-xona",
+     "phone": "+998 71 230 13 73",
+     "email": "international-journalism@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "ru": {
+     "address": "Главный корпус, 2-й этаж, каб. 214",
+     "phone": "+998 71 230 13 73",
+     "email": "international-journalism@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "en": {
+     "address": "Main building, 2nd floor, room 214",
+     "phone": "+998 71 230 13 73",
+     "email": "international-journalism@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "zh": {
+     "address": "主楼二层214室",
+     "phone": "+998 71 230 13 73",
+     "email": "international-journalism@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    }
+   }
+  },
+  {
+   "slug": "translation",
+   "order": 9,
+   "logo": "/logos/faculties/translation.webp",
+   "name": {
+    "uz": "Tarjimonlik fakulteti",
+    "ru": "Переводческий факультет",
+    "en": "Faculty of Translation",
+    "zh": "翻译学院"
+   },
+   "about": {
+    "uz": "Fakultet ingliz tili va adabiyoti, tilşunoslik va til öqitiş metodikasi böyiça bakalavr, magistr va tadqiqotçilar tayyorlaydi. Tavsif matni admin panel orqali kiritiladi — bu namunaviy matn.",
+    "ru": "Факультет готовит бакалавров, магистров и исследователей в области английского языка и литературы, лингвистики и методики преподавания. Описание добавляется через админ-панель — это демонстрационный текст.",
+    "en": "The faculty trains bachelor’s and master’s students and researchers in English language and literature, linguistics and language teaching. The description is added in the admin panel — this is sample text.",
+    "zh": "学院培养英语语言文学、语言学和语言教学方向的本科生、硕士生和研究人员。简介通过管理后台添加——此为示例文字。"
+   },
+   "stats": {
+    "students": 1850,
+    "departments": 5,
+    "programs": 7,
+    "teachers": 96
+   },
+   "dean": {
+    "uz": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dekan",
+     "degree": "Filologiya fanlari doktori, professor",
+     "photo": null,
+     "hours": "Seşanba, payşanba · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "translation@uzswlu.uz"
+    },
+    "ru": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Декан",
+     "degree": "Доктор филологических наук, профессор",
+     "photo": null,
+     "hours": "Вторник, четверг · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "translation@uzswlu.uz"
+    },
+    "en": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dean",
+     "degree": "Doctor of Philology, Professor",
+     "photo": null,
+     "hours": "Tue, Thu · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "translation@uzswlu.uz"
+    },
+    "zh": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "院长",
+     "degree": "语文学博士，教授",
+     "photo": null,
+     "hours": "周二、周四 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "translation@uzswlu.uz"
+    }
+   },
+   "deanery": {
+    "uz": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (öquv işlari)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (yoşlar bilan işlaş)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekanat uslubçisi",
+      "photo": null
+     }
+    ],
+    "ru": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Декан",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по учебной работе",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по работе с молодёжью",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Методист деканата",
+      "photo": null
+     }
+    ],
+    "en": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Academic Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Youth Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean’s Office Coordinator",
+      "photo": null
+     }
+    ],
+    "zh": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院长",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（教学）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（青年工作）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院办教学秘书",
+      "photo": null
+     }
+    ]
+   },
+   "programs": {
+    "uz": [
+     {
+      "code": "60230100",
+      "title": "Filologiya va tillarni o‘qitish",
+      "level": "bachelor",
+      "form": "Kunduzgi",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Xorijiy til va adabiyoti",
+      "level": "bachelor",
+      "form": "Sirtqi",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Lingvistika (ingliz tili)",
+      "level": "master",
+      "form": "Kunduzgi",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Yevropa, Amerika va Avstraliya xalqlari tili va adabiyoti",
+      "level": "phd",
+      "form": "Kunduzgi",
+      "years": 3
+     }
+    ],
+    "ru": [
+     {
+      "code": "60230100",
+      "title": "Филология и преподавание языков",
+      "level": "bachelor",
+      "form": "Очная",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Иностранный язык и литература",
+      "level": "bachelor",
+      "form": "Заочная",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Лингвистика (английский язык)",
+      "level": "master",
+      "form": "Очная",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Языки и литература народов Европы, Америки и Австралии",
+      "level": "phd",
+      "form": "Очная",
+      "years": 3
+     }
+    ],
+    "en": [
+     {
+      "code": "60230100",
+      "title": "Philology and Language Teaching",
+      "level": "bachelor",
+      "form": "Full-time",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Foreign Language and Literature",
+      "level": "bachelor",
+      "form": "Distance",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Linguistics (English)",
+      "level": "master",
+      "form": "Full-time",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Languages and Literature of the Peoples of Europe, America and Australia",
+      "level": "phd",
+      "form": "Full-time",
+      "years": 3
+     }
+    ],
+    "zh": [
+     {
+      "code": "60230100",
+      "title": "语文学与语言教学",
+      "level": "bachelor",
+      "form": "全日制",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "外国语言文学",
+      "level": "bachelor",
+      "form": "函授",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "语言学（英语）",
+      "level": "master",
+      "form": "全日制",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "欧洲、美洲和澳大利亚民族语言与文学",
+      "level": "phd",
+      "form": "全日制",
+      "years": 3
+     }
+    ]
+   },
+   "departments": [
+    {
+     "id": "translation-1",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili leksikologiyasi kafedrasi",
+      "ru": "Кафедра лексикологии английского языка",
+      "en": "Department of English Lexicology",
+      "zh": "英语词汇学教研室"
+     }
+    },
+    {
+     "id": "translation-2",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili grammatikasi kafedrasi",
+      "ru": "Кафедра грамматики английского языка",
+      "en": "Department of English Grammar",
+      "zh": "英语语法教研室"
+     }
+    },
+    {
+     "id": "translation-3",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili stilistikasi kafedrasi",
+      "ru": "Кафедра стилистики английского языка",
+      "en": "Department of English Stylistics",
+      "zh": "英语文体学教研室"
+     }
+    },
+    {
+     "id": "translation-4",
+     "head": null,
+     "name": {
+      "uz": "Ingliz adabiyoti kafedrasi",
+      "ru": "Кафедра английской литературы",
+      "en": "Department of English Literature",
+      "zh": "英国文学教研室"
+     }
+    },
+    {
+     "id": "translation-5",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili öqitiş metodikasi kafedrasi",
+      "ru": "Кафедра методики преподавания английского языка",
+      "en": "Department of English Teaching Methodology",
+      "zh": "英语教学法教研室"
+     }
+    }
+   ],
+   "contact": {
+    "uz": {
+     "address": "Boş bino, 2-qavat, 214-xona",
+     "phone": "+998 71 230 13 73",
+     "email": "translation@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "ru": {
+     "address": "Главный корпус, 2-й этаж, каб. 214",
+     "phone": "+998 71 230 13 73",
+     "email": "translation@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "en": {
+     "address": "Main building, 2nd floor, room 214",
+     "phone": "+998 71 230 13 73",
+     "email": "translation@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "zh": {
+     "address": "主楼二层214室",
+     "phone": "+998 71 230 13 73",
+     "email": "translation@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    }
+   }
+  },
+  {
+   "slug": "distance-evening",
+   "order": 10,
+   "logo": "/logos/faculties/distance-evening.webp",
+   "name": {
+    "uz": "Sirtqi va kechki ta’lim fakulteti",
+    "ru": "Факультет заочного и вечернего обучения",
+    "en": "Faculty of Distance and Evening Education",
+    "zh": "函授与夜间教育学院"
+   },
+   "about": {
+    "uz": "Fakultet ingliz tili va adabiyoti, tilşunoslik va til öqitiş metodikasi böyiça bakalavr, magistr va tadqiqotçilar tayyorlaydi. Tavsif matni admin panel orqali kiritiladi — bu namunaviy matn.",
+    "ru": "Факультет готовит бакалавров, магистров и исследователей в области английского языка и литературы, лингвистики и методики преподавания. Описание добавляется через админ-панель — это демонстрационный текст.",
+    "en": "The faculty trains bachelor’s and master’s students and researchers in English language and literature, linguistics and language teaching. The description is added in the admin panel — this is sample text.",
+    "zh": "学院培养英语语言文学、语言学和语言教学方向的本科生、硕士生和研究人员。简介通过管理后台添加——此为示例文字。"
+   },
+   "stats": {
+    "students": 1850,
+    "departments": 2,
+    "programs": 5,
+    "teachers": 96
+   },
+   "dean": {
+    "uz": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dekan",
+     "degree": "Filologiya fanlari doktori, professor",
+     "photo": null,
+     "hours": "Seşanba, payşanba · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "distance-evening@uzswlu.uz"
+    },
+    "ru": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Декан",
+     "degree": "Доктор филологических наук, профессор",
+     "photo": null,
+     "hours": "Вторник, четверг · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "distance-evening@uzswlu.uz"
+    },
+    "en": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dean",
+     "degree": "Doctor of Philology, Professor",
+     "photo": null,
+     "hours": "Tue, Thu · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "distance-evening@uzswlu.uz"
+    },
+    "zh": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "院长",
+     "degree": "语文学博士，教授",
+     "photo": null,
+     "hours": "周二、周四 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "distance-evening@uzswlu.uz"
+    }
+   },
+   "deanery": {
+    "uz": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (öquv işlari)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (yoşlar bilan işlaş)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekanat uslubçisi",
+      "photo": null
+     }
+    ],
+    "ru": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Декан",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по учебной работе",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по работе с молодёжью",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Методист деканата",
+      "photo": null
+     }
+    ],
+    "en": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Academic Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Youth Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean’s Office Coordinator",
+      "photo": null
+     }
+    ],
+    "zh": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院长",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（教学）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（青年工作）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院办教学秘书",
+      "photo": null
+     }
+    ]
+   },
+   "programs": {
+    "uz": [
+     {
+      "code": "60230100",
+      "title": "Filologiya va tillarni o‘qitish",
+      "level": "bachelor",
+      "form": "Kunduzgi",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Xorijiy til va adabiyoti",
+      "level": "bachelor",
+      "form": "Sirtqi",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Lingvistika (ingliz tili)",
+      "level": "master",
+      "form": "Kunduzgi",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Yevropa, Amerika va Avstraliya xalqlari tili va adabiyoti",
+      "level": "phd",
+      "form": "Kunduzgi",
+      "years": 3
+     }
+    ],
+    "ru": [
+     {
+      "code": "60230100",
+      "title": "Филология и преподавание языков",
+      "level": "bachelor",
+      "form": "Очная",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Иностранный язык и литература",
+      "level": "bachelor",
+      "form": "Заочная",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Лингвистика (английский язык)",
+      "level": "master",
+      "form": "Очная",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Языки и литература народов Европы, Америки и Австралии",
+      "level": "phd",
+      "form": "Очная",
+      "years": 3
+     }
+    ],
+    "en": [
+     {
+      "code": "60230100",
+      "title": "Philology and Language Teaching",
+      "level": "bachelor",
+      "form": "Full-time",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Foreign Language and Literature",
+      "level": "bachelor",
+      "form": "Distance",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Linguistics (English)",
+      "level": "master",
+      "form": "Full-time",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Languages and Literature of the Peoples of Europe, America and Australia",
+      "level": "phd",
+      "form": "Full-time",
+      "years": 3
+     }
+    ],
+    "zh": [
+     {
+      "code": "60230100",
+      "title": "语文学与语言教学",
+      "level": "bachelor",
+      "form": "全日制",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "外国语言文学",
+      "level": "bachelor",
+      "form": "函授",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "语言学（英语）",
+      "level": "master",
+      "form": "全日制",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "欧洲、美洲和澳大利亚民族语言与文学",
+      "level": "phd",
+      "form": "全日制",
+      "years": 3
+     }
+    ]
+   },
+   "departments": [
+    {
+     "id": "distance-evening-1",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili leksikologiyasi kafedrasi",
+      "ru": "Кафедра лексикологии английского языка",
+      "en": "Department of English Lexicology",
+      "zh": "英语词汇学教研室"
+     }
+    },
+    {
+     "id": "distance-evening-2",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili grammatikasi kafedrasi",
+      "ru": "Кафедра грамматики английского языка",
+      "en": "Department of English Grammar",
+      "zh": "英语语法教研室"
+     }
+    }
+   ],
+   "contact": {
+    "uz": {
+     "address": "Boş bino, 2-qavat, 214-xona",
+     "phone": "+998 71 230 13 73",
+     "email": "distance-evening@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "ru": {
+     "address": "Главный корпус, 2-й этаж, каб. 214",
+     "phone": "+998 71 230 13 73",
+     "email": "distance-evening@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "en": {
+     "address": "Main building, 2nd floor, room 214",
+     "phone": "+998 71 230 13 73",
+     "email": "distance-evening@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "zh": {
+     "address": "主楼二层214室",
+     "phone": "+998 71 230 13 73",
+     "email": "distance-evening@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    }
+   }
+  },
+  {
+   "slug": "joint-programs",
+   "order": 11,
+   "logo": "/logos/faculties/joint-programs.webp",
+   "name": {
+    "uz": "Qo‘shma ta’lim dasturlarini muvofiqlashtirish bo‘limi",
+    "ru": "Отдел координации совместных образовательных программ",
+    "en": "Joint Programmes Coordination Office",
+    "zh": "合作办学项目协调处"
+   },
+   "about": {
+    "uz": "Fakultet ingliz tili va adabiyoti, tilşunoslik va til öqitiş metodikasi böyiça bakalavr, magistr va tadqiqotçilar tayyorlaydi. Tavsif matni admin panel orqali kiritiladi — bu namunaviy matn.",
+    "ru": "Факультет готовит бакалавров, магистров и исследователей в области английского языка и литературы, лингвистики и методики преподавания. Описание добавляется через админ-панель — это демонстрационный текст.",
+    "en": "The faculty trains bachelor’s and master’s students and researchers in English language and literature, linguistics and language teaching. The description is added in the admin panel — this is sample text.",
+    "zh": "学院培养英语语言文学、语言学和语言教学方向的本科生、硕士生和研究人员。简介通过管理后台添加——此为示例文字。"
+   },
+   "stats": {
+    "students": 1850,
+    "departments": 1,
+    "programs": 4,
+    "teachers": 96
+   },
+   "dean": {
+    "uz": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dekan",
+     "degree": "Filologiya fanlari doktori, professor",
+     "photo": null,
+     "hours": "Seşanba, payşanba · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "joint-programs@uzswlu.uz"
+    },
+    "ru": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Декан",
+     "degree": "Доктор филологических наук, профессор",
+     "photo": null,
+     "hours": "Вторник, четверг · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "joint-programs@uzswlu.uz"
+    },
+    "en": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "Dean",
+     "degree": "Doctor of Philology, Professor",
+     "photo": null,
+     "hours": "Tue, Thu · 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "joint-programs@uzswlu.uz"
+    },
+    "zh": {
+     "staffId": null,
+     "name": "[F.I.Ş.]",
+     "role": "院长",
+     "degree": "语文学博士，教授",
+     "photo": null,
+     "hours": "周二、周四 14:00–16:00",
+     "phone": "+998 71 230 13 73",
+     "email": "joint-programs@uzswlu.uz"
+    }
+   },
+   "deanery": {
+    "uz": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (öquv işlari)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekan örinbosari (yoşlar bilan işlaş)",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dekanat uslubçisi",
+      "photo": null
+     }
+    ],
+    "ru": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Декан",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по учебной работе",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Заместитель декана по работе с молодёжью",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Методист деканата",
+      "photo": null
+     }
+    ],
+    "en": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Academic Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Deputy Dean for Youth Affairs",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "Dean’s Office Coordinator",
+      "photo": null
+     }
+    ],
+    "zh": [
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院长",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（教学）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "副院长（青年工作）",
+      "photo": null
+     },
+     {
+      "staffId": null,
+      "name": "[F.I.Ş.]",
+      "role": "院办教学秘书",
+      "photo": null
+     }
+    ]
+   },
+   "programs": {
+    "uz": [
+     {
+      "code": "60230100",
+      "title": "Filologiya va tillarni o‘qitish",
+      "level": "bachelor",
+      "form": "Kunduzgi",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Xorijiy til va adabiyoti",
+      "level": "bachelor",
+      "form": "Sirtqi",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Lingvistika (ingliz tili)",
+      "level": "master",
+      "form": "Kunduzgi",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Yevropa, Amerika va Avstraliya xalqlari tili va adabiyoti",
+      "level": "phd",
+      "form": "Kunduzgi",
+      "years": 3
+     }
+    ],
+    "ru": [
+     {
+      "code": "60230100",
+      "title": "Филология и преподавание языков",
+      "level": "bachelor",
+      "form": "Очная",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Иностранный язык и литература",
+      "level": "bachelor",
+      "form": "Заочная",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Лингвистика (английский язык)",
+      "level": "master",
+      "form": "Очная",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Языки и литература народов Европы, Америки и Австралии",
+      "level": "phd",
+      "form": "Очная",
+      "years": 3
+     }
+    ],
+    "en": [
+     {
+      "code": "60230100",
+      "title": "Philology and Language Teaching",
+      "level": "bachelor",
+      "form": "Full-time",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "Foreign Language and Literature",
+      "level": "bachelor",
+      "form": "Distance",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "Linguistics (English)",
+      "level": "master",
+      "form": "Full-time",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "Languages and Literature of the Peoples of Europe, America and Australia",
+      "level": "phd",
+      "form": "Full-time",
+      "years": 3
+     }
+    ],
+    "zh": [
+     {
+      "code": "60230100",
+      "title": "语文学与语言教学",
+      "level": "bachelor",
+      "form": "全日制",
+      "years": 4
+     },
+     {
+      "code": "60110900",
+      "title": "外国语言文学",
+      "level": "bachelor",
+      "form": "函授",
+      "years": 5
+     },
+     {
+      "code": "70230101",
+      "title": "语言学（英语）",
+      "level": "master",
+      "form": "全日制",
+      "years": 2
+     },
+     {
+      "code": "10.00.04",
+      "title": "欧洲、美洲和澳大利亚民族语言与文学",
+      "level": "phd",
+      "form": "全日制",
+      "years": 3
+     }
+    ]
+   },
+   "departments": [
+    {
+     "id": "joint-programs-1",
+     "head": null,
+     "name": {
+      "uz": "Ingliz tili leksikologiyasi kafedrasi",
+      "ru": "Кафедра лексикологии английского языка",
+      "en": "Department of English Lexicology",
+      "zh": "英语词汇学教研室"
+     }
+    }
+   ],
+   "contact": {
+    "uz": {
+     "address": "Boş bino, 2-qavat, 214-xona",
+     "phone": "+998 71 230 13 73",
+     "email": "joint-programs@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "ru": {
+     "address": "Главный корпус, 2-й этаж, каб. 214",
+     "phone": "+998 71 230 13 73",
+     "email": "joint-programs@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "en": {
+     "address": "Main building, 2nd floor, room 214",
+     "phone": "+998 71 230 13 73",
+     "email": "joint-programs@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    },
+    "zh": {
+     "address": "主楼二层214室",
+     "phone": "+998 71 230 13 73",
+     "email": "joint-programs@uzswlu.uz",
+     "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021"
+    }
+   }
+  }
+ ],
+ "summary": {
+  "faculties": 11,
+  "departments": 47
+ },
+ "staff": [
+  {
+   "id": "9300",
+   "name": "Tuxtasinov Ilxomjon Madaminovich",
+   "patronymic": "Madaminovich",
+   "group": "lead",
+   "employments": [
+    {
+     "department": {
+      "id": "ingliz-tili-tarjima-nazariyasi-kafedrasi",
+      "name": "Ingliz tili tarjima nazariyasi kafedrasi"
+     },
+     "position": "Professor"
+    },
+    {
+     "department": {
+      "id": "rahbariyat",
+      "name": "Rahbariyat"
+     },
+     "position": "Rektor"
+    }
+   ]
+  },
+  {
+   "id": "7909",
+   "name": "Chutpulatov Muxammad Chariyevich",
+   "patronymic": "Chariyevich",
+   "group": "lead",
+   "employments": [
+    {
+     "department": {
+      "id": "rahbariyat",
+      "name": "Rahbariyat"
+     },
+     "position": "O‘quv ishlari bo‘yicha birinchi prorektor"
+    }
+   ]
+  },
+  {
+   "id": "8098",
+   "name": "Yusupov Otabek Yakubovich",
+   "patronymic": "Yakubovich",
+   "group": "lead",
+   "employments": [
+    {
+     "department": {
+      "id": "rahbariyat",
+      "name": "Rahbariyat"
+     },
+     "position": "Ilmiy ishlar va innovatsiyalar bo‘yicha prorektor"
+    }
+   ]
+  },
+  {
+   "id": "8450",
+   "name": "Nasirov Abduraxim Abdimutalipovich",
+   "patronymic": "Abdimutalipovich",
+   "group": "lead",
+   "employments": [
+    {
+     "department": {
+      "id": "rahbariyat",
+      "name": "Rahbariyat"
+     },
+     "position": "Xalqaro hamkorlik bo‘yicha prorektor"
+    }
+   ]
+  },
+  {
+   "id": "9004",
+   "name": "Sadiyev Valijon Alijonovich",
+   "patronymic": "Alijonovich",
+   "group": "lead",
+   "employments": [
+    {
+     "department": {
+      "id": "rahbariyat",
+      "name": "Rahbariyat"
+     },
+     "position": "Yoshlar bilan ishlash bo‘yicha prorektor"
+    }
+   ]
+  },
+  {
+   "id": "9394",
+   "name": "Nurov Azizbek Elmurotovich",
+   "patronymic": "Elmurotovich",
+   "group": "lead",
+   "employments": [
+    {
+     "department": {
+      "id": "rahbariyat",
+      "name": "Rahbariyat"
+     },
+     "position": "Rektor yordamchisi"
+    }
+   ]
+  },
+  {
+   "id": "7731",
+   "name": "Ibragimov Otabek Alisherovich",
+   "patronymic": "Alisherovich",
+   "group": "lead",
+   "employments": [
+    {
+     "department": {
+      "id": "rahbariyat",
+      "name": "Rahbariyat"
+     },
+     "position": "Matbuot kotibi"
+    }
+   ]
+  },
+  {
+   "id": "8007",
+   "name": "Shahzoda Bo‘stonova",
+   "patronymic": null,
+   "group": "faculty",
+   "employments": [
+    {
+     "department": {
+      "id": "ingliz-filologiyasi-fakulteti",
+      "name": "Ingliz filologiyasi fakulteti"
+     },
+     "position": "Tyutor"
+    }
+   ]
+  },
+  {
+   "id": "8421",
+   "name": "Sadullayev Fayyoz Farxadovich",
+   "patronymic": "Farxadovich",
+   "group": "faculty",
+   "employments": [
+    {
+     "department": {
+      "id": "ingliz-filologiyasi-fakulteti",
+      "name": "Ingliz filologiyasi fakulteti"
+     },
+     "position": "Tyutor"
+    }
+   ]
+  },
+  {
+   "id": "8439",
+   "name": "Nurullayeva Sadoqat Baxtiyor qizi",
+   "patronymic": "Baxtiyor qizi",
+   "group": "faculty",
+   "employments": [
+    {
+     "department": {
+      "id": "ingliz-filologiyasi-fakulteti",
+      "name": "Ingliz filologiyasi fakulteti"
+     },
+     "position": "Tyutor"
+    }
+   ]
+  },
+  {
+   "id": "8654",
+   "name": "Metyakubov Alisher Djumanazarovich",
+   "patronymic": "Djumanazarovich",
+   "group": "faculty",
+   "employments": [
+    {
+     "department": {
+      "id": "xalqaro-jurnalistika-fakulteti",
+      "name": "Xalqaro jurnalistika fakulteti"
+     },
+     "position": "Dekan"
+    }
+   ]
+  },
+  {
+   "id": "8041",
+   "name": "Shermatov Eldorjon Yovmiddinovich",
+   "patronymic": "Yovmiddinovich",
+   "group": "faculty",
+   "employments": [
+    {
+     "department": {
+      "id": "xalqaro-jurnalistika-fakulteti",
+      "name": "Xalqaro jurnalistika fakulteti"
+     },
+     "position": "Dekan muovini"
+    }
+   ]
+  },
+  {
+   "id": "7765",
+   "name": "Malika Saburova",
+   "patronymic": null,
+   "group": "faculty",
+   "employments": [
+    {
+     "department": {
+      "id": "xalqaro-jurnalistika-fakulteti",
+      "name": "Xalqaro jurnalistika fakulteti"
+     },
+     "position": "Tyutor"
+    }
+   ]
+  },
+  {
+   "id": "8395",
+   "name": "Jaloliddin Tursunboboyev",
+   "patronymic": null,
+   "group": "faculty",
+   "employments": [
+    {
+     "department": {
+      "id": "xalqaro-jurnalistika-fakulteti",
+      "name": "Xalqaro jurnalistika fakulteti"
+     },
+     "position": "Tyutor"
+    }
+   ]
+  },
+  {
+   "id": "7949",
+   "name": "Yo‘ldoshev Ulug‘bek Ravshanbekovich",
+   "patronymic": "Ravshanbekovich",
+   "group": "faculty",
+   "employments": [
+    {
+     "department": {
+      "id": "tarjimonlik-fakulteti",
+      "name": "Tarjimonlik fakulteti"
+     },
+     "position": "Dekan"
+    }
+   ]
+  },
+  {
+   "id": "8537",
+   "name": "Musabekova Madina Narimanbekovna",
+   "patronymic": "Narimanbekovna",
+   "group": "faculty",
+   "employments": [
+    {
+     "department": {
+      "id": "tarjimonlik-fakulteti",
+      "name": "Tarjimonlik fakulteti"
+     },
+     "position": "Dekan muovini"
+    }
+   ]
+  },
+  {
+   "id": "8929",
+   "name": "Hasan Isomov",
+   "patronymic": null,
+   "group": "faculty",
+   "employments": [
+    {
+     "department": {
+      "id": "tarjimonlik-fakulteti",
+      "name": "Tarjimonlik fakulteti"
+     },
+     "position": "Tyutor"
+    }
+   ]
+  },
+  {
+   "id": "8930",
+   "name": "Amir Abdurahmonov",
+   "patronymic": null,
+   "group": "faculty",
+   "employments": [
+    {
+     "department": {
+      "id": "tarjimonlik-fakulteti",
+      "name": "Tarjimonlik fakulteti"
+     },
+     "position": "Tyutor"
+    }
+   ]
+  },
+  {
+   "id": "7768",
+   "name": "Djurayev Dusmurod Uralovich",
+   "patronymic": "Uralovich",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "pedagogika-va-psixologiya-kafedrasi",
+      "name": "Pedagogika va psixologiya kafedrasi"
+     },
+     "position": "Kafedra mudiri"
+    }
+   ]
+  },
+  {
+   "id": "7792",
+   "name": "Isakulova Nilufar Janikulovna",
+   "patronymic": "Janikulovna",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "pedagogika-va-psixologiya-kafedrasi",
+      "name": "Pedagogika va psixologiya kafedrasi"
+     },
+     "position": "Professor"
+    }
+   ]
+  },
+  {
+   "id": "7790",
+   "name": "Miliyeva Muattar Gaffarovna",
+   "patronymic": "Gaffarovna",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "pedagogika-va-psixologiya-kafedrasi",
+      "name": "Pedagogika va psixologiya kafedrasi"
+     },
+     "position": "Dotsent"
+    }
+   ]
+  },
+  {
+   "id": "7769",
+   "name": "Xolboyev Asqarali Mirxoldorovich",
+   "patronymic": "Mirxoldorovich",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "pedagogika-va-psixologiya-kafedrasi",
+      "name": "Pedagogika va psixologiya kafedrasi"
+     },
+     "position": "Assistent"
+    }
+   ]
+  },
+  {
+   "id": "7957",
+   "name": "Djurayev Dilshod Mamadiyarovich",
+   "patronymic": "Mamadiyarovich",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "xitoy-filologiyasi-kafedrasi",
+      "name": "Xitoy filologiyasi kafedrasi"
+     },
+     "position": "Dotsent"
+    }
+   ]
+  },
+  {
+   "id": "7755",
+   "name": "Azamat Jabborov",
+   "patronymic": null,
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "xitoy-filologiyasi-kafedrasi",
+      "name": "Xitoy filologiyasi kafedrasi"
+     },
+     "position": "Assistent"
+    }
+   ]
+  },
+  {
+   "id": "7942",
+   "name": "Nurmuxamedova Muqaddas Abdufattox qizi",
+   "patronymic": "Abdufattox qizi",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "xitoy-filologiyasi-kafedrasi",
+      "name": "Xitoy filologiyasi kafedrasi"
+     },
+     "position": "Assistent"
+    }
+   ]
+  },
+  {
+   "id": "7757",
+   "name": "Abdullayeva Nuriya Baxodir qizi",
+   "patronymic": "Baxodir qizi",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "xitoy-filologiyasi-kafedrasi",
+      "name": "Xitoy filologiyasi kafedrasi"
+     },
+     "position": "Stajer-o‘qituvchi"
+    }
+   ]
+  },
+  {
+   "id": "8091",
+   "name": "Xamidova Nargiza Mirvaxidovna",
+   "patronymic": "Mirvaxidovna",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "yapon-filologiyasi-kafedrasi",
+      "name": "Yapon filologiyasi kafedrasi"
+     },
+     "position": "Kafedra mudiri"
+    }
+   ]
+  },
+  {
+   "id": "8068",
+   "name": "Inoyatov Javohir Ne’matillo o‘g‘li",
+   "patronymic": "Ne’matillo o‘g‘li",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "yapon-filologiyasi-kafedrasi",
+      "name": "Yapon filologiyasi kafedrasi"
+     },
+     "position": "Stajer-o‘qituvchi"
+    }
+   ]
+  },
+  {
+   "id": "8089",
+   "name": "Shohjahon Pirmaxmatov",
+   "patronymic": null,
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "yapon-filologiyasi-kafedrasi",
+      "name": "Yapon filologiyasi kafedrasi"
+     },
+     "position": "Stajer-o‘qituvchi"
+    }
+   ]
+  },
+  {
+   "id": "8092",
+   "name": "Azimjon Mamadiyev",
+   "patronymic": null,
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "yapon-filologiyasi-kafedrasi",
+      "name": "Yapon filologiyasi kafedrasi"
+     },
+     "position": "Stajer-o‘qituvchi"
+    }
+   ]
+  },
+  {
+   "id": "8496",
+   "name": "Ugiloy Xujayeva",
+   "patronymic": null,
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "koreys-filologiyasi-kafedrasi",
+      "name": "Koreys filologiyasi kafedrasi"
+     },
+     "position": "Katta o‘qituvchi"
+    }
+   ]
+  },
+  {
+   "id": "8230",
+   "name": "Kyung Ae Kim",
+   "patronymic": "Kim",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "koreys-filologiyasi-kafedrasi",
+      "name": "Koreys filologiyasi kafedrasi"
+     },
+     "position": "Assistent"
+    }
+   ]
+  },
+  {
+   "id": "8497",
+   "name": "Sa’dullayeva Ozoda Zoid qizi",
+   "patronymic": "Zoid qizi",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "koreys-filologiyasi-kafedrasi",
+      "name": "Koreys filologiyasi kafedrasi"
+     },
+     "position": "Assistent"
+    }
+   ]
+  },
+  {
+   "id": "8366",
+   "name": "Sobirov Elbek Davron o‘g‘li",
+   "patronymic": "Davron o‘g‘li",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "koreys-filologiyasi-kafedrasi",
+      "name": "Koreys filologiyasi kafedrasi"
+     },
+     "position": "Stajer-o‘qituvchi"
+    }
+   ]
+  },
+  {
+   "id": "7819",
+   "name": "Xalliyeva Gulnoz Iskandarovna",
+   "patronymic": "Iskandarovna",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "jahon-adabiyoti-kafedrasi",
+      "name": "Jahon adabiyoti kafedrasi"
+     },
+     "position": "Kafedra mudiri"
+    }
+   ]
+  },
+  {
+   "id": "8005",
+   "name": "Feruza Sapaeva",
+   "patronymic": null,
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "jahon-adabiyoti-kafedrasi",
+      "name": "Jahon adabiyoti kafedrasi"
+     },
+     "position": "Professor"
+    }
+   ]
+  },
+  {
+   "id": "7818",
+   "name": "Qahharova Dilafro‘z Abdug‘aforovna",
+   "patronymic": "Abdug‘aforovna",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "jahon-adabiyoti-kafedrasi",
+      "name": "Jahon adabiyoti kafedrasi"
+     },
+     "position": "Katta o‘qituvchi"
+    }
+   ]
+  },
+  {
+   "id": "8470",
+   "name": "Ma’diyeva Adiba Dovudovna",
+   "patronymic": "Dovudovna",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "jahon-adabiyoti-kafedrasi",
+      "name": "Jahon adabiyoti kafedrasi"
+     },
+     "position": "Katta o‘qituvchi"
+    }
+   ]
+  },
+  {
+   "id": "7878",
+   "name": "Ziyadullayev Ilxom Oblakulovich",
+   "patronymic": "Oblakulovich",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "nemis-tili-nazariy-fanlar-kafedrasi",
+      "name": "Nemis tili nazariy fanlar kafedrasi"
+     },
+     "position": "Kafedra mudiri"
+    }
+   ]
+  },
+  {
+   "id": "8140",
+   "name": "Madazimova Mavjudaxon Muminovna",
+   "patronymic": "Muminovna",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "nemis-tili-nazariy-fanlar-kafedrasi",
+      "name": "Nemis tili nazariy fanlar kafedrasi"
+     },
+     "position": "Katta o‘qituvchi"
+    }
+   ]
+  },
+  {
+   "id": "7947",
+   "name": "Yaxyayeva Zumrad Islomovna",
+   "patronymic": "Islomovna",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "nemis-tili-nazariy-fanlar-kafedrasi",
+      "name": "Nemis tili nazariy fanlar kafedrasi"
+     },
+     "position": "Assistent"
+    }
+   ]
+  },
+  {
+   "id": "8199",
+   "name": "Raxmatova Dilnavoz Abdimuradovna",
+   "patronymic": "Abdimuradovna",
+   "group": "chair",
+   "employments": [
+    {
+     "department": {
+      "id": "nemis-tili-nazariy-fanlar-kafedrasi",
+      "name": "Nemis tili nazariy fanlar kafedrasi"
+     },
+     "position": "Stajer-o‘qituvchi"
+    }
+   ]
+  },
+  {
+   "id": "7715",
+   "name": "Abduvoxidov Davlatbek Shuxratjon o‘g‘li",
+   "patronymic": "Shuxratjon o‘g‘li",
+   "group": "unit",
+   "employments": [
+    {
+     "department": {
+      "id": "raqamli-talim-texnologiyalari-markazi",
+      "name": "Raqamli ta’lim texnologiyalari markazi"
+     },
+     "position": "Tizim administratori"
+    }
+   ]
+  },
+  {
+   "id": "7919",
+   "name": "Mirjalol Safarov",
+   "patronymic": null,
+   "group": "unit",
+   "employments": [
+    {
+     "department": {
+      "id": "raqamli-talim-texnologiyalari-markazi",
+      "name": "Raqamli ta’lim texnologiyalari markazi"
+     },
+     "position": "1-toifali muhandis"
+    }
+   ]
+  },
+  {
+   "id": "7917",
+   "name": "Og‘abek Karimov",
+   "patronymic": null,
+   "group": "unit",
+   "employments": [
+    {
+     "department": {
+      "id": "raqamli-talim-texnologiyalari-markazi",
+      "name": "Raqamli ta’lim texnologiyalari markazi"
+     },
+     "position": "Muhandis"
+    }
+   ]
+  },
+  {
+   "id": "7921",
+   "name": "G‘ayrat Karshiyev",
+   "patronymic": null,
+   "group": "unit",
+   "employments": [
+    {
+     "department": {
+      "id": "raqamli-talim-texnologiyalari-markazi",
+      "name": "Raqamli ta’lim texnologiyalari markazi"
+     },
+     "position": "Muhandis"
+    }
+   ]
+  },
+  {
+   "id": "7955",
+   "name": "Mashkura Muxamedjanova",
+   "patronymic": null,
+   "group": "unit",
+   "employments": [
+    {
+     "department": {
+      "id": "axborot-resurs-markazi",
+      "name": "Axborot-resurs markazi"
+     },
+     "position": "Bo‘lim mudiri"
+    }
+   ]
+  },
+  {
+   "id": "7959",
+   "name": "Iroda Ashurova",
+   "patronymic": null,
+   "group": "unit",
+   "employments": [
+    {
+     "department": {
+      "id": "axborot-resurs-markazi",
+      "name": "Axborot-resurs markazi"
+     },
+     "position": "Bo‘lim mudiri"
+    }
+   ]
+  },
+  {
+   "id": "7960",
+   "name": "Saida Inogamova",
+   "patronymic": null,
+   "group": "unit",
+   "employments": [
+    {
+     "department": {
+      "id": "axborot-resurs-markazi",
+      "name": "Axborot-resurs markazi"
+     },
+     "position": "Bo‘lim mudiri"
+    }
+   ]
+  },
+  {
+   "id": "7961",
+   "name": "Sardor To‘xtayev",
+   "patronymic": null,
+   "group": "unit",
+   "employments": [
+    {
+     "department": {
+      "id": "axborot-resurs-markazi",
+      "name": "Axborot-resurs markazi"
+     },
+     "position": "Bo‘lim mudiri"
+    }
+   ]
+  },
+  {
+   "id": "8402",
+   "name": "Xusanboy Yuldashev",
+   "patronymic": null,
+   "group": "unit",
+   "employments": [
+    {
+     "department": {
+      "id": "xalqaro-hamkorlik-bolimi",
+      "name": "Xalqaro hamkorlik bo‘limi"
+     },
+     "position": "Bo‘lim boshlig‘i"
+    }
+   ]
+  },
+  {
+   "id": "9025",
+   "name": "Qaramanov Obid Xudayberdiyevich",
+   "patronymic": "Xudayberdiyevich",
+   "group": "unit",
+   "employments": [
+    {
+     "department": {
+      "id": "marketing-bolimi",
+      "name": "Marketing bo‘limi"
+     },
+     "position": "Bosh mutaxassis"
+    }
+   ]
+  },
+  {
+   "id": "9198",
+   "name": "Ulug‘bek Ramazanov",
+   "patronymic": null,
+   "group": "unit",
+   "employments": [
+    {
+     "department": {
+      "id": "marketing-bolimi",
+      "name": "Marketing bo‘limi"
+     },
+     "position": "Bosh mutaxassis"
+    }
+   ]
+  },
+  {
+   "id": "9195",
+   "name": "Minosidinov Sherzod Baxromjonovich",
+   "patronymic": "Baxromjonovich",
+   "group": "unit",
+   "employments": [
+    {
+     "department": {
+      "id": "marketing-bolimi",
+      "name": "Marketing bo‘limi"
+     },
+     "position": "Bosh mutaxassis"
+    }
+   ]
+  },
+  {
+   "id": "9285",
+   "name": "Diyorbek Musurmonov",
+   "patronymic": null,
+   "group": "unit",
+   "employments": [
+    {
+     "department": {
+      "id": "marketing-bolimi",
+      "name": "Marketing bo‘limi"
+     },
+     "position": "Bosh mutaxassis"
+    }
+   ]
+  }
+ ],
+ "staffDepartments": [
+  {
+   "id": "axborot-resurs-markazi",
+   "name": "Axborot-resurs markazi",
+   "group": "unit",
+   "count": 4
+  },
+  {
+   "id": "ingliz-filologiyasi-fakulteti",
+   "name": "Ingliz filologiyasi fakulteti",
+   "group": "faculty",
+   "count": 3
+  },
+  {
+   "id": "ingliz-tili-tarjima-nazariyasi-kafedrasi",
+   "name": "Ingliz tili tarjima nazariyasi kafedrasi",
+   "group": "chair",
+   "count": 0
+  },
+  {
+   "id": "jahon-adabiyoti-kafedrasi",
+   "name": "Jahon adabiyoti kafedrasi",
+   "group": "chair",
+   "count": 4
+  },
+  {
+   "id": "koreys-filologiyasi-kafedrasi",
+   "name": "Koreys filologiyasi kafedrasi",
+   "group": "chair",
+   "count": 4
+  },
+  {
+   "id": "marketing-bolimi",
+   "name": "Marketing bo‘limi",
+   "group": "unit",
+   "count": 4
+  },
+  {
+   "id": "nemis-tili-nazariy-fanlar-kafedrasi",
+   "name": "Nemis tili nazariy fanlar kafedrasi",
+   "group": "chair",
+   "count": 4
+  },
+  {
+   "id": "pedagogika-va-psixologiya-kafedrasi",
+   "name": "Pedagogika va psixologiya kafedrasi",
+   "group": "chair",
+   "count": 4
+  },
+  {
+   "id": "rahbariyat",
+   "name": "Rahbariyat",
+   "group": "lead",
+   "count": 7
+  },
+  {
+   "id": "raqamli-talim-texnologiyalari-markazi",
+   "name": "Raqamli ta’lim texnologiyalari markazi",
+   "group": "unit",
+   "count": 4
+  },
+  {
+   "id": "tarjimonlik-fakulteti",
+   "name": "Tarjimonlik fakulteti",
+   "group": "faculty",
+   "count": 4
+  },
+  {
+   "id": "xalqaro-hamkorlik-bolimi",
+   "name": "Xalqaro hamkorlik bo‘limi",
+   "group": "unit",
+   "count": 1
+  },
+  {
+   "id": "xalqaro-jurnalistika-fakulteti",
+   "name": "Xalqaro jurnalistika fakulteti",
+   "group": "faculty",
+   "count": 4
+  },
+  {
+   "id": "xitoy-filologiyasi-kafedrasi",
+   "name": "Xitoy filologiyasi kafedrasi",
+   "group": "chair",
+   "count": 4
+  },
+  {
+   "id": "yapon-filologiyasi-kafedrasi",
+   "name": "Yapon filologiyasi kafedrasi",
+   "group": "chair",
+   "count": 4
+  }
+ ]
+}

@@ -1,0 +1,834 @@
+{
+  "meta": {
+    "description": "Özbekiston davlat jahon tillari universiteti — xorijiy tillar, filologiya, tarjimonlik va xalqaro jurnalistika böyiça oliy ta’lim."
+  },
+  "university": {
+    "name": "Özbekiston davlat jahon tillari universiteti",
+    "short": "ÖzDJTU",
+    "line1": "Özbekiston davlat",
+    "line2": "jahon tillari universiteti"
+  },
+  "nav": {
+    "skip": "Asosiy kontentga ötiş",
+    "home": "Boş sahifa",
+    "news": "Yangiliklar",
+    "contact": "Aloqa",
+    "search": "Qidiruv",
+    "admission": "Qabul 2026",
+    "menu": "Menyu",
+    "close": "Yopiş",
+    "more": "Yana",
+    "moreTitle": "Boşqa bölimlar",
+    "pages": "{n} ta sahifa",
+    "featured": "Diqqat markazida",
+    "open": "Oçiş",
+    "searchPlaceholder": "Saytdan qidiriş…",
+    "breadcrumb": "Yöl",
+    "overview": "Bölim sahifasi"
+  },
+  "topbar": {
+    "hotline": "Işonç telefoni",
+    "fontSize": "Şrift ölçami",
+    "decrease": "Kiçraytiriş",
+    "increase": "Kattalaştiriş",
+    "contrast": "Yuqori kontrast",
+    "language": "Til",
+    "a11y": "Maxsus imkoniyatlar",
+    "contrastShort": "Kontrast"
+  },
+  "auth": {
+    "login": "Kiriş",
+    "staff": "Xodimlar uçun",
+    "students": "Talabalar uçun",
+    "hemisStaff": "HEMIS — xodim kabineti",
+    "hemisStudent": "HEMIS — talaba kabineti",
+    "kpi": "KPI tizimi"
+  },
+  "menu": {
+    "university": {
+      "title": "Universitet",
+      "desc": "1949-yildan buyon tillar orqali dunyoni boğlab kelayotgan universitet haqida.",
+      "items": {
+        "about": "Universitet haqida",
+        "rectorate": "Rektorat",
+        "structure": "Tuzilma",
+        "history": "Tarix",
+        "faculties": "Fakultetlar va kafedralar",
+        "staff": "Professor-öqituvçilar",
+        "library": "Axborot-resurs markazi",
+        "campus": "Kampus va TTJ"
+      }
+    },
+    "applicants": {
+      "title": "Abituriyentlarga",
+      "desc": "Qabul, yönalişlar, kontrakt va grantlar haqida kerakli hamma narsa.",
+      "items": {
+        "admission": "Qabul 2026/2027",
+        "bachelor": "Bakalavriat yönalişlari",
+        "master": "Magistratura",
+        "phd": "Doktorantura (PhD)",
+        "fees": "Kontrakt narxlari",
+        "scholarships": "Stipendiyalar",
+        "international": "Xorijiy talabalar",
+        "joint": "Qöşma ta’lim dasturlari"
+      }
+    },
+    "activity": {
+      "title": "Faoliyat",
+      "desc": "Ilm-fan, xalqaro hamkorlik va universitet hayoti.",
+      "items": {
+        "research": "Ilmiy faoliyat",
+        "international": "Xalqaro aloqalar",
+        "culture": "Ma’naviy-ma’rifiy işlar",
+        "green": "Yaşil universitet",
+        "sdg": "Barqaror rivojlaniş (BRM)",
+        "anticorruption": "Korrupsiyaga qarşi kuraş",
+        "documents": "Me’yoriy hujjatlar",
+        "accreditation": "Xalqaro akkreditatsiya"
+      }
+    },
+    "promo": {
+      "title": "Qabul 2026/2027",
+      "text": "Bakalavriat, magistratura va qöşma dasturlarga hujjatlar qabuli.",
+      "cta": "Batafsil"
+    }
+  },
+  "carousel": {
+    "label": "Asosiy bannerlar",
+    "prev": "Oldingi slayd",
+    "next": "Keyingi slayd",
+    "goTo": "{n}-slaydga ötiş",
+    "pause": "Aylanişni töxtatiş",
+    "play": "Aylanişni davom ettiriş"
+  },
+  "hero": {
+    "eyebrow": "1949-yildan beri",
+    "title1": "Tillar —",
+    "title2": "dunyoga oçilgan eşik",
+    "text": "Xorijiy tillar, filologiya, tarjimonlik va xalqaro jurnalistika böyiça mutaxassislar tayyorlaydigan universitet.",
+    "ctaPrimary": "Qabul 2026/2027",
+    "ctaSecondary": "Ta’lim yönalişlari",
+    "searchLabel": "Sayt böyiça qidiriş",
+    "searchPlaceholder": "Masalan: kontrakt narxi, dars jadvali…",
+    "searchButton": "Qidiriş",
+    "popular": "Köp qidiriladi:",
+    "chips": {
+      "fees": "Kontrakt narxlari",
+      "schedule": "Dars jadvali",
+      "master": "Magistratura",
+      "grants": "Grantlar"
+    },
+    "students": "talaba tahsil oladi",
+    "greeting": "Salom, dunyo!"
+  },
+  "quick": {
+    "title": "Tezkor xizmatlar",
+    "items": {
+      "reception": {
+        "title": "Virtual qabulxona",
+        "text": "Rektorga murojaat yuboriş"
+      },
+      "student": {
+        "title": "Talaba portali",
+        "text": "Baholar, jadval, davomat"
+      },
+      "hemis": {
+        "title": "HEMIS",
+        "text": "Oliy ta’lim axborot tizimi"
+      },
+      "mail": {
+        "title": "Korporativ poçta",
+        "text": "Xodimlar uçun e-poçta"
+      },
+      "career": {
+        "title": "Karyera markazi",
+        "text": "Amaliyot va iş örinlari"
+      },
+      "brm": {
+        "title": "BRM",
+        "text": "Barqaror rivojlaniş maqsadlari"
+      },
+      "glossary": {
+        "title": "AKT izohli luğati",
+        "text": "Mobil ilova"
+      }
+    }
+  },
+  "about": {
+    "eyebrow": "Universitet haqida",
+    "title": "Yetmiş yildan ortiq tajriba — yangi avlod uçun",
+    "text": "Universitet 1949-yilda xorijiy tillar pedagogika instituti sifatida taşkil topgan. Bugun u xorijiy tillar, filologiya, tarjimonlik va xalqaro jurnalistika böyiça kadrlar tayyorlaydigan yirik oliy ta’lim muassasasidir.",
+    "link": "Universitet tarixi"
+  },
+  "stats": {
+    "faculties": "Fakultetlar",
+    "staff": "Akademik xodimlar",
+    "departments": "Kafedralar",
+    "students": "Talabalar",
+    "source": "Ma’lumotlar HEMIS tizimidan"
+  },
+  "faculties": {
+    "eyebrow": "Ta’lim",
+    "title": "Fakultetlar",
+    "text": "Har bir fakultet — öz tillari, maktabi va an’analariga ega alohida dunyo.",
+    "all": "Barça fakultetlar"
+  },
+  "news": {
+    "eyebrow": "Universitet hayoti",
+    "title": "Yangiliklar",
+    "all": "Barça yangiliklar",
+    "announcements": "E’lonlar",
+    "allAnnouncements": "Barça e’lonlar",
+    "readMore": "Batafsil"
+  },
+  "events": {
+    "eyebrow": "Taqvim",
+    "title": "Yaqin tadbirlar",
+    "all": "Barça tadbirlar",
+    "empty": "Yaqin kunlarda tadbirlar rejalaştirilmagan.",
+    "time": "Vaqti",
+    "place": "Joyi"
+  },
+  "languages": {
+    "eyebrow": "Tillar",
+    "title": "Biz öqitadigan tillar",
+    "text": "Ğarb va Şarq tillari — bir kampusda."
+  },
+  "symbols": {
+    "eyebrow": "Özbekiston Respublikasi",
+    "title": "Davlat ramzlari",
+    "flag": "Özbekiston Respublikasi davlat bayroği",
+    "emblem": "Özbekiston Respublikasi davlat gerbi",
+    "anthem": "Özbekiston Respublikasi davlat madhiyasi",
+    "view": "Batafsil",
+    "listen": "Tinglaş",
+    "newTab": "yangi oynada oçiladi"
+  },
+  "partners": {
+    "eyebrow": "Xalqaro hamkorlik",
+    "title": "Hamkorlarimiz",
+    "text": "Universitet xorijiy va mahalliy taşkilotlar hamda oliy ta’lim muassasalari bilan hamkorlik qiladi.",
+    "all": "Barça hamkorlar"
+  },
+  "admission": {
+    "eyebrow": "Abituriyentlarga",
+    "title": "Qabul 2026/2027",
+    "text": "Bakalavriat, magistratura va doktoranturaga hujjat topşiriş bosqiçlari.",
+    "steps": {
+      "s1": {
+        "title": "Yönaliş tanlang",
+        "text": "Bakalavriat va magistratura yönalişlari bilan tanişing."
+      },
+      "s2": {
+        "title": "Ariza topşiring",
+        "text": "Hujjatlarni onlayn tarzda yuboring."
+      },
+      "s3": {
+        "title": "Imtihon",
+        "text": "Test sinovlari va ijodiy imtihonlar jadvali."
+      },
+      "s4": {
+        "title": "Talaba böling",
+        "text": "Natijalar e’lon qilinadi, şartnoma rasmiylaştiriladi."
+      }
+    },
+    "cta": "Ariza topşiriş",
+    "ctaSecondary": "Kontrakt narxlari"
+  },
+  "footer": {
+    "about": "Xorijiy tillar, filologiya, tarjimonlik va xalqaro jurnalistika böyiça oliy ta’lim muassasasi.",
+    "contacts": "Boğlaniş",
+    "campuses": "Binolar",
+    "links": "Foydali havolalar",
+    "symbols": {
+      "title": "Davlat ramzlari",
+      "flag": "Davlat bayroği",
+      "emblem": "Davlat gerbi",
+      "anthem": "Davlat madhiyasi"
+    },
+    "social": "Ijtimoiy tarmoqlar",
+    "rights": "Barça huquqlar himoyalangan.",
+    "phone": "Telefon",
+    "email": "E-poçta",
+    "ext": "içki raqam"
+  },
+  "placeholder": {
+    "title": "Sahifa tayyorlanmoqda",
+    "text": "Bu bölim yangi saytda tez orada işga tuşadi.",
+    "back": "Boş sahifaga qaytiş"
+  },
+  "staff": {
+    "university": "Universitet",
+    "title": "Xodimlar",
+    "lead": "Professor-öqituvçilar va xodimlar — bölimi, lavozimi va boğlaniş ma’lumotlari.",
+    "statPeople": "xodim",
+    "statDepartments": "bölim va kafedra",
+    "searchLabel": "Ism böyiça qidiriş",
+    "searchPlaceholder": "Xodimni ism böyiça qidiring…",
+    "departmentLabel": "Bölim",
+    "allDepartments": "Barça bölimlar",
+    "groupsLabel": "Guruh",
+    "groups": {
+      "all": "Barçasi",
+      "lead": "Rahbariyat",
+      "faculty": "Fakultetlar",
+      "chair": "Kafedralar",
+      "unit": "Markaz va bölimlar"
+    },
+    "results": "{n} ta natija",
+    "empty": "Heç kim topilmadi",
+    "emptyHint": "Boşqa ism yoki bölimni tanlab köring.",
+    "reset": "Filtrlarni tozalaş",
+    "pages": "Sahifalar",
+    "prev": "Oldingi",
+    "next": "Keyingi",
+    "pageOf": "{page}-sahifa, jami {total}",
+    "profile": {
+      "photo": "{name} surati",
+      "fullName": "Ism familiya şarif",
+      "department": "Bölim",
+      "position": "Lavozim",
+      "contact": "Aloqa",
+      "socials": "Ijtimoiy tarmoqlar",
+      "writeMessage": "Xabar yoziş",
+      "personalPage": "Şaxsiy sahifa",
+      "connect": "Boğlaniş",
+      "writeTelegram": "Telegram’da yoziş",
+      "sendEmail": "E-poçta yuboriş",
+      "call": "Qönğiroq qiliş",
+      "qr": "QR kod",
+      "qrAlt": "Profil havolasi QR kodi",
+      "downloadQr": "QR kodni yuklab oliş",
+      "share": "Ulaşiş",
+      "copyLink": "Havolani nusxalaş",
+      "copied": "Havola nusxalandi",
+      "shareTelegram": "Telegram orqali",
+      "shareFacebook": "Facebook orqali",
+      "noContacts": "Xodim hali aloqa ma’lumotlarini qöşmagan.",
+      "note": "Ism, bölim va lavozim HEMIS’dan olinadi; aloqa va tarmoqlarni xodimning özi kabinetda yangilaydi.",
+      "banners": "Universitet bannerlari",
+      "newTab": "yangi oynada oçiladi",
+      "qrTitle": "Xodim sahifasi QR kodi",
+      "cardTitle": "Vizitkani ulaşiş",
+      "downloadCard": "Rasm sifatida yuklab oliş",
+      "send": "Yuboriş",
+      "close": "Yopiş",
+      "preparing": "Tayyorlanmoqda…",
+      "shareWhatsapp": "WhatsApp orqali",
+      "about": "Xodim haqida",
+      "science": "Ilmiy profillar",
+      "documents": "Hujjatlar",
+      "writeWhatsapp": "WhatsApp’da yoziş",
+      "showOnMap": "Xaritada köriş",
+      "count": "{n} ta",
+      "open": "Oçiş"
+    },
+    "contact": {
+      "email": "E-poçta",
+      "telegram": "Telegram",
+      "whatsapp": "WhatsApp",
+      "mobile": "Mobil telefon",
+      "phone": "Içki telefon",
+      "office": "Qabul joyi"
+    },
+    "docs": {
+      "cv": "CV",
+      "books": "Kitoblar",
+      "articles": "Maqolalar"
+    }
+  },
+  "cabinet": {
+    "title": "Dashboard",
+    "menu": {
+      "label": "Dashboard",
+      "dashboard": "Dashboard (UzSWLU)",
+      "staffPage": "Staff sahifam",
+      "logout": "Çiqiş"
+    },
+    "myPage": "Mening sahifam",
+    "support": {
+      "title": "Texnik yordam",
+      "text": "Yordam yoki qöşimça rollarga ega böliş uçun:",
+      "link": "Adminga murojaat qiling"
+    },
+    "banner": {
+      "title": "Hurmatli foydalanuvçi!",
+      "text": "Ism, lavozim, bölim va rasm HEMIS tizimidan olinadi. Ularni özgartiriş uçun HEMIS profilingizga kiring."
+    },
+    "hemis": {
+      "title": "Mening profilim",
+      "badge": "HEMIS’dan",
+      "lastName": "Familiya",
+      "firstName": "Ism",
+      "patronymic": "Şarif",
+      "birthDate": "Tuğilgan kun",
+      "phone": "Telefon",
+      "email": "E-poçta",
+      "jobs": "Lavozimlar",
+      "rate": "{n} stavka"
+    },
+    "edit": "Tahrirlaş",
+    "close": "Yopiş",
+    "save": "Saqlaş",
+    "saved": "Saqlandi",
+    "cancel": "Bekor qiliş",
+    "remove": "Öçiriş",
+    "about": {
+      "placeholder": "Özingiz haqingizda qisqaça yozing",
+      "add": "Xodim haqida ma’lumot qöşiş",
+      "field": "Xodim haqida — {lang}"
+    },
+    "langs": {
+      "uz": "Özbekça",
+      "ru": "Русский",
+      "en": "English",
+      "zh": "中文"
+    },
+    "discard": {
+      "title": "Kiritilgan ma’lumot saqlanmaydi",
+      "text": "Haqiqatdan ham bekor qilmoqçimisiz?",
+      "yes": "Ha, bekor qiliş",
+      "no": "Yöq, davom etiş"
+    },
+    "links": {
+      "addEmail": "E-poçta qöşiş",
+      "officeHint": "Manzil aniq kiritilsin (şahar, köça, uy raqami) — Staff sahifasida xaritada oçiladi",
+      "empty": "Hali heç narsa qöşilmagan.",
+      "invalid": "Notöğri qiymat: havolalar https:// bilan boşlanişi kerak"
+    },
+    "docs": {
+      "title": "Hujjatlarim",
+      "count": "dona",
+      "visible": "Staff sahifasida körinadi",
+      "hidden": "Staff sahifasida yaşirin",
+      "dashboardOnly": "Faqat dashboard’da",
+      "upload": "Hujjat yuklaş",
+      "addLink": "Havola qöşiş",
+      "sections": {
+        "cv": "CV",
+        "books": "Kitoblarim",
+        "presentations": "Taqdimotlarim",
+        "articles": "Maqolalarim",
+        "videos": "Videolarim"
+      }
+    },
+    "upload": {
+      "rules": "Ruxsat etilgan turlar: {types} · 20 MB",
+      "linkRules": "Faqat havola (https): YouTube va boşqalar",
+      "drop": "Faylni şu yerga taşlang",
+      "dropSub": "yoki tanlaş uçun bosing",
+      "link": "Video havolasi",
+      "name": "Nomi ({lang})",
+      "zhHint": "Böş qolsa — inglizça nomi çiqadi",
+      "submit": "Yuklaş",
+      "uploading": "Yuklanmoqda…",
+      "search": "Qidiriş: nomi böyiça",
+      "uploaded": "Yuklanganlar",
+      "empty": "Hali heç narsa yuklanmagan.",
+      "notFound": "Heç narsa topilmadi.",
+      "open": "Oçiş",
+      "deleteTitle": "Faylni öçirasizmi?",
+      "deleteText": "Bu fayl butunlay öçib ketadi va uni qayta tiklab bölmaydi.",
+      "deleteYes": "Ha, öçirilsin",
+      "warnFile": "Tanlangan fayl hali yuklanmadi. Uni yuklaysizmi?",
+      "warnLink": "Kiritilgan havola hali saqlanmadi. Uni saqlaysizmi?",
+      "closeAnyway": "Yuklamasdan yopiş",
+      "nameRequired": "Nomini kiriting (özbekça)",
+      "badFile": "Bu turdagi fayl qabul qilinmaydi yoki hajmi 20 MB dan katta",
+      "badLink": "Havola https:// bilan boşlanişi kerak",
+      "error": "Xatolik yuz berdi, qayta urinib köring"
+    },
+    "photo": {
+      "change": "Rasmni almaştiriş",
+      "remove": "HEMIS rasmiga qaytariş",
+      "removeTitle": "Öz rasmingiz olib taşlansinmi?",
+      "removeText": "Saytda yana HEMIS’dagi rasmingiz körinadi.",
+      "removeYes": "Ha, qaytariş",
+      "bad": "Faqat JPG, PNG yoki WEBP, 10 MB gaça"
+    },
+    "error": "Xatolik yuz berdi, qayta urinib köring"
+  },
+  "page": {
+    "share": "Ulaşiş",
+    "print": "Çop etiş",
+    "copied": "Havola nusxalandi",
+    "sectionPages": "Bölim sahifalari",
+    "sectionNav": "Bölim böylab",
+    "helpful": "Bu sahifa foydali böldimi?",
+    "yes": "Ha",
+    "no": "Yöq",
+    "thanks": "Fikringiz uçun rahmat!",
+    "updated": "Oxirgi yangilaniş: {date}",
+    "prev": "Oldingi sahifa",
+    "next": "Keyingi sahifa",
+    "first": "Bölimning birinçi sahifasi",
+    "last": "Bölimning oxirgi sahifasi",
+    "download": "Yuklab oliş"
+  },
+  "posts": {
+    "title": "Universitet hayoti",
+    "lead": "ÖzDJTU yangiliklari, e’lonlari va tadbirlari.",
+    "tabs": {
+      "news": "Yangiliklar",
+      "events": "Tadbirlar",
+      "announcements": "E’lonlar"
+    },
+    "typeLabel": "Turi",
+    "search": "Yangiliklardan qidiriş",
+    "searchPlaceholder": "Qidiriş…",
+    "month": "Oy böyiça",
+    "allMonths": "Barça oylar",
+    "read": "Öqiş",
+    "empty": "Heç narsa topilmadi",
+    "calendar": "Tadbirlar taqvimi",
+    "telegram": {
+      "title": "Yangiliklarni Telegram’da kuzating",
+      "text": "t.me/UzSWLU — rasmiy kanal",
+      "cta": "Obuna böliş"
+    },
+    "minutes": "{n} daqiqa öqiş",
+    "shareTelegram": "Telegram’da ulaşiş",
+    "shareFacebook": "Facebook’da ulaşiş",
+    "copyLink": "Havolani nusxalaş",
+    "when": "Vaqti",
+    "where": "Joyi",
+    "latest": "Sönggi yangiliklar",
+    "allNews": "Barça yangiliklar",
+    "related": "Öxşaş yangiliklar"
+  },
+  "calendar": {
+    "title": "Tadbirlar taqvimi",
+    "lead": "Konferensiyalar, bayramlar, uçraşuvlar va oçiq eşiklar kunlari.",
+    "subscribe": "Taqvimga qöşiş (.ics)",
+    "prevMonth": "Oldingi oy",
+    "nextMonth": "Keyingi oy",
+    "weekdays": "Du,Se,Ço,Pa,Ju,Şa,Ya",
+    "hasEvents": "Tadbir bor",
+    "today": "bugun",
+    "selected": "Tanlangan kun",
+    "none": "Bu kunda tadbir yöq",
+    "upcoming": "Yaqin tadbirlar",
+    "filter": "Toifa",
+    "all": "Barçasi",
+    "plan": {
+      "title": "Tadbir rejalaştiryapsizmi?",
+      "text": "Fakultet va bölimlar tadbirlarni admin panel orqali taqvimga qöşadi."
+    }
+  },
+  "leaders": {
+    "title": "Rektorat",
+    "lead": "Universitet rahbariyati, qabul kunlari va boğlaniş ma’lumotlari.",
+    "rectorLine": "Özbekiston davlat jahon tillari universitetining rektori",
+    "hours": "Qabul kuni",
+    "phone": "Telefon",
+    "email": "E-poçta",
+    "write": "Virtual qabulxonaga yoziş",
+    "welcome": "Rektor tabrigi",
+    "profile": "Profilni köriş",
+    "prorectors": "Prorektorlar",
+    "press": "Matbuot kotibi",
+    "appeal": {
+      "title": "Rahbariyatga murojaat",
+      "text": "Virtual qabulxona orqali onlayn yozing — javob e-poçtangizga keladi.",
+      "cta": "Murojaat yuboriş"
+    }
+  },
+  "docs": {
+    "title": "Me’yoriy hujjatlar",
+    "lead": "Universitet nizomi, içki qoidalar, qonunçilik va öquv jarayoniga oid hujjatlar — bir joyda.",
+    "search": "Hujjat nomi böyiça qidiriş",
+    "placeholder": "Masalan: odob-axloq",
+    "categories": "Toifa böyiça saralaş",
+    "all": "Barçasi",
+    "link": "Havola",
+    "view": "Köriş",
+    "open": "Oçiş",
+    "download": "Yuklab oliş",
+    "empty": "Bunday hujjat topilmadi",
+    "shown": "{n} ta hujjat körsatilmoqda"
+  },
+  "programs": {
+    "section": "Ta’lim yönalişlari",
+    "accent": "yönalişlari",
+    "levels": "Ta’lim bosqiçlari",
+    "tabs": {
+      "bachelor": "Bakalavriat",
+      "master": "Magistratura",
+      "phd": "Doktorantura (PhD)",
+      "joint": "Qöşma dasturlar"
+    },
+    "bachelor": {
+      "name": "Bakalavriat",
+      "title": "Bakalavriat yönalişlari",
+      "lead": "Filologiya, tarjima, xalqaro munosabatlar va jurnalistika — 11 ta til böyiça kunduzgi va keçki ta’lim."
+    },
+    "master": {
+      "name": "Magistratura",
+      "title": "Magistratura mutaxassisliklari",
+      "lead": "Lingvistika, tarjimaşunoslik, jurnalistika va xalqaro munosabatlar böyiça ikki yillik dasturlar."
+    },
+    "groups": "Yönaliş guruhi",
+    "all": "Barçasi",
+    "shown": "{n} ta yönaliş",
+    "years": "{n} yil",
+    "evening": {
+      "title": "Keçki ta’lim",
+      "text": "60110900 Xorijiy til va adabiyoti (ingliz tili), 60230100 Filologiya va tillarni öqitiş (ingliz tili) va boşqa yönalişlar.",
+      "cta": "Keçki yönalişlar"
+    },
+    "admission": "Kontrakt miqdori, grantlar soni va hujjat topşiriş tartibi",
+    "admissionCta": "Qabul sahifasiga"
+  },
+  "facultyList": {
+    "title": "Fakultetlar va kafedralar",
+    "faculties": "fakultet",
+    "departments": "kafedra",
+    "meta": "Kafedralar: {departments} · Yönalişlar: {programs}",
+    "units": {
+      "title": "Bölimlar va markazlar",
+      "text": "Universitet tuzilmasidagi bölimlar"
+    },
+    "structure": {
+      "title": "Universitet tuzilmasi",
+      "text": "Rahbariyat, fakultetlar va bölimlar sxemasi"
+    },
+    "view": "Köriş"
+  },
+  "faculty": {
+    "label": "Fakultet",
+    "logo": "{name} logosi",
+    "stats": {
+      "students": "Talabalar",
+      "departments": "Kafedralar",
+      "programs": "Yönalişlar",
+      "teachers": "Öqituvçilar"
+    },
+    "source": "Sonlar HEMIS tizimidan",
+    "hours": "Qabul kunlari",
+    "contactDean": "Dekanga murojaat",
+    "sections": "Fakultet bölimlari",
+    "tabs": {
+      "about": "Fakultet haqida",
+      "programs": "Ta’lim yönalişlari",
+      "departments": "Kafedralar",
+      "deanery": "Dekanat",
+      "news": "Yangiliklar"
+    },
+    "study": "Öqiş",
+    "table": {
+      "program": "Yönaliş",
+      "level": "Daraja",
+      "form": "Ta’lim şakli",
+      "years": "Muddati"
+    },
+    "levels": {
+      "bachelor": "Bakalavriat",
+      "master": "Magistratura",
+      "phd": "Doktorantura"
+    },
+    "structure": "Tuzilma",
+    "head": "Mudir: {name}",
+    "leadership": "Rahbariyat",
+    "newsTitle": "Fakultet yangiliklari",
+    "contact": "Aloqa",
+    "map": "Xaritada köriş"
+  },
+  "admissionPage": {
+    "eyebrow": "Qabul komissiyasi",
+    "title": "Qabul",
+    "lead": "Bakalavriat, magistratura va doktoranturaga hujjat topşiriş — bir sahifada: yönalişlar, muddatlar, narxlar va kerakli hujjatlar.",
+    "apply": "Onlayn ariza topşiriş",
+    "contact": "Komissiya bilan boğlaniş",
+    "dates": "Muhim sanalar",
+    "how": "Qanday topşiriladi",
+    "stepsTitle": "Tört qadamda talaba böling",
+    "programsEyebrow": "Yönalişlar",
+    "programsTitle": "Özingizga mos yönalişni toping",
+    "levelLabel": "Daraja böyiça saralaş",
+    "search": "Yönaliş nomi böyiça qidiriş",
+    "searchPlaceholder": "Yönaliş nomi…",
+    "form": "Şakl",
+    "duration": "Muddat",
+    "price": "Kontrakt",
+    "empty": "Bunday yönaliş topilmadi",
+    "fees": {
+      "title": "Kontrakt narxlari",
+      "text": "Narx daraja va ta’lim şakliga boğliq. Tölovni bölib tölaş mumkin.",
+      "cta": "Narxlar jadvali"
+    },
+    "grants": {
+      "title": "Grant va stipendiyalar",
+      "text": "Davlat granti örinlari, nomli stipendiyalar va imtiyozlar haqida.",
+      "cta": "Batafsil"
+    },
+    "documents": "Kerakli hujjatlar",
+    "documentsFull": "Töliq röyxat (PDF)",
+    "faqEyebrow": "Savol-javob",
+    "faqTitle": "Köp beriladigan savollar",
+    "faqText": "Javob topmadingizmi? Qabul komissiyasiga yozing — iş kunlari javob beramiz.",
+    "commission": "Qabul komissiyasi"
+  },
+  "sdg": {
+    "crumb": "BRM",
+    "eyebrow": "Barqaror rivojlaniş maqsadlari",
+    "title": "BMTning 17 ta maqsadi —",
+    "titleAccent": "bizning kun tartibimiz",
+    "lead": "Har bir maqsad böyiça faoliyat, hujjatlar, hisobotlar va xalqaro reytinglardagi natijalar. Aylanadagi maqsadni tanlang.",
+    "world": "Dunyo",
+    "asia": "Osiyo",
+    "country": "Özbekiston",
+    "categoriesTitle": "Yaşil kampusning 6 yönalişi",
+    "goalsTitle": "17 maqsad böyiça natijalar",
+    "goalsText": "Har bir plitka — maqsad sahifasiga havola: bölimlar, hujjatlar va yangiliklar.",
+    "rank": "Reyting",
+    "score": "Ball",
+    "notRanked": "iştirok etmagan",
+    "reports": "Hisobotlar va siyosatlar",
+    "page": "SAHIFA",
+    "education": "Ta’lim va barqarorlik",
+    "green": "Yaşil universitet",
+    "allNews": "Barça yangiliklar",
+    "wheel": {
+      "caption": "Barqaror rivojlaniş maqsadlari",
+      "hint": "Maqsadni tanlang",
+      "more": "Batafsil"
+    },
+    "short": {
+      "1": "Qaşşoqlikka barham beriş",
+      "2": "Oçlikka barham beriş",
+      "3": "Soğliq va farovonlik",
+      "4": "Sifatli ta’lim",
+      "5": "Gender tengligi",
+      "6": "Toza suv va sanitariya",
+      "7": "Arzon va toza energiya",
+      "8": "Munosib mehnat va iqtisodiy ösiş",
+      "9": "Sanoat, innovatsiya va infratuzilma",
+      "10": "Tengsizlikni kamaytiriş",
+      "11": "Barqaror şaharlar",
+      "12": "Mas’uliyatli iste’mol",
+      "13": "Iqlim özgarişiga qarşi kuraş",
+      "14": "Dengiz ekotizimlari",
+      "15": "Quruqlik ekotizimlari",
+      "16": "Tinçlik, adolat va boşqaruv",
+      "17": "Maqsadlar yölida hamkorlik"
+    },
+    "goal": {
+      "short": "BRM {n}",
+      "eyebrow": "BMT barqaror rivojlaniş maqsadi · {n}",
+      "points": "{n} ball",
+      "goals": "Maqsadlar",
+      "sections": "BRM {n} bölimlari",
+      "documents": "Hujjatlar va hisobotlar",
+      "activity": "BRM {n} böyiça faoliyat",
+      "perPage": "Har sahifada 10 ta yozuv — barça yozuvlar bir yöla yuklanmaydi",
+      "prev": "Oldingi maqsad",
+      "next": "Keyingi maqsad"
+    }
+  },
+  "video": {
+    "section": "Video",
+    "title": "Video darsliklar",
+    "lead": "Tillarni öqitiş metodikasi va amaliy darslar — istalgan joyda, istalgan vaqtda.",
+    "channel": "YouTube kanalimiz",
+    "live": "Online translatsiya",
+    "onAir": "hozir efirda",
+    "offAir": "hozir efirda emas",
+    "next": "Keyingi translatsiya",
+    "nextTba": "Tez orada e’lon qilinadi",
+    "watch": "Köriş",
+    "categories": "Toifa"
+  },
+  "contact": {
+    "title": "Biz bilan boğlaniş",
+    "lead": "Universitetning asosiy bölimlari, elektron poçta manzillari va aloqa nuqtalari.",
+    "hotline": "Işonç telefoni",
+    "ext": "içki raqam: {ext}",
+    "channel": "Rasmiy kanal",
+    "campuses": "Binolar",
+    "route": "Yönaliş oliş",
+    "leaders": "Rahbariyat telefonlari",
+    "table": {
+      "name": "F.I.Ş. va lavozim",
+      "ext": "Içki",
+      "phone": "Iş telefoni"
+    },
+    "reception": "Qabulxona: {phone}",
+    "form": {
+      "title": "Virtual qabulxona",
+      "text": "Murojaatingiz röyxatga olinadi, javob e-poçtangizga yuboriladi.",
+      "name": "F.I.Ş.",
+      "phone": "Telefon",
+      "email": "E-poçta",
+      "to": "Kimga",
+      "message": "Murojaat matni",
+      "consent": "Şaxsiy ma’lumotlarimni murojaatni körib çiqiş uçun qayta işlaşga roziman",
+      "submit": "Murojaat yuboriş",
+      "sending": "Yuborilmoqda…",
+      "attach": "Fayl biriktiriş",
+      "fileHint": "PDF, JPG, PNG yoki DOC — 10 MB gaça",
+      "fileTooBig": "Fayl hajmi 10 MB dan oşmasligi kerak",
+      "success": "Murojaatingiz qabul qilindi",
+      "number": "Murojaat raqami: {number}. Javob e-poçtangizga yuboriladi.",
+      "another": "Yana murojaat yuboriş",
+      "error": "Murojaat yuborilmadi. Maydonlarni tekşirib, qayta urinib köring."
+    }
+  },
+  "search": {
+    "title": "Qidiruv",
+    "label": "Qidiruv sörovi",
+    "submit": "Qidiriş",
+    "types": "Natija turi",
+    "all": "Hammasi",
+    "kinds": {
+      "pages": "Sahifa",
+      "news": "Yangilik",
+      "documents": "Hujjat"
+    },
+    "quick": "Tezkor javob",
+    "open": "Oçiş",
+    "empty": "“{q}” böyiça heç narsa topilmadi",
+    "emptyHint": "Sözni boşqaça yozib köring yoki qisqaroq sörov bering.",
+    "notFound": "Kerakli narsani topmadingizmi?",
+    "popular": "Köp qidiriladi:",
+    "scholarships": "Stipendiyalar"
+  },
+  "notFound": {
+    "title": "Sahifa topilmadi",
+    "text": "Buni 11 tilda ayta olamiz — lekin sahifani topa olmadik. Manzil özgargan yoki sahifa olib taşlangan bölişi mumkin.",
+    "placeholder": "Nima qidirayotgan edingiz?",
+    "errorTitle": "Nimadir notöğri ketdi",
+    "errorText": "Sahifani yuklaşda xatolik yuz berdi. Birozdan keyin qayta urinib köring."
+  },
+  "a11y": {
+    "title": "Köriniş",
+    "font": "Şrift",
+    "reset": "Standart holatga qaytariş",
+    "color": "Rang",
+    "schemes": {
+      "default": "Standart",
+      "dark": "Qora fon, oq matn (kontrast)",
+      "blue": "Kök fon",
+      "sepia": "Sepiya — közni çarçatmaydi",
+      "green": "Qora fon, yaşil matn"
+    },
+    "voice": "Ovoz",
+    "voiceOn": "Ovoz yoqilgan",
+    "voiceOff": "Ovozni yoqiş",
+    "readPage": "Sahifani öqiş",
+    "stop": "Töxtatiş",
+    "reading": "Öqilmoqda…",
+    "hintOff": "Bepul: brauzerning özidagi ovoz işlatiladi, heç qanday tölov yöq.",
+    "hintOn": "Siçqonçani matn ustiga olib boring — u ovoz çiqarib öqiladi (telefonda matnga bosing). Yoki butun sahifani tinglang.",
+    "noUz": "Brauzeringizda özbekça ovoz topilmadi, yaqin tildagi ovoz işlatiladi. Microsoft Edge brauzerida özbekça ovoz bepul mavjud.",
+    "unsupported": "Bu brauzer ovozli öqişni qöllamaydi.",
+    "failed": "Ovoz işga tuşmadi: bu qurilma yoki brauzerda ovoz dvigateli yöq. Chrome yoki Edge brauzerida urinib köring."
+  },
+  "pdf": {
+    "open": "Oçiş",
+    "download": "Yuklab oliş",
+    "fullscreen": "Töliq ekranda",
+    "scroll": "Aylantirib öqing",
+    "viewer": "PDF körinişi: {title}",
+    "files": "Fayllar"
+  }
+}

@@ -1,0 +1,299 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Onest", ui-sans-serif, system-ui, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+
+  /* Asosiy fon va matn */
+  --color-paper: #faf8f4;
+  --color-ink: #13112f;
+  --color-muted: #5e5a72;
+  --color-line: #e8e3d8;
+
+  /* Brend: chuqur indigo (eski saytdagi #392C7D davomi) */
+  --color-brand-50: #f2f0fc;
+  --color-brand-100: #e4e0f8;
+  --color-brand-200: #c9c2f0;
+  --color-brand-300: #a79ce4;
+  --color-brand-400: #7f70d3;
+  --color-brand-500: #5b4bbe;
+  --color-brand-600: #4637a3;
+  --color-brand-700: #382b85;
+  --color-brand-800: #2a2066;
+  --color-brand-900: #1c1548;
+  --color-brand-950: #110c2e;
+
+  /* Aksent: universitet logosidagi yashil ranglar (B varianti).
+     400 — logo yalpizi: faqat to'q fonda yoki to'q matnli tugma foni sifatida (oq fonda matn: 1.4:1 ✗).
+     600/700 — och fonda yashil matn uchun (4.9:1 va 7.7:1). */
+  --color-accent-100: #ddfbf0;
+  --color-accent-300: #5cfbcb;
+  --color-accent-400: #00fcb4;
+  --color-accent-500: #54c084;
+  --color-accent-600: #0e7a5a;
+  --color-accent-700: #0b5a43;
+
+  --color-coral-500: #e5594c;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-dialog-in: dialog-in 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --animate-coin-flip: coin-flip 0.9s cubic-bezier(0.45, 0.05, 0.35, 1);
+
+  @keyframes dialog-in {
+    from { opacity: 0; transform: translateY(12px) scale(0.97); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* Fakultet logosi: tanga kabi bir marta aylanib, orqa tomonini ko'rsatadi */
+  @keyframes coin-flip {
+    from { transform: rotateY(0); }
+    to { transform: rotateY(360deg); }
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Xitoy tilida serif sarlavhalar o'rniga toza sans */
+  :lang(zh) .font-display {
+    font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", var(--font-sans);
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-600);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* Maxsus imkoniyatlar: rang rejimlari ("Ko'rinish" paneli, eski saytdagi 5 variant).
+   Butun sayt ikki rangga o'tadi — fon va matn; rasmlar, belgilar va rang ma'no beradigan joylar
+   (BRM ranglari — data-a11y-keep) o'zgarmaydi. Bezaklar (.decor) yashiriladi. */
+html[data-scheme] {
+  --a11y-bg: #000000;
+  --a11y-fg: #ffffff;
+  --a11y-line: rgb(255 255 255 / 0.45);
+}
+
+html[data-scheme='blue'] {
+  --a11y-bg: #dcebfa;
+  --a11y-fg: #0b2e6b;
+  --a11y-line: rgb(11 46 107 / 0.35);
+}
+
+html[data-scheme='sepia'] {
+  --a11y-bg: #f3e9d2;
+  --a11y-fg: #3d2b1f;
+  --a11y-line: rgb(61 43 31 / 0.35);
+}
+
+html[data-scheme='green'] {
+  --a11y-fg: #a3ff3d;
+  --a11y-line: rgb(163 255 61 / 0.45);
+}
+
+html[data-scheme],
+html[data-scheme] body,
+html[data-scheme] body :where(*:not(img, video, canvas, picture, svg, svg *, [class*='iconify'], [data-a11y-keep], [data-a11y-keep] *)) {
+  background-color: var(--a11y-bg) !important;
+  background-image: none !important;
+  color: var(--a11y-fg) !important;
+  border-color: var(--a11y-line) !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+html[data-scheme] .decor {
+  visibility: hidden !important;
+}
+
+html[data-scheme] a {
+  text-decoration-color: currentColor;
+}
+
+html[data-scheme] :focus-visible {
+  outline-color: var(--a11y-fg);
+}
+
+/* Ovozli o'qish: hozir o'qilayotgan matn (kursor ustidagi yoki bosilgan) ajratib ko'rsatiladi */
+[data-speaking] {
+  outline: 3px solid var(--color-accent-600);
+  outline-offset: 3px;
+  border-radius: 6px;
+  background-color: rgb(0 252 180 / 0.14);
+}
+
+html[data-scheme] [data-speaking] {
+  outline-color: var(--a11y-fg) !important;
+  outline-style: dashed !important;
+}
+
+/* Backend'dan keladigan HTML matn (sahifa, yangilik, BRM bo'limi) — canvas'dagi "Matnli sahifa" uslubida */
+.prose-page {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #2b2842;
+  overflow-wrap: anywhere;
+}
+
+.prose-page > * + * { margin-top: 1rem; }
+
+.prose-page h2 {
+  margin-top: 3rem;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.prose-page h3 {
+  margin-top: 2rem;
+  font-size: 1.375rem;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.prose-page > :first-child { margin-top: 0; }
+
+/* Yangilik matnining birinchi paragrafi — kirish (kattaroq) */
+.prose-lead > p:first-child {
+  font-size: 1.375rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+}
+
+.prose-page a {
+  font-weight: 600;
+  color: var(--color-brand-700);
+  text-decoration: underline;
+  text-decoration-color: var(--color-brand-200);
+  text-underline-offset: 4px;
+}
+
+.prose-page a:hover { text-decoration-color: currentColor; }
+
+.prose-page ul { list-style: disc; padding-left: 1.5rem; }
+.prose-page ol { list-style: decimal; padding-left: 1.5rem; }
+.prose-page li + li { margin-top: 0.375rem; }
+.prose-page strong { font-weight: 600; color: var(--color-ink); }
+
+.prose-page blockquote {
+  margin-block: 2rem;
+  padding: 1.75rem 2rem;
+  border-radius: 1.5rem;
+  background: var(--color-brand-50);
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  line-height: 1.4;
+  font-style: italic;
+  color: var(--color-brand-800);
+}
+
+.prose-page figure { margin-block: 2.25rem 0; }
+.prose-page img { width: 100%; border-radius: 1.75rem; aspect-ratio: 16 / 9; object-fit: cover; }
+.prose-page figcaption { margin-top: 0.625rem; font-size: 0.8125rem; color: var(--color-muted); }
+
+.prose-page h4 { font-size: 1.125rem; font-weight: 600; color: var(--color-ink); margin-top: 1.5rem; }
+.prose-page hr { border: 0; border-top: 1px solid var(--color-line); margin-block: 2rem; }
+.prose-page sub, .prose-page sup { font-size: 0.75em; line-height: 0; }
+/* Admin muharriridan qo'yilgan YouTube video */
+.prose-page div[data-youtube-video] iframe { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 1.25rem; }
+.prose-page table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+.prose-page th, .prose-page td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--color-line); text-align: left; }
+
+@media (max-width: 639px) {
+  .prose-page { font-size: 1.0625rem; }
+  .prose-page h2 { font-size: 1.625rem; }
+  .prose-page blockquote { padding: 1.25rem 1.375rem; font-size: 1.3125rem; }
+}
+
+@media print {
+  header, footer, nav, aside, .no-print { display: none !important; }
+}
+
+/* Xodim chap kartasi (Staff/dashboard) — oldingi saytdagi effektlar:
+   rasm halqasi doim sekin aylanadi (12 s; hover'da JS bilan sakrashsiz tezlashadi),
+   hover'da karta ko'tariladi, 2% kattalashadi va yuzasidan yorug'lik o'tadi. Egilmaydi. */
+@property --staff-ring {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes staff-ring {
+  to { --staff-ring: 360deg; }
+}
+
+.staff-ring {
+  background: conic-gradient(from var(--staff-ring), var(--color-accent-400), var(--color-brand-400), var(--color-brand-500), var(--color-brand-400), var(--color-accent-400));
+  animation: staff-ring 12s linear infinite;
+}
+
+.staff-card {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.staff-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 38%, rgb(255 255 255 / 0.11) 50%, transparent 62%);
+  background-size: 260% 100%;
+  background-position: 160% 0;
+  transition: background-position 0.9s ease;
+}
+
+@media (hover: hover) {
+  .staff-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 22px 48px rgb(17 12 46 / 0.38);
+  }
+
+  .staff-card:hover::after {
+    background-position: -60% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .staff-ring { animation: none; }
+  .staff-card, .staff-card::after { transition: none; }
+  .staff-card:hover { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

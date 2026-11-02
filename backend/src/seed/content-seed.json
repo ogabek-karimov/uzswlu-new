@@ -1,0 +1,692 @@
+{
+ "slides": [
+  {
+   "image": "/slides/slide-1.webp",
+   "alt": {
+    "uz": "Özbekiston Respublikasi davlat mustaqilligiga 35 yil",
+    "ru": "35 лет государственной независимости Республики Узбекистан",
+    "en": "35 years of independence of the Republic of Uzbekistan",
+    "zh": "乌兹别克斯坦共和国独立35周年"
+   }
+  },
+  {
+   "image": "/slides/slide-2.webp",
+   "alt": {
+    "uz": "UI GreenMetric 2026: dunyoda 512-, Osiyoda 296-, Özbekistonda 11-örin",
+    "ru": "UI GreenMetric 2026: 512-е место в мире, 296-е в Азии, 11-е в Узбекистане",
+    "en": "UI GreenMetric 2026: 512th in the world, 296th in Asia, 11th in Uzbekistan",
+    "zh": "UI GreenMetric 2026：全球第512名，亚洲第296名，乌兹别克斯坦第11名"
+   }
+  },
+  {
+   "image": "/slides/slide-3.webp",
+   "alt": {
+    "uz": "QS by Subject 2025 (lingvistika, 251–300) va UI GreenMetric 2024 sertifikatlari",
+    "ru": "Сертификаты QS by Subject 2025 (лингвистика, 251–300) и UI GreenMetric 2024",
+    "en": "QS by Subject 2025 (Linguistics, 251–300) and UI GreenMetric 2024 certificates",
+    "zh": "QS学科排名2025（语言学，251–300）及UI GreenMetric 2024证书"
+   }
+  },
+  {
+   "image": "/slides/slide-4.webp",
+   "alt": {
+    "uz": "Higher Education Ranking 2026: dunyoda 119-, Özbekistonda 12-örin",
+    "ru": "Higher Education Ranking 2026: 119-е место в мире, 12-е в Узбекистане",
+    "en": "Higher Education Ranking 2026: 119th in the world, 12th in Uzbekistan",
+    "zh": "Higher Education Ranking 2026：全球第119名，乌兹别克斯坦第12名"
+   }
+  },
+  {
+   "image": "/slides/slide-5.webp",
+   "alt": {
+    "uz": "QS WUR by Subject 2025: lingvistika yönalişida 251–300-örin",
+    "ru": "QS WUR by Subject 2025: 251–300 место по лингвистике",
+    "en": "QS WUR by Subject 2025: Linguistics 251–300",
+    "zh": "QS学科排名2025：语言学251–300名"
+   }
+  },
+  {
+   "image": "/slides/slide-6.webp",
+   "alt": {
+    "uz": "QS WUR by Subject 2026: lingvistika 201–250, zamonaviy tillar 301–350",
+    "ru": "QS WUR by Subject 2026: лингвистика 201–250, современные языки 301–350",
+    "en": "QS WUR by Subject 2026: Linguistics 201–250, Modern Languages 301–350",
+    "zh": "QS学科排名2026：语言学201–250名，现代语言301–350名"
+   }
+  },
+  {
+   "image": "/slides/slide-7.webp",
+   "alt": {
+    "uz": "THE Impact Rankings 2025 natijalari",
+    "ru": "Результаты THE Impact Rankings 2025",
+    "en": "THE Impact Rankings 2025 results",
+    "zh": "THE影响力排名2025结果"
+   }
+  }
+ ],
+ "leaders": [
+  {
+   "kind": "rector",
+   "staffId": "9300",
+   "name": "Tuxtasinov Ilxomjon Madaminovich",
+   "hours": {
+    "uz": "Dushanba, 15:00–17:00",
+    "ru": "Понедельник, 15:00–17:00",
+    "en": "Monday, 15:00–17:00",
+    "zh": "周一 15:00–17:00"
+   },
+   "phone": "+998 71 230 12 91",
+   "ext": "1001",
+   "email": "rector@uzswlu.uz",
+   "role": {
+    "uz": "Rektor",
+    "ru": "Ректор",
+    "en": "Rector",
+    "zh": "校长"
+   }
+  },
+  {
+   "kind": "prorector",
+   "staffId": "9004",
+   "name": "Sadiyev Valijon Alijonovich",
+   "hours": {
+    "uz": "Dushanba, 15:00–17:00",
+    "ru": "Понедельник, 15:00–17:00",
+    "en": "Monday, 15:00–17:00",
+    "zh": "周一 15:00–17:00"
+   },
+   "phone": "+998 71 230 13 40",
+   "ext": "1009",
+   "email": "v.sadiyev@uzswlu.uz",
+   "role": {
+    "uz": "Yoshlar masalalari va ma’naviy-ma’rifiy ishlar bo‘yicha birinchi prorektor",
+    "ru": "Первый проректор по делам молодёжи и духовно-просветительской работе",
+    "en": "First Vice-Rector for Youth Affairs and Spiritual and Educational Work",
+    "zh": "第一副校长（青年事务与思想教育）"
+   }
+  },
+  {
+   "kind": "prorector",
+   "staffId": "7909",
+   "name": "Chutpulatov Muxammad Chariyevich",
+   "hours": {
+    "uz": "Dushanba, 15:00–17:00",
+    "ru": "Понедельник, 15:00–17:00",
+    "en": "Monday, 15:00–17:00",
+    "zh": "周一 15:00–17:00"
+   },
+   "phone": "+998 71 230 12 94",
+   "ext": "1015",
+   "email": "m.chutpulatov@uzswlu.uz",
+   "role": {
+    "uz": "O‘quv ishlari bo‘yicha prorektor",
+    "ru": "Проректор по учебной работе",
+    "en": "Vice-Rector for Academic Affairs",
+    "zh": "副校长（教学）"
+   }
+  },
+  {
+   "kind": "prorector",
+   "staffId": "8450",
+   "name": "Nasirov Abduraxim Abdimutalipovich",
+   "hours": {
+    "uz": "Dushanba, 15:00–17:00",
+    "ru": "Понедельник, 15:00–17:00",
+    "en": "Monday, 15:00–17:00",
+    "zh": "周一 15:00–17:00"
+   },
+   "phone": "+998 71 230 13 73",
+   "ext": "1008",
+   "email": "a.nasirov@uzswlu.uz",
+   "role": {
+    "uz": "Xalqaro hamkorlik masalalari bo‘yicha prorektor",
+    "ru": "Проректор по международному сотрудничеству",
+    "en": "Vice-Rector for International Cooperation",
+    "zh": "副校长（国际合作）"
+   }
+  },
+  {
+   "kind": "prorector",
+   "staffId": "8098",
+   "name": "Yusupov Otabek Yakubovich",
+   "hours": {
+    "uz": "Dushanba, 15:00–17:00",
+    "ru": "Понедельник, 15:00–17:00",
+    "en": "Monday, 15:00–17:00",
+    "zh": "周一 15:00–17:00"
+   },
+   "phone": "+998 71 230 12 93",
+   "ext": "1011",
+   "email": "o.yusupov@uzswlu.uz",
+   "role": {
+    "uz": "Ilmiy ishlar va innovatsiyalar bo‘yicha prorektor",
+    "ru": "Проректор по научной работе и инновациям",
+    "en": "Vice-Rector for Research and Innovation",
+    "zh": "副校长（科研与创新）"
+   }
+  },
+  {
+   "kind": "prorector",
+   "staffId": null,
+   "name": "Xamrayev Maqsudjon Saidaxmadovich",
+   "hours": {
+    "uz": "Ish vaqti: 8:30–16:30",
+    "ru": "Рабочее время: 8:30–16:30",
+    "en": "Working hours: 8:30–16:30",
+    "zh": "工作时间：8:30–16:30"
+   },
+   "phone": "+998 71 230 12 93",
+   "ext": "1007",
+   "email": null,
+   "role": {
+    "uz": "Moliya-iqtisod ishlari bo‘yicha prorektor",
+    "ru": "Проректор по финансово-экономическим вопросам",
+    "en": "Vice-Rector for Finance and Economics",
+    "zh": "副校长（财务经济）"
+   }
+  },
+  {
+   "kind": "press",
+   "staffId": "7731",
+   "name": "Ibragimov Otabek Alisherovich",
+   "phone": "+998 97 777 99 26",
+   "email": "o.ibragimov@uzswlu.uz",
+   "role": {
+    "uz": "Axborot siyosati masalalari bo‘yicha rektor maslahatchisi",
+    "ru": "Советник ректора по вопросам информационной политики",
+    "en": "Adviser to the Rector on Information Policy",
+    "zh": "校长信息政策顾问"
+   }
+  }
+ ],
+ "docCategories": {
+  "uni": {
+   "uz": "Universitet hujjatlari",
+   "ru": "Документы университета",
+   "en": "University documents",
+   "zh": "大学文件"
+  },
+  "study": {
+   "uz": "Öquv va imtihon jarayoni",
+   "ru": "Учебный процесс и экзамены",
+   "en": "Teaching and examinations",
+   "zh": "教学与考试"
+  },
+  "law": {
+   "uz": "Qonunçilik",
+   "ru": "Законодательство",
+   "en": "Legislation",
+   "zh": "法律法规"
+  }
+ },
+ "docs": [
+  {
+   "category": "uni",
+   "kind": "pdf",
+   "title": {
+    "uz": "O‘zDJTU ustavi",
+    "ru": "Устав УзГУМЯ",
+    "en": "UzSWLU Charter",
+    "zh": "大学章程"
+   },
+   "url": "https://uzswlu.uz/meyoriy-hujjatlar"
+  },
+  {
+   "category": "uni",
+   "kind": "pdf",
+   "title": {
+    "uz": "O‘zDJTU ichki mehnat tartib qoidalari",
+    "ru": "Правила внутреннего трудового распорядка УзГУМЯ",
+    "en": "UzSWLU internal labour regulations",
+    "zh": "内部劳动规章"
+   },
+   "url": "https://uzswlu.uz/meyoriy-hujjatlar"
+  },
+  {
+   "category": "uni",
+   "kind": "pdf",
+   "title": {
+    "uz": "Xodimlarni ishga qabul qilish tartibi to‘g‘risidagi nizom",
+    "ru": "Положение о порядке приёма сотрудников на работу",
+    "en": "Regulations on staff recruitment",
+    "zh": "员工招聘规定"
+   },
+   "url": "https://uzswlu.uz/meyoriy-hujjatlar"
+  },
+  {
+   "category": "uni",
+   "kind": "pdf",
+   "title": {
+    "uz": "O‘zDJTU odob-axloq kodeksi",
+    "ru": "Кодекс этики УзГУМЯ",
+    "en": "UzSWLU Code of Ethics",
+    "zh": "道德行为准则"
+   },
+   "url": "https://uzswlu.uz/meyoriy-hujjatlar"
+  },
+  {
+   "category": "uni",
+   "kind": "pdf",
+   "title": {
+    "uz": "O‘zDJTU faoliyatida manfaatlar to‘qnashuvini boshqarish bo‘yicha nizom",
+    "ru": "Положение об управлении конфликтом интересов в деятельности УзГУМЯ",
+    "en": "Conflict of interest management policy",
+    "zh": "利益冲突管理规定"
+   },
+   "url": "https://uzswlu.uz/meyoriy-hujjatlar"
+  },
+  {
+   "category": "uni",
+   "kind": "link",
+   "title": {
+    "uz": "Manfaatlar to‘qnashuvi deklaratsiyasi",
+    "ru": "Декларация о конфликте интересов",
+    "en": "Conflict of interest declaration",
+    "zh": "利益冲突申报"
+   },
+   "url": "https://uzswlu.uz/meyoriy-hujjatlar"
+  },
+  {
+   "category": "study",
+   "kind": "pdf",
+   "title": {
+    "uz": "Filologiya va tillarni o‘qitish (roman-german tillari) bakalavriat ta’lim yo‘nalishining malaka talablari",
+    "ru": "Квалификационные требования бакалавриата «Филология и преподавание языков (романо-германские языки)»",
+    "en": "Qualification requirements: Philology and Language Teaching (Romance and Germanic languages), BA",
+    "zh": "本科专业资格要求：语文学与语言教学（罗曼-日耳曼语）"
+   },
+   "url": "https://uzswlu.uz/meyoriy-hujjatlar"
+  },
+  {
+   "category": "study",
+   "kind": "pdf",
+   "title": {
+    "uz": "Tarjima nazariyasi va amaliyoti (roman-german tillari) bakalavriat ta’lim yo‘nalishining malaka talablari",
+    "ru": "Квалификационные требования бакалавриата «Теория и практика перевода (романо-германские языки)»",
+    "en": "Qualification requirements: Translation Theory and Practice (Romance and Germanic languages), BA",
+    "zh": "本科专业资格要求：翻译理论与实践（罗曼-日耳曼语）"
+   },
+   "url": "https://uzswlu.uz/meyoriy-hujjatlar"
+  },
+  {
+   "category": "law",
+   "kind": "link",
+   "title": {
+    "uz": "O‘zbekiston Respublikasi qonunlari",
+    "ru": "Законы Республики Узбекистан",
+    "en": "Laws of the Republic of Uzbekistan",
+    "zh": "乌兹别克斯坦共和国法律"
+   },
+   "url": "https://lex.uz"
+  },
+  {
+   "category": "law",
+   "kind": "link",
+   "title": {
+    "uz": "O‘zbekiston Respublikasi Mehnat kodeksi",
+    "ru": "Трудовой кодекс Республики Узбекистан",
+    "en": "Labour Code of the Republic of Uzbekistan",
+    "zh": "乌兹别克斯坦共和国劳动法典"
+   },
+   "url": "https://lex.uz"
+  },
+  {
+   "category": "law",
+   "kind": "link",
+   "title": {
+    "uz": "O‘zbekiston Respublikasi Prezidentining qarorlari",
+    "ru": "Постановления Президента Республики Узбекистан",
+    "en": "Resolutions of the President of the Republic of Uzbekistan",
+    "zh": "乌兹别克斯坦共和国总统决议"
+   },
+   "url": "https://lex.uz"
+  },
+  {
+   "category": "law",
+   "kind": "link",
+   "title": {
+    "uz": "O‘zbekiston Respublikasi Vazirlar Mahkamasining qarorlari",
+    "ru": "Постановления Кабинета Министров Республики Узбекистан",
+    "en": "Resolutions of the Cabinet of Ministers of the Republic of Uzbekistan",
+    "zh": "乌兹别克斯坦共和国内阁决议"
+   },
+   "url": "https://lex.uz"
+  },
+  {
+   "category": "law",
+   "kind": "link",
+   "title": {
+    "uz": "Oliy ta’lim muassasalariga o‘qishga qabul qilish, talabalar o‘qishini ko‘chirish, qayta tiklash va o‘qishdan chetlashtirish tartibi to‘g‘risidagi nizomlar",
+    "ru": "Положения о порядке приёма, перевода, восстановления и отчисления студентов высших учебных заведений",
+    "en": "Regulations on admission, transfer, reinstatement and expulsion of students",
+    "zh": "高校招生、转学、复学和退学规定"
+   },
+   "url": "https://lex.uz"
+  }
+ ],
+ "videoCategories": [
+  {
+   "id": "en",
+   "greeting": "Hello",
+   "title": {
+    "uz": "Ingliz tilini o‘qitish metodikasi",
+    "ru": "Методика преподавания английского языка",
+    "en": "English language teaching methodology",
+    "zh": "英语教学法"
+   }
+  },
+  {
+   "id": "es",
+   "greeting": "¡Hola!",
+   "title": {
+    "uz": "Ispan tili",
+    "ru": "Испанский язык",
+    "en": "Spanish",
+    "zh": "西班牙语"
+   }
+  },
+  {
+   "id": "fr",
+   "greeting": "Bonjour",
+   "title": {
+    "uz": "Fransuz tili",
+    "ru": "Французский язык",
+    "en": "French",
+    "zh": "法语"
+   }
+  },
+  {
+   "id": "de",
+   "greeting": "Hallo",
+   "title": {
+    "uz": "Nemis tili",
+    "ru": "Немецкий язык",
+    "en": "German",
+    "zh": "德语"
+   }
+  },
+  {
+   "id": "zh",
+   "greeting": "你好",
+   "title": {
+    "uz": "Xitoy tili",
+    "ru": "Китайский язык",
+    "en": "Chinese",
+    "zh": "汉语"
+   }
+  }
+ ],
+ "lessons": [
+  {
+   "cat": "en",
+   "title": {
+    "uz": "Ingliz tilini o‘qitish metodikasi — 1-dars",
+    "ru": "Методика преподавания английского языка — урок 1",
+    "en": "English language teaching methodology — lesson 1",
+    "zh": "英语教学法——第1课"
+   }
+  },
+  {
+   "cat": "en",
+   "title": {
+    "uz": "Ingliz tilini o‘qitish metodikasi — 2-dars",
+    "ru": "Методика преподавания английского языка — урок 2",
+    "en": "English language teaching methodology — lesson 2",
+    "zh": "英语教学法——第2课"
+   }
+  },
+  {
+   "cat": "en",
+   "title": {
+    "uz": "Ingliz tilini o‘qitish metodikasi — 3-dars",
+    "ru": "Методика преподавания английского языка — урок 3",
+    "en": "English language teaching methodology — lesson 3",
+    "zh": "英语教学法——第3课"
+   }
+  },
+  {
+   "cat": "en",
+   "title": {
+    "uz": "Ingliz tilini o‘qitish metodikasi — 4-dars",
+    "ru": "Методика преподавания английского языка — урок 4",
+    "en": "English language teaching methodology — lesson 4",
+    "zh": "英语教学法——第4课"
+   }
+  },
+  {
+   "cat": "en",
+   "title": {
+    "uz": "Ingliz tilini o‘qitish metodikasi — 5-dars",
+    "ru": "Методика преподавания английского языка — урок 5",
+    "en": "English language teaching methodology — lesson 5",
+    "zh": "英语教学法——第5课"
+   }
+  },
+  {
+   "cat": "en",
+   "title": {
+    "uz": "Ingliz tilini o‘qitish metodikasi — 6-dars",
+    "ru": "Методика преподавания английского языка — урок 6",
+    "en": "English language teaching methodology — lesson 6",
+    "zh": "英语教学法——第6课"
+   }
+  },
+  {
+   "cat": "es",
+   "title": {
+    "uz": "Ispan tili — 1-dars",
+    "ru": "Испанский язык — урок 1",
+    "en": "Spanish — lesson 1",
+    "zh": "西班牙语——第1课"
+   }
+  },
+  {
+   "cat": "es",
+   "title": {
+    "uz": "Ispan tili — 2-dars",
+    "ru": "Испанский язык — урок 2",
+    "en": "Spanish — lesson 2",
+    "zh": "西班牙语——第2课"
+   }
+  },
+  {
+   "cat": "es",
+   "title": {
+    "uz": "Ispan tili — 3-dars",
+    "ru": "Испанский язык — урок 3",
+    "en": "Spanish — lesson 3",
+    "zh": "西班牙语——第3课"
+   }
+  },
+  {
+   "cat": "es",
+   "title": {
+    "uz": "Ispan tili — 4-dars",
+    "ru": "Испанский язык — урок 4",
+    "en": "Spanish — lesson 4",
+    "zh": "西班牙语——第4课"
+   }
+  },
+  {
+   "cat": "es",
+   "title": {
+    "uz": "Ispan tili — 5-dars",
+    "ru": "Испанский язык — урок 5",
+    "en": "Spanish — lesson 5",
+    "zh": "西班牙语——第5课"
+   }
+  },
+  {
+   "cat": "es",
+   "title": {
+    "uz": "Ispan tili — 6-dars",
+    "ru": "Испанский язык — урок 6",
+    "en": "Spanish — lesson 6",
+    "zh": "西班牙语——第6课"
+   }
+  },
+  {
+   "cat": "fr",
+   "title": {
+    "uz": "Fransuz tili — 1-dars",
+    "ru": "Французский язык — урок 1",
+    "en": "French — lesson 1",
+    "zh": "法语——第1课"
+   }
+  },
+  {
+   "cat": "fr",
+   "title": {
+    "uz": "Fransuz tili — 2-dars",
+    "ru": "Французский язык — урок 2",
+    "en": "French — lesson 2",
+    "zh": "法语——第2课"
+   }
+  },
+  {
+   "cat": "fr",
+   "title": {
+    "uz": "Fransuz tili — 3-dars",
+    "ru": "Французский язык — урок 3",
+    "en": "French — lesson 3",
+    "zh": "法语——第3课"
+   }
+  },
+  {
+   "cat": "fr",
+   "title": {
+    "uz": "Fransuz tili — 4-dars",
+    "ru": "Французский язык — урок 4",
+    "en": "French — lesson 4",
+    "zh": "法语——第4课"
+   }
+  },
+  {
+   "cat": "fr",
+   "title": {
+    "uz": "Fransuz tili — 5-dars",
+    "ru": "Французский язык — урок 5",
+    "en": "French — lesson 5",
+    "zh": "法语——第5课"
+   }
+  },
+  {
+   "cat": "fr",
+   "title": {
+    "uz": "Fransuz tili — 6-dars",
+    "ru": "Французский язык — урок 6",
+    "en": "French — lesson 6",
+    "zh": "法语——第6课"
+   }
+  },
+  {
+   "cat": "de",
+   "title": {
+    "uz": "Nemis tili — 1-dars",
+    "ru": "Немецкий язык — урок 1",
+    "en": "German — lesson 1",
+    "zh": "德语——第1课"
+   }
+  },
+  {
+   "cat": "de",
+   "title": {
+    "uz": "Nemis tili — 2-dars",
+    "ru": "Немецкий язык — урок 2",
+    "en": "German — lesson 2",
+    "zh": "德语——第2课"
+   }
+  },
+  {
+   "cat": "de",
+   "title": {
+    "uz": "Nemis tili — 3-dars",
+    "ru": "Немецкий язык — урок 3",
+    "en": "German — lesson 3",
+    "zh": "德语——第3课"
+   }
+  },
+  {
+   "cat": "de",
+   "title": {
+    "uz": "Nemis tili — 4-dars",
+    "ru": "Немецкий язык — урок 4",
+    "en": "German — lesson 4",
+    "zh": "德语——第4课"
+   }
+  },
+  {
+   "cat": "de",
+   "title": {
+    "uz": "Nemis tili — 5-dars",
+    "ru": "Немецкий язык — урок 5",
+    "en": "German — lesson 5",
+    "zh": "德语——第5课"
+   }
+  },
+  {
+   "cat": "de",
+   "title": {
+    "uz": "Nemis tili — 6-dars",
+    "ru": "Немецкий язык — урок 6",
+    "en": "German — lesson 6",
+    "zh": "德语——第6课"
+   }
+  },
+  {
+   "cat": "zh",
+   "title": {
+    "uz": "Xitoy tili — 1-dars",
+    "ru": "Китайский язык — урок 1",
+    "en": "Chinese — lesson 1",
+    "zh": "汉语——第1课"
+   }
+  },
+  {
+   "cat": "zh",
+   "title": {
+    "uz": "Xitoy tili — 2-dars",
+    "ru": "Китайский язык — урок 2",
+    "en": "Chinese — lesson 2",
+    "zh": "汉语——第2课"
+   }
+  },
+  {
+   "cat": "zh",
+   "title": {
+    "uz": "Xitoy tili — 3-dars",
+    "ru": "Китайский язык — урок 3",
+    "en": "Chinese — lesson 3",
+    "zh": "汉语——第3课"
+   }
+  },
+  {
+   "cat": "zh",
+   "title": {
+    "uz": "Xitoy tili — 4-dars",
+    "ru": "Китайский язык — урок 4",
+    "en": "Chinese — lesson 4",
+    "zh": "汉语——第4课"
+   }
+  },
+  {
+   "cat": "zh",
+   "title": {
+    "uz": "Xitoy tili — 5-dars",
+    "ru": "Китайский язык — урок 5",
+    "en": "Chinese — lesson 5",
+    "zh": "汉语——第5课"
+   }
+  },
+  {
+   "cat": "zh",
+   "title": {
+    "uz": "Xitoy tili — 6-dars",
+    "ru": "Китайский язык — урок 6",
+    "en": "Chinese — lesson 6",
+    "zh": "汉语——第6课"
+   }
+  }
+ ],
+ "channel": "https://www.youtube.com/c/Ozbekistondavlatjahontillariuniversiteti"
+}
