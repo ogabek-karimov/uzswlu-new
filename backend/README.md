@@ -68,3 +68,9 @@ python manage.py migrate && python manage.py seed_demo && python manage.py runse
 ## Frontend sozlamasi
 `NUXT_API_BASE=http://localhost:8000/api`, `NUXT_API_TOKEN=<API_TOKEN>`,
 `NUXT_CMS_BASE=http://localhost:8000/api/site`.
+
+## Docker compose xizmatlari
+`db` (PostgreSQL), `backend` (Django, healthcheck `/healthz`), `hemis-sync` (HEMIS'ni har 24 soatda yangilaydi),
+`frontend` (Nuxt, :3000), `admin` (Vue, :5173). Windows 8000 portni bermasa — ildiz `.env` ga `BACKEND_PORT=3001`
+yozing va `backend/.env` da `PUBLIC_SERVER_URL=http://localhost:3001` qiling.
+Frontend kaliti: `frontend/.env` dagi `NUXT_API_TOKEN` = `backend/.env` dagi `API_TOKEN`.
