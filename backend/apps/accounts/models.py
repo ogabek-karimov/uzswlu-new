@@ -29,6 +29,11 @@ class User(AbstractUser):
     scope = models.CharField('Ruxsat doirasi (fakultet)', max_length=100, blank=True)
     hemis_id = models.CharField('HEMIS ID', max_length=20, blank=True, db_index=True)
     avatar = models.ForeignKey('core.Media', null=True, blank=True, on_delete=models.SET_NULL, related_name='+', verbose_name='Rasm')
+    # Kirishni bloklash: 5 marta noto'g'ri parol — 15 daqiqa (Payload'dagi kabi)
+    login_attempts = models.PositiveSmallIntegerField('Noto‘g‘ri urinishlar', default=0, editable=False)
+    lock_until = models.DateTimeField('Bloklangan vaqtgacha', null=True, blank=True)
+    # Payload CMS'dan ko'chirilgan parol (birinchi kirishda Django usuliga o'tkaziladi va o'chiriladi)
+    legacy_password = models.TextField(blank=True, editable=False)
 
     REQUIRED_FIELDS = ['name']
 
@@ -75,3 +80,17 @@ class StaffSession(models.Model):
             expires_at=timezone.now() + timedelta(hours=hours or settings.STAFF_SESSION_TTL_HOURS),
         )
         return token
+
+
+def check_any_password(user, raw: str) -> bool:
+    """Parolni tekshirish: Django usuli, bo'lmasa Payload'dan ko'chirilgan parol (to'g'ri bo'lsa — darhol yangilanadi)."""
+    if user.check_password(raw):
+        return True
+    if user.legacy_password:
+        from .hashers import PayloadPBKDF2Hasher
+        if PayloadPBKDF2Hasher().verify(raw, user.legacy_password):
+            user.set_password(raw)
+            user.legacy_password = ''
+            user.save(update_fields=['password', 'legacy_password'])
+            return True
+    return False

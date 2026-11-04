@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
     'apps.core',
     'apps.accounts',
     'apps.content',
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
     'apps.pages',
     'apps.hemis',
     'apps.api',
+    'apps.panel',
 ]
 
 MIDDLEWARE = [
@@ -94,6 +97,16 @@ def _database() -> dict:
 DATABASES = {'default': _database()}
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
+
+# Payload CMS'dan ko'chirilgan parollar User.legacy_password'da — birinchi kirishda standart usulga o'tkaziladi
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.ScryptPasswordHasher',
+]
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend', 'apps.accounts.backends.LegacyPasswordBackend']
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', 'OPTIONS': {'min_length': 10}},
@@ -143,6 +156,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_THROTTLE_RATES': {'appeals': '60/hour', 'hit': '120/minute', 'cabinet-upload': '30/hour'},
     'UNAUTHENTICATED_USER': None,
+    'DEFAULT_SCHEMA_CLASS': 'apps.api.schema.TaggedAutoSchema',
     # Nginx/Cloudflare ortida nechta proksi bo'lsa shuncha (so'rov cheklovlari haqiqiy IP bo'yicha ishlashi uchun)
     'NUM_PROXIES': int(env('NUM_PROXIES', '0')),
 }
@@ -159,7 +173,49 @@ HIDE_UNTRANSLATED_POSTS = env_bool('HIDE_UNTRANSLATED_POSTS', True)
 SITE_PURGE_URL = env('SITE_PURGE_URL')
 SITE_PURGE_TOKEN = env('SITE_PURGE_TOKEN')
 # HEMIS klienti: hozircha namuna (snapshot); haqiqiy API ulanganda shu yerga klass yo'li yoziladi
-HEMIS_CLIENT = env('HEMIS_CLIENT', 'apps.hemis.snapshot.SnapshotHemis')
+# HEMIS: API manzili va tokeni berilsa — haqiqiy ma'lumot (har kuni `manage.py sync_hemis` bilan bazaga olinadi),
+# berilmasa — namuna (seed_data/hemis-snapshot.json). Kodda boshqa hech narsa o'zgarmaydi.
+HEMIS_API_URL = env('HEMIS_API_URL').rstrip('/')          # masalan: https://hemis.uzswlu.uz/rest/v1
+HEMIS_API_TOKEN = env('HEMIS_API_TOKEN')
+HEMIS_TIMEOUT = int(env('HEMIS_TIMEOUT', '20'))
+HEMIS_CLIENT = env('HEMIS_CLIENT', 'apps.hemis.cache.CachedHemis' if HEMIS_API_URL else 'apps.hemis.snapshot.SnapshotHemis')
+# HEMIS orqali kirish (OAuth2): xodimlar admin panelga va o'z kabinetiga universitet login-paroli bilan kiradi
+HEMIS_OAUTH_URL = env('HEMIS_OAUTH_URL').rstrip('/')      # masalan: https://hemis.uzswlu.uz
+HEMIS_OAUTH_CLIENT_ID = env('HEMIS_OAUTH_CLIENT_ID')
+HEMIS_OAUTH_CLIENT_SECRET = env('HEMIS_OAUTH_CLIENT_SECRET')
+HEMIS_OAUTH_AUTHORIZE_PATH = env('HEMIS_OAUTH_AUTHORIZE_PATH', '/oauth/authorize')
+HEMIS_OAUTH_TOKEN_PATH = env('HEMIS_OAUTH_TOKEN_PATH', '/oauth/access-token')
+HEMIS_OAUTH_USER_PATH = env('HEMIS_OAUTH_USER_PATH', '/oauth/api/user')
+HEMIS_OAUTH_ENABLED = bool(HEMIS_OAUTH_URL and HEMIS_OAUTH_CLIENT_ID and HEMIS_OAUTH_CLIENT_SECRET)
+ADMIN_PANEL_URL = env('ADMIN_PANEL_URL', 'http://localhost:5173').rstrip('/')
+SITE_URL = env('SITE_URL', 'http://localhost:3000').rstrip('/')
+
+# Swagger / OpenAPI hujjati: /api/docs/ (Swagger UI), /api/redoc/, /api/schema/
+API_DOCS_PUBLIC = env_bool('API_DOCS_PUBLIC', DEBUG)
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'ÖzDJTU sayti — API',
+    'DESCRIPTION': (
+        'Sayt (Nuxt) uchun ochiq API, Vue admin panel API’si (/api/cms/*) va xodim kabineti. '
+        'Barcha matnlar `?lang=uz|ru|en|zh` bo‘yicha qaytadi. Admin panel kirishi — /api/cms/users/login (sessiya cookie).'
+    ),
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+    'SCHEMA_PATH_PREFIX': r'/api',
+    'COMPONENT_SPLIT_REQUEST': True,
+    'DISABLE_ERRORS_AND_WARNINGS': True,
+    'SWAGGER_UI_SETTINGS': {'persistAuthorization': True, 'docExpansion': 'none', 'filter': True},
+    'TAGS': [
+        {'name': 'Sayt API', 'description': 'frontend/docs/openapi.yaml shartnomasi: bosh sahifa, postlar, sahifalar, tuzilma, BRM …'},
+        {'name': 'Sayt (Payload mos)', 'description': 'NUXT_CMS_BASE=<backend>/api/site bilan ishlash uchun eski manzillar'},
+        {'name': 'Xodim kabineti', 'description': 'HEMIS orqali kirgan xodim: profil, hujjatlar'},
+        {'name': 'HEMIS', 'description': 'HEMIS bilan ulanish: kirish (OAuth2) va holat'},
+        {'name': 'Admin panel: kirish'}, {'name': 'Admin panel: kolleksiyalar'}, {'name': 'Admin panel: globallar'},
+        {'name': 'Admin panel: versiyalar'}, {'name': 'Admin panel: yig‘ma ma’lumot'},
+    ],
+}
 HEMIS_SNAPSHOT = env('HEMIS_SNAPSHOT', str(BASE_DIR / 'seed_data' / 'hemis-snapshot.json'))
 
 LOGIN_URL = '/admin/login/'
@@ -182,6 +238,9 @@ JAZZMIN_SETTINGS = {
     'user_avatar': None,
     'topmenu_links': [
         {'name': 'Bosh sahifa', 'url': 'admin:index'},
+        {'name': 'API hujjati (Swagger)', 'url': '/api/docs/', 'new_window': True},
+        {'name': 'Admin panel (Vue)', 'url': ADMIN_PANEL_URL, 'new_window': True},
+        {'name': 'Sayt', 'url': SITE_URL, 'new_window': True},
     ],
     'show_sidebar': True,
     'navigation_expanded': False,

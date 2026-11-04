@@ -169,6 +169,7 @@ class SiteSettings(SingletonModel):
 
     phone = models.CharField('Ishonch telefoni', max_length=40, default='+998 71 230 13 73')
     phone_ext = models.CharField('Ichki raqamlar', max_length=60, blank=True, default='1061–1064')
+    email = models.EmailField('Umumiy e-pochta', blank=True, default='uzdjtu@uzswlu.uz')
     address = I18nField('Manzil')
     reception = I18nField('Qabul vaqti / qabulxona matni', multiline=True)
     telegram = models.URLField('Telegram', blank=True, default='https://t.me/UzSWLU')

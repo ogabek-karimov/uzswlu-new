@@ -1,10 +1,13 @@
-// Backend (Payload REST) bilan ishlash. Cookie avtomatik yuboriladi (bir xil manzil — /api proxy).
+// Backend bilan ishlash. Cookie avtomatik yuboriladi (bir xil manzil — /api proxy).
+// Django/DRF backend'da admin panel API'si /api/cms ostida (Payload REST bilan bir xil shakl).
 
 export class ApiError extends Error {
   constructor(public status: number, message: string, public data?: unknown) {
     super(message)
   }
 }
+
+export const API_BASE = import.meta.env.VITE_API_BASE ?? '/api/cms'
 
 type Query = Record<string, unknown>
 
@@ -22,7 +25,7 @@ export function qs(params: Query, prefix = ''): string {
 }
 
 async function request<T>(method: string, path: string, body?: unknown, query?: Query): Promise<T> {
-  const url = `/api${path}${query ? `?${qs(query)}` : ''}`
+  const url = `${API_BASE}${path}${query ? `?${qs(query)}` : ''}`
   const isForm = body instanceof FormData
   const res = await fetch(url, {
     method,

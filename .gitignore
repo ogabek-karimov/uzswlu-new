@@ -36,3 +36,4 @@ __pycache__/
 backend/staticfiles/
 *.sqlite3
 *.db
+backend/.test-session

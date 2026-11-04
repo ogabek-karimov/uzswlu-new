@@ -20,6 +20,7 @@ class Faculty(models.Model):
     """Fakultet: admin to'ldiradigan qism. Dekan, statistika, dekanat va kafedralar HEMIS'dan keladi."""
 
     slug = models.SlugField('Manzil (/faculty/<manzil>)', max_length=80, unique=True)
+    hemis_id = models.CharField('HEMIS ID (fakultet)', max_length=40, blank=True, db_index=True, help_text='HEMIS sinxronlash shu orqali bog‘laydi')
     name = I18nField('Nomi', required_uz=True)
     logo = models.ForeignKey('core.Media', null=True, blank=True, on_delete=models.PROTECT, related_name='+', verbose_name='Logo (kvadrat, ≥240×240)')
     cover = models.ForeignKey('core.Media', null=True, blank=True, on_delete=models.PROTECT, related_name='+', verbose_name='Muqova')

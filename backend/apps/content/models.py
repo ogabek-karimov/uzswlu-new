@@ -85,6 +85,8 @@ class Post(models.Model):
     ends_at = models.DateTimeField('Tugash (tadbir)', null=True, blank=True)
     location = I18nField('O‘tkaziladigan joy')
     views = models.PositiveIntegerField(default=0, editable=False)
+    # Savat: o'chirilgan post shu yerda turadi va qayta tiklanishi mumkin
+    deleted_at = models.DateTimeField('Savatga tashlangan', null=True, blank=True, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -124,7 +126,7 @@ class Post(models.Model):
     @classmethod
     def visible(cls, lang: str = 'uz'):
         """Saytda ko'rinadigan postlar (tilga qarab)."""
-        qs = cls.objects.filter(status='published', hidden=False, published_at__lte=timezone.now())
+        qs = cls.objects.filter(status='published', hidden=False, deleted_at__isnull=True, published_at__lte=timezone.now())
         if settings.HIDE_UNTRANSLATED_POSTS:
             qs = qs.filter(**{f'title__{lang}__isnull': False}).exclude(**{f'title__{lang}': ''})
         return qs
