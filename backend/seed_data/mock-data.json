@@ -1,0 +1,1683 @@
+{
+ "programs": {
+  "bachelor": {
+   "level": "bachelor",
+   "groups": [
+    {
+     "id": "phil",
+     "title": {
+      "uz": "Filologiya va tillarni öqitiş",
+      "ru": "Филология и преподавание языков",
+      "en": "Philology and teaching",
+      "zh": "语文学与语言教学"
+     }
+    },
+    {
+     "id": "tr",
+     "title": {
+      "uz": "Tarjima",
+      "ru": "Перевод",
+      "en": "Translation",
+      "zh": "翻译"
+     }
+    },
+    {
+     "id": "lit",
+     "title": {
+      "uz": "Til va adabiyot",
+      "ru": "Язык и литература",
+      "en": "Language and literature",
+      "zh": "语言文学"
+     }
+    },
+    {
+     "id": "soc",
+     "title": {
+      "uz": "Ijtimoiy fanlar va jurnalistika",
+      "ru": "Социальные науки и журналистика",
+      "en": "Social sciences and journalism",
+      "zh": "社会科学与新闻"
+     }
+    }
+   ],
+   "items": [
+    {
+     "id": "bachelor-1",
+     "code": "60110700",
+     "title": {
+      "uz": "O‘zbek tili va adabiyoti",
+      "ru": "Узбекский язык и литература",
+      "en": "Uzbek Language and Literature",
+      "zh": "乌兹别克语言文学"
+     },
+     "language": null,
+     "group": "lit",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-2",
+     "code": "60110800",
+     "title": {
+      "uz": "Ona tili va adabiyoti (rus tili va adabiyoti)",
+      "ru": "Родной язык и литература (русский язык и литература)",
+      "en": "Native Language and Literature (Russian)",
+      "zh": "母语与文学（俄语语言文学）"
+     },
+     "language": {
+      "code": "ru",
+      "native": "Русский"
+     },
+     "group": "lit",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-3",
+     "code": "60110900",
+     "title": {
+      "uz": "Xorijiy til va adabiyoti",
+      "ru": "Иностранный язык и литература",
+      "en": "Foreign Language and Literature",
+      "zh": "外国语言文学"
+     },
+     "language": {
+      "code": "en",
+      "native": "English"
+     },
+     "group": "lit",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-4",
+     "code": "60230100",
+     "title": {
+      "uz": "Filologiya va tillarni o‘qitish",
+      "ru": "Филология и преподавание языков",
+      "en": "Philology and Language Teaching",
+      "zh": "语文学与语言教学"
+     },
+     "language": {
+      "code": "en",
+      "native": "English"
+     },
+     "group": "phil",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-5",
+     "code": "60230100",
+     "title": {
+      "uz": "Filologiya va tillarni o‘qitish",
+      "ru": "Филология и преподавание языков",
+      "en": "Philology and Language Teaching",
+      "zh": "语文学与语言教学"
+     },
+     "language": {
+      "code": "de",
+      "native": "Deutsch"
+     },
+     "group": "phil",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-6",
+     "code": "60230100",
+     "title": {
+      "uz": "Filologiya va tillarni o‘qitish",
+      "ru": "Филология и преподавание языков",
+      "en": "Philology and Language Teaching",
+      "zh": "语文学与语言教学"
+     },
+     "language": {
+      "code": "fr",
+      "native": "Français"
+     },
+     "group": "phil",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-7",
+     "code": "60230100",
+     "title": {
+      "uz": "Filologiya va tillarni o‘qitish",
+      "ru": "Филология и преподавание языков",
+      "en": "Philology and Language Teaching",
+      "zh": "语文学与语言教学"
+     },
+     "language": {
+      "code": "es",
+      "native": "Español"
+     },
+     "group": "phil",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-8",
+     "code": "60230100",
+     "title": {
+      "uz": "Filologiya va tillarni o‘qitish",
+      "ru": "Филология и преподавание языков",
+      "en": "Philology and Language Teaching",
+      "zh": "语文学与语言教学"
+     },
+     "language": {
+      "code": "zh",
+      "native": "中文"
+     },
+     "group": "phil",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-9",
+     "code": "60230100",
+     "title": {
+      "uz": "Filologiya va tillarni o‘qitish",
+      "ru": "Филология и преподавание языков",
+      "en": "Philology and Language Teaching",
+      "zh": "语文学与语言教学"
+     },
+     "language": {
+      "code": "ja",
+      "native": "日本語"
+     },
+     "group": "phil",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-10",
+     "code": "60230100",
+     "title": {
+      "uz": "Filologiya va tillarni o‘qitish",
+      "ru": "Филология и преподавание языков",
+      "en": "Philology and Language Teaching",
+      "zh": "语文学与语言教学"
+     },
+     "language": {
+      "code": "ko",
+      "native": "한국어"
+     },
+     "group": "phil",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-11",
+     "code": "60230100",
+     "title": {
+      "uz": "Filologiya va tillarni o‘qitish",
+      "ru": "Филология и преподавание языков",
+      "en": "Philology and Language Teaching",
+      "zh": "语文学与语言教学"
+     },
+     "language": {
+      "code": "ar",
+      "native": "العربية"
+     },
+     "group": "phil",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-12",
+     "code": "60230100",
+     "title": {
+      "uz": "Filologiya va tillarni o‘qitish",
+      "ru": "Филология и преподавание языков",
+      "en": "Philology and Language Teaching",
+      "zh": "语文学与语言教学"
+     },
+     "language": {
+      "code": "tr",
+      "native": "Türkçe"
+     },
+     "group": "phil",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-13",
+     "code": "60230100",
+     "title": {
+      "uz": "Filologiya va tillarni o‘qitish",
+      "ru": "Филология и преподавание языков",
+      "en": "Philology and Language Teaching",
+      "zh": "语文学与语言教学"
+     },
+     "language": {
+      "code": "ru",
+      "native": "Русский"
+     },
+     "group": "phil",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-14",
+     "code": "60230200",
+     "title": {
+      "uz": "Tarjima nazariyasi va amaliyoti",
+      "ru": "Теория и практика перевода",
+      "en": "Translation Theory and Practice",
+      "zh": "翻译理论与实践"
+     },
+     "language": {
+      "code": "en",
+      "native": "English"
+     },
+     "group": "tr",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-15",
+     "code": "60230200",
+     "title": {
+      "uz": "Tarjima nazariyasi va amaliyoti",
+      "ru": "Теория и практика перевода",
+      "en": "Translation Theory and Practice",
+      "zh": "翻译理论与实践"
+     },
+     "language": {
+      "code": "de",
+      "native": "Deutsch"
+     },
+     "group": "tr",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-16",
+     "code": "60230200",
+     "title": {
+      "uz": "Tarjima nazariyasi va amaliyoti",
+      "ru": "Теория и практика перевода",
+      "en": "Translation Theory and Practice",
+      "zh": "翻译理论与实践"
+     },
+     "language": {
+      "code": "fr",
+      "native": "Français"
+     },
+     "group": "tr",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-17",
+     "code": "60230200",
+     "title": {
+      "uz": "Tarjima nazariyasi va amaliyoti",
+      "ru": "Теория и практика перевода",
+      "en": "Translation Theory and Practice",
+      "zh": "翻译理论与实践"
+     },
+     "language": {
+      "code": "it",
+      "native": "Italiano"
+     },
+     "group": "tr",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-18",
+     "code": "60230200",
+     "title": {
+      "uz": "Tarjima nazariyasi va amaliyoti",
+      "ru": "Теория и практика перевода",
+      "en": "Translation Theory and Practice",
+      "zh": "翻译理论与实践"
+     },
+     "language": {
+      "code": "ar",
+      "native": "العربية"
+     },
+     "group": "tr",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-19",
+     "code": "60230200",
+     "title": {
+      "uz": "Tarjima nazariyasi va amaliyoti",
+      "ru": "Теория и практика перевода",
+      "en": "Translation Theory and Practice",
+      "zh": "翻译理论与实践"
+     },
+     "language": {
+      "code": "tr",
+      "native": "Türkçe"
+     },
+     "group": "tr",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-20",
+     "code": "60230400",
+     "title": {
+      "uz": "Kompyuter lingvistikasi",
+      "ru": "Компьютерная лингвистика",
+      "en": "Computational Linguistics",
+      "zh": "计算语言学"
+     },
+     "language": null,
+     "group": "soc",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-21",
+     "code": "60310100",
+     "title": {
+      "uz": "Siyosatshunoslik",
+      "ru": "Политология",
+      "en": "Political Science",
+      "zh": "政治学"
+     },
+     "language": null,
+     "group": "soc",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-22",
+     "code": "60310400",
+     "title": {
+      "uz": "Sotsiologiya",
+      "ru": "Социология",
+      "en": "Sociology",
+      "zh": "社会学"
+     },
+     "language": null,
+     "group": "soc",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-23",
+     "code": "60310200",
+     "title": {
+      "uz": "Xalqaro munosabatlar",
+      "ru": "Международные отношения",
+      "en": "International Relations",
+      "zh": "国际关系"
+     },
+     "language": null,
+     "group": "soc",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-24",
+     "code": "60320100",
+     "title": {
+      "uz": "Jurnalistika (xalqaro jurnalistika)",
+      "ru": "Журналистика (международная журналистика)",
+      "en": "Journalism (International Journalism)",
+      "zh": "新闻学（国际新闻）"
+     },
+     "language": null,
+     "group": "soc",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    },
+    {
+     "id": "bachelor-25",
+     "code": "60320200",
+     "title": {
+      "uz": "Axborot xizmati va jamoatchilik bilan aloqalar",
+      "ru": "Информационная служба и связи с общественностью",
+      "en": "Information Services and Public Relations",
+      "zh": "信息服务与公共关系"
+     },
+     "language": null,
+     "group": "soc",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 4
+    }
+   ]
+  },
+  "master": {
+   "level": "master",
+   "groups": [
+    {
+     "id": "ling",
+     "title": {
+      "uz": "Lingvistika",
+      "ru": "Лингвистика",
+      "en": "Linguistics",
+      "zh": "语言学"
+     }
+    },
+    {
+     "id": "tr",
+     "title": {
+      "uz": "Tarjima",
+      "ru": "Перевод",
+      "en": "Translation",
+      "zh": "翻译"
+     }
+    },
+    {
+     "id": "soc",
+     "title": {
+      "uz": "Ijtimoiy fanlar va jurnalistika",
+      "ru": "Социальные науки и журналистика",
+      "en": "Social sciences and journalism",
+      "zh": "社会科学与新闻"
+     }
+    }
+   ],
+   "items": [
+    {
+     "id": "master-1",
+     "code": "70230101",
+     "title": {
+      "uz": "Lingvistika (ingliz tili)",
+      "ru": "Лингвистика (английский язык)",
+      "en": "Linguistics (English)",
+      "zh": "语言学（英语）"
+     },
+     "language": {
+      "code": "en",
+      "native": "English"
+     },
+     "group": "ling",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 2
+    },
+    {
+     "id": "master-2",
+     "code": "70230102",
+     "title": {
+      "uz": "Lingvistika (nemis tili)",
+      "ru": "Лингвистика (немецкий язык)",
+      "en": "Linguistics (German)",
+      "zh": "语言学（德语）"
+     },
+     "language": {
+      "code": "de",
+      "native": "Deutsch"
+     },
+     "group": "ling",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 2
+    },
+    {
+     "id": "master-3",
+     "code": "70230103",
+     "title": {
+      "uz": "Lingvistika (şarq tillari)",
+      "ru": "Лингвистика (восточные языки)",
+      "en": "Linguistics (Oriental languages)",
+      "zh": "语言学（东方语言）"
+     },
+     "language": null,
+     "group": "ling",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 2
+    },
+    {
+     "id": "master-4",
+     "code": "70230201",
+     "title": {
+      "uz": "Tarjima nazariyasi va amaliyoti",
+      "ru": "Теория и практика перевода",
+      "en": "Translation Theory and Practice",
+      "zh": "翻译理论与实践"
+     },
+     "language": {
+      "code": "en",
+      "native": "English"
+     },
+     "group": "tr",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 2
+    },
+    {
+     "id": "master-5",
+     "code": "70320101",
+     "title": {
+      "uz": "Jurnalistika",
+      "ru": "Журналистика",
+      "en": "Journalism",
+      "zh": "新闻学"
+     },
+     "language": null,
+     "group": "soc",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 2
+    },
+    {
+     "id": "master-6",
+     "code": "70310201",
+     "title": {
+      "uz": "Xalqaro munosabatlar",
+      "ru": "Международные отношения",
+      "en": "International Relations",
+      "zh": "国际关系"
+     },
+     "language": null,
+     "group": "soc",
+     "form": {
+      "uz": "Kunduzgi",
+      "ru": "Очная",
+      "en": "Full-time",
+      "zh": "全日制"
+     },
+     "years": 2
+    }
+   ]
+  }
+ },
+ "admission": {
+  "year": "2026/2027",
+  "applyUrl": "https://my.uzbmb.uz",
+  "dates": [
+   {
+    "title": {
+     "uz": "Hujjatlar qabuli",
+     "ru": "Приём документов",
+     "en": "Application period",
+     "zh": "报名材料受理"
+    },
+    "period": {
+     "uz": "Sanalar e’lon qilinadi",
+     "ru": "Даты будут объявлены",
+     "en": "Dates to be announced",
+     "zh": "日期待公布"
+    },
+    "current": true
+   },
+   {
+    "title": {
+     "uz": "Kiriş imtihonlari",
+     "ru": "Вступительные экзамены",
+     "en": "Entrance exams",
+     "zh": "入学考试"
+    },
+    "period": {
+     "uz": "Sanalar e’lon qilinadi",
+     "ru": "Даты будут объявлены",
+     "en": "Dates to be announced",
+     "zh": "日期待公布"
+    }
+   },
+   {
+    "title": {
+     "uz": "Natijalar e’loni",
+     "ru": "Объявление результатов",
+     "en": "Results",
+     "zh": "结果公布"
+    },
+    "period": {
+     "uz": "Sanalar e’lon qilinadi",
+     "ru": "Даты будут объявлены",
+     "en": "Dates to be announced",
+     "zh": "日期待公布"
+    }
+   }
+  ],
+  "programs": [
+   {
+    "id": "1",
+    "code": "60230100",
+    "title": {
+     "uz": "Filologiya va tillarni o‘qitish",
+     "ru": "Филология и преподавание языков",
+     "en": "Philology and Language Teaching",
+     "zh": "语文学与语言教学"
+    },
+    "faculty": {
+     "uz": "Ingliz filologiyasi fakulteti",
+     "ru": "Факультет английской филологии",
+     "en": "Faculty of English Philology",
+     "zh": "英语语文学院"
+    },
+    "level": "bachelor",
+    "form": {
+     "uz": "Kunduzgi",
+     "ru": "Очная",
+     "en": "Full-time",
+     "zh": "全日制"
+    },
+    "years": 4,
+    "price": null
+   },
+   {
+    "id": "2",
+    "code": "60230200",
+    "title": {
+     "uz": "Tarjima nazariyasi va amaliyoti",
+     "ru": "Теория и практика перевода",
+     "en": "Translation Theory and Practice",
+     "zh": "翻译理论与实践"
+    },
+    "faculty": {
+     "uz": "Tarjimonlik fakulteti",
+     "ru": "Переводческий факультет",
+     "en": "Faculty of Translation",
+     "zh": "翻译学院"
+    },
+    "level": "bachelor",
+    "form": {
+     "uz": "Kunduzgi",
+     "ru": "Очная",
+     "en": "Full-time",
+     "zh": "全日制"
+    },
+    "years": 4,
+    "price": null
+   },
+   {
+    "id": "3",
+    "code": "60110900",
+    "title": {
+     "uz": "Xorijiy til va adabiyoti",
+     "ru": "Иностранный язык и литература",
+     "en": "Foreign Language and Literature",
+     "zh": "外国语言文学"
+    },
+    "faculty": {
+     "uz": "Sirtqi va kechki ta’lim fakulteti",
+     "ru": "Факультет заочного и вечернего обучения",
+     "en": "Faculty of Distance and Evening Education",
+     "zh": "函授与夜间教育学院"
+    },
+    "level": "bachelor",
+    "form": {
+     "uz": "Sirtqi",
+     "ru": "Заочная",
+     "en": "Distance",
+     "zh": "函授"
+    },
+    "years": 5,
+    "price": null
+   },
+   {
+    "id": "4",
+    "code": "60320100",
+    "title": {
+     "uz": "Jurnalistika (xalqaro jurnalistika)",
+     "ru": "Журналистика (международная журналистика)",
+     "en": "Journalism (International Journalism)",
+     "zh": "新闻学（国际新闻）"
+    },
+    "faculty": {
+     "uz": "Xalqaro jurnalistika fakulteti",
+     "ru": "Факультет международной журналистики",
+     "en": "Faculty of International Journalism",
+     "zh": "国际新闻学院"
+    },
+    "level": "bachelor",
+    "form": {
+     "uz": "Kunduzgi",
+     "ru": "Очная",
+     "en": "Full-time",
+     "zh": "全日制"
+    },
+    "years": 4,
+    "price": null
+   },
+   {
+    "id": "5",
+    "code": "70230102",
+    "title": {
+     "uz": "Lingvistika (nemis tili)",
+     "ru": "Лингвистика (немецкий язык)",
+     "en": "Linguistics (German)",
+     "zh": "语言学（德语）"
+    },
+    "faculty": {
+     "uz": "Roman-german filologiyasi fakulteti",
+     "ru": "Факультет романо-германской филологии",
+     "en": "Faculty of Romance and Germanic Philology",
+     "zh": "罗曼-日耳曼语文学院"
+    },
+    "level": "master",
+    "form": {
+     "uz": "Kunduzgi",
+     "ru": "Очная",
+     "en": "Full-time",
+     "zh": "全日制"
+    },
+    "years": 2,
+    "price": null
+   },
+   {
+    "id": "6",
+    "code": "70320101",
+    "title": {
+     "uz": "Jurnalistika",
+     "ru": "Журналистика",
+     "en": "Journalism",
+     "zh": "新闻学"
+    },
+    "faculty": {
+     "uz": "Xalqaro jurnalistika fakulteti",
+     "ru": "Факультет международной журналистики",
+     "en": "Faculty of International Journalism",
+     "zh": "国际新闻学院"
+    },
+    "level": "master",
+    "form": {
+     "uz": "Kunduzgi",
+     "ru": "Очная",
+     "en": "Full-time",
+     "zh": "全日制"
+    },
+    "years": 2,
+    "price": null
+   },
+   {
+    "id": "7",
+    "code": "10.00.04",
+    "title": {
+     "uz": "Yevropa, Amerika va Avstraliya xalqlari tili va adabiyoti",
+     "ru": "Языки и литература народов Европы, Америки и Австралии",
+     "en": "Languages and Literature of the Peoples of Europe, America and Australia",
+     "zh": "欧洲、美洲和澳大利亚民族语言与文学"
+    },
+    "faculty": {
+     "uz": "Sharq filologiyasi fakulteti",
+     "ru": "Факультет восточной филологии",
+     "en": "Faculty of Oriental Philology",
+     "zh": "东方语文学院"
+    },
+    "level": "phd",
+    "form": {
+     "uz": "Kunduzgi",
+     "ru": "Очная",
+     "en": "Full-time",
+     "zh": "全日制"
+    },
+    "years": 3,
+    "price": null
+   }
+  ],
+  "documents": [
+   {
+    "uz": "Pasport yoki ID-karta",
+    "ru": "Паспорт или ID-карта",
+    "en": "Passport or ID card",
+    "zh": "护照或身份证"
+   },
+   {
+    "uz": "Ma’lumot haqidagi hujjat (attestat yoki diplom)",
+    "ru": "Документ об образовании (аттестат или диплом)",
+    "en": "Proof of education (certificate or diploma)",
+    "zh": "学历证明（毕业证书或文凭）"
+   },
+   {
+    "uz": "3×4 rangli fotosurat",
+    "ru": "Цветная фотография 3×4",
+    "en": "3×4 colour photo",
+    "zh": "3×4彩色照片"
+   }
+  ],
+  "documentsUrl": null,
+  "faq": [
+   {
+    "q": {
+     "uz": "Hujjatlar qaçon va qayerda qabul qilinadi?",
+     "ru": "Когда и где принимают документы?",
+     "en": "When and where are applications accepted?",
+     "zh": "何时何地提交报名材料？"
+    },
+    "a": {
+     "uz": "Hujjatlar my.uzbmb.uz platformasi orqali onlayn qabul qilinadi. Aniq muddatlar yuqoridagi “Muhim sanalar” blokida e’lon qilinadi.",
+     "ru": "Документы принимаются онлайн через платформу my.uzbmb.uz. Точные сроки публикуются в блоке «Важные даты».",
+     "en": "Applications are submitted online via my.uzbmb.uz. Exact deadlines are published in the “Key dates” block above.",
+     "zh": "报名材料通过 my.uzbmb.uz 平台在线提交，具体时间见上方“重要日期”。"
+    }
+   },
+   {
+    "q": {
+     "uz": "Kontrakt narxi qança va uni bölib tölaş mumkinmi?",
+     "ru": "Сколько стоит контракт и можно ли платить частями?",
+     "en": "How much is tuition and can I pay in instalments?",
+     "zh": "学费多少？可以分期支付吗？"
+    },
+    "a": {
+     "uz": "Narx yönaliş va ta’lim şakliga boğliq — “Tölov-kontrakt miqdori” sahifasida körsatilgan. Tölov tartibi şartnomada belgilanadi.",
+     "ru": "Стоимость зависит от направления и формы обучения — она указана на странице «Стоимость обучения». Порядок оплаты определяется договором.",
+     "en": "Fees depend on the programme and mode of study — see the “Tuition Fees” page. The payment schedule is set in the contract.",
+     "zh": "学费取决于专业和学习形式，详见“学费标准”页面，付款方式以合同为准。"
+    }
+   },
+   {
+    "q": {
+     "uz": "Davlat granti asosida öqiş mumkinmi?",
+     "ru": "Можно ли учиться на государственном гранте?",
+     "en": "Can I study on a state grant?",
+     "zh": "可以获得国家奖学金名额吗？"
+    },
+    "a": {
+     "uz": "Ha, har bir yönaliş böyiça grant örinlari kvotasi Qabul komissiyasi tomonidan e’lon qilinadi — “Ta’lim grantlar soni” sahifasiga qarang.",
+     "ru": "Да, квота грантовых мест по каждому направлению объявляется приёмной комиссией — см. страницу «Количество грантов».",
+     "en": "Yes — the grant quota for each programme is announced by the Admissions Committee; see “Number of Grants”.",
+     "zh": "可以，各专业的公费名额由招生委员会公布，详见“奖学金名额”页面。"
+    }
+   },
+   {
+    "q": {
+     "uz": "Xorijiy fuqarolar qanday hujjat topşiradi?",
+     "ru": "Как подают документы иностранные граждане?",
+     "en": "How do international applicants apply?",
+     "zh": "外国公民如何报名？"
+    },
+    "a": {
+     "uz": "Xorijiy abituriyentlar uçun alohida tartib mavjud — “Xalqaro talabalar va öqituvçilar uçun” bölimiga qarang yoki international@uzswlu.uz manziliga yozing.",
+     "ru": "Для иностранных абитуриентов действует отдельный порядок — см. раздел «Иностранным студентам и преподавателям» или пишите на international@uzswlu.uz.",
+     "en": "There is a separate procedure for international applicants — see “International Students and Faculty” or write to international@uzswlu.uz.",
+     "zh": "外国考生有单独的报名程序，详见“国际学生与教师”栏目，或发送邮件至 international@uzswlu.uz。"
+    }
+   }
+  ],
+  "contact": {
+   "address": {
+    "uz": "Boş bino · Toşkent ş., Kiçik halqa yöli köçasi, G9-A, 21-uy",
+    "ru": "Главный корпус · г. Ташкент, ул. Кичик халка йули, G9-A, д. 21",
+    "en": "Main building · 21 Kichik Halqa Yo‘li St, G9-A, Tashkent",
+    "zh": "主楼 · 塔什干市 Kichik Halqa Yo‘li 街 G9-A 21号"
+   },
+   "hours": {
+    "uz": "Duşanba–şanba, 9:00–17:00",
+    "ru": "Понедельник–суббота, 9:00–17:00",
+    "en": "Monday–Saturday, 9:00–17:00",
+    "zh": "周一至周六 9:00–17:00"
+   },
+   "phone": "+998 71 230 13 73",
+   "telegram": "https://t.me/UzSWLU"
+  }
+ },
+ "home": {
+  "languages": [
+   {
+    "code": "en",
+    "native": "English"
+   },
+   {
+    "code": "de",
+    "native": "Deutsch"
+   },
+   {
+    "code": "fr",
+    "native": "Français"
+   },
+   {
+    "code": "es",
+    "native": "Español"
+   },
+   {
+    "code": "it",
+    "native": "Italiano"
+   },
+   {
+    "code": "ru",
+    "native": "Русский"
+   },
+   {
+    "code": "zh",
+    "native": "中文"
+   },
+   {
+    "code": "ja",
+    "native": "日本語"
+   },
+   {
+    "code": "ko",
+    "native": "한국어"
+   },
+   {
+    "code": "ar",
+    "native": "العربية"
+   },
+   {
+    "code": "tr",
+    "native": "Türkçe"
+   },
+   {
+    "code": "fa",
+    "native": "فارسی"
+   }
+  ],
+  "partners": [
+   {
+    "id": "1",
+    "name": {
+     "uz": "AQŞning Toşkentdagi elçixonasi",
+     "ru": "Посольство США в Ташкенте",
+     "en": "U.S. Embassy in Tashkent",
+     "zh": "美国驻塔什干大使馆"
+    },
+    "logo": "/logos/partners/partner-1.webp",
+    "url": null
+   },
+   {
+    "id": "2",
+    "name": {
+     "uz": "British Council (IELTS)",
+     "ru": "Британский совет (IELTS)",
+     "en": "British Council (IELTS)",
+     "zh": "英国文化协会（IELTS）"
+    },
+    "logo": "/logos/partners/partner-2.webp",
+    "url": null
+   },
+   {
+    "id": "3",
+    "name": {
+     "uz": "Dalian texnologiya universiteti",
+     "ru": "Даляньский технологический университет",
+     "en": "Dalian University of Technology",
+     "zh": "大连理工大学"
+    },
+    "logo": "/logos/partners/partner-3.webp",
+    "url": null
+   },
+   {
+    "id": "4",
+    "name": {
+     "uz": "Özbekiston Respublikasi Mudofaa vazirligi",
+     "ru": "Министерство обороны Республики Узбекистан",
+     "en": "Ministry of Defence of the Republic of Uzbekistan",
+     "zh": "乌兹别克斯坦共和国国防部"
+    },
+    "logo": "/logos/partners/partner-4.webp",
+    "url": null
+   },
+   {
+    "id": "5",
+    "name": {
+     "uz": "KOICA",
+     "ru": "KOICA",
+     "en": "KOICA",
+     "zh": "韩国国际协力团（KOICA）"
+    },
+    "logo": "/logos/partners/partner-5.webp",
+    "url": null
+   },
+   {
+    "id": "6",
+    "name": {
+     "uz": "Mirzo Uluğbek nomidagi Özbekiston Milliy universiteti",
+     "ru": "Национальный университет Узбекистана имени Мирзо Улугбека",
+     "en": "National University of Uzbekistan",
+     "zh": "乌兹别克斯坦国立大学"
+    },
+    "logo": "/logos/partners/partner-6.webp",
+    "url": null
+   },
+   {
+    "id": "7",
+    "name": {
+     "uz": "Toşkent davlat şarqşunoslik universiteti",
+     "ru": "Ташкентский государственный университет востоковедения",
+     "en": "Tashkent State University of Oriental Studies",
+     "zh": "塔什干国立东方大学"
+    },
+    "logo": "/logos/partners/partner-7.webp",
+    "url": null
+   },
+   {
+    "id": "8",
+    "name": {
+     "uz": "Alliance Française",
+     "ru": "Alliance Française",
+     "en": "Alliance Française",
+     "zh": "法语联盟"
+    },
+    "logo": "/logos/partners/partner-8.webp",
+    "url": null
+   },
+   {
+    "id": "9",
+    "name": {
+     "uz": "DAAD",
+     "ru": "DAAD",
+     "en": "DAAD — German Academic Exchange Service",
+     "zh": "德国学术交流中心（DAAD）"
+    },
+    "logo": "/logos/partners/partner-9.webp",
+    "url": null
+   },
+   {
+    "id": "10",
+    "name": "LAMDIK",
+    "logo": "/logos/partners/partner-10.webp",
+    "url": null
+   }
+  ],
+  "stats": [
+   {
+    "key": "faculties",
+    "value": 11
+   },
+   {
+    "key": "staff",
+    "value": 1100
+   },
+   {
+    "key": "departments",
+    "value": 47
+   },
+   {
+    "key": "students",
+    "value": 17000
+   }
+  ]
+ },
+ "site": {
+  "phone": "+998 71 230 13 73",
+  "phoneExt": "1061–1064",
+  "emails": [
+   "uzdjtu@uzswlu.uz",
+   "international@uzswlu.uz"
+  ],
+  "campuses": [
+   {
+    "id": "main",
+    "name": {
+     "uz": "Bosh bino",
+     "ru": "Главный корпус",
+     "en": "Main building",
+     "zh": "主楼"
+    },
+    "address": {
+     "uz": "Toshkent sh., Kichik halqa yo‘li ko‘chasi, G9-A, 21-uy",
+     "ru": "г. Ташкент, ул. Кичик халка йули, G9-A, д. 21",
+     "en": "21 Kichik Halqa Yo‘li St, G9-A, Tashkent",
+     "zh": "塔什干市 Kichik Halqa Yo‘li 街 G9-A 21号"
+    }
+   },
+   {
+    "id": "philology",
+    "name": {
+     "uz": "Filologiya fakulteti",
+     "ru": "Факультет филологии",
+     "en": "Philology building",
+     "zh": "语文学院楼"
+    },
+    "address": {
+     "uz": "Toshkent sh., Uchtepa tumani, Zakovat ko‘chasi, 4",
+     "ru": "г. Ташкент, Учтепинский р-н, ул. Заковат, 4",
+     "en": "4 Zakovat St, Uchtepa district, Tashkent",
+     "zh": "塔什干市 Uchtepa 区 Zakovat 街4号"
+    }
+   },
+   {
+    "id": "journalism",
+    "name": {
+     "uz": "Xalqaro jurnalistika",
+     "ru": "Международная журналистика",
+     "en": "International Journalism",
+     "zh": "国际新闻学院楼"
+    },
+    "address": {
+     "uz": "Toshkent sh., Chilonzor tumani, Lutfiy ko‘chasi, 8",
+     "ru": "г. Ташкент, Чиланзарский р-н, ул. Лутфий, 8",
+     "en": "8 Lutfiy St, Chilanzar district, Tashkent",
+     "zh": "塔什干市 Chilonzor 区 Lutfiy 街8号"
+    }
+   },
+   {
+    "id": "russian",
+    "name": {
+     "uz": "Rus filologiyasi",
+     "ru": "Русская филология",
+     "en": "Russian Philology",
+     "zh": "俄语语文学院楼"
+    },
+    "address": {
+     "uz": "Toshkent sh., Chilonzor tumani, Muqimiy ko‘chasi, 104",
+     "ru": "г. Ташкент, Чиланзарский р-н, ул. Мукими, 104",
+     "en": "104 Muqimiy St, Chilanzar district, Tashkent",
+     "zh": "塔什干市 Chilonzor 区 Muqimiy 街104号"
+    }
+   }
+  ],
+  "socials": [
+   {
+    "network": "telegram",
+    "url": "https://t.me/UzSWLU"
+   },
+   {
+    "network": "instagram",
+    "url": "https://www.instagram.com/uzswlu_official"
+   },
+   {
+    "network": "facebook",
+    "url": "https://www.facebook.com/uzswlu.uz"
+   },
+   {
+    "network": "youtube",
+    "url": "https://www.youtube.com/c/Ozbekistondavlatjahontillariuniversiteti"
+   },
+   {
+    "network": "x",
+    "url": "https://www.twitter.com/uzswlu"
+   }
+  ]
+ },
+ "contact": {
+  "hotline": {
+   "phone": "+998 71 230 13 73",
+   "ext": "1061–1064"
+  },
+  "emails": [
+   {
+    "title": {
+     "uz": "Umumiy e-poçta",
+     "ru": "Общая почта",
+     "en": "General email",
+     "zh": "综合邮箱"
+    },
+    "value": "uzdjtu@uzswlu.uz",
+    "extra": [
+     "uzgumya@exat.uz",
+     "uzgumya1@exat.uz"
+    ]
+   },
+   {
+    "title": {
+     "uz": "Xalqaro hamkorlik",
+     "ru": "Международное сотрудничество",
+     "en": "International cooperation",
+     "zh": "国际合作"
+    },
+    "value": "international@uzswlu.uz",
+    "extra": [
+     {
+      "uz": "Reytinglar: uzswluranking@gmail.com",
+      "ru": "Рейтинги: uzswluranking@gmail.com",
+      "en": "Rankings: uzswluranking@gmail.com",
+      "zh": "排名: uzswluranking@gmail.com"
+     }
+    ]
+   }
+  ],
+  "campuses": [
+   {
+    "id": "main",
+    "name": {
+     "uz": "Bosh bino",
+     "ru": "Главный корпус",
+     "en": "Main building",
+     "zh": "主楼"
+    },
+    "address": {
+     "uz": "Toshkent sh., Kichik halqa yo‘li ko‘chasi, G9-A, 21-uy",
+     "ru": "г. Ташкент, ул. Кичик халка йули, G9-A, д. 21",
+     "en": "21 Kichik Halqa Yo‘li St, G9-A, Tashkent",
+     "zh": "塔什干市 Kichik Halqa Yo‘li 街 G9-A 21号"
+    },
+    "phone": "+998 71 230 13 73",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%20sh.%2C%20Kichik%20halqa%20yo%E2%80%98li%20ko%E2%80%98chasi%2C%20G9-A%2C%2021-uy"
+   },
+   {
+    "id": "philology",
+    "name": {
+     "uz": "Filologiya fakulteti",
+     "ru": "Факультет филологии",
+     "en": "Philology building",
+     "zh": "语文学院楼"
+    },
+    "address": {
+     "uz": "Toshkent sh., Uchtepa tumani, Zakovat ko‘chasi, 4",
+     "ru": "г. Ташкент, Учтепинский р-н, ул. Заковат, 4",
+     "en": "4 Zakovat St, Uchtepa district, Tashkent",
+     "zh": "塔什干市 Uchtepa 区 Zakovat 街4号"
+    },
+    "phone": "+998 71 230 03 44",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%20sh.%2C%20Uchtepa%20tumani%2C%20Zakovat%20ko%E2%80%98chasi%2C%204"
+   },
+   {
+    "id": "journalism",
+    "name": {
+     "uz": "Xalqaro jurnalistika",
+     "ru": "Международная журналистика",
+     "en": "International Journalism",
+     "zh": "国际新闻学院楼"
+    },
+    "address": {
+     "uz": "Toshkent sh., Chilonzor tumani, Lutfiy ko‘chasi, 8",
+     "ru": "г. Ташкент, Чиланзарский р-н, ул. Лутфий, 8",
+     "en": "8 Lutfiy St, Chilanzar district, Tashkent",
+     "zh": "塔什干市 Chilonzor 区 Lutfiy 街8号"
+    },
+    "phone": "+998 71 231 10 16",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%20sh.%2C%20Chilonzor%20tumani%2C%20Lutfiy%20ko%E2%80%98chasi%2C%208"
+   },
+   {
+    "id": "russian",
+    "name": {
+     "uz": "Rus filologiyasi",
+     "ru": "Русская филология",
+     "en": "Russian Philology",
+     "zh": "俄语语文学院楼"
+    },
+    "address": {
+     "uz": "Toshkent sh., Chilonzor tumani, Muqimiy ko‘chasi, 104",
+     "ru": "г. Ташкент, Чиланзарский р-н, ул. Мукими, 104",
+     "en": "104 Muqimiy St, Chilanzar district, Tashkent",
+     "zh": "塔什干市 Chilonzor 区 Muqimiy 街104号"
+    },
+    "phone": "+998 71 281 21 03",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Toshkent%20sh.%2C%20Chilonzor%20tumani%2C%20Muqimiy%20ko%E2%80%98chasi%2C%20104"
+   }
+  ],
+  "leaders": [
+   {
+    "name": "Sadiyev Valijon Alijonovich",
+    "role": {
+     "uz": "Yoshlar masalalari va ma’naviy-ma’rifiy ishlar bo‘yicha birinchi prorektor",
+     "ru": "Первый проректор по делам молодёжи и духовно-просветительской работе",
+     "en": "First Vice-Rector for Youth Affairs and Spiritual and Educational Work",
+     "zh": "第一副校长（青年事务与思想教育）"
+    },
+    "ext": "1009",
+    "phone": "71 230 13 40"
+   },
+   {
+    "name": "Yusupov Otabek Yakubovich",
+    "role": {
+     "uz": "Ilmiy ishlar va innovatsiyalar bo‘yicha prorektor",
+     "ru": "Проректор по научной работе и инновациям",
+     "en": "Vice-Rector for Research and Innovation",
+     "zh": "副校长（科研与创新）"
+    },
+    "ext": "1006",
+    "phone": "71 230 12 93"
+   },
+   {
+    "name": "Xamrayev Maqsudjon Saidaxmadovich",
+    "role": {
+     "uz": "Moliya-iqtisod ishlari bo‘yicha prorektor",
+     "ru": "Проректор по финансово-экономическим вопросам",
+     "en": "Vice-Rector for Finance and Economics",
+     "zh": "副校长（财务经济）"
+    },
+    "ext": "1007",
+    "phone": "71 230 12 97"
+   },
+   {
+    "name": "Nasirov Abduraxim Abdimutalipovich",
+    "role": {
+     "uz": "Xalqaro hamkorlik masalalari bo‘yicha prorektor",
+     "ru": "Проректор по международному сотрудничеству",
+     "en": "Vice-Rector for International Cooperation",
+     "zh": "副校长（国际合作）"
+    },
+    "ext": "1008",
+    "phone": "71 230 12 90"
+   }
+  ],
+  "reception": "71 230 13 62",
+  "recipients": [
+   {
+    "id": "rector",
+    "title": {
+     "uz": "Rektor",
+     "ru": "Ректор",
+     "en": "Rector",
+     "zh": "校长"
+    }
+   },
+   {
+    "id": "first-vice",
+    "title": {
+     "uz": "Birinçi prorektor",
+     "ru": "Первый проректор",
+     "en": "First Vice-Rector",
+     "zh": "第一副校长"
+    }
+   },
+   {
+    "id": "vice-academic",
+    "title": {
+     "uz": "Öquv işlari böyiça prorektor",
+     "ru": "Проректор по учебной работе",
+     "en": "Vice-Rector for Academic Affairs",
+     "zh": "副校长（教学）"
+    }
+   },
+   {
+    "id": "admission",
+    "title": {
+     "uz": "Qabul komissiyasi",
+     "ru": "Приёмная комиссия",
+     "en": "Admissions Committee",
+     "zh": "招生委员会"
+    }
+   }
+  ]
+ },
+ "sdg": {
+  "greenmetric": {
+   "year": 2026,
+   "world": {
+    "rank": "#512",
+    "change": 57
+   },
+   "asia": {
+    "rank": "#296",
+    "change": 28
+   },
+   "country": {
+    "rank": "#11",
+    "change": 2
+   },
+   "highlight": {
+    "text": {
+     "uz": "Water yönalişi böyiça Özbekistonda #1",
+     "ru": "Water: №1 в Узбекистане",
+     "en": "Water: #1 in Uzbekistan",
+     "zh": "水资源类别：乌兹别克斯坦第1名"
+    },
+    "url": "/brm-6-toza-suv-va-sanitariya"
+   }
+  },
+  "categories": [
+   {
+    "code": "SI",
+    "title": {
+     "uz": "Infratuzilma",
+     "ru": "Инфраструктура",
+     "en": "Infrastructure",
+     "zh": "基础设施"
+    },
+    "subtitle": "Setting & Infrastructure",
+    "url": "/greenmetrics-2025"
+   },
+   {
+    "code": "EC",
+    "title": {
+     "uz": "Energiya va iqlim",
+     "ru": "Энергия и климат",
+     "en": "Energy and climate",
+     "zh": "能源与气候"
+    },
+    "subtitle": "Energy & Climate Change",
+    "url": "/greenmetrics-2025"
+   },
+   {
+    "code": "WS",
+    "title": {
+     "uz": "Çiqindilar",
+     "ru": "Отходы",
+     "en": "Waste",
+     "zh": "废弃物"
+    },
+    "subtitle": "Waste",
+    "url": "/greenmetrics-2025"
+   },
+   {
+    "code": "WR",
+    "title": {
+     "uz": "Suv",
+     "ru": "Вода",
+     "en": "Water",
+     "zh": "水资源"
+    },
+    "subtitle": "Water",
+    "badge": {
+     "uz": "Özbekistonda #1",
+     "ru": "№1 в Узбекистане",
+     "en": "#1 in Uzbekistan",
+     "zh": "乌兹别克斯坦第1名"
+    },
+    "url": "/brm-6-toza-suv-va-sanitariya"
+   },
+   {
+    "code": "TR",
+    "title": {
+     "uz": "Transport",
+     "ru": "Транспорт",
+     "en": "Transport",
+     "zh": "交通"
+    },
+    "subtitle": "Transportation",
+    "url": "/greenmetrics-2025"
+   },
+   {
+    "code": "ED",
+    "title": {
+     "uz": "Ta’lim va tadqiqot",
+     "ru": "Образование и исследования",
+     "en": "Education and research",
+     "zh": "教育与研究"
+    },
+    "subtitle": "Education & Research",
+    "url": "/greenmetrics-2025"
+   }
+  ],
+  "goals": [],
+  "impactYear": 2025,
+  "reports": [
+   {
+    "title": "SDG Policies",
+    "url": "/sdg-report",
+    "kind": "link",
+    "meta": null
+   },
+   {
+    "title": "SDG Report 2023",
+    "url": "/sdg-report",
+    "kind": "link",
+    "meta": null
+   },
+   {
+    "title": "SDG policy 2026",
+    "url": "/sdg-report",
+    "kind": "link",
+    "meta": null
+   },
+   {
+    "title": "Report 2025–2026",
+    "url": "/sdg-report",
+    "kind": "pdf",
+    "meta": null
+   },
+   {
+    "title": "Greenmetrics",
+    "url": "/greenmetrics",
+    "kind": "link",
+    "meta": null
+   },
+   {
+    "title": "Greenmetrics 2025",
+    "url": "/greenmetrics-2025",
+    "kind": "link",
+    "meta": null
+   }
+  ],
+  "education": {
+   "title": {
+    "uz": "Barqarorlik savodxonligini baholash vositasi",
+    "ru": "Инструмент оценки грамотности в области устойчивого развития",
+    "en": "Sustainability Literacy Assessment Tool",
+    "zh": "可持续发展素养评估工具"
+   },
+   "text": {
+    "uz": "O‘zDJTU talabalar, professor-o‘qituvchilar va xodimlar orasida barqarorlik savodxonligi va bilimlarini oshirish orqali barqarorlik madaniyatini shakllantiradi. Vosita iqlim o‘zgarishi, biologik xilma-xillik, ijtimoiy adolat va BRM mavzularini qamrab oladi.",
+    "ru": "УзГУМЯ формирует культуру устойчивого развития, повышая грамотность студентов, преподавателей и сотрудников в этой области. Инструмент охватывает темы изменения климата, биоразнообразия, социальной справедливости и ЦУР.",
+    "en": "UzSWLU builds a culture of sustainability by raising sustainability literacy among students, faculty and staff. The tool covers climate change, biodiversity, social justice and the SDGs.",
+    "zh": "我校通过提升学生、教师和员工的可持续发展素养来培育可持续发展文化。该工具涵盖气候变化、生物多样性、社会公正和可持续发展目标等主题。"
+   },
+   "tags": [
+    "Eco Lingua",
+    {
+     "uz": "Yillik hisobot 2023–2024",
+     "ru": "Годовой отчёт 2023–2024",
+     "en": "Annual report 2023–2024",
+     "zh": "2023–2024年度报告"
+    },
+    "Environmental Sustainability Courses 2024",
+    "WUR"
+   ],
+   "url": "/talim-va-barqarorlik"
+  },
+  "news": []
+ }
+}

@@ -1,0 +1,176 @@
+{
+ "7731": {
+  "contacts": [
+   {
+    "type": "email",
+    "value": "o.ibragimov@uzswlu.uz"
+   },
+   {
+    "type": "telegram",
+    "value": "https://t.me/Otabek_Ibragimov"
+   }
+  ],
+  "socials": [
+   {
+    "network": "instagram",
+    "url": "https://www.instagram.com/otabek__ibragimov"
+   },
+   {
+    "network": "threads",
+    "url": "https://www.threads.net/@otabek__ibragimov"
+   },
+   {
+    "network": "facebook",
+    "url": "https://www.facebook.com/farrux.ibragimov.756"
+   }
+  ]
+ },
+ "7792": {
+  "about": {
+   "uz": "Pedagogika va psixologiya böyiça dars beradi. (Namuna matn — backend ulanganda xodimning özi yozgani çiqadi.)",
+   "ru": "Преподаёт педагогику и психологию. (Пример текста.)",
+   "en": "Teaches pedagogy and psychology. (Sample text.)",
+   "zh": "讲授教育学与心理学。（示例文本）"
+  },
+  "contacts": [
+   {
+    "type": "email",
+    "value": "namuna@uzswlu.uz"
+   },
+   {
+    "type": "phone",
+    "value": "+998 71 230 13 73"
+   }
+  ],
+  "science": [
+   {
+    "network": "orcid",
+    "url": "https://orcid.org"
+   },
+   {
+    "network": "scholar",
+    "url": "https://scholar.google.com"
+   }
+  ],
+  "documents": [
+   {
+    "section": "cv",
+    "items": [
+     {
+      "title": "CV (namuna)",
+      "url": "#"
+     }
+    ]
+   },
+   {
+    "section": "articles",
+    "items": [
+     {
+      "title": "Namuna maqola 1",
+      "url": "#"
+     },
+     {
+      "title": "Namuna maqola 2",
+      "url": "#"
+     }
+    ]
+   }
+  ]
+ },
+ "7909": {
+  "contacts": [
+   {
+    "type": "email",
+    "value": "m.chutpulatov@uzswlu.uz"
+   },
+   {
+    "type": "phone",
+    "value": "+998 71 230 12 94"
+   },
+   {
+    "type": "office",
+    "value": "Toshkent sh., Kichik halqa yo‘li ko‘chasi, G9-A, 21-uy"
+   }
+  ]
+ },
+ "8098": {
+  "contacts": [
+   {
+    "type": "email",
+    "value": "o.yusupov@uzswlu.uz"
+   },
+   {
+    "type": "phone",
+    "value": "+998 71 230 12 93"
+   }
+  ]
+ },
+ "8450": {
+  "contacts": [
+   {
+    "type": "email",
+    "value": "a.nasirov@uzswlu.uz"
+   },
+   {
+    "type": "phone",
+    "value": "+998 71 230 13 73"
+   }
+  ]
+ },
+ "9004": {
+  "contacts": [
+   {
+    "type": "email",
+    "value": "v.sadiyev@uzswlu.uz"
+   },
+   {
+    "type": "phone",
+    "value": "+998 71 230 13 40"
+   }
+  ]
+ },
+ "9300": {
+  "about": {
+   "uz": "Rektor, pedagogika fanlari doktori (DSc), professor",
+   "ru": "Ректор, доктор педагогических наук (DSc), профессор",
+   "en": "Rector, Doctor of Pedagogical Sciences (DSc), Professor",
+   "zh": "校长，教育学博士（DSc），教授"
+  },
+  "contacts": [
+   {
+    "type": "email",
+    "value": "rector@uzswlu.uz"
+   },
+   {
+    "type": "email",
+    "value": "uzdjtu@uzswlu.uz"
+   },
+   {
+    "type": "whatsapp",
+    "value": "+998 90 123 45 67"
+   },
+   {
+    "type": "mobile",
+    "value": "+998 90 123 45 67"
+   },
+   {
+    "type": "phone",
+    "value": "+998 71 230 12 91"
+   },
+   {
+    "type": "office",
+    "value": "Toshkent sh., Kichik halqa yo‘li ko‘chasi, G9-A, 21-uy"
+   }
+  ],
+  "socials": [
+   {
+    "network": "instagram",
+    "url": "https://www.instagram.com/uzswlu_official"
+   },
+   {
+    "network": "facebook",
+    "url": "https://www.facebook.com/uzswlu"
+   }
+  ]
+ }
+}

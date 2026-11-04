@@ -27,3 +27,12 @@ admin-template/
 .DS_Store
 .idea/
 .vscode/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ruff_cache/
+backend/staticfiles/
+*.sqlite3
+*.db
