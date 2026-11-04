@@ -1,4 +1,4 @@
-# Docker konteyneridagi skriptlar Linux satr oxiri (LF) bilan bo'lishi shart — aks holda Windows'da
-# yuklab olinganda "./docker-entrypoint.sh: no such file or directory" xatosi chiqadi
+* text=auto
 *.sh text eol=lf
 Dockerfile text eol=lf
+*.py text eol=lf
