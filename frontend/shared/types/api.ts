@@ -1,5 +1,6 @@
 // Backend bilan kelishiladigan API shartnomasi (frontend shu turlarga tayanadi).
 // Barcha matnli maydonlar so'ralgan tilda (?lang=uz|ru|en|zh) qaytariladi.
+import type { Locale } from '../utils/locale'
 
 export interface Slide {
   id: string
@@ -371,6 +372,12 @@ export interface PostList {
   months: string[]
 }
 
+/** Postning bir tildagi varianti: manzil — /{lang}/{type}/{slug} (o'zbekcha — prefikssiz) */
+export interface PostTranslation {
+  lang: Locale
+  image?: string | null
+}
+
 /** GET /posts/:type/:slug?lang= — bitta yangilik / e'lon / tadbir */
 export interface Post extends PostSummary {
   /** Matn — HTML (ContentPage.body qoidalari bilan) */
@@ -379,6 +386,17 @@ export interface Post extends PostSummary {
   author?: { name: string; role?: string | null; avatar?: string | null } | null
   /** Nashr vaqti, ISO 8601 vaqt mintaqasi bilan: 2026-10-23T19:00:00+05:00 — saytda 24 soatlik formatda (19:00) */
   publishedAt?: string | null
+  /**
+   * Asosiy surat o'lchami, px — tik yoki yotiqligini bilish uchun (tik surat sarlavha yonida turadi).
+   * Backend bermasa, Nuxt serveri faylning o'zidan aniqlaydi
+   */
+  imageWidth?: number | null
+  imageHeight?: number | null
+  /**
+   * Post qaysi tillarda bor va har tildagi asosiy surat — Telegram'da 4 tildagi havola bilan ulashish uchun.
+   * Backend bermasa, Nuxt serveri har tilni so'rab aniqlaydi
+   */
+  translations?: PostTranslation[]
   /** Galereya rasmlari */
   gallery: string[]
   /** Biriktirilgan PDF'lar (dastur, avtoreferat …) — matn ostida, har biri o'z ko'rinishida */

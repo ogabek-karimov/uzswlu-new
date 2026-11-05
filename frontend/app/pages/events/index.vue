@@ -65,7 +65,7 @@ const selectedLabel = computed(() => formatDate(`${selected.value}T12:00:00+05:0
 // Yaqin tadbirlar — toifa bo'yicha filtr
 const filter = ref('')
 const upcoming = computed(() => data.value?.upcoming ?? [])
-const categories = computed(() => [...new Set(upcoming.value.map(e => e.category))])
+const categories = computed(() => [...new Set(upcoming.value.map(e => e.category).filter(Boolean))])
 const shown = computed(() => upcoming.value.filter(e => !filter.value || e.category === filter.value))
 
 // Oy tadbirlarini taqvim fayli (.ics) sifatida yuklab olish
@@ -150,7 +150,7 @@ useSeoMeta({ title: () => t('calendar.title'), description: () => t('calendar.le
         <h2 class="mt-2 font-display text-[34px] font-semibold first-letter:uppercase">{{ selectedLabel }}</h2>
         <ul v-if="dayEvents.length" class="mt-5 flex flex-col gap-3">
           <li v-for="e in dayEvents" :key="e.id" class="group relative rounded-[20px] border border-line bg-white px-5 py-[18px] transition-colors hover:border-accent-500">
-            <span class="rounded-full bg-accent-100 px-2.5 py-1 text-xs font-semibold text-accent-700">{{ e.category }}</span>
+            <span v-if="e.category" class="rounded-full bg-accent-100 px-2.5 py-1 text-xs font-semibold text-accent-700">{{ e.category }}</span>
             <NuxtLink :to="localePath(`/events/${e.slug}`)" class="mt-2.5 block text-[17px] leading-snug font-semibold text-ink">
               <span class="absolute inset-0" aria-hidden="true" />
               {{ e.title }}

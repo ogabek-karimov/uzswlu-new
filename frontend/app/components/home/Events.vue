@@ -27,7 +27,7 @@ const formatDate = useFormatDate()
                 <span class="block text-xs text-muted first-letter:uppercase">{{ formatDate(event.startsAt, 'weekday') }}</span>
               </span>
             </time>
-            <span class="shrink-0 rounded-full bg-accent-100 px-3 py-1 text-xs font-semibold text-accent-600">{{ event.category }}</span>
+            <span v-if="event.category" class="shrink-0 rounded-full bg-accent-100 px-3 py-1 text-xs font-semibold text-accent-600">{{ event.category }}</span>
           </div>
 
           <h3 class="mt-6 text-lg leading-snug font-semibold text-ink transition-colors group-hover:text-brand-700">

@@ -224,7 +224,7 @@ const dialog = ref<{ requestClose: () => void }>()
           <label class="flex h-12.5 shrink-0 items-center gap-2.5 rounded-[14px] border border-line bg-paper px-4 focus-within:border-accent-600">
             <Icon name="lucide:search" class="size-[18px] text-muted" />
             <span class="sr-only">{{ t('cabinet.upload.search') }}</span>
-            <input v-model="query" type="search" :placeholder="t('cabinet.upload.search')" class="h-full min-w-0 flex-1 bg-transparent text-[15px] outline-none">
+            <input v-model="query" type="search" autocomplete="off" :placeholder="t('cabinet.upload.search')" class="h-full min-w-0 flex-1 bg-transparent text-[15px] outline-none">
           </label>
           <p class="mt-4.5 flex shrink-0 items-center gap-2.5 text-xs font-bold tracking-[0.18em] text-muted uppercase">
             {{ t('cabinet.upload.uploaded') }}

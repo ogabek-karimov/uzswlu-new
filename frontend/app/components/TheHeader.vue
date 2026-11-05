@@ -146,6 +146,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
             id="header-search"
             v-model="query"
             type="search"
+            autocomplete="off"
             :placeholder="t('nav.searchPlaceholder')"
             class="min-w-0 flex-1 bg-transparent text-sm text-ink outline-none placeholder:text-muted/80 focus-visible:outline-none"
           >

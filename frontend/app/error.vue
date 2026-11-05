@@ -41,7 +41,7 @@ useSeoMeta({ title: () => (notFound.value ? t('notFound.title') : t('notFound.er
           <label for="nf-q" class="sr-only">{{ t('hero.searchLabel') }}</label>
           <div class="flex h-14 items-center gap-2 rounded-[18px] bg-white pr-1.5 pl-[18px]">
             <Icon name="lucide:search" class="size-5 shrink-0 text-muted" />
-            <input id="nf-q" v-model="query" type="search" :placeholder="t('notFound.placeholder')" class="h-full min-w-0 flex-1 bg-transparent text-ink outline-none placeholder:text-muted">
+            <input id="nf-q" v-model="query" type="search" autocomplete="off" :placeholder="t('notFound.placeholder')" class="h-full min-w-0 flex-1 bg-transparent text-ink outline-none placeholder:text-muted">
             <button type="submit" class="h-11 rounded-xl bg-ink px-[18px] text-sm font-semibold text-white">{{ t('search.submit') }}</button>
           </div>
         </form>

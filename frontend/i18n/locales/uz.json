@@ -494,7 +494,23 @@
     "where": "Joyi",
     "latest": "Sönggi yangiliklar",
     "allNews": "Barça yangiliklar",
-    "related": "Öxşaş yangiliklar"
+    "related": "Öxşaş yangiliklar",
+    "zoom": "Kattalaştiriş",
+    "viewer": "Suratni körish",
+    "prevImage": "Oldingi surat",
+    "nextImage": "Keyingi surat",
+    "closeViewer": "Yopiş",
+    "tg": {
+      "title": "Telegram’da ulaşiş",
+      "preview": "Telegram’da şunday boradi:",
+      "copyLinks": "Havolalarni nusxalaş",
+      "copyImage": "Rasmni nusxalaş",
+      "copied": "Nusxalandi",
+      "step1": "Telegram’da kerakli çatni oçing va xabar maydoniga qöying ({key}).",
+      "step2": "Yana {key} bosing — rasm oçiladi, havolalar uning ostida turadi. «Yuboriş»ni bosing.",
+      "openLink": "Yoki Telegram’ni havolalar bilan oçiş",
+      "copyFailed": "Rasmni nusxalab bölmadi: rasm ustida siçqonçaning öng tugmasini bosib, «Nusxalaş»ni tanlang."
+    }
   },
   "calendar": {
     "title": "Tadbirlar taqvimi",

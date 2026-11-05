@@ -74,7 +74,7 @@ useSeoMeta({ title: () => t('posts.title'), description: () => t('posts.lead') }
           <label class="flex h-12 min-w-0 flex-1 items-center gap-2 rounded-full border border-line bg-white px-4 focus-within:border-accent-600 sm:w-72 sm:flex-none">
             <Icon name="lucide:search" class="size-[18px] shrink-0 text-muted" />
             <span class="sr-only">{{ t('posts.search') }}</span>
-            <input v-model="search" type="search" :placeholder="t('posts.searchPlaceholder')" class="h-full min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted">
+            <input v-model="search" type="search" autocomplete="off" :placeholder="t('posts.searchPlaceholder')" class="h-full min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted">
           </label>
           <label class="relative">
             <span class="sr-only">{{ t('posts.month') }}</span>

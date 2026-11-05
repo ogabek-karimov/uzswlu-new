@@ -494,7 +494,23 @@
     "where": "Where",
     "latest": "Latest news",
     "allNews": "All news",
-    "related": "Related news"
+    "related": "Related news",
+    "zoom": "Enlarge",
+    "viewer": "Image viewer",
+    "prevImage": "Previous image",
+    "nextImage": "Next image",
+    "closeViewer": "Close",
+    "tg": {
+      "title": "Share on Telegram",
+      "preview": "This is how it will look in Telegram:",
+      "copyLinks": "Copy links",
+      "copyImage": "Copy image",
+      "copied": "Copied",
+      "step1": "Open the chat in Telegram and paste into the message field ({key}).",
+      "step2": "Press {key} again — the image opens with the links below it. Click “Send”.",
+      "openLink": "Or open Telegram with the links",
+      "copyFailed": "Couldn’t copy the image: right-click it and choose “Copy image”."
+    }
   },
   "calendar": {
     "title": "Events calendar",
