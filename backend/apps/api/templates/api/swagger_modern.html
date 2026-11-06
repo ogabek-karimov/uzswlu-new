@@ -9,6 +9,7 @@ SWAGGER_THEME=modern (sukut) | classic
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
   :root {
+    color-scheme: light;
     --bg: #f6f7f9; --card: #ffffff; --line: #e6e8ee; --ink: #1d2433; --muted: #667085; --soft: #f0f2f6;
     --accent: #3b6fd4; --accent-soft: #eef3fc; --accent-ink: #264f9e;
     --get-bg: #e9f1fd; --get: #2a64c5; --post-bg: #e5f5ec; --post: #1c7a4d; --put-bg: #fdf2df; --put: #a46408; --del-bg: #fdeaea; --del: #b4382f;
@@ -16,26 +17,44 @@ SWAGGER_THEME=modern (sukut) | classic
     --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg: #151a23; --card: #1c2230; --line: #2a3244; --ink: #e6eaf2; --muted: #98a2b6; --soft: #232b3b;
-      --accent: #7ea6ee; --accent-soft: #212c45; --accent-ink: #a9c4f5;
-      --get-bg: #1f2e4a; --get: #8db5f5; --post-bg: #1b3328; --post: #77d3a1; --put-bg: #3a2f1a; --put: #f0c070; --del-bg: #3b2224; --del: #f09a94;
-      --code-bg: #121722; --code-ink: #dbe1ec; }
-  }
   html { -webkit-font-smoothing: antialiased; }
   body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; margin: 0; }
   code, pre, kbd { font-family: var(--mono); }
 
   /* ——— sarlavha ——— */
   .top { max-width: 1120px; margin: 0 auto; padding: 40px 20px 8px; }
-  .intro { background: linear-gradient(135deg, var(--accent-soft), var(--card) 70%); border: 1px solid var(--line); border-radius: 20px; padding: 30px 32px 26px; }
-  .kicker { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-ink); }
-  .intro h1 { margin: 6px 0 6px; font-size: clamp(26px, 4vw, 36px); line-height: 1.15; letter-spacing: -.02em; font-weight: 700; }
-  .intro .lead { margin: 0 0 18px; max-width: 680px; color: var(--muted); font-size: 16px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip { display: inline-flex; gap: 6px; align-items: baseline; padding: 5px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); font-size: 13px; color: var(--muted); }
-  .chip b { color: var(--ink); font-weight: 600; }
-  .chip a { color: var(--accent-ink); text-decoration: none; font-weight: 500; }
+  .hero { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 20px; align-items: center; background: #fbfcfe; border: 1px solid var(--line); border-radius: 22px; padding: 34px 34px 30px; }
+  .hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; filter: blur(60px); opacity: .55; z-index: 0; animation: drift 14s ease-in-out infinite alternate; }
+  .hero::before { width: 340px; height: 340px; left: -90px; top: -120px; background: #dbe7fb; }
+  .hero::after { width: 300px; height: 300px; right: -60px; bottom: -130px; background: #dff3e9; animation-delay: -6s; }
+  .hero > * { position: relative; z-index: 1; }
+  @keyframes drift { to { transform: translate(40px, 24px) scale(1.12); } }
+  .kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-ink); }
+  .live { width: 8px; height: 8px; border-radius: 50%; background: #3fae7e; box-shadow: 0 0 0 0 rgba(63,174,126,.5); animation: ping 2s infinite; }
+  @keyframes ping { 70% { box-shadow: 0 0 0 9px rgba(63,174,126,0); } 100% { box-shadow: 0 0 0 0 rgba(63,174,126,0); } }
+  .hero h1 { margin: 8px 0 10px; font-size: clamp(26px, 4vw, 38px); line-height: 1.12; letter-spacing: -.02em; font-weight: 700; }
+  .rotline { margin: 0 0 18px; font-size: 15px; color: var(--muted); } .rotline .rot { min-width: 0; white-space: nowrap; }
+  .lead { margin: 0 0 12px; color: var(--muted); font-size: 16px; max-width: 520px; }
+  .rot { display: inline-block; min-width: 9ch; color: var(--accent-ink); font-weight: 600; border-bottom: 2px solid #c9d9f5; transition: opacity .35s, transform .35s; }
+  .rot.out { opacity: 0; transform: translateY(6px); }
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; max-width: 460px; }
+  .stat { background: rgba(255,255,255,.8); border: 1px solid var(--line); border-radius: 14px; padding: 10px 14px; }
+  .stat b { display: block; font-size: 24px; line-height: 1.2; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .stat span { font-size: 12.5px; color: var(--muted); }
+  .links { margin-top: 14px; font-size: 13px; } .links a { color: var(--accent-ink); font-weight: 500; text-decoration: none; margin-right: 16px; } .links a:hover { text-decoration: underline; }
+  /* oqim sxemasi */
+  .flow { margin: 0; } .flow svg { width: 100%; height: auto; display: block; }
+  .flow text { font: 600 12.5px var(--sans); fill: var(--ink); } .flow .sub { font: 400 10.5px var(--sans); fill: var(--muted); }
+  .flow .node rect { fill: #fff; stroke: var(--line); stroke-width: 1.2; }
+  .flow .core rect { fill: var(--accent); stroke: none; } .flow .core text { fill: #fff; }
+  .flow .ring { fill: none; stroke: var(--accent); stroke-width: 1.5; transform-origin: 270px 130px; animation: ring 2.8s ease-out infinite; opacity: 0; }
+  .flow .ring.r2 { animation-delay: 1.4s; }
+  @keyframes ring { 0% { transform: scale(.85); opacity: .5; } 100% { transform: scale(1.5); opacity: 0; } }
+  .flow .wire { fill: none; stroke: #cdd6e6; stroke-width: 1.6; stroke-dasharray: 4 5; animation: dash 1.4s linear infinite; }
+  @keyframes dash { to { stroke-dashoffset: -18; } }
+  .flow .dot { fill: var(--accent); } .flow .dot.g { fill: #3fae7e; }
+  .fade { opacity: 0; transform: translateY(8px); animation: up .6s cubic-bezier(.2,.7,.2,1) forwards; }
+  @keyframes up { to { opacity: 1; transform: none; } }
 
   .guide { margin-top: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 6px 24px 22px; }
   .tabs { display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid var(--line); margin: 0 -8px 18px; padding: 0 8px; scrollbar-width: none; }
@@ -50,6 +69,13 @@ SWAGGER_THEME=modern (sukut) | classic
   .box p { margin: 0; font-size: 13.5px; color: var(--muted); }
   .num { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 7px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 600; margin-right: 8px; }
   .guide code { background: var(--accent-soft); color: var(--accent-ink); padding: 1px 6px; border-radius: 5px; font-size: 12.5px; }
+  .steps .box { position: relative; overflow: hidden; border: 1px solid transparent; transition: background .3s, border-color .3s, transform .3s; }
+  .steps .box.act { background: var(--accent-soft); border-color: #c9d9f5; transform: translateY(-2px); }
+  .steps .box .bar { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--accent); }
+  .steps .box.act .bar { animation: fill 3.2s linear forwards; } @keyframes fill { to { width: 100%; } }
+  .try { margin-top: 10px; display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--muted); }
+  .try button { font: 600 12.5px var(--sans); color: #fff; background: var(--accent); border: 0; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+  .try button:hover { background: var(--accent-ink); } .try .ok { color: var(--post); font-weight: 600; } .try .bad { color: var(--del); font-weight: 600; }
   .term { position: relative; margin: 10px 0 0; background: var(--code-bg); color: var(--code-ink); border-radius: 10px; padding: 34px 14px 11px; font-size: 12.5px; line-height: 1.55; overflow-x: auto; white-space: pre; }
   .copy { position: absolute; top: 6px; right: 6px; font: 500 11px var(--sans); color: #c7cfdd; background: rgba(255,255,255,.08); border: 0; border-radius: 6px; padding: 4px 8px; cursor: pointer; }
   .copy:hover { background: rgba(255,255,255,.16); }
@@ -59,6 +85,7 @@ SWAGGER_THEME=modern (sukut) | classic
   .guide code.cd { background: var(--soft); color: var(--ink); }
 
   /* ——— Swagger UI (pastki qism) ——— */
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .fade { opacity: 1; transform: none; } }
   .swagger-ui { font-family: var(--sans); color: var(--ink); }
   .swagger-ui .wrapper { max-width: 1120px; padding: 0 20px; }
   .swagger-ui .information-container { display: none; }
@@ -104,21 +131,43 @@ SWAGGER_THEME=modern (sukut) | classic
   .swagger-ui section.models { display: none; }
 
   @media (max-width: 860px) { .grid, .grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 600px) { .top { padding-top: 20px; } .intro { padding: 22px 18px; } .guide { padding: 4px 14px 16px; } .grid, .grid.two, .grid.four { grid-template-columns: 1fr; } .kv td:first-child { white-space: normal; } }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .top { padding-top: 20px; } .hero { padding: 22px 18px; } .guide { padding: 4px 14px 16px; } .grid, .grid.two, .grid.four { grid-template-columns: 1fr; } .kv td:first-child { white-space: normal; } }
 </style>
 {% endblock head %}
 {% block body %}
 <header class="top">
-  <section class="intro">
-    <div class="kicker">ÖzDJTU · API hujjatlari</div>
-    <h1>Universitet sayti API</h1>
-    <p class="lead">Sayt (Nuxt), Vue admin panel va xodim kabineti uchun yagona API. Barcha matnlar 4 tilda qaytadi, kirish huquqlari rol bo‘yicha boshqariladi.</p>
-    <div class="chips">
-      <span class="chip"><b id="c-ops">…</b> amal</span>
-      <span class="chip"><b>4</b> til: uz · ru · en · zh</span>
-      <span class="chip"><b>5</b> rol</span>
-      <span class="chip"><a href="{{ schema_url|default:'/api/schema/' }}?format=json">OpenAPI 3.1 (JSON)</a></span>
+  <section class="hero">
+    <div>
+      <div class="kicker"><span class="live"></span>ÖzDJTU · API hujjatlari</div>
+      <h1>Universitet sayti API</h1>
+      <p class="lead">Bitta API sayt, admin panel va xodim kabinetini ta’minlaydi — hammasi 4 tilda, rol bo‘yicha himoyalangan.</p>
+      <div class="rotline">Ichida: <span id="rot" class="rot">yangiliklar</span></div>
+      <div class="stats">
+        <div class="stat"><b id="c-ops">0</b><span>amal (endpoint)</span></div>
+        <div class="stat"><b data-n="4">0</b><span>til: uz · ru · en · zh</span></div>
+        <div class="stat"><b data-n="5">0</b><span>foydalanuvchi roli</span></div>
+      </div>
+      <div class="links"><a href="{{ schema_url|default:'/api/schema/' }}?format=json">OpenAPI 3.1 (JSON)</a><a href="/api/redoc/">ReDoc</a></div>
     </div>
+    <figure class="flow" aria-label="API ishlash sxemasi">
+      <svg viewBox="0 0 540 260" role="img">
+        <path id="w1" class="wire" d="M150 52 C 200 52, 210 120, 220 122"/><path id="w2" class="wire" d="M150 130 L 220 130"/><path id="w3" class="wire" d="M150 208 C 200 208, 210 140, 220 138"/>
+        <path id="w4" class="wire" d="M320 120 C 360 110, 370 62, 396 62"/><path id="w5" class="wire" d="M320 140 C 360 150, 370 198, 396 198"/>
+        <circle class="ring" cx="270" cy="130" r="44"/><circle class="ring r2" cx="270" cy="130" r="44"/>
+        <g class="node fade" style="animation-delay:.1s"><rect x="14" y="28" width="136" height="48" rx="12"/><text x="30" y="49">Sayt (Nuxt)</text><text class="sub" x="30" y="65">ochiq ma’lumotlar</text></g>
+        <g class="node fade" style="animation-delay:.25s"><rect x="14" y="106" width="136" height="48" rx="12"/><text x="30" y="127">Admin panel</text><text class="sub" x="30" y="143">JWT bilan kirish</text></g>
+        <g class="node fade" style="animation-delay:.4s"><rect x="14" y="184" width="136" height="48" rx="12"/><text x="30" y="205">Xodim kabineti</text><text class="sub" x="30" y="221">HEMIS sessiyasi</text></g>
+        <g class="node core fade" style="animation-delay:.55s"><rect x="220" y="98" width="100" height="64" rx="16"/><text x="270" y="126" text-anchor="middle">API</text><text class="sub" x="270" y="144" text-anchor="middle" style="fill:#dbe6fb">Django · DRF</text></g>
+        <g class="node fade" style="animation-delay:.7s"><rect x="396" y="38" width="130" height="48" rx="12"/><text x="412" y="59">PostgreSQL</text><text class="sub" x="412" y="75">kontent, hisoblar</text></g>
+        <g class="node fade" style="animation-delay:.85s"><rect x="396" y="174" width="130" height="48" rx="12"/><text x="412" y="195">HEMIS</text><text class="sub" x="412" y="211">talaba, xodim</text></g>
+        <circle class="dot" r="4"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#w1"/></animateMotion></circle>
+        <circle class="dot" r="4"><animateMotion dur="2.2s" begin=".6s" repeatCount="indefinite"><mpath href="#w2"/></animateMotion></circle>
+        <circle class="dot" r="4"><animateMotion dur="2.6s" begin="1.1s" repeatCount="indefinite"><mpath href="#w3"/></animateMotion></circle>
+        <circle class="dot g" r="4"><animateMotion dur="2s" begin=".3s" repeatCount="indefinite"><mpath href="#w4"/></animateMotion></circle>
+        <circle class="dot g" r="4"><animateMotion dur="2.4s" begin="1s" repeatCount="indefinite"><mpath href="#w5"/></animateMotion></circle>
+      </svg>
+    </figure>
   </section>
 
   <section class="guide" aria-label="Qo‘llanma">
@@ -131,15 +180,16 @@ SWAGGER_THEME=modern (sukut) | classic
     </div>
 
     <div class="panel on" id="p-start">
-      <div class="grid">
-        <div class="box"><h4><span class="num">1</span>Ochiq API'ni sinang</h4><p>Sayt ma’lumotlari. <code>API_TOKEN</code> bo‘sh bo‘lsa, sarlavha shart emas.</p>
+      <div class="grid steps">
+        <div class="box"><i class="bar"></i><h4><span class="num">1</span>Ochiq API'ni sinang</h4><p>Sayt ma’lumotlari. <code>API_TOKEN</code> bo‘sh bo‘lsa, sarlavha shart emas.</p>
           <div class="term"><button class="copy">Nusxa</button>curl -H "Authorization: Bearer &lt;API_TOKEN&gt;" \
-  "__HOST__/api/home?lang=uz"</div></div>
-        <div class="box"><h4><span class="num">2</span>Admin sifatida kiring</h4><p>Javobdagi <code>token</code> — JWT, 8 soat amal qiladi.</p>
+  "__HOST__/api/home?lang=uz"</div>
+          <div class="try"><button type="button" id="try">Jonli sinab ko‘rish</button><span id="try-out"></span></div></div>
+        <div class="box"><i class="bar"></i><h4><span class="num">2</span>Admin sifatida kiring</h4><p>Javobdagi <code>token</code> — JWT, 8 soat amal qiladi.</p>
           <div class="term"><button class="copy">Nusxa</button>curl -X POST __HOST__/api/cms/users/login \
   -H "Content-Type: application/json" \
   -d '{"username":"superadmin","password":"…"}'</div></div>
-        <div class="box"><h4><span class="num">3</span>Tokenni ishlating</h4><p>Swagger’da: pastdagi <b>Authorize</b> → <code>panelJwt</code>. Kodda:</p>
+        <div class="box"><i class="bar"></i><h4><span class="num">3</span>Tokenni ishlating</h4><p>Swagger’da: pastdagi <b>Authorize</b> → <code>panelJwt</code>. Kodda:</p>
           <div class="term"><button class="copy">Nusxa</button>curl -H "Authorization: Bearer &lt;JWT&gt;" \
   "__HOST__/api/cms/posts?limit=10"</div></div>
       </div>
@@ -206,13 +256,25 @@ SWAGGER_THEME=modern (sukut) | classic
         (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { c.textContent = 'Nusxalandi'; setTimeout(function () { c.textContent = 'Nusxa'; }, 1500); }).catch(function () {});
       });
     });
+    function count(el, to) { var t0 = performance.now(); (function f(t) { var k = Math.min(1, (t - t0) / 900); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(f); })(t0); }
+    document.querySelectorAll('[data-n]').forEach(function (e) { count(e, +e.dataset.n); });
+    var words = ['yangiliklar', 'fakultetlar', 'qabul', 'hujjatlar', 'BRM maqsadlari', 'xodim kabineti'], wi = 0, rot = document.getElementById('rot');
+    setInterval(function () { rot.classList.add('out'); setTimeout(function () { wi = (wi + 1) % words.length; rot.textContent = words[wi]; rot.classList.remove('out'); }, 350); }, 2400);
+    var boxes = document.querySelectorAll('.steps .box'), si = 0;
+    function step() { boxes.forEach(function (b, i) { b.classList.remove('act'); void b.offsetWidth; if (i === si) b.classList.add('act'); }); si = (si + 1) % boxes.length; }
+    if (boxes.length) { step(); setInterval(step, 3200); }
+    var tr = document.getElementById('try'), out = document.getElementById('try-out');
+    tr.addEventListener('click', function () {
+      out.className = ''; out.textContent = 'so‘ralmoqda…'; var t0 = performance.now();
+      fetch('/api/home?lang=uz', { credentials: 'same-origin' }).then(function (r) { var ms = Math.round(performance.now() - t0); out.className = r.ok ? 'ok' : 'bad'; out.textContent = r.status + ' · ' + ms + ' ms' + (r.status === 401 ? ' (API_TOKEN kerak)' : ''); }).catch(function () { out.className = 'bad'; out.textContent = 'ulanib bo‘lmadi'; });
+    });
     // Swagger UI sxemani o'zi yuklab bo'lgach (parallel generatsiya poygasiz) amallar sonini hisoblaymiz
     window.addEventListener('load', function () {
       setTimeout(function () {
         var u = "{{ schema_url|default:'/api/schema/' }}"; u += (u.indexOf('?') > -1 ? '&' : '?') + 'format=json';
         fetch(u, { credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (d) {
           var n = 0; Object.values(d.paths || {}).forEach(function (p) { Object.keys(p).forEach(function (k) { if (['get', 'post', 'put', 'patch', 'delete'].indexOf(k) > -1) n++; }); });
-          document.getElementById('c-ops').textContent = n;
+          count(document.getElementById('c-ops'), n);
         }).catch(function () { document.getElementById('c-ops').textContent = '170+'; });
       }, 2500);
     });
