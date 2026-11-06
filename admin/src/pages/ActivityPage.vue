@@ -26,6 +26,7 @@ async function load() {
   result.value = await api.get<Paginated<Entry>>('/activity', { where, sort: '-createdAt', limit: 40, page: page.value })
 }
 onMounted(load)
+watch(kind, () => { page.value = 1 })
 watch([kind, page], load)
 
 const days = computed(() => {

@@ -57,6 +57,7 @@ async function loadKpi() {
 }
 
 onMounted(() => { load(); loadKpi() })
+watch(() => filters.tab, () => { page.value = 1 })
 watch([() => filters.tab, page], load)
 let timer: ReturnType<typeof setTimeout> | undefined
 watch(() => filters.q, () => { clearTimeout(timer); timer = setTimeout(() => { page.value = 1; load() }, 350) })

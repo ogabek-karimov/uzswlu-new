@@ -51,6 +51,8 @@ watch([type, () => filters.state, () => filters.sdg, () => filters.trash, page],
 let timer: ReturnType<typeof setTimeout> | undefined
 watch(() => filters.q, () => { clearTimeout(timer); timer = setTimeout(() => { page.value = 1; load() }, 350) })
 watch(type, () => { page.value = 1; filters.trash = false })
+// Filtr o'zgarsa birinchi sahifadan boshlanadi (aks holda eski sahifa raqami qolib, ro'yxat bo'sh yoki noto'g'ri chiqadi)
+watch([() => filters.state, () => filters.sdg, () => filters.trash], () => { page.value = 1 })
 
 function toggle(id: number) {
   const s = new Set(picked.value)
