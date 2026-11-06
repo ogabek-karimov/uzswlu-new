@@ -93,7 +93,7 @@ useSeoMeta({ title: () => t('admission.title'), description: () => t('admissionP
         <label class="flex h-12 w-full items-center gap-2 rounded-full border border-line bg-white px-4 focus-within:border-accent-600 sm:ml-auto sm:w-[360px]">
           <Icon name="lucide:search" class="size-[18px] shrink-0 text-muted" />
           <span class="sr-only">{{ t('admissionPage.search') }}</span>
-          <input v-model="search" type="search" :placeholder="t('admissionPage.searchPlaceholder')" class="h-full min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted">
+          <input v-model="search" type="search" autocomplete="off" :placeholder="t('admissionPage.searchPlaceholder')" class="h-full min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted">
         </label>
       </div>
       <ul v-if="programs.length" class="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">

@@ -22,7 +22,7 @@ const tone = computed(() => tones[(props.tone ?? 0) % tones.length]!)
       <span class="absolute -right-[5%] -bottom-[20%] aspect-square w-[45%] rounded-full border-[1.25rem]" :class="tone.ring" />
       <span class="absolute top-[12%] left-[8%] font-display text-[clamp(4rem,12vw,9rem)] leading-none font-semibold" :class="tone.glyph">“</span>
     </div>
-    <span class="absolute top-4 left-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-ink backdrop-blur">
+    <span v-if="item.category" class="absolute top-4 left-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-ink backdrop-blur">
       {{ item.category }}
     </span>
   </div>

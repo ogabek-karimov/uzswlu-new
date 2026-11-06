@@ -30,7 +30,7 @@ useSeoMeta({ title: () => t('docs.title'), description: () => t('docs.lead') })
         <label for="doc-search" class="mb-2 block text-[13px] font-semibold text-muted">{{ t('docs.search') }}</label>
         <div class="flex h-[52px] items-center gap-2 rounded-2xl border border-line bg-white px-4 focus-within:border-accent-600">
           <Icon name="lucide:search" class="size-[18px] shrink-0 text-muted" />
-          <input id="doc-search" v-model="search" type="search" :placeholder="t('docs.placeholder')" class="h-full min-w-0 flex-1 bg-transparent outline-none placeholder:text-muted">
+          <input id="doc-search" v-model="search" type="search" autocomplete="off" :placeholder="t('docs.placeholder')" class="h-full min-w-0 flex-1 bg-transparent outline-none placeholder:text-muted">
         </div>
       </div>
     </PageIntro>

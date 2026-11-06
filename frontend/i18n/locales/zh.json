@@ -494,7 +494,23 @@
     "where": "地点",
     "latest": "最新新闻",
     "allNews": "全部新闻",
-    "related": "相关新闻"
+    "related": "相关新闻",
+    "zoom": "放大",
+    "viewer": "查看图片",
+    "prevImage": "上一张",
+    "nextImage": "下一张",
+    "closeViewer": "关闭",
+    "tg": {
+      "title": "分享到 Telegram",
+      "preview": "在 Telegram 中将显示为：",
+      "copyLinks": "复制链接",
+      "copyImage": "复制图片",
+      "copied": "已复制",
+      "step1": "在 Telegram 中打开聊天，粘贴到消息框（{key}）。",
+      "step2": "再次按 {key}——图片将打开，链接位于其下方。点击“发送”。",
+      "openLink": "或用链接打开 Telegram",
+      "copyFailed": "无法复制图片：右键单击图片并选择“复制图片”。"
+    }
   },
   "calendar": {
     "title": "活动日历",

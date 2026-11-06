@@ -79,6 +79,7 @@ const circleText = computed(() => `${t('university.short')} • 1949 • `.repea
               id="hero-search"
               v-model="query"
               type="search"
+              autocomplete="off"
               :placeholder="t('hero.searchPlaceholder')"
               class="min-w-0 flex-1 bg-transparent py-2 text-[15px] text-ink outline-none placeholder:text-muted/70 focus-visible:outline-none"
             >
