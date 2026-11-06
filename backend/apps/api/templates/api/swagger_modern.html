@@ -1,0 +1,221 @@
+{% extends "drf_spectacular/swagger_ui.html" %}
+{% comment %}
+Zamonaviy, ko'zni charchatmaydigan dizayn: yumshoq ranglar, o'qish oson shrift, sarlavhada ma'lumot va qo'llanma.
+SWAGGER_THEME=modern (sukut) | classic
+{% endcomment %}
+{% block head %}
+{{ block.super }}
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --line: #e6e8ee; --ink: #1d2433; --muted: #667085; --soft: #f0f2f6;
+    --accent: #3b6fd4; --accent-soft: #eef3fc; --accent-ink: #264f9e;
+    --get-bg: #e9f1fd; --get: #2a64c5; --post-bg: #e5f5ec; --post: #1c7a4d; --put-bg: #fdf2df; --put: #a46408; --del-bg: #fdeaea; --del: #b4382f;
+    --code-bg: #1f2937; --code-ink: #e5e9f0;
+    --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #151a23; --card: #1c2230; --line: #2a3244; --ink: #e6eaf2; --muted: #98a2b6; --soft: #232b3b;
+      --accent: #7ea6ee; --accent-soft: #212c45; --accent-ink: #a9c4f5;
+      --get-bg: #1f2e4a; --get: #8db5f5; --post-bg: #1b3328; --post: #77d3a1; --put-bg: #3a2f1a; --put: #f0c070; --del-bg: #3b2224; --del: #f09a94;
+      --code-bg: #121722; --code-ink: #dbe1ec; }
+  }
+  html { -webkit-font-smoothing: antialiased; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; margin: 0; }
+  code, pre, kbd { font-family: var(--mono); }
+
+  /* ——— sarlavha ——— */
+  .top { max-width: 1120px; margin: 0 auto; padding: 40px 20px 8px; }
+  .intro { background: linear-gradient(135deg, var(--accent-soft), var(--card) 70%); border: 1px solid var(--line); border-radius: 20px; padding: 30px 32px 26px; }
+  .kicker { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-ink); }
+  .intro h1 { margin: 6px 0 6px; font-size: clamp(26px, 4vw, 36px); line-height: 1.15; letter-spacing: -.02em; font-weight: 700; }
+  .intro .lead { margin: 0 0 18px; max-width: 680px; color: var(--muted); font-size: 16px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { display: inline-flex; gap: 6px; align-items: baseline; padding: 5px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+  .chip b { color: var(--ink); font-weight: 600; }
+  .chip a { color: var(--accent-ink); text-decoration: none; font-weight: 500; }
+
+  .guide { margin-top: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 6px 24px 22px; }
+  .tabs { display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid var(--line); margin: 0 -8px 18px; padding: 0 8px; scrollbar-width: none; }
+  .tab { appearance: none; background: none; border: 0; padding: 14px 14px 12px; font: 500 14px var(--sans); color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .tab:hover { color: var(--ink); }
+  .tab[aria-selected="true"] { color: var(--accent-ink); border-bottom-color: var(--accent); }
+  .panel { display: none; } .panel.on { display: block; }
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); } .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .box { min-width: 0; background: var(--soft); border-radius: 14px; padding: 16px 18px; }
+  .box h4 { margin: 0 0 6px; font-size: 14.5px; font-weight: 600; }
+  .box p { margin: 0; font-size: 13.5px; color: var(--muted); }
+  .num { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 7px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 600; margin-right: 8px; }
+  .guide code { background: var(--accent-soft); color: var(--accent-ink); padding: 1px 6px; border-radius: 5px; font-size: 12.5px; }
+  .term { position: relative; margin: 10px 0 0; background: var(--code-bg); color: var(--code-ink); border-radius: 10px; padding: 34px 14px 11px; font-size: 12.5px; line-height: 1.55; overflow-x: auto; white-space: pre; }
+  .copy { position: absolute; top: 6px; right: 6px; font: 500 11px var(--sans); color: #c7cfdd; background: rgba(255,255,255,.08); border: 0; border-radius: 6px; padding: 4px 8px; cursor: pointer; }
+  .copy:hover { background: rgba(255,255,255,.16); }
+  .kv { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .kv td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; } .kv tr:last-child td { border-bottom: 0; }
+  .kv td:first-child { white-space: nowrap; font-weight: 600; width: 1%; }
+  .guide code.cd { background: var(--soft); color: var(--ink); }
+
+  /* ——— Swagger UI (pastki qism) ——— */
+  .swagger-ui { font-family: var(--sans); color: var(--ink); }
+  .swagger-ui .wrapper { max-width: 1120px; padding: 0 20px; }
+  .swagger-ui .information-container { display: none; }
+  .swagger-ui .scheme-container { background: transparent; box-shadow: none; padding: 20px 0 10px; margin: 0; }
+  .swagger-ui .scheme-container .schemes { align-items: flex-end; gap: 16px; }
+  .swagger-ui .servers > label { font-size: 12px; font-weight: 500; color: var(--muted); }
+  .swagger-ui .servers > label select { min-width: 260px; border: 1px solid var(--line); border-radius: 10px; background: var(--card); color: var(--ink); box-shadow: none; font: 500 13.5px var(--sans); padding: 8px 12px; }
+  .swagger-ui .btn.authorize { color: var(--accent-ink); border: 1px solid var(--line); background: var(--card); border-radius: 10px; padding: 7px 16px; font: 500 14px var(--sans); box-shadow: none; }
+  .swagger-ui .btn.authorize svg { fill: var(--accent); }
+  .swagger-ui .filter-container { padding: 0 0 14px; }
+  .swagger-ui .filter-container .operation-filter-input { border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--ink); padding: 11px 16px; font: 14.5px var(--sans); box-shadow: none; }
+  .swagger-ui .opblock-tag { background: var(--card); border: 1px solid var(--line); border-radius: 14px; margin: 0 0 10px; padding: 15px 20px; font: 600 16.5px var(--sans); color: var(--ink); }
+  .swagger-ui .opblock-tag:hover { background: var(--soft); }
+  .swagger-ui .opblock-tag small { font: 400 13.5px var(--sans); color: var(--muted); padding-left: 10px; }
+  .swagger-ui .opblock-tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-right: 12px; opacity: .55; }
+  .swagger-ui [data-tag^="Admin"]::before { background: #8b7cf0; }
+  .swagger-ui [data-tag="Xodim kabineti"]::before, .swagger-ui [data-tag="HEMIS"]::before { background: #3fae7e; }
+  .swagger-ui [data-tag^="Eski"]::before { background: #98a2b6; }
+  .swagger-ui .opblock-tag svg, .swagger-ui .opblock-tag svg path, .swagger-ui .opblock-summary-control svg, .swagger-ui .opblock-summary-control svg path, .swagger-ui .model-box-control svg { fill: var(--muted); }
+  .swagger-ui .opblock { border: 1px solid var(--line); border-radius: 12px; margin: 0 0 8px; background: var(--card); box-shadow: none; }
+  .swagger-ui .opblock .opblock-summary { padding: 7px 12px; border-bottom: 0; }
+  .swagger-ui .opblock .opblock-summary-method { min-width: 66px; border-radius: 7px; font: 600 12px var(--mono); padding: 6px 0; text-shadow: none; }
+  .swagger-ui .opblock .opblock-summary-path, .swagger-ui .opblock .opblock-summary-path__deprecated { font: 500 13.5px var(--mono); color: var(--ink); }
+  .swagger-ui .opblock .opblock-summary-description { font: 400 13px var(--sans); color: var(--muted); }
+  .swagger-ui .opblock.opblock-get .opblock-summary-method { background: var(--get-bg); color: var(--get); }
+  .swagger-ui .opblock.opblock-post .opblock-summary-method { background: var(--post-bg); color: var(--post); }
+  .swagger-ui .opblock.opblock-put .opblock-summary-method, .swagger-ui .opblock.opblock-patch .opblock-summary-method { background: var(--put-bg); color: var(--put); }
+  .swagger-ui .opblock.opblock-delete .opblock-summary-method { background: var(--del-bg); color: var(--del); }
+  .swagger-ui .opblock.opblock-get, .swagger-ui .opblock.opblock-post, .swagger-ui .opblock.opblock-put, .swagger-ui .opblock.opblock-patch, .swagger-ui .opblock.opblock-delete { background: var(--card); border-color: var(--line); }
+  .swagger-ui .opblock .opblock-section-header { background: var(--soft); box-shadow: none; }
+  .swagger-ui .opblock .opblock-section-header h4, .swagger-ui .opblock-description-wrapper p, .swagger-ui .opblock-external-docs-wrapper p, .swagger-ui table thead tr th, .swagger-ui .parameter__name, .swagger-ui .response-col_status, .swagger-ui label, .swagger-ui .tab li, .swagger-ui .markdown p, .swagger-ui .renderedMarkdown p { color: var(--ink); font-family: var(--sans); }
+  .swagger-ui .parameter__name { font-weight: 600; } .swagger-ui .parameter__type, .swagger-ui .prop-format { color: var(--muted); font-family: var(--mono); font-size: 12px; }
+  .swagger-ui .markdown code, .swagger-ui .renderedMarkdown code { background: var(--accent-soft); color: var(--accent-ink); border-radius: 5px; padding: 1px 6px; font: 12.5px var(--mono); }
+  .swagger-ui .markdown table, .swagger-ui .renderedMarkdown table { border-collapse: collapse; margin: 8px 0; }
+  .swagger-ui .markdown table th, .swagger-ui .markdown table td { border: 1px solid var(--line); padding: 6px 10px; font-size: 13px; color: var(--ink); }
+  .swagger-ui .highlight-code > .microlight, .swagger-ui .microlight { background: var(--code-bg) !important; color: var(--code-ink) !important; border-radius: 10px; font: 12.5px/1.55 var(--mono); }
+  .swagger-ui input[type=text], .swagger-ui textarea, .swagger-ui select { background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; font-family: var(--sans); box-shadow: none; }
+  .swagger-ui .btn { border-radius: 8px; font-family: var(--sans); box-shadow: none; }
+  .swagger-ui .btn.execute { background: var(--accent); border-color: var(--accent); }
+  .swagger-ui .responses-inner h4, .swagger-ui .responses-inner h5 { color: var(--ink); }
+  .swagger-ui .dialog-ux .modal-ux { background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 16px; }
+  .swagger-ui .dialog-ux .modal-ux-header h3, .swagger-ui .dialog-ux .modal-ux-content h4, .swagger-ui .dialog-ux .modal-ux-content p { color: var(--ink); font-family: var(--sans); }
+  .swagger-ui section.models { display: none; }
+
+  @media (max-width: 860px) { .grid, .grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .top { padding-top: 20px; } .intro { padding: 22px 18px; } .guide { padding: 4px 14px 16px; } .grid, .grid.two, .grid.four { grid-template-columns: 1fr; } .kv td:first-child { white-space: normal; } }
+</style>
+{% endblock head %}
+{% block body %}
+<header class="top">
+  <section class="intro">
+    <div class="kicker">ÖzDJTU · API hujjatlari</div>
+    <h1>Universitet sayti API</h1>
+    <p class="lead">Sayt (Nuxt), Vue admin panel va xodim kabineti uchun yagona API. Barcha matnlar 4 tilda qaytadi, kirish huquqlari rol bo‘yicha boshqariladi.</p>
+    <div class="chips">
+      <span class="chip"><b id="c-ops">…</b> amal</span>
+      <span class="chip"><b>4</b> til: uz · ru · en · zh</span>
+      <span class="chip"><b>5</b> rol</span>
+      <span class="chip"><a href="{{ schema_url|default:'/api/schema/' }}?format=json">OpenAPI 3.1 (JSON)</a></span>
+    </div>
+  </section>
+
+  <section class="guide" aria-label="Qo‘llanma">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-p="start" aria-selected="true">Tez boshlash</button>
+      <button class="tab" role="tab" data-p="auth" aria-selected="false">Kirish usullari</button>
+      <button class="tab" role="tab" data-p="lang" aria-selected="false">Til va sahifalash</button>
+      <button class="tab" role="tab" data-p="err" aria-selected="false">Xatolar</button>
+      <button class="tab" role="tab" data-p="roles" aria-selected="false">Rollar</button>
+    </div>
+
+    <div class="panel on" id="p-start">
+      <div class="grid">
+        <div class="box"><h4><span class="num">1</span>Ochiq API'ni sinang</h4><p>Sayt ma’lumotlari. <code>API_TOKEN</code> bo‘sh bo‘lsa, sarlavha shart emas.</p>
+          <div class="term"><button class="copy">Nusxa</button>curl -H "Authorization: Bearer &lt;API_TOKEN&gt;" \
+  "__HOST__/api/home?lang=uz"</div></div>
+        <div class="box"><h4><span class="num">2</span>Admin sifatida kiring</h4><p>Javobdagi <code>token</code> — JWT, 8 soat amal qiladi.</p>
+          <div class="term"><button class="copy">Nusxa</button>curl -X POST __HOST__/api/cms/users/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"superadmin","password":"…"}'</div></div>
+        <div class="box"><h4><span class="num">3</span>Tokenni ishlating</h4><p>Swagger’da: pastdagi <b>Authorize</b> → <code>panelJwt</code>. Kodda:</p>
+          <div class="term"><button class="copy">Nusxa</button>curl -H "Authorization: Bearer &lt;JWT&gt;" \
+  "__HOST__/api/cms/posts?limit=10"</div></div>
+      </div>
+    </div>
+
+    <div class="panel" id="p-auth">
+      <table class="kv">
+        <tr><td>Ochiq sayt API’si</td><td><code>bearerAuth</code> — <code>Authorization: Bearer &lt;API_TOKEN&gt;</code>. Token <code>backend/.env</code> dagi <code>API_TOKEN</code>; bo‘sh bo‘lsa tekshirilmaydi. <code>/api/site/*</code> va <code>/api/hit</code> tokensiz ochiq.</td></tr>
+        <tr><td>Admin panel <code class="cd">/api/cms/*</code></td><td><code>panelJwt</code> — login javobidagi JWT (yangilash: <code>/users/refresh-token</code>) yoki <code>panelSession</code> — brauzer cookie’si (yozishda <code>Origin</code> ruxsat etilgan bo‘lishi kerak).</td></tr>
+        <tr><td>Xodim kabineti <code class="cd">/api/me*</code></td><td><code>userSession</code> — HEMIS orqali kirgan sessiya cookie’si, yoki <code>staffBearer</code> — <code>issue_staff_session</code> tokeni.</td></tr>
+      </table>
+      <p style="margin:12px 4px 0;color:var(--muted);font-size:13px">JWT muddati tugasa, hisob yopilsa yoki parol o‘zgarsa bekor bo‘ladi.</p>
+    </div>
+
+    <div class="panel" id="p-lang">
+      <div class="grid two">
+        <div class="box"><h4>Ochiq sayt API’si</h4><p><code>?lang=uz|ru|en|zh</code> — til (tarjima bo‘lmasa o‘zbekcha). Ro‘yxatlarda <code>?page=1&amp;perPage=12</code> (ko‘pi bilan 48).</p>
+          <div class="term"><button class="copy">Nusxa</button>__HOST__/api/posts?type=news&amp;lang=ru&amp;page=2&amp;perPage=12</div></div>
+        <div class="box"><h4>Admin panel API’si</h4><p><code>limit</code>, <code>page</code>, <code>sort</code> (<code>-createdAt</code>), <code>depth</code> va <code>where[maydon][equals]=…</code> filtri. Javob: <code>docs</code>, <code>totalDocs</code>, <code>totalPages</code>, <code>hasNextPage</code>.</p>
+          <div class="term"><button class="copy">Nusxa</button>__HOST__/api/cms/posts?where[type][equals]=news&amp;sort=-publishedAt&amp;limit=20&amp;page=1</div></div>
+      </div>
+    </div>
+
+    <div class="panel" id="p-err">
+      <table class="kv">
+        <tr><td><code class="cd">401</code></td><td>Kirilmagan yoki JWT yaroqsiz / muddati tugagan.</td></tr>
+        <tr><td><code class="cd">403</code></td><td>Rolingizga bu amal ruxsat etilmagan, <code>API_TOKEN</code> noto‘g‘ri yoki <code>Origin</code> ruxsat etilmagan.</td></tr>
+        <tr><td><code class="cd">404</code></td><td>Topilmadi.</td></tr>
+        <tr><td><code class="cd">422</code></td><td>Maydonlar noto‘g‘ri to‘ldirilgan (xabar javobda).</td></tr>
+        <tr><td><code class="cd">423</code></td><td>5 marta noto‘g‘ri parol — hisob 15 daqiqaga bloklangan.</td></tr>
+        <tr><td><code class="cd">429</code></td><td>So‘rovlar juda ko‘p (masalan, murojaat yuborishda).</td></tr>
+      </table>
+      <p style="margin:12px 4px 0;color:var(--muted);font-size:13px">Xato shakli: <code>{"errors":[{"message":"…"}],"message":"…"}</code></p>
+    </div>
+
+    <div class="panel" id="p-roles">
+      <div class="grid four">
+        <div class="box"><h4>superadmin</h4><p>Hammasi, shu jumladan foydalanuvchilar va jurnal.</p></div>
+        <div class="box"><h4>editor</h4><p>Kontent muharriri: postlar, media.</p></div>
+        <div class="box"><h4>faculty</h4><p>Fakultet admini: o‘z fakulteti va kafedralari.</p></div>
+        <div class="box"><h4>pages</h4><p>Sahifalar, hujjatlar, videolar muharriri.</p></div>
+        <div class="box"><h4>sdg</h4><p>BRM menejeri: 17 maqsad matni, rasmlari, hisobotlari.</p></div>
+      </div>
+      <p style="margin:12px 4px 0;color:var(--muted);font-size:13px">Har bir amalning tavsifida unga ruxsat etilgan rollar jadvali bor.</p>
+    </div>
+  </section>
+</header>
+{{ block.super }}
+<script>
+  (function () {
+    var host = location.origin;
+    document.querySelectorAll('.guide .term').forEach(function (t) {
+      t.innerHTML = t.innerHTML.replace(/__HOST__/g, host);
+    });
+    document.querySelectorAll('.tab').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('.tab').forEach(function (x) { x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+        document.querySelectorAll('.panel').forEach(function (p) { p.classList.toggle('on', p.id === 'p-' + b.dataset.p); });
+      });
+    });
+    document.querySelectorAll('.copy').forEach(function (c) {
+      c.addEventListener('click', function () {
+        var text = c.parentElement.innerText.replace(/^Nusxa\s*/, '').replace(/^Nusxa/, '').trim();
+        (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { c.textContent = 'Nusxalandi'; setTimeout(function () { c.textContent = 'Nusxa'; }, 1500); }).catch(function () {});
+      });
+    });
+    // Swagger UI sxemani o'zi yuklab bo'lgach (parallel generatsiya poygasiz) amallar sonini hisoblaymiz
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        var u = "{{ schema_url|default:'/api/schema/' }}"; u += (u.indexOf('?') > -1 ? '&' : '?') + 'format=json';
+        fetch(u, { credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (d) {
+          var n = 0; Object.values(d.paths || {}).forEach(function (p) { Object.keys(p).forEach(function (k) { if (['get', 'post', 'put', 'patch', 'delete'].indexOf(k) > -1) n++; }); });
+          document.getElementById('c-ops').textContent = n;
+        }).catch(function () { document.getElementById('c-ops').textContent = '170+'; });
+      }, 2500);
+    });
+  })();
+</script>
+{% endblock body %}

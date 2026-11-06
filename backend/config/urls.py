@@ -19,6 +19,7 @@ class PanelUser(BasePermission):
 
 
 DOCS = AllowAny if settings.API_DOCS_PUBLIC else PanelUser
+SWAGGER_TEMPLATES = {'modern': 'api/swagger_modern.html', 'classic': 'api/swagger.html'}
 DOCS_VIEW = {'authentication_classes': PANEL_AUTH, 'permission_classes': [DOCS]}
 
 
@@ -31,7 +32,7 @@ urlpatterns = [
     path('healthz', healthz),
     # Swagger: ishlab chiqishda ochiq, productionda faqat admin panelga kirgan xodimlar uchun (API_DOCS_PUBLIC=false)
     path('api/schema/', SpectacularAPIView.as_view(**DOCS_VIEW), name='schema'),
-    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema', template_name='api/swagger_creative.html' if settings.SWAGGER_THEME == 'creative' else 'api/swagger.html', **DOCS_VIEW), name='swagger'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema', template_name=SWAGGER_TEMPLATES.get(settings.SWAGGER_THEME, 'api/swagger_modern.html'), **DOCS_VIEW), name='swagger'),
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema', **DOCS_VIEW), name='redoc'),
     # Vue admin panel API'si (Payload bilan bir xil shakl)
     path('api/cms/', include('apps.panel.urls')),

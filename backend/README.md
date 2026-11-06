@@ -75,7 +75,7 @@ yozing va `backend/.env` da `PUBLIC_SERVER_URL=http://localhost:3001` qiling.
 Frontend kaliti: `frontend/.env` dagi `NUXT_API_TOKEN` = `backend/.env` dagi `API_TOKEN`.
 
 ## Swagger
-`/api/docs/` (Swagger UI; dizayn: `SWAGGER_THEME=classic|creative`), `/api/redoc/`, `/api/schema/` (OpenAPI 3.1). Ochiq sayt API'sining tavsifi
+`/api/docs/` (Swagger UI; dizayn: `SWAGGER_THEME=modern|classic`), `/api/redoc/`, `/api/schema/` (OpenAPI 3.1). Ochiq sayt API'sining tavsifi
 `frontend/docs/openapi.yaml` dan olinadi (Docker'da ulangan; bo'lmasa `apps/api/contract/openapi.yaml` nusxasi),
 `/api/site/*`, `/api/me*`, admin panel (`/api/cms/*`) va HEMIS manzillari backenddan hosil qilinadi.
 Shartnoma o'zgarsa nusxani yangilang: `cp frontend/docs/openapi.yaml backend/apps/api/contract/openapi.yaml`.

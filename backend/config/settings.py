@@ -193,7 +193,7 @@ SITE_URL = env('SITE_URL', 'http://localhost:3000').rstrip('/')
 
 # Swagger / OpenAPI hujjati: /api/docs/ (Swagger UI), /api/redoc/, /api/schema/
 API_DOCS_PUBLIC = env_bool('API_DOCS_PUBLIC', DEBUG)
-SWAGGER_THEME = env('SWAGGER_THEME', 'classic')  # classic | creative
+SWAGGER_THEME = env('SWAGGER_THEME', 'modern')  # modern | classic
 SPECTACULAR_SETTINGS = {
     'TITLE': 'ÖzDJTU sayti — API',
     'DESCRIPTION': 'ÖzDJTU API',
