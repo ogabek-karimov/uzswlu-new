@@ -24,6 +24,8 @@ x-backend: &backend
   env_file: backend/.env
   volumes:
     - ./backend:/app
+    # Swagger (/api/docs/) frontend'dagi openapi.yaml shartnomasidan o'qiladi
+    - ./frontend/docs:/frontend/docs:ro
 
 services:
   db:

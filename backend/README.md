@@ -74,3 +74,10 @@ python manage.py migrate && python manage.py seed_demo && python manage.py runse
 `frontend` (Nuxt, :3000), `admin` (Vue, :5173). Windows 8000 portni bermasa — ildiz `.env` ga `BACKEND_PORT=3001`
 yozing va `backend/.env` da `PUBLIC_SERVER_URL=http://localhost:3001` qiling.
 Frontend kaliti: `frontend/.env` dagi `NUXT_API_TOKEN` = `backend/.env` dagi `API_TOKEN`.
+
+## Swagger
+`/api/docs/` (Swagger UI), `/api/redoc/`, `/api/schema/` (OpenAPI 3.1). Ochiq sayt API'sining tavsifi
+`frontend/docs/openapi.yaml` dan olinadi (Docker'da ulangan; bo'lmasa `apps/api/contract/openapi.yaml` nusxasi),
+`/api/site/*`, `/api/me*`, admin panel (`/api/cms/*`) va HEMIS manzillari backenddan hosil qilinadi.
+Shartnoma o'zgarsa nusxani yangilang: `cp frontend/docs/openapi.yaml backend/apps/api/contract/openapi.yaml`.
+Productionda `API_DOCS_PUBLIC=false` — faqat Django admin'ga kirganlar ko'radi.

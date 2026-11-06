@@ -2,7 +2,7 @@
 from django.utils import timezone
 
 from apps.content.models import Post
-from apps.core.fields import pick, tr
+from apps.core.fields import LANGS, pick, tr
 from apps.core.html import text_of
 from apps.core.utils import local_date
 
@@ -69,8 +69,23 @@ def reading_minutes(body_html: str, lang: str) -> int:
     return max(1, round(amount))
 
 
+def _cover_media(p: Post, lang: str):
+    own = getattr(p, f'cover_{lang}', None) if lang != 'uz' else None
+    return own or p.cover
+
+
+def post_translations(p: Post) -> list[dict]:
+    """Post qaysi tillarda bor (sarlavha to'ldirilgan) va har tildagi asosiy surat — Telegram'da 4 tilda ulashish uchun."""
+    out = []
+    for lang in LANGS:
+        if (p.title or {}).get(lang):
+            out.append({'lang': lang, 'image': cover_for(p, lang, 'hero')})
+    return out
+
+
 def post_detail(p: Post, lang: str) -> dict:
     body = tr(p.body, lang)
+    cover = _cover_media(p, lang)
     author = None
     if p.author_id:
         a = p.author
@@ -79,6 +94,9 @@ def post_detail(p: Post, lang: str) -> dict:
     return {
         **post_summary(p, lang),
         'image': cover_for(p, lang, 'hero'),
+        'imageWidth': cover.width if cover else None,
+        'imageHeight': cover.height if cover else None,
+        'translations': post_translations(p),
         'body': body,
         'author': author,
         'publishedAt': iso(p.published_at),
