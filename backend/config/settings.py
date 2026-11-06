@@ -29,6 +29,8 @@ ALLOWED_HOSTS = env_list('ALLOWED_HOSTS', 'localhost,127.0.0.1')
 PUBLIC_SERVER_URL = env('PUBLIC_SERVER_URL', 'http://localhost:8000').rstrip('/')
 # Cookie bilan so'rov yubora oladigan manzillar: sayt va admin panel
 TRUSTED_ORIGINS = env_list('TRUSTED_ORIGINS', 'http://localhost:5173,http://localhost:3000')
+# localhost va 127.0.0.1 bitta kompyuter: admin panelni qaysi biri bilan ochsangiz ham yozish so'rovlari rad etilmasin
+TRUSTED_ORIGINS += [o.replace('//localhost', '//127.0.0.1') for o in TRUSTED_ORIGINS if '//localhost' in o and o.replace('//localhost', '//127.0.0.1') not in TRUSTED_ORIGINS]
 
 INSTALLED_APPS = [
     'jazzmin',
