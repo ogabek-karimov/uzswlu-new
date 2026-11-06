@@ -7,7 +7,7 @@
 # Manzillar (kompyuteringizdan):
 #   sayt        http://localhost:3000
 #   admin panel http://localhost:5173
-#   backend     http://localhost:${BACKEND_PORT:-8000}   (Django admin: /admin/, Swagger: /api/docs/)
+#   backend     http://localhost:${BACKEND_PORT:-8000}   (Swagger: /api/docs/)
 #
 # Port band bo'lsa (ports are not available / forbidden by its access permissions):
 #   netstat -ano | findstr ":8000"            — kim band qilgan (PID)

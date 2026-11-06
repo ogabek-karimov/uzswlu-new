@@ -6,10 +6,9 @@
 | http://localhost:8000/api/site/ | Payload bilan mos manzillar (`NUXT_CMS_BASE`) |
 | http://localhost:8000/api/cms/ | Vue admin panel API'si (Payload REST bilan bir xil shakl) |
 | http://localhost:8000/api/docs/ | Swagger UI (`/api/redoc/`, `/api/schema/`) |
-| http://localhost:8000/admin/ | Django admin (Jazzmin) — Vue admin panelga xalaqit bermaydi |
 | http://localhost:8000/api/auth/hemis/ | HEMIS orqali kirish (OAuth2) va holat |
 
-Swagger: `API_DOCS_PUBLIC` (sukut — `DEBUG`) `false` bo'lsa, faqat Django admin'ga kirgan xodim ko'radi.
+Swagger: `API_DOCS_PUBLIC` (sukut — `DEBUG`) `false` bo'lsa, faqat admin panelga kirgan xodim ko'radi (sessiya yoki JWT).
 
 ## Ishga tushirish (Docker)
 ```
@@ -80,4 +79,14 @@ Frontend kaliti: `frontend/.env` dagi `NUXT_API_TOKEN` = `backend/.env` dagi `AP
 `frontend/docs/openapi.yaml` dan olinadi (Docker'da ulangan; bo'lmasa `apps/api/contract/openapi.yaml` nusxasi),
 `/api/site/*`, `/api/me*`, admin panel (`/api/cms/*`) va HEMIS manzillari backenddan hosil qilinadi.
 Shartnoma o'zgarsa nusxani yangilang: `cp frontend/docs/openapi.yaml backend/apps/api/contract/openapi.yaml`.
-Productionda `API_DOCS_PUBLIC=false` — faqat Django admin'ga kirganlar ko'radi.
+Productionda `API_DOCS_PUBLIC=false` — faqat admin panelga kirganlar ko'radi.
+
+## Avtorizatsiya (Swagger'da ham ishlaydi)
+- **Admin panel (Vue)**: `POST /api/cms/users/login` — sessiya cookie qo'yadi va javobda `token` (JWT) qaytaradi.
+  Cookie'siz: `Authorization: Bearer <token>`. Yangilash: `POST /api/cms/users/refresh-token`. Muddat: `JWT_TTL_SECONDS` (8 soat).
+  JWT parol o'zgarganda, hisob yopilganda yoki muddati tugaganda bekor bo'ladi.
+- **Ochiq sayt API'si**: `Authorization: Bearer <API_TOKEN>` (`API_TOKEN` bo'sh bo'lsa shart emas).
+- **Xodim kabineti** (`/api/me*`): HEMIS sessiyasi (cookie) yoki `issue_staff_session` tokeni.
+- **Rollar**: `superadmin`, `editor`, `faculty`, `pages`, `sdg` — har kolleksiya uchun jadval Swagger'dagi tegishli amalning tavsifida.
+- Swagger'da: `/api/cms/users/login` → "Try it out" → javobdagi `token` ni **Authorize** → `panelJwt` ga kiriting.
+- Django admin (Jazzmin) olib tashlangan: boshqarish faqat Vue admin panel orqali (`http://localhost:5173`).

@@ -1,4 +1,4 @@
-"""Django admin (Jazzmin) kirishi ham Payload'dan ko'chirilgan parollarni qabul qilsin."""
+"""Payload'dan ko'chirilgan eski parollar bilan kirish (authenticate) ham ishlasin."""
 from django.contrib.auth.backends import ModelBackend
 
 from .models import User, check_any_password

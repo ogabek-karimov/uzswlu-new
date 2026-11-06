@@ -14,7 +14,7 @@ from rest_framework.views import APIView
 from apps.core.activity import log_activity, purge_site_cache, short
 from apps.core.models import Media, validate_upload
 
-from .auth import PanelSessionAuth, error
+from .auth import PANEL_AUTH, error
 from .collections import REGISTRY, Collection
 from .globals_ import GLOBALS, save_global
 from .models import Version
@@ -130,7 +130,7 @@ def run(fn):
 
 
 class PanelView(APIView):
-    authentication_classes = [PanelSessionAuth]
+    authentication_classes = PANEL_AUTH
     permission_classes: list = []
 
     def user_ok(self, request) -> bool:

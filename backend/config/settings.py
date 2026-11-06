@@ -28,13 +28,12 @@ ALLOWED_HOSTS = env_list('ALLOWED_HOSTS', 'localhost,127.0.0.1')
 # Backend'ning tashqi manzili: rasm va fayl havolalari to'liq URL bo'lishi shart (frontend boshqa domenda)
 PUBLIC_SERVER_URL = env('PUBLIC_SERVER_URL', 'http://localhost:8000').rstrip('/')
 # Cookie bilan so'rov yubora oladigan manzillar: sayt va admin panel
+JWT_TTL_SECONDS = int(env('JWT_TTL_SECONDS', str(8 * 3600)))  # admin panel JWT amal qilish muddati (soniya)
 TRUSTED_ORIGINS = env_list('TRUSTED_ORIGINS', 'http://localhost:5173,http://localhost:3000')
 # localhost va 127.0.0.1 bitta kompyuter: admin panelni qaysi biri bilan ochsangiz ham yozish so'rovlari rad etilmasin
 TRUSTED_ORIGINS += [o.replace('//localhost', '//127.0.0.1') for o in TRUSTED_ORIGINS if '//localhost' in o and o.replace('//localhost', '//127.0.0.1') not in TRUSTED_ORIGINS]
 
 INSTALLED_APPS = [
-    'jazzmin',
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -124,7 +123,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STORAGES = {
     'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
-    # Manifest'siz: Jazzmin CSS'idagi havolalar collectstatic'ni buzmasligi uchun
+    # Manifest'siz: Swagger UI fayllari uchun oddiy siqilgan saqlash
     'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage'},
 }
 SERVE_MEDIA = env_bool('SERVE_MEDIA', True)
@@ -198,12 +197,12 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'ÖzDJTU sayti — API',
     'DESCRIPTION': (
         'Sayt (Nuxt) uchun ochiq API, Vue admin panel API’si (/api/cms/*) va xodim kabineti. '
-        'Barcha matnlar `?lang=uz|ru|en|zh` bo‘yicha qaytadi. Admin panel kirishi — /api/cms/users/login (sessiya cookie).'
+        'Barcha matnlar `?lang=uz|ru|en|zh` bo‘yicha qaytadi. Admin panel kirishi — /api/cms/users/login (sessiya cookie yoki JWT).'
     ),
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     'OAS_VERSION': '3.1.0',
-    'POSTPROCESSING_HOOKS': ['drf_spectacular.hooks.postprocess_schema_enums', 'apps.api.swagger.merge_contract'],
+    'POSTPROCESSING_HOOKS': ['drf_spectacular.hooks.postprocess_schema_enums', 'apps.api.swagger.merge_contract', 'apps.api.swagger.document_auth'],
     'SWAGGER_UI_DIST': 'SIDECAR',
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
     'REDOC_DIST': 'SIDECAR',
@@ -222,67 +221,9 @@ SPECTACULAR_SETTINGS = {
 }
 HEMIS_SNAPSHOT = env('HEMIS_SNAPSHOT', str(BASE_DIR / 'seed_data' / 'hemis-snapshot.json'))
 
-LOGIN_URL = '/admin/login/'
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {'console': {'class': 'logging.StreamHandler'}},
     'root': {'handlers': ['console'], 'level': env('LOG_LEVEL', 'INFO')},
 }
-
-# --- Jazzmin (admin panel) ---
-JAZZMIN_SETTINGS = {
-    'site_title': 'ÖzDJTU admin',
-    'site_header': 'ÖzDJTU',
-    'site_brand': 'ÖzDJTU',
-    'welcome_sign': 'ÖzDJTU saytini boshqarish',
-    'copyright': 'ÖzDJTU',
-    'search_model': ['content.Post', 'pages.Page'],
-    'user_avatar': None,
-    'topmenu_links': [
-        {'name': 'Bosh sahifa', 'url': 'admin:index'},
-        {'name': 'API hujjati (Swagger)', 'url': '/api/docs/', 'new_window': True},
-        {'name': 'Admin panel (Vue)', 'url': ADMIN_PANEL_URL, 'new_window': True},
-        {'name': 'Sayt', 'url': SITE_URL, 'new_window': True},
-    ],
-    'show_sidebar': True,
-    'navigation_expanded': False,
-    'order_with_respect_to': [
-        'content', 'pages', 'structure', 'core', 'accounts',
-    ],
-    'icons': {
-        'accounts.User': 'fas fa-user-shield',
-        'content.Post': 'fas fa-newspaper',
-        'content.Category': 'fas fa-tags',
-        'content.Slide': 'fas fa-images',
-        'content.Leader': 'fas fa-user-tie',
-        'content.Document': 'fas fa-file-pdf',
-        'content.DocCategory': 'fas fa-folder',
-        'content.Video': 'fas fa-video',
-        'content.VideoCategory': 'fas fa-film',
-        'content.VideoPage': 'fas fa-broadcast-tower',
-        'content.StateSymbol': 'fas fa-flag',
-        'content.Partner': 'fas fa-handshake',
-        'content.TaughtLanguage': 'fas fa-language',
-        'pages.Page': 'fas fa-sitemap',
-        'pages.SdgGoal': 'fas fa-globe',
-        'pages.SdgPage': 'fas fa-leaf',
-        'structure.Faculty': 'fas fa-university',
-        'structure.Department': 'fas fa-building',
-        'structure.StaffProfile': 'fas fa-id-card',
-        'structure.Program': 'fas fa-graduation-cap',
-        'structure.AdmissionSettings': 'fas fa-door-open',
-        'structure.Campus': 'fas fa-map-marker-alt',
-        'structure.Appeal': 'fas fa-inbox',
-        'core.Media': 'fas fa-photo-video',
-        'core.SiteSettings': 'fas fa-cogs',
-        'core.Activity': 'fas fa-history',
-        'core.Hit': 'fas fa-chart-line',
-    },
-    'default_icon_parents': 'fas fa-folder',
-    'default_icon_children': 'fas fa-circle',
-    'related_modal_active': False,
-    'changeform_format': 'horizontal_tabs',
-}
-JAZZMIN_UI_TWEAKS = {'theme': 'flatly', 'navbar_small_text': True, 'sidebar_nav_small_text': True}

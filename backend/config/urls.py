@@ -1,20 +1,25 @@
 from django.conf import settings
-from django.contrib import admin
 from django.http import JsonResponse
 from django.urls import include, path, re_path
 from django.views.generic import RedirectView
 from django.views.static import serve
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
-from rest_framework.permissions import AllowAny, IsAdminUser
+from rest_framework.permissions import AllowAny, BasePermission
 
+from apps.panel.auth import PANEL_AUTH
 from apps.panel.views import MediaFileCompat
 
-admin.site.site_header = 'ÖzDJTU'
-admin.site.site_title = 'ÖzDJTU admin'
-admin.site.index_title = 'Saytni boshqarish'
+
+class PanelUser(BasePermission):
+    """Swagger productionda faqat admin panelga kirgan xodimlarga (sessiya yoki JWT)."""
+
+    def has_permission(self, request, view):
+        u = request.user
+        return bool(u and u.is_authenticated and getattr(u, 'status', '') != 'disabled')
 
 
-DOCS = AllowAny if settings.API_DOCS_PUBLIC else IsAdminUser
+DOCS = AllowAny if settings.API_DOCS_PUBLIC else PanelUser
+DOCS_VIEW = {'authentication_classes': PANEL_AUTH, 'permission_classes': [DOCS]}
 
 
 def healthz(request):
@@ -22,13 +27,12 @@ def healthz(request):
 
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/admin/', permanent=False)),
+    path('', RedirectView.as_view(url='/api/docs/', permanent=False)),
     path('healthz', healthz),
-    path('admin/', admin.site.urls),
-    # Swagger: ishlab chiqishda ochiq, productionda faqat Django admin'ga kirgan xodimlar uchun (API_DOCS_PUBLIC)
-    path('api/schema/', SpectacularAPIView.as_view(permission_classes=[DOCS]), name='schema'),
-    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema', permission_classes=[DOCS]), name='swagger'),
-    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema', permission_classes=[DOCS]), name='redoc'),
+    # Swagger: ishlab chiqishda ochiq, productionda faqat admin panelga kirgan xodimlar uchun (API_DOCS_PUBLIC=false)
+    path('api/schema/', SpectacularAPIView.as_view(**DOCS_VIEW), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema', **DOCS_VIEW), name='swagger'),
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema', **DOCS_VIEW), name='redoc'),
     # Vue admin panel API'si (Payload bilan bir xil shakl)
     path('api/cms/', include('apps.panel.urls')),
     path('api/auth/hemis/', include('apps.hemis.urls')),

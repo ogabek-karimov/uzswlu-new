@@ -4,9 +4,9 @@
 |---|---|---|
 | `frontend/` | Sayt — Nuxt 4, Tailwind 4, 4 til (uz, ru, en, zh) | http://localhost:3000 |
 | `admin/` | Admin panel — Vue 3, Vite, Tailwind 4, TipTap | http://localhost:5173 |
-| `backend/` | API va CMS — Django 5 + DRF, PostgreSQL 17, Jazzmin admin, Swagger | http://localhost:8000 |
+| `backend/` | API va CMS — Django 5 + DRF, PostgreSQL 17, Swagger (JWT) | http://localhost:8000 |
 
-Swagger: http://localhost:8000/api/docs/ · Django admin (Jazzmin): http://localhost:8000/admin/ · batafsil: [backend/README.md](backend/README.md)
+Swagger: http://localhost:8000/api/docs/ · batafsil: [backend/README.md](backend/README.md)
 
 ## Ishga tushirish
 

@@ -6,14 +6,15 @@ from django.contrib.auth import login, logout
 from django.utils import timezone
 from drf_spectacular.utils import OpenApiExample, extend_schema, inline_serializer
 from rest_framework import serializers, status
-from rest_framework.authentication import SessionAuthentication
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.authentication import BaseAuthentication, SessionAuthentication
+from rest_framework.exceptions import AuthenticationFailed, PermissionDenied
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.accounts.models import User, check_any_password
 from apps.core.activity import log_activity
 
+from . import jwt
 from .models import LoginEvent
 from .request import request_info
 
@@ -38,6 +39,26 @@ class PanelSessionAuth(SessionAuthentication):
             origin = '/'.join(referer.split('/')[:3]) if referer.startswith('http') else ''
         if origin.rstrip('/') not in allowed_origins():
             raise PermissionDenied('So‘rov ruxsat etilmagan manzildan keldi')
+
+
+class PanelJWTAuth(BaseAuthentication):
+    """`Authorization: Bearer <JWT>` — cookie'siz kirish (Swagger, Postman, skriptlar). Origin tekshiruvi kerak emas."""
+
+    def authenticate(self, request):
+        parts = (request.META.get('HTTP_AUTHORIZATION') or '').split()
+        if len(parts) != 2 or parts[0].lower() != 'bearer' or parts[1].count('.') != 2:
+            return None  # JWT emas (masalan API_TOKEN) — boshqa usullarga o'tadi
+        user = jwt.verify(parts[1])
+        if not user:
+            raise AuthenticationFailed('Token yaroqsiz yoki muddati tugagan')
+        return user, parts[1]
+
+    def authenticate_header(self, request):
+        return 'Bearer realm="admin-panel"'
+
+
+# Avval JWT (sarlavha bor bo'lsa), keyin sessiya cookie'si
+PANEL_AUTH = [PanelJWTAuth, PanelSessionAuth]
 
 
 def error(message: str, code: int = 400) -> Response:
@@ -86,25 +107,29 @@ class LoginView(APIView):
         login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         record(request, user, username, 'success')
         from .collections import REGISTRY
+        token, token_exp = jwt.issue(user)
         return Response({
             'message': 'Kirish muvaffaqiyatli',
             'user': REGISTRY['users'].out(user, 1),
             'exp': int((now + timedelta(seconds=settings.SESSION_COOKIE_AGE)).timestamp()),
+            # Cookie'siz ishlash uchun: Authorization: Bearer <token> (Swagger "Authorize" tugmasi)
+            'token': token, 'tokenType': 'Bearer', 'tokenExp': token_exp,
         })
 
 
 class LogoutView(APIView):
-    authentication_classes = [PanelSessionAuth]
+    authentication_classes = PANEL_AUTH
     permission_classes: list = []
 
-    @extend_schema(tags=['Admin panel: kirish'], request=None, summary='Chiqish')
+    @extend_schema(tags=['Admin panel: kirish'], request=None, summary='Chiqish',
+                   description='Sessiya cookie\'sini bekor qiladi. JWT stateless: u muddati tugaguncha, parol o‘zgarguncha yoki hisob yopilguncha amal qiladi.')
     def post(self, request):
         logout(request)
         return Response({'message': 'Chiqildi'})
 
 
 class MeView(APIView):
-    authentication_classes = [PanelSessionAuth]
+    authentication_classes = PANEL_AUTH
     permission_classes: list = []
 
     @extend_schema(tags=['Admin panel: kirish'], summary='Kirgan foydalanuvchi (kirmagan bo‘lsa user: null)')
@@ -115,7 +140,7 @@ class MeView(APIView):
 
 
 class UnlockView(APIView):
-    authentication_classes = [PanelSessionAuth]
+    authentication_classes = PANEL_AUTH
     permission_classes: list = []
 
     @extend_schema(tags=['Admin panel: kirish'], request=inline_serializer('Unlock', {'username': serializers.CharField()}),
@@ -130,3 +155,17 @@ class UnlockView(APIView):
         user.save(update_fields=['login_attempts', 'lock_until'])
         log_activity(request, action='role', entity='users', entity_id=user.pk, label=f'{user.name} — blok ochildi')
         return Response({'message': 'Hisob ochildi'})
+
+
+class RefreshTokenView(APIView):
+    authentication_classes = PANEL_AUTH
+    permission_classes: list = []
+
+    @extend_schema(tags=['Admin panel: kirish'], request=None, summary='JWT ni yangilash',
+                   description='Amaldagi sessiya yoki JWT bilan chaqiriladi, yangi JWT qaytaradi.')
+    def post(self, request):
+        user = request.user
+        if not (user and user.is_authenticated and user.status != 'disabled'):
+            return error('Kirish kerak', status.HTTP_401_UNAUTHORIZED)
+        token, token_exp = jwt.issue(user)
+        return Response({'message': 'Token yangilandi', 'token': token, 'tokenType': 'Bearer', 'tokenExp': token_exp})

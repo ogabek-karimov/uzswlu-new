@@ -8,6 +8,7 @@ urlpatterns = [
     path('users/login', auth.LoginView.as_view()),
     path('users/logout', auth.LogoutView.as_view()),
     path('users/me', auth.MeView.as_view()),
+    path('users/refresh-token', auth.RefreshTokenView.as_view()),
     path('users/unlock', auth.UnlockView.as_view()),
 
     path('panel/overview', dashboard.OverviewView.as_view()),
