@@ -103,6 +103,9 @@ services:
     environment:
       # Vite /api/cms so'rovlarini backend'ga yo'naltiradi (cookie bitta manzildan ishlashi uchun)
       BACKEND_URL: http://backend:8000
+      # Brauzer rasmlarni va saytni shu manzillardan ochadi (kompyuteringizdagi portlar)
+      VITE_MEDIA_BASE: http://localhost:${BACKEND_PORT:-8000}
+      VITE_SITE_URL: http://localhost:${SITE_PORT:-3000}
       CHOKIDAR_USEPOLLING: "true"
     volumes:
       - ./admin:/app
