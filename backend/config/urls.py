@@ -31,7 +31,7 @@ urlpatterns = [
     path('healthz', healthz),
     # Swagger: ishlab chiqishda ochiq, productionda faqat admin panelga kirgan xodimlar uchun (API_DOCS_PUBLIC=false)
     path('api/schema/', SpectacularAPIView.as_view(**DOCS_VIEW), name='schema'),
-    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema', **DOCS_VIEW), name='swagger'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema', template_name='api/swagger.html', **DOCS_VIEW), name='swagger'),
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema', **DOCS_VIEW), name='redoc'),
     # Vue admin panel API'si (Payload bilan bir xil shakl)
     path('api/cms/', include('apps.panel.urls')),

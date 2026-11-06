@@ -195,29 +195,22 @@ SITE_URL = env('SITE_URL', 'http://localhost:3000').rstrip('/')
 API_DOCS_PUBLIC = env_bool('API_DOCS_PUBLIC', DEBUG)
 SPECTACULAR_SETTINGS = {
     'TITLE': 'ÖzDJTU sayti — API',
-    'DESCRIPTION': (
-        'Sayt (Nuxt) uchun ochiq API, Vue admin panel API’si (/api/cms/*) va xodim kabineti. '
-        'Barcha matnlar `?lang=uz|ru|en|zh` bo‘yicha qaytadi. Admin panel kirishi — /api/cms/users/login (sessiya cookie yoki JWT).'
-    ),
+    'DESCRIPTION': 'ÖzDJTU API',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     'OAS_VERSION': '3.1.0',
-    'POSTPROCESSING_HOOKS': ['drf_spectacular.hooks.postprocess_schema_enums', 'apps.api.swagger.merge_contract', 'apps.api.swagger.document_auth'],
+    'POSTPROCESSING_HOOKS': ['drf_spectacular.hooks.postprocess_schema_enums', 'apps.api.swagger.merge_contract', 'apps.api.swagger.finalize'],
     'SWAGGER_UI_DIST': 'SIDECAR',
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
     'REDOC_DIST': 'SIDECAR',
     'SCHEMA_PATH_PREFIX': r'/api',
     'COMPONENT_SPLIT_REQUEST': True,
     'DISABLE_ERRORS_AND_WARNINGS': True,
-    'SWAGGER_UI_SETTINGS': {'persistAuthorization': True, 'docExpansion': 'none', 'filter': True},
-    'TAGS': [
-        {'name': 'Sayt API', 'description': 'frontend/docs/openapi.yaml shartnomasi: bosh sahifa, postlar, sahifalar, tuzilma, BRM …'},
-        {'name': 'Sayt (Payload mos)', 'description': 'NUXT_CMS_BASE=<backend>/api/site bilan ishlash uchun eski manzillar'},
-        {'name': 'Xodim kabineti', 'description': 'HEMIS orqali kirgan xodim: profil, hujjatlar'},
-        {'name': 'HEMIS', 'description': 'HEMIS bilan ulanish: kirish (OAuth2) va holat'},
-        {'name': 'Admin panel: kirish'}, {'name': 'Admin panel: kolleksiyalar'}, {'name': 'Admin panel: globallar'},
-        {'name': 'Admin panel: versiyalar'}, {'name': 'Admin panel: yig‘ma ma’lumot'},
-    ],
+    'SWAGGER_UI_SETTINGS': {
+        'persistAuthorization': True, 'docExpansion': 'none', 'filter': True, 'deepLinking': True,
+        'layout': 'BaseLayout', 'defaultModelsExpandDepth': -1, 'defaultModelExpandDepth': 2,
+        'tryItOutEnabled': True, 'displayRequestDuration': True,
+    },
 }
 HEMIS_SNAPSHOT = env('HEMIS_SNAPSHOT', str(BASE_DIR / 'seed_data' / 'hemis-snapshot.json'))
 

@@ -1,0 +1,48 @@
+{% extends "drf_spectacular/swagger_ui.html" %}
+{% block head %}
+{{ block.super }}
+<style>
+  :root { --brand: #1f4e8c; --brand-soft: #e8eff9; --ink: #1c2333; --muted: #5b6577; --line: #e3e7ee; }
+  body { background: #f4f6fa; font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  .swagger-ui { font-family: inherit; color: var(--ink); }
+  .swagger-ui .wrapper { max-width: 1180px; padding: 0 20px; }
+  .swagger-ui .information-container { background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--brand); border-radius: 14px; margin: 28px auto 14px; width: calc(100% - 40px); max-width: 1140px; padding: 6px 24px 8px; box-shadow: 0 1px 2px rgba(20, 30, 60, .04); }
+  .swagger-ui .info { margin: 18px 0 8px; }
+  .swagger-ui .info .title { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .swagger-ui .info .base-url, .swagger-ui .info a.link { font-size: 13px; }
+  .swagger-ui .info table td:first-child { font-weight: 600; white-space: nowrap; width: 1%; }
+  .swagger-ui .info table { box-shadow: none; border: 1px solid var(--line); }
+  .swagger-ui .scheme-container .schemes { align-items: flex-end; gap: 16px; }
+  .swagger-ui .servers > label select { min-width: 260px; border-radius: 8px; border: 1px solid var(--line); box-shadow: none; font-size: 14px; }
+  .swagger-ui .info .title { font-size: 30px; font-weight: 700; color: var(--ink); }
+  .swagger-ui .info .title small { background: var(--brand); border-radius: 6px; }
+  .swagger-ui .info table { border-collapse: collapse; margin: 14px 0; background: #fff; border-radius: 8px; overflow: hidden; width: 100%; }
+  .swagger-ui .info table th, .swagger-ui .info table td { border: 1px solid var(--line); padding: 8px 12px; text-align: left; font-size: 14px; }
+  .swagger-ui .info table th { background: var(--brand-soft); font-weight: 600; }
+  .swagger-ui .info p, .swagger-ui .info li { font-size: 15px; line-height: 1.55; color: var(--ink); }
+  .swagger-ui .scheme-container { background: transparent; box-shadow: none; padding: 4px 0 14px; margin: 0; }
+  .swagger-ui .btn.authorize { color: var(--brand); border-color: var(--brand); border-radius: 8px; padding: 6px 16px; }
+  .swagger-ui .btn.authorize svg { fill: var(--brand); }
+  .swagger-ui .filter-container { padding: 0 0 12px; }
+  .swagger-ui .filter-container .operation-filter-input { border-radius: 8px; border: 1px solid var(--line); padding: 10px 14px; }
+  .swagger-ui .opblock-tag { background: #fff; border: 1px solid var(--line); border-radius: 12px; margin: 0 0 10px; padding: 14px 18px; font-size: 18px; font-weight: 600; }
+  .swagger-ui .opblock-tag:hover { background: var(--brand-soft); }
+  .swagger-ui .opblock-tag small { font-size: 13px; color: var(--muted); }
+  .swagger-ui .opblock-tag-section { margin-bottom: 4px; }
+  .swagger-ui .opblock { border-radius: 10px; margin: 0 0 8px; box-shadow: none; }
+  .swagger-ui .opblock .opblock-summary { padding: 6px 10px; }
+  .swagger-ui .opblock .opblock-summary-method { border-radius: 6px; min-width: 70px; font-size: 13px; }
+  .swagger-ui .opblock .opblock-summary-path { font-size: 14px; font-weight: 600; }
+  .swagger-ui .opblock .opblock-summary-description { font-size: 13px; color: var(--muted); }
+  .swagger-ui .opblock-description-wrapper p, .swagger-ui .opblock-external-docs-wrapper p { font-size: 14px; }
+  .swagger-ui .markdown table, .swagger-ui .opblock-description-wrapper table { border-collapse: collapse; }
+  .swagger-ui .markdown table th, .swagger-ui .markdown table td { border: 1px solid var(--line); padding: 6px 10px; font-size: 13px; }
+  .swagger-ui .markdown code, .swagger-ui .renderedMarkdown code { background: var(--brand-soft); color: var(--brand); border-radius: 4px; padding: 1px 5px; font-size: 90%; }
+  .swagger-ui section.models { display: none; }
+  @media (max-width: 640px) {
+    .swagger-ui .information-container { padding: 4px 14px 6px; }
+    .swagger-ui .info .title { font-size: 24px; }
+    .swagger-ui .info table td:first-child { white-space: normal; }
+  }
+</style>
+{% endblock head %}
