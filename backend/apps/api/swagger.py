@@ -185,7 +185,7 @@ TAGS = [  # (nom, tavsif, guruh)
     ('Sayt: Hujjat va video', 'Me’yoriy hujjatlar va video darsliklar.', 'Ochiq sayt API'),
     ('Sayt: BRM', 'Barqaror rivojlanish maqsadlari.', 'Ochiq sayt API'),
     ('Sayt: Statistika', 'Sayt statistikasi yozuvi.', 'Ochiq sayt API'),
-    ('Admin: Kirish', AUTH_TAG_DESCRIPTION, 'Admin panel API'),
+    ('Admin: Kirish', 'Login, JWT, yangilash, joriy foydalanuvchi, chiqish.', 'Admin panel API'),
     ('Admin: Postlar', 'Yangilik, e’lon, tadbir va kategoriyalar.', 'Admin panel API'),
     ('Admin: Media', 'Rasm, PDF va audio fayllar (yuklanganda WebP ga o‘tkaziladi).', 'Admin panel API'),
     ('Admin: Sahifalar va hujjatlar', 'Sahifalar, hujjatlar, videolar va ularning toifalari.', 'Admin panel API'),
@@ -196,8 +196,7 @@ TAGS = [  # (nom, tavsif, guruh)
     ('Admin: Statistika va yordamchi', 'Boshqaruv paneli raqamlari, statistika, media foydalanilishi, YouTube, HEMIS.', 'Admin panel API'),
     ('Xodim kabineti', 'HEMIS orqali kirgan xodim: profil, rasm, hujjatlar.', 'Xodim kabineti va HEMIS'),
     ('HEMIS', 'HEMIS bilan ulanish: OAuth2 kirish va holat.', 'Xodim kabineti va HEMIS'),
-    ('Eski manzillar (/api/site)', 'Payload CMS bilan mos manzillar (`NUXT_CMS_BASE=<backend>/api/site`). Token talab qilinmaydi. '
-     'Postlar, tadbirlar, rahbariyat, hujjatlar, videolar, sahifalar, fakultetlar va BRM manzillari ham `/api/site/...` bilan ishlaydi — ular yuqoridagi ochiq API bilan bir xil.', 'Eski manzillar'),
+    ('Eski manzillar (/api/site)', 'Payload CMS bilan mos manzillar (`NUXT_CMS_BASE`). Token talab qilinmaydi.', 'Eski manzillar'),
 ]
 PANEL_SECURITY = [{'panelJwt': []}, {'panelSession': []}]
 ERROR_SCHEMA = {
@@ -310,6 +309,7 @@ def finalize(result, generator, request, public):
                 open_ = tail == 'users/login'
                 op['security'] = [] if open_ else (copy.deepcopy(PANEL_SECURITY) + [{}] if tail == 'users/me' else copy.deepcopy(PANEL_SECURITY))
                 if open_:
+                    op['description'] = ((op.get('description') or '').rstrip() + '\n\n' + AUTH_TAG_DESCRIPTION.strip()).strip()
                     op['responses'].setdefault('401', _err('Login yoki parol noto‘g‘ri'))
                     op['responses'].setdefault('423', _err('5 marta xato — hisob 15 daqiqaga bloklangan'))
                 else:
