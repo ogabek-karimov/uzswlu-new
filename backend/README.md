@@ -71,7 +71,7 @@ python manage.py migrate && python manage.py seed_demo && python manage.py runse
 
 ## Docker compose xizmatlari
 `db` (PostgreSQL), `backend` (Django, healthcheck `/healthz`), `hemis-sync` (HEMIS'ni har 24 soatda yangilaydi),
-`frontend` (Nuxt, :3000), `admin` (Vue, :5173). Windows 8000 portni bermasa — ildiz `.env` ga `BACKEND_PORT=3001`
+`frontend` (Nuxt, :3000), `admin` (Vue, :5173). Port band bo'lsa (sababini `netstat -ano | findstr ":8000"` ko'rsatadi; ko'pincha `netsh interface portproxy` qoidasi) — ildiz `.env` ga `BACKEND_PORT=3001`
 yozing va `backend/.env` da `PUBLIC_SERVER_URL=http://localhost:3001` qiling.
 Frontend kaliti: `frontend/.env` dagi `NUXT_API_TOKEN` = `backend/.env` dagi `API_TOKEN`.
 

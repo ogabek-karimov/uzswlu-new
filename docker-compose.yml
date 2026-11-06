@@ -9,11 +9,14 @@
 #   admin panel http://localhost:5173
 #   backend     http://localhost:${BACKEND_PORT:-8000}   (Django admin: /admin/, Swagger: /api/docs/)
 #
-# Windows 8000 portni band qilgan bo'lsa (ports are not available): ildiz papkadagi `.env` fayliga
+# Port band bo'lsa (ports are not available / forbidden by its access permissions):
+#   netstat -ano | findstr ":8000"            — kim band qilgan (PID)
+#   tasklist /svc /FI "PID eq <PID>"          — iphlpsvc bo'lsa, bu `netsh portproxy` qoidasi:
+#   netsh interface portproxy show all        — qoidalarni ko'rish; o'chirish:
+#   netsh interface portproxy delete v4tov4 listenport=8000 listenaddress=0.0.0.0
+# Boshqa port kerak bo'lsa, ildiz papkadagi `.env` fayliga (git'ga tushmaydi) masalan:
 #   BACKEND_PORT=3001
-# yozing va backend/.env da PUBLIC_SERVER_URL=http://localhost:3001 qiling.
-# Port band bo'lishi aniqlash: netsh interface ipv4 show excludedportrange protocol=tcp
-#
+# yozing va backend/.env da PUBLIC_SERVER_URL=http://localhost:3001 qiling (rasm manzillari shundan quriladi).
 # Ildiz `.env` (ixtiyoriy) — compose o'zgaruvchilari: BACKEND_PORT, SITE_PORT, ADMIN_PORT, DB_PORT.
 # Frontend sozlamalari (NUXT_API_TOKEN va h.k.) — frontend/.env (frontend/.env.example dan nusxa).
 name: uzswlu-drf
