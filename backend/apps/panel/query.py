@@ -110,9 +110,17 @@ def where_q(where, fields: dict) -> Q:
     return q
 
 
+def _stable(order: list[str]) -> list[str]:
+    """Saralash qiymatlari bir xil bo'lsa ham tartib barqaror bo'lsin (aks holda PostgreSQL sahifalar orasida
+    yozuvni takrorlashi yoki tushirib qoldirishi mumkin): oxiriga pk qo'shiladi."""
+    if any(o.lstrip('-') in ('id', 'pk') for o in order):
+        return order
+    return [*order, '-pk' if order and order[0].startswith('-') else 'pk']
+
+
 def order_by(sort: str | None, fields: dict, default: list[str]) -> list[str]:
     if not sort:
-        return default
+        return _stable(default)
     out = []
     for part in sort.split(','):
         part = part.strip()
@@ -124,7 +132,7 @@ def order_by(sort: str | None, fields: dict, default: list[str]) -> list[str]:
         if not isinstance(path, str):
             continue
         out.append(('-' if desc else '') + path)
-    return out or default
+    return _stable(out or default)
 
 
 def paginate(qs, params, serialize) -> dict:

@@ -1,7 +1,7 @@
 """Vue admin panel API'si (/api/cms/*): kolleksiyalar, globallar, versiyalar — Payload REST bilan bir xil shakl."""
 import json
 
-from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.core.exceptions import FieldError, ObjectDoesNotExist, ValidationError
 from django.db import IntegrityError, transaction
 from django.db.models import ProtectedError
 from django.utils import timezone
@@ -142,7 +142,10 @@ def filtered(coll: Collection, request):
     params = nested_params(request.query_params)
     qs = coll.scope(request, coll.queryset(request))
     qs = qs.filter(where_q(params.get('where'), coll.fields))
-    return qs.order_by(*order_by(request.query_params.get('sort'), coll.fields, coll.default_sort))
+    try:
+        return qs.order_by(*order_by(request.query_params.get('sort'), coll.fields, coll.default_sort))
+    except FieldError:  # bu kolleksiyada yo'q maydon bo'yicha saralash so'raldi — standart tartib (500 emas)
+        return qs.order_by(*order_by(None, coll.fields, coll.default_sort))
 
 
 @extend_schema(tags=['Admin panel: kolleksiyalar'])
