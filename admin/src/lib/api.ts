@@ -87,6 +87,7 @@ export type User = {
   avatar?: MediaDoc | number | null
   lockUntil?: string | null
   loginAttempts?: number
+  twoFactorEnabled?: boolean
   createdAt?: string
   updatedAt?: string
 }

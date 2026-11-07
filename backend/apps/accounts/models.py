@@ -32,6 +32,11 @@ class User(AbstractUser):
     # Kirishni bloklash: 5 marta noto'g'ri parol — 15 daqiqa (Payload'dagi kabi)
     login_attempts = models.PositiveSmallIntegerField('Noto‘g‘ri urinishlar', default=0, editable=False)
     lock_until = models.DateTimeField('Bloklangan vaqtgacha', null=True, blank=True)
+    # Ikki bosqichli tasdiq (TOTP, RFC 6238): Google Authenticator, Microsoft Authenticator, 1Password va h.k.
+    totp_secret = models.CharField(max_length=40, blank=True, editable=False)
+    totp_enabled = models.BooleanField('2FA yoqilgan', default=False, editable=False)
+    totp_last_step = models.BigIntegerField(default=0, editable=False)  # bir kod ikki marta ishlatilmasin (replay)
+    recovery_hashes = models.JSONField(default=list, blank=True, editable=False)  # zaxira kodlarning sha256 xeshlari
     # Payload CMS'dan ko'chirilgan parol (birinchi kirishda Django usuliga o'tkaziladi va o'chiriladi)
     legacy_password = models.TextField(blank=True, editable=False)
 

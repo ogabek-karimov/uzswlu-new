@@ -279,7 +279,7 @@ class Users(Collection):
             'id': u.pk, 'name': u.name, 'username': u.username, 'email': u.email or None, 'role': u.role, 'status': u.status,
             'position': u.position or None, 'department': u.department or None, 'scope': u.scope or None,
             'hemisId': u.hemis_id or None, 'avatar': media_out(u.avatar, depth) if u.avatar_id else None,
-            'loginAttempts': u.login_attempts, 'lockUntil': dt(u.lock_until),
+            'loginAttempts': u.login_attempts, 'lockUntil': dt(u.lock_until), 'twoFactorEnabled': u.totp_enabled,
             'createdAt': dt(u.date_joined), 'updatedAt': dt(u.date_joined), 'collection': 'users',
         }
 

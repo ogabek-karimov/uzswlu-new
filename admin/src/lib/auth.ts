@@ -22,12 +22,22 @@ export const auth = {
     return state.user
   },
 
-  async login(username: string, password: string, remember: boolean) {
-    const res = await api.post<{ user: User }>('/users/login', { username, password })
-    state.user = res.user
-    state.checked = true
+  /** Parol to'g'ri bo'lsa: foydalanuvchi, yoki 2FA yoqilgan bo'lsa — kod so'raladigan `challenge` */
+  async login(username: string, password: string, remember: boolean): Promise<User | { challenge: string }> {
+    const res = await api.post<{ user?: User; twoFactorRequired?: boolean; challenge?: string }>('/users/login', { username, password })
     try { localStorage.setItem('admin:remember', remember ? '1' : '0') }
     catch { /* brauzer xotirasi yopiq bo'lishi mumkin */ }
+    if (res.twoFactorRequired && res.challenge) return { challenge: res.challenge }
+    state.user = res.user!
+    state.checked = true
+    return res.user!
+  },
+
+  /** Kirishning 2-qadami: authenticator kodi yoki zaxira kod */
+  async verifyTwoFactor(challenge: string, code: string) {
+    const res = await api.post<{ user: User }>('/users/login/2fa', { challenge, code })
+    state.user = res.user
+    state.checked = true
     return res.user
   },
 

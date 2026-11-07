@@ -388,3 +388,135 @@ class TokenRotationAndChecksTests(Base):
         self.assertTrue({'uzswlu.W002', 'uzswlu.W004', 'uzswlu.W005', 'uzswlu.W006'} <= ids)
         with override_settings(DEBUG=True):
             self.assertEqual(security_settings(None), [])
+
+
+def _loose(scope='login', rate='1000/min'):
+    from django.conf import settings as st
+    rf = {**st.REST_FRAMEWORK, 'DEFAULT_THROTTLE_RATES': {**st.REST_FRAMEWORK['DEFAULT_THROTTLE_RATES'], scope: rate}}
+    return override_settings(REST_FRAMEWORK=rf)
+
+
+@_loose()
+class TwoFactorTests(Base):
+    """TOTP: yoqish, kirishdagi 2-qadam, zaxira kodlar, qayta ishlatish va brute-force himoyasi."""
+
+    def setUp(self):
+        super().setUp()
+        self.h = jwt_for('ed')
+
+    def totp(self, user, offset=0):
+        import time
+
+        from apps.panel.twofactor import _code
+        user.refresh_from_db()
+        return _code(user.totp_secret, int(time.time() // 30) + offset)
+
+    def enroll(self):
+        res = api('post', '/api/cms/users/2fa/setup', self.h)
+        self.assertEqual(res.status_code, 200, res.content)
+        self.assertIn('otpauth://totp/', res.json()['otpauthUri'])
+        res = api('post', '/api/cms/users/2fa/enable', self.h, {'code': self.totp(self.editor)})
+        self.assertEqual(res.status_code, 200, res.content)
+        return res.json()['recoveryCodes']
+
+    def login(self, password='Pw-12345678!'):
+        return Client(**HOST).post('/api/cms/users/login', data=json.dumps({'username': 'ed', 'password': password}), content_type='application/json')
+
+    def second(self, challenge, code):
+        return Client(**HOST).post('/api/cms/users/login/2fa', data=json.dumps({'challenge': challenge, 'code': code}), content_type='application/json')
+
+    def test_setup_does_not_enable_until_code_confirmed(self):
+        api('post', '/api/cms/users/2fa/setup', self.h)
+        self.editor.refresh_from_db()
+        self.assertFalse(self.editor.totp_enabled)
+        self.assertEqual(self.login().json().get('twoFactorRequired'), None)
+        self.assertEqual(api('post', '/api/cms/users/2fa/enable', self.h, {'code': '000000'}).status_code, 400)
+
+    def test_login_needs_second_step(self):
+        self.enroll()
+        res = self.login()
+        self.assertEqual(res.status_code, 200)
+        body = res.json()
+        self.assertTrue(body['twoFactorRequired'])
+        self.assertNotIn('token', body)
+        self.assertNotIn('user', body)
+        self.assertNotIn('sessionid', res.cookies)  # sessiya berilmagan
+        done = self.second(body['challenge'], self.totp(self.editor, 1))
+        self.assertEqual(done.status_code, 200, done.content)
+        self.assertIn('token', done.json())
+
+    def test_wrong_code_and_replay_rejected(self):
+        self.enroll()
+        ch = self.login().json()['challenge']
+        self.assertEqual(self.second(ch, '123456').status_code, 401)
+        code = self.totp(self.editor, 1)
+        self.assertEqual(self.second(ch, code).status_code, 200)
+        ch2 = self.login().json()['challenge']
+        self.assertEqual(self.second(ch2, code).status_code, 401)  # bir kod ikki marta ishlamaydi
+
+    def test_forged_or_foreign_challenge_rejected(self):
+        self.enroll()
+        self.assertEqual(self.second('abc.def', '123456').status_code, 401)
+        ch = self.login().json()['challenge']
+        body, sig = ch.split('.')
+        self.assertEqual(self.second(f'{body}.{sig[::-1]}', self.totp(self.editor)).status_code, 401)
+
+    def test_recovery_code_works_once(self):
+        codes = self.enroll()
+        ch = self.login().json()['challenge']
+        self.assertEqual(self.second(ch, codes[0]).status_code, 200)
+        ch = self.login().json()['challenge']
+        self.assertEqual(self.second(ch, codes[0]).status_code, 401)
+        self.assertEqual(self.second(ch, codes[1]).status_code, 200)
+
+    def test_code_guessing_locks_account(self):
+        self.enroll()
+        ch = self.login().json()['challenge']
+        codes = [self.second(ch, f'{i:06d}').status_code for i in range(6)]
+        self.assertEqual(codes[:5], [401] * 5)
+        self.assertEqual(codes[5], 423)
+        self.assertEqual(self.login().status_code, 423)
+
+    def test_password_alone_is_not_enough(self):
+        self.enroll()
+        res = self.login()
+        self.assertNotIn('token', res.json())
+        self.assertEqual(Client(**HOST).get('/api/cms/posts').status_code in (401, 403), True)
+
+    def test_disable_needs_password_and_code(self):
+        self.enroll()
+        url = '/api/cms/users/2fa/disable'
+        self.assertEqual(api('post', url, self.h, {'password': 'xato', 'code': self.totp(self.editor, 1)}).status_code, 400)
+        self.assertEqual(api('post', url, self.h, {'password': 'Pw-12345678!', 'code': '111111'}).status_code, 400)
+        self.assertEqual(api('post', url, self.h, {'password': 'Pw-12345678!', 'code': self.totp(self.editor, 1)}).status_code, 200)
+        self.editor.refresh_from_db()
+        self.assertFalse(self.editor.totp_enabled)
+        self.assertEqual(self.editor.totp_secret, '')
+
+    def test_superadmin_can_reset_lost_device(self):
+        self.enroll()
+        self.assertEqual(api('post', '/api/cms/users/2fa/reset', self.h, {'username': 'root'}).status_code, 403)
+        self.assertEqual(api('post', '/api/cms/users/2fa/reset', jwt_for('root'), {'username': 'ed'}).status_code, 200)
+        self.assertNotIn('twoFactorRequired', self.login().json())
+
+    def test_secret_never_exposed(self):
+        self.enroll()
+        res = api('get', f'/api/cms/users/{self.editor.pk}', self.h).content.decode()
+        self.assertIn('twoFactorEnabled', res)
+        self.editor.refresh_from_db()
+        self.assertNotIn(self.editor.totp_secret, res)
+        self.assertEqual(api('get', '/api/cms/users?where[totpSecret][like]=A', jwt_for('root')).status_code, 400)
+
+    def test_required_role_blocked_until_enrolled(self):
+        with override_settings(REQUIRE_2FA_ROLES=['editor']):
+            self.assertEqual(api('get', '/api/cms/posts', self.h).status_code, 403)
+            self.assertEqual(api('post', '/api/cms/users/2fa/setup', self.h).status_code, 200)  # sozlash yo'li ochiq
+            api('post', '/api/cms/users/2fa/enable', self.h, {'code': self.totp(self.editor)})
+            self.assertEqual(api('get', '/api/cms/posts', self.h).status_code, 200)
+            self.assertEqual(api('post', '/api/cms/users/2fa/disable', self.h, {'password': 'Pw-12345678!', 'code': self.totp(self.editor, 1)}).status_code, 403)
+
+    def test_totp_matches_rfc6238_vector(self):
+        from apps.panel.twofactor import _code
+        import base64
+        secret = base64.b32encode(b'12345678901234567890').decode()
+        self.assertEqual(_code(secret, 59 // 30), '287082')  # RFC 6238 (T=59, SHA1, 6 xona: 94287082 -> 287082)

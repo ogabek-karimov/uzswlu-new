@@ -78,6 +78,13 @@ async function unlock(u: User) {
   await load()
 }
 
+async function resetTwoFactor(u: User) {
+  if (!confirm(`${u.name} uçun 2FA bekor qilinsinmi? Foydalanuvchi uni qaytadan sozlaydi.`)) return
+  await api.post('/users/2fa/reset', { username: u.username })
+  flash('2FA bekor qilindi')
+  await load()
+}
+
 function flash(text: string) {
   message.value = text
   setTimeout(() => { if (message.value === text) message.value = '' }, 4000)
@@ -162,6 +169,7 @@ const locked = (u: User) => !!u.lockUntil && new Date(u.lockUntil).getTime() > D
               <td class="px-5 py-3.5 text-right whitespace-nowrap">
                 <button v-if="locked(u)" type="button" class="btn-ghost h-8! px-3! text-xs!" @click="unlock(u)">Blokdan çiqariş</button>
                 <button type="button" class="btn-ghost ml-1 h-8! px-3! text-xs!" @click="resetPassword(u)">Parol</button>
+                <button v-if="u.twoFactorEnabled" type="button" class="btn-ghost ml-1 h-8! px-3! text-xs!" title="Telefon yoqotilgan bölsa" @click="resetTwoFactor(u)">2FA</button>
                 <button
                   v-if="u.id !== auth.user.value?.id" type="button" class="ml-1 h-8! px-3! text-xs!" :class="u.status === 'disabled' ? 'btn-ghost' : 'btn-danger'"
                   @click="update(u, { status: u.status === 'disabled' ? 'active' : 'disabled' }, u.status === 'disabled' ? 'Hisob oçildi' : 'Hisob yopildi')"

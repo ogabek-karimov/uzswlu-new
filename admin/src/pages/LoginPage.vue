@@ -16,20 +16,52 @@ const remember = ref(true)
 const show = ref(false)
 const busy = ref(false)
 const error = ref('')
+const challenge = ref('') // 2FA: parol to'g'ri bo'lgach kod so'raladi
+const code = ref('')
+
+function goBack() {
+  const back = typeof route.query.r === 'string' && route.query.r.startsWith('/') ? route.query.r : '/'
+  router.push(back)
+}
+
+function cancelCode() {
+  challenge.value = ''
+  code.value = ''
+  error.value = ''
+}
 
 async function submit() {
   if (busy.value) return
   error.value = ''
   busy.value = true
   try {
-    await auth.login(username.value.trim(), password.value, remember.value)
-    const back = typeof route.query.r === 'string' && route.query.r.startsWith('/') ? route.query.r : '/'
-    router.push(back)
+    const res = await auth.login(username.value.trim(), password.value, remember.value)
+    if ('challenge' in res) { challenge.value = res.challenge; return }
+    goBack()
   }
   catch (e) {
     if (e instanceof ApiError && e.status === 423) error.value = 'Juda köp xato urinişlar — hisob 15 daqiqaga bloklandi.'
     else if (e instanceof ApiError && e.status === 403) error.value = 'Bu hisob yopilgan. Superadminga murojaat qiling.'
     else if (e instanceof ApiError && e.status === 401) error.value = 'Login yoki parol notöğri. 5 marta xato kiritilsa, hisob 15 daqiqaga bloklanadi.'
+    else error.value = 'Server bilan aloqa yöq. Birozdan keyin qayta urinib köring.'
+  }
+  finally {
+    busy.value = false
+  }
+}
+
+async function submitCode() {
+  if (busy.value) return
+  error.value = ''
+  busy.value = true
+  try {
+    await auth.verifyTwoFactor(challenge.value, code.value.trim())
+    goBack()
+  }
+  catch (e) {
+    if (e instanceof ApiError && e.status === 423) error.value = 'Juda köp xato urinişlar — hisob 15 daqiqaga bloklandi.'
+    else if (e instanceof ApiError && e.status === 401 && /Vaqt tugadi/.test(e.message)) { cancelCode(); error.value = 'Vaqt tugadi — login va parolni qaytadan kiriting.' }
+    else if (e instanceof ApiError && e.status === 401) error.value = 'Tasdiqlaş kodi notöğri. Kod har 30 soniyada almaşadi.'
     else error.value = 'Server bilan aloqa yöq. Birozdan keyin qayta urinib köring.'
   }
   finally {
@@ -63,12 +95,21 @@ async function submit() {
     <!-- Kirish -->
     <section class="flex min-w-0 flex-[1_1_480px] items-center justify-center px-6 py-12 sm:px-8">
       <div class="w-full max-w-[420px]">
-        <h1 class="text-[32px] font-bold tracking-tight">Admin panelga kiriş</h1>
-        <p class="mt-2.5 text-base text-muted">Login va parolingizni kiriting.</p>
+        <h1 class="text-[32px] font-bold tracking-tight">{{ challenge ? 'Tasdiqlaş kodi' : 'Admin panelga kiriş' }}</h1>
+        <p class="mt-2.5 text-base text-muted">{{ challenge ? 'Authenticator ilovasidagi 6 xonali kodni yoki zaxira kodni kiriting.' : 'Login va parolingizni kiriting.' }}</p>
 
         <div v-if="error" role="alert" class="mt-5 rounded-xl bg-red-50 px-3.5 py-3 text-sm leading-relaxed text-red-800">{{ error }}</div>
 
-        <form class="mt-6 flex flex-col gap-3.5" @submit.prevent="submit">
+        <form v-if="challenge" class="mt-6 flex flex-col gap-3.5" @submit.prevent="submitCode">
+          <div>
+            <label for="code" class="label text-[13px]! text-ink!">Kod</label>
+            <input id="code" v-model="code" class="field h-[50px]! font-mono tracking-[0.3em]" inputmode="numeric" autocomplete="one-time-code" maxlength="12" required autofocus>
+          </div>
+          <button type="submit" class="btn-primary h-[52px] text-base" :disabled="busy || code.trim().length < 6">{{ busy ? 'Tekşirilmoqda…' : 'Tasdiqlaş' }}</button>
+          <button type="button" class="text-sm font-semibold text-brand-700" @click="cancelCode">← Orqaga</button>
+        </form>
+
+        <form v-else class="mt-6 flex flex-col gap-3.5" @submit.prevent="submit">
           <div>
             <label for="login" class="label text-[13px]! text-ink!">Login</label>
             <input id="login" v-model="username" class="field h-[50px]!" autocomplete="username" required autofocus>

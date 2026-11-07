@@ -196,6 +196,8 @@ REST_FRAMEWORK = {
 # --- Sayt (frontend) bilan shartnoma ---
 # Ochiq API tokeni (frontend serverida NUXT_API_TOKEN). Bo'sh bo'lsa — tekshirilmaydi.
 API_TOKEN = env('API_TOKEN')
+# 2FA (TOTP) majburiy rollar, vergul bilan: REQUIRE_2FA_ROLES=superadmin,editor. Bo'sh — hamma uchun ixtiyoriy
+REQUIRE_2FA_ROLES = env_list('REQUIRE_2FA_ROLES', '')
 # Xodim kabineti sessiyasi: cookie nomi va amal qilish muddati
 STAFF_SESSION_COOKIE = env('STAFF_SESSION_COOKIE', 'session')
 STAFF_SESSION_TTL_HOURS = int(env('STAFF_SESSION_TTL_HOURS', '12'))

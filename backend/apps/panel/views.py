@@ -1,6 +1,7 @@
 """Vue admin panel API'si (/api/cms/*): kolleksiyalar, globallar, versiyalar — Payload REST bilan bir xil shakl."""
 import json
 
+from django.conf import settings
 from django.core.exceptions import FieldError, ObjectDoesNotExist, ValidationError
 from django.db import IntegrityError, transaction
 from django.db.models import ProtectedError
@@ -8,6 +9,7 @@ from django.utils import timezone
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import status
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -136,6 +138,13 @@ class PanelView(APIView):
     authentication_classes = PANEL_AUTH
     permission_classes: list = []
     throttle_classes = [ScopedThrottle]
+
+    def initial(self, request, *args, **kwargs):
+        super().initial(request, *args, **kwargs)
+        u = request.user
+        # Majburiy 2FA (REQUIRE_2FA_ROLES): yoqmaguncha panel ma'lumotlariga kirib bo'lmaydi (profil/2FA sozlash yo'llari PanelView emas)
+        if u and u.is_authenticated and u.role in settings.REQUIRE_2FA_ROLES and not u.totp_enabled:
+            raise PermissionDenied('Rolingiz uchun ikki bosqichli tasdiq (2FA) majburiy — Profil bo‘limida yoqing')
 
     def get_throttle_scope(self, request):
         return 'panel-read' if request.method in ('GET', 'HEAD', 'OPTIONS') else 'panel-write'

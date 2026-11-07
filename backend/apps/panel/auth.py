@@ -116,20 +116,30 @@ class LoginView(APIView):
         if user.status == 'disabled':
             record(request, user, username, 'denied')
             return error('Hisob yopilgan — superadmin bilan bog‘laning', status.HTTP_403_FORBIDDEN)
-        user.login_attempts, user.lock_until = 0, None
-        user.last_login = now
-        user.save(update_fields=['login_attempts', 'lock_until', 'last_login'])
-        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-        record(request, user, username, 'success')
-        from .collections import REGISTRY
-        token, token_exp = jwt.issue(user)
-        return Response({
-            'message': 'Kirish muvaffaqiyatli',
-            'user': REGISTRY['users'].out(user, 1),
-            'exp': int((now + timedelta(seconds=settings.SESSION_COOKIE_AGE)).timestamp()),
-            # Cookie'siz ishlash uchun: Authorization: Bearer <token> (Swagger "Authorize" tugmasi)
-            'token': token, 'tokenType': 'Bearer', 'tokenExp': token_exp,
-        })
+        if user.totp_enabled:
+            # Parol to'g'ri, lekin sessiya/token hali berilmaydi: ikkinchi qadam (kod) kerak
+            from .twofactor import issue_challenge
+            return Response({'twoFactorRequired': True, 'challenge': issue_challenge(user), 'message': 'Authenticator ilovasidagi 6 xonali kodni kiriting'})
+        return complete_login(request, user, username)
+
+
+def complete_login(request, user, username: str) -> Response:
+    """Kirishni yakunlaydi: sessiya, JWT, kirish tarixi (parol yoki parol+2FA tekshiruvidan keyin)."""
+    now = timezone.now()
+    user.login_attempts, user.lock_until = 0, None
+    user.last_login = now
+    user.save(update_fields=['login_attempts', 'lock_until', 'last_login'])
+    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+    record(request, user, username, 'success')
+    from .collections import REGISTRY
+    token, token_exp = jwt.issue(user)
+    return Response({
+        'message': 'Kirish muvaffaqiyatli',
+        'user': REGISTRY['users'].out(user, 1),
+        'exp': int((now + timedelta(seconds=settings.SESSION_COOKIE_AGE)).timestamp()),
+        # Cookie'siz ishlash uchun: Authorization: Bearer <token> (Swagger "Authorize" tugmasi)
+        'token': token, 'tokenType': 'Bearer', 'tokenExp': token_exp,
+    })
 
 
 class LogoutView(APIView):

@@ -308,6 +308,7 @@ SWAGGER_THEME=modern (sukut) | classic
             <dt>Qayerdan</dt><dd><code>POST /api/cms/users/login</code> javobidagi <code>token</code></dd>
             <dt>Yuborish</dt><dd><code>Authorization: Bearer &lt;JWT&gt;</code> yoki sessiya cookie’si</dd>
             <dt>Muddati</dt><dd>8 soat. Yangilash: <code>/users/refresh-token</code></dd>
+            <dt>2FA</dt><dd>Yoqilgan bo‘lsa login <code>challenge</code> qaytaradi; token <code>/users/login/2fa</code> (kod bilan) dan keyin beriladi.</dd>
             <dt>Bekor bo‘ladi</dt><dd>Muddat tugasa, chiqilsa (<code>/users/logout</code>), yangilansa, hisob yopilsa yoki parol o‘zgarsa.</dd>
             <dt>Cookie bilan</dt><dd>Yozish (POST/PATCH/DELETE) uchun <code>Origin</code> ruxsat etilgan bo‘lishi kerak.</dd></dl></div>
         <div class="card"><h4>Xodim kabineti <span class="pill r">userSession · staffBearer</span></h4><p class="what"><code>/api/me*</code> — xodim o‘z profili, rasmi va hujjatlari bilan ishlaydi.</p>

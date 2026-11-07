@@ -1,11 +1,17 @@
 """Vue admin panel API'si: /api/cms/* (Payload REST bilan bir xil manzillar va javoblar)."""
 from django.urls import path
 
-from . import auth, dashboard
+from . import auth, dashboard, twofactor
 from . import views as v
 
 urlpatterns = [
     path('users/login', auth.LoginView.as_view()),
+    path('users/login/2fa', twofactor.LoginTwoFactorView.as_view()),
+    path('users/2fa/setup', twofactor.SetupView.as_view()),
+    path('users/2fa/enable', twofactor.EnableView.as_view()),
+    path('users/2fa/disable', twofactor.DisableView.as_view()),
+    path('users/2fa/recovery', twofactor.RecoveryView.as_view()),
+    path('users/2fa/reset', twofactor.ResetView.as_view()),
     path('users/logout', auth.LogoutView.as_view()),
     path('users/me', auth.MeView.as_view()),
     path('users/refresh-token', auth.RefreshTokenView.as_view()),

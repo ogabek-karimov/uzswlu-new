@@ -16,7 +16,8 @@ from django.db.models import JSONField, Q
 # Hech qachon filtr/saralash uchun ochilmaydigan maydonlar: aks holda `where[uploaded_by.password][like]=a$` kabi
 # so'rovlar bilan parol xeshini harf-harf topib olish mumkin bo'lardi (ORM orqali "oracle" hujumi).
 DENY_FIELDS = frozenset({'password', 'token_hash', 'session_key', 'secret', 'last_login', 'is_superuser', 'is_staff',
-                         'groups', 'user_permissions', 'login_attempts', 'lock_until'})
+                         'groups', 'user_permissions', 'login_attempts', 'lock_until',
+                         'totp_secret', 'totp_enabled', 'totp_last_step', 'recovery_hashes', 'legacy_password'})
 MAX_WHERE_DEPTH, MAX_CONDITIONS, MAX_IN_VALUES, MAX_LIKE_WORDS = 4, 40, 200, 8
 KEY_RE = re.compile(r'^[a-z0-9_]{1,24}$')
 
