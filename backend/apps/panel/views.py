@@ -335,6 +335,8 @@ class VersionsView(PanelView):
         def restore():
             v = Version.objects.get(pk=vid, entity=slug)
             obj = coll.queryset(request).get(pk=v.entity_id)
+            if not coll.can(request.user, 'update', obj):
+                return error('Ruxsat yo‘q', 403)
             data = {k: val for k, val in v.data.items() if k not in SKIP_DIFF and k != 'author'}
             before = coll.out(obj, 0)
             obj = save_doc(coll, obj, data, request, creating=False, log=False)

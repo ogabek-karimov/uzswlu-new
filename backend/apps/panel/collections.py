@@ -394,6 +394,15 @@ class Posts(Collection):
     select_related = ('category', 'author', 'author__avatar', 'cover', 'cover_ru', 'cover_en', 'cover_zh')
     prefetch = ('attachments__file', 'gallery__image')
     access = {'read': ALL, 'create': EDITORS, 'update': EDITORS, 'delete': EDITORS}
+
+    def can(self, user, action, obj=None):
+        if not super().can(user, action, obj):
+            return False
+        # Fakultet admini va sahifalar muharriri faqat o'zi yozgan postni tahrirlaydi/o'chiradi;
+        # superadmin va kontent muharriri (editor) hamma postni boshqaradi.
+        if action in ('update', 'delete') and obj is not None and user.role in ('faculty', 'pages'):
+            return obj.author_id == user.pk
+        return True
     fields = {
         'publishedAt': 'published_at', 'startsAt': 'starts_at', 'endsAt': 'ends_at', 'deletedAt': 'deleted_at',
         'createdAt': 'created_at', 'updatedAt': 'updated_at', 'label': 'title__uz',

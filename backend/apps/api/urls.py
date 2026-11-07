@@ -51,7 +51,8 @@ urlpatterns += [
     path('site/symbols', _open(v.SymbolsView)),
     path('site/menu', _open(v.MenuView)),
     path('site/sdg-goals', _open(v.SdgGoalsView)),
-    path('site/staff-hidden', _open(s.StaffHiddenView)),
+    # Yashirilgan xodimlar ro'yxati ochiq emas: API_TOKEN belgilangan bo'lsa token talab qilinadi (asosiy /api/staff ro'yxati yashirinlarni o'zi chiqarmaydi)
+    path('site/staff-hidden', s.StaffHiddenView.as_view()),
     path('site/staff/<str:pk>', _open(s.StaffOverlayView)),
     path('site/posts', _open(v.PostListView)),
     path('site/posts/<str:type>/<str:slug>', _open(v.PostDetailView)),

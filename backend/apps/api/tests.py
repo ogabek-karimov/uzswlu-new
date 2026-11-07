@@ -313,3 +313,61 @@ class PasswordAndRevocationTests(Base):
         h1, h2 = jwt_for('ed'), jwt_for('ed')
         api('post', '/api/cms/users/logout', h1)
         self.assertEqual(api('get', '/api/cms/posts', h2).status_code, 200)
+
+
+class HiddenStaffTests(Base):
+    def test_hidden_list_needs_token_when_configured(self):
+        from apps.structure.models import StaffProfile
+        StaffProfile.objects.create(hemis_id='777', hidden=True)
+        with override_settings(API_TOKEN='site-secret'):
+            self.assertEqual(Client(**HOST).get('/api/site/staff-hidden').status_code, 403)
+            ok = Client(**HOST).get('/api/site/staff-hidden', HTTP_AUTHORIZATION='Bearer site-secret')
+            self.assertEqual(ok.json()['ids'], ['777'])
+
+    def test_hidden_staff_not_in_public_list_or_detail(self):
+        from apps.structure.models import StaffProfile
+        StaffProfile.objects.create(hemis_id='888', hidden=True)
+        self.assertNotIn('888', Client(**HOST).get('/api/staff').content.decode())
+        self.assertEqual(Client(**HOST).get('/api/staff/888').status_code, 404)
+
+
+class PostOwnershipTests(Base):
+    def setUp(self):
+        super().setUp()
+        from apps.content.models import Post
+        self.pages = User.objects.create_user('pg', password='Pw-12345678!', role='pages', name='Pages')
+        self.fac = User.objects.create_user('fc', password='Pw-12345678!', role='faculty', name='Fac', scope='fa')
+        self.mine = Post.objects.create(type='news', slug='mine', title={'uz': 'Meniki'}, author=self.pages)
+        self.other = Post.objects.create(type='news', slug='other', title={'uz': 'Boshqaniki'}, author=self.editor)
+        self.orphan = Post.objects.create(type='news', slug='orphan', title={'uz': 'Egasiz'})
+
+    def test_pages_role_edits_only_own_posts(self):
+        h = jwt_for('pg')
+        self.assertEqual(api('patch', f'/api/cms/posts/{self.mine.pk}', h, {'title': {'uz': 'Yangi'}}).status_code, 200)
+        self.assertEqual(api('patch', f'/api/cms/posts/{self.other.pk}', h, {'title': {'uz': 'Buzildi'}}).status_code, 403)
+        self.assertEqual(api('patch', f'/api/cms/posts/{self.orphan.pk}', h, {'title': {'uz': 'Buzildi'}}).status_code, 403)
+        self.other.refresh_from_db()
+        self.assertEqual(self.other.title['uz'], 'Boshqaniki')
+
+    def test_cannot_delete_foreign_post(self):
+        from apps.content.models import Post
+        h = jwt_for('fc')
+        self.assertEqual(api('delete', f'/api/cms/posts/{self.other.pk}', h).status_code, 403)
+        self.assertTrue(Post.objects.filter(pk=self.other.pk).exists())
+
+    def test_bulk_patch_only_touches_own_posts(self):
+        h = jwt_for('pg')
+        res = api('patch', '/api/cms/posts?where[type][equals]=news', h, {'category': None, 'title': {'uz': 'Ommaviy'}})
+        self.other.refresh_from_db()
+        self.assertEqual(self.other.title['uz'], 'Boshqaniki')
+
+    def test_editor_and_superadmin_manage_all(self):
+        self.assertEqual(api('patch', f'/api/cms/posts/{self.mine.pk}', jwt_for('ed'), {'title': {'uz': 'E'}}).status_code, 200)
+        self.assertEqual(api('patch', f'/api/cms/posts/{self.other.pk}', jwt_for('root'), {'title': {'uz': 'R'}}).status_code, 200)
+
+    def test_new_post_belongs_to_creator(self):
+        from apps.content.models import Post
+        h = jwt_for('pg')
+        res = api('post', '/api/cms/posts', h, {'type': 'news', 'title': {'uz': 'Yangi post'}, 'slug': 'yangi-post'})
+        self.assertEqual(res.status_code, 201, res.content)
+        self.assertEqual(Post.objects.get(slug='yangi-post').author_id, self.pages.pk)
