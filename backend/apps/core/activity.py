@@ -40,6 +40,8 @@ def log_activity(request, *, action: str, entity: str, entity_id=None, label: st
 
 def purge_site_cache(tags) -> None:
     """Nuxt keshini yangilash: o'zgargan kontent darhol ko'rinsin. Sayt o'chiq bo'lsa ham saqlash davom etadi."""
+    from apps.api.common import bump_content_version
+    bump_content_version()
     url = settings.SITE_PURGE_URL
     if not url:
         return

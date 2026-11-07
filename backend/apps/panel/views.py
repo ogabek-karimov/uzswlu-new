@@ -13,9 +13,10 @@ from rest_framework.views import APIView
 
 from apps.core.activity import log_activity, purge_site_cache, short
 from apps.core.models import Media, validate_upload
+from apps.core.throttles import ScopedThrottle
 
 from .auth import PANEL_AUTH, error
-from .collections import REGISTRY, Collection
+from .collections import REGISTRY, Collection, Forbidden
 from .globals_ import GLOBALS, save_global
 from .models import Version
 from .query import nested_params, order_by, paginate, where_q
@@ -116,6 +117,8 @@ def run(fn):
     """Model xatolari → Payload shaklidagi javob."""
     try:
         return fn()
+    except Forbidden as exc:
+        return error(str(exc) or 'Ruxsat yo‘q', status.HTTP_403_FORBIDDEN)
     except Conflict as exc:
         return error('; '.join(exc.messages), status.HTTP_409_CONFLICT)
     except ValidationError as exc:
@@ -132,18 +135,27 @@ def run(fn):
 class PanelView(APIView):
     authentication_classes = PANEL_AUTH
     permission_classes: list = []
+    throttle_classes = [ScopedThrottle]
+
+    def get_throttle_scope(self, request):
+        return 'panel-read' if request.method in ('GET', 'HEAD', 'OPTIONS') else 'panel-write'
 
     def user_ok(self, request) -> bool:
         u = request.user
         return bool(u and u.is_authenticated and u.status != 'disabled')
 
 
+def run_list(coll: Collection, request) -> list:
+    """Ommaviy amal uchun yozuvlar (ko'pi bilan 500)."""
+    return list(filtered(coll, request)[:500])
+
+
 def filtered(coll: Collection, request):
     params = nested_params(request.query_params)
     qs = coll.scope(request, coll.queryset(request))
-    qs = qs.filter(where_q(params.get('where'), coll.fields))
+    qs = qs.filter(where_q(params.get('where'), coll.fields, coll.model))
     try:
-        return qs.order_by(*order_by(request.query_params.get('sort'), coll.fields, coll.default_sort))
+        return qs.order_by(*order_by(request.query_params.get('sort'), coll.fields, coll.default_sort, coll.model))
     except FieldError:  # bu kolleksiyada yo'q maydon bo'yicha saralash so'raldi — standart tartib (500 emas)
         return qs.order_by(*order_by(None, coll.fields, coll.default_sort))
 
@@ -188,7 +200,14 @@ class CollectionView(PanelView):
             return error('Ruxsat yo‘q', 403)
         data = parse_body(request)
         docs, errors = [], []
-        for obj in list(filtered(coll, request)[:500]):
+        try:
+            objs = run_list(coll, request)
+        except ValidationError as exc:
+            return error('; '.join(exc.messages))
+        for obj in objs:
+            if not coll.can(request.user, 'update', obj):
+                errors.append({'id': obj.pk, 'message': 'Ruxsat yo‘q'})
+                continue
             res = run(lambda o=obj: save_doc(coll, o, data, request, creating=False))
             if isinstance(res, Response):
                 errors.append({'id': obj.pk, 'message': res.data['errors'][0]['message']})
@@ -202,7 +221,14 @@ class CollectionView(PanelView):
         if not coll or not coll.can(request.user, 'delete'):
             return error('Ruxsat yo‘q', 403)
         docs, errors = [], []
-        for obj in list(filtered(coll, request)[:500]):
+        try:
+            objs = run_list(coll, request)
+        except ValidationError as exc:
+            return error('; '.join(exc.messages))
+        for obj in objs:
+            if not coll.can(request.user, 'delete', obj):
+                errors.append({'id': obj.pk, 'message': 'Ruxsat yo‘q'})
+                continue
             res = run(lambda o=obj: delete_doc(coll, o, request))
             (errors.append({'id': obj.pk, 'message': res.data['errors'][0]['message']}) if isinstance(res, Response) else docs.append({'id': obj.pk}))
         return Response({'docs': docs, 'errors': errors})
@@ -270,7 +296,13 @@ class DocView(PanelView):
         coll = collection_or_404(slug)
         if not coll or not coll.can(request.user, 'delete'):
             return error('Ruxsat yo‘q', 403)
-        return run(lambda: Response({'doc': {'id': delete_doc(coll, self.get_obj(coll, request, pk), request).pk}, 'message': 'O‘chirildi'}))
+
+        def remove():
+            obj = self.get_obj(coll, request, pk)
+            if not coll.can(request.user, 'delete', obj):
+                return error('Ruxsat yo‘q', 403)
+            return Response({'doc': {'id': delete_doc(coll, obj, request).pk}, 'message': 'O‘chirildi'})
+        return run(remove)
 
 
 def version_out(v: Version) -> dict:
@@ -290,8 +322,8 @@ class VersionsView(PanelView):
         if not coll or not coll.versions or not coll.can(request.user, 'read'):
             return error('Ruxsat yo‘q', 403)
         params = nested_params(request.query_params)
-        qs = Version.objects.filter(entity=slug).filter(where_q(params.get('where'), VERSION_FIELDS))
-        qs = qs.order_by(*order_by(request.query_params.get('sort'), VERSION_FIELDS, ['-created_at', '-id']))
+        qs = Version.objects.filter(entity=slug).filter(where_q(params.get('where'), VERSION_FIELDS, Version))
+        qs = qs.order_by(*order_by(request.query_params.get('sort'), VERSION_FIELDS, ['-created_at', '-id'], Version))
         return Response(paginate(qs, request.query_params, version_out))
 
     @extend_schema(summary='Shu holatga qaytarish', request=None, responses=OpenApiTypes.OBJECT)
@@ -363,8 +395,8 @@ class GlobalVersionsView(PanelView):
             return error('Ruxsat yo‘q', 403)
         ensure_first_version(g, g.out(g.load(), 0))
         params = nested_params(request.query_params)
-        qs = Version.objects.filter(entity=slug).filter(where_q(params.get('where'), VERSION_FIELDS))
-        qs = qs.order_by(*order_by(request.query_params.get('sort'), VERSION_FIELDS, ['-created_at', '-id']))
+        qs = Version.objects.filter(entity=slug).filter(where_q(params.get('where'), VERSION_FIELDS, Version))
+        qs = qs.order_by(*order_by(request.query_params.get('sort'), VERSION_FIELDS, ['-created_at', '-id'], Version))
         return Response(paginate(qs, request.query_params, version_out))
 
     @extend_schema(summary='Shu holatga qaytarish', request=None, responses=OpenApiTypes.OBJECT)
@@ -392,6 +424,8 @@ class MediaFileCompat(APIView):
 
     authentication_classes: list = []
     permission_classes: list = []
+    throttle_classes = [ScopedThrottle]
+    throttle_scope = 'open'
 
     SIZES = {400: 'thumb', 900: 'card', 1920: 'hero'}
 

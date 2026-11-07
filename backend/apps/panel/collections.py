@@ -34,6 +34,18 @@ MEDIA_ROLES = EDITORS | {'sdg'}
 ALL = EDITORS | {'sdg'}
 
 
+class Forbidden(Exception):
+    """403: yozuv foydalanuvchining doirasidan (masalan, boshqa fakultet) tashqarida."""
+
+
+def in_scope(user, value: str | None) -> bool:
+    """Fakultet admini faqat o'z fakultetiga (`User.scope` = fakultet manzili) tegishli yozuvni o'zgartira oladi.
+    Doirasi belgilanmagan fakultet admini hech narsani o'zgartira olmaydi (xavfsiz sukut). Boshqa rollar — cheklanmagan."""
+    if user.role != 'faculty':
+        return True
+    return bool(user.scope) and value == user.scope
+
+
 # ─── Yordamchilar ────────────────────────────────────────────────────────────
 
 def i18n_out(value) -> dict:
@@ -608,6 +620,13 @@ class Faculties(Collection):
     fields = {'mapUrl': 'map_url'}
     access = {'read': ALL, 'create': SUPER, 'update': FACULTY, 'delete': SUPER}
 
+    def can(self, user, action, obj=None):
+        if not super().can(user, action, obj):
+            return False
+        if action == 'update' and obj is not None:
+            return in_scope(user, obj.slug)  # IDOR: boshqa fakultetni id bilan o'zgartirib bo'lmaydi
+        return True
+
     def out(self, f, depth):
         return {
             'id': f.pk, 'slug': f.slug, 'name': i18n_out(f.name), 'logo': media_out(f.logo, depth) if f.logo_id else None,
@@ -632,6 +651,13 @@ class Departments(Collection):
     fields = {'hemisId': 'hemis_id', 'faculty': 'faculty_slug'}
     access = {'read': ALL, 'create': FACULTY, 'update': FACULTY, 'delete': SUPER}
 
+    def can(self, user, action, obj=None):
+        if not super().can(user, action, obj):
+            return False
+        if action in ('update', 'create') and obj is not None:
+            return in_scope(user, obj.faculty_slug)  # IDOR: boshqa fakultet kafedrasi
+        return True
+
     def label(self, d):
         return d.name.get('uz') or d.hemis_id
 
@@ -647,6 +673,9 @@ class Departments(Collection):
                       'about': ('about', i18n_in), 'room': ('room', text), 'ext': ('ext', text), 'showStaff': ('show_staff', flag)})
         if 'image' in data:
             d.image = media_ref(data['image'])
+        if not in_scope(request.user, d.faculty_slug):
+            # Yangi yozuv yoki kafedrani boshqa fakultetga ko'chirish ham doiradan tashqari
+            raise Forbidden('Bu fakultet sizning doirangizda emas')
 
 
 SCIENCE = {

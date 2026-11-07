@@ -6,6 +6,7 @@ from django.views.static import serve
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from rest_framework.permissions import AllowAny, BasePermission
 
+from apps.core.throttles import ScopedThrottle
 from apps.panel.auth import PANEL_AUTH
 from apps.panel.views import MediaFileCompat
 
@@ -20,6 +21,26 @@ class PanelUser(BasePermission):
 
 DOCS = AllowAny if settings.API_DOCS_PUBLIC else PanelUser
 SWAGGER_TEMPLATES = {'modern': 'api/swagger_modern.html', 'classic': 'api/swagger.html'}
+
+
+class _Limited:
+    """Sxema yaratish og'ir amal: hujjat sahifalari so'rov cheklovi bilan."""
+    throttle_classes = [ScopedThrottle]
+    throttle_scope = 'docs'
+
+
+class SchemaView(_Limited, SpectacularAPIView):
+    pass
+
+
+class SwaggerView(_Limited, SpectacularSwaggerView):
+    pass
+
+
+class RedocView(_Limited, SpectacularRedocView):
+    pass
+
+
 DOCS_VIEW = {'authentication_classes': PANEL_AUTH, 'permission_classes': [DOCS]}
 
 
@@ -31,9 +52,9 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/api/docs/', permanent=False)),
     path('healthz', healthz),
     # Swagger: ishlab chiqishda ochiq, productionda faqat admin panelga kirgan xodimlar uchun (API_DOCS_PUBLIC=false)
-    path('api/schema/', SpectacularAPIView.as_view(**DOCS_VIEW), name='schema'),
-    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema', template_name=SWAGGER_TEMPLATES.get(settings.SWAGGER_THEME, 'api/swagger_modern.html'), **DOCS_VIEW), name='swagger'),
-    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema', **DOCS_VIEW), name='redoc'),
+    path('api/schema/', SchemaView.as_view(**DOCS_VIEW), name='schema'),
+    path('api/docs/', SwaggerView.as_view(url_name='schema', template_name=SWAGGER_TEMPLATES.get(settings.SWAGGER_THEME, 'api/swagger_modern.html'), **DOCS_VIEW), name='swagger'),
+    path('api/redoc/', RedocView.as_view(url_name='schema', **DOCS_VIEW), name='redoc'),
     # Vue admin panel API'si (Payload bilan bir xil shakl)
     path('api/cms/', include('apps.panel.urls')),
     path('api/auth/hemis/', include('apps.hemis.urls')),

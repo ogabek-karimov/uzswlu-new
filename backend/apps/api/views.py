@@ -10,10 +10,10 @@ from django.core.exceptions import ValidationError
 from django.http import HttpResponseRedirect
 from rest_framework.exceptions import NotFound, Throttled
 from rest_framework.response import Response
-from rest_framework.throttling import ScopedRateThrottle
 
 from apps.content.models import Document, Leader, Post
 from apps.core.uploads import check_upload
+from apps.core.throttles import ScopedThrottle
 from apps.core.utils import client_ip
 from apps.pages.models import Page, SdgGoal
 from apps.structure.models import Appeal, Faculty
@@ -207,6 +207,8 @@ class ContactView(PublicView):
 
 
 class SearchView(PublicView):
+    throttle_scope = 'search'
+
     def get(self, request):
         p = request.query_params
         q = (p.get('q') or '').strip()[:100]
@@ -225,7 +227,7 @@ APPEAL_MAX_FILE = 10 * 1024 * 1024
 class AppealView(PublicView):
     """Virtual qabulxona murojaati. Frontend serveri tekshirgan, backend ham tekshiradi va spamdan himoya qiladi."""
 
-    throttle_classes = [ScopedRateThrottle]
+    throttle_classes = [ScopedThrottle]
     throttle_scope = 'appeals'
 
     def post(self, request):
@@ -272,7 +274,7 @@ class AppealView(PublicView):
 class HitView(OpenView):
     """Statistika yozuvi. Hech qachon xato qaytarmaydi (sendBeacon `text/plain` yuboradi)."""
 
-    throttle_classes = [ScopedRateThrottle]
+    throttle_classes = [ScopedThrottle]
     throttle_scope = 'hit'
 
     def post(self, request):

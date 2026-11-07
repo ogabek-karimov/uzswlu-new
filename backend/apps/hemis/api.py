@@ -4,6 +4,7 @@ Manzil va token .env'da: HEMIS_API_URL=https://hemis.<universitet>.uz/rest/v1, H
 Javob shakli: {"success": true, "data": {"items": [...], "pagination": {"totalCount", "pageCount", "page"}}}.
 """
 import json
+import time
 import urllib.parse
 import urllib.request
 
@@ -26,11 +27,17 @@ class HemisApi:
         query = urllib.parse.urlencode({k: v for k, v in params.items() if v is not None})
         url = f"{self.base}/{path.lstrip('/')}" + (f'?{query}' if query else '')
         req = urllib.request.Request(url, headers={'Authorization': f'Bearer {self.token}', 'Accept': 'application/json'})
-        try:
-            with urllib.request.urlopen(req, timeout=self.timeout) as res:  # noqa: S310 — manzil .env'dan
-                body = json.loads(res.read())
-        except Exception as exc:  # noqa: BLE001
-            raise HemisError(f'HEMIS javob bermadi: {path} — {exc}') from exc
+        body, last = None, None
+        for attempt in range(3):
+            try:
+                with urllib.request.urlopen(req, timeout=self.timeout) as res:  # noqa: S310 — manzil .env'dan
+                    body = json.loads(res.read(64 * 1024 * 1024))
+                break
+            except Exception as exc:  # noqa: BLE001
+                last = exc
+                time.sleep(min(2 ** attempt, 4))  # 1s, 2s — HEMIS vaqtincha band bo'lsa urinib ko'ramiz, lekin bosmaymiz
+        else:
+            raise HemisError(f'HEMIS javob bermadi: {path} — {last}') from last
         if isinstance(body, dict) and body.get('success') is False:
             raise HemisError(f"HEMIS xato: {path} — {body.get('error') or body}")
         return body.get('data', body) if isinstance(body, dict) else {'items': body}
@@ -40,6 +47,8 @@ class HemisApi:
         out: list[dict] = []
         page = 1
         while page <= max_pages:
+            if page > 1:
+                time.sleep(settings.HEMIS_REQUEST_DELAY)  # sahifalar orasida pauza: HEMIS'ga bosim tushmasin
             data = self.get(path, page=page, limit=limit, **params)
             items = data.get('items') if isinstance(data, dict) else data
             out.extend(items or [])

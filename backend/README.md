@@ -90,3 +90,34 @@ Productionda `API_DOCS_PUBLIC=false` — faqat admin panelga kirganlar ko'radi.
 - **Rollar**: `superadmin`, `editor`, `faculty`, `pages`, `sdg` — har kolleksiya uchun jadval Swagger'dagi tegishli amalning tavsifida.
 - Swagger'da: `/api/cms/users/login` → "Try it out" → javobdagi `token` ni **Authorize** → `panelJwt` ga kiriting.
 - Django admin (Jazzmin) olib tashlangan: boshqarish faqat Vue admin panel orqali (`http://localhost:5173`).
+
+## Xavfsizlik va yuklama himoyasi
+
+**Boshqa odam ma'lumotiga id almashtirib chiqishdan himoya (IDOR)**
+- Xodim kabineti (`/api/me*`): hamma amal faqat sessiyadagi xodimning HEMIS ID'si bo'yicha; id URL'dan olinmaydi. Boshqa xodim hujjati id bo'yicha ham `404`.
+- Admin panel: `users` — editor/pages/sdg/faculty faqat o'zini ko'radi va o'zgartiradi (rolini oshira olmaydi). Fakultet admini (`faculty`) faqat `User.scope` dagi fakultet va uning kafedralarini o'zgartiradi; boshqasi `403`, kafedrani boshqa fakultetga ko'chirib bo'lmaydi, ommaviy (bulk) amallar ham yozuv-yozuv tekshiriladi. **`scope` bo'sh fakultet admini hech narsani o'zgartira olmaydi.**
+- `where[...]` va `sort` faqat modelning o'z maydonlari bo'yicha ishlaydi: `password` va boshqa yashirin maydonlar, bog'liq jadvallar bo'ylab o'tish (`uploadedBy.password`) rad etiladi (parol xeshini harf-harf topib olishning oldi olingan). Filtr chuqurligi, shartlar soni va `limit` (`ADMIN_MAX_LIMIT`) cheklangan.
+- Kirish: mavjud bo'lmagan login uchun ham xesh hisoblanadi (javob vaqti bilan login mavjudligi bilinmaydi); HEMIS OAuth `state` doimiy vaqtda solishtiriladi.
+
+**So'rov cheklovlari (rate limit)** — `apps/core/throttles.py`, qiymatlari `.env`da (`THROTTLE_*`):
+
+| Manzil | Chegara | Hisob |
+|---|---|---|
+| Admin kirish / token yangilash | 10/min | IP |
+| Ochiq API (`API_TOKEN`siz) | 300/min | IP (to'g'ri `API_TOKEN` bilan sayt serveri cheklanmaydi) |
+| Qidiruv | 40/min | IP |
+| Murojaat yuborish | 20/soat | IP (+ bir email — kuniga 3 ta) |
+| Admin API | o'qish 1200/min, yozish 180/min | foydalanuvchi |
+| Kabinet / fayl yuklash | 180/min / 30 soat | xodim |
+| HEMIS kirish | 20/min | IP |
+| Swagger/sxema | 60/min | IP/foydalanuvchi |
+
+IP `X-Forwarded-For` dan faqat `NUM_PROXIES` (ishonchli proksilar soni) hisobga olinib olinadi — mijoz sarlavhani soxtalashtirib cheklovdan qutula olmaydi. **Nginx/Cloudflare ortida `NUM_PROXIES` ni to'g'ri qo'ying** (aks holda hamma foydalanuvchi bitta IP ko'rinadi). Sayt (Nuxt) serveri tashrifchi IP'sini `X-Forwarded-For` bilan uzatsin.
+
+**Yuklama**
+- Ochiq GET javoblari `PUBLIC_CACHE_SECONDS` (60 s) keshlanadi; admin panelda o'zgarish, xodim kabineti, media yoki HEMIS nusxasi yangilansa kesh darhol eskiradi. Kesh `API_TOKEN` va so'rov cheklovidan keyin tekshiriladi (ularni chetlab o'tmaydi). `REDIS_URL` berilsa umumiy Redis keshi, bo'lmasa fayl keshi.
+- HEMIS: foydalanuvchi so'rovlari HEMIS'ga bormaydi (bazadagi nusxadan o'qiydi, `HEMIS_CACHE_SECONDS` da yangilanadi, xodimlar ro'yxati xotirada). Sinxronlashda sahifalar orasida pauza va 3 martagacha urinish; HEMIS OAuth uchun qisqa timeout (8 s), 5 ta ketma-ket xatodan keyin 30 soniya "circuit breaker" (HEMIS qulasa ham backend osilib qolmaydi) va javob hajmi chegarasi.
+- Gunicorn: `WEB_CONCURRENCY`×`WEB_THREADS`, so'rov vaqti 30 s, har 1000 so'rovdan keyin jarayon yangilanadi (xotira oqishi), so'rov satri/sarlavhalari cheklangan. Yuklama oshsa — `WEB_CONCURRENCY` ni oshiring va `REDIS_URL` bering.
+- Production: HSTS, `Secure`/`HttpOnly`/`SameSite` cookie, `nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy`.
+
+Testlar: `python manage.py test apps.api` (33 ta: IDOR, parol oracle, so'rov cheklovi, kesh).

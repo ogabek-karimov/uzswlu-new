@@ -7,6 +7,7 @@
 
 .env: HEMIS_OAUTH_URL, HEMIS_OAUTH_CLIENT_ID, HEMIS_OAUTH_CLIENT_SECRET (universitet IT bo'limi beradi).
 """
+import hmac
 import json
 import secrets
 import urllib.parse
@@ -21,8 +22,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.accounts.models import StaffSession, User
+from apps.core.throttles import ScopedThrottle
 
 from . import get_client
+from .guard import call as guarded
 
 ID_FIELDS = ('employee_id_number', 'employee_id', 'id')
 
@@ -31,22 +34,31 @@ def redirect_uri(request) -> str:
     return settings.PUBLIC_SERVER_URL + '/api/auth/hemis/callback'
 
 
+MAX_BODY = 1024 * 1024  # HEMIS javobi 1 MB dan oshmasin (xotirani to'ldirib yubormasin)
+
+
 def _post(url: str, data: dict) -> dict:
-    req = urllib.request.Request(url, data=urllib.parse.urlencode(data).encode(), headers={'Accept': 'application/json'}, method='POST')
-    with urllib.request.urlopen(req, timeout=settings.HEMIS_TIMEOUT) as res:  # noqa: S310 — manzil .env'dan
-        return json.loads(res.read())
+    def run():
+        req = urllib.request.Request(url, data=urllib.parse.urlencode(data).encode(), headers={'Accept': 'application/json'}, method='POST')
+        with urllib.request.urlopen(req, timeout=settings.HEMIS_OAUTH_TIMEOUT) as res:  # noqa: S310 — manzil .env'dan
+            return json.loads(res.read(MAX_BODY))
+    return guarded(run)
 
 
 def _get(url: str, token: str) -> dict:
-    req = urllib.request.Request(url, headers={'Authorization': f'Bearer {token}', 'Accept': 'application/json'})
-    with urllib.request.urlopen(req, timeout=settings.HEMIS_TIMEOUT) as res:  # noqa: S310
-        body = json.loads(res.read())
+    def run():
+        req = urllib.request.Request(url, headers={'Authorization': f'Bearer {token}', 'Accept': 'application/json'})
+        with urllib.request.urlopen(req, timeout=settings.HEMIS_OAUTH_TIMEOUT) as res:  # noqa: S310
+            return json.loads(res.read(MAX_BODY))
+    body = guarded(run)
     return body.get('data', body) if isinstance(body, dict) else {}
 
 
 class StatusView(APIView):
     authentication_classes: list = []
     permission_classes: list = []
+    throttle_classes = [ScopedThrottle]
+    throttle_scope = 'open'
 
     @extend_schema(summary='HEMIS holati: API va kirish (OAuth) ulanganmi')
     def get(self, request):
@@ -62,6 +74,8 @@ class StatusView(APIView):
 class LoginView(APIView):
     authentication_classes: list = []
     permission_classes: list = []
+    throttle_classes = [ScopedThrottle]
+    throttle_scope = 'hemis-auth'
 
     @extend_schema(summary='HEMIS orqali kirish (yo‘naltiradi)', parameters=[OpenApiParameter('next', str, enum=['admin', 'cabinet'])])
     def get(self, request):
@@ -78,6 +92,8 @@ class LoginView(APIView):
 class CallbackView(APIView):
     authentication_classes: list = []
     permission_classes: list = []
+    throttle_classes = [ScopedThrottle]
+    throttle_scope = 'hemis-auth'
 
     @extend_schema(summary='HEMIS qaytaradigan manzil (OAuth2 code → sessiya)')
     def get(self, request):
@@ -86,7 +102,7 @@ class CallbackView(APIView):
         saved = request.session.pop('hemis_oauth', None) or {}
         target = saved.get('next', 'admin')
         fail = f'{settings.ADMIN_PANEL_URL}/kirish?hemis=' if target == 'admin' else f'{settings.SITE_URL}/?hemis='
-        if not settings.HEMIS_OAUTH_ENABLED or not saved or request.query_params.get('state') != saved.get('state'):
+        if not settings.HEMIS_OAUTH_ENABLED or not saved or not hmac.compare_digest(str(request.query_params.get('state') or ''), str(saved.get('state') or '')):
             return HttpResponseRedirect(fail + 'xato')
         try:
             token = _post(f'{settings.HEMIS_OAUTH_URL}{settings.HEMIS_OAUTH_TOKEN_PATH}', {

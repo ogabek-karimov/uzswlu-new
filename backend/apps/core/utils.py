@@ -16,9 +16,13 @@ def abs_url(path: str | None) -> str | None:
 
 
 def client_ip(request) -> str:
-    fwd = request.META.get('HTTP_X_FORWARDED_FOR', '')
-    if fwd:
-        return fwd.split(',')[0].strip()[:45]
+    """Haqiqiy IP. `X-Forwarded-For` faqat ishonchli proksilar soni (NUM_PROXIES) hisobga olinib o'qiladi:
+    mijoz bu sarlavhani o'zi yozib, IP'sini yashira olmaydi (so'rov cheklovlarini chetlab o'tolmaydi)."""
+    from django.conf import settings
+    proxies = int(getattr(settings, 'REST_FRAMEWORK', {}).get('NUM_PROXIES') or 0)
+    fwd = [x.strip() for x in request.META.get('HTTP_X_FORWARDED_FOR', '').split(',') if x.strip()]
+    if proxies and fwd:
+        return fwd[-min(proxies, len(fwd))][:45]
     return (request.META.get('REMOTE_ADDR') or '')[:45]
 
 

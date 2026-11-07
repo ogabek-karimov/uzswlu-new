@@ -130,6 +130,8 @@ SERVE_MEDIA = env_bool('SERVE_MEDIA', True)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 DATA_UPLOAD_MAX_MEMORY_SIZE = 60 * 1024 * 1024
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 500       # ko'p maydonli (query/form) so'rov bilan xotirani to'ldirishga qarshi
+DATA_UPLOAD_MAX_NUMBER_FILES = 20
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
 
 # --- CORS / CSRF ---
@@ -142,6 +144,21 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = env_bool('COOKIE_SECURE', True)
     CSRF_COOKIE_SECURE = env_bool('COOKIE_SECURE', True)
     SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_HSTS_SECONDS = int(env('HSTS_SECONDS', '31536000'))
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+SECURE_REFERRER_POLICY = 'same-origin'
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+X_FRAME_OPTIONS = 'DENY'
+
+# --- Kesh (so'rov cheklovlari hisobi + ochiq API javoblari). REDIS_URL bo'lsa — Redis, bo'lmasa fayl (jarayonlar orasida umumiy) ---
+if env('REDIS_URL'):
+    CACHES = {'default': {'BACKEND': 'django.core.cache.backends.redis.RedisCache', 'LOCATION': env('REDIS_URL')}}
+else:
+    CACHES = {'default': {'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache', 'LOCATION': env('CACHE_DIR', '/tmp/uzswlu-cache'), 'OPTIONS': {'MAX_ENTRIES': 5000}}}
+PUBLIC_CACHE_SECONDS = int(env('PUBLIC_CACHE_SECONDS', '60'))   # ochiq GET javoblari keshi (0 — o'chirilgan); kontent o'zgarsa darhol yangilanadi
+HEMIS_CACHE_SECONDS = int(env('HEMIS_CACHE_SECONDS', '300'))    # HEMIS nusxasini bazadan qayta o'qish oralig'i
+ADMIN_MAX_LIMIT = int(env('ADMIN_MAX_LIMIT', '5000'))           # admin ro'yxatida bir so'rovda ko'pi bilan
 SESSION_COOKIE_AGE = 60 * 60 * 12
 
 # --- DRF ---
@@ -155,7 +172,21 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.MultiPartParser',
         'rest_framework.parsers.FormParser',
     ],
-    'DEFAULT_THROTTLE_RATES': {'appeals': '60/hour', 'hit': '120/minute', 'cabinet-upload': '30/hour'},
+    # So'rov cheklovlari (apps/core/throttles.py). Qiymatlar .env orqali o'zgartiriladi: THROTTLE_LOGIN=10/min
+    'DEFAULT_THROTTLE_RATES': {
+        'public': env('THROTTLE_PUBLIC', '300/min'),        # ochiq API (API_TOKEN'siz yoki noto'g'ri token bilan), IP bo'yicha
+        'open': env('THROTTLE_OPEN', '1200/min'),           # tokensiz ochiq manzillar (/api/site/*), IP bo'yicha
+        'search': env('THROTTLE_SEARCH', '40/min'),         # qidiruv og'ir — alohida
+        'login': env('THROTTLE_LOGIN', '10/min'),           # admin kirish/yangilash: parol terib ko'rishga qarshi, IP bo'yicha
+        'hemis-auth': env('THROTTLE_HEMIS_AUTH', '20/min'), # HEMIS OAuth: HEMIS serveriga ortiqcha so'rov ketmasin
+        'panel-read': env('THROTTLE_PANEL_READ', '1200/min'),
+        'panel-write': env('THROTTLE_PANEL_WRITE', '180/min'),
+        'cabinet': env('THROTTLE_CABINET', '180/min'),
+        'cabinet-upload': env('THROTTLE_CABINET_UPLOAD', '30/hour'),
+        'appeals': env('THROTTLE_APPEALS', '20/hour'),
+        'hit': env('THROTTLE_HIT', '240/min'),
+        'docs': env('THROTTLE_DOCS', '60/min'),
+    },
     'UNAUTHENTICATED_USER': None,
     'DEFAULT_SCHEMA_CLASS': 'apps.api.schema.TaggedAutoSchema',
     # Nginx/Cloudflare ortida nechta proksi bo'lsa shuncha (so'rov cheklovlari haqiqiy IP bo'yicha ishlashi uchun)
@@ -178,7 +209,9 @@ SITE_PURGE_TOKEN = env('SITE_PURGE_TOKEN')
 # berilmasa — namuna (seed_data/hemis-snapshot.json). Kodda boshqa hech narsa o'zgarmaydi.
 HEMIS_API_URL = env('HEMIS_API_URL').rstrip('/')          # masalan: https://hemis.uzswlu.uz/rest/v1
 HEMIS_API_TOKEN = env('HEMIS_API_TOKEN')
-HEMIS_TIMEOUT = int(env('HEMIS_TIMEOUT', '20'))
+HEMIS_TIMEOUT = int(env('HEMIS_TIMEOUT', '20'))            # sinxronlash (fon jarayoni) uchun
+HEMIS_OAUTH_TIMEOUT = int(env('HEMIS_OAUTH_TIMEOUT', '8'))  # kirish paytida foydalanuvchi kutadi — qisqa
+HEMIS_REQUEST_DELAY = float(env('HEMIS_REQUEST_DELAY', '0.2'))  # sinxronlashda sahifalar orasida pauza (HEMIS'ga bosim tushmasin)
 HEMIS_CLIENT = env('HEMIS_CLIENT', 'apps.hemis.cache.CachedHemis' if HEMIS_API_URL else 'apps.hemis.snapshot.SnapshotHemis')
 # HEMIS orqali kirish (OAuth2): xodimlar admin panelga va o'z kabinetiga universitet login-paroli bilan kiradi
 HEMIS_OAUTH_URL = env('HEMIS_OAUTH_URL').rstrip('/')      # masalan: https://hemis.uzswlu.uz

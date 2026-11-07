@@ -13,6 +13,7 @@ from rest_framework.views import APIView
 
 from apps.accounts.models import User, check_any_password
 from apps.core.activity import log_activity
+from apps.core.throttles import ScopedThrottle
 
 from . import jwt
 from .models import LoginEvent
@@ -71,12 +72,24 @@ def record(request, user, username: str, result: str, method: str = 'password'):
     LoginEvent.objects.create(user=user, username=username[:100], method=method, result=result, **info)
 
 
+def _dummy_check(password: str) -> None:
+    from django.contrib.auth.hashers import check_password, make_password
+    global _DUMMY
+    if _DUMMY is None:
+        _DUMMY = make_password('dummy-password-for-timing')
+    check_password(password, _DUMMY)
+
+
+_DUMMY = None
 Credentials = inline_serializer('Credentials', {'username': serializers.CharField(), 'password': serializers.CharField()})
 
 
 class LoginView(APIView):
     authentication_classes = [PanelSessionAuth]
     permission_classes: list = []
+    throttle_classes = [ScopedThrottle]
+    throttle_scope = 'login'
+    throttle_by_ip = True
 
     @extend_schema(tags=['Admin panel: kirish'], request=Credentials, summary='Admin panelga kirish (login va parol)',
                    examples=[OpenApiExample('Kirish', value={'username': 'superadmin', 'password': '••••••••••'})])
@@ -90,6 +103,8 @@ class LoginView(APIView):
         if user and user.lock_until and user.lock_until > now:
             record(request, user, username, 'locked')
             return error('Hisob vaqtincha bloklangan — 15 daqiqadan keyin urinib ko‘ring', 423)
+        if not user:
+            _dummy_check(password)  # login mavjudligini javob vaqtidan bilib bo'lmasin
         if not user or not check_any_password(user, password):
             if user:
                 user.login_attempts += 1
@@ -158,6 +173,9 @@ class UnlockView(APIView):
 
 
 class RefreshTokenView(APIView):
+    throttle_classes = [ScopedThrottle]
+    throttle_scope = 'login'
+    throttle_by_ip = True
     authentication_classes = PANEL_AUTH
     permission_classes: list = []
 

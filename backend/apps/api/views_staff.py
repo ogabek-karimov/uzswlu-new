@@ -3,9 +3,9 @@ import re
 
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
-from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.views import APIView
 
+from apps.core.throttles import ScopedThrottle
 from apps.structure.models import StaffProfile
 
 from . import builders_staff as bst
@@ -58,6 +58,8 @@ class StaffHiddenView(PublicView):
 class CabinetView(APIView):
     authentication_classes = [StaffSessionAuthentication]
     permission_classes = [IsStaff]
+    throttle_classes = [ScopedThrottle]
+    throttle_scope = 'cabinet'
 
     @property
     def hemis_id(self) -> str:
@@ -74,7 +76,6 @@ class MeView(CabinetView):
 
 
 class MeAvatarView(CabinetView):
-    throttle_classes = [ScopedRateThrottle]
     throttle_scope = 'cabinet-upload'
 
     def post(self, request):
@@ -96,12 +97,9 @@ def _section(value: str) -> str:
 
 
 class MeDocumentsView(CabinetView):
-    throttle_classes = [ScopedRateThrottle]
-    throttle_scope = 'cabinet-upload'
-
-    def get_throttles(self):
-        # Faqat yuklashga cheklov; ro'yxat so'rovi cheklanmaydi
-        return super().get_throttles() if self.request.method == 'POST' else []
+    def get_throttle_scope(self, request):
+        # Yuklash (POST) qattiqroq cheklanadi, ro'yxat — umumiy kabinet chegarasi bilan
+        return 'cabinet-upload' if request.method == 'POST' else 'cabinet'
 
     def get(self, request, section):
         return Response(bst.docs_list_out(self.hemis_id, _section(section)))
