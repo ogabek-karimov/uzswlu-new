@@ -74,3 +74,17 @@ Menyu `/site` javobida keladi. Sahifa manzillari hozirgi sayt bilan bir xil (`/u
 `/qabul-20262027` …) — eski havolalar va Google'dagi o‘rinlar saqlanadi.
 Navbar sig‘magan bo‘limlarni o‘zi "⋯" tugmasi ichiga oladi (ekran torayganda, shrift kattalashtirilganda
 yoki uzun tillarda) — backend buni o‘ylashi shart emas.
+
+## Backend o'chib qolsa (stale-if-error)
+
+`server/utils/backend.ts` ommaviy GET so'rovlarining oxirgi muvaffaqiyatli javobini xotirada saqlaydi
+(`server/utils/last-good.ts`). Backend o'chsa, javob bermasa, timeout bo'lsa, 5xx yoki 429 qaytarsa —
+sayt saqlangan nusxani **3 soat** davomida ko'rsatadi (`NUXT_STALE_IF_ERROR_SECONDS=10800`, 0 — o'chirilgan).
+
+- Xatodan keyin 15 soniya (`NUXT_BACKEND_COOLDOWN_SECONDS`) backendga bormaydi — sahifalar qotmaydi, o'lik backend yuk olmaydi; keyin bitta so'rov tekshiruv sifatida boradi.
+- 404/422 kabi 4xx haqiqiy javob hisoblanadi, eski nusxa berilmaydi.
+- Qidiruv (`q`) va xodim kabineti (`/me`) saqlanmaydi (shaxsiy yoki cheksiz kalit). Kabinet va murojaat yuborish backend bo'lmasa ishlamaydi.
+- Eski nusxadan berilgan javobda `x-stale-age: <soniya>` sarlavhasi bor.
+- Nusxalar xotirada (eng ko'pi 600 ta); frontend qayta ishga tushsa tozalanadi.
+- Rasm/fayllar backenddan beriladi (`/media`): ular ham ishlab turishi uchun nginx orqali to'g'ridan-to'g'ri diskdan tarqating.
+- Sinov: `npm run test:last-good`.

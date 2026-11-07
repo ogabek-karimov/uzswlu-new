@@ -21,6 +21,10 @@ export default defineNuxtConfig({
     // O'zimizning CMS (Payload) — yangiliklar, e'lonlar, tadbirlar (.env: NUXT_CMS_BASE=http://localhost:3001/api/site).
     // Berilsa postlar shu yerdan olinadi; qolgan bo'limlar hozircha apiBase/mock'dan.
     cmsBase: '',
+    // Backend o'chib qolsa, oxirgi muvaffaqiyatli javob shuncha soniya ko'rsatib turiladi (.env: NUXT_STALE_IF_ERROR_SECONDS). 0 — o'chirilgan.
+    staleIfErrorSeconds: 3 * 60 * 60,
+    // Backend yiqilgandan keyin shuncha soniya unga bormasdan saqlangan nusxa beriladi (NUXT_BACKEND_COOLDOWN_SECONDS)
+    backendCooldownSeconds: 15,
     public: {
       siteUrl: 'http://localhost:3000',
     },
