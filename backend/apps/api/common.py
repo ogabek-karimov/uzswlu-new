@@ -19,16 +19,18 @@ __all__ = ['LANGS', 'pick', 'tr', 'local_date', 'restore_timeline', 'text_of']
 
 
 class ApiToken(BasePermission):
-    """`Authorization: Bearer <API_TOKEN>` (frontend serveri). API_TOKEN bo'sh bo'lsa — tekshirilmaydi."""
+    """`Authorization: Bearer <API_TOKEN>` (frontend serveri). API_TOKEN bo'sh bo'lsa — tekshirilmaydi.
+    Tokenni to'xtovsiz almashtirish: `API_TOKEN=yangi,eski` → frontendni yangilang → `API_TOKEN=yangi`."""
 
     message = 'Invalid or missing API token'
 
     def has_permission(self, request, view):
-        token = settings.API_TOKEN
-        if not token:
+        tokens = [t.strip() for t in (settings.API_TOKEN or '').split(',') if t.strip()]  # vergul bilan: eski+yangi (almashtirish uchun)
+        if not tokens:
             return True
         scheme, _, value = request.META.get('HTTP_AUTHORIZATION', '').partition(' ')
-        ok = scheme.lower() == 'bearer' and hmac.compare_digest(value.strip().encode(), token.encode())
+        given = value.strip().encode()
+        ok = scheme.lower() == 'bearer' and any([hmac.compare_digest(given, t.encode()) for t in tokens])  # ro'yxat bo'ylab to'liq o'tadi (vaqt bo'yicha farq bilinmasin)
         if ok:
             request._api_token_ok = True  # ishonchli sayt serveri: IP bo'yicha `public` chegarasi qo'llanmaydi
         return ok

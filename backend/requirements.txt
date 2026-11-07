@@ -1,4 +1,4 @@
-Django>=5.2,<5.3
+Django>=5.2.19,<5.3  # 5.2.19 (2026-11-03): 6 ta xavfsizlik tuzatishi
 djangorestframework>=3.16,<3.17
 django-cors-headers>=4.7,<5
 psycopg[binary]>=3.2,<4

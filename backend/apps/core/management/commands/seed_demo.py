@@ -93,6 +93,11 @@ class Command(BaseCommand):
         if not password:
             self.stdout.write(self.style.WARNING('SUPERADMIN_PASSWORD .env faylida yo‘q — superadmin yaratilmadi'))
             return
+        from django.conf import settings
+        from apps.core.checks import WEAK_PASSWORDS
+        if not settings.DEBUG and (password.lower() in WEAK_PASSWORDS or len(password) < 12):
+            self.stdout.write(self.style.ERROR('SUPERADMIN_PASSWORD oddiy yoki 12 belgidan qisqa — productionda superadmin yaratilmadi. .env da kuchli parol qo‘ying.'))
+            return
         User.objects.create_superuser(username=username, password=password, name=os.environ.get('SUPERADMIN_NAME', 'Superadmin'), role='superadmin')
         self.say(f'Superadmin yaratildi: {username}')
 

@@ -371,3 +371,20 @@ class PostOwnershipTests(Base):
         res = api('post', '/api/cms/posts', h, {'type': 'news', 'title': {'uz': 'Yangi post'}, 'slug': 'yangi-post'})
         self.assertEqual(res.status_code, 201, res.content)
         self.assertEqual(Post.objects.get(slug='yangi-post').author_id, self.pages.pk)
+
+
+class TokenRotationAndChecksTests(Base):
+    def test_old_and_new_api_token_both_work_during_rotation(self):
+        with override_settings(API_TOKEN='new-token-value,old-token-value'):
+            for t in ('new-token-value', 'old-token-value'):
+                self.assertEqual(Client(**HOST).get('/api/faculties', HTTP_AUTHORIZATION=f'Bearer {t}').status_code, 200)
+            self.assertEqual(Client(**HOST).get('/api/faculties', HTTP_AUTHORIZATION='Bearer third').status_code, 403)
+            self.assertEqual(Client(**HOST).get('/api/faculties', HTTP_AUTHORIZATION='Bearer new-token-value,old-token-value').status_code, 403)
+
+    def test_production_checks_warn_about_weak_settings(self):
+        from apps.core.checks import security_settings
+        with override_settings(DEBUG=False, API_TOKEN='short', API_DOCS_PUBLIC=True, ALLOWED_HOSTS=['*']):
+            ids = {w.id for w in security_settings(None)}
+        self.assertTrue({'uzswlu.W002', 'uzswlu.W004', 'uzswlu.W005', 'uzswlu.W006'} <= ids)
+        with override_settings(DEBUG=True):
+            self.assertEqual(security_settings(None), [])

@@ -124,4 +124,7 @@ IP `X-Forwarded-For` dan faqat `NUM_PROXIES` (ishonchli proksilar soni) hisobga 
 - Gunicorn: `WEB_CONCURRENCY`×`WEB_THREADS`, so'rov vaqti 30 s, har 1000 so'rovdan keyin jarayon yangilanadi (xotira oqishi), so'rov satri/sarlavhalari cheklangan. Yuklama oshsa — `WEB_CONCURRENCY` ni oshiring va `REDIS_URL` bering.
 - Production: HSTS, `Secure`/`HttpOnly`/`SameSite` cookie, `nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy`.
 
-Testlar: `python manage.py test apps.api` (33 ta: IDOR, parol oracle, so'rov cheklovi, kesh).
+- `API_TOKEN` almashtirish to'xtovsiz: `API_TOKEN=yangi,eski` (ikkalasi ishlaydi) → frontendni yangilang → `API_TOKEN=yangi`. Production ishga tushganda zaif sozlamalar (qisqa token/SECRET_KEY, `ALLOWED_HOSTS=*`, `NUM_PROXIES=0`, ochiq Swagger) haqida ogohlantirish chiqadi (`manage.py check`); zaif `SUPERADMIN_PASSWORD` bilan productionda superadmin yaratilmaydi.
+- Kutubxona zaifliklari: `requirements.txt` da Django ≥ 5.2.19. Vaqti-vaqti bilan: `pip install pip-audit && pip-audit -r requirements.txt` va admin/frontend papkalarida `npm audit`; Docker'ni `--build` bilan qayta yig'ish yangi tuzatishlarni oladi.
+
+Testlar: `python manage.py test apps.api` (IDOR, parol oracle, so'rov cheklovi, kesh, JWT, post egaligi).
