@@ -76,7 +76,26 @@ SWAGGER_THEME=modern (sukut) | classic
   .try { margin-top: 10px; display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--muted); }
   .try button { font: 600 12.5px var(--sans); color: #fff; background: var(--accent); border: 0; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
   .try button:hover { background: var(--accent-ink); } .try .ok { color: var(--post); font-weight: 600; } .try .bad { color: var(--del); font-weight: 600; }
-  .term { position: relative; margin: 10px 0 0; background: var(--code-bg); color: var(--code-ink); border-radius: 10px; padding: 34px 14px 11px; font-size: 12.5px; line-height: 1.55; overflow-x: auto; white-space: pre; }
+  /* batafsil kartalar */
+  .cards { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cards.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .card { min-width: 0; background: var(--soft); border: 1px solid transparent; border-radius: 14px; padding: 18px 20px; }
+  .card h4 { margin: 0 0 4px; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .card .what { margin: 0 0 12px; font-size: 13.5px; color: var(--muted); }
+  .pill { font: 600 10.5px var(--sans); padding: 2px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); }
+  .pill.g { background: var(--post-bg); color: var(--post); } .pill.o { background: var(--put-bg); color: var(--put); } .pill.r { background: var(--del-bg); color: var(--del); }
+  .dl { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 7px 12px; margin: 0; font-size: 13px; }
+  .dl dt { color: var(--muted); font-weight: 500; } .dl dd { margin: 0; color: var(--ink); overflow-wrap: anywhere; }
+  .ep { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .ep li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 4px 10px; align-items: baseline; font-size: 13px; }
+  .ep .m { font: 600 10.5px var(--mono); text-align: center; border-radius: 5px; padding: 2px 0; background: var(--get-bg); color: var(--get); }
+  .ep .m.post { background: var(--post-bg); color: var(--post); } .ep .m.patch, .ep .m.put { background: var(--put-bg); color: var(--put); } .ep .m.del { background: var(--del-bg); color: var(--del); }
+  .ep code { background: transparent; padding: 0; color: var(--ink); font-size: 12.5px; overflow-wrap: anywhere; } .ep span.d { color: var(--muted); grid-column: 2; font-size: 12.5px; margin-top: -3px; }
+  .resp { margin: 12px 0 0; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; font-size: 11.5px; line-height: 1.5; color: #44506a; overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .resp::before { content: attr(data-t); display: block; font: 600 10.5px var(--sans); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+  .note { margin: 14px 2px 0; font-size: 13px; color: var(--muted); } .note b { color: var(--ink); }
+  .can { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; } .can span { font-size: 12px; padding: 2px 9px; border-radius: 999px; background: #fff; border: 1px solid var(--line); color: var(--ink); } .can span.no { color: var(--muted); text-decoration: line-through; }
+  .term { position: relative; margin: 10px 0 0; background: var(--code-bg); color: var(--code-ink); border-radius: 10px; padding: 34px 14px 11px; font-size: 12.5px; line-height: 1.55; overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
   .copy { position: absolute; top: 6px; right: 6px; font: 500 11px var(--sans); color: #c7cfdd; background: rgba(255,255,255,.08); border: 0; border-radius: 6px; padding: 4px 8px; cursor: pointer; }
   .copy:hover { background: rgba(255,255,255,.16); }
   .kv { width: 100%; border-collapse: collapse; font-size: 13.5px; }
@@ -131,7 +150,7 @@ SWAGGER_THEME=modern (sukut) | classic
   .swagger-ui section.models { display: none; }
 
   @media (max-width: 860px) { .grid, .grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } .cards, .cards.three { grid-template-columns: 1fr; } }
   @media (max-width: 600px) { .top { padding-top: 20px; } .hero { padding: 22px 18px; } .guide { padding: 4px 14px 16px; } .grid, .grid.two, .grid.four { grid-template-columns: 1fr; } .kv td:first-child { white-space: normal; } }
 </style>
 {% endblock head %}
@@ -173,6 +192,8 @@ SWAGGER_THEME=modern (sukut) | classic
   <section class="guide" aria-label="Qo‘llanma">
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" data-p="start" aria-selected="true">Tez boshlash</button>
+      <button class="tab" role="tab" data-p="site" aria-selected="false">Sayt API</button>
+      <button class="tab" role="tab" data-p="cms" aria-selected="false">Admin API</button>
       <button class="tab" role="tab" data-p="auth" aria-selected="false">Kirish usullari</button>
       <button class="tab" role="tab" data-p="lang" aria-selected="false">Til va sahifalash</button>
       <button class="tab" role="tab" data-p="err" aria-selected="false">Xatolar</button>
@@ -180,60 +201,161 @@ SWAGGER_THEME=modern (sukut) | classic
     </div>
 
     <div class="panel on" id="p-start">
-      <div class="grid steps">
-        <div class="box"><i class="bar"></i><h4><span class="num">1</span>Ochiq API'ni sinang</h4><p>Sayt ma’lumotlari. <code>API_TOKEN</code> bo‘sh bo‘lsa, sarlavha shart emas.</p>
+      <div class="cards three steps">
+        <div class="card box"><i class="bar"></i><h4><span class="num">1</span>Ochiq API’ni sinang</h4>
+          <p class="what">Sayt ko‘rsatadigan ma’lumot (yangilik, fakultet, hujjat…) kirishsiz olinadi. <code>API_TOKEN</code> belgilangan bo‘lsa, shu token yuboriladi.</p>
           <div class="term"><button class="copy">Nusxa</button>curl -H "Authorization: Bearer &lt;API_TOKEN&gt;" \
-  "__HOST__/api/home?lang=uz"</div>
-          <div class="try"><button type="button" id="try">Jonli sinab ko‘rish</button><span id="try-out"></span></div></div>
-        <div class="box"><i class="bar"></i><h4><span class="num">2</span>Admin sifatida kiring</h4><p>Javobdagi <code>token</code> — JWT, 8 soat amal qiladi.</p>
+  "__HOST__/api/posts?perPage=1&amp;lang=uz"</div>
+          <div class="try"><button type="button" id="try">Jonli sinab ko‘rish</button><span id="try-out"></span></div>
+          <pre class="resp" data-t="Javob · 200">{ "items": [{ "id": "2", "slug": "tilim-faxrim", "type": "news",
+    "title": "…", "category": "Ma’naviyat", "date": "2026-10-20" }],
+  "total": 14, "page": 1, "perPage": 1,
+  "counts": { "news": 14, "announcements": 5, "events": 8 } }</pre></div>
+        <div class="card box"><i class="bar"></i><h4><span class="num">2</span>Admin sifatida kiring</h4>
+          <p class="what">Login va parol bilan kirasiz. Javobda <b>JWT token</b> keladi — Swagger’dan yoki o‘z dasturingizdan admin API’ga murojaat qilish uchun shu kerak.</p>
           <div class="term"><button class="copy">Nusxa</button>curl -X POST __HOST__/api/cms/users/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"superadmin","password":"…"}'</div></div>
-        <div class="box"><i class="bar"></i><h4><span class="num">3</span>Tokenni ishlating</h4><p>Swagger’da: pastdagi <b>Authorize</b> → <code>panelJwt</code>. Kodda:</p>
+  -d '{"username":"superadmin","password":"…"}'</div>
+          <pre class="resp" data-t="Javob · 200">{ "message": "Kirish muvaffaqiyatli",
+  "user": { "id": 1, "username": "superadmin", "role": "superadmin" },
+  "token": "eyJhbGciOiJIUzI1NiIs…", "tokenType": "Bearer",
+  "tokenExp": 1762560000 }</pre></div>
+        <div class="card box"><i class="bar"></i><h4><span class="num">3</span>Tokenni ishlating</h4>
+          <p class="what">Tokenni har so‘rovda <code>Authorization</code> sarlavhasiga qo‘yasiz. Swagger’da: pastdagi <b>Authorize</b> → <code>panelJwt</code> maydoniga token → <b>Authorize</b>. Keyin har amalda <b>Try it out</b> ishlaydi.</p>
           <div class="term"><button class="copy">Nusxa</button>curl -H "Authorization: Bearer &lt;JWT&gt;" \
-  "__HOST__/api/cms/posts?limit=10"</div></div>
+  "__HOST__/api/cms/posts?limit=10&amp;sort=-createdAt"</div>
+          <pre class="resp" data-t="Javob · 200">{ "docs": [ … ], "totalDocs": 27, "page": 1,
+  "totalPages": 3, "hasNextPage": true }</pre></div>
+      </div>
+      <p class="note">Token muddati tugasa (<b>8 soat</b>) <code>POST /api/cms/users/refresh-token</code> yangi token beradi.</p>
+    </div>
+
+    <div class="panel" id="p-site">
+      <div class="cards">
+        <div class="card"><h4>Bosh sahifa va umumiy <span class="pill g">ochiq</span></h4><p class="what">Sayt bosh sahifasi uchun yig‘ma ma’lumot, aloqa, qidiruv va murojaat yuborish.</p>
+          <ul class="ep">
+            <li><span class="m">GET</span><code>/api/home</code><span class="d">Slaydlar, so‘nggi yangiliklar, statistika — bosh sahifa uchun hammasi bir so‘rovda.</span></li>
+            <li><span class="m">GET</span><code>/api/site</code><span class="d">Sayt sozlamalari: nom, aloqa, ijtimoiy tarmoqlar, davlat ramzlari.</span></li>
+            <li><span class="m">GET</span><code>/api/search?q=</code><span class="d">Postlar, sahifalar va xodimlar bo‘yicha qidiruv.</span></li>
+            <li><span class="m post">POST</span><code>/api/appeals</code><span class="d">Qabulxonaga murojaat yuborish (soatiga 60 tagacha).</span></li></ul></div>
+        <div class="card"><h4>Yangiliklar va tadbirlar <span class="pill g">ochiq</span></h4><p class="what">Yangilik, e’lon va tadbirlar ro‘yxati; sana, kategoriya va oy bo‘yicha filtr.</p>
+          <ul class="ep">
+            <li><span class="m">GET</span><code>/api/posts</code><span class="d"><code>type=news|announcements|events</code>, <code>category</code>, <code>month</code>, <code>page</code>, <code>perPage</code>.</span></li>
+            <li><span class="m">GET</span><code>/api/posts/{type}/{slug}</code><span class="d">Bitta maqola: to‘liq matn, rasm o‘lchamlari, boshqa tillardagi nusxalari.</span></li>
+            <li><span class="m">GET</span><code>/api/events</code><span class="d">Kelgusi va o‘tgan tadbirlar.</span></li></ul></div>
+        <div class="card"><h4>Tuzilma <span class="pill g">ochiq</span></h4><p class="what">Universitet qanday tuzilgani: sahifalar, rahbariyat, fakultetlar, ta’lim yo‘nalishlari.</p>
+          <ul class="ep">
+            <li><span class="m">GET</span><code>/api/pages/{slug}</code><span class="d">Statik sahifa (universitet haqida, tarix, …).</span></li>
+            <li><span class="m">GET</span><code>/api/leadership</code><span class="d">Rektor va prorektorlar.</span></li>
+            <li><span class="m">GET</span><code>/api/faculties/{slug}</code><span class="d">Fakultetlar va ularning kafedralari.</span></li>
+            <li><span class="m">GET</span><code>/api/programs</code><span class="d">Ta’lim yo‘nalishlari.</span></li>
+            <li><span class="m">GET</span><code>/api/staff/{id}</code><span class="d">Professor-o‘qituvchilar ro‘yxati va profili.</span></li></ul></div>
+        <div class="card"><h4>Hujjat, video, BRM, statistika <span class="pill g">ochiq</span></h4><p class="what">Yuklab olinadigan hujjatlar, videolar, Barqaror rivojlanish maqsadlari va tashrif hisobi.</p>
+          <ul class="ep">
+            <li><span class="m">GET</span><code>/api/documents</code><span class="d">Hujjatlar ro‘yxati; fayl: <code>/api/documents/{id}/file</code>.</span></li>
+            <li><span class="m">GET</span><code>/api/videos</code><span class="d">YouTube videolar.</span></li>
+            <li><span class="m">GET</span><code>/api/sdg/{n}</code><span class="d">BRM bosh sahifasi va 1–17 maqsad sahifalari.</span></li>
+            <li><span class="m post">POST</span><code>/api/hit</code><span class="d">Sahifa ko‘rilganini hisoblash (daqiqasiga 120 tagacha, tokensiz).</span></li></ul></div>
+      </div>
+      <p class="note">Hammasida <code>?lang=uz|ru|en|zh</code> ishlaydi. Eski Payload manzillari ham saqlangan: <code>/api/site/*</code> (21 ta, tokensiz).</p>
+    </div>
+
+    <div class="panel" id="p-cms">
+      <div class="cards">
+        <div class="card"><h4>Qanday ishlaydi <span class="pill o">admin</span></h4><p class="what">Vue admin panel shu API bilan ishlaydi. Har bir bo‘lim (kolleksiya) bir xil usulda: ro‘yxat, bitta yozuv, yaratish, tahrirlash, o‘chirish.</p>
+          <ul class="ep">
+            <li><span class="m">GET</span><code>/api/cms/{bo‘lim}</code><span class="d">Ro‘yxat (sahifalab). Soni: <code>/count</code>.</span></li>
+            <li><span class="m post">POST</span><code>/api/cms/{bo‘lim}</code><span class="d">Yangi yozuv yaratish.</span></li>
+            <li><span class="m">GET</span><code>/api/cms/{bo‘lim}/{id}</code><span class="d">Bitta yozuv.</span></li>
+            <li><span class="m patch">PATCH</span><code>/api/cms/{bo‘lim}/{id}</code><span class="d">Tahrirlash (faqat yuborilgan maydonlar).</span></li>
+            <li><span class="m del">DEL</span><code>/api/cms/{bo‘lim}/{id}</code><span class="d">O‘chirish (rolga bog‘liq).</span></li></ul></div>
+        <div class="card"><h4>Filtr, saralash, sahifalash</h4><p class="what">Barcha ro‘yxatlarda bir xil parametrlar.</p>
+          <dl class="dl">
+            <dt>limit, page</dt><dd>Sahifadagi soni va sahifa raqami.</dd>
+            <dt>sort</dt><dd><code>createdAt</code> — o‘sish, <code>-createdAt</code> — kamayish.</dd>
+            <dt>where</dt><dd><code>where[type][equals]=news</code>, <code>where[title][contains]=qabul</code></dd>
+            <dt>depth</dt><dd>Bog‘liq yozuvlarni (rasm, kategoriya) ichiga yuklash chuqurligi.</dd></dl>
+          <pre class="resp" data-t="Javob shakli">{ "docs": [ … ], "totalDocs": 27, "page": 1,
+  "totalPages": 3, "hasNextPage": true, "hasPrevPage": false }</pre></div>
+        <div class="card"><h4>Bo‘limlar</h4><p class="what">Swagger’da ular guruhlarga bo‘lingan:</p>
+          <dl class="dl">
+            <dt>Postlar</dt><dd>yangilik, e’lon, tadbir, kategoriyalar</dd>
+            <dt>Media</dt><dd>rasm, PDF, audio (rasmlar yuklanganda WebP’ga aylanadi)</dd>
+            <dt>Sahifalar</dt><dd>sahifalar, hujjatlar, videolar</dd>
+            <dt>Tuzilma</dt><dd>slaydlar, rahbariyat, fakultet, kafedra, xodim</dd>
+            <dt>BRM</dt><dd>17 maqsad va BRM bosh sahifasi</dd>
+            <dt>Sozlamalar</dt><dd>sayt sozlamalari, ramzlar, video sahifa (+ o‘zgarishlar tarixi)</dd>
+            <dt>Foydalanuvchilar</dt><dd>hisoblar, kirish tarixi, faollik jurnali</dd></dl></div>
+        <div class="card"><h4>Qo‘shimcha imkoniyatlar</h4><p class="what">Faqat admin panelga xos amallar.</p>
+          <dl class="dl">
+            <dt>Tarix</dt><dd><code>/{bo‘lim}/{id}/versions</code> — oldingi nusxalarni ko‘rish va tiklash.</dd>
+            <dt>Globallar</dt><dd><code>/api/cms/globals/{nom}</code> — yagona sozlamalar (sayt, ramzlar).</dd>
+            <dt>Statistika</dt><dd><code>/api/cms/panel/overview</code> — boshqaruv paneli raqamlari.</dd>
+            <dt>Media</dt><dd>Qayerda ishlatilgani: <code>/panel/media-usage/{id}</code>.</dd></dl></div>
       </div>
     </div>
 
     <div class="panel" id="p-auth">
-      <table class="kv">
-        <tr><td>Ochiq sayt API’si</td><td><code>bearerAuth</code> — <code>Authorization: Bearer &lt;API_TOKEN&gt;</code>. Token <code>backend/.env</code> dagi <code>API_TOKEN</code>; bo‘sh bo‘lsa tekshirilmaydi. <code>/api/site/*</code> va <code>/api/hit</code> tokensiz ochiq.</td></tr>
-        <tr><td>Admin panel <code class="cd">/api/cms/*</code></td><td><code>panelJwt</code> — login javobidagi JWT (yangilash: <code>/users/refresh-token</code>) yoki <code>panelSession</code> — brauzer cookie’si (yozishda <code>Origin</code> ruxsat etilgan bo‘lishi kerak).</td></tr>
-        <tr><td>Xodim kabineti <code class="cd">/api/me*</code></td><td><code>userSession</code> — HEMIS orqali kirgan sessiya cookie’si, yoki <code>staffBearer</code> — <code>issue_staff_session</code> tokeni.</td></tr>
-      </table>
-      <p style="margin:12px 4px 0;color:var(--muted);font-size:13px">JWT muddati tugasa, hisob yopilsa yoki parol o‘zgarsa bekor bo‘ladi.</p>
+      <div class="cards three">
+        <div class="card"><h4>Sayt API’si <span class="pill g">bearerAuth</span></h4><p class="what">Nuxt sayt serveri backend’ga shu bilan murojaat qiladi.</p>
+          <dl class="dl"><dt>Kim uchun</dt><dd>Sayt (frontend) va tashqi dasturlar</dd>
+            <dt>Qayerdan</dt><dd><code>backend/.env</code> → <code>API_TOKEN</code>. O‘zingiz o‘ylab topasiz, frontend <code>.env</code> ga ham shuni yozasiz.</dd>
+            <dt>Yuborish</dt><dd><code>Authorization: Bearer &lt;API_TOKEN&gt;</code></dd>
+            <dt>Muddati</dt><dd>Doimiy (qo‘lda almashtirguncha)</dd>
+            <dt>Eslatma</dt><dd><code>API_TOKEN</code> bo‘sh bo‘lsa tekshirilmaydi; <code>/api/site/*</code> va <code>/api/hit</code> har doim ochiq.</dd></dl></div>
+        <div class="card"><h4>Admin panel <span class="pill o">panelJwt · panelSession</span></h4><p class="what"><code>/api/cms/*</code> uchun. Ikki xil yo‘l: JWT yoki brauzer cookie.</p>
+          <dl class="dl"><dt>Kim uchun</dt><dd>Admin panel foydalanuvchilari (5 rol)</dd>
+            <dt>Qayerdan</dt><dd><code>POST /api/cms/users/login</code> javobidagi <code>token</code></dd>
+            <dt>Yuborish</dt><dd><code>Authorization: Bearer &lt;JWT&gt;</code> yoki sessiya cookie’si</dd>
+            <dt>Muddati</dt><dd>8 soat. Yangilash: <code>/users/refresh-token</code></dd>
+            <dt>Bekor bo‘ladi</dt><dd>Muddat tugasa, hisob yopilsa, parol o‘zgarsa.</dd>
+            <dt>Cookie bilan</dt><dd>Yozish (POST/PATCH/DELETE) uchun <code>Origin</code> ruxsat etilgan bo‘lishi kerak.</dd></dl></div>
+        <div class="card"><h4>Xodim kabineti <span class="pill r">userSession · staffBearer</span></h4><p class="what"><code>/api/me*</code> — xodim o‘z profili, rasmi va hujjatlari bilan ishlaydi.</p>
+          <dl class="dl"><dt>Kim uchun</dt><dd>Universitet xodimlari</dd>
+            <dt>Qayerdan</dt><dd>HEMIS orqali kirish (<code>/api/auth/hemis/login</code>) — sessiya cookie’si</dd>
+            <dt>Yuborish</dt><dd>Cookie yoki <code>Authorization: Bearer &lt;staff token&gt;</code></dd>
+            <dt>Limit</dt><dd>Fayl yuklash soatiga 30 ta</dd></dl></div>
+      </div>
+      <p class="note">Swagger’da tokenni kiritish: yuqoridagi <b>Authorize</b> tugmasi. Qulf belgisi (🔒) bor amal himoyalangan.</p>
     </div>
 
     <div class="panel" id="p-lang">
-      <div class="grid two">
-        <div class="box"><h4>Ochiq sayt API’si</h4><p><code>?lang=uz|ru|en|zh</code> — til (tarjima bo‘lmasa o‘zbekcha). Ro‘yxatlarda <code>?page=1&amp;perPage=12</code> (ko‘pi bilan 48).</p>
-          <div class="term"><button class="copy">Nusxa</button>__HOST__/api/posts?type=news&amp;lang=ru&amp;page=2&amp;perPage=12</div></div>
-        <div class="box"><h4>Admin panel API’si</h4><p><code>limit</code>, <code>page</code>, <code>sort</code> (<code>-createdAt</code>), <code>depth</code> va <code>where[maydon][equals]=…</code> filtri. Javob: <code>docs</code>, <code>totalDocs</code>, <code>totalPages</code>, <code>hasNextPage</code>.</p>
-          <div class="term"><button class="copy">Nusxa</button>__HOST__/api/cms/posts?where[type][equals]=news&amp;sort=-publishedAt&amp;limit=20&amp;page=1</div></div>
+      <div class="cards">
+        <div class="card"><h4>Til <span class="pill g">sayt</span></h4><p class="what">Barcha matnlar 4 tilda saqlanadi. <code>?lang=</code> bilan bittasini so‘raysiz.</p>
+          <dl class="dl"><dt>Qiymatlar</dt><dd><code>uz</code> (sukut) · <code>ru</code> · <code>en</code> · <code>zh</code></dd><dt>Tarjima yo‘q</dt><dd>O‘zbekcha matn qaytadi.</dd></dl>
+          <div class="term"><button class="copy">Nusxa</button>__HOST__/api/posts?type=news&amp;lang=ru</div></div>
+        <div class="card"><h4>Sahifalash <span class="pill g">sayt</span></h4><p class="what">Ro‘yxatlar bo‘laklab qaytadi.</p>
+          <dl class="dl"><dt>Parametr</dt><dd><code>page</code> (1 dan), <code>perPage</code> (ko‘pi bilan 48)</dd><dt>Javob</dt><dd><code>items</code>, <code>total</code>, <code>page</code>, <code>perPage</code></dd></dl>
+          <div class="term"><button class="copy">Nusxa</button>__HOST__/api/posts?page=2&amp;perPage=12</div></div>
+        <div class="card"><h4>Admin ro‘yxatlari <span class="pill o">admin</span></h4><p class="what">Payload bilan bir xil shakl, admin panel shunga tayangan.</p>
+          <dl class="dl"><dt>Parametr</dt><dd><code>limit</code>, <code>page</code>, <code>sort</code>, <code>depth</code>, <code>where[…]</code></dd><dt>Javob</dt><dd><code>docs</code>, <code>totalDocs</code>, <code>totalPages</code>, <code>hasNextPage</code></dd></dl>
+          <div class="term"><button class="copy">Nusxa</button>__HOST__/api/cms/posts?where[type][equals]=news&amp;sort=-publishedAt&amp;limit=20</div></div>
+        <div class="card"><h4>Tartib barqaror</h4><p class="what">Bir xil <code>sort</code> qiymatli yozuvlar bo‘lsa ham, sahifalar orasida yozuv takrorlanmaydi va tushib qolmaydi.</p></div>
       </div>
     </div>
 
     <div class="panel" id="p-err">
-      <table class="kv">
-        <tr><td><code class="cd">401</code></td><td>Kirilmagan yoki JWT yaroqsiz / muddati tugagan.</td></tr>
-        <tr><td><code class="cd">403</code></td><td>Rolingizga bu amal ruxsat etilmagan, <code>API_TOKEN</code> noto‘g‘ri yoki <code>Origin</code> ruxsat etilmagan.</td></tr>
-        <tr><td><code class="cd">404</code></td><td>Topilmadi.</td></tr>
-        <tr><td><code class="cd">422</code></td><td>Maydonlar noto‘g‘ri to‘ldirilgan (xabar javobda).</td></tr>
-        <tr><td><code class="cd">423</code></td><td>5 marta noto‘g‘ri parol — hisob 15 daqiqaga bloklangan.</td></tr>
-        <tr><td><code class="cd">429</code></td><td>So‘rovlar juda ko‘p (masalan, murojaat yuborishda).</td></tr>
-      </table>
-      <p style="margin:12px 4px 0;color:var(--muted);font-size:13px">Xato shakli: <code>{"errors":[{"message":"…"}],"message":"…"}</code></p>
+      <div class="cards three">
+        <div class="card"><h4><span class="pill r">401</span>Kirilmagan</h4><p class="what">Token yo‘q, yaroqsiz yoki muddati tugagan. Qayta kiring yoki <code>refresh-token</code> qiling.</p></div>
+        <div class="card"><h4><span class="pill r">403</span>Ruxsat yo‘q</h4><p class="what">Rolingiz bu amalga ruxsat bermaydi, <code>API_TOKEN</code> noto‘g‘ri, hisob yopilgan yoki cookie bilan yozishda <code>Origin</code> ruxsat etilmagan.</p></div>
+        <div class="card"><h4><span class="pill">404</span>Topilmadi</h4><p class="what">Yozuv yo‘q yoki manzil noto‘g‘ri (masalan, mavjud bo‘lmagan <code>slug</code>).</p></div>
+        <div class="card"><h4><span class="pill o">422</span>Noto‘g‘ri ma’lumot</h4><p class="what">Maydonlar to‘ldirilmagan yoki shakli xato. Qaysi maydon ekani javobda yoziladi.</p></div>
+        <div class="card"><h4><span class="pill o">423</span>Hisob bloklangan</h4><p class="what">5 marta noto‘g‘ri parol — 15 daqiqaga bloklanadi. Superadmin <code>/users/unlock</code> bilan ochadi.</p></div>
+        <div class="card"><h4><span class="pill o">429</span>Juda ko‘p so‘rov</h4><p class="what">Limit: murojaat soatiga 60, hit daqiqasiga 120, kabinet yuklashi soatiga 30. Birozdan keyin urining.</p></div>
+      </div>
+      <pre class="resp" data-t="Xato shakli (hammasida bir xil)">{ "errors": [{ "message": "Login yoki parol noto‘g‘ri" }],
+  "message": "Login yoki parol noto‘g‘ri" }</pre>
     </div>
 
     <div class="panel" id="p-roles">
-      <div class="grid four">
-        <div class="box"><h4>superadmin</h4><p>Hammasi, shu jumladan foydalanuvchilar va jurnal.</p></div>
-        <div class="box"><h4>editor</h4><p>Kontent muharriri: postlar, media.</p></div>
-        <div class="box"><h4>faculty</h4><p>Fakultet admini: o‘z fakulteti va kafedralari.</p></div>
-        <div class="box"><h4>pages</h4><p>Sahifalar, hujjatlar, videolar muharriri.</p></div>
-        <div class="box"><h4>sdg</h4><p>BRM menejeri: 17 maqsad matni, rasmlari, hisobotlari.</p></div>
+      <div class="cards three">
+        <div class="card"><h4>superadmin <span class="pill">to‘liq</span></h4><p class="what">Hamma narsa.</p><div class="can"><span>hamma bo‘lim</span><span>o‘chirish</span><span>foydalanuvchilar</span><span>kirish tarixi</span><span>faollik jurnali</span></div></div>
+        <div class="card"><h4>editor <span class="pill g">kontent</span></h4><p class="what">Postlar va media bilan ishlaydi, qolganini faqat ko‘radi.</p><div class="can"><span>postlar: yaratish/tahrir</span><span>media yuklash</span><span class="no">o‘chirish</span><span class="no">sahifalar</span></div></div>
+        <div class="card"><h4>faculty <span class="pill g">fakultet</span></h4><p class="what">Postlar va o‘z fakulteti/kafedrasi ma’lumoti.</p><div class="can"><span>postlar</span><span>fakultetni tahrirlash</span><span>kafedra va xodim</span><span class="no">sahifalar</span></div></div>
+        <div class="card"><h4>pages <span class="pill g">sahifalar</span></h4><p class="what">Sahifalar, hujjatlar, videolar va tuzilma.</p><div class="can"><span>sahifalar</span><span>hujjatlar</span><span>videolar</span><span>slaydlar</span><span>postlar</span></div></div>
+        <div class="card"><h4>sdg <span class="pill g">BRM</span></h4><p class="what">17 ta maqsad matni, rasmlari va hisobotlari.</p><div class="can"><span>BRM maqsadlari</span><span>media yuklash</span><span class="no">postlar</span></div></div>
       </div>
-      <p style="margin:12px 4px 0;color:var(--muted);font-size:13px">Har bir amalning tavsifida unga ruxsat etilgan rollar jadvali bor.</p>
+      <p class="note">Barcha rollar hamma bo‘limni <b>ko‘ra oladi</b> (kirish tarixi va faollik jurnalidan tashqari — ular faqat superadmin uchun). Har amalning tavsifida shu amalga ruxsat etilgan rollar jadvali bor.</p>
     </div>
   </section>
 </header>
@@ -266,7 +388,7 @@ SWAGGER_THEME=modern (sukut) | classic
     var tr = document.getElementById('try'), out = document.getElementById('try-out');
     tr.addEventListener('click', function () {
       out.className = ''; out.textContent = 'so‘ralmoqda…'; var t0 = performance.now();
-      fetch('/api/home?lang=uz', { credentials: 'same-origin' }).then(function (r) { var ms = Math.round(performance.now() - t0); out.className = r.ok ? 'ok' : 'bad'; out.textContent = r.status + ' · ' + ms + ' ms' + (r.status === 401 ? ' (API_TOKEN kerak)' : ''); }).catch(function () { out.className = 'bad'; out.textContent = 'ulanib bo‘lmadi'; });
+      fetch('/api/posts?perPage=1&lang=uz', { credentials: 'same-origin' }).then(function (r) { var ms = Math.round(performance.now() - t0); out.className = r.ok ? 'ok' : 'bad'; out.textContent = r.status + ' · ' + ms + ' ms' + (r.status === 401 ? ' (API_TOKEN kerak)' : ''); }).catch(function () { out.className = 'bad'; out.textContent = 'ulanib bo‘lmadi'; });
     });
     // Swagger UI sxemani o'zi yuklab bo'lgach (parallel generatsiya poygasiz) amallar sonini hisoblaymiz
     window.addEventListener('load', function () {
