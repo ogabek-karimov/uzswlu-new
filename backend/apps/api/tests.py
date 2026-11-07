@@ -261,3 +261,55 @@ class PanelAuthTests(Base):
         self.editor.save()
         self.assertEqual(api('get', '/api/cms/users/me', h).status_code, 401)
         self.assertEqual(api('get', '/api/cms/posts', h).status_code, 401)
+
+
+class PasswordAndRevocationTests(Base):
+    def test_own_password_change_needs_current_password(self):
+        h = jwt_for('ed')
+        url = f'/api/cms/users/{self.editor.pk}'
+        self.assertEqual(api('patch', url, h, {'password': 'Yangi-parol-12345!'}).status_code, 400)
+        self.assertEqual(api('patch', url, h, {'password': 'Yangi-parol-12345!', 'currentPassword': 'xato'}).status_code, 400)
+        self.editor.refresh_from_db()
+        self.assertTrue(self.editor.check_password('Pw-12345678!'))
+        self.assertEqual(api('patch', url, h, {'password': 'Yangi-parol-12345!', 'currentPassword': 'Pw-12345678!'}).status_code, 200)
+        self.editor.refresh_from_db()
+        self.assertTrue(self.editor.check_password('Yangi-parol-12345!'))
+
+    def test_current_password_guessing_is_stopped(self):
+        h = jwt_for('ed')
+        url = f'/api/cms/users/{self.editor.pk}'
+        codes = [api('patch', url, h, {'password': 'Yangi-parol-12345!', 'currentPassword': f'x{i}'}).status_code for i in range(7)]
+        self.assertEqual(codes[:5], [400] * 5)
+        self.assertEqual(codes[5], 403)
+        # to'xtatilgandan keyin to'g'ri parol ham qabul qilinmaydi
+        self.assertEqual(api('patch', url, h, {'password': 'Yangi-parol-12345!', 'currentPassword': 'Pw-12345678!'}).status_code, 403)
+
+    def test_superadmin_can_reset_other_users_password(self):
+        h = jwt_for('root')
+        res = api('patch', f'/api/cms/users/{self.editor.pk}', h, {'password': 'Tiklangan-parol-1!'})
+        self.assertEqual(res.status_code, 200)
+
+    def test_logout_revokes_jwt(self):
+        h = jwt_for('ed')
+        self.assertEqual(api('get', '/api/cms/posts', h).status_code, 200)
+        self.assertEqual(api('post', '/api/cms/users/logout', h).status_code, 200)
+        self.assertEqual(api('get', '/api/cms/posts', h).status_code, 401)
+
+    def test_refresh_revokes_old_token_and_new_works(self):
+        h = jwt_for('ed')
+        res = api('post', '/api/cms/users/refresh-token', h)
+        self.assertEqual(res.status_code, 200)
+        new = {'HTTP_AUTHORIZATION': f"Bearer {res.json()['token']}", **HOST}
+        self.assertEqual(api('get', '/api/cms/posts', new).status_code, 200)
+        self.assertEqual(api('get', '/api/cms/posts', h).status_code, 401)
+
+    def test_revocation_survives_cache_clear(self):
+        h = jwt_for('ed')
+        api('post', '/api/cms/users/logout', h)
+        cache.clear()
+        self.assertEqual(api('get', '/api/cms/posts', h).status_code, 401)
+
+    def test_other_tokens_of_same_user_stay_valid(self):
+        h1, h2 = jwt_for('ed'), jwt_for('ed')
+        api('post', '/api/cms/users/logout', h1)
+        self.assertEqual(api('get', '/api/cms/posts', h2).status_code, 200)

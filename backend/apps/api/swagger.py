@@ -131,7 +131,7 @@ Sayt (Nuxt), Vue admin panel va xodim kabineti uchun yagona API. Matnlar `?lang=
 
 AUTH_TAG_DESCRIPTION = """
 `POST /users/login` sessiya cookie’sini qo‘yadi va javobda `token` (JWT, HS256) qaytaradi. Cookie’siz: `Authorization: Bearer <token>`.
-Yangilash — `POST /users/refresh-token`. Muddat — `JWT_TTL_SECONDS` (8 soat). JWT muddati tugasa, hisob yopilsa yoki parol o‘zgarsa bekor bo‘ladi (`401`).
+Yangilash — `POST /users/refresh-token`. Muddat — `JWT_TTL_SECONDS` (8 soat). JWT muddati tugasa, chiqilsa (`POST /users/logout`), yangilansa, hisob yopilsa yoki parol o‘zgarsa bekor bo‘ladi (`401`).
 5 marta noto‘g‘ri parol — hisob 15 daqiqaga bloklanadi (`423`). Yozish so‘rovlarida `Origin` ruxsat etilgan bo‘lishi shart (`TRUSTED_ORIGINS`).
 
 **Rollar:** `superadmin` — hammasi · `editor` — kontent muharriri · `faculty` — fakultet admini · `pages` — sahifalar muharriri · `sdg` — BRM menejeri.

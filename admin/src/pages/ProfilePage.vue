@@ -34,15 +34,14 @@ async function changePassword() {
   if (pw.next !== pw.repeat) { error.value = 'Yangi parollar bir xil emas'; return }
   if (pw.next.length < 10) { error.value = 'Parol kamida 10 ta belgidan iborat bölsin'; return }
   try {
-    // Avval hozirgi parol tekshiriladi
-    await api.post('/users/login', { username: me.value!.username, password: pw.current })
-    await api.patch(`/users/${me.value!.id}`, { password: pw.next })
+    // Hozirgi parolni server tekshiradi (currentPassword): o'g'irlangan sessiya bilan parol almashtirib bo'lmaydi
+    await api.patch(`/users/${me.value!.id}`, { password: pw.next, currentPassword: pw.current })
     await api.post('/users/login', { username: me.value!.username, password: pw.next })
     Object.assign(pw, { current: '', next: '', repeat: '' })
     flash('Parol almaştirildi')
   }
   catch (e) {
-    error.value = e instanceof ApiError && e.status === 401 ? 'Hozirgi parol notöğri' : (e as Error).message
+    error.value = (e as Error).message
   }
 }
 

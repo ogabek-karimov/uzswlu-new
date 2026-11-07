@@ -283,6 +283,24 @@ class Users(Collection):
             'createdAt': dt(u.date_joined), 'updatedAt': dt(u.date_joined), 'collection': 'users',
         }
 
+    @staticmethod
+    def require_current_password(u, current) -> None:
+        """O'z parolini almashtirishda joriy parol shart: o'g'irlangan sessiya/JWT bilan parolni almashtirib bo'lmaydi.
+        Noto'g'ri urinishlar keshda sanaladi (tranzaksiya bekor bo'lsa ham yo'qolmaydi): 15 daqiqada 5 tadan keyin to'xtatiladi."""
+        from django.core.cache import cache
+
+        from apps.accounts.models import check_any_password
+        key = f'pwchange:{u.pk}'
+        if cache.get(key, 0) >= 5:
+            raise Forbidden('Juda ko‘p noto‘g‘ri urinish — 15 daqiqadan keyin urinib ko‘ring')
+        if not current:
+            raise ValidationError('Hozirgi parolni kiriting')
+        if not check_any_password(u, str(current)):
+            cache.add(key, 0, 900)
+            cache.incr(key)
+            raise ValidationError('Hozirgi parol noto‘g‘ri')
+        cache.delete(key)
+
     def write(self, u, data, request, creating):
         is_super = request.user.role == 'superadmin'
         put(u, data, {'name': ('name', text), 'position': ('position', text), 'department': ('department', text)})
@@ -307,6 +325,8 @@ class Users(Collection):
         if not u.name:
             u.name = u.username
         if data.get('password'):
+            if not creating and u.pk == request.user.pk:
+                self.require_current_password(u, data.get('currentPassword'))
             from django.contrib.auth.password_validation import validate_password
             validate_password(data['password'], u)
             u.set_password(data['password'])

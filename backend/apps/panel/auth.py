@@ -137,8 +137,10 @@ class LogoutView(APIView):
     permission_classes: list = []
 
     @extend_schema(tags=['Admin panel: kirish'], request=None, summary='Chiqish',
-                   description='Sessiya cookie\'sini bekor qiladi. JWT stateless: u muddati tugaguncha, parol o‘zgarguncha yoki hisob yopilguncha amal qiladi.')
+                   description='Sessiya cookie\'sini bekor qiladi. JWT bilan chaqirilsa (Authorization: Bearer), shu token ham darhol bekor qilinadi.')
     def post(self, request):
+        if isinstance(request.auth, str):  # JWT bilan chaqirilgan — token darhol bekor qilinadi
+            jwt.revoke(request.auth)
         logout(request)
         return Response({'message': 'Chiqildi'})
 
@@ -186,4 +188,6 @@ class RefreshTokenView(APIView):
         if not (user and user.is_authenticated and user.status != 'disabled'):
             return error('Kirish kerak', status.HTTP_401_UNAUTHORIZED)
         token, token_exp = jwt.issue(user)
+        if isinstance(request.auth, str):
+            jwt.revoke(request.auth)  # eski token endi yaroqsiz: yangilash zanjiri o'g'irlangan nusxani saqlab qolmaydi
         return Response({'message': 'Token yangilandi', 'token': token, 'tokenType': 'Bearer', 'tokenExp': token_exp})
