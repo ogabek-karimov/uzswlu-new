@@ -1,5 +1,6 @@
 import type { H3Event } from 'h3'
 import { createLastGood } from './last-good'
+import { rewriteMediaUrls } from './media-cache'
 
 /**
  * Backend API'ga server tomondan so'rov. Token faqat shu yerda ishlatiladi
@@ -22,6 +23,17 @@ function store(event: H3Event): LastGood {
     })
   }
   return lastGood
+}
+
+/** Javobdagi backend rasm havolalarini saytning o'z `/media/...` manziliga buramiz (media keshi shu yerdan o'tadi) */
+function mediaOrigins(event: H3Event): string[] {
+  const { mediaPublicOrigin, mediaUpstream, apiBase, cmsBase } = useRuntimeConfig(event)
+  const origins = new Set<string>()
+  for (const raw of [mediaPublicOrigin, mediaUpstream, apiBase, cmsBase]) {
+    try { if (raw) origins.add(new URL(String(raw)).origin) }
+    catch { /* noto'g'ri manzil — o'tkazib yuboramiz */ }
+  }
+  return [...origins]
 }
 
 function stableQuery(query?: Record<string, unknown>): string {
@@ -60,18 +72,18 @@ async function withLastGood<T>(
 export function backendFetch<T>(event: H3Event, path: string, query?: Record<string, unknown>): Promise<T> {
   const { apiBase, apiToken } = useRuntimeConfig(event)
 
-  return withLastGood<T>(event, `api:${apiBase}`, path, query, () => $fetch<T>(path, {
+  return withLastGood<T>(event, `api:${apiBase}`, path, query, async () => rewriteMediaUrls(await $fetch<T>(path, {
     baseURL: apiBase,
     query,
     timeout: 8000,
     headers: apiToken ? { Authorization: `Bearer ${apiToken}` } : undefined,
-  }))
+  }), mediaOrigins(event)))
 }
 
 /** O'zimizning CMS (Payload) ochiq API'si: yangiliklar, e'lonlar, tadbirlar */
 export function cmsFetch<T>(event: H3Event, path: string, query?: Record<string, unknown>): Promise<T> {
   const { cmsBase } = useRuntimeConfig(event)
-  return withLastGood<T>(event, `cms:${cmsBase}`, path, query, () => $fetch<T>(path, { baseURL: cmsBase, query, timeout: 8000 }))
+  return withLastGood<T>(event, `cms:${cmsBase}`, path, query, async () => rewriteMediaUrls(await $fetch<T>(path, { baseURL: cmsBase, query, timeout: 8000 }), mediaOrigins(event)))
 }
 
 /**

@@ -7,7 +7,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "test:last-good": "node --experimental-strip-types scripts/test-last-good.mts",
+    "test:last-good": "node --experimental-strip-types scripts/test-last-good.mts && node --experimental-strip-types scripts/test-media-cache.mts",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {

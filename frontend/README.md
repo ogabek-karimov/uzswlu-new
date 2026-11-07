@@ -86,5 +86,5 @@ sayt saqlangan nusxani **3 soat** davomida ko'rsatadi (`NUXT_STALE_IF_ERROR_SECO
 - Qidiruv (`q`) va xodim kabineti (`/me`) saqlanmaydi (shaxsiy yoki cheksiz kalit). Kabinet va murojaat yuborish backend bo'lmasa ishlamaydi.
 - Eski nusxadan berilgan javobda `x-stale-age: <soniya>` sarlavhasi bor.
 - Nusxalar xotirada (eng ko'pi 600 ta); frontend qayta ishga tushsa tozalanadi.
-- Rasm/fayllar backenddan beriladi (`/media`): ular ham ishlab turishi uchun nginx orqali to'g'ridan-to'g'ri diskdan tarqating.
+- **Media (rasm, PDF):** API javobidagi `<backend>/media/...` havolalari sayt ichidagi `/media/...` ga buriladi, sayt (`server/routes/media/[...path].get.ts`) ularni xotirada saqlaydi (har biri ≤ 5 MB, jami ≤ 96 MB; 1 soat backendga bormaydi). Backend o'chsa, saqlangan fayl 3 soatgacha beriladi. Video va katta fayllar keshlanmasdan, Range bilan uzatiladi. `NUXT_MEDIA_PUBLIC_ORIGIN` — backend `PUBLIC_SERVER_URL` ga teng bo'lishi kerak. Hujjat yuklab olish (`/api/documents/.../file`) hozircha backenddan.
 - Sinov: `npm run test:last-good`.

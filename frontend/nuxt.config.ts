@@ -25,6 +25,11 @@ export default defineNuxtConfig({
     staleIfErrorSeconds: 3 * 60 * 60,
     // Backend yiqilgandan keyin shuncha soniya unga bormasdan saqlangan nusxa beriladi (NUXT_BACKEND_COOLDOWN_SECONDS)
     backendCooldownSeconds: 15,
+    // Rasm/fayllar sayt orqali beriladi va vaqtincha keshlanadi (/media/...). Backendning brauzerga ko'rinadigan
+    // manzili (PUBLIC_SERVER_URL) — javobdagi havolalarni almashtirish uchun (NUXT_MEDIA_PUBLIC_ORIGIN).
+    mediaPublicOrigin: 'http://localhost:8000',
+    // Sayt serveridan backend fayllariga yo'l; bo'sh bo'lsa NUXT_API_BASE manzilidan olinadi (NUXT_MEDIA_UPSTREAM).
+    mediaUpstream: '',
     public: {
       siteUrl: 'http://localhost:3000',
     },
