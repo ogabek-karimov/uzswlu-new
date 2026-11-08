@@ -1,3 +1,6 @@
+import threading
+import time
+
 from django.conf import settings
 from django.http import JsonResponse
 from django.urls import include, path, re_path
@@ -5,7 +8,9 @@ from django.views.generic import RedirectView
 from django.views.static import serve
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from rest_framework.permissions import AllowAny, BasePermission
+from rest_framework.response import Response
 
+from apps.api.swagger import ALL_ROLES, filter_by_role
 from apps.core.throttles import ScopedThrottle
 from apps.panel.auth import PANEL_AUTH
 from apps.panel.views import MediaFileCompat
@@ -29,8 +34,27 @@ class _Limited:
     throttle_scope = 'docs'
 
 
+_schema_lock = threading.Lock()
+_schema_cache: dict = {'at': 0.0, 'data': None}
+SCHEMA_TTL = 300  # soniya; sxema kodga bog'liq (viewerga emas), kod o'zgarsa — jarayon qayta ishga tushadi
+
+
 class SchemaView(_Limited, SpectacularAPIView):
-    pass
+    """Sxema generatsiyasi og'ir va parallel chaqiruvda xavfsiz emas: ketma-ket bajariladi, productionda xotirada keshlanadi."""
+
+    def get(self, request, *args, **kwargs):
+        with _schema_lock:
+            fresh = _schema_cache['data'] is not None and time.monotonic() - _schema_cache['at'] < SCHEMA_TTL
+            if settings.DEBUG or not fresh or request.query_params.get('lang'):
+                response = super().get(request, *args, **kwargs)
+                if not settings.DEBUG and not request.query_params.get('lang') and isinstance(response.data, dict):
+                    _schema_cache.update(at=time.monotonic(), data=response.data)
+            else:
+                response = Response(_schema_cache['data'])
+        role = request.query_params.get('role')  # ?role=editor — faqat shu rolga ruxsat etilgan amallar
+        if role in ALL_ROLES and isinstance(response.data, dict):
+            response.data = filter_by_role(response.data, role)
+        return response
 
 
 class SwaggerView(_Limited, SpectacularSwaggerView):

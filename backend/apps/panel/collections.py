@@ -222,6 +222,8 @@ class Collection:
     prefetch: tuple = ()
     versions = 0
     access = {'read': ALL, 'create': SUPER, 'update': SUPER, 'delete': SUPER}
+    # Obyekt darajasidagi qo'shimcha qoidalar (`can()`/`scope()` da kodlangan) — Swagger'da ko'rsatiladi: {amal: matn}
+    rules: dict = {}
 
     def can(self, user, action: str, obj=None) -> bool:
         return bool(user and user.is_authenticated and user.status != 'disabled' and user.role in self.access.get(action, ()))
@@ -394,6 +396,10 @@ class Posts(Collection):
     select_related = ('category', 'author', 'author__avatar', 'cover', 'cover_ru', 'cover_en', 'cover_zh')
     prefetch = ('attachments__file', 'gallery__image')
     access = {'read': ALL, 'create': EDITORS, 'update': EDITORS, 'delete': EDITORS}
+    rules = {
+        'update': '`faculty` va `pages` faqat **o‘zi yozgan** postni o‘zgartiradi; `superadmin` va `editor` — hammasini.',
+        'delete': '`faculty` va `pages` faqat **o‘zi yozgan** postni o‘chiradi; `superadmin` va `editor` — hammasini.',
+    }
 
     def can(self, user, action, obj=None):
         if not super().can(user, action, obj):
@@ -648,6 +654,7 @@ class Faculties(Collection):
     select_related = ('logo', 'cover')
     fields = {'mapUrl': 'map_url'}
     access = {'read': ALL, 'create': SUPER, 'update': FACULTY, 'delete': SUPER}
+    rules = {'update': '`faculty` faqat **o‘z fakultetini** (`User.scope`) o‘zgartiradi; doirasi belgilanmagan bo‘lsa — hech narsani.'}
 
     def can(self, user, action, obj=None):
         if not super().can(user, action, obj):
@@ -679,6 +686,10 @@ class Departments(Collection):
     select_related = ('image',)
     fields = {'hemisId': 'hemis_id', 'faculty': 'faculty_slug'}
     access = {'read': ALL, 'create': FACULTY, 'update': FACULTY, 'delete': SUPER}
+    rules = {
+        'create': '`faculty` faqat **o‘z fakultetiga** kafedra qo‘sha oladi.',
+        'update': '`faculty` faqat **o‘z fakultetidagi** kafedrani o‘zgartiradi.',
+    }
 
     def can(self, user, action, obj=None):
         if not super().can(user, action, obj):

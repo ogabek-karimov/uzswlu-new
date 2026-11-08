@@ -155,7 +155,9 @@ class PanelView(APIView):
 
 
 def run_list(coll: Collection, request) -> list:
-    """Ommaviy amal uchun yozuvlar (ko'pi bilan 500)."""
+    """Ommaviy amal uchun yozuvlar (ko'pi bilan 500). `where` majburiy: tasodifan butun jadvalga tegib ketmasligi uchun."""
+    if not nested_params(request.query_params).get('where'):
+        raise ValidationError('Ommaviy amal uchun `where` shart (masalan: where[id][in]=1,2,3)')
     return list(filtered(coll, request)[:500])
 
 

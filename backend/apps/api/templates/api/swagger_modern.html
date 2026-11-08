@@ -152,6 +152,28 @@ SWAGGER_THEME=modern (sukut) | classic
   @media (max-width: 860px) { .grid, .grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } .cards, .cards.three { grid-template-columns: 1fr; } }
   @media (max-width: 600px) { .top { padding-top: 20px; } .hero { padding: 22px 18px; } .guide { padding: 4px 14px 16px; } .grid, .grid.two, .grid.four { grid-template-columns: 1fr; } .kv td:first-child { white-space: normal; } }
+
+  /* Kirish paneli: login → token → rol bo'yicha ko'rinish */
+  .authbar { margin: 16px 0 0; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px 18px; display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+  .authbar h3 { margin: 0; font-size: 14px; font-weight: 650; }
+  .authbar form { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0; }
+  .authbar input[type=text], .authbar input[type=password] { font: 14px var(--sans); padding: 7px 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--card); color: var(--ink); width: 150px; }
+  .authbar button, .authbar select { font: 500 13.5px var(--sans); padding: 7px 14px; border-radius: 9px; border: 1px solid var(--line); background: var(--soft); color: var(--ink); cursor: pointer; }
+  .authbar button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .authbar .who { display: none; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 14px; }
+  .authbar.in .who { display: flex; } .authbar.in form.login { display: none; }
+  .rolebadge { display: inline-block; padding: 2px 10px; border-radius: 99px; background: var(--accent-soft); color: var(--accent-ink); font-weight: 650; font-size: 13px; }
+  .authbar .msg { font-size: 13px; color: var(--muted); } .authbar .msg.bad { color: #b42318; }
+  .authbar .sp { flex: 1; }
+  .authbar label.tog { font-size: 13px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+  .swagger-ui .opblock.denied { opacity: .42; }
+  .swagger-ui .opblock.denied .opblock-summary-description::after { content: " · ruxsat yo‘q (rolingiz uchun)"; color: #b42318; font-weight: 600; }
+  body.only-mine .swagger-ui .opblock.denied { display: none; }
+  .matrix { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13px; }
+  .matrix th, .matrix td { border: 1px solid var(--line); padding: 5px 8px; text-align: center; }
+  .matrix th:first-child, .matrix td:first-child { text-align: left; } .matrix thead th { background: var(--soft); }
+  .matrix td.full { background: #ecfdf3; } .matrix td.part { background: #fffaeb; } .matrix td.none { color: #b9bec9; }
+  #role-matrix .lg { font-size: 12.5px; color: var(--muted); margin: 8px 2px 0; }
 </style>
 {% endblock head %}
 {% block body %}
@@ -187,6 +209,25 @@ SWAGGER_THEME=modern (sukut) | classic
         <circle class="dot g" r="4"><animateMotion dur="2.4s" begin="1s" repeatCount="indefinite"><mpath href="#w5"/></animateMotion></circle>
       </svg>
     </figure>
+  </section>
+
+  <section class="authbar" id="authbar" aria-label="Kirish">
+    <h3>Sinash uchun kirish</h3>
+    <form class="login" id="lf" autocomplete="off">
+      <input type="text" id="lu" placeholder="login" autocomplete="username" required>
+      <input type="password" id="lp" placeholder="parol" autocomplete="current-password" required>
+      <input type="text" id="lc" placeholder="2FA kodi" inputmode="numeric" style="display:none;width:110px" autocomplete="one-time-code">
+      <button class="primary" type="submit" id="lb">Kirish</button>
+    </form>
+    <div class="who"><span>Siz: <b id="wname"></b> <span class="rolebadge" id="wrole"></span></span>
+      <span class="msg" id="wcount"></span>
+      <label class="tog"><input type="checkbox" id="onlymine"> faqat menga ruxsat etilganlar</label>
+      <button type="button" id="lo">Chiqish</button></div>
+    <span class="sp"></span>
+    <label class="msg" for="rolesel">Sxema (rol bo‘yicha):</label>
+    <select id="rolesel"><option value="">hammasi</option><option>superadmin</option><option>editor</option><option>faculty</option><option>pages</option><option>sdg</option></select>
+    <a class="msg" id="rolelink" href="#" target="_blank" rel="noopener" style="display:none">JSON ochish</a>
+    <span class="msg" id="amsg" role="status"></span>
   </section>
 
   <section class="guide" aria-label="Qo‘llanma">
@@ -351,11 +392,12 @@ SWAGGER_THEME=modern (sukut) | classic
     <div class="panel" id="p-roles">
       <div class="cards three">
         <div class="card"><h4>superadmin <span class="pill">to‘liq</span></h4><p class="what">Hamma narsa.</p><div class="can"><span>hamma bo‘lim</span><span>o‘chirish</span><span>foydalanuvchilar</span><span>kirish tarixi</span><span>faollik jurnali</span></div></div>
-        <div class="card"><h4>editor <span class="pill g">kontent</span></h4><p class="what">Hamma postlar va media bilan ishlaydi, qolganini faqat ko‘radi.</p><div class="can"><span>postlar: yaratish/tahrir</span><span>media yuklash</span><span class="no">o‘chirish</span><span class="no">sahifalar</span></div></div>
+        <div class="card"><h4>editor <span class="pill g">kontent</span></h4><p class="what">Hamma postlar va media bilan ishlaydi, qolganini faqat ko‘radi.</p><div class="can"><span>postlar: yaratish/tahrir</span><span>media yuklash</span><span>postlarni o‘chirish</span><span class="no">boshqa bo‘limda o‘chirish</span><span class="no">sahifalar</span></div></div>
         <div class="card"><h4>faculty <span class="pill g">fakultet</span></h4><p class="what">O‘z yozgan postlari va o‘z fakulteti/kafedrasi ma’lumoti.</p><div class="can"><span>o‘z postlari</span><span>fakultetni tahrirlash</span><span>kafedra va xodim</span><span class="no">sahifalar</span></div></div>
         <div class="card"><h4>pages <span class="pill g">sahifalar</span></h4><p class="what">Sahifalar, hujjatlar, videolar va tuzilma.</p><div class="can"><span>sahifalar</span><span>hujjatlar</span><span>videolar</span><span>slaydlar</span><span>o‘z postlari</span></div></div>
         <div class="card"><h4>sdg <span class="pill g">BRM</span></h4><p class="what">17 ta maqsad matni, rasmlari va hisobotlari.</p><div class="can"><span>BRM maqsadlari</span><span>media yuklash</span><span class="no">postlar</span></div></div>
       </div>
+      <div id="role-matrix" aria-live="polite"></div>
       <p class="note">Barcha rollar hamma bo‘limni <b>ko‘ra oladi</b> (kirish tarixi va faollik jurnalidan tashqari — ular faqat superadmin uchun). Har amalning tavsifida shu amalga ruxsat etilgan rollar jadvali bor.</p>
     </div>
   </section>
@@ -391,16 +433,117 @@ SWAGGER_THEME=modern (sukut) | classic
       out.className = ''; out.textContent = 'so‘ralmoqda…'; var t0 = performance.now();
       fetch('/api/posts?perPage=1&lang=uz', { credentials: 'same-origin' }).then(function (r) { var ms = Math.round(performance.now() - t0); out.className = r.ok ? 'ok' : 'bad'; out.textContent = r.status + ' · ' + ms + ' ms' + (r.status === 401 ? ' (API_TOKEN kerak)' : ''); }).catch(function () { out.className = 'bad'; out.textContent = 'ulanib bo‘lmadi'; });
     });
-    // Swagger UI sxemani o'zi yuklab bo'lgach (parallel generatsiya poygasiz) amallar sonini hisoblaymiz
-    window.addEventListener('load', function () {
-      setTimeout(function () {
-        var u = "{{ schema_url|default:'/api/schema/' }}"; u += (u.indexOf('?') > -1 ? '&' : '?') + 'format=json';
-        fetch(u, { credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (d) {
-          var n = 0; Object.values(d.paths || {}).forEach(function (p) { Object.keys(p).forEach(function (k) { if (['get', 'post', 'put', 'patch', 'delete'].indexOf(k) > -1) n++; }); });
-          count(document.getElementById('c-ops'), n);
-        }).catch(function () { document.getElementById('c-ops').textContent = '170+'; });
-      }, 2500);
+
+    // ─── Kirish → token → rol bo'yicha ko'rinish ────────────────────────────
+    var schemaUrl = "{{ schema_url|default:'/api/schema/' }}", schema = null, schemaReq = null, opRoles = {}, myRole = null, challenge = null, curToken = null;
+    var $ = function (id) { return document.getElementById(id); };
+    function setMsg(t, bad) { $('amsg').textContent = t || ''; $('amsg').className = 'msg' + (bad ? ' bad' : ''); }
+    function jwtRole(tok) { try { var b = tok.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'); return (JSON.parse(atob(b + '==='.slice((b.length + 3) % 4))) || {}).role || null; } catch (e) { return null; } }
+    function loadSchema() {
+      if (schemaReq) return schemaReq;   // bitta so'rov: parallel so'rovlar sxema generatsiyasini sekinlatmasin
+      var u = schemaUrl + (schemaUrl.indexOf('?') > -1 ? '&' : '?') + 'format=json';
+      schemaReq = fetch(u, { credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (d) {
+        schema = d;
+        Object.values(d.paths || {}).forEach(function (item) { Object.values(item).forEach(function (op) { if (op && op.operationId && op['x-roles']) opRoles[op.operationId] = op['x-roles']; }); });
+        renderMatrix(d); return d;
+      });
+      schemaReq.catch(function () { schemaReq = null; });
+      return schemaReq;
+    }
+    function applyRole() {
+      var box = document.getElementById('swagger-ui'); if (!box) return;
+      var total = 0, ok = 0;
+      box.querySelectorAll('.opblock').forEach(function (el) {
+        var roles = opRoles[(el.id || '').split('-').pop()];
+        el.classList.toggle('denied', !!(myRole && roles && roles.indexOf(myRole) < 0));
+      });
+      Object.keys(opRoles).forEach(function (k) { total++; if (myRole && opRoles[k].indexOf(myRole) > -1) ok++; });
+      $('wcount').textContent = myRole ? ok + ' / ' + total + ' admin amalga ruxsat' : '';
+    }
+    function showUser(name, role) {
+      myRole = role; $('authbar').classList.toggle('in', !!role);
+      $('wname').textContent = name || ''; $('wrole').textContent = role || '';
+      loadSchema().then(applyRole).catch(function () {});
+    }
+    function authorize(token) {
+      var def = { panelJwt: { name: 'panelJwt', schema: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' }, value: token } };
+      if (typeof ui !== 'undefined' && ui.authActions) ui.authActions.authorize(def);
+      try { localStorage.setItem('authorized', JSON.stringify(def)); } catch (e) {}   // qayta ochilganda ham saqlansin (persistAuthorization)
+    }
+    function post(url, body, token) {
+      var h = { 'Content-Type': 'application/json' }; if (token) h.Authorization = 'Bearer ' + token;
+      return fetch(url, { method: 'POST', credentials: 'same-origin', headers: h, body: JSON.stringify(body || {}) }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, j: j }; }); });
+    }
+    function done(res) {
+      curToken = res.token; authorize(res.token);
+      showUser((res.user && (res.user.name || res.user.username)) || '', (res.user && res.user.role) || jwtRole(res.token));
+      setMsg('Kirdingiz — «Authorize» avtomatik to‘ldirildi', false); $('lp').value = ''; $('lc').value = ''; $('lc').style.display = 'none'; challenge = null;
+    }
+    $('lf').addEventListener('submit', function (e) {
+      e.preventDefault(); setMsg('tekshirilmoqda…');
+      var req = challenge ? post('/api/cms/users/login/2fa', { challenge: challenge, code: $('lc').value.trim() }) : post('/api/cms/users/login', { username: $('lu').value.trim(), password: $('lp').value });
+      req.then(function (r) {
+        if (r.ok && r.j.twoFactorRequired) { challenge = r.j.challenge; $('lc').style.display = ''; $('lc').focus(); setMsg(r.j.message || '2FA kodini kiriting'); return; }
+        if (r.ok && r.j.token) return done(r.j);
+        setMsg((r.j && r.j.message) || ('Xato: ' + r.status), true); if (r.status === 401 && challenge) { challenge = null; $('lc').style.display = 'none'; }
+      }).catch(function () { setMsg('ulanib bo‘lmadi', true); });
     });
+    $('lo').addEventListener('click', function () {
+      post('/api/cms/users/logout', {}, curToken).catch(function () {}); curToken = null;   // Bearer bilan: JWT darhol bekor qilinadi
+      if (typeof ui !== 'undefined' && ui.authActions) ui.authActions.logout(['panelJwt']);
+      try { localStorage.removeItem('authorized'); } catch (e) {}
+      showUser('', null); setMsg('Chiqdingiz');
+    });
+    $('onlymine').addEventListener('change', function () { document.body.classList.toggle('only-mine', this.checked); });
+    $('rolesel').addEventListener('change', function () {
+      var a = $('rolelink'); if (!this.value) { a.style.display = 'none'; return; }
+      a.href = schemaUrl + (schemaUrl.indexOf('?') > -1 ? '&' : '?') + 'format=json&role=' + encodeURIComponent(this.value); a.style.display = '';
+    });
+    // Swagger UI amallarni tegni ochganda chizadi — kuzatib, har safar rolni qo'llaymiz
+    var swBox = document.getElementById('swagger-ui');
+    if (swBox && window.MutationObserver) { var tm; new MutationObserver(function () { clearTimeout(tm); tm = setTimeout(applyRole, 80); }).observe(swBox, { childList: true, subtree: true }); }
+    // Sahifa qayta ochilganda (persistAuthorization) tokendan rolni tiklaymiz; token yaroqsiz bo'lsa — chiqarib qo'yamiz
+    try {
+      var saved = JSON.parse(localStorage.getItem('authorized') || '{}').panelJwt;
+      if (saved && saved.value) {
+        curToken = saved.value; var r0 = jwtRole(saved.value);
+        if (r0) {
+          showUser('', r0);
+          fetch('/api/cms/users/me', { headers: { Authorization: 'Bearer ' + saved.value } }).then(function (r) { return r.json(); })
+            .then(function (j) { if (j.user) showUser(j.user.name || j.user.username, j.user.role); else { curToken = null; showUser('', null); } }).catch(function () {});
+        }
+      }
+    } catch (e) {}
+
+    // Rollar jadvali (sxemadagi x-roles dan): har kolleksiya × rol → ruxsat etilgan amallar
+    function renderMatrix(d) {
+      var roles = ['superadmin', 'editor', 'faculty', 'pages', 'sdg'], rows = {};
+      Object.keys(d.paths).forEach(function (p) {
+        var m = p.match(/^\/api\/cms\/([a-z-]+)(\/\{id\})?$/); if (!m || m[1] === 'globals' || m[1] === 'panel') return;
+        var item = d.paths[p];
+        [['get', 'O'], ['post', 'Y'], ['patch', 'T'], ['delete', 'U']].forEach(function (a) {
+          var op = item[a[0]]; if (!op || !op['x-roles']) return;
+          var key = m[1], r = rows[key] = rows[key] || {};
+          roles.forEach(function (role) { if (op['x-roles'].indexOf(role) > -1 && (r[role] || '').indexOf(a[1]) < 0) r[role] = (r[role] || '') + a[1]; });
+          r._all = r._all || ''; if (r._all.indexOf(a[1]) < 0) r._all += a[1];
+        });
+      });
+      var order = function (x) { return x.split('').sort(function (a, b) { return 'OYTU'.indexOf(a) - 'OYTU'.indexOf(b); }).join(''); };
+      var h = '<table class="matrix"><thead><tr><th>Bo‘lim</th>' + roles.map(function (x) { return '<th>' + x + '</th>'; }).join('') + '</tr></thead><tbody>';
+      Object.keys(rows).sort().forEach(function (k) {
+        var any = d.paths['/api/cms/' + k] || {}, label = ((any.get || any.post || {}).summary || k).split(':')[0], full = order(rows[k]._all);
+        h += '<tr><td>' + label + ' <code>' + k + '</code></td>' + roles.map(function (role) {
+          var v = order(rows[k][role] || '');
+          return '<td class="' + (!v ? 'none' : v.length >= full.length ? 'full' : 'part') + '">' + (v || '—') + '</td>';
+        }).join('') + '</tr>';
+      });
+      $('role-matrix').innerHTML = h + '</tbody></table><div class="lg">O — o‘qish · Y — yaratish · T — o‘zgartirish · U — o‘chirish. Sariq — qisman. «Faqat o‘zi yozgan post» kabi yozuv darajasidagi qoidalar har amal tavsifida («Qoida») yozilgan. Jadval to‘g‘ridan-to‘g‘ri sxemadagi <code>x-roles</code> dan chiziladi — kod bilan doim mos.</div>';
+    }
+    // Amallar soni — o'sha bitta sxemadan (ortiqcha so'rovsiz)
+    loadSchema().then(function (d) {
+      var n = 0; Object.values(d.paths || {}).forEach(function (p) { Object.keys(p).forEach(function (k) { if (['get', 'post', 'put', 'patch', 'delete'].indexOf(k) > -1) n++; }); });
+      count($('c-ops'), n);
+    }).catch(function () { $('c-ops').textContent = '170+'; });
   })();
 </script>
 {% endblock body %}

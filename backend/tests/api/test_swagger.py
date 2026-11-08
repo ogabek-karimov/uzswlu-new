@@ -7,6 +7,7 @@ from django.urls import get_resolver
 
 from apps.panel.collections import REGISTRY
 from apps.panel.globals_ import GLOBALS
+from tests.support import PASSWORD, SeededTestCase, api, jwt_for, loose
 
 METHODS = ('get', 'post', 'put', 'patch', 'delete')
 # Ataylab hujjatlanmaydiganlar: hujjatning o'zi va eski tashqi manzil (ichki yo'naltirish)
@@ -118,3 +119,71 @@ class SwaggerDoesNotDependOnViewerTests(TestCase):
             client.force_login(user)
             with self.subTest(role=role):
                 self.assertEqual(get_schema(client), anon, 'hujjat rolga qarab o‘zgarmasligi kerak')
+
+
+class SwaggerMatchesRealResponsesTests(SeededTestCase):
+    """Hujjatdagi sxema va status kodlari haqiqiy javoblar bilan mos (kolleksiyaga maydon qo'shilsa — sxema o'zi yangilanadi)."""
+
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        cls.schema = get_schema()
+        cls.comps = cls.schema['components']['schemas']
+
+    def headers(self):
+        from apps.accounts.models import User
+        User.objects.filter(username='sw_root').delete()
+        User.objects.create_user('sw_root', password=PASSWORD, role='superadmin', name='Sw')
+        with loose():
+            return jwt_for('sw_root')
+
+    def test_every_response_field_is_documented(self):
+        h = self.headers()
+        for slug, coll in REGISTRY.items():
+            if 'read' not in coll.access:
+                continue
+            res = api('get', f'/api/cms/{slug}?limit=2&depth=1', h)
+            with self.subTest(collection=slug):
+                self.assertEqual(res.status_code, 200)
+                body = res.json()
+                self.assertLessEqual(set(body), set(self.comps['PanelPage']['properties']), 'sahifalash kalitlari hujjatda yo‘q')
+                props = set(self.comps[f"Panel{''.join(w.title() for w in slug.split('-'))}"]['properties'])
+                for doc in body['docs']:
+                    self.assertLessEqual(set(doc), props, f'{slug}: hujjatda yo‘q maydonlar {sorted(set(doc) - props)}')
+
+    def test_documented_status_codes_are_real(self):
+        h = self.headers()
+        ops = self.schema['paths']
+        created = api('post', '/api/cms/faculties', h, {'slug': 'sw-test', 'name': {'uz': 'Test'}})
+        self.assertIn(str(created.status_code), ops['/api/cms/faculties']['post']['responses'])
+        self.assertEqual(created.status_code, 201)
+        fid = created.json()['doc']['id']
+        patched = api('patch', f'/api/cms/faculties/{fid}', h, {'phone': '1'})
+        self.assertEqual(patched.status_code, 200)
+        self.assertEqual(set(patched.json()), {'doc', 'message'})
+        deleted = api('delete', f'/api/cms/faculties/{fid}', h)
+        self.assertEqual(deleted.status_code, 200)          # 204 emas — tanasi bor
+        self.assertIn('200', ops['/api/cms/faculties/{id}']['delete']['responses'])
+        self.assertNotIn('204', ops['/api/cms/faculties/{id}']['delete']['responses'])
+        self.assertEqual(set(deleted.json()), {'doc', 'message'})
+
+    def test_request_fields_are_accepted(self):
+        """So'rov sxemasidagi har maydon haqiqatan o'qiladi: noma'lum maydon sxemada bo'lmaydi."""
+        h = self.headers()
+        fac = self.comps['PanelFacultiesInput']['properties']
+        self.assertTrue({'name', 'about', 'phone', 'email', 'address', 'mapUrl', 'order'} <= set(fac))
+        res = api('post', '/api/cms/faculties', h, {'slug': 'sw-two', 'name': {'uz': 'X'}, 'phone': '+998', 'order': 3})
+        self.assertEqual(res.status_code, 201)
+        doc = res.json()['doc']
+        self.assertEqual((doc['phone'], doc['order']), ('+998', 3))
+
+    def test_operation_describes_rules_params_and_trash(self):
+        paths = self.schema['paths']
+        bulk = paths['/api/cms/posts']['patch']
+        where = next(p for p in bulk['parameters'] if p['name'] == 'where')
+        self.assertTrue(where['required'])
+        self.assertTrue(any(p['name'] == 'trash' for p in paths['/api/cms/posts/{id}']['patch']['parameters']))
+        self.assertIn('trash=true', paths['/api/cms/posts/{id}']['patch']['description'])
+        self.assertIn('o‘zi yozgan', paths['/api/cms/posts/{id}']['delete']['description'])
+        self.assertIn('multipart/form-data', paths['/api/cms/media']['post']['requestBody']['content'])
+        self.assertEqual(paths['/api/cms/users']['patch']['x-roles'], ['superadmin'])  # ommaviy: faqat superadmin

@@ -126,7 +126,9 @@ Sayt (Nuxt), Vue admin panel va xodim kabineti uchun yagona API. Matnlar `?lang=
 | Admin panel (`/api/cms/*`) | JWT (`panelJwt`) yoki sessiya cookie (`panelSession`) |
 | Xodim kabineti (`/api/me*`) | HEMIS sessiyasi (`userSession`) yoki token (`staffBearer`) |
 
-**Swagger'da sinash:** «Admin: Kirish» bo‘limidagi `POST /api/cms/users/login` ni bajaring, javobdagi `token` ni yuqoridagi **Authorize** → `panelJwt` ga kiriting.
+**Swagger'da sinash:** sahifa tepasidagi **«Sinash uchun kirish»** paneliga login/parolni (2FA bo‘lsa kodni ham) kiriting — token `Authorize` → `panelJwt` ga o‘zi qo‘yiladi, rolingizga ruxsat etilmagan amallar xiralashadi («faqat menga ruxsat etilganlar» filtri ham bor). Qo‘lda: `POST /api/cms/users/login` → javobdagi `token` ni **Authorize** ga kiriting.
+
+**Rol bo‘yicha sxema:** `/api/schema/?role=editor` — faqat shu rolga ruxsat etilgan amallar (har amalda `x-roles`, yozuv darajasidagi qoidalar — `Qoida:`).
 """
 
 AUTH_TAG_DESCRIPTION = """
@@ -221,55 +223,156 @@ def _err(desc: str) -> dict:
     return {'description': desc, 'content': {'application/json': {'schema': {'$ref': '#/components/schemas/ApiError'}}}}
 
 
-def _clone(op: dict, *, path: str, tag: str, summary: str, op_id: str, roles_line: str = '', drop_params=('slug',), note: str = '') -> dict:
-    op = copy.deepcopy(op)
-    op['tags'], op['summary'], op['operationId'] = [tag], summary, op_id
-    op['parameters'] = [p for p in op.get('parameters', []) if p.get('name') not in drop_params]
-    if not op['parameters']:
-        op.pop('parameters')
-    op['description'] = '\n\n'.join(x for x in (note, roles_line) if x)
-    op['security'] = copy.deepcopy(PANEL_SECURITY)
-    op['responses'].setdefault('401', _err('Kirilmagan yoki JWT yaroqsiz / muddati tugagan'))
-    op['responses'].setdefault('403', _err('Rolingizga bu amal ruxsat etilmagan yoki Origin ruxsat etilmagan'))
+def _ref(name: str) -> dict:
+    return {'$ref': f'#/components/schemas/{name}'}
+
+
+def _json(schema: dict, desc: str) -> dict:
+    return {'description': desc, 'content': {'application/json': {'schema': schema}}}
+
+
+Q = {  # so'rov parametrlari
+    'where': lambda required=False: {
+        'name': 'where', 'in': 'query', 'required': required, 'style': 'deepObject', 'explode': True,
+        'schema': {'type': 'object', 'additionalProperties': True},
+        'description': ('**Majburiy** (tasodifan butun jadvalga tegmaslik uchun; ko‘pi bilan 500 yozuv). ' if required else '')
+        + 'Payload filtri: `where[id][in]=1,2,3`, `where[title.uz][like]=…`, `where[and][0][status][equals]=published`.',
+    },
+    'sort': {'name': 'sort', 'in': 'query', 'schema': {'type': 'string'}, 'description': 'Saralash: `-publishedAt`, `order`.'},
+    'limit': {'name': 'limit', 'in': 'query', 'schema': {'type': 'integer', 'default': 10, 'maximum': 100}},
+    'page': {'name': 'page', 'in': 'query', 'schema': {'type': 'integer', 'default': 1, 'minimum': 1}},
+    'depth': {'name': 'depth', 'in': 'query', 'schema': {'type': 'integer', 'minimum': 0, 'maximum': 3, 'default': 2},
+              'description': '0 — bog‘liq yozuvlar faqat ID, 1+ — to‘liq obyekt.'},
+    'trash': {'name': 'trash', 'in': 'query', 'schema': {'type': 'boolean'},
+              'description': '`true` — savatdagi (o‘chirilgan) postlar ham ko‘rinadi / tahrirlanadi.'},
+    'id': {'name': 'id', 'in': 'path', 'required': True, 'schema': {'type': 'integer'}},
+    'vid': {'name': 'vid', 'in': 'path', 'required': True, 'schema': {'type': 'integer'}, 'description': 'Saqlangan holat (version) ID si.'},
+}
+
+
+def _p(*names, where_required=False) -> list:
+    out = []
+    for n in names:
+        p = Q[n](where_required) if n == 'where' else Q[n]
+        out.append(copy.deepcopy(p))
+    return out
+
+
+def _op(*, tag, summary, op_id, action, roles, ok, ok_desc, ok_schema, params=(), body=None, note='', rules='',
+        extra=None, codes=('401', '403', '429')):
+    """Bitta admin amali: ruxsat etilgan rollar (`x-roles`), aniq javob kodlari va sxemalar."""
+    desc = '\n\n'.join(x for x in (note, _roles_line(roles, action), f'**Qoida:** {rules}' if rules else '') if x)
+    op = {'tags': [tag], 'summary': summary, 'operationId': op_id, 'description': desc, 'security': copy.deepcopy(PANEL_SECURITY),
+          'x-roles': sorted(roles), 'responses': {ok: _json(ok_schema, ok_desc)}}
+    if params:
+        op['parameters'] = list(params)
+    if body:
+        op['requestBody'] = body
+    op['responses'].update(extra or {})
+    msgs = {'401': 'Kirilmagan yoki JWT yaroqsiz / muddati tugagan', '403': 'Roling bu amalga ruxsat bermaydi, yozuv doirangdan tashqarida yoki Origin ruxsat etilmagan',
+            '429': 'So‘rovlar juda ko‘p (throttle)'}
+    for c in codes:
+        op['responses'][c] = _err(msgs[c])
     return op
 
 
-def _expand_admin(paths: dict) -> None:
-    """Umumiy `/api/cms/{slug}` o'rniga har bir kolleksiya uchun alohida, o'z ruxsatlari bilan amallar."""
+def _probe(coll, action: str) -> set:
+    """Ommaviy amal yozuvsiz (`obj=None`) tekshiriladi — haqiqiy `can()` har rol uchun chaqiriladi (qo'lda ro'yxat emas)."""
+    from apps.accounts.models import User
+    return {r for r in ALL_ROLES if coll.can(User(username=f'probe_{r}', role=r, status='active'), action)}
+
+
+def _body(schema_name: str) -> dict:
+    return {'required': True, 'content': {'application/json': {'schema': _ref(schema_name)}}}
+
+
+MEDIA_BODY = {'required': True, 'content': {'multipart/form-data': {'schema': {
+    'type': 'object', 'required': ['file'],
+    'properties': {
+        'file': {'type': 'string', 'format': 'binary', 'description': 'Rasm (jpg/png/gif/webp → WebP), PDF yoki audio. Hajm va tur serverda tekshiriladi (`413`/`400`).'},
+        '_payload': {'type': 'string', 'description': 'JSON satr: `{"alt":{"uz":"…","ru":"…"},"folder":"posts"}`'},
+    }}}}}
+DOC_ID = {'type': 'object', 'properties': {'doc': {'type': 'object', 'properties': {'id': {'type': 'integer'}}}, 'message': {'type': 'string'}}}
+BULK = {'type': 'object', 'properties': {
+    'docs': {'type': 'array', 'items': {}},
+    'errors': {'type': 'array', 'description': 'Ruxsati yo‘q yoki xato bergan yozuvlar; qolganlari saqlangan.',
+               'items': {'type': 'object', 'properties': {'id': {'type': 'integer'}, 'message': {'type': 'string'}}}}}}
+
+
+def _expand_admin(paths: dict, schemas: dict) -> None:
+    """Umumiy `/api/cms/{slug}` o'rniga har bir kolleksiya uchun alohida, o'z ruxsatlari va sxemalari bilan amallar."""
     from apps.panel.collections import REGISTRY
     from apps.panel.globals_ import GLOBALS
+    from . import swagger_fields as sf
 
-    g_list, g_doc, g_count = paths.pop('/api/cms/{slug}', {}), paths.pop('/api/cms/{slug}/{id}', {}), paths.pop('/api/cms/{slug}/count', {})
-    g_vlist, g_vdoc = paths.pop('/api/cms/{slug}/versions', {}), paths.pop('/api/cms/{slug}/versions/{vid}', {})
-    gg, gg_vlist, gg_vdoc = (paths.pop('/api/cms/globals/{slug}', {}), paths.pop('/api/cms/globals/{slug}/versions', {}),
-                             paths.pop('/api/cms/globals/{slug}/versions/{vid}', {}))
+    for k in ('/api/cms/{slug}', '/api/cms/{slug}/{id}', '/api/cms/{slug}/count', '/api/cms/{slug}/versions',
+              '/api/cms/{slug}/versions/{vid}', '/api/cms/globals/{slug}', '/api/cms/globals/{slug}/versions',
+              '/api/cms/globals/{slug}/versions/{vid}'):
+        paths.pop(k, None)
+
+    schemas['PanelI18n'] = {'type': 'object', 'description': 'To‘rt tilli matn.', 'properties': {l: {'type': 'string'} for l in ('uz', 'ru', 'en', 'zh')}}
+    schemas['PanelMedia'] = sf.media_schema()
+    schemas['PanelPage'] = sf.PAGED
 
     for slug, coll in REGISTRY.items():
-        label, tag, acc = LABELS[slug], ADMIN_TAG[slug], coll.access
+        label, tag, acc, rules = LABELS[slug], ADMIN_TAG[slug], coll.access, getattr(coll, 'rules', {}) or {}
+        name = sf.pascal(slug)
+        resp = sf.response_schema(coll)
+        schemas[name] = resp
+        schemas[f'{name}Input'] = sf.input_schema(coll, resp)
+        schemas[f'{name}List'] = {'allOf': [_ref('PanelPage'), {'type': 'object', 'properties': {'docs': {'type': 'array', 'items': _ref(name)}}}]}
         base = f'/api/cms/{slug}'
+        trash = slug == 'posts'
         lst, doc = {}, {}
+        R = lambda a: acc.get(a, ())
         if 'read' in acc:
-            lst['get'] = _clone(g_list['get'], path=base, tag=tag, summary=f'{label}: ro‘yxat', op_id=f'cms_{slug}_list', roles_line=_roles_line(acc['read'], 'read'))
-            doc['get'] = _clone(g_doc['get'], path=base, tag=tag, summary=f'{label}: bitta yozuv', op_id=f'cms_{slug}_get', roles_line=_roles_line(acc['read'], 'read'))
-            paths[f'{base}/count'] = {'get': _clone(g_count['get'], path=base, tag=tag, summary=f'{label}: soni', op_id=f'cms_{slug}_count', roles_line=_roles_line(acc['read'], 'read'))}
+            r = rules.get('read', '')
+            lst['get'] = _op(tag=tag, summary=f'{label}: ro‘yxat', op_id=f'cms_{slug}_list', action='read', roles=R('read'), rules=r,
+                             ok='200', ok_desc='Sahifalangan ro‘yxat', ok_schema=_ref(f'{name}List'),
+                             params=_p('where', 'sort', 'limit', 'page', 'depth', *(['trash'] if trash else [])))
+            doc['get'] = _op(tag=tag, summary=f'{label}: bitta yozuv', op_id=f'cms_{slug}_get', action='read', roles=R('read'), rules=r,
+                             ok='200', ok_desc='Yozuv', ok_schema=_ref(name), params=_p('id', 'depth', *(['trash'] if trash else [])),
+                             extra={'404': _err('Yozuv topilmadi yoki doirangizdan tashqarida')})
+            paths[f'{base}/count'] = {'get': _op(tag=tag, summary=f'{label}: soni', op_id=f'cms_{slug}_count', action='read', roles=R('read'),
+                                                 ok='200', ok_desc='Soni', ok_schema={'type': 'object', 'properties': {'totalDocs': {'type': 'integer'}}},
+                                                 params=_p('where'))}
         if 'create' in acc:
-            note = 'Fayl `multipart/form-data` bilan yuboriladi: `file` + `_payload` (JSON).' if slug == 'media' else ''
-            lst['post'] = _clone(g_list['post'], path=base, tag=tag, summary=f'{label}: yaratish', op_id=f'cms_{slug}_create', roles_line=_roles_line(acc['create'], 'create'), note=note)
+            lst['post'] = _op(tag=tag, summary=f'{label}: yaratish', op_id=f'cms_{slug}_create', action='create', roles=R('create'), rules=rules.get('create', ''),
+                              ok='201', ok_desc='Yaratildi', ok_schema={'type': 'object', 'properties': {'doc': _ref(name), 'message': {'type': 'string'}}},
+                              body=MEDIA_BODY if slug == 'media' else _body(f'{name}Input'),
+                              note='Fayl `multipart/form-data` bilan yuboriladi: `file` + `_payload` (JSON).' if slug == 'media' else '',
+                              extra={'400': _err('Tekshiruvdan o‘tmadi (maydon xatolari `errors` da)'), '409': _err('Takroriy qiymat (slug, username …)')})
         if 'update' in acc:
-            doc['patch'] = _clone(g_doc['patch'], path=base, tag=tag, summary=f'{label}: o‘zgartirish', op_id=f'cms_{slug}_update', roles_line=_roles_line(acc['update'], 'update'))
+            r = rules.get('update', '')
+            note = ('Savatdan tiklash: `PATCH /api/cms/posts/{id}?trash=true` tanasi `{"deletedAt": null}`.' if trash else '')
+            doc['patch'] = _op(tag=tag, summary=f'{label}: o‘zgartirish', op_id=f'cms_{slug}_update', action='update', roles=R('update'), rules=r,
+                               ok='200', ok_desc='Saqlandi', ok_schema={'type': 'object', 'properties': {'doc': _ref(name), 'message': {'type': 'string'}}},
+                               params=_p('id', 'depth', *(['trash'] if trash else [])), body=_body(f'{name}Input'), note=note,
+                               extra={'400': _err('Tekshiruvdan o‘tmadi'), '404': _err('Yozuv topilmadi yoki doirangizdan tashqarida'),
+                                      '409': _err('Takroriy qiymat yoki boshqa foydalanuvchi o‘zgartirib bo‘lgan')})
+            lst['patch'] = _op(tag=tag, summary=f'{label}: ommaviy o‘zgartirish', op_id=f'cms_{slug}_bulk_update', action='update', roles=_probe(coll, 'update'), rules=r,
+                               ok='200', ok_desc='Natija (qisman muvaffaqiyat mumkin)', ok_schema=BULK,
+                               params=_p('where', 'sort', 'depth', where_required=True), body=_body(f'{name}Input'),
+                               note='Bir xil o‘zgarish `where` ga mos hamma yozuvga (ko‘pi bilan 500). Har yozuv uchun ruxsat alohida tekshiriladi — ruxsatsizlari `errors` da qoladi.',
+                               extra={'400': _err('`where` yo‘q yoki noto‘g‘ri')})
         if 'delete' in acc:
-            note = 'Post savatga tushadi; savatdagisi butunlay o‘chiriladi.' if slug == 'posts' else ''
-            doc['delete'] = _clone(g_doc['delete'], path=base, tag=tag, summary=f'{label}: o‘chirish', op_id=f'cms_{slug}_delete', roles_line=_roles_line(acc['delete'], 'delete'), note=note)
-        # Ommaviy amallar (`where` bo'yicha) kod tomonda hamma kolleksiyada ishlaydi; har bir yozuv uchun ruxsat alohida tekshiriladi
-        if 'update' in acc:
-            lst['patch'] = _clone(g_list['patch'], path=base, tag=tag, summary=f'{label}: ommaviy o‘zgartirish (`where` bo‘yicha)', op_id=f'cms_{slug}_bulk_update', roles_line=_roles_line(acc['update'], 'update'),
-                                  note='Javob: `{docs, errors}` — ruxsati yo‘q yoki xato bergan yozuvlar `errors` da qoladi, qolganlari saqlanadi.')
-        if 'delete' in acc:
-            lst['delete'] = _clone(g_list['delete'], path=base, tag=tag, summary=f'{label}: ommaviy o‘chirish (`where` bo‘yicha)', op_id=f'cms_{slug}_bulk_delete', roles_line=_roles_line(acc['delete'], 'delete'),
-                                   note='Postlar savatga tushadi. Javob: `{docs, errors}`.' if slug == 'posts' else 'Javob: `{docs, errors}`.')
+            r = rules.get('delete', '')
+            note = 'Post savatga tushadi; savatdagisi (`?trash=true`) butunlay o‘chiriladi.' if trash else ''
+            doc['delete'] = _op(tag=tag, summary=f'{label}: o‘chirish', op_id=f'cms_{slug}_delete', action='delete', roles=R('delete'), rules=r,
+                                ok='200', ok_desc='O‘chirildi (204 emas — javob tanasi bor)', ok_schema=DOC_ID,
+                                params=_p('id', *(['trash'] if trash else [])), note=note,
+                                extra={'404': _err('Yozuv topilmadi yoki doirangizdan tashqarida'), '409': _err('Boshqa yozuvlar unga bog‘langan')})
+            lst['delete'] = _op(tag=tag, summary=f'{label}: ommaviy o‘chirish', op_id=f'cms_{slug}_bulk_delete', action='delete', roles=_probe(coll, 'delete'), rules=r,
+                                ok='200', ok_desc='Natija (qisman muvaffaqiyat mumkin)', ok_schema=BULK,
+                                params=_p('where', *(['trash'] if trash else []), where_required=True),
+                                note=('Postlar savatga tushadi. ' if trash else '') + 'Har yozuv uchun ruxsat alohida tekshiriladi.',
+                                extra={'400': _err('`where` yo‘q yoki noto‘g‘ri')})
         if coll.versions:
-            paths[f'{base}/versions'] = {'get': _clone(g_vlist['get'], path=base, tag=tag, summary=f'{label}: saqlangan holatlar', op_id=f'cms_{slug}_versions', roles_line=_roles_line(acc.get('update'), 'update'))}
-            paths[f'{base}/versions/{{vid}}'] = {'post': _clone(g_vdoc['post'], path=base, tag=tag, summary=f'{label}: shu holatga qaytarish', op_id=f'cms_{slug}_restore', roles_line=_roles_line(acc.get('update'), 'update'))}
+            paths[f'{base}/versions'] = {'get': _op(tag=tag, summary=f'{label}: saqlangan holatlar', op_id=f'cms_{slug}_versions', action='read', roles=R('read'),
+                                                    ok='200', ok_desc='Holatlar ro‘yxati', ok_schema=_ref('PanelPage'), params=_p('where', 'sort', 'limit', 'page'))}
+            paths[f'{base}/versions/{{vid}}'] = {'post': _op(tag=tag, summary=f'{label}: shu holatga qaytarish', op_id=f'cms_{slug}_restore', action='update', roles=R('update'),
+                                                             ok='200', ok_desc='Qaytarildi', ok_schema={'type': 'object', 'properties': {'doc': _ref(name), 'message': {'type': 'string'}}},
+                                                             params=_p('vid'), rules=rules.get('update', ''), extra={'404': _err('Holat yoki yozuv topilmadi')})}
         if lst:
             paths[base] = lst
         if doc:
@@ -278,14 +381,75 @@ def _expand_admin(paths: dict) -> None:
     for slug, g in GLOBALS.items():
         label, tag, acc = LABELS[slug], ADMIN_TAG[slug], g.access
         base = f'/api/cms/globals/{slug}'
-        item = {}
-        if acc.get('read') is not None or 'read' in acc:
-            item['get'] = _clone(gg['get'], path=base, tag=tag, summary=f'{label}: o‘qish', op_id=f'cms_global_{slug}_get', roles_line=_roles_line(acc.get('read'), 'read') or 'Ochiq: kirgan har qanday xodim')
-        item['post'] = _clone(gg['post'], path=base, tag=tag, summary=f'{label}: saqlash', op_id=f'cms_global_{slug}_save', roles_line=_roles_line(acc.get('update'), 'update'))
+        read_roles = acc.get('read') or ALL_ROLES
+        item = {'get': _op(tag=tag, summary=f'{label}: o‘qish', op_id=f'cms_global_{slug}_get', action='read', roles=read_roles,
+                           ok='200', ok_desc='Joriy qiymat', ok_schema={'type': 'object'}, params=_p('depth'),
+                           note='' if acc.get('read') else '**Ochiq:** token shart emas (ommaviy sayt ma’lumoti; admin paneldagi «Texnik yordam» tugmasi uchun).'),
+                'post': _op(tag=tag, summary=f'{label}: saqlash', op_id=f'cms_global_{slug}_save', action='update', roles=acc.get('update', ()),
+                            ok='200', ok_desc='Saqlandi', ok_schema={'type': 'object', 'properties': {'result': {'type': 'object'}, 'message': {'type': 'string'}}},
+                            body={'required': True, 'content': {'application/json': {'schema': {'type': 'object'}}}},
+                            extra={'400': _err('Tekshiruvdan o‘tmadi')})}
+        if not acc.get('read'):
+            item['get']['security'] = [{}, *copy.deepcopy(PANEL_SECURITY)]  # tokensiz ham mumkin
+            item['get']['x-roles'] = sorted(ALL_ROLES)
+            item['get']['x-anonymous'] = True
         paths[base] = item
         if g.versions:
-            paths[f'{base}/versions'] = {'get': _clone(gg_vlist['get'], path=base, tag=tag, summary=f'{label}: o‘zgarishlar tarixi', op_id=f'cms_global_{slug}_versions', roles_line=_roles_line(acc.get('update'), 'update'))}
-            paths[f'{base}/versions/{{vid}}'] = {'post': _clone(gg_vdoc['post'], path=base, tag=tag, summary=f'{label}: shu holatga qaytarish', op_id=f'cms_global_{slug}_restore', roles_line=_roles_line(acc.get('update'), 'update'))}
+            paths[f'{base}/versions'] = {'get': _op(tag=tag, summary=f'{label}: o‘zgarishlar tarixi', op_id=f'cms_global_{slug}_versions', action='read', roles=read_roles,
+                                                    ok='200', ok_desc='Holatlar', ok_schema=_ref('PanelPage'), params=_p('limit', 'page'))}
+            paths[f'{base}/versions/{{vid}}'] = {'post': _op(tag=tag, summary=f'{label}: shu holatga qaytarish', op_id=f'cms_global_{slug}_restore', action='update', roles=acc.get('update', ()),
+                                                             ok='200', ok_desc='Qaytarildi', ok_schema={'type': 'object'}, params=_p('vid'),
+                                                             extra={'404': _err('Holat topilmadi')})}
+
+
+def _panel_roles() -> dict:
+    """Kolleksiyaga tegishli bo'lmagan panel amallari: (method, yo'l) → rollar. `tests/security/test_role_matrix.py` haqiqatga tekshiradi."""
+    from apps.panel import collections as c
+    media, every, sup = c.MEDIA_ROLES, c.ALL, c.SUPER
+    return {
+        '/api/cms/panel/overview': every, '/api/cms/panel/hemis': every, '/api/cms/panel/sdg-counts': every,
+        '/api/cms/panel/media-stats': media, '/api/cms/panel/media-used': media, '/api/cms/panel/youtube': media,
+        '/api/cms/panel/media-usage/{id}': media, '/api/cms/panel/stats': sup,
+        '/api/cms/users/unlock': sup, '/api/cms/users/2fa/reset': sup, '/api/cms/private/{name}': sup,
+    }
+
+
+def _tag_roles(paths: dict) -> None:
+    """Kolleksiyaga tegishli bo'lmagan `/api/cms/*` amallariga ham `x-roles` (yoki ochiq bo'lsa `x-public`)."""
+    special = {_norm(k): v for k, v in _panel_roles().items()}
+    for path, item in paths.items():
+        if not path.startswith('/api/cms/'):
+            continue
+        for op in item.values():
+            if not isinstance(op, dict) or 'responses' not in op or 'x-roles' in op:
+                continue
+            if path in ('/api/cms/users/login', '/api/cms/users/login/2fa'):
+                op['x-public'] = True
+                continue
+            roles = special.get(_norm(path), ALL_ROLES)
+            op['x-roles'] = sorted(roles)
+            line = '**Ruxsat:** ' + ('kirgan har qanday xodim' if set(roles) >= ALL_ROLES else ', '.join(f'`{x}`' for x in sorted(roles)))
+            op['description'] = ((op.get('description') or '').rstrip() + '\n\n' + line).strip()
+
+
+def filter_by_role(schema: dict, role: str) -> dict:
+    """`?role=editor` — shu rolga ruxsat etilmagan admin amallari olib tashlanadi (ochiq sayt API'si o'zgarmaydi)."""
+    schema = copy.deepcopy(schema)
+    for path in list(schema.get('paths', {})):
+        item = schema['paths'][path]
+        for m in list(item):
+            op = item[m]
+            if isinstance(op, dict) and 'x-roles' in op and role not in op['x-roles']:
+                del item[m]
+        if not any(isinstance(v, dict) and 'responses' in v for v in item.values()):
+            del schema['paths'][path]
+    used = {t for i in schema['paths'].values() for o in i.values() if isinstance(o, dict) for t in o.get('tags', [])}
+    schema['tags'] = [t for t in schema.get('tags', []) if t['name'] in used]
+    for g in schema.get('x-tagGroups', []):
+        g['tags'] = [t for t in g['tags'] if t in used]
+    schema['x-tagGroups'] = [g for g in schema.get('x-tagGroups', []) if g['tags']]
+    schema['info']['title'] = f"{schema['info'].get('title', 'API')} — rol: {role}"
+    return schema
 
 
 def finalize(result, generator, request, public):
@@ -301,7 +465,7 @@ def finalize(result, generator, request, public):
     schemes['staffBearer'] = {'type': 'http', 'scheme': 'bearer', 'description': 'Xodim kabineti tokeni (`issue_staff_session` yoki HEMIS kirishi natijasi).'}
 
     paths = result['paths']
-    _expand_admin(paths)
+    _expand_admin(paths, comps['schemas'])
 
     for path, item in paths.items():
         for method, op in item.items():
@@ -343,6 +507,8 @@ def finalize(result, generator, request, public):
                     op['summary'] = EXTRA_SUMMARY[key]
                 if key in ('/hit', '/appeals'):
                     op['security'] = [] if key == '/hit' else op.get('security', [])
+
+    _tag_roles(paths)
 
     used = {t for item in paths.values() for op in item.values() if isinstance(op, dict) for t in op.get('tags', [])}
     result['tags'] = [{'name': n, 'description': d.strip()} for n, d, _ in TAGS if n in used]
