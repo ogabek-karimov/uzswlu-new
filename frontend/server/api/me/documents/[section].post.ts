@@ -3,6 +3,7 @@ import type { CabinetDocument } from '#shared/types/api'
 // Hujjat yuklash: multipart — file (yoki videolar uchun url) + title_uz/title_ru/title_en/title_zh.
 // Fayl turi kengaytma bo'yicha tekshiriladi; backend tarkibini ham tekshirishi shart.
 export default defineEventHandler(async (event): Promise<CabinetDocument> => {
+  assertUploadSize(event, DOC_MAX_BYTES + 512 * 1024)
   const section = readDocSection(getRouterParam(event, 'section'))
   const rules = DOC_RULES[section]
   const parts = (await readMultipartFormData(event)) ?? []

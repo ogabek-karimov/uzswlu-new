@@ -37,3 +37,4 @@ backend/staticfiles/
 *.sqlite3
 *.db
 backend/.test-session
+backend/private/

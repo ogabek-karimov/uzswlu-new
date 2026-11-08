@@ -1,4 +1,4 @@
-import { createByteCache, safeMediaPath } from '../../utils/media-cache'
+import { createByteCache, safeMediaHeaders, safeMediaPath } from '../../utils/media-cache'
 import { isBackendFailure } from '../../utils/last-good'
 
 // Rasm va hujjatlar: sayt backenddan olib vaqtincha xotirada saqlaydi. Backend o'chib qolsa,
@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
 
   const serve = (file: NonNullable<typeof hit>, stale: boolean) => {
     setResponseHeaders(event, {
-      'content-type': file.type,
+      ...safeMediaHeaders(file.type, key),
       'cache-control': 'public, max-age=3600',
       ...(file.etag ? { etag: file.etag } : {}),
       ...(file.lastModified ? { 'last-modified': file.lastModified } : {}),
@@ -68,7 +68,8 @@ export default defineEventHandler(async (event) => {
     if (!cacheable) {
       // Keshlanmaydi: oqim bilan (Range ham) to'g'ridan-to'g'ri uzatiladi
       setResponseStatus(event, res.status)
-      for (const h of ['content-type', 'content-length', 'content-range', 'accept-ranges', 'etag', 'last-modified']) {
+      setResponseHeaders(event, safeMediaHeaders(type, key))
+      for (const h of ['content-length', 'content-range', 'accept-ranges', 'etag', 'last-modified']) {
         const v = res.headers.get(h)
         if (v) setResponseHeader(event, h, v)
       }
@@ -78,7 +79,7 @@ export default defineEventHandler(async (event) => {
 
     const body = new Uint8Array(await res.arrayBuffer())
     cache.set(key, { body, type, etag: res.headers.get('etag') ?? undefined, lastModified: res.headers.get('last-modified') ?? undefined })
-    setResponseHeaders(event, { 'content-type': type, 'cache-control': 'public, max-age=3600' })
+    setResponseHeaders(event, { ...safeMediaHeaders(type, key), 'cache-control': 'public, max-age=3600' })
     const etag = res.headers.get('etag')
     if (etag) setResponseHeader(event, 'etag', etag)
     return body

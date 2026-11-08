@@ -75,6 +75,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'apps.core.middleware.UploadSizeLimitMiddleware',
+    'apps.core.middleware.MediaHeadersMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -149,6 +151,14 @@ STORAGES = {
 SERVE_MEDIA = env_bool('SERVE_MEDIA', True)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+# Ochiq berilmaydigan fayllar (murojaat ilovalari). Faqat superadmin autentifikatsiya bilan yuklab oladi. Serverda alohida volume bo'lsin.
+PRIVATE_ROOT = Path(env('PRIVATE_ROOT', str(BASE_DIR / 'private')))
+# Yuklash so'rovining eng katta hajmi (bayt): fayl o'qilishidan OLDIN rad etiladi (prefiks → limit)
+UPLOAD_LIMITS = [
+    ('/api/appeals', 12 * 1024 * 1024),
+    ('/api/me/', 22 * 1024 * 1024),
+    ('/api/cms/', 55 * 1024 * 1024),
+]
 DATA_UPLOAD_MAX_MEMORY_SIZE = 60 * 1024 * 1024
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 500       # ko'p maydonli (query/form) so'rov bilan xotirani to'ldirishga qarshi
 DATA_UPLOAD_MAX_NUMBER_FILES = 20

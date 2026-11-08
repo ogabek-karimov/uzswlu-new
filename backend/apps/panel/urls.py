@@ -5,6 +5,7 @@ from . import auth, dashboard, twofactor
 from . import views as v
 
 urlpatterns = [
+    path('private/<path:name>', v.PrivateFileView.as_view()),  # yopiq fayllar — kolleksiya yo'llaridan OLDIN
     path('users/login', auth.LoginView.as_view()),
     path('users/login/2fa', twofactor.LoginTwoFactorView.as_view()),
     path('users/2fa/setup', twofactor.SetupView.as_view()),

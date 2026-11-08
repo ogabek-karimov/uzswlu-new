@@ -88,3 +88,26 @@ export function createByteCache(maxBytes: number, now: () => number = Date.now) 
     get bytes() { return bytes },
   }
 }
+
+/** Brauzerda ochilishi mumkin turlar; boshqasi yuklab olinadi va hech qachon sahifa sifatida bajarilmaydi */
+const INLINE = new Set(['image/webp', 'image/jpeg', 'image/png', 'image/gif', 'audio/mpeg', 'application/pdf'])
+export const SANDBOX_CSP = "default-src 'none'; img-src 'self' data:; media-src 'self'; style-src 'unsafe-inline'; sandbox"
+
+/** Backend bergan Content-Type ishonchli emas deb olinadi: ruxsat ro'yxatidagi bo'lmasa — octet-stream + attachment */
+export function safeMediaHeaders(rawType: string | null | undefined, name: string): Record<string, string> {
+  const type = (rawType ?? '').split(';')[0]!.trim().toLowerCase()
+  const headers: Record<string, string> = { 'x-content-type-options': 'nosniff' }
+  if (INLINE.has(type)) {
+    headers['content-type'] = type
+    if (type !== 'application/pdf') headers['content-security-policy'] = SANDBOX_CSP
+  }
+  else {
+    let raw = name.split('/').pop() ?? 'file'
+    try { raw = decodeURIComponent(raw) }
+    catch { /* noto'g'ri kodlangan nom — o'z holicha */ }
+    const base = raw.replace(/[^\w.\-]+/g, '_').slice(0, 120) || 'file'
+    headers['content-type'] = 'application/octet-stream'
+    headers['content-disposition'] = `attachment; filename="${base}"`
+  }
+  return headers
+}

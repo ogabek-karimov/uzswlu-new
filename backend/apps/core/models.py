@@ -10,10 +10,11 @@ from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify as dj_slugify
 
+from . import filesafe
 from .fields import I18nField
 from .utils import abs_url
 
-IMAGE_EXT = {'.jpg', '.jpeg', '.png', '.webp', '.gif', '.bmp', '.tif', '.tiff'}
+IMAGE_EXT = filesafe.IMAGE_EXTS  # JPG, PNG, WEBP, GIF (BMP/TIFF — murakkab parserlar, qabul qilinmaydi)
 MAX_UPLOAD = 50 * 1024 * 1024
 MAX_WIDTH = 2560
 IMAGE_SIZES = {'thumb': 400, 'card': 900, 'hero': 1920}
@@ -25,28 +26,12 @@ def upload_path(instance, filename: str) -> str:
 
 
 def validate_upload(file) -> None:
-    """Ruxsat etilgan turlar: rasm, PDF, MP3. Tarkibi (magic bytes) ham tekshiriladi."""
-    ext = os.path.splitext(file.name)[1].lower()
-    if file.size > MAX_UPLOAD:
-        raise ValidationError('Fayl 50 MB dan katta')
-    head = file.read(16)
-    file.seek(0)
-    if ext == '.pdf':
-        if not head.startswith(b'%PDF'):
-            raise ValidationError('PDF fayl buzilgan')
-    elif ext == '.mp3':
-        if not (head.startswith(b'ID3') or (len(head) > 1 and head[0] == 0xFF and head[1] & 0xE0 == 0xE0)):
-            raise ValidationError('MP3 fayl buzilgan')
-    elif ext in IMAGE_EXT:
-        from PIL import Image
-        try:
-            Image.open(file).verify()
-        except Exception as exc:
-            raise ValidationError('Rasm buzilgan yoki noto‘g‘ri format') from exc
-        finally:
-            file.seek(0)
-    else:
-        raise ValidationError('Faqat rasm, PDF yoki MP3 yuklash mumkin')
+    """Ruxsat etilgan turlar: rasm, PDF, MP3. Tarkib chuqur tekshiriladi (`apps.core.filesafe`):
+    rasm o'lchami chegarasi, PDF'da skript/ichki fayl yo'qligi, MP3 sarlavhasi."""
+    ext = filesafe.ext_of(file.name)
+    if ext not in IMAGE_EXT | {'.pdf', '.mp3'}:
+        raise ValidationError('Faqat JPG, PNG, WEBP, GIF rasm, PDF yoki MP3 yuklash mumkin')
+    filesafe.inspect_bytes(filesafe.read_all(file, MAX_UPLOAD), ext)
 
 
 class Media(models.Model):

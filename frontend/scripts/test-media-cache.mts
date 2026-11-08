@@ -17,3 +17,17 @@ c.get('a'); c.set('c', { body: new Uint8Array(4), type: 't' })
 assert.equal(c.get('b'), undefined); assert.ok(c.get('a')); assert.ok(c.get('c')); assert.equal(c.bytes, 8)
 c.set('big', { body: new Uint8Array(11), type: 't' }); assert.equal(c.get('big'), undefined)
 console.log('MEDIA HAMMASI O‘TDI')
+
+import { safeMediaHeaders } from '../server/utils/media-cache.ts'
+const h1 = safeMediaHeaders('image/webp', '/media/a/b.webp')
+assert.equal(h1['content-type'], 'image/webp'); assert.equal(h1['x-content-type-options'], 'nosniff'); assert.match(h1['content-security-policy']!, /sandbox/)
+const h2 = safeMediaHeaders('application/pdf', '/media/x.pdf')
+assert.equal(h2['content-type'], 'application/pdf'); assert.equal(h2['content-security-policy'], undefined)
+for (const evil of ['text/html', 'image/svg+xml', 'application/xhtml+xml', 'text/javascript', '', undefined, 'text/html; charset=utf-8']) {
+  const h = safeMediaHeaders(evil as string, '/media/we ird"na%me.html')
+  assert.equal(h['content-type'], 'application/octet-stream', String(evil))
+  assert.match(h['content-disposition']!, /^attachment; filename="[\w.\-]+"$/)
+}
+assert.equal(safeMediaHeaders('image/PNG; charset=x', '/media/a.png')['content-type'], 'image/png')
+safeMediaHeaders('text/html', '/media/%E0%A4%A.html') // noto'g'ri %-kodlash xato bermaydi
+console.log('MEDIA HEADERS O‘TDI')

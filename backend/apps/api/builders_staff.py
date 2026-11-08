@@ -8,7 +8,7 @@ from rest_framework.exceptions import APIException, NotFound
 
 from apps.core.fields import LANGS, pick, tr
 from apps.core.models import Media
-from apps.core.uploads import check_upload, square_avatar
+from apps.core.uploads import clean_upload, square_avatar
 from apps.core.utils import abs_url
 from apps.hemis import get_client
 from apps.structure.models import StaffDocument, StaffProfile
@@ -31,6 +31,9 @@ DOC_RULES = {
     'videos': set(),
 }
 DOC_MAX_BYTES = 20 * 1024 * 1024
+# Bitta xodim uchun kabinetdagi fayllar chegarasi (disk to'ldirib yuborilmasligi uchun)
+DOC_QUOTA_COUNT = 100
+DOC_QUOTA_BYTES = 300 * 1024 * 1024
 ABOUT_MAX = 2000
 VALUE_MAX = 300
 
@@ -300,6 +303,18 @@ def docs_list_out(hemis_id: str, section: str) -> list[dict]:
     return [cabinet_doc_out(d) for d in StaffDocument.objects.filter(hemis_id=hemis_id, section=section)]
 
 
+def _check_quota(hemis_id: str) -> None:
+    docs = list(StaffDocument.objects.filter(hemis_id=hemis_id).exclude(file='').only('file'))
+    used = 0
+    for d in docs:
+        try:
+            used += d.file.size
+        except (OSError, ValueError):
+            pass
+    if len(docs) >= DOC_QUOTA_COUNT or used >= DOC_QUOTA_BYTES:
+        raise Unprocessable('Fayllar chegarasi to‘ldi — eskilarini o‘chiring')
+
+
 def add_document(hemis_id: str, section: str, data, files) -> dict:
     titles = {lang: str(data.get(f'title_{lang}') or '').strip() for lang in LANGS}
     if not titles['uz'] or any(len(t) > 255 for t in titles.values()):
@@ -312,12 +327,13 @@ def add_document(hemis_id: str, section: str, data, files) -> dict:
     file = files.get('file')
     if not file:
         raise Unprocessable('Fayl kerak')
+    _check_quota(hemis_id)
     try:
-        check_upload(file, DOC_RULES[section], DOC_MAX_BYTES)
+        clean, _ = clean_upload(file, DOC_RULES[section], DOC_MAX_BYTES)  # tozalangan nusxa, tasodifiy nom
     except ValidationError as exc:
         raise Unprocessable(exc.messages[0]) from exc
     doc = StaffDocument(hemis_id=hemis_id, section=section, title=title)
-    doc.file = file
+    doc.file = clean
     doc.save()
     return cabinet_doc_out(doc)
 

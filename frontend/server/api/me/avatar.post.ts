@@ -4,6 +4,7 @@ const TYPES = ['image/jpeg', 'image/png', 'image/webp']
 const MAX = 10 * 1024 * 1024
 
 export default defineEventHandler(async (event) => {
+  assertUploadSize(event, MAX + 512 * 1024)
   const parts = await readMultipartFormData(event)
   const file = parts?.find(p => p.name === 'file' && p.filename)
   if (!file || !TYPES.includes(file.type ?? '') || file.data.length > MAX) {

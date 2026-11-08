@@ -458,3 +458,36 @@ class MediaFileCompat(APIView):
             if m:
                 return HttpResponseRedirect(m.size_url(size) if size else m.url)
         raise Http404
+
+
+class PrivateFileView(APIView):
+    """Yopiq fayllar (murojaat ilovalari). Faqat superadmin; har doim yuklab olinadi (`attachment`), brauzerda bajarilmaydi."""
+
+    authentication_classes = PANEL_AUTH
+    permission_classes: list = []
+    throttle_classes = [ScopedThrottle]
+    throttle_scope = 'panel-read'
+
+    @extend_schema(exclude=True)
+    def get(self, request, name):
+        import os
+
+        from django.core.exceptions import SuspiciousFileOperation
+        from django.http import FileResponse, Http404
+        from django.utils._os import safe_join
+
+        u = request.user
+        if not (u and u.is_authenticated and u.status != 'disabled' and u.role == 'superadmin'):
+            return error('Ruxsat yo‘q', 403 if u and u.is_authenticated else 401)
+        try:
+            path = safe_join(settings.PRIVATE_ROOT, name)
+        except SuspiciousFileOperation:
+            raise Http404 from None
+        if not os.path.isfile(path):
+            raise Http404
+        response = FileResponse(open(path, 'rb'), as_attachment=True, filename=os.path.basename(path))
+        response['Content-Type'] = 'application/octet-stream'
+        response['X-Content-Type-Options'] = 'nosniff'
+        response['Content-Security-Policy'] = "default-src 'none'; sandbox"
+        response['Cache-Control'] = 'private, no-store'
+        return response

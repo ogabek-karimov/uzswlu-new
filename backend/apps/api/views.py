@@ -12,7 +12,7 @@ from rest_framework.exceptions import NotFound, Throttled
 from rest_framework.response import Response
 
 from apps.content.models import Document, Leader, Post
-from apps.core.uploads import check_upload
+from apps.core.uploads import clean_upload
 from apps.core.throttles import ScopedThrottle
 from apps.core.utils import client_ip
 from apps.pages.models import Page, SdgGoal
@@ -252,7 +252,7 @@ class AppealView(PublicView):
         file = request.FILES.get('file')
         if file:
             try:
-                check_upload(file, APPEAL_FILE_TYPES, APPEAL_MAX_FILE)
+                file, _ = clean_upload(file, APPEAL_FILE_TYPES, APPEAL_MAX_FILE)  # tozalangan nusxa, tasodifiy nom
             except ValidationError as exc:
                 raise Unprocessable('Invalid file') from exc
 

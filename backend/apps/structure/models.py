@@ -7,6 +7,7 @@ from django.utils import timezone
 
 from apps.core.fields import I18nField
 from apps.core.models import SingletonModel
+from apps.core.storage import private_storage
 
 FORMS = [('day', 'Kunduzgi'), ('evening', 'Kechki'), ('distance', 'Sirtqi')]
 FORM_LABELS = {
@@ -83,6 +84,11 @@ class StaffProfile(models.Model):
 
     def __str__(self):
         return self.name or self.hemis_id
+
+
+def appeal_path(instance, filename: str) -> str:
+    """Murojaat fayli: yopiq saqlash, nom tasodifiy (mijoz nomi saqlanmaydi, manzilni taxmin qilib bo'lmaydi)."""
+    return f"appeals/{timezone.now():%Y/%m}/{uuid.uuid4().hex}{os.path.splitext(filename)[1].lower()}"
 
 
 def staff_doc_path(instance, filename: str) -> str:
@@ -244,7 +250,7 @@ class Appeal(models.Model):
     recipient = models.CharField('Kimga', max_length=40)
     recipient_title = models.CharField('Kimga (nomi)', max_length=300, blank=True)
     message = models.TextField('Murojaat matni')
-    file = models.FileField('Biriktirilgan fayl', upload_to='appeals/%Y/%m', blank=True, max_length=300)
+    file = models.FileField('Biriktirilgan fayl', upload_to=appeal_path, storage=private_storage, blank=True, max_length=300)
     status = models.CharField('Holati', max_length=12, choices=STATUSES, default='new', db_index=True)
     ip = models.CharField(max_length=45, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)

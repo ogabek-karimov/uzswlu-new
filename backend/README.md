@@ -129,3 +129,36 @@ IP `X-Forwarded-For` dan faqat `NUM_PROXIES` (ishonchli proksilar soni) hisobga 
 - Kutubxona zaifliklari: `requirements.txt` da Django ≥ 5.2.19. Vaqti-vaqti bilan: `pip install pip-audit && pip-audit -r requirements.txt` va admin/frontend papkalarida `npm audit`; Docker'ni `--build` bilan qayta yig'ish yangi tuzatishlarni oladi.
 
 Testlar: `python manage.py test apps.api` (IDOR, parol oracle, so'rov cheklovi, kesh, JWT, post egaligi).
+
+
+## Fayllar xavfsizligi (yuklash va yuklab olish)
+
+Hammasi Python'da (Pillow + standart kutubxona), tashqi dastur (antivirus, ImageMagick) kerak emas. Kod: `apps/core/filesafe.py`.
+
+**Yuklashda** (murojaat ilovasi, kabinet hujjati, panel media, xodim surati):
+- Kengaytma ruxsat ro'yxatida, tarkib (magic bytes) kengaytmaga mos; mijoz fayl nomi **hech qachon saqlanmaydi** (tasodifiy nom).
+- **Rasm** piksellaridan qayta quriladi: EXIF/GPS, ICC va fayl oxiriga yopishtirilgan ma'lumot (polyglot) yo'qoladi. Rasm o'lchami cheklangan (≤ 40 Mpx, ≤ 12000 px) — «decompression bomb»ga qarshi. SVG, BMP, TIFF qabul qilinmaydi.
+- **PDF**: JavaScript, Launch, EmbeddedFile, SubmitForm, GoToR, RichMedia, XFA, parol (Encrypt) bo'lsa rad etiladi; `#xx` bilan yashirilgan nomlar ochiladi; `/ObjStm` oqimlari (skript yashiriladigan joy) zlib bomba chegarasi bilan ochilib skanerlanadi; `%%EOF` dan keyin qo'shimcha ma'lumot (polyglot) rad etiladi.
+- **docx/pptx**: zip bomba (yozuvlar soni, hajm, siqish nisbati), xavfli yo'l nomlari (`..`, `/`), makro (`vbaProject`), ActiveX, ichki OLE/bajariladigan fayllar, hyperlinkdan boshqa tashqi ulanishlar (shablon/rasm tracker) rad etiladi.
+- **doc/ppt** (eski format): VBA/Macros/ObjectPool/Ole10Native belgilari bo'lsa rad etiladi. Eski formatlar o'z tabiatiga ko'ra xavfliroq — kerak bo'lmasa `DOC_RULES` va `APPEAL_FILE_TYPES` dan olib tashlang.
+- So'rov hajmi fayl o'qilishidan OLDIN cheklanadi (`UPLOAD_LIMITS`, 413/411); xodim kabinetida kvota: 100 ta fayl / 300 MB.
+
+**Murojaat ilovalari yopiq**: `PRIVATE_ROOT` (standart `backend/private/`) da, ochiq `/media/` dan tashqarida. Faqat superadmin `/api/cms/private/<yo'l>` orqali yuklab oladi (`attachment`, `nosniff`, `no-store`). Ilgari `/media/appeals/` ga tushganlarni migratsiya o'zi ko'chiradi. Serverda `PRIVATE_ROOT` ni alohida volume qiling va zaxiralang.
+
+**Yuklab olishda** (`/media/`): Content-Type kengaytma bo'yicha qat'iy, `X-Content-Type-Options: nosniff`; rasm/audioda `sandbox` CSP; ruxsat etilmagan tur (html, svg, ...) hech qachon brauzerda ochilmaydi — `attachment`. Django shuni `MediaHeadersMiddleware` bilan qiladi. **Productionda `/media/` ni nginx bersa**, shu qoidalarni nginx'da ham qo'ying:
+
+```nginx
+location /media/ {
+    alias /srv/uzswlu/backend/media/;
+    types { image/webp webp; image/jpeg jpg jpeg; image/png png; image/gif gif; audio/mpeg mp3; application/pdf pdf; }
+    default_type application/octet-stream;            # noma'lum tur — hech qachon html emas
+    add_header X-Content-Type-Options nosniff always;
+    add_header Content-Security-Policy "default-src 'none'; img-src 'self' data:; media-src 'self'; style-src 'unsafe-inline'; sandbox" always;
+    if ($uri !~* \.(webp|jpe?g|png|gif|mp3|pdf)$) { add_header Content-Disposition attachment always; }
+    client_max_body_size 55m;                         # Django ham cheklaydi (UPLOAD_LIMITS)
+    autoindex off;
+}
+location /private/ { return 404; }                    # yopiq fayllar nginx orqali berilmaydi
+```
+
+Cheklovlar: bu antivirus emas — noma'lum (zero-day) ekspluatatsiya yoki shifrlangan ichki yuklamani to'liq istisno qilmaydi; shuning uchun rasm qayta quriladi, faol kontent rad etiladi, fayllar `sandbox`/`attachment` bilan beriladi. Doc/ppt, docx/pptx va PDF parserlari foydalanuvchi kompyuteridagi dasturlarda ishlaydi — murojaat fayllarini ochishda ehtiyot bo'ling.

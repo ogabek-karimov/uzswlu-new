@@ -5,6 +5,7 @@ const MAX_FILE = 10 * 1024 * 1024
 
 // Virtual qabulxona murojaati. Maydonlar shu yerda tekshiriladi, keyin backend'ga uzatiladi.
 export default defineEventHandler(async (event): Promise<AppealResult> => {
+  assertUploadSize(event, MAX_FILE + 512 * 1024)
   const parts = await readMultipartFormData(event)
   if (!parts) throw createError({ statusCode: 400, statusMessage: 'Form data required' })
 
