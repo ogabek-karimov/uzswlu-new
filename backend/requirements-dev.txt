@@ -1,0 +1,5 @@
+# Ishlab chiqish va CI uchun qo'shimcha paketlar (production'ga kerak emas):  pip install -r requirements-dev.txt
+-r requirements.txt
+PyYAML>=6.0          # shartnoma testi: frontend/docs/openapi.yaml ni o'qiydi
+coverage>=7.6        # test qamrovi:  coverage run manage.py test && coverage report
+pip-audit>=2.7       # zaif bog'liqliklarni tekshirish:  pip-audit -r requirements.txt

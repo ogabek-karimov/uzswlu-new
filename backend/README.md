@@ -162,3 +162,9 @@ location /private/ { return 404; }                    # yopiq fayllar nginx orqa
 ```
 
 Cheklovlar: bu antivirus emas — noma'lum (zero-day) ekspluatatsiya yoki shifrlangan ichki yuklamani to'liq istisno qilmaydi; shuning uchun rasm qayta quriladi, faol kontent rad etiladi, fayllar `sandbox`/`attachment` bilan beriladi. Doc/ppt, docx/pptx va PDF parserlari foydalanuvchi kompyuteridagi dasturlarda ishlaydi — murojaat fayllarini ochishda ehtiyot bo'ling.
+
+
+## Testlar
+
+`python manage.py test --parallel` (≈15 s) — hamma backend testlari; tuzilma, yangi test yozish va CI haqida: [`tests/README.md`](tests/README.md).
+Hamma qismlar: `scripts/test.sh` (Windows: `scripts\test.ps1`).

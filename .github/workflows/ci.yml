@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [azik]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Backend (Django testlari)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        db: [sqlite, postgres]          # /panel/stats faqat PostgreSQL'da ishlaydi — ikkalasida ham sinaymiz
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_USER: uzswlu, POSTGRES_PASSWORD: uzswlu, POSTGRES_DB: uzswlu }
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U uzswlu" --health-interval 5s --health-timeout 5s --health-retries 10
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.13', cache: pip, cache-dependency-path: backend/requirements-dev.txt }
+      - run: pip install -r requirements-dev.txt
+      - name: Migratsiyalar modelga mos
+        run: python manage.py makemigrations --check --dry-run
+        env: { DJANGO_SETTINGS_MODULE: config.settings_test }
+      - name: Testlar + qamrov
+        run: |
+          coverage run manage.py test
+          coverage report --skip-empty --show-missing --include='apps/*' | tail -40
+        env:
+          TEST_DATABASE_URL: ${{ matrix.db == 'postgres' && 'postgres://uzswlu:uzswlu@localhost:5432/uzswlu' || '' }}
+
+  frontend:
+    name: Frontend (Node testlari + build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - run: npm ci
+      - run: npm run test:last-good
+      - run: npm run build
+
+  admin:
+    name: Admin panel (tur tekshiruvi + build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: admin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: admin/package-lock.json }
+      - run: npm ci
+      - run: npm run build          # vue-tsc --noEmit && vite build
+
+  audit:
+    name: Zaif bog'liqliklar (ma'lumot uchun)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.13' }
+      - run: pip install pip-audit && pip-audit -r backend/requirements.txt
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: cd frontend && npm audit --audit-level=high
+      - run: cd admin && npm audit --audit-level=high

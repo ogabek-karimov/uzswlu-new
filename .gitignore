@@ -38,3 +38,5 @@ backend/staticfiles/
 *.db
 backend/.test-session
 backend/private/
+.coverage
+htmlcov/

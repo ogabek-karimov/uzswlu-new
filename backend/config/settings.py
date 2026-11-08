@@ -8,7 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 def _load_dotenv() -> None:
     """Lokal ishga tushirishda (`python manage.py runserver`) .env ni o'qiydi. Docker/serverda
-    o'zgaruvchilar allaqachon berilgan bo'ladi — ular hech qachon ustidan yozilmaydi."""
+    o'zgaruvchilar allaqachon berilgan bo'ladi — ular hech qachon ustidan yozilmaydi.
+    SKIP_DOTENV=1 bo'lsa umuman o'qilmaydi (testlar hermetik bo'lishi uchun — `config/settings_test.py`)."""
+    if os.environ.get('SKIP_DOTENV') == '1':
+        return
     for path in (BASE_DIR / '.env', BASE_DIR.parent / '.env'):
         if not path.is_file():
             continue
@@ -105,7 +108,9 @@ TEMPLATES = [{
 def _database() -> dict:
     url = urlparse(env('DATABASE_URL', 'postgres://uzswlu:uzswlu@localhost:5432/uzswlu'))
     if url.scheme == 'sqlite':  # tezkor lokal tekshiruv uchun: DATABASE_URL=sqlite:///db.sqlite3
-        return {'ENGINE': 'django.db.backends.sqlite3', 'NAME': BASE_DIR / (url.path.lstrip('/') or 'db.sqlite3')}
+        name = url.path.lstrip('/') or 'db.sqlite3'
+        # `sqlite:///:memory:` — haqiqiy xotiradagi baza (fayl yaratilmaydi); boshqasi BASE_DIR ga nisbatan
+        return {'ENGINE': 'django.db.backends.sqlite3', 'NAME': name if name == ':memory:' else BASE_DIR / name}
     return {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': url.path.lstrip('/'),
