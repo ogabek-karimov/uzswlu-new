@@ -468,7 +468,12 @@ class PrivateFileView(APIView):
     throttle_classes = [ScopedThrottle]
     throttle_scope = 'panel-read'
 
-    @extend_schema(exclude=True)
+    @extend_schema(
+        tags=['Admin: Statistika va yordamchi'], summary='Yopiq faylni yuklab olish (murojaat ilovalari)',
+        description='Faqat **superadmin**. Fayl har doim `attachment` sifatida, `nosniff` va `no-store` bilan beriladi. '
+                    '`name` — masalan `appeals/2026/11/<uuid>.pdf`. Ochiq `/media/` da bu fayllar yo‘q.',
+        responses={200: OpenApiTypes.BINARY, 401: OpenApiTypes.OBJECT, 403: OpenApiTypes.OBJECT, 404: OpenApiTypes.OBJECT},
+    )
     def get(self, request, name):
         import os
 

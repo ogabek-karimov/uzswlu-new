@@ -260,9 +260,13 @@ def _expand_admin(paths: dict) -> None:
         if 'delete' in acc:
             note = 'Post savatga tushadi; savatdagisi butunlay o‘chiriladi.' if slug == 'posts' else ''
             doc['delete'] = _clone(g_doc['delete'], path=base, tag=tag, summary=f'{label}: o‘chirish', op_id=f'cms_{slug}_delete', roles_line=_roles_line(acc['delete'], 'delete'), note=note)
-        if slug == 'posts':  # ommaviy amallar faqat postlarda ishlatiladi
-            lst['patch'] = _clone(g_list['patch'], path=base, tag=tag, summary='Postlar: ommaviy o‘zgartirish (`where` bo‘yicha)', op_id='cms_posts_bulk_update', roles_line=_roles_line(acc['update'], 'update'))
-            lst['delete'] = _clone(g_list['delete'], path=base, tag=tag, summary='Postlar: ommaviy o‘chirish (`where` bo‘yicha)', op_id='cms_posts_bulk_delete', roles_line=_roles_line(acc['delete'], 'delete'))
+        # Ommaviy amallar (`where` bo'yicha) kod tomonda hamma kolleksiyada ishlaydi; har bir yozuv uchun ruxsat alohida tekshiriladi
+        if 'update' in acc:
+            lst['patch'] = _clone(g_list['patch'], path=base, tag=tag, summary=f'{label}: ommaviy o‘zgartirish (`where` bo‘yicha)', op_id=f'cms_{slug}_bulk_update', roles_line=_roles_line(acc['update'], 'update'),
+                                  note='Javob: `{docs, errors}` — ruxsati yo‘q yoki xato bergan yozuvlar `errors` da qoladi, qolganlari saqlanadi.')
+        if 'delete' in acc:
+            lst['delete'] = _clone(g_list['delete'], path=base, tag=tag, summary=f'{label}: ommaviy o‘chirish (`where` bo‘yicha)', op_id=f'cms_{slug}_bulk_delete', roles_line=_roles_line(acc['delete'], 'delete'),
+                                   note='Postlar savatga tushadi. Javob: `{docs, errors}`.' if slug == 'posts' else 'Javob: `{docs, errors}`.')
         if coll.versions:
             paths[f'{base}/versions'] = {'get': _clone(g_vlist['get'], path=base, tag=tag, summary=f'{label}: saqlangan holatlar', op_id=f'cms_{slug}_versions', roles_line=_roles_line(acc.get('update'), 'update'))}
             paths[f'{base}/versions/{{vid}}'] = {'post': _clone(g_vdoc['post'], path=base, tag=tag, summary=f'{label}: shu holatga qaytarish', op_id=f'cms_{slug}_restore', roles_line=_roles_line(acc.get('update'), 'update'))}
