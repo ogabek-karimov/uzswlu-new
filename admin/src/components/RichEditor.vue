@@ -251,15 +251,15 @@ const inTable = computed(() => active('table'))
         </div>
 
         <!-- Ochiladigan panellar -->
-        <div v-if="palette === 'color' || palette === 'bg'" class="absolute top-full left-2 z-20 mt-1 flex flex-wrap items-center gap-1.5 rounded-xl border border-line bg-white p-2.5 shadow-xl">
+        <div v-if="palette === 'color' || palette === 'bg'" class="absolute top-full left-2 z-10 mt-1 flex flex-wrap items-center gap-1.5 rounded-xl border border-line bg-white p-2.5 shadow-xl">
           <button v-for="c in (palette === 'color' ? COLORS : BG_COLORS)" :key="c" type="button" class="size-7 rounded-md border border-black/10" :style="{ background: c }" :aria-label="c" @click="palette === 'color' ? setColor(c) : setBg(c)" />
           <label class="flex items-center gap-1 text-xs text-muted">Boşqa: <input type="color" class="size-7 cursor-pointer" @change="palette === 'color' ? setColor(($event.target as HTMLInputElement).value) : setBg(($event.target as HTMLInputElement).value)"></label>
           <button type="button" class="h-7 rounded-md border border-field px-2 text-xs" @click="palette === 'color' ? setColor(null) : setBg(null)">Olib taşlaş</button>
         </div>
-        <div v-if="palette === 'chars'" class="absolute top-full left-2 z-20 mt-1 grid grid-cols-10 gap-1 rounded-xl border border-line bg-white p-2.5 shadow-xl">
+        <div v-if="palette === 'chars'" class="absolute top-full left-2 z-10 mt-1 grid grid-cols-10 gap-1 rounded-xl border border-line bg-white p-2.5 shadow-xl">
           <button v-for="c in CHARS" :key="c" type="button" class="grid size-8 place-items-center rounded-md text-base hover:bg-canvas" @click="insertChar(c)">{{ c }}</button>
         </div>
-        <div v-if="palette === 'table'" class="absolute top-full left-2 z-20 mt-1 flex flex-wrap gap-1.5 rounded-xl border border-line bg-white p-2.5 text-xs font-semibold shadow-xl" @click="palette = ''">
+        <div v-if="palette === 'table'" class="absolute top-full left-2 z-10 mt-1 flex flex-wrap gap-1.5 rounded-xl border border-line bg-white p-2.5 text-xs font-semibold shadow-xl" @click="palette = ''">
           <button type="button" class="tbl" @click="chain().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()">+ Jadval 3×3</button>
           <template v-if="inTable">
             <button type="button" class="tbl" @click="chain().addRowAfter().run()">+ Qator</button>

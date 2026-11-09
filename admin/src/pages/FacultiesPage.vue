@@ -126,20 +126,20 @@ const idx = computed(() => list.value.findIndex(f => f.id === sel.value))
             <img v-if="mediaUrl(form.cover, 'hero')" :src="mediaUrl(form.cover, 'hero')!" alt="" class="absolute inset-0 size-full object-cover">
             <span aria-hidden="true" class="absolute -top-[120px] -right-[60px] size-[320px] rounded-full border-[40px] border-white/8" />
             <input ref="coverInput" type="file" accept="image/*" class="hidden" @change="onImage($event, 'cover')">
-            <span class="absolute right-3.5 bottom-3.5 flex gap-1.5">
+            <span class="absolute right-3.5 bottom-3.5 left-32 flex flex-wrap justify-end gap-1.5">
               <button v-if="form.cover" type="button" class="h-[34px] rounded-full bg-night/60 px-3 text-xs font-semibold text-white" @click="form.cover = null">Olib taşlaş</button>
               <button type="button" class="h-[34px] rounded-full bg-white/92 px-3 text-xs font-semibold text-ink" :disabled="uploading === 'cover'" @click="coverInput?.click()">{{ uploading === 'cover' ? 'Yuklanmoqda…' : 'Muqovani almaştiriş' }}</button>
             </span>
           </div>
-          <div class="-mt-9 flex flex-wrap items-end gap-4 px-[22px] pb-5">
+          <div class="relative -mt-9 flex flex-wrap items-end gap-4 px-[22px] pb-5">
             <input ref="logoInput" type="file" accept="image/*" class="hidden" @change="onImage($event, 'logo')">
             <button type="button" class="relative grid size-[84px] shrink-0 place-items-center overflow-hidden rounded-full bg-white text-[13px] font-extrabold shadow-[0_0_0_4px_#fff,0_8px_20px_-8px_rgba(19,17,47,0.4)]" :style="{ color: color(idx) }" :aria-label="'Logoni almaştiriş'" @click="logoInput?.click()">
               <img v-if="mediaUrl(form.logo)" :src="mediaUrl(form.logo)!" alt="" class="size-[86%] object-contain">
               <template v-else>LOGO</template>
               <span class="absolute inset-x-0 bottom-0 bg-night/60 py-0.5 text-[10px] font-semibold text-white">{{ uploading === 'logo' ? '…' : 'almaştiriş' }}</span>
             </button>
-            <div class="flex-[1_1_260px] pb-1">
-              <h2 class="text-[22px] font-bold">{{ form.name.uz || current.name.uz }}</h2>
+            <div class="min-w-0 flex-[1_1_260px] pb-1">
+              <h2 class="text-[22px] font-bold [overflow-wrap:anywhere]">{{ form.name.uz || current.name.uz }}</h2>
               <p class="mt-1 text-[13px] text-muted">/faculty/{{ current.slug }}</p>
             </div>
             <a :href="`${SITE_URL}/faculty/${current.slug}`" target="_blank" rel="noopener" class="btn-ghost mb-1 h-10!">Saytda köriş ↗</a>

@@ -28,6 +28,11 @@
   html { background: var(--color-canvas); color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
   body { margin: 0; }
   button, input, select, textarea { font: inherit; color: inherit; }
+  /* Tailwind 4 tugmalarga `cursor: default` beradi — bosiladigan hamma narsada «qo'l» ko'rinsin */
+  button:not(:disabled), [role='button']:not([aria-disabled='true']), [role='tab'], summary, select:not(:disabled),
+  label[for], input:is([type='checkbox'], [type='radio'], [type='file'], [type='date'], [type='time'], [type='range']):not(:disabled),
+  a[href] { cursor: pointer; }
+  button:disabled, [aria-disabled='true'] { cursor: not-allowed; }
   :focus-visible { outline: 3px solid color-mix(in srgb, var(--color-brand-700) 45%, transparent); outline-offset: 2px; }
 }
 

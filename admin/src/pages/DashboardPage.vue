@@ -31,8 +31,8 @@ onMounted(async () => {
 <template>
   <div class="flex flex-col gap-6">
     <div class="flex flex-wrap items-end justify-between gap-4">
-      <div>
-        <h1 class="text-[30px] font-bold tracking-tight">{{ greeting }}, {{ auth.user.value?.name }}</h1>
+      <div class="min-w-0">
+        <h1 class="text-[30px] font-bold tracking-tight [overflow-wrap:anywhere]">{{ greeting }}, {{ auth.user.value?.name }}</h1>
         <p class="mt-1.5 flex items-center gap-2 text-[15px] text-muted"><span class="size-2 rounded-full bg-[#12B76A] shadow-[0_0_0_4px_rgba(18,183,106,0.15)]" />Sayt barqaror işlayapti</p>
       </div>
       <div class="flex flex-wrap gap-2.5">
@@ -62,7 +62,7 @@ onMounted(async () => {
       </div>
       <div v-if="data.logins" class="card p-5">
         <p class="text-[13px] text-muted">Bugungi kirişlar</p>
-        <p class="mt-2.5 flex items-baseline gap-2.5"><span class="text-4xl leading-none font-bold">{{ data.logins.today }}</span>
+        <p class="mt-2.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-1.5"><span class="text-4xl leading-none font-bold">{{ data.logins.today }}</span>
           <span v-if="data.logins.failed24h" class="chip bg-red-50 text-red-700">{{ data.logins.failed24h }} xato uriniş</span></p>
         <RouterLink to="/kirish-tarixi" class="mt-2 inline-block text-[13px] font-semibold text-brand-700">Kiriş tarixi →</RouterLink>
       </div>
