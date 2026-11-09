@@ -26,4 +26,8 @@ def security_settings(app_configs, **kwargs):
         out.append(Warning('TRUSTED_ORIGINS da localhost bor: u manzillardan cookie/token bilan so‘rov yuborish mumkin.', hint='Productionda faqat admin panel va sayt domenlarini yozing: TRUSTED_ORIGINS=https://admin.sizning.uz,https://sizning.uz', id='uzswlu.W007'))
     if settings.API_DOCS_PUBLIC:
         out.append(Warning('API_DOCS_PUBLIC=true: Swagger productionda hamma uchun ochiq.', hint='API_DOCS_PUBLIC=false qiling — hujjat faqat admin panelga kirganlarga ko‘rinadi.', id='uzswlu.W006'))
+    if not settings.BACKUP_ENABLED:
+        out.append(Warning('BACKUP_ENABLED=0: avtomatik zaxira nusxa o‘chirilgan.', hint='Zaxirasiz server — bitta disk buzilishi hamma ma’lumotni yo‘qotadi. BACKUP_ENABLED=1 qiling.', id='uzswlu.W008'))
+    elif not settings.BACKUP_COPY_TO:
+        out.append(Warning('BACKUP_COPY_TO bo‘sh: zaxira faqat shu serverning o‘zida saqlanadi.', hint='Disk buzilsa zaxira ham yo‘qoladi. BACKUP_COPY_TO ga boshqa disk/ulangan tarmoq papkasini yozing yoki backups/ papkasini tashqariga (rsync/rclone) ko‘chiring.', id='uzswlu.W009'))
     return out

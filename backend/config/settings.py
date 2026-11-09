@@ -267,6 +267,16 @@ HEMIS_MAX_CONSECUTIVE_FAILURES = int(env('HEMIS_MAX_CONSECUTIVE_FAILURES', '5'))
 HEMIS_OAUTH_GLOBAL_PER_MIN = int(env('HEMIS_OAUTH_GLOBAL_PER_MIN', '120'))  # HEMIS orqali kirish: hamma IP'lar uchun umumiy chegara
 HIT_RETENTION_DAYS = int(env('HIT_RETENTION_DAYS', '730'))      # sayt statistikasi (Hit) shuncha kun saqlanadi (0 — o'chirmaydi)
 LOGIN_EVENT_RETENTION_DAYS = int(env('LOGIN_EVENT_RETENTION_DAYS', '365'))  # kirish tarixi shuncha kun saqlanadi (0 — o'chirmaydi)
+
+# --- Zaxira nusxa (apps/core/backup.py): kechasi `run_nightly` ichida avtomatik; qo'lda: manage.py backup / restore ---
+BACKUP_ENABLED = env_bool('BACKUP_ENABLED', True)
+BACKUP_DIR = Path(env('BACKUP_DIR', str(BASE_DIR / 'backups')))          # serverda ALOHIDA disk/volume bo'lsin
+BACKUP_COPY_TO = env('BACKUP_COPY_TO', '')                               # ikkinchi joy (boshqa disk, ulangan tarmoq papkasi); bo'sh — yo'q
+BACKUP_KEEP_DAYS = int(env('BACKUP_KEEP_DAYS', '14'))                    # shundan eskilari o'chadi (0 — o'chirmaydi)
+BACKUP_KEEP_MIN = int(env('BACKUP_KEEP_MIN', '3'))                       # eng yangi shuncha nusxa har doim qoladi
+BACKUP_MEDIA = env_bool('BACKUP_MEDIA', True)                            # rasm/PDF va yopiq fayllar ham
+BACKUP_DB_FORMAT = env('BACKUP_DB_FORMAT', 'auto')                       # auto | native (pg_dump/SQLite) | json (ko'chma)
+BACKUP_MAX_AGE_HOURS = int(env('BACKUP_MAX_AGE_HOURS', '36'))            # `manage.py backup --status` shundan eskisini xato deb hisoblaydi
 HEMIS_CLIENT = env('HEMIS_CLIENT', 'apps.hemis.cache.CachedHemis' if HEMIS_API_URL else 'apps.hemis.snapshot.SnapshotHemis')
 # HEMIS orqali kirish (OAuth2): xodimlar admin panelga va o'z kabinetiga universitet login-paroli bilan kiradi
 HEMIS_OAUTH_URL = env('HEMIS_OAUTH_URL').rstrip('/')      # masalan: https://hemis.uzswlu.uz

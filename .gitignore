@@ -18,6 +18,9 @@ dist/
 
 # Admin panelda yuklangan fayllar (rasm, PDF) — serverda saqlanadi
 backend/media/
+# Zaxira nusxalar (baza + fayllar: parollar xeshi va fuqarolar murojaatlari bor!) va yopiq fayllar
+backend/backups/
+backend/private/
 
 # TailAdmin shablonining asl nusxasi (alohida repozitoriy, faqat namuna uchun)
 admin-template/

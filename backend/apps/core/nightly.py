@@ -51,7 +51,17 @@ def prune_hits(force: bool = False) -> str:
     return f'{total} eski statistika yozuvi o‘chirildi (> {days} kun)'
 
 
-TASKS = [('hemis', hemis_sync), ('sessions', cleanup_sessions), ('login-events', prune_login_events), ('hits', prune_hits)]
+def backup(force: bool = False) -> str:
+    if not settings.BACKUP_ENABLED:
+        return 'o‘chirilgan (BACKUP_ENABLED=0)'
+    from apps.core import backup as bk
+    try:
+        return bk.run_scheduled()
+    except bk.BackupError as exc:
+        raise CommandError(str(exc)) from exc
+
+
+TASKS = [('backup', backup), ('hemis', hemis_sync), ('sessions', cleanup_sessions), ('login-events', prune_login_events), ('hits', prune_hits)]
 
 
 def run_all(only: str | None = None, force: bool = False) -> dict[str, str]:

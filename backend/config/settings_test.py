@@ -23,6 +23,7 @@ for key, value in {
     'REQUIRE_2FA_ROLES': '',
     'REDIS_URL': '',
     'HEMIS_API_URL': '',
+    'BACKUP_ENABLED': '0',   # testlar o'zi yoqadi (tests/core/test_backup.py)
     'NUM_PROXIES': '0',
 }.items():
     os.environ[key] = value
@@ -34,6 +35,7 @@ CACHES = {'default': {'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
 
 _TMP = tempfile.mkdtemp(prefix='uzswlu-test-')
 atexit.register(shutil.rmtree, _TMP, ignore_errors=True)
+BACKUP_DIR = os.path.join(_TMP, 'backups')
 MEDIA_ROOT = os.path.join(_TMP, 'media')
 PRIVATE_ROOT = os.path.join(_TMP, 'private')
 os.makedirs(MEDIA_ROOT, exist_ok=True)

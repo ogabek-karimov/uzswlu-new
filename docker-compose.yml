@@ -61,7 +61,7 @@ services:
       retries: 12
       start_period: 120s
 
-  # Kechki vazifalar (cron kerak emas): HEMIS sinxronlash (faqat tinch oynada 01:00–05:00, har kuni boshqa daqiqada),
+  # Kechki vazifalar (cron kerak emas): ZAXIRA NUSXA (baza + fayllar → backend/backups/, README: «Zaxira nusxa va tiklash»), HEMIS sinxronlash (faqat tinch oynada 01:00–05:00, har kuni boshqa daqiqada),
   # eski sessiya/token/kirish yozuvlarini tozalash. HEMIS_API_URL bo'sh bo'lsa HEMIS qismi o'tkazib yuboriladi.
   # Qayta ishga tushirish sinxronlashni darhol boshlamaydi. Jadval: HEMIS_SYNC_AT, HEMIS_SYNC_WINDOW (.env).
   nightly:

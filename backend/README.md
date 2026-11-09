@@ -91,6 +91,41 @@ python manage.py migrate && python manage.py seed_demo && python manage.py runse
 yozing va `backend/.env` da `PUBLIC_SERVER_URL=http://localhost:3001` qiling.
 Frontend kaliti: `frontend/.env` dagi `NUXT_API_TOKEN` = `backend/.env` dagi `API_TOKEN`.
 
+## Zaxira nusxa va tiklash
+
+Kechasi `nightly` xizmati (`run_nightly`, HEMIS'dan oldin) avtomatik zaxira oladi: **baza + yuklangan fayllar (`media/`) + yopiq fayllar (`private/`)** →
+bitta arxiv `backend/backups/uzswlu-YYYYMMDD-HHMMSS.tar.gz` (+ yoniga `.json`: hajm, sha256, baza turi). Har zaxira olingach u **qayta o'qib tekshiriladi**
+(sha256, arxiv butunligi, SQLite `integrity_check` / `pg_restore --list`), keyin `BACKUP_KEEP_DAYS` (14) kundan eskilari o'chadi — lekin eng yangi `BACKUP_KEEP_MIN` (3) tasi har doim qoladi.
+
+| Muhit | Baza usuli |
+|---|---|
+| PostgreSQL (docker/server) | `pg_dump` (izchil snapshot, saytni to'xtatmaydi). Docker image'da `postgresql-client` bor |
+| SQLite (lokal) | sqlite3 ichki zaxira API'si |
+| `BACKUP_DB_FORMAT=json` | ko'chma format: har qanday bazadan har qanday bazaga (masalan PostgreSQL → SQLite) |
+
+```bash
+docker compose exec backend python manage.py backup            # hozir zaxira olish
+docker compose exec backend python manage.py backup --list     # ro'yxat
+docker compose exec backend python manage.py backup --verify latest
+docker compose exec backend python manage.py backup --status   # oxirgi zaxira ≤36 soat bo'lmasa xato kodi (monitoring/cron uchun)
+```
+
+**Tiklash** (baza va fayllar almashtiriladi; oldin joriy holatdan `…-pre-restore.tar.gz` olinadi):
+```bash
+docker compose stop backend nightly                     # ochiq ulanishlar bazani bloklamasin
+docker compose run --rm backend python manage.py restore latest --yes   # yoki aniq fayl nomi
+docker compose up -d
+```
+Yangi (bo'sh) serverga ko'chirish: loyihani o'rnating → `docker compose up -d db` → `backups/` papkasiga arxivni (va `.json`ni) qo'ying →
+`docker compose run --rm backend python manage.py restore <fayl> --yes`. `--db-only` / `--media-only` — faqat bir qismini tiklash.
+
+**Muhim:**
+- Zaxira saqlangan joy ham ma'lumot (parollar xeshi, fuqarolar murojaatlari bor) — `backups/` git'ga tushmaydi, unga ruxsatni cheklang.
+- **Faqat shu serverdagi zaxira yetarli emas**: disk buzilsa u ham yo'qoladi. `BACKUP_COPY_TO` (boshqa disk/ulangan papka) yoki `backups/` ni `rsync`/`rclone` bilan tashqariga ko'chiring (`uzswlu.W009` ogohlantiradi).
+- `.env` (kalitlar) zaxiraga kirmaydi — uni alohida, xavfsiz joyda saqlang.
+- Tiklashni vaqti-vaqti bilan **sinab ko'ring** (alohida bo'sh bazada): tekshirilmagan zaxira — zaxira emas.
+- PostgreSQL'da `pg_dump` versiyasi server versiyasidan past bo'lmasin (image'da 17, `db` ham 17).
+
 ## Swagger
 `/api/docs/` (Swagger UI; dizayn: `SWAGGER_THEME=modern|classic`), `/api/redoc/`, `/api/schema/` (OpenAPI 3.1). Ochiq sayt API'sining tavsifi
 `frontend/docs/openapi.yaml` dan olinadi (Docker'da ulangan; bo'lmasa `apps/api/contract/openapi.yaml` nusxasi),
