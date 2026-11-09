@@ -43,9 +43,26 @@ HEMIS_API_TOKEN=...
 HEMIS_FACULTY_TYPES=11      # department-list → structureType.code (universitetda tekshiring)
 HEMIS_CHAIR_TYPES=12
 ```
-keyin har kuni (cron, 06:00): `python manage.py sync_hemis` — xodimlar, bo'limlar, dekan/mudirlar va talaba soni
-bazaga (`HemisSnapshot`) yoziladi; sayt va admin panel shu nusxadan o'qiydi. Fakultet bog'lanishi — `Faculty.hemis_id`
-(bo'lmasa nomi bo'yicha).
+keyin HEMIS'dan nusxa **kechasi** olinadi (`python manage.py run_nightly` — alohida `nightly` konteyneri; cron/Celery kerak emas):
+xodimlar, bo'limlar, dekan/mudirlar va talaba soni bazaga (`HemisSnapshot`) yoziladi; sayt va admin panel faqat shu nusxadan
+o'qiydi — foydalanuvchi so'rovi HEMIS'ga chiqmaydi (yagona istisno: HEMIS orqali kirish, u IP bo'yicha va umumiy chegara
+hamda circuit breaker bilan cheklangan).
+
+HEMIS va server bo'sh vaqtida ishlash qoidalari (`.env`):
+```
+HEMIS_SYNC_AT=02:30               # har kuni shundan boshlab, + tasodifiy kechikish (har kuni boshqa daqiqa)
+HEMIS_SYNC_JITTER_MINUTES=20
+HEMIS_SYNC_WINDOW=01:00-05:00     # HEMIS'ga faqat shu oynada chiqiladi (TIME_ZONE); kunduzi `sync_hemis` rad etadi (--force bilan mumkin)
+HEMIS_REQUEST_DELAY=0.2           # har ikki so'rov orasida pauza
+HEMIS_MAX_REQUESTS=3000           # bitta sinxronlashda so'rovlar byudjeti
+HEMIS_MAX_CONSECUTIVE_FAILURES=5  # ketma-ket xatoda to'xtaydi (HEMIS'ni urib o'tirmaydi); 429/503 da Retry-After kutiladi
+HEMIS_OAUTH_GLOBAL_PER_MIN=120    # HEMIS orqali kirish: hamma IP'lar uchun umumiy chegara
+LOGIN_EVENT_RETENTION_DAYS=365    # kirish tarixi (0 — o'chirmaydi)
+```
+Qo'shimcha: ikki sinxronlash bir vaqtda ishlamaydi (bazadagi qulf); xato bo'lsa oldingi nusxa saqlanadi; jarayon qayta
+ishga tushsa sinxronlash darhol boshlanmaydi (kechagisi o'tib ketgan bo'lsa — faqat tinch oyna ichida bajariladi);
+HEMIS yiqilsa oyna tugamaguncha 20 daqiqada bir marta, ko'pi bilan 3 marta qayta uriniladi. Bir martalik: `python manage.py run_nightly --once`.
+Fakultet bog'lanishi — `Faculty.hemis_id` (bo'lmasa nomi bo'yicha).
 
 HEMIS orqali kirish (OAuth2): `HEMIS_OAUTH_URL`, `HEMIS_OAUTH_CLIENT_ID`, `HEMIS_OAUTH_CLIENT_SECRET`.
 OAuth client'da qaytish manzili: `<PUBLIC_SERVER_URL>/api/auth/hemis/callback`.

@@ -61,15 +61,14 @@ services:
       retries: 12
       start_period: 120s
 
-  # HEMIS ma'lumotini har 24 soatda bazaga yangilaydi (HEMIS_API_URL berilmagan bo'lsa hech narsa qilmaydi)
-  hemis-sync:
+  # Kechki vazifalar (cron kerak emas): HEMIS sinxronlash (faqat tinch oynada 01:00–05:00, har kuni boshqa daqiqada),
+  # eski sessiya/token/kirish yozuvlarini tozalash. HEMIS_API_URL bo'sh bo'lsa HEMIS qismi o'tkazib yuboriladi.
+  # Qayta ishga tushirish sinxronlashni darhol boshlamaydi. Jadval: HEMIS_SYNC_AT, HEMIS_SYNC_WINDOW (.env).
+  nightly:
     <<: *backend
     restart: unless-stopped
-    entrypoint: ["sh", "-c"]
-    command:
-      - |
-        if [ -z "$$HEMIS_API_URL" ]; then echo "HEMIS_API_URL bo'sh — sinxronizatsiya o'chirilgan"; exec sleep infinity; fi
-        while true; do python manage.py sync_hemis || true; sleep 86400; done
+    entrypoint: ["python", "manage.py", "run_nightly"]
+    command: []
     depends_on:
       backend:
         condition: service_healthy

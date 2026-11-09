@@ -249,6 +249,14 @@ HEMIS_API_TOKEN = env('HEMIS_API_TOKEN')
 HEMIS_TIMEOUT = int(env('HEMIS_TIMEOUT', '20'))            # sinxronlash (fon jarayoni) uchun
 HEMIS_OAUTH_TIMEOUT = int(env('HEMIS_OAUTH_TIMEOUT', '8'))  # kirish paytida foydalanuvchi kutadi — qisqa
 HEMIS_REQUEST_DELAY = float(env('HEMIS_REQUEST_DELAY', '0.2'))  # sinxronlashda sahifalar orasida pauza (HEMIS'ga bosim tushmasin)
+# Og'ir ishlar KECHASI (server ham, HEMIS ham bo'sh): jadval `manage.py run_nightly` (alohida konteyner), cron/Celery shart emas.
+HEMIS_SYNC_WINDOW = env('HEMIS_SYNC_WINDOW', '01:00-05:00')       # HEMIS'ga faqat shu oynada chiqiladi (mahalliy vaqt, TIME_ZONE)
+HEMIS_SYNC_AT = env('HEMIS_SYNC_AT', '02:30')                     # har kuni shu vaqtdan boshlab (+ tasodifiy kechikish)
+HEMIS_SYNC_JITTER_MINUTES = int(env('HEMIS_SYNC_JITTER_MINUTES', '20'))
+HEMIS_MAX_REQUESTS = int(env('HEMIS_MAX_REQUESTS', '3000'))       # bitta sinxronlashda HEMIS'ga ko'pi bilan shuncha so'rov
+HEMIS_MAX_CONSECUTIVE_FAILURES = int(env('HEMIS_MAX_CONSECUTIVE_FAILURES', '5'))  # ketma-ket xato — sinxronlash to'xtaydi (HEMIS'ni bosmaymiz)
+HEMIS_OAUTH_GLOBAL_PER_MIN = int(env('HEMIS_OAUTH_GLOBAL_PER_MIN', '120'))  # HEMIS orqali kirish: hamma IP'lar uchun umumiy chegara
+LOGIN_EVENT_RETENTION_DAYS = int(env('LOGIN_EVENT_RETENTION_DAYS', '365'))  # kirish tarixi shuncha kun saqlanadi (0 — o'chirmaydi)
 HEMIS_CLIENT = env('HEMIS_CLIENT', 'apps.hemis.cache.CachedHemis' if HEMIS_API_URL else 'apps.hemis.snapshot.SnapshotHemis')
 # HEMIS orqali kirish (OAuth2): xodimlar admin panelga va o'z kabinetiga universitet login-paroli bilan kiradi
 HEMIS_OAUTH_URL = env('HEMIS_OAUTH_URL').rstrip('/')      # masalan: https://hemis.uzswlu.uz

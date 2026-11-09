@@ -4,6 +4,9 @@ HEMIS javob bermay qolsa, har bir foydalanuvchi so'rovi 8–20 soniya kutib, gun
 Ketma-ket {MAX_FAILURES} marta xato bo'lsa, {COOLDOWN} soniya HEMIS'ga umuman so'rov yuborilmaydi (tez xato qaytadi),
 so'ng bitta sinov so'rovi o'tadi.
 """
+import time
+
+from django.conf import settings
 from django.core.cache import cache
 
 MAX_FAILURES = 5
@@ -16,7 +19,22 @@ class HemisUnavailable(RuntimeError):
     pass
 
 
+def _over_global_limit() -> bool:
+    """Hamma IP'lar uchun umumiy daqiqalik chegara (IP bo'yicha throttle'ga qo'shimcha): ommaviy kirish HEMIS'ni bosmasin."""
+    limit = settings.HEMIS_OAUTH_GLOBAL_PER_MIN
+    if not limit:
+        return False
+    key = f'hemis:rate:{int(time.time() // 60)}'
+    try:
+        cache.add(key, 0, 90)
+        return cache.incr(key) > limit
+    except Exception:  # noqa: BLE001 — kesh ishlamasa kirishni to'smaymiz
+        return False
+
+
 def call(fn, *args, **kwargs):
+    if _over_global_limit():
+        raise HemisUnavailable('HEMIS orqali kirish hozir juda band — bir daqiqadan keyin urinib ko‘ring')
     if cache.get(KEY_OPEN):
         raise HemisUnavailable('HEMIS vaqtincha javob bermayapti — birozdan keyin urinib ko‘ring')
     try:
