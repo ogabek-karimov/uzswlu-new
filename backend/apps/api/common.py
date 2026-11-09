@@ -2,6 +2,7 @@
 import hmac
 import os
 import re
+from urllib.parse import parse_qsl, urlencode
 
 from django.conf import settings
 from django.core.cache import cache
@@ -13,7 +14,7 @@ from rest_framework.views import APIView
 from apps.core.throttles import ScopedThrottle
 from apps.core.fields import LANGS, is_lang, pick, tr
 from apps.core.html import restore_timeline, text_of
-from apps.core.utils import local_date, size_label
+from apps.core.utils import local_date, sha256, size_label
 
 __all__ = ['LANGS', 'pick', 'tr', 'local_date', 'restore_timeline', 'text_of']
 
@@ -36,9 +37,19 @@ class ApiToken(BasePermission):
         return ok
 
 
+# Views o'qiydigan so'rov parametrlari. Kesh kalitiga FAQAT shular kiradi: begona parametr (`?x=tasodifiy`) yangi kesh yozuvi
+# yaratib, keshni to'ldirib haqiqiy yozuvlarni siqib chiqarmasin (cache-busting). Yangi parametr qo'shilsa — shu yerga ham
+# (tests/security/test_cache_pressure.py kod bo'ylab tekshiradi).
+CACHE_PARAMS = frozenset({'lang', 'type', 'q', 'month', 'sdg', 'page', 'perPage', 'level', 'group', 'department'})
+
+
 def _cache_key(request, lang_scope: str) -> str:
-    qs = '&'.join(sorted(request.META.get('QUERY_STRING', '').split('&')))
-    return f"pub:{cache.get('content_ver', 0)}:{lang_scope}:{request.path}?{qs}"[:240].replace(' ', '%20')
+    pairs = sorted((k, v) for k, v in parse_qsl(request.META.get('QUERY_STRING', ''), keep_blank_values=True) if k in CACHE_PARAMS)
+    qs = urlencode(pairs)
+    key = f"pub:{cache.get('content_ver', 0)}:{lang_scope}:{request.path}?{qs}"
+    if len(key) > 200:  # kesish emas, xesh: uzun kalitlar bir-biri bilan to'qnashmasin
+        key = f"pub:{cache.get('content_ver', 0)}:{lang_scope}:{request.path}:{sha256(qs)}"
+    return key.replace(' ', '%20')
 
 
 def bump_content_version() -> None:
@@ -57,7 +68,7 @@ class CachedGetMixin:
 
     def dispatch(self, request, *args, **kwargs):
         ttl = settings.PUBLIC_CACHE_SECONDS if self.cache_ttl is None else self.cache_ttl
-        if request.method != 'GET' or not ttl:
+        if request.method != 'GET' or not ttl or not hasattr(self, 'get'):  # `get` yo'q (faqat POST) — DRF o'zi 405 qaytaradi, 500 emas
             return super().dispatch(request, *args, **kwargs)
         self.args, self.kwargs = args, kwargs
         request = self.initialize_request(request, *args, **kwargs)
@@ -73,7 +84,10 @@ class CachedGetMixin:
                     cache.set(key, response.data, ttl)
             else:
                 response = Response(data)
-            response['Cache-Control'] = f'public, max-age={min(ttl, 30)}'
+            # Token bilan himoyalangan javob oraliq kesh/CDN'da «public» bo'lib qolmasin (tokensiz mijozga berilib ketishi mumkin)
+            gated = bool(settings.API_TOKEN) and ApiToken in getattr(self, 'permission_classes', ())
+            response['Cache-Control'] = f"{'private' if gated else 'public'}, max-age={min(ttl, 30)}"
+            response['Vary'] = 'Authorization, Accept-Encoding'
         except Exception as exc:  # noqa: BLE001 — DRF'ning o'z xato ishlovchisi
             response = self.handle_exception(exc)
         self.response = self.finalize_response(request, response, *args, **kwargs)

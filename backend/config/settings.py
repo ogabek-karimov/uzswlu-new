@@ -265,6 +265,7 @@ HEMIS_SYNC_JITTER_MINUTES = int(env('HEMIS_SYNC_JITTER_MINUTES', '20'))
 HEMIS_MAX_REQUESTS = int(env('HEMIS_MAX_REQUESTS', '3000'))       # bitta sinxronlashda HEMIS'ga ko'pi bilan shuncha so'rov
 HEMIS_MAX_CONSECUTIVE_FAILURES = int(env('HEMIS_MAX_CONSECUTIVE_FAILURES', '5'))  # ketma-ket xato — sinxronlash to'xtaydi (HEMIS'ni bosmaymiz)
 HEMIS_OAUTH_GLOBAL_PER_MIN = int(env('HEMIS_OAUTH_GLOBAL_PER_MIN', '120'))  # HEMIS orqali kirish: hamma IP'lar uchun umumiy chegara
+HIT_RETENTION_DAYS = int(env('HIT_RETENTION_DAYS', '730'))      # sayt statistikasi (Hit) shuncha kun saqlanadi (0 — o'chirmaydi)
 LOGIN_EVENT_RETENTION_DAYS = int(env('LOGIN_EVENT_RETENTION_DAYS', '365'))  # kirish tarixi shuncha kun saqlanadi (0 — o'chirmaydi)
 HEMIS_CLIENT = env('HEMIS_CLIENT', 'apps.hemis.cache.CachedHemis' if HEMIS_API_URL else 'apps.hemis.snapshot.SnapshotHemis')
 # HEMIS orqali kirish (OAuth2): xodimlar admin panelga va o'z kabinetiga universitet login-paroli bilan kiradi

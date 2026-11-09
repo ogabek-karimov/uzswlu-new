@@ -36,7 +36,22 @@ def prune_login_events(force: bool = False) -> str:
     return f'{deleted} eski kirish yozuvi o‘chirildi (> {days} kun)'
 
 
-TASKS = [('hemis', hemis_sync), ('sessions', cleanup_sessions), ('login-events', prune_login_events)]
+def prune_hits(force: bool = False) -> str:
+    """Sayt statistikasi jadvali cheksiz o'smasin: eski yozuvlar bo'laklab (bazani qotirmasdan) o'chiriladi."""
+    from apps.core.models import Hit
+    days = settings.HIT_RETENTION_DAYS
+    if not days:
+        return 'o‘chirilgan (HIT_RETENTION_DAYS=0)'
+    cutoff, total = timezone.now() - timedelta(days=days), 0
+    while True:
+        ids = list(Hit.objects.filter(ts__lt=cutoff).values_list('pk', flat=True)[:5000])
+        if not ids:
+            break
+        total += Hit.objects.filter(pk__in=ids).delete()[0]
+    return f'{total} eski statistika yozuvi o‘chirildi (> {days} kun)'
+
+
+TASKS = [('hemis', hemis_sync), ('sessions', cleanup_sessions), ('login-events', prune_login_events), ('hits', prune_hits)]
 
 
 def run_all(only: str | None = None, force: bool = False) -> dict[str, str]:

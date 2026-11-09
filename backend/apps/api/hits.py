@@ -7,6 +7,7 @@ import re
 from urllib.parse import urlparse
 
 from django.conf import settings
+from django.core.cache import cache
 from django.utils import timezone
 
 from apps.core.fields import is_lang
@@ -49,8 +50,13 @@ def record_hit(request, data: dict) -> None:
     path = _clip(data.get('path'), 300)
     country = _clip(request.META.get('HTTP_CF_IPCOUNTRY') or request.META.get('HTTP_X_COUNTRY_CODE'), 2).upper()
     lang = data.get('lang')
+    visitor = visitor_code(client_ip(request), ua)
+    # Bir xil yozuvni (bir tashrifchi, bir sahifa/hodisa) qisqa vaqtda takrorlash bazani to'ldirmasin
+    fingerprint = ':'.join((visitor, kind, path, _clip(data.get('name'), 200), _clip(data.get('value'), 300)))
+    if not cache.add(f'hit:{sha256(fingerprint)[:24]}', 1, 10):
+        return
     Hit.objects.create(
-        visitor=visitor_code(client_ip(request), ua),
+        visitor=visitor,
         kind=kind,
         path=path if path.startswith('/') else '',
         lang=lang if is_lang(lang) else '',

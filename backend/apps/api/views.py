@@ -4,6 +4,7 @@ import re
 
 from datetime import timedelta
 
+from django.core.cache import cache
 from django.db.models import F
 from django.utils import timezone
 from django.core.exceptions import ValidationError
@@ -14,7 +15,7 @@ from rest_framework.response import Response
 from apps.content.models import Document, Leader, Post
 from apps.core.uploads import clean_upload
 from apps.core.throttles import ScopedThrottle
-from apps.core.utils import client_ip
+from apps.core.utils import client_ip, sha256
 from apps.pages.models import Page, SdgGoal
 from apps.structure.models import Appeal, Faculty
 
@@ -144,7 +145,8 @@ class DocumentFileView(OpenView):
         file = doc.file_for(lang) if doc else None
         if not file:
             raise NotFound('File not found')
-        Document.objects.filter(pk=pk).update(downloads=F('downloads') + 1)
+        if cache.add(f'dl:{pk}:{sha256(client_ip(request))[:16]}', 1, 3600):  # bir IP bir soatda bir marta hisoblanadi (hisobni sun'iy oshirib bo'lmasin)
+            Document.objects.filter(pk=pk).update(downloads=F('downloads') + 1)
         try:
             record_hit(request, {'kind': 'event', 'name': 'PDF yuklab olindi', 'value': str(pk), 'lang': lang})
         except Exception:  # noqa: BLE001 — statistika yuklab olishni to'xtatmasin
