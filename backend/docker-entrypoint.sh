@@ -2,7 +2,7 @@
 set -e
 python manage.py migrate --noinput
 python manage.py collectstatic --noinput
-python manage.py seed_demo
+python manage.py seed_demo --first-run   # faqat bo'sh bazada; keyingi ishga tushishda admin o'chirgan kontent qaytib kelmaydi
 python manage.py check 2>&1 | grep -E 'WARNINGS|uzswlu\.W|HINT|System check' || true
 if [ "$DEBUG" = "true" ] || [ "$DEBUG" = "1" ]; then
   exec python manage.py runserver 0.0.0.0:8000

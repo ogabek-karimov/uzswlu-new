@@ -119,6 +119,10 @@ def run(fn):
     """Model xatolari → Payload shaklidagi javob."""
     try:
         return fn()
+    except (ValueError, TypeError) as exc:
+        if 'expected a number' in str(exc):  # where[id][equals]=abc, [] yoki {} qiymat — Django qidiruv qiymatini aylantira olmadi
+            return error('Filtr qiymati noto‘g‘ri: raqam kutilgan', status.HTTP_400_BAD_REQUEST)
+        raise
     except Forbidden as exc:
         return error(str(exc) or 'Ruxsat yo‘q', status.HTTP_403_FORBIDDEN)
     except Conflict as exc:
@@ -212,9 +216,11 @@ class CollectionView(PanelView):
         data = parse_body(request)
         docs, errors = [], []
         try:
-            objs = run_list(coll, request)
+            objs = run(lambda: run_list(coll, request))   # noto'g'ri filtr qiymati → 400
         except ValidationError as exc:
             return error('; '.join(exc.messages))
+        if isinstance(objs, Response):
+            return objs
         for obj in objs:
             if not coll.can(request.user, 'update', obj):
                 errors.append({'id': obj.pk, 'message': 'Ruxsat yo‘q'})
@@ -233,9 +239,11 @@ class CollectionView(PanelView):
             return error('Ruxsat yo‘q', 403)
         docs, errors = [], []
         try:
-            objs = run_list(coll, request)
+            objs = run(lambda: run_list(coll, request))   # noto'g'ri filtr qiymati → 400
         except ValidationError as exc:
             return error('; '.join(exc.messages))
+        if isinstance(objs, Response):
+            return objs
         for obj in objs:
             if not coll.can(request.user, 'delete', obj):
                 errors.append({'id': obj.pk, 'message': 'Ruxsat yo‘q'})

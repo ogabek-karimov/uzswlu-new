@@ -79,6 +79,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'apps.core.middleware.UploadSizeLimitMiddleware',
+    'apps.core.middleware.ApiHeadersMiddleware',
     'apps.core.middleware.MediaHeadersMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -164,7 +165,15 @@ UPLOAD_LIMITS = [
     ('/api/me/', 22 * 1024 * 1024),
     ('/api/cms/', 55 * 1024 * 1024),
 ]
-DATA_UPLOAD_MAX_MEMORY_SIZE = 60 * 1024 * 1024
+DATA_UPLOAD_MAX_MEMORY_SIZE = 8 * 1024 * 1024  # fayl bo'lmagan tana (JSON) ko'pi bilan 8 MB; fayllar bunga kirmaydi (UPLOAD_LIMITS)
+# JSON/forma tanasi chegarasi yo'l bo'yicha (Content-Length bo'yicha, tana o'qilishidan OLDIN). Birinchi mos kelgan qo'llanadi.
+BODY_LIMITS = [
+    ('/api/hit', 16 * 1024), ('/api/site/hit', 16 * 1024),
+    ('/api/appeals', 64 * 1024),
+    ('/api/auth/', 16 * 1024), ('/api/cms/users/login', 16 * 1024), ('/api/cms/users/2fa', 16 * 1024),
+    ('/api/me', 512 * 1024),
+    ('/api/cms/', 8 * 1024 * 1024),
+]
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 500       # ko'p maydonli (query/form) so'rov bilan xotirani to'ldirishga qarshi
 DATA_UPLOAD_MAX_NUMBER_FILES = 20
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
@@ -203,9 +212,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.AllowAny'],
     'DEFAULT_RENDERER_CLASSES': ['rest_framework.renderers.JSONRenderer'],
     'DEFAULT_PARSER_CLASSES': [
-        'rest_framework.parsers.JSONParser',
-        'rest_framework.parsers.MultiPartParser',
-        'rest_framework.parsers.FormParser',
+        'apps.core.parsers.SafeJSONParser',
+        'apps.core.parsers.SafeMultiPartParser',
+        'apps.core.parsers.SafeFormParser',
     ],
     # So'rov cheklovlari (apps/core/throttles.py). Qiymatlar .env orqali o'zgartiriladi: THROTTLE_LOGIN=10/min
     'DEFAULT_THROTTLE_RATES': {

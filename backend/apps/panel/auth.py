@@ -1,8 +1,10 @@
 """Vue admin panel kirishi: Django sessiyasi + Payload'dagi kabi Origin tekshiruvi, bloklash va kirish tarixi."""
+import hashlib
 from datetime import timedelta
 
 from django.conf import settings
 from django.contrib.auth import login, logout
+from django.core.cache import cache
 from django.utils import timezone
 from drf_spectacular.utils import OpenApiExample, extend_schema, inline_serializer
 from rest_framework import serializers, status
@@ -103,9 +105,21 @@ class LoginView(APIView):
         if user and user.lock_until and user.lock_until > now:
             record(request, user, username, 'locked')
             return error('Hisob vaqtincha bloklangan — 15 daqiqadan keyin urinib ko‘ring', 423)
+        ghost = None
         if not user:
+            # Mavjud bo'lmagan login ham xuddi shunday bloklanadi: «423» faqat haqiqiy loginlarga chiqsa, uni topib olish mumkin bo'lardi
+            ghost = 'login:ghost:' + hashlib.sha256(username.lower().encode()).hexdigest()[:32]
+            if cache.get(ghost, 0) >= MAX_ATTEMPTS:
+                record(request, None, username, 'locked')
+                return error('Hisob vaqtincha bloklangan — 15 daqiqadan keyin urinib ko‘ring', 423)
             _dummy_check(password)  # login mavjudligini javob vaqtidan bilib bo'lmasin
         if not user or not check_any_password(user, password):
+            if ghost:
+                cache.add(ghost, 0, LOCK_MINUTES * 60)
+                try:
+                    cache.incr(ghost)
+                except ValueError:
+                    pass
             if user:
                 user.login_attempts += 1
                 if user.login_attempts >= MAX_ATTEMPTS:

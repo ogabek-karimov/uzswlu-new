@@ -72,7 +72,14 @@ def upload(path: Path, folder: str, alt: dict | None = None) -> Media:
 class Command(BaseCommand):
     help = 'Boshlang‘ich ma’lumotlarni yuklaydi (bo‘sh bo‘limlarga)'
 
-    def handle(self, *args, **options):
+    def add_arguments(self, parser):
+        parser.add_argument('--first-run', action='store_true',
+                            help='Faqat bo‘sh bazada (hali bitta ham foydalanuvchi yo‘q): admin biror bo‘limni o‘chirsa, keyingi ishga tushishda demo qaytib kelmasin')
+
+    def handle(self, *args, first_run=False, **options):
+        if first_run and User.objects.exists():
+            self.stdout.write('Baza allaqachon ishlatilgan — namuna ma’lumot qayta yuklanmadi')
+            return
         for step in (
             self.admin, self.site_settings, self.posts, self.content, self.pages, self.structure, self.sdg, self.staff,
         ):

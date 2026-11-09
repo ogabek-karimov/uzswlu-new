@@ -21,6 +21,9 @@ def security_settings(app_configs, **kwargs):
         out.append(Warning('ALLOWED_HOSTS da "*" bor.', hint='Faqat o‘z domeningizni yozing.', id='uzswlu.W004'))
     if int(settings.REST_FRAMEWORK.get('NUM_PROXIES') or 0) == 0:
         out.append(Warning('NUM_PROXIES=0: so‘rov cheklovi REMOTE_ADDR bo‘yicha ishlaydi.', hint='Nginx/Cloudflare ortida bo‘lsangiz NUM_PROXIES=1 (yoki 2) qo‘ying, aks holda hamma foydalanuvchi bitta IP ko‘rinadi.', id='uzswlu.W005'))
+    local = [o for o in settings.TRUSTED_ORIGINS if '//localhost' in o or '//127.0.0.1' in o]
+    if local:
+        out.append(Warning('TRUSTED_ORIGINS da localhost bor: u manzillardan cookie/token bilan so‘rov yuborish mumkin.', hint='Productionda faqat admin panel va sayt domenlarini yozing: TRUSTED_ORIGINS=https://admin.sizning.uz,https://sizning.uz', id='uzswlu.W007'))
     if settings.API_DOCS_PUBLIC:
         out.append(Warning('API_DOCS_PUBLIC=true: Swagger productionda hamma uchun ochiq.', hint='API_DOCS_PUBLIC=false qiling — hujjat faqat admin panelga kirganlarga ko‘rinadi.', id='uzswlu.W006'))
     return out

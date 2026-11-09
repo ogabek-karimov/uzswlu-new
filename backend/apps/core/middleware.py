@@ -28,6 +28,12 @@ class UploadSizeLimitMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
+        if request.method in _BODY_METHODS and not request.content_type.startswith('multipart/'):
+            # JSON/forma tanasi: yo'l bo'yicha kichik chegara (ochiq endpointlarga katta tana yuborib xotirani to'ldirishga qarshi)
+            limit = next((lim for prefix, lim in settings.BODY_LIMITS if request.path.startswith(prefix)), None)
+            length = request.META.get('CONTENT_LENGTH', '')
+            if limit is not None and length.isdigit() and int(length) > limit:
+                return self._error(f'So‘rov tanasi {limit // 1024} KB dan katta', 413)
         if request.method in _BODY_METHODS and request.content_type.startswith('multipart/'):
             limit = next((lim for prefix, lim in settings.UPLOAD_LIMITS if request.path.startswith(prefix)), None)
             if limit is not None:
@@ -41,6 +47,27 @@ class UploadSizeLimitMiddleware:
     @staticmethod
     def _error(message: str, status: int):
         return JsonResponse({'errors': [{'message': message}], 'message': message}, status=status)
+
+
+class ApiHeadersMiddleware:
+    """JSON javoblar: hech qachon brauzerda «sahifa» sifatida bajarilmasin (CSP), shaxsiy/admin javoblar oraliq keshda qolmasin.
+
+    `/api/cms/*` (admin panel), `/api/me*` (kabinet) va `/api/auth/*` (kirish) javoblari — `private, no-store`:
+    token, profil va tahrirlanayotgan kontent proksi/CDN/brauzer keshiga tushmaydi.
+    """
+    NO_STORE = ('/api/cms/', '/api/me', '/api/auth/')
+    JSON_CSP = "default-src 'none'; frame-ancestors 'none'"
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        response = self.get_response(request)
+        if request.path.startswith(self.NO_STORE) and 'Cache-Control' not in response:
+            response['Cache-Control'] = 'private, no-store'
+        if response.get('Content-Type', '').startswith('application/json') and 'Content-Security-Policy' not in response:
+            response['Content-Security-Policy'] = self.JSON_CSP
+        return response
 
 
 class MediaHeadersMiddleware:
