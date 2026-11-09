@@ -31,7 +31,6 @@ admin-template/
 # Python
 __pycache__/
 *.pyc
-.venv/
 .ruff_cache/
 backend/staticfiles/
 *.sqlite3

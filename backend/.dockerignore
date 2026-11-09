@@ -8,5 +8,4 @@ __pycache__/
 media/
 staticfiles/
 .ruff_cache/
-.venv/
 .git
