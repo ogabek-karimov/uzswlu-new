@@ -138,7 +138,7 @@ const idx = computed(() => list.value.findIndex(f => f.id === sel.value))
               <template v-else>LOGO</template>
               <span class="absolute inset-x-0 bottom-0 bg-night/60 py-0.5 text-[10px] font-semibold text-white">{{ uploading === 'logo' ? '…' : 'almaştiriş' }}</span>
             </button>
-            <div class="min-w-0 flex-[1_1_260px] pb-1">
+            <div class="min-w-0 flex-[1_1_260px] pt-10 pb-1">
               <h2 class="text-[22px] font-bold [overflow-wrap:anywhere]">{{ form.name.uz || current.name.uz }}</h2>
               <p class="mt-1 text-[13px] text-muted">/faculty/{{ current.slug }}</p>
             </div>

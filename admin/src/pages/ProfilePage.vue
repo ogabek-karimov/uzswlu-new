@@ -107,7 +107,7 @@ function flash(text: string) {
       <div class="relative h-[110px] overflow-hidden bg-night"><span aria-hidden="true" class="absolute -top-36 -right-20 size-[360px] rounded-full border-[44px] border-mint/8" /></div>
       <div class="relative -mt-11 flex flex-wrap items-end gap-[18px] px-6 pb-[22px]">
         <span class="relative grid size-24 shrink-0 place-items-center rounded-full bg-gradient-to-br from-brand-700 to-night text-[34px] font-bold text-mint shadow-[0_0_0_5px_#fff]">{{ initials(me?.name) }}</span>
-        <div class="min-w-0 flex-[1_1_260px] pb-1">
+        <div class="min-w-0 flex-[1_1_260px] pt-12 pb-1">
           <h1 class="text-[26px] font-bold [overflow-wrap:anywhere]">{{ me?.name }}</h1>
           <p class="mt-1 text-sm text-muted">{{ ROLE_LABELS[me?.role ?? 'editor'] }} · login: <b>{{ me?.username }}</b></p>
         </div>
