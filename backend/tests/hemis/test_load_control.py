@@ -242,3 +242,43 @@ class NightlyTests(TestCase):
         with override_settings(HEMIS_API_URL=''):
             call_command('run_nightly', '--once', stdout=out)
         self.assertIn('hemis:', out.getvalue())
+
+
+class PanelHemisStatusTests(TestCase):
+    """Admin panel HEMIS sahifasi: sinxronlash eskirganini/xatosini ko'rsatadi, xato matni faqat superadmin'ga."""
+
+    def setUp(self):
+        from apps.accounts.models import User
+        from tests.support import PASSWORD, jwt_for, loose
+        for role in ('superadmin', 'editor'):
+            User.objects.create_user(f'h_{role}', password=PASSWORD, role=role, name=role)
+        with loose():
+            self.h = {r: jwt_for(f'h_{r}') for r in ('superadmin', 'editor')}
+        self.old = (timezone.now() - timedelta(hours=40)).isoformat()
+        snap = HemisSnapshot.load()
+        snap.data = {'syncedAt': self.old, 'faculties': [], 'staff': [], 'staffDepartments': [], 'summary': {}}
+        snap.synced_at, snap.error = timezone.now() - timedelta(hours=40), 'HEMIS javob bermadi: http://ichki-host/x'
+        snap.save()
+
+    def get(self, role):
+        from tests.support import api
+        with override_settings(HEMIS_API_URL='http://h/rest', HEMIS_API_TOKEN='t', HEMIS_CLIENT='apps.hemis.snapshot.SnapshotHemis'), \
+                mock.patch('apps.hemis.snapshot.SnapshotHemis._data', new_callable=mock.PropertyMock, return_value=HemisSnapshot.load().data):
+            return api('get', '/api/cms/panel/hemis', self.h[role]).json()
+
+    def test_superadmin_sees_error_and_stale(self):
+        body = self.get('superadmin')
+        self.assertTrue(body['stale'])
+        self.assertIn('javob bermadi', body['lastError'])
+
+    def test_other_roles_never_see_internal_error(self):
+        body = self.get('editor')
+        self.assertTrue(body['stale'])
+        self.assertIsNone(body['lastError'])
+
+    def test_demo_data_is_not_reported_stale(self):
+        from tests.support import api
+        with override_settings(HEMIS_API_URL=''), \
+                mock.patch('apps.hemis.snapshot.SnapshotHemis._data', new_callable=mock.PropertyMock, return_value=HemisSnapshot.load().data):
+            body = api('get', '/api/cms/panel/hemis', self.h['superadmin']).json()
+        self.assertFalse(body['stale'])

@@ -18,9 +18,10 @@ from rest_framework.response import Response
 from apps.content.models import Post
 from apps.core.models import Activity, Media
 from apps.hemis import get_client
+from apps.hemis.models import HemisSnapshot
 
 from .auth import error
-from .collections import ALL, MEDIA_ROLES, SDG, youtube_id
+from .collections import ALL, MEDIA_ROLES, SDG, SUPER, youtube_id
 from .models import LoginEvent
 from .usage import media_usage, used_media_ids
 from .views import PanelView
@@ -160,8 +161,13 @@ class HemisView(PanelView):
             'id': s['id'], 'name': s['name'], 'patronymic': s.get('patronymic'), 'group': s.get('group'),
             'employments': [{'department': e['department'], 'position': (e.get('position') or {}).get('name', '')} for e in s.get('employments', [])],
         } for s in client.staff('uz')]
+        # Sinxronlash holati: nusxa 30 soatdan eski bo'lsa (kechagi o'tmagan) — `stale`; xato matni faqat superadmin'ga (ichki manzil bo'lishi mumkin)
+        snap = HemisSnapshot.objects.filter(pk=1).only('error').first()
+        stale = bool(settings.HEMIS_API_URL and synced and timezone.now() - synced > timedelta(hours=30))
+        last_error = (snap.error or None) if snap and role_in(request, SUPER) else None
         return Response({
-            'syncedAt': synced.isoformat() if synced else None, 'faculties': faculties, 'staff': staff,
+            'syncedAt': synced.isoformat() if synced else None, 'stale': stale, 'lastError': last_error,
+            'faculties': faculties, 'staff': staff,
             'staffDepartments': client.staff_departments('uz'),
         })
 
