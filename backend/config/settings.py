@@ -272,7 +272,11 @@ LOGIN_EVENT_RETENTION_DAYS = int(env('LOGIN_EVENT_RETENTION_DAYS', '365'))  # ki
 BACKUP_ENABLED = env_bool('BACKUP_ENABLED', True)
 BACKUP_DIR = Path(env('BACKUP_DIR', str(BASE_DIR / 'backups')))          # serverda ALOHIDA disk/volume bo'lsin
 BACKUP_COPY_TO = env('BACKUP_COPY_TO', '')                               # ikkinchi joy (boshqa disk, ulangan tarmoq papkasi); bo'sh — yo'q
-BACKUP_KEEP_DAYS = int(env('BACKUP_KEEP_DAYS', '14'))                    # shundan eskilari o'chadi (0 — o'chirmaydi)
+# Saqlash siyosati: oxirgi N kun — hammasi; keyin har haftadan bittasi, har oydan bittasi, har yildan bittasi (0 — abadiy)
+BACKUP_KEEP_DAYS = int(env('BACKUP_KEEP_DAYS', '14'))                    # 0 — hech narsa avtomatik o'chirilmaydi
+BACKUP_KEEP_WEEKS = int(env('BACKUP_KEEP_WEEKS', '8'))
+BACKUP_KEEP_MONTHS = int(env('BACKUP_KEEP_MONTHS', '12'))
+BACKUP_KEEP_YEARS = int(env('BACKUP_KEEP_YEARS', '0'))                   # 0 — yillik nusxalar abadiy saqlanadi
 BACKUP_KEEP_MIN = int(env('BACKUP_KEEP_MIN', '3'))                       # eng yangi shuncha nusxa har doim qoladi
 BACKUP_MEDIA = env_bool('BACKUP_MEDIA', True)                            # rasm/PDF va yopiq fayllar ham
 BACKUP_DB_FORMAT = env('BACKUP_DB_FORMAT', 'auto')                       # auto | native (pg_dump/SQLite) | json (ko'chma)

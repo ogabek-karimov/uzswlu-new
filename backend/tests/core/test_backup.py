@@ -1,6 +1,7 @@
 """Zaxira va tiklash: yaratish, tekshirish, tiklash (SQLite va PostgreSQL — qaysi baza bilan ishlayotgan bo'lsa), ko'chma JSON,
 buzilgan arxiv, tozalash, qulf, xavfsizlik (yo'l almashtirish), kechki vazifa, buyruqlar."""
 import io
+import json
 import os
 import tarfile
 import tempfile
@@ -143,33 +144,7 @@ class IntegrityTests(BackupBase):
 
 
 class RetentionTests(BackupBase):
-    def _fake(self, days_ago: int):
-        when = datetime.now() - timedelta(days=days_ago, minutes=1)
-        self.dir.mkdir(parents=True, exist_ok=True)
-        p = self.dir / f"uzswlu-{when:%Y%m%d-%H%M%S}.tar.gz"
-        p.write_bytes(b'x')
-        return p
-
-    def test_prune_removes_old_but_keeps_minimum(self):
-        files = [self._fake(d) for d in (1, 2, 20, 30, 40)]
-        with override_settings(BACKUP_KEEP_DAYS=14, BACKUP_KEEP_MIN=3):
-            removed = bk.prune()
-        self.assertEqual(len(removed), 2)                       # 30 va 40 kunlik; 3 ta eng yangisi (1, 2, 20) qoladi
-        self.assertTrue(all(f.exists() for f in files[:3]))
-
-    def test_prune_never_deletes_newest_even_if_all_old(self):
-        files = [self._fake(d) for d in (50, 60)]
-        with override_settings(BACKUP_KEEP_DAYS=14, BACKUP_KEEP_MIN=0):
-            bk.prune()
-        self.assertTrue(files[0].exists())
-
-    def test_prune_ignores_foreign_files(self):
-        self._fake(1)
-        other = self.dir / 'notes.txt'
-        other.write_text('mening faylim')
-        with override_settings(BACKUP_KEEP_DAYS=1, BACKUP_KEEP_MIN=0):
-            bk.prune()
-        self.assertTrue(other.exists())
+    """Status, ikkinchi joyga nusxa va qulf."""
 
     def test_status(self):
         self.assertFalse(bk.status()['ok'])
@@ -295,3 +270,191 @@ class NightlyAndCommandTests(BackupBase):
             call_command('backup', '--status', stdout=io.StringIO())
         with self.assertRaisesRegex(CommandError, 'topilmadi'):
             call_command('backup', '--verify', 'yoq.tar.gz', stdout=io.StringIO())
+
+
+NOW = datetime(2026, 11, 10, 12, 0)   # seshanba
+
+
+class PolicyBase(BackupBase):
+
+    def make(self, when: datetime, pinned: bool = False, label: str = ''):
+        self.dir.mkdir(parents=True, exist_ok=True)
+        name = f"uzswlu-{when:%Y%m%d-%H%M%S}{('-' + label) if label else ''}.tar.gz"
+        p = self.dir / name
+        p.write_bytes(b'x')
+        p.with_name(name[:-7] + '.json').write_text('{"pinned": true}' if pinned else '{}')
+        return p
+
+    def daily(self, count: int, now=NOW):
+        return [self.make(now - timedelta(days=d, hours=10)) for d in range(count)]   # har kuni 02:00
+
+    def left(self):
+        return [b['when'] for b in bk.list_backups()]
+
+
+class PolicyTests(PolicyBase):
+    """Saqlash siyosati: oxirgi 14 kun hammasi → haftalik (8 hafta) → oylik (12 oy) → yillik (abadiy)."""
+
+    def test_tiers_on_400_days_of_daily_backups(self):
+        self.daily(400)
+        with override_settings(BACKUP_KEEP_MIN=1):
+            removed = bk.prune(now=NOW)
+        kept = sorted(self.left(), reverse=True)
+        self.assertGreater(len(removed), 300)
+        recent = [w for w in kept if NOW - w < timedelta(days=14)]
+        self.assertEqual(len(recent), 14)                                           # kunlik: hammasi
+        weeks = [w for w in kept if timedelta(days=14) <= NOW - w < timedelta(weeks=8)]
+        self.assertEqual(len({w.isocalendar()[:2] for w in weeks}), len(weeks))     # haftalik: har haftadan bittadan
+        self.assertGreaterEqual(len(weeks), 6)
+        months = [w for w in kept if timedelta(weeks=8) <= NOW - w < timedelta(days=365)]
+        self.assertEqual(len({(w.year, w.month) for w in months}), len(months))     # oylik: har oydan bittadan
+        self.assertGreaterEqual(len(months), 9)
+        old = [w for w in kept if NOW - w >= timedelta(days=365)]
+        self.assertEqual(len({w.year for w in old}), len(old))                      # yillik: har yildan bittadan
+        self.assertLess(len(kept), 45)                                              # 400 → ~40
+        self.assertEqual(kept[0], NOW - timedelta(hours=10))                        # eng yangisi saqlangan
+
+    def test_week_winner_is_the_latest_of_that_week(self):
+        for d in (30, 29, 28, 27, 26, 25, 24):       # 7 kun ketma-ket → ikki ISO-haftaga bo'linadi
+            self.make(NOW - timedelta(days=d, hours=10))
+        self.make(NOW - timedelta(days=1))
+        with override_settings(BACKUP_KEEP_MIN=1):
+            bk.prune(now=NOW)
+        kept = [w for w in self.left() if NOW - w > timedelta(days=14)]
+        for w in kept:
+            same_week = [x for x in (NOW - timedelta(days=d, hours=10) for d in range(24, 31)) if x.isocalendar()[:2] == w.isocalendar()[:2]]
+            self.assertEqual(w, max(same_week))      # haftaning ENG OXIRGI nusxasi qoladi
+
+    def test_three_year_nightly_simulation_stays_bounded_and_covers_history(self):
+        """Har kuni zaxira + har kuni tozalash, 3 yil: joy cheklangan, tarix uzilmaydi, tozalash barqaror (qayta ishlatsa o'zgarmaydi)."""
+        start = datetime(2023, 11, 10, 2, 0)
+        for d in range(3 * 365 + 5):
+            now = start + timedelta(days=d)
+            self.make(now)
+            bk.prune(now=now + timedelta(minutes=30))
+        end = start + timedelta(days=3 * 365 + 4, minutes=30)
+        kept = sorted(self.left(), reverse=True)
+        self.assertLessEqual(len(kept), 14 + 8 + 12 + 4 + 2)                       # ≈ 40 ta, 1100 ta emas
+        self.assertEqual(bk.prune(now=end), [])                                     # idempotent
+        for k in range(1, 12):                                                      # oxirgi 12 oyning har biridan nusxa bor
+            probe = end - timedelta(days=30 * k)
+            self.assertTrue(any((w.year, w.month) == (probe.year, probe.month) for w in kept), probe)
+        self.assertGreaterEqual({w.year for w in kept} & {2023, 2024, 2025, 2026}, {2023, 2024, 2025, 2026})  # har yildan bor
+        self.assertEqual(len([w for w in kept if end - w < timedelta(days=14)]), 14)
+
+    def test_manual_backups_inside_daily_window_are_all_kept(self):
+        self.daily(3)
+        extra = [self.make(NOW - timedelta(days=2, hours=h), label='qolda') for h in (1, 2, 3)]
+        with override_settings(BACKUP_KEEP_MIN=1):
+            self.assertEqual(bk.prune(now=NOW), [])
+        self.assertTrue(all(p.exists() for p in extra))
+
+    def test_pinned_is_never_deleted_and_marked(self):
+        pinned = self.make(NOW - timedelta(days=900), pinned=True)
+        plain = self.make(NOW - timedelta(days=901))
+        self.daily(5)
+        with override_settings(BACKUP_KEEP_MIN=1, BACKUP_KEEP_YEARS=1):
+            removed = bk.prune(now=NOW)
+        self.assertTrue(pinned.exists())
+        self.assertIn(plain.name, removed)
+        self.assertEqual(dict((b['name'], r) for b, r in bk.retention(now=NOW))[pinned.name], 'qadalgan')
+
+    def test_keep_min_protects_newest_even_when_all_are_ancient(self):
+        files = [self.make(NOW - timedelta(days=2000 + d)) for d in range(5)]
+        with override_settings(BACKUP_KEEP_MIN=3, BACKUP_KEEP_YEARS=1):
+            bk.prune(now=NOW)
+        self.assertEqual([p.exists() for p in files], [True, True, True, False, False])
+
+    def test_keep_days_zero_disables_pruning(self):
+        self.daily(60)
+        with override_settings(BACKUP_KEEP_DAYS=0):
+            self.assertEqual(bk.prune(now=NOW), [])
+        self.assertEqual(len(self.left()), 60)
+
+    def test_years_limit_drops_older_than_n_years(self):
+        old = self.make(NOW - timedelta(days=3 * 365 + 20))
+        recent_year = self.make(NOW - timedelta(days=400))
+        self.make(NOW - timedelta(days=1))
+        with override_settings(BACKUP_KEEP_MIN=1, BACKUP_KEEP_YEARS=2):
+            removed = bk.prune(now=NOW)
+        self.assertEqual(removed, [old.name])
+        self.assertTrue(recent_year.exists())
+
+    def test_zero_weeks_or_months_collapse_tiers(self):
+        self.daily(120)
+        with override_settings(BACKUP_KEEP_MIN=1, BACKUP_KEEP_WEEKS=0, BACKUP_KEEP_MONTHS=12):
+            bk.prune(now=NOW)
+        mid = [w for w in self.left() if timedelta(days=14) <= NOW - w]
+        self.assertEqual(len({(w.year, w.month) for w in mid}), len(mid))   # haftalik oyna yo'q — to'g'ridan-to'g'ri oylik
+
+    def test_dry_run_deletes_nothing_and_foreign_files_are_ignored(self):
+        self.daily(60)
+        other = self.dir / 'notes.txt'
+        other.write_text('mening faylim')
+        with override_settings(BACKUP_KEEP_MIN=1):
+            would = bk.prune(dry_run=True, now=NOW)
+            self.assertEqual(len(self.left()), 60)
+            self.assertEqual(sorted(bk.prune(now=NOW)), sorted(would))
+        self.assertTrue(other.exists())
+        self.assertFalse(any(self.dir.glob(f'{would[0][:-7]}*')))          # sidecar ham o'chadi
+
+    def test_future_dated_backup_is_treated_as_recent(self):
+        future = self.make(NOW + timedelta(days=2))
+        with override_settings(BACKUP_KEEP_MIN=0):
+            self.assertEqual(bk.prune(now=NOW), [])
+        self.assertTrue(future.exists())
+
+
+class DateLookupAndPinTests(PolicyBase):
+    def setUp(self):
+        super().setUp()
+        for d in (5, 40, 100):
+            self.make(NOW - timedelta(days=d, hours=10))
+
+    def test_resolve_by_date_picks_latest_on_or_before(self):
+        target = (NOW - timedelta(days=40)).strftime('%Y-%m-%d')            # shu kunning o'zida zaxira bor
+        self.assertEqual(bk.parse_name(bk.resolve(target).name), NOW - timedelta(days=40, hours=10))
+        between = (NOW - timedelta(days=60)).strftime('%Y-%m-%d')            # oraliqda — undan oldingisi
+        self.assertEqual(bk.parse_name(bk.resolve(between).name), NOW - timedelta(days=100, hours=10))
+        with self.assertRaisesRegex(bk.BackupError, 'eng eskisi'):
+            bk.resolve('2000-01-01')
+        with self.assertRaisesRegex(bk.BackupError, 'Sana noto‘g‘ri'):
+            bk.find('2026-13-45')
+
+    def test_resolve_by_exact_minute(self):
+        when = NOW - timedelta(days=40, hours=10)
+        self.assertEqual(bk.parse_name(bk.resolve(when.strftime('%Y-%m-%d %H:%M')).name), when)
+        earlier = (when - timedelta(minutes=1)).strftime('%Y-%m-%d %H:%M')
+        self.assertEqual(bk.parse_name(bk.resolve(earlier).name), NOW - timedelta(days=100, hours=10))
+
+    def test_find_returns_neighbours(self):
+        before, after = bk.find((NOW - timedelta(days=60)).strftime('%Y-%m-%d'))
+        self.assertEqual((before['when'], after['when']), (NOW - timedelta(days=100, hours=10), NOW - timedelta(days=40, hours=10)))
+
+    def test_pin_updates_sidecar_and_offsite_copy(self):
+        off = Path(self.tmp.name) / 'offsite'
+        res = None
+        with override_settings(BACKUP_COPY_TO=str(off)):
+            res = bk.create()
+            bk.pin(res['path'].name)
+            for d in (self.dir, off):
+                self.assertTrue(json.loads((d / (res['path'].name[:-7] + '.json')).read_text())['pinned'])
+            self.assertTrue(json.loads((d / (res['path'].name[:-7] + '.json')).read_text())['sha256'])    # boshqa ma'lumot yo'qolmagan
+            bk.pin(res['path'].name, False)
+            self.assertFalse(json.loads((self.dir / (res['path'].name[:-7] + '.json')).read_text())['pinned'])
+
+    def test_commands_plan_pin_find_and_restore_by_date(self):
+        out = io.StringIO()
+        newest = bk.create()['path']
+        call_command('backup', '--plan', stdout=out)
+        self.assertIn('kunlik', out.getvalue())
+        self.assertIn('oylik', out.getvalue())
+        call_command('backup', '--pin', newest.name, stdout=out)
+        call_command('backup', '--list', stdout=out)
+        self.assertIn('📌', out.getvalue())
+        call_command('backup', '--find', (NOW - timedelta(days=60)).strftime('%Y-%m-%d'), stdout=out)
+        self.assertIn('shu sanagacha eng yangisi', out.getvalue())
+        Faculty.objects.create(slug='yangi', name={'uz': 'x'})
+        today = datetime.now().strftime('%Y-%m-%d')
+        call_command('restore', today, '--yes', '--no-safety', '--db-only', stdout=out)     # bugungi sana → shu paytda olingan nusxa
+        self.assertEqual(self.names(), ['fa'])

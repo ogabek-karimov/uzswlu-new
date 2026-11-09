@@ -4,6 +4,8 @@
     docker compose run --rm backend python manage.py restore latest --yes
     docker compose up -d
 
+Sanaga qarab: `restore 2026-08-15 --yes` — o'sha kungacha olingan eng yangi nusxa (`backup --find 2026-08-15` oldindan ko'rsatadi).
+
 Tiklashdan oldin joriy holatdan `...-pre-restore.tar.gz` nusxasi olinadi (--no-safety bilan o'chiriladi).
 Faqat baza: --db-only, faqat fayllar: --media-only. Tekshirib ko'rish uchun: `backup --verify FAYL`.
 """
@@ -16,7 +18,7 @@ class Command(BaseCommand):
     help = 'Zaxira nusxadan bazani va fayllarni tiklash'
 
     def add_arguments(self, parser):
-        parser.add_argument('ref', help='latest, fayl nomi yoki to‘liq yo‘l')
+        parser.add_argument('ref', help='latest, sana (2026-08-15 — shu kungacha bo‘lgan eng yangi nusxa), fayl nomi yoki to‘liq yo‘l')
         parser.add_argument('--yes', action='store_true', help='Tasdiqlash (usiz hech narsa o‘zgarmaydi)')
         parser.add_argument('--no-safety', action='store_true', help='Tiklashdan oldingi xavfsizlik nusxasi olinmasin')
         parser.add_argument('--db-only', action='store_true')

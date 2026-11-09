@@ -95,7 +95,19 @@ Frontend kaliti: `frontend/.env` dagi `NUXT_API_TOKEN` = `backend/.env` dagi `AP
 
 Kechasi `nightly` xizmati (`run_nightly`, HEMIS'dan oldin) avtomatik zaxira oladi: **baza + yuklangan fayllar (`media/`) + yopiq fayllar (`private/`)** →
 bitta arxiv `backend/backups/uzswlu-YYYYMMDD-HHMMSS.tar.gz` (+ yoniga `.json`: hajm, sha256, baza turi). Har zaxira olingach u **qayta o'qib tekshiriladi**
-(sha256, arxiv butunligi, SQLite `integrity_check` / `pg_restore --list`), keyin `BACKUP_KEEP_DAYS` (14) kundan eskilari o'chadi — lekin eng yangi `BACKUP_KEEP_MIN` (3) tasi har doim qoladi.
+(sha256, arxiv butunligi, SQLite `integrity_check` / `pg_restore --list`).
+
+**Saqlash siyosati** (uzoq muddatli tarix, lekin joy cheklangan: ~40 ta nusxa — yillar o'tsa ham):
+
+| Oyna | Nima qoladi | Sozlama |
+|---|---|---|
+| oxirgi 14 kun | hammasi (qo'lda olinganlari ham) | `BACKUP_KEEP_DAYS` |
+| 14 kun – 8 hafta | har haftadan eng oxirgisi | `BACKUP_KEEP_WEEKS` |
+| 8 hafta – 12 oy | har oydan eng oxirgisi | `BACKUP_KEEP_MONTHS` |
+| 12 oydan eski | har yildan eng oxirgisi, **abadiy** (`0`) | `BACKUP_KEEP_YEARS` |
+
+Doim saqlanadi: **qadalgan** (`--pin`) nusxalar va eng yangi `BACKUP_KEEP_MIN` (3) tasi. `BACKUP_KEEP_DAYS=0` — hech narsa avtomatik o'chirilmaydi.
+`backup --plan` har nusxa nima uchun saqlanishi (kunlik / haftalik 2026-H44 / oylik 2026-09 / yillik 2025 / qadalgan) yoki o'chishini oldindan ko'rsatadi.
 
 | Muhit | Baza usuli |
 |---|---|
@@ -105,7 +117,10 @@ bitta arxiv `backend/backups/uzswlu-YYYYMMDD-HHMMSS.tar.gz` (+ yoniga `.json`: h
 
 ```bash
 docker compose exec backend python manage.py backup            # hozir zaxira olish
-docker compose exec backend python manage.py backup --list     # ro'yxat
+docker compose exec backend python manage.py backup --list     # ro'yxat (har biri qaysi oynada)
+docker compose exec backend python manage.py backup --plan     # nima o'chishini oldindan ko'rish (hech narsa o'chmaydi)
+docker compose exec backend python manage.py backup --pin uzswlu-20261110-013524.tar.gz   # katta yangilanish oldidan: hech qachon o'chmasin
+docker compose exec backend python manage.py backup --find 2026-08-15   # shu sanaga eng yaqin nusxalar
 docker compose exec backend python manage.py backup --verify latest
 docker compose exec backend python manage.py backup --status   # oxirgi zaxira ≤36 soat bo'lmasa xato kodi (monitoring/cron uchun)
 ```
@@ -113,7 +128,7 @@ docker compose exec backend python manage.py backup --status   # oxirgi zaxira �
 **Tiklash** (baza va fayllar almashtiriladi; oldin joriy holatdan `…-pre-restore.tar.gz` olinadi):
 ```bash
 docker compose stop backend nightly                     # ochiq ulanishlar bazani bloklamasin
-docker compose run --rm backend python manage.py restore latest --yes   # yoki aniq fayl nomi
+docker compose run --rm backend python manage.py restore latest --yes   # yoki fayl nomi, yoki SANA: restore 2026-08-15 --yes
 docker compose up -d
 ```
 Yangi (bo'sh) serverga ko'chirish: loyihani o'rnating → `docker compose up -d db` → `backups/` papkasiga arxivni (va `.json`ni) qo'ying →

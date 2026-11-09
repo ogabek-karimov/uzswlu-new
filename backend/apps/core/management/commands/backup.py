@@ -5,7 +5,11 @@
     python manage.py backup --verify latest # butunligini tekshirish (yoki fayl nomi)
     python manage.py backup --status        # oxirgi zaxira yangimi? (eskirgan bo'lsa chiqish kodi 1 — monitoring uchun)
     python manage.py backup --no-media      # faqat baza
-Tiklash: python manage.py restore <fayl|latest> --yes
+    python manage.py backup --plan          # qaysi nusxa nima uchun saqlanadi / qaysi biri o'chadi (hech narsa o'chirmaydi)
+    python manage.py backup --pin FAYL      # nusxani qadash: hech qachon avtomatik o'chmaydi (--unpin — bekor qilish)
+    python manage.py backup --find 2026-08-15   # shu sanaga eng yaqin nusxalar
+Saqlash siyosati: oxirgi 14 kun — hammasi; keyin har haftadan, oydan, yildan bittadan (BACKUP_KEEP_* sozlamalari).
+Tiklash: python manage.py restore <fayl|latest|2026-08-15> --yes
 """
 import re
 
@@ -22,7 +26,11 @@ class Command(BaseCommand):
         parser.add_argument('--list', action='store_true')
         parser.add_argument('--verify', metavar='FAYL', nargs='?', const='latest')
         parser.add_argument('--status', action='store_true')
-        parser.add_argument('--prune', action='store_true', help='Faqat eskilarini tozalash')
+        parser.add_argument('--prune', action='store_true', help='Faqat siyosatga ko‘ra ortiqchalarini tozalash')
+        parser.add_argument('--plan', action='store_true', help='Saqlash rejasini ko‘rsatish (--prune --dry-run bilan bir xil)')
+        parser.add_argument('--pin', metavar='FAYL')
+        parser.add_argument('--unpin', metavar='FAYL')
+        parser.add_argument('--find', metavar='SANA', help='YYYY-MM-DD yoki "YYYY-MM-DD HH:MM"')
         parser.add_argument('--no-media', action='store_true')
         parser.add_argument('--no-copy', action='store_true', help='BACKUP_COPY_TO ga nusxa olinmasin')
         parser.add_argument('--label', default='', help='Fayl nomiga qo‘shiladi (kichik lotin harflar va -)')
@@ -37,9 +45,17 @@ class Command(BaseCommand):
                 path = bk.resolve(o['verify'])
                 m = bk.verify(path)
                 return self.stdout.write(self.style.SUCCESS(f"OK: {path.name} — baza: {m['db']}, {m['files']} fayl, {m['created']}"))
+            if o['plan']:
+                return self.show_plan()
+            if o['pin'] or o['unpin']:
+                path = bk.pin(o['pin'] or o['unpin'], value=bool(o['pin']))
+                return self.stdout.write(self.style.SUCCESS(f"{path.name}: " + ('qadaldi — avtomatik o‘chirilmaydi' if o['pin'] else 'qadash bekor qilindi')))
+            if o['find']:
+                return self.show_find(o['find'])
             if o['prune']:
                 removed = bk.prune()
-                return self.stdout.write(f'{len(removed)} ta eski zaxira o‘chirildi' + (': ' + ', '.join(removed) if removed else ''))
+                shown = ', '.join(removed[:5]) + (f' … (+{len(removed) - 5})' if len(removed) > 5 else '')
+                return self.stdout.write(f'{len(removed)} ta ortiqcha zaxira o‘chirildi' + (f': {shown}' if removed else ''))
             if o['label'] and not re.fullmatch(r'[a-z-]{1,20}', o['label']):
                 raise CommandError('--label faqat kichik lotin harflar va "-" (≤20 belgi)')
             res = bk.create(o['label'], media=False if o['no_media'] else None, copy=not o['no_copy'])
@@ -55,13 +71,26 @@ class Command(BaseCommand):
             raise CommandError(str(exc)) from exc
 
     def show_list(self):
-        items = bk.list_backups()
-        self.stdout.write(f'Papka: {bk.backup_dir()}')
+        self.show_plan(header=f'Papka: {bk.backup_dir()}')
+
+    def show_plan(self, header=''):
+        items = bk.retention()
+        self.stdout.write(header or f'Papka: {bk.backup_dir()}  (kun {bk.settings.BACKUP_KEEP_DAYS} · hafta {bk.settings.BACKUP_KEEP_WEEKS} · oy {bk.settings.BACKUP_KEEP_MONTHS} · yil {bk.settings.BACKUP_KEEP_YEARS or "abadiy"})')
         if not items:
             return self.stdout.write('  (bo‘sh)')
-        for b in items:
+        for b, reason in items:
             m = b['meta']
-            self.stdout.write(f"  {b['name']}  {size_label(b['size']):>9}  {m.get('db', '?'):7} {m.get('files', '?')} fayl")
+            mark = self.style.WARNING('o‘chadi') if reason is None else reason
+            self.stdout.write(f"  {b['name']}  {size_label(b['size']):>9}  {m.get('db', '?'):7} {str(m.get('files', '?')):>4} fayl  {'📌 ' if m.get('pinned') else ''}{mark}")
+        gone = sum(1 for _, r in items if r is None)
+        self.stdout.write(f'  jami {len(items)} ta, tozalashda o‘chadi: {gone}')
+
+    def show_find(self, ref):
+        before, after = bk.find(ref)
+        for title, b in (('shu sanagacha eng yangisi', before), ('shundan keyingi eng eskisi', after)):
+            self.stdout.write(f"  {title}: " + (f"{b['name']} ({size_label(b['size'])})" if b else '—'))
+        if before:
+            self.stdout.write(f'  tiklash: manage.py restore {ref} --yes')
 
     def show_status(self):
         s = bk.status()
