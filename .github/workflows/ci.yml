@@ -56,7 +56,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm, cache-dependency-path: frontend/package-lock.json }
-      - run: npm ci
+      - run: npx --yes npm@11 ci   # lock fayl npm 11 bilan yaratilgan; Node 22 bilan kelgan npm 10 uni "sinxron emas" deb rad etadi
       - run: npm run test:last-good
       - run: npm run build
 

@@ -72,6 +72,26 @@ class CreateAndRestoreTests(BackupBase):
     def test_restore_roundtrip_native(self):
         self._roundtrip()
 
+    def test_restore_falls_back_when_server_is_older_than_pg_dump(self):
+        """pg_dump 17 → PostgreSQL 16 serveri: `SET transaction_timeout` tanilmaydi. Tiklash SQL skript orqali baribir bajarilishi kerak."""
+        if bk._engine() != 'postgres':
+            self.skipTest('faqat PostgreSQL')
+        real, calls = bk._run, []
+
+        def fake(args, env, what):
+            calls.append(what)
+            if what == 'pg_restore':
+                raise bk.BackupError('pg_restore xato bilan tugadi: ERROR:  unrecognized configuration parameter "transaction_timeout"')
+            return real(args, env, what)
+
+        with mock.patch.object(bk, '_run', side_effect=fake):
+            self._roundtrip()
+        self.assertIn('pg_restore', calls)
+
+    def test_new_setting_filter(self):
+        self.assertTrue(bk._NEW_SETTINGS.match('SET transaction_timeout = 0;'))
+        self.assertFalse(bk._NEW_SETTINGS.match('SET statement_timeout = 0;'))
+
     def test_restore_roundtrip_portable_json(self):
         with override_settings(BACKUP_DB_FORMAT='json'):
             self.assertEqual(bk.pick_db_format(), 'json')

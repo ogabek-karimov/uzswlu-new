@@ -521,6 +521,35 @@ def _replace_contents(src: Path, dst: Path) -> None:
     shutil.copytree(src, dst, dirs_exist_ok=True)
 
 
+_NEW_SETTINGS = re.compile(r'^SET (transaction_timeout|idle_session_timeout) = .*;\s*$')
+
+
+def _restore_pg_filtered(dbfile: Path) -> None:
+    """Eski PostgreSQL serveriga yangiroq pg_dump nusxasini tiklash: pg_restore → SQL, tanilmaydigan SET qatorlari olib tashlanadi, psql bajaradi."""
+    args, env = _pg_env_args('pg_restore')
+    try:
+        script = subprocess.run(args[:1] + ['--clean', '--if-exists', '--no-owner', '--no-privileges', '-f', '-', str(dbfile)],
+                                env=env, capture_output=True, text=True, timeout=3600)
+    except FileNotFoundError:
+        raise BackupError('pg_restore topilmadi') from None
+    if script.returncode != 0:
+        raise BackupError(f'pg_restore (skript) xato: {script.stderr.strip()[:600]}')
+    sql = '\n'.join(line for line in script.stdout.splitlines() if not _NEW_SETTINGS.match(line)) + '\n'
+    pargs, penv = _pg_env_args('psql')
+    _run_input(pargs + ['-v', 'ON_ERROR_STOP=1', '--single-transaction', '--quiet', '--dbname', _db()['NAME']], penv, sql, 'psql')
+
+
+def _run_input(args: list[str], env: dict, text: str, what: str) -> None:
+    try:
+        res = subprocess.run(args, env=env, input=text, capture_output=True, text=True, timeout=6 * 3600)
+    except FileNotFoundError:
+        raise BackupError(f'{args[0]} topilmadi') from None
+    except subprocess.TimeoutExpired:
+        raise BackupError(f'{what}: vaqt tugadi') from None
+    if res.returncode != 0:
+        raise BackupError(f'{what} xato bilan tugadi: {(res.stderr or res.stdout).strip()[:600]}')
+
+
 def _restore_db(dbfile: Path, kind: str) -> None:
     from django.core.management import call_command
     if kind == 'sqlite':
@@ -538,8 +567,15 @@ def _restore_db(dbfile: Path, kind: str) -> None:
         connections.close_all()
         args, env = _pg_env_args('pg_restore')
         # --single-transaction: yarim tiklanib qolmaydi (xato bo'lsa hammasi orqaga qaytadi)
-        _run(args + ['--clean', '--if-exists', '--no-owner', '--no-privileges', '--single-transaction', '--exit-on-error',
-                     '--dbname', _db()['NAME'], str(dbfile)], env, 'pg_restore')
+        try:
+            _run(args + ['--clean', '--if-exists', '--no-owner', '--no-privileges', '--single-transaction', '--exit-on-error',
+                         '--dbname', _db()['NAME'], str(dbfile)], env, 'pg_restore')
+        except BackupError as exc:
+            # pg_dump klienti serverdan yangi (masalan, 17 → 16 server): `SET transaction_timeout` kabi yangi sozlamalarni server tanimaydi.
+            # Birinchi urinish --single-transaction bilan orqaga qaytgan, shuning uchun xavfsiz qayta urinamiz: SQL skript → nomaqbul SET'lar olib tashlanadi → psql.
+            if 'unrecognized configuration parameter' not in str(exc):
+                raise
+            _restore_pg_filtered(dbfile)
     else:
         call_command('migrate', interactive=False, verbosity=0)
         call_command('flush', interactive=False, verbosity=0)
