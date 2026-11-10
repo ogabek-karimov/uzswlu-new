@@ -86,7 +86,7 @@ python manage.py migrate && python manage.py seed_demo && python manage.py runse
 `NUXT_CMS_BASE=http://localhost:8000/api/site`.
 
 ## Docker compose xizmatlari
-`db` (PostgreSQL), `backend` (Django, healthcheck `/healthz`), `hemis-sync` (HEMIS'ni har 24 soatda yangilaydi),
+`db` (PostgreSQL), `backend` (Django, healthcheck `/healthz`), `nightly` (kechasi: zaxira, HEMIS sinxronlash, tozalash),
 `frontend` (Nuxt, :3000), `admin` (Vue, :5173). Port band bo'lsa (sababini `netstat -ano | findstr ":8000"` ko'rsatadi; ko'pincha `netsh interface portproxy` qoidasi) — ildiz `.env` ga `BACKEND_PORT=3001`
 yozing va `backend/.env` da `PUBLIC_SERVER_URL=http://localhost:3001` qiling.
 Frontend kaliti: `frontend/.env` dagi `NUXT_API_TOKEN` = `backend/.env` dagi `API_TOKEN`.
@@ -193,7 +193,7 @@ IP `X-Forwarded-For` dan faqat `NUM_PROXIES` (ishonchli proksilar soni) hisobga 
 - Production: HSTS, `Secure`/`HttpOnly`/`SameSite` cookie, `nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy`.
 - So'rov tanasi: JSON faqat obyekt (massiv/`null` — 400), ichma-ich chuqurlik cheklangan, matndagi NUL bayt olib tashlanadi (PostgreSQL 500 bermasligi uchun); tana hajmi yo'l bo'yicha cheklanadi (`BODY_LIMITS`: ochiq `/api/hit`, `/api/appeals`, kirish — 16–64 KB, admin JSON — 8 MB, fayllar — `UPLOAD_LIMITS`). Noto'g'ri filtr qiymati (`where[id][equals]=abc`) — 400.
 - Javoblar: admin (`/api/cms/*`), kabinet (`/api/me*`) va kirish (`/api/auth/*`) javoblari `Cache-Control: private, no-store`; hamma JSON javobda `Content-Security-Policy: default-src 'none'`.
-- Kirish: bloklash (12 xato → 15 daqiqa) mavjud bo'lmagan loginlarga ham xuddi shunday ishlaydi — «423» orqali loginlarni topib bo'lmaydi.
+- Kirish: bloklash (5 xato → 15 daqiqa) mavjud bo'lmagan loginlarga ham xuddi shunday ishlaydi — «423» orqali loginlarni topib bo'lmaydi.
 - `seed_demo --first-run` (docker-entrypoint) — namuna kontent faqat bo'sh bazaga yuklanadi; admin o'chirgan slayd/post keyingi deployda qaytib kelmaydi.
 - Productionda `TRUSTED_ORIGINS` da `localhost` qolsa `manage.py check` ogohlantiradi (`uzswlu.W007`).
 - Nginx: `X-Forwarded-Proto` ni uzating (`proxy_set_header X-Forwarded-Proto $scheme;`), HTTP→HTTPS yo'naltirishni nginx qilsin (`SECURE_SSL_REDIRECT` Docker healthcheck'ni buzmasligi uchun yoqilmagan).

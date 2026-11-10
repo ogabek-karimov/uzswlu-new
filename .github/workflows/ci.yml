@@ -35,6 +35,10 @@ jobs:
       - name: Migratsiyalar modelga mos
         run: python manage.py makemigrations --check --dry-run
         env: { DJANGO_SETTINGS_MODULE: config.settings_test }
+      - name: Qo'llanma kodga mos (docs/reference.md, docs/index.html)
+        if: matrix.db == 'sqlite'
+        run: python manage.py build_docs --check
+        env: { DJANGO_SETTINGS_MODULE: config.settings_test }
       - name: Testlar + qamrov
         run: |
           coverage run manage.py test

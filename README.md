@@ -8,6 +8,8 @@
 
 Swagger: http://localhost:8000/api/docs/ · batafsil: [backend/README.md](backend/README.md)
 
+📚 **Qo‘llanma (nimani qayerdan topish, qanday tekshirish/boshqarish):** [docs/README.md](docs/README.md) · qidiriladigan versiya: `docs/index.html` (brauzerda oching)
+
 ## Ishga tushirish
 
 Kerak: Docker Desktop, Node.js 22.

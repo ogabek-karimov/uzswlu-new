@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="uz" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ÖzDJTU — loyiha qo‘llanmasi</title>
+<!-- AVTOMATIK YIG'ILGAN (backend: python manage.py build_docs). Qo'lda tahrirlamang: docs/*.md ni o'zgartiring. -->
+<style>
+:root{--bg:#fbfaf7;--panel:#fff;--ink:#1a1d24;--mute:#5f6675;--line:#e4e1d8;--brand:#0f6b5c;--brand-ink:#fff;--soft:#e8f3f0;--code:#f1efe8;--warn:#fff6dd;--radius:10px;--side:300px}
+@media (prefers-color-scheme:dark){:root[data-theme=auto]{--bg:#12151b;--panel:#191d25;--ink:#e8eaf0;--mute:#9aa3b5;--line:#2a303c;--brand:#4cc2ab;--brand-ink:#08201b;--soft:#16302b;--code:#222732;--warn:#352e17}}
+:root[data-theme=dark]{--bg:#12151b;--panel:#191d25;--ink:#e8eaf0;--mute:#9aa3b5;--line:#2a303c;--brand:#4cc2ab;--brand-ink:#08201b;--soft:#16302b;--code:#222732;--warn:#352e17}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--brand)}a.repo{text-decoration-style:dotted}
+header{position:sticky;top:0;z-index:20;display:flex;gap:12px;align-items:center;padding:10px 16px;background:var(--panel);border-bottom:1px solid var(--line)}
+header h1{font-size:15px;margin:0;white-space:nowrap}
+#q{flex:1;min-width:0;max-width:560px;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--ink);font:inherit;font-size:15px}
+#q:focus{outline:2px solid var(--brand);outline-offset:1px}
+header button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:7px 10px;cursor:pointer;font:inherit;font-size:14px}
+kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 6px;font-size:12px;color:var(--mute)}
+.layout{display:grid;grid-template-columns:var(--side) minmax(0,1fr);max-width:1320px;margin:0 auto}
+nav{position:sticky;top:57px;align-self:start;max-height:calc(100vh - 57px);overflow:auto;padding:18px 12px 40px 18px;border-right:1px solid var(--line);font-size:14px}
+nav ul{list-style:none;margin:0;padding:0}nav ul ul{margin:2px 0 10px 12px;border-left:1px solid var(--line)}
+nav a{display:block;padding:3px 10px;color:var(--mute);text-decoration:none;border-radius:6px}nav a:hover,nav a.on{background:var(--soft);color:var(--ink)}
+nav a.top{font-weight:650;color:var(--ink);margin-top:6px}
+main{padding:24px 28px 120px;min-width:0}
+#results{display:none;max-width:860px;margin:0 auto 24px}#results.show{display:block}
+#results .hit{display:block;padding:12px 14px;margin:8px 0;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);text-decoration:none;color:var(--ink)}
+#results .hit:hover{border-color:var(--brand)}#results .hit b{display:block;color:var(--brand)}#results .hit small{color:var(--mute);display:block}
+#results mark{background:var(--warn);color:inherit;border-radius:3px}
+.doc{max-width:860px;margin:0 auto 64px;padding-bottom:12px;border-bottom:1px dashed var(--line)}
+h1,h2,h3,h4{line-height:1.25;position:relative}h1{font-size:2rem;margin:.2em 0 .6em}h2{font-size:1.45rem;margin:2em 0 .6em;padding-top:.4em;border-top:1px solid var(--line)}h3{font-size:1.15rem;margin:1.6em 0 .4em}h4{font-size:1rem;margin:1.3em 0 .3em;color:var(--mute)}
+.anchor{margin-left:.4em;opacity:0;text-decoration:none;font-weight:400}h2:hover .anchor,h3:hover .anchor,h4:hover .anchor{opacity:.6}
+code{background:var(--code);padding:.12em .38em;border-radius:5px;font:0.88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;word-break:break-word}
+.code{position:relative;margin:1em 0}pre{margin:0;padding:14px 16px;background:var(--code);border:1px solid var(--line);border-radius:var(--radius);overflow:auto;line-height:1.5}pre code{background:none;padding:0;word-break:normal;font-size:.86em}
+.copy{position:absolute;top:8px;right:8px;border:1px solid var(--line);background:var(--panel);color:var(--mute);border-radius:6px;padding:2px 9px;font-size:12px;cursor:pointer}.copy:hover{color:var(--ink)}
+.tablewrap{overflow:auto;margin:1em 0;border:1px solid var(--line);border-radius:var(--radius)}table{border-collapse:collapse;width:100%;font-size:.93rem;background:var(--panel)}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:var(--soft);position:sticky;top:0;white-space:nowrap}tr:last-child td{border-bottom:0}td code{white-space:nowrap}
+blockquote{margin:1em 0;padding:10px 16px;background:var(--warn);border-left:4px solid #e0b300;border-radius:0 var(--radius) var(--radius) 0}
+li{margin:.25em 0}ul,ol{padding-left:1.4em}hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+#menu{display:none}
+@media (max-width:900px){.layout{grid-template-columns:1fr}nav{display:none;position:fixed;inset:57px 0 0 0;z-index:15;background:var(--bg);max-height:none;border:0}nav.open{display:block}#menu{display:inline-block}main{padding:18px 16px 100px}header h1{display:none}}
+@media print{header,nav,#results{display:none}.layout{display:block}.copy{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <button id="menu" type="button" aria-label="Menyu">☰</button>
+  <h1>ÖzDJTU · qo‘llanma</h1>
+  <input id="q" type="search" placeholder="Qidirish: «zaxira», «parol», «swagger», «hemis», «403»…" autocomplete="off" aria-label="Qidirish">
+  <kbd title="Qidiruvga o'tish">/</kbd>
+  <button id="theme" type="button" aria-label="Rang rejimi">◐</button>
+</header>
+<div class="layout">
+<nav id="nav"><ul>
+{{NAV}}
+</ul></nav>
+<main>
+<div id="results" aria-live="polite"></div>
+<div id="content">
+{{CONTENT}}
+</div>
+</main>
+</div>
+<script>
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var norm=function(s){return s.toLowerCase().replace(/[\u2018\u2019\u02bb\u02bc'`]/g,'').replace(/\s+/g,' ')};
+  // --- qidiruv: har sarlavha (h1–h4) ostidagi matn bitta bo'lak
+  var txt=function(el){var w=document.createTreeWalker(el,4),n,a=[];while((n=w.nextNode()))a.push(n.nodeValue);return a.join(' ')};
+  var chunks=[],cur=null;
+  $$('#content > section').forEach(function(sec){
+    var doc=sec.getAttribute('data-title');
+    Array.prototype.forEach.call(sec.children,function(el){
+      if(/^H[1-4]$/.test(el.tagName)){cur={id:el.id,title:el.textContent.replace(/#$/,''),doc:doc,text:''};chunks.push(cur)}
+      else if(cur){cur.text+=' '+txt(el)}
+    });
+  });
+  chunks.forEach(function(c){c.t=norm(c.title);c.b=norm(c.text)});
+  var box=$('#results'),q=$('#q'),timer;
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function mark(s,words){var r=esc(s);words.forEach(function(w){r=r.replace(new RegExp('('+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>')});return r}
+  function search(){
+    var v=norm(q.value).trim();
+    if(!v){box.className='';box.innerHTML='';return}
+    var words=v.split(' ').filter(Boolean),res=[];
+    chunks.forEach(function(c){
+      var ok=words.every(function(w){return c.t.indexOf(w)>-1||c.b.indexOf(w)>-1});
+      if(!ok)return;
+      var score=words.reduce(function(s,w){return s+(c.t.indexOf(w)>-1?10:0)+(c.b.split(w).length-1>3?2:1)},0);
+      res.push({c:c,score:score});
+    });
+    res.sort(function(a,b){return b.score-a.score});
+    var html='<p><b>'+res.length+'</b> ta natija</p>';
+    res.slice(0,40).forEach(function(r){
+      var c=r.c,i=c.b.indexOf(words[0]),from=Math.max(0,i-60),snip=c.text.trim().slice(from>0?from:0,(from>0?from:0)+190);
+      html+='<a class="hit" href="#'+c.id+'"><small>'+esc(c.doc)+'</small><b>'+mark(c.title,words)+'</b>'+mark(snip,words)+'…</a>';
+    });
+    if(!res.length)html='<p>Hech narsa topilmadi. Boshqa so‘z bilan urinib ko‘ring (masalan: <code>zaxira</code>, <code>rol</code>, <code>test</code>).</p>';
+    box.innerHTML=html;box.className='show';
+  }
+  q.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(search,120)});
+  box.addEventListener('click',function(e){if(e.target.closest('a.hit')){box.className='';q.blur()}});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='/'&&document.activeElement!==q&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();q.focus()}
+    if(e.key==='Escape'){q.value='';search();q.blur()}
+  });
+  // --- nusxa olish
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.copy');if(!b)return;
+    var t=$('code',b.parentNode).textContent;
+    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){b.textContent='✓';setTimeout(function(){b.textContent='Nusxa'},1200)},function(){var r=document.createRange();r.selectNodeContents($('code',b.parentNode));var s=getSelection();s.removeAllRanges();s.addRange(r)});
+  });
+  // --- rang rejimi va mobil menyu
+  var root=document.documentElement;try{var st=localStorage.getItem('docs-theme');if(st)root.setAttribute('data-theme',st)}catch(e){}
+  $('#theme').addEventListener('click',function(){
+    var dark=getComputedStyle(root).getPropertyValue('--bg').trim()==='#12151b';
+    var nxt=dark?'light':'dark';root.setAttribute('data-theme',nxt);try{localStorage.setItem('docs-theme',nxt)}catch(e){}
+  });
+  $('#menu').addEventListener('click',function(){$('#nav').classList.toggle('open')});
+  $('#nav').addEventListener('click',function(e){if(e.target.tagName==='A')$('#nav').classList.remove('open')});
+  // --- joriy bo'lim menyuda belgilanadi
+  var links=$$('#nav a'),map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting&&map[en.target.id]){links.forEach(function(a){a.classList.remove('on')});map[en.target.id].classList.add('on')}})},{rootMargin:'-70px 0px -75% 0px'});
+    $$('#content h1,#content h2').forEach(function(h){io.observe(h)});
+  }
+})();
+</script>
+</body>
+</html>
