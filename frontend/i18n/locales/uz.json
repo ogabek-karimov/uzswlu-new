@@ -28,6 +28,7 @@
   },
   "topbar": {
     "hotline": "Işonç telefoni",
+    "ext": "Içki raqam",
     "fontSize": "Şrift ölçami",
     "decrease": "Kiçraytiriş",
     "increase": "Kattalaştiriş",

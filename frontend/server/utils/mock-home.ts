@@ -136,7 +136,7 @@ export function getMockSite(lang: Locale): SiteData {
   return {
     menu: getMockMenu(lang),
     phone: '+998 71 230 13 73',
-    phoneExt: '1061–1064',
+    phoneExt: '1061, 1062, 1063, 1064',
     emails: ['uzdjtu@uzswlu.uz', 'international@uzswlu.uz'],
     campuses: campuses.map(c => ({ id: c.id, name: c.name[lang], address: c.address[lang] })),
     socials: [

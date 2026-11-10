@@ -28,6 +28,7 @@
   },
   "topbar": {
     "hotline": "热线电话",
+    "ext": "分机",
     "fontSize": "字号",
     "decrease": "缩小",
     "increase": "放大",

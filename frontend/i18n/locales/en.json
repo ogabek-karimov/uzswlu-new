@@ -28,6 +28,7 @@
   },
   "topbar": {
     "hotline": "Hotline",
+    "ext": "Extension",
     "fontSize": "Font size",
     "decrease": "Decrease",
     "increase": "Increase",
