@@ -28,6 +28,13 @@ Har retsept: **nimani o‘zgartirasiz → qaysi faylda → nimani tekshirasiz**.
 6. Test: `tests/api/test_flows.py` (oqim), `tests/api/test_swagger.py` (hujjatda bormi).
 7. **Xavfsizlik**: ob’yektni ID bilan beradigan bo‘lsa — `tests/security/test_data_theft.py` dagi kabi «boshqa odamning yozuvi» testini qo‘shing.
 
+## Saytga yangi sahifa qo‘shish
+
+1. `frontend/app/pages/<nom>.vue` — ichida **`useSeo({ title: () => t('…'), description: () => t('…') })`** (rasm bo‘lsa `image`). Yopiq sahifa bo‘lsa `noindex: true`.
+2. Matnlar — `i18n/locales/{uz,ru,en,zh}.json` ga **to‘rttasiga** (tekshiradi: `npm run test:pages`).
+3. Menyuga chiqsa — backend menyusi; menyudagi ichki havolalar `sitemap.xml` ga o‘zi tushadi. Menyuda yo‘q bo‘lsa — `server/routes/sitemap.xml.ts` dagi `FIXED` ga qo‘shing.
+4. `cd frontend && npm test`.
+
 ## Yangi til qo‘shish (masalan, `kk`)
 
 1. Backend: `apps/core/fields.py` → `LANGS`.

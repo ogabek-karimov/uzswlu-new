@@ -11,7 +11,7 @@ const stripe = `linear-gradient(90deg, ${Array.from({ length: 17 }, (_, i) => `$
 const isInternal = (url: string) => url.startsWith('/')
 const NuxtLink = resolveComponent('NuxtLink')
 
-useSeoMeta({ title: () => t('sdg.eyebrow'), description: () => t('sdg.lead') })
+useSeo({ title: () => t('sdg.eyebrow'), description: () => t('sdg.lead') })
 </script>
 
 <template>

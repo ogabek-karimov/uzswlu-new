@@ -31,7 +31,7 @@ onBeforeUnmount(() => observer?.disconnect())
 
 const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
 
-useSeoMeta({ title: () => faculty.value?.name ?? '', description: () => faculty.value?.about })
+useSeo({ title: () => faculty.value?.name ?? '', description: () => faculty.value?.about })
 </script>
 
 <template>
@@ -42,7 +42,7 @@ useSeoMeta({ title: () => faculty.value?.name ?? '', description: () => faculty.
         <div class="relative overflow-hidden rounded-[32px] bg-brand-900 p-6 text-white sm:p-12">
           <span class="decor pointer-events-none absolute -right-24 -bottom-40 size-[420px] rounded-full border-[44px] border-white/5" aria-hidden="true" />
           <div class="relative flex flex-wrap items-center gap-6">
-            <img v-if="faculty.logo" :src="faculty.logo" :alt="t('faculty.logo', { name: faculty.name })" class="size-24 rounded-full bg-white object-cover shadow-[0_0_0_4px_rgba(255,255,255,0.15)] sm:size-28">
+            <img v-if="faculty.logo" :src="faculty.logo" :alt="t('faculty.logo', { name: faculty.name })" width="112" height="112" class="size-24 rounded-full bg-white object-cover shadow-[0_0_0_4px_rgba(255,255,255,0.15)] sm:size-28">
             <div class="min-w-0 flex-1">
               <p class="text-xs font-semibold tracking-[0.2em] text-accent-400 uppercase">{{ t('faculty.label') }} · {{ String(faculty.number).padStart(2, '0') }}</p>
               <h1 class="mt-2.5 font-display text-4xl leading-[1.05] font-semibold sm:text-[52px]">{{ faculty.name }}</h1>
@@ -140,7 +140,7 @@ useSeoMeta({ title: () => faculty.value?.name ?? '', description: () => faculty.
       <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <li v-for="(s, i) in faculty.deanery" :key="i" class="rounded-3xl border border-line bg-white p-6 text-center">
           <span class="mx-auto grid size-[104px] place-items-center overflow-hidden rounded-full bg-brand-100 text-brand-700">
-            <img v-if="s.photo" :src="s.photo" :alt="s.name" class="size-full object-cover">
+            <img v-if="s.photo" :src="s.photo" :alt="s.name" loading="lazy" decoding="async" class="size-full object-cover">
             <Icon v-else name="lucide:user-round" class="size-10" />
           </span>
           <p class="mt-[18px] text-[17px] font-semibold">{{ s.name }}</p>

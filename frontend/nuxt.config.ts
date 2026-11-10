@@ -31,7 +31,9 @@ export default defineNuxtConfig({
     // Sayt serveridan backend fayllariga yo'l; bo'sh bo'lsa NUXT_API_BASE manzilidan olinadi (NUXT_MEDIA_UPSTREAM).
     mediaUpstream: '',
     public: {
-      siteUrl: 'http://localhost:3000',
+      // Saytning ochiq manzili: canonical, hreflang, sitemap.xml, robots.txt, og:url (.env: NUXT_PUBLIC_SITE_URL=https://uzswlu.uz).
+      // Bo'sh bo'lsa — so'rov kelgan manzil olinadi (nginx Host/X-Forwarded-* ni uzatishi shart).
+      siteUrl: '',
     },
   },
 
@@ -39,7 +41,8 @@ export default defineNuxtConfig({
     defaultLocale: 'uz',
     strategy: 'prefix_except_default',
     detectBrowserLanguage: false,
-    baseUrl: 'http://localhost:3000',
+    // Faqat modulning ichki hisob-kitobi uchun; canonical/hreflang'ni app/composables/useSeo.ts muhitdagi domen bilan yasaydi
+    baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
     locales: [
       { code: 'uz', language: 'uz-Latn-UZ', name: 'O‘zbekcha', file: 'uz.json' },
       { code: 'ru', language: 'ru-RU', name: 'Русский', file: 'ru.json' },

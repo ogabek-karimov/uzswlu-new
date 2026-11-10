@@ -44,7 +44,7 @@ function highlight(text: string) {
 const isInternal = (url: string) => url.startsWith('/')
 const NuxtLink = resolveComponent('NuxtLink')
 
-useSeoMeta({ title: () => (q.value ? `${q.value} — ${t('search.title')}` : t('search.title')), robots: 'noindex' })
+useSeo({ title: () => (q.value ? `${q.value} — ${t('search.title')}` : t('search.title')), noindex: true })
 </script>
 
 <template>

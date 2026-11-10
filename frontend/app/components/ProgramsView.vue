@@ -23,7 +23,7 @@ const levels = [
   { id: 'joint', to: '/qoshma-talim-dasturlari' },
 ] as const
 
-useSeoMeta({ title: () => t(`programs.${props.level}.title`), description: () => t(`programs.${props.level}.lead`) })
+useSeo({ title: () => t(`programs.${props.level}.title`), description: () => t(`programs.${props.level}.lead`) })
 </script>
 
 <template>

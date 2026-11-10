@@ -57,7 +57,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm, cache-dependency-path: frontend/package-lock.json }
       - run: npx --yes npm@11 ci   # lock fayl npm 11 bilan yaratilgan; Node 22 bilan kelgan npm 10 uni "sinxron emas" deb rad etadi
-      - run: npm run test:last-good
+      - run: npm test               # last-good, media-kesh, SEO yordamchilari, sahifa qoidalari
       - run: npm run build
 
   admin:
@@ -71,6 +71,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm, cache-dependency-path: admin/package-lock.json }
       - run: npm ci
+      - run: npm test               # API qatlami (timeout, 401, HTML xato) + manba kodi qoidalari
       - run: npm run build          # vue-tsc --noEmit && vite build
 
   audit:

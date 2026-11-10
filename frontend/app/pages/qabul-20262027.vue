@@ -19,7 +19,7 @@ const programs = computed(() => {
 const open = ref(0)
 const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
 
-useSeoMeta({ title: () => t('admission.title'), description: () => t('admissionPage.lead') })
+useSeo({ title: () => t('admission.title'), description: () => t('admissionPage.lead') })
 </script>
 
 <template>

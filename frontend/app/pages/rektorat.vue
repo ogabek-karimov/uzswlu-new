@@ -10,7 +10,7 @@ const { data } = await useFetch<Leadership>('/api/leadership', { key: 'leadershi
 const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
 const phoneLine = (l: Leader) => [l.phone, l.ext].filter(Boolean).join(' · ')
 
-useSeoMeta({ title: () => t('leaders.title'), description: () => t('leaders.lead') })
+useSeo({ title: () => t('leaders.title'), description: () => t('leaders.lead') })
 </script>
 
 <template>
@@ -61,7 +61,7 @@ useSeoMeta({ title: () => t('leaders.title'), description: () => t('leaders.lead
       <ul class="mt-7 grid gap-5 lg:grid-cols-2">
         <li v-for="p in data.prorectors" :key="p.name" class="flex gap-5 rounded-3xl border border-line bg-white p-5 sm:p-6">
           <span class="grid h-28 w-24 shrink-0 place-items-center overflow-hidden rounded-[18px] bg-brand-100 font-display text-3xl font-semibold text-brand-700">
-            <img v-if="p.photo" :src="p.photo" :alt="p.name" class="size-full object-cover">
+            <img v-if="p.photo" :src="p.photo" :alt="p.name" loading="lazy" decoding="async" class="size-full object-cover">
             <span v-else aria-hidden="true">{{ initials(p.name) }}</span>
           </span>
           <div class="flex min-w-0 flex-col gap-1.5">

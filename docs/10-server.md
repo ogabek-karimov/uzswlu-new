@@ -18,6 +18,7 @@
 | 10 | `REQUIRE_2FA_ROLES=superadmin` (tavsiya) | — | admin hisobini o‘g‘irlashdan himoya |
 | 11 | `COOKIE_SECURE=true` (sukut), HTTPS ishlayapti | brauzerda qulf belgisi | cookie faqat HTTPS orqali |
 | 12 | `PUBLIC_SERVER_URL=https://api.sizning.uz` | `.env` | media havolalari to‘g‘ri chiqishi uchun |
+| 12a | **`NUXT_PUBLIC_SITE_URL=https://sizning.uz`** (`frontend/.env`) | `curl https://sizning.uz/sitemap.xml \| head` — manzillar `localhost` emas, domen bilan boshlansin | canonical, hreflang, sitemap va Telegram preview shundan; aks holda qidiruv tizimlariga `localhost` ko‘rsatiladi |
 | 13 | HEMIS: `HEMIS_API_URL`, `HEMIS_API_TOKEN` | [08-hemis-kesh](08-hemis-kesh.md) | bo‘sh bo‘lsa — namuna ma’lumot |
 | 14 | `pgdata`, `media`, `private`, `backups` — doimiy volume | `docker volume ls` | konteyner o‘chsa ma’lumot saqlansin |
 
@@ -80,6 +81,18 @@ server {
 ```
 
 > `X-Forwarded-For` ni **ustiga yozing** (`$remote_addr`), `$proxy_add_x_forwarded_for` emas — aks holda foydalanuvchi soxta IP yuborib so‘rov cheklovini aylanib o‘tadi.
+
+## Sayt SEO (qidiruv va ijtimoiy tarmoq)
+
+| Tekshiruv | Qanday |
+|---|---|
+| `https://sizning.uz/robots.txt` oxirida `Sitemap: https://sizning.uz/sitemap.xml` | brauzer / `curl` |
+| `/sitemap.xml` ichida 4 til (`/ru/…`, `/en/…`, `/zh/…`) va yangiliklar, fakultetlar, xodimlar | `curl -s https://sizning.uz/sitemap.xml \| grep -c "<url>"` |
+| Sahifa manbasida `<link rel="canonical">` va `hreflang` domen bilan | «Sahifa manbasini ko‘rish» |
+| Telegram preview | havolani o‘zingizga yuboring (kesh uchun `@WebpageBot` orqali yangilanadi) |
+| Google Search Console / Yandex Webmaster | `sitemap.xml` ni qo‘shing |
+
+Nginx saytga `Host` va `X-Forwarded-Proto` ni uzatsin — `NUXT_PUBLIC_SITE_URL` bo‘sh bo‘lsa domen shulardan olinadi.
 
 ## Yangilash tartibi
 

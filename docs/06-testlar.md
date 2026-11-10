@@ -9,7 +9,8 @@
 | Faqat backend | `cd backend && python manage.py test --parallel` (≈ 30 s) |
 | Backend, tez | `python manage.py test --parallel --exclude-tag=slow` (≈ 7 s) |
 | Bitta paket / fayl / test | `python manage.py test tests.security` · `tests.security.test_files` · `tests.security.test_files.PdfTests.test_active_content_rejected` |
-| Frontend (server mantiqi) | `cd frontend && npm run test:last-good` |
+| Frontend (hammasi) | `cd frontend && npm test` = `test:last-good` (backend o‘chganda eski javob, media keshi) + `test:seo` (sitemap, robots, havolalar) + `test:pages` (har sahifada `useSeo`, `<img alt>`, 4 tilda kalitlar teng) |
+| Admin (API qatlami + manba qoidalari) | `cd admin && npm test` (timeout, 401, HTML xato; `console.log`/`any` yo‘q, marshrutlar, ≤ 500 qator) |
 | Admin (tur tekshiruvi + build) | `cd admin && npm run typecheck` · `npm run build` |
 
 Testlar **hermetik**: `manage.py test` o‘zi `config.settings_test` ni oladi — `.env` o‘qilmaydi, baza xotiradagi SQLite, kesh jarayon ichida, `MEDIA_ROOT`/`PRIVATE_ROOT`/`BACKUP_DIR` vaqtinchalik papka (haqiqiy fayllarga tegilmaydi), avtomatik zaxira o‘chiq.
@@ -67,8 +68,8 @@ Batafsil: [`backend/tests/README.md`](../backend/tests/README.md).
 | Job | Nima qiladi |
 |---|---|
 | `backend` | `makemigrations --check` (migratsiya modelga mosmi), testlar + qamrov — **SQLite va PostgreSQL 16** matritsasida, `build_docs --check` (hujjat eskirmaganmi) |
-| `frontend` | `npm ci`, `test:last-good`, `npm run build` |
-| `admin` | `npm ci`, `npm run build` (`vue-tsc` + `vite build`) |
+| `frontend` | `npm ci`, `npm test`, `npm run build` |
+| `admin` | `npm ci`, `npm test`, `npm run build` (`vue-tsc` + `vite build`) |
 | `audit` | `pip-audit`, `npm audit` — ma’lumot uchun (yiqitmaydi) |
 
 CI qizil bo‘lsa avval **qaysi job** yiqilganini ko‘ring: migratsiya → modelni o‘zgartirib `makemigrations` qilmagansiz; hujjat → `cd backend && python manage.py build_docs` va commit; tur xatosi → `cd admin && npm run typecheck`.

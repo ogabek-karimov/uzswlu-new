@@ -56,10 +56,11 @@ const bottomActions = [
 ]
 const pageUrl = computed(() => `${requestUrl.origin}${route.path}`)
 
-useSeoMeta({
+useSeo({
   title: () => names.value.full,
   description: () => (person.value ? `${positionText.value} — ${roles.value.departments.map(d => d.name).join(', ')}` : undefined),
-  ogType: 'profile',
+  type: 'profile',
+  image: () => person.value?.photo || person.value?.photoFallback,
 })
 </script>
 

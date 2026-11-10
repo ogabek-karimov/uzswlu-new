@@ -17,7 +17,8 @@ import MediaPicker from './MediaPicker.vue'
 // Matn muharriri (eski CKEditor imkoniyatlari): format, rang, shrift, jadval, rasm, havola,
 // "Serverdan tanlash" (media kutubxona), topish/almashtirish, HTML manba, to'liq ekran.
 // Natija — HTML; server tomonda yana tozalanadi (XSS'dan himoya).
-const props = defineProps<{ modelValue: string; placeholder?: string }>()
+// modelValue: API bo'sh tilni null qilib bersa ham (Vue prop ogohlantirishisiz) bo'sh matn deb qabul qilinadi
+const props = defineProps<{ modelValue?: string | null; placeholder?: string }>()
 const emit = defineEmits<{ 'update:modelValue': [string] }>()
 
 const editor = useEditor({
@@ -59,7 +60,8 @@ const sourceText = ref('')
 const fullscreen = ref(false)
 const showBlocks = ref(false)
 function toggleSource() {
-  const e = editor.value!
+  const e = editor.value
+  if (!e) return
   if (!source.value) { sourceText.value = e.isEmpty ? '' : e.getHTML(); source.value = true; return }
   e.commands.setContent(sourceText.value, { emitUpdate: true })
   source.value = false
@@ -103,7 +105,8 @@ async function pastePlain() {
 // ── Havola (va "Serverdan tanlash") ──
 const link = reactive({ open: false, url: '', text: '', newTab: true, editing: false, hasSelection: false })
 function openLink() {
-  const e = editor.value!
+  const e = editor.value
+  if (!e) return
   const { from, to } = e.state.selection
   link.hasSelection = from !== to
   link.text = e.state.doc.textBetween(from, to, ' ')
@@ -147,10 +150,10 @@ function applyVideo() {
 // ── Topish va almashtirish ──
 const find = reactive({ open: false, q: '', replace: '', info: '' })
 function matches() {
-  const e = editor.value!
+  const e = editor.value
   const term = find.q.toLocaleLowerCase()
   const out: { from: number; to: number }[] = []
-  if (!term) return out
+  if (!e || !term) return out
   e.state.doc.descendants((node, pos) => {
     if (!node.isText) return
     const text = node.text!.toLocaleLowerCase()
@@ -162,19 +165,21 @@ function matches() {
 function findNext() {
   const all = matches()
   if (!all.length) { find.info = 'Topilmadi'; return }
-  const after = editor.value!.state.selection.to
+  const after = editor.value?.state.selection.to ?? 0
   const m = all.find(x => x.from >= after) ?? all[0]!
   chain().setTextSelection(m).scrollIntoView().run()
   find.info = `${all.indexOf(m) + 1} / ${all.length}`
 }
 function replaceOne() {
-  const e = editor.value!
+  const e = editor.value
+  if (!e) return
   const { from, to } = e.state.selection
   if (e.state.doc.textBetween(from, to).toLocaleLowerCase() === find.q.toLocaleLowerCase() && find.q) chain().insertContentAt({ from, to }, find.replace).run()
   findNext()
 }
 function replaceAll() {
-  const e = editor.value!
+  const e = editor.value
+  if (!e) return
   const all = matches().reverse()
   if (!all.length) { find.info = 'Topilmadi'; return }
   let tr = e.state.tr

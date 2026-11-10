@@ -79,7 +79,9 @@ Har bir fayl nima qiladi — avtomatik jadval: [reference → fayllar xaritasi](
 | `server/utils/backend.ts` | backendga so‘rov + oxirgi yaxshi javob + media havolalarini almashtirish |
 | `server/utils/mock-*.ts` | `NUXT_API_BASE` bo‘sh bo‘lsa — namunaviy ma’lumot |
 | `shared/types/api.ts` | API turlari (`frontend/docs/openapi.yaml` bilan bir xil) |
-| `scripts/test-*.mts` | frontend testlari (`npm run test:last-good`) |
+| `shared/utils/seo.ts` | sitemap/robots/havola yasash (sof funksiyalar; `frontend/scripts/test-seo.mts` sinaydi) |
+| `server/routes/sitemap.xml.ts`, `robots.txt.ts` | `/sitemap.xml` (4 til) va `/robots.txt` — dinamik |
+| `scripts/test-*.mts` | frontend testlari (`npm test`) |
 
 ## Admin (`admin/`)
 

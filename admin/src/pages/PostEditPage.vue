@@ -10,6 +10,7 @@ import SdgPicker from '@/components/SdgPicker.vue'
 import ToggleSwitch from '@/components/ToggleSwitch.vue'
 import { api, ApiError, type I18n, type MediaDoc, type Paginated } from '@/lib/api'
 import { auth, initials } from '@/lib/auth'
+import { trackUnsaved } from '@/lib/session'
 import { LANGS, type Lang, POST_TYPES, type PostType, SITE_URL } from '@/lib/constants'
 import { dateTime, fromInputs, longDateTime, toInputs } from '@/lib/format'
 import { type Attachment, langFill, type Post, postState, STATE_BADGE } from '@/lib/posts'
@@ -176,6 +177,8 @@ async function save(status: 'draft' | 'published') {
   }
 }
 
+// Sessiya tugasa yoki brauzer yopilsa — saqlanmagan post yo'qolmasin (lib/session.ts)
+trackUnsaved(dirty)
 onBeforeRouteLeave(() => !dirty.value || window.confirm('Saqlanmagan özgarişlar bor. Sahifadan çiqasizmi?'))
 
 const state = computed(() => postState({ status: form.status, publishedAt: form.publishedAt }))

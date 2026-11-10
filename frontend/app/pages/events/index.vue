@@ -90,7 +90,7 @@ function downloadIcs() {
   URL.revokeObjectURL(url)
 }
 
-useSeoMeta({ title: () => t('calendar.title'), description: () => t('calendar.lead') })
+useSeo({ title: () => t('calendar.title'), description: () => t('calendar.lead') })
 </script>
 
 <template>

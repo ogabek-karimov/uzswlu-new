@@ -16,7 +16,7 @@ const tone = computed(() => tones[(props.tone ?? 0) % tones.length]!)
 
 <template>
   <div class="relative overflow-hidden" :class="!item.image && tone.bg">
-    <img v-if="item.image" :src="item.image" :alt="item.title" loading="lazy" class="size-full object-cover transition-transform duration-500 group-hover:scale-105">
+    <img v-if="item.image" :src="item.image" :alt="item.title" loading="lazy" decoding="async" class="size-full object-cover transition-transform duration-500 group-hover:scale-105">
     <div v-else class="decor absolute inset-0 transition-transform duration-500 group-hover:scale-105" aria-hidden="true">
       <span class="absolute -right-[15%] -bottom-[40%] aspect-square w-[80%] rounded-full border-[2.5rem]" :class="tone.ring" />
       <span class="absolute -right-[5%] -bottom-[20%] aspect-square w-[45%] rounded-full border-[1.25rem]" :class="tone.ring" />

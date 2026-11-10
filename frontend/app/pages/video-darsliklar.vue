@@ -24,7 +24,7 @@ const TONES = [
 ]
 const tone = computed(() => TONES[Math.max(0, data.value?.categories.findIndex(c => c.id === category.value) ?? 0) % TONES.length]!)
 
-useSeoMeta({ title: () => t('video.title'), description: () => t('video.lead') })
+useSeo({ title: () => t('video.title'), description: () => t('video.lead') })
 </script>
 
 <template>
@@ -83,7 +83,7 @@ useSeoMeta({ title: () => t('video.title'), description: () => t('video.lead') }
         <li v-for="v in items" :key="v.id">
           <a :href="v.url" target="_blank" rel="noopener" class="group block text-ink">
             <span class="relative block aspect-video overflow-hidden rounded-[22px]" :class="tone.bg">
-              <img v-if="v.thumbnail" :src="v.thumbnail" alt="" loading="lazy" class="size-full object-cover">
+              <img v-if="v.thumbnail" :src="v.thumbnail" alt="" loading="lazy" decoding="async" class="size-full object-cover">
               <span v-else-if="current" :lang="current.lang" class="decor absolute bottom-3.5 left-[22px] font-display text-[64px] leading-none font-semibold italic" :class="tone.word" aria-hidden="true">{{ current.greeting }}</span>
               <span class="absolute top-[18px] right-[18px] grid size-[52px] place-items-center rounded-full bg-white/92 text-ink transition-transform group-hover:scale-110" aria-hidden="true">
                 <Icon name="lucide:play" class="ml-0.5 size-5" />

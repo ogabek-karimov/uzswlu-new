@@ -14,7 +14,7 @@ const { data: cabinet, error, refresh } = await useFetch<StaffCabinet>('/api/me'
   query: { lang: locale },
 })
 
-useSeoMeta({ title: () => t('cabinet.title'), robots: 'noindex, nofollow' })
+useSeo({ title: () => t('cabinet.title'), noindex: true })
 
 const person = computed(() => cabinet.value?.profile)
 const staffUrl = computed(() => (person.value ? `${requestUrl.origin}${localePath(`/teacher/${person.value.id}`)}` : ''))

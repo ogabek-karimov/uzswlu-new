@@ -20,7 +20,7 @@ const items = computed(() => {
   return (data.value?.items ?? []).filter(d => (category.value === 'all' || d.category === category.value) && (!q || fold(d.title).includes(q)))
 })
 
-useSeoMeta({ title: () => t('docs.title'), description: () => t('docs.lead') })
+useSeo({ title: () => t('docs.title'), description: () => t('docs.lead') })
 </script>
 
 <template>

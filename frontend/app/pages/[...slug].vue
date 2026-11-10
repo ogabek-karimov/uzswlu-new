@@ -42,7 +42,7 @@ const { copied, share } = useShare()
 const feedback = ref<'yes' | 'no' | null>(null)
 const printPage = () => window.print()
 
-useSeoMeta({
+useSeo({
   title: () => page.value?.title ?? '',
   description: () => page.value?.lead ?? undefined,
 })

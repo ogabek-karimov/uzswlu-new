@@ -13,6 +13,22 @@ Avval **logni** ko‘ring: `docker compose logs --tail=100 backend` (yoki `night
 | Sayt ochiladi, lekin ma’lumot namunaviy | `NUXT_API_BASE` bo‘sh → mock | `frontend/.env` da `NUXT_API_BASE=http://backend:8000` |
 | O‘zgartirgan kodim ko‘rinmayapti | konteyner eski; yoki kutubxona o‘zgargan | `docker compose up -d --build <xizmat>` |
 
+## Sayt SEO
+
+| Belgi | Sabab | Yechim |
+|---|---|---|
+| canonical/sitemap'da `localhost` | `NUXT_PUBLIC_SITE_URL` berilmagan va nginx `Host` ni uzatmayapti | `frontend/.env` ga `NUXT_PUBLIC_SITE_URL=https://domen`, nginx'ga `proxy_set_header Host $host; proxy_set_header X-Forwarded-Proto $scheme;`; sayt konteynerini qayta ishga tushiring |
+| `sitemap.xml` bo‘sh yoki kam | backend o‘chiq edi (xato bo‘lsa shu manba tashlab ketiladi), kesh 1 soat | backendni tekshiring; 1 soatdan keyin yangilanadi; log: `[sitemap]` |
+| Telegram preview eski/yo‘q | Telegram o‘z keshini saqlaydi | `@WebpageBot` ga havolani yuboring |
+
+## Admin panel
+
+| Belgi | Sabab | Yechim |
+|---|---|---|
+| «Sessiya muddati tugadi» oynasi | JWT 8 soatdan keyin tugaydi | **Yozganlaringiz saqlangan.** «Qayta kirish» → yangi oynada kiring → shu oynaga qaytib «Saqlash» |
+| «Server vaqtincha javob bermayapti (502/504)» | backend/nginx ishlamayapti | `docker compose ps`, `logs backend` |
+| «Server javob bermadi (vaqt tugadi)» | so‘rov 30 s dan (yuklash 2 min) uzoq cho‘zildi | internet/backend yuklamasi; rasm hajmini kamaytiring |
+
 ## Kirish va ruxsatlar
 
 | Belgi | Sabab | Yechim |

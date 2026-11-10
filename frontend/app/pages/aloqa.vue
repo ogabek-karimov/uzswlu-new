@@ -62,7 +62,7 @@ async function submit() {
   }
 }
 
-useSeoMeta({ title: () => t('contact.title'), description: () => t('contact.lead') })
+useSeo({ title: () => t('contact.title'), description: () => t('contact.lead') })
 </script>
 
 <template>

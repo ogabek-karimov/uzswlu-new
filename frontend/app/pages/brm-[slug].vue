@@ -46,7 +46,7 @@ const { data: posts } = await useFetch<PostList>('/api/posts', {
 const totalPages = computed(() => (posts.value ? Math.ceil(posts.value.total / posts.value.perPage) : 0))
 const setType = (value: PostType) => router.replace({ query: value === 'news' ? {} : { type: value } })
 
-useSeoMeta({
+useSeo({
   title: () => (goal.value ? `${t('sdg.goal.short', { n: goal.value.n })}. ${goal.value.title}` : ''),
   description: () => goal.value?.subtitle,
 })

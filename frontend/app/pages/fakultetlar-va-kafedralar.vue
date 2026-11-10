@@ -7,7 +7,7 @@ const localePath = useLocalePath()
 
 const { data } = await useFetch<FacultyList>('/api/faculties', { key: 'faculties', query: { lang: locale } })
 
-useSeoMeta({ title: () => t('facultyList.title'), description: () => t('faculties.text') })
+useSeo({ title: () => t('facultyList.title'), description: () => t('faculties.text') })
 </script>
 
 <template>
@@ -30,7 +30,7 @@ useSeoMeta({ title: () => t('facultyList.title'), description: () => t('facultie
         <li v-for="(f, i) in data?.items ?? []" :key="f.id">
           <NuxtLink :to="localePath(`/faculty/${f.slug}`)" class="group flex h-full items-center gap-4 rounded-[26px] sm:gap-5 border border-line bg-white p-5 text-ink transition hover:-translate-y-0.5 hover:border-accent-500 hover:shadow-[0_18px_40px_-24px_rgba(19,17,47,0.45)] sm:p-6">
             <span class="grid size-20 shrink-0 place-items-center rounded-full bg-brand-50 sm:size-[104px]">
-              <img v-if="f.logo" :src="f.logo" alt="" class="size-16 rounded-full bg-white object-cover sm:size-[88px] shadow-[0_6px_18px_-8px_rgba(19,17,47,0.4)]">
+              <img v-if="f.logo" :src="f.logo" alt="" width="88" height="88" loading="lazy" decoding="async" class="size-16 rounded-full bg-white object-cover sm:size-[88px] shadow-[0_6px_18px_-8px_rgba(19,17,47,0.4)]">
               <Icon v-else name="lucide:graduation-cap" class="size-9 text-brand-700" />
             </span>
             <span class="min-w-0 flex-1">

@@ -131,6 +131,7 @@ Fayllar: `backend/.env` (namuna: `backend/.env.example`), `.env.docker` (namuna:
 | `NUXT_STALE_IF_ERROR_SECONDS` | `10800` | Backend o'chib qolsa, sayt oxirgi muvaffaqiyatli javobni shuncha soniya ko'rsatadi (standart 10800 = 3 soat; 0 — o'chirilgan) | ixtiyoriy (izohda) |
 | `NUXT_BACKEND_COOLDOWN_SECONDS` | `15` | Backend yiqilgandan keyin shuncha soniya unga bormaydi (standart 15) | ixtiyoriy (izohda) |
 | `NUXT_MEDIA_PUBLIC_ORIGIN` | `http://localhost:8000` | Rasm/fayllar sayt orqali beriladi (/media/...) va keshlanadi. Backendning brauzerga ko'rinadigan manzili (backend/.env dagi PUBLIC_SERVER_URL): | ixtiyoriy (izohda) |
+| `NUXT_PUBLIC_SITE_URL` | `https://uzswlu.uz` | Saytning ochiq manzili — canonical, hreflang, sitemap.xml, robots.txt va ijtimoiy tarmoq preview'i shundan yasaladi. Productionda ALBATTA to'ldiring. Bo'sh bo'lsa so'rov kelgan manzil olinadi (nginx Host va X-Forwarded-Proto ni uzatishi shart). | ixtiyoriy (izohda) |
 
 #### Namunada ko‘rsatilmagan, lekin `settings.py` o‘qiydigan o‘zgaruvchilar
 

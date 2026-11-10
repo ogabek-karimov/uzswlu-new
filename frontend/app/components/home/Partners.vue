@@ -34,7 +34,7 @@ const localePath = useLocalePath()
               :title="partner.name"
               class="flex h-28 w-44 items-center justify-center rounded-2xl border border-line bg-white p-5 transition duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-[0_18px_40px_-24px_var(--color-brand-700)] sm:h-32 sm:w-52"
             >
-              <img :src="partner.logo" :alt="copy === 1 ? partner.name : ''" class="max-h-full max-w-full object-contain">
+              <img :src="partner.logo" :alt="copy === 1 ? partner.name : ''" loading="lazy" decoding="async" class="max-h-full max-w-full object-contain">
             </component>
           </li>
         </template>

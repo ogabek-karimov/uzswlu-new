@@ -2,12 +2,16 @@
 // Django/DRF backend'da admin panel API'si /api/cms ostida (Payload REST bilan bir xil shakl).
 
 export class ApiError extends Error {
-  constructor(public status: number, message: string, public data?: unknown) {
+  status: number
+  data?: unknown
+  constructor(status: number, message: string, data?: unknown) {
     super(message)
+    this.status = status
+    this.data = data
   }
 }
 
-export const API_BASE = import.meta.env.VITE_API_BASE ?? '/api/cms'
+export const API_BASE: string = import.meta.env?.VITE_API_BASE ?? '/api/cms'
 
 type Query = Record<string, unknown>
 
@@ -24,22 +28,72 @@ export function qs(params: Query, prefix = ''): string {
   return parts.filter(Boolean).join('&')
 }
 
+/** So'rov muddati: oddiy so'rov 30 s, fayl yuklash (FormData) 2 daqiqa. Undan oshsa — "javob bermadi" xabari, sahifa cheksiz yuklanmaydi. */
+export const TIMEOUT_MS = { default: 30_000, upload: 120_000 }
+
+/** Sessiya tugaganda (himoyalangan so'rovga 401) chaqiriladi; ulanishi main.ts da */
+let unauthorizedHandler: (() => void) | null = null
+export function setUnauthorizedHandler(fn: (() => void) | null) {
+  unauthorizedHandler = fn
+}
+
+/** Bu manzillarda 401 — "login/parol noto'g'ri" yoki "hali kirmagan" degani; sessiya tugadi emas */
+const AUTH_PATHS = /^\/users\/(login|login\/2fa|me|logout)(\/|$)/
+
+/** Server JSON o'rniga HTML (nginx 502/504 sahifasi) yoki bo'sh javob qaytarganda tushunarli xabar */
+export function httpMessage(status: number): string {
+  if (status === 401) return 'Sessiya tugagan. Qayta kiring.'
+  if (status === 403) return 'Bu amal uchun ruxsat yo‘q.'
+  if (status === 404) return 'Topilmadi.'
+  if (status === 413) return 'Fayl yoki so‘rov hajmi juda katta.'
+  if (status === 429) return 'Juda ko‘p so‘rov yuborildi. Birozdan keyin qayta urinib ko‘ring.'
+  if (status === 502 || status === 503 || status === 504) return `Server vaqtincha javob bermayapti (${status}). Birozdan keyin qayta urinib ko‘ring.`
+  if (status >= 500) return `Serverda xatolik (${status}). Birozdan keyin qayta urinib ko‘ring.`
+  return `Xato (${status})`
+}
+
+function parseJson(text: string): { ok: true; value: unknown } | { ok: false } {
+  if (!text) return { ok: true, value: null }
+  try { return { ok: true, value: JSON.parse(text) } }
+  catch { return { ok: false } }
+}
+
 async function request<T>(method: string, path: string, body?: unknown, query?: Query): Promise<T> {
   const url = `${API_BASE}${path}${query ? `?${qs(query)}` : ''}`
   const isForm = body instanceof FormData
-  const res = await fetch(url, {
-    method,
-    credentials: 'include',
-    headers: body && !isForm ? { 'content-type': 'application/json' } : undefined,
-    body: body ? (isForm ? body : JSON.stringify(body)) : undefined,
-  })
-  const text = await res.text()
-  const data = text ? JSON.parse(text) : null
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), isForm ? TIMEOUT_MS.upload : TIMEOUT_MS.default)
+
+  let res: Response
+  let text: string
+  try {
+    res = await fetch(url, {
+      method,
+      credentials: 'include',
+      headers: body && !isForm ? { 'content-type': 'application/json' } : undefined,
+      body: body ? (isForm ? body : JSON.stringify(body)) : undefined,
+      signal: controller.signal,
+    })
+    text = await res.text()
+  }
+  catch (e) {
+    if ((e as Error).name === 'AbortError') throw new ApiError(0, 'Server javob bermadi (vaqt tugadi). Internetni tekshirib, qayta urinib ko‘ring.')
+    throw new ApiError(0, 'Server bilan aloqa yo‘q. Internetni tekshirib, qayta urinib ko‘ring.')
+  }
+  finally {
+    clearTimeout(timer)
+  }
+
+  const parsed = parseJson(text)
+  const data = parsed.ok ? (parsed.value as { errors?: { message?: string }[]; message?: string } | null) : null
   if (!res.ok) {
-    const message = data?.errors?.[0]?.message ?? data?.message ?? `Xato (${res.status})`
+    if (res.status === 401 && !AUTH_PATHS.test(path)) unauthorizedHandler?.()
+    // Javob JSON bo'lmasa (HTML xato sahifasi) — xom matnni emas, holat bo'yicha tushunarli xabar
+    const message = data?.errors?.[0]?.message ?? data?.message ?? httpMessage(res.status)
     throw new ApiError(res.status, message, data)
   }
-  return data as T
+  if (!parsed.ok) throw new ApiError(res.status, 'Server kutilmagan javob qaytardi. Birozdan keyin qayta urinib ko‘ring.')
+  return parsed.value as T
 }
 
 export const api = {
@@ -68,6 +122,7 @@ export type MediaDoc = {
   filename?: string | null
   mimeType?: string | null
   filesize?: number | null
+  createdAt?: string | null
   width?: number | null
   height?: number | null
   alt?: I18n

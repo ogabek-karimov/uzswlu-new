@@ -103,7 +103,7 @@ async function copyImage() {
     <p class="mt-4 text-[13px] text-muted">{{ t('posts.tg.preview') }}</p>
     <div class="mt-2 overflow-hidden rounded-[18px] border border-line bg-paper">
       <div v-if="image" class="bg-brand-50">
-        <img :src="image" alt="" class="mx-auto block h-[220px] w-auto max-w-full object-contain">
+        <img :src="image" alt="" loading="lazy" decoding="async" class="mx-auto block h-[220px] w-auto max-w-full object-contain">
       </div>
       <ul class="px-3.5 py-3">
         <li v-for="link in links" :key="link.lang" class="flex items-baseline gap-2.5 py-0.5">

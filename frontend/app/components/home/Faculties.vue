@@ -13,6 +13,8 @@ const localePath = useLocalePath()
     <img
       src="/images/campus-aerial.webp"
       alt=""
+      width="597"
+      height="335"
       loading="lazy"
       decoding="async"
       class="decor absolute -inset-6 -z-20 h-[calc(100%+3rem)] w-[calc(100%+3rem)] max-w-none object-cover blur-[5px] saturate-[1.1]"

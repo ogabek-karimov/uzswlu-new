@@ -61,7 +61,7 @@ watch(page, () => {
   results.value?.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' })
 })
 
-useSeoMeta({ title: () => t('posts.title'), description: () => t('posts.lead') })
+useSeo({ title: () => t('posts.title'), description: () => t('posts.lead') })
 </script>
 
 <template>

@@ -18,8 +18,19 @@ const busy = ref(false)
 const error = ref('')
 const challenge = ref('') // 2FA: parol to'g'ri bo'lgach kod so'raladi
 const code = ref('')
+const done = ref(false) // close=1 rejimida oyna yopilmasa: «Kirdingiz, oynani yopishingiz mumkin»
+
+const expired = route.query.expired === '1'
 
 function goBack() {
+  // Sessiya tugaganda yangi oynada ochilgan bo'lsa: kirgach oyna yopiladi, foydalanuvchi eski oynada ishini davom ettiradi
+  if (route.query.close === '1') {
+    window.close()
+    if (window.closed) return
+    error.value = ''
+    done.value = true
+    return
+  }
   const back = typeof route.query.r === 'string' && route.query.r.startsWith('/') ? route.query.r : '/'
   router.push(back)
 }
@@ -98,6 +109,8 @@ async function submitCode() {
         <h1 class="text-[32px] font-bold tracking-tight">{{ challenge ? 'Tasdiqlaş kodi' : 'Admin panelga kiriş' }}</h1>
         <p class="mt-2.5 text-base text-muted">{{ challenge ? 'Authenticator ilovasidagi 6 xonali kodni yoki zaxira kodni kiriting.' : 'Login va parolingizni kiriting.' }}</p>
 
+        <p v-if="expired && !error && !done" role="status" class="mt-5 rounded-xl bg-[#FFF4DC] px-3.5 py-3 text-sm leading-relaxed text-[#8A5A00]">Sessiya muddati tugadi. Davom etish uchun qayta kiring.</p>
+        <p v-if="done" role="status" class="mt-5 rounded-xl bg-[#DDFBF0] px-3.5 py-3 text-sm leading-relaxed text-[#0B5A43]">Kirdingiz. Bu oynani yopib, avvalgi oynaga qaytishingiz mumkin.</p>
         <div v-if="error" role="alert" class="mt-5 rounded-xl bg-red-50 px-3.5 py-3 text-sm leading-relaxed text-red-800">{{ error }}</div>
 
         <form v-if="challenge" class="mt-6 flex flex-col gap-3.5" @submit.prevent="submitCode">

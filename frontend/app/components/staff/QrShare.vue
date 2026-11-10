@@ -134,7 +134,7 @@ function sendCard() {
     <div class="relative overflow-hidden rounded-[18px] bg-[linear-gradient(170deg,var(--color-brand-800)_0%,var(--color-brand-900)_60%,var(--color-brand-950)_100%)] px-[18px] pt-[22px] pb-[18px] text-center text-white">
       <!-- Universitet belgisi — yarim halqa markazida (profil kartasidagidek) -->
       <span aria-hidden="true" class="decor pointer-events-none absolute -top-6 -right-12 size-50 rounded-full border-[26px] border-accent-400/7" />
-      <img src="/logos/mark.webp" alt="" aria-hidden="true" class="decor pointer-events-none absolute top-9 right-5 w-16 opacity-20 select-none">
+      <img src="/logos/mark.webp" alt="" aria-hidden="true" width="64" height="80" loading="lazy" class="decor pointer-events-none absolute top-9 right-5 w-16 opacity-20 select-none">
       <small class="relative block text-xs text-white/80">{{ t('university.name') }}</small>
       <span class="relative mx-auto mt-3.5 mb-2.5 block size-[104px] rounded-full bg-[linear-gradient(135deg,var(--color-accent-400),var(--color-brand-500))] p-[3px]">
         <StaffAvatar :id="person.id" :name="names.full" :photo="person.photo" :fallback="person.photoFallback" decorative class="size-full rounded-full bg-brand-100! font-sans! text-[30px] font-bold! text-brand-900!" />

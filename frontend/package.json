@@ -8,6 +8,9 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "test:last-good": "node --experimental-strip-types scripts/test-last-good.mts && node --experimental-strip-types scripts/test-media-cache.mts",
+    "test:seo": "node --experimental-strip-types scripts/test-seo.mts",
+    "test:pages": "node --experimental-strip-types scripts/test-pages.mts",
+    "test": "npm run test:last-good && npm run test:seo && npm run test:pages",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {

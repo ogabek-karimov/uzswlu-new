@@ -44,7 +44,7 @@ function onFile(e: Event) {
   >
     <!-- Universitet belgisi: burchakdagi yarim halqa markazida xira emblema -->
     <span aria-hidden="true" class="decor pointer-events-none absolute -top-[70px] -right-[70px] size-[280px] rounded-full border-[32px] border-accent-400/6" />
-    <img src="/logos/mark.webp" alt="" aria-hidden="true" class="decor pointer-events-none absolute top-3.5 right-[26px] w-[88px] opacity-20 select-none">
+    <img src="/logos/mark.webp" alt="" aria-hidden="true" width="88" height="111" loading="lazy" class="decor pointer-events-none absolute top-3.5 right-[26px] w-[88px] opacity-20 select-none">
 
     <span class="group/ava relative mx-auto block size-44">
       <span ref="ring" aria-hidden="true" class="staff-ring absolute inset-0 rounded-full" />

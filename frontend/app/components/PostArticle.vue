@@ -49,11 +49,11 @@ const viewerImages = computed(() => (post.value ? [...(post.value.image ? [post.
 const galleryOffset = computed(() => (post.value?.image ? 1 : 0))
 const viewerIndex = ref<number | null>(null)
 
-useSeoMeta({
+useSeo({
   title: () => post.value?.title ?? '',
   description: () => post.value?.excerpt ?? undefined,
-  ogType: 'article',
-  ogImage: () => post.value?.image ?? undefined,
+  type: 'article',
+  image: () => post.value?.image,
 })
 </script>
 
@@ -70,7 +70,7 @@ useSeoMeta({
         <!-- Muallif, sana va ulashish bir qatorda -->
         <div class="mt-6 flex flex-wrap items-center gap-x-[18px] gap-y-3 text-sm text-muted">
           <span v-if="post.author" class="flex items-center gap-2.5">
-            <img v-if="post.author.avatar" :src="post.author.avatar" alt="" class="size-10 rounded-full object-cover">
+            <img v-if="post.author.avatar" :src="post.author.avatar" alt="" width="40" height="40" loading="lazy" class="size-10 rounded-full object-cover">
             <span v-else class="grid size-10 place-items-center rounded-full bg-brand-800 text-[13px] font-bold text-accent-400">{{ initials(post.author.name) }}</span>
             <span>
               <span class="block font-semibold text-ink">{{ post.author.name }}</span>
@@ -112,6 +112,7 @@ useSeoMeta({
               ref="coverImg"
               :src="post.image"
               :alt="post.title"
+              fetchpriority="high"
               class="block transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
               :class="ratio === null ? 'max-h-[1100px] w-auto max-w-full' : 'size-full object-cover'"
               @load="measure"

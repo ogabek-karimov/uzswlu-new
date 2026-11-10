@@ -59,7 +59,7 @@ const departmentGroups = computed(() => {
     .filter(g => g.items.length)
 })
 
-useSeoMeta({
+useSeo({
   title: () => t('staff.title'),
   description: () => t('staff.lead'),
 })

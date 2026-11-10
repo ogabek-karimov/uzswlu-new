@@ -101,7 +101,7 @@ function choose() {
               >
                 <span v-if="isPdf(m)" class="grid h-10 w-8 shrink-0 place-items-center rounded-md bg-red-50 text-[9px] font-extrabold text-red-700">PDF</span>
                 <img v-else :src="thumb(m)" alt="" class="size-10 shrink-0 rounded-md object-cover">
-                <span class="min-w-0"><b class="block truncate">{{ m.filename }}</b><span class="text-subtle">{{ fileSize(m.filesize) }}<template v-if="(m as any).createdAt"> · {{ relative((m as any).createdAt) }}</template></span></span>
+                <span class="min-w-0"><b class="block truncate">{{ m.filename }}</b><span class="text-subtle">{{ fileSize(m.filesize) }}<template v-if="m.createdAt"> · {{ relative(m.createdAt) }}</template></span></span>
               </button>
             </li>
           </ul>
