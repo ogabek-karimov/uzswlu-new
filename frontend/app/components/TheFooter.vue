@@ -76,7 +76,7 @@ const usefulLinks = [
               <Icon name="lucide:phone" class="mt-0.5 size-4 shrink-0 text-accent-400" />
               <span>
                 <a :href="`tel:${site.phone.replace(/\s/g, '')}`" class="font-medium text-white/90 hover:text-white">{{ site.phone }}</a>
-                <span class="block text-xs text-white/45">{{ t('footer.ext') }}: {{ site.phoneExt }}</span>
+                <span class="block text-xs text-white/45">{{ t('footer.ext') }}: {{ formatExtensions(site.phoneExt) }}</span>
               </span>
             </li>
             <li v-for="email in site.emails" :key="email" class="flex gap-3">

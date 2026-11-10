@@ -1,5 +1,6 @@
 // SEO yordamchilarini sinash: npm run test:seo (Node 22.6+)
 import assert from 'node:assert/strict'
+import { formatExtensions } from '../shared/utils/phone.ts'
 import { absoluteUrl, buildRobotsTxt, buildSitemapXml, menuPaths, prefixedPath } from '../shared/utils/seo.ts'
 
 // prefixedPath: o'zbekcha prefikssiz, boshqalar /ru /en /zh
@@ -41,5 +42,14 @@ const paths = menuPaths([
   { overview: '/brm', links: [{ url: '/stipendiyalar#x' }, { url: 'https://example.com/a' }, { url: '/files/doc.pdf' }, { url: '//evil.com' }, { url: '/staff?q=1' }] },
 ])
 assert.deepEqual(paths, ['/yangiliklar', '/brm', '/stipendiyalar', '/staff'])
+
+// ichki raqamlar: diapazon to'liq yoyiladi (1061–1064 → 4 ta raqam)
+assert.equal(formatExtensions('1061–1064'), '1061, 1062, 1063, 1064')
+assert.equal(formatExtensions('1061-1064'), '1061, 1062, 1063, 1064')
+assert.equal(formatExtensions('1061, 1062, 1063, 1064'), '1061, 1062, 1063, 1064')
+assert.equal(formatExtensions('1061–1062, 2000'), '1061, 1062, 2000')
+assert.equal(formatExtensions('1–99999'), '1–99999')
+assert.equal(formatExtensions(''), '')
+assert.equal(formatExtensions(null), '')
 
 console.log('seo: OK')

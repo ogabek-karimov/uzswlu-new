@@ -11,7 +11,7 @@ const { data: site } = await useSiteData()
         <Icon name="lucide:phone" class="size-3.5 shrink-0 text-accent-400" />
         <span>{{ t('topbar.hotline') }}:</span>
         <span class="font-medium text-white">{{ site.phone }}</span>
-        <span v-if="site.phoneExt">({{ t('topbar.ext') }}: {{ site.phoneExt }})</span>
+        <span v-if="site.phoneExt">({{ t('topbar.ext') }}: {{ formatExtensions(site.phoneExt) }})</span>
       </a>
 
       <!-- Telefonda — shu yerda (o'ng chetda); kattaroq ekranda menyu qatorida (TheHeader) -->
