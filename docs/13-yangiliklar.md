@@ -4,7 +4,8 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-12
 
-- **Xavfsizlik:** `djangorestframework` 3.16.1 → 3.18.3 (5 ta ma’lum zaiflik yopildi: PYSEC-2026-3827/3828, CVE-2026-114136/7/8); `requirements.txt` da `>=3.18.2,<3.19`. 278 ta backend testi o‘tdi.
+- **Xavfsizlik:** `djangorestframework` 3.16.1 → 3.18.3 (5 ta ma’lum zaiflik yopildi: PYSEC-2026-3827/3828, CVE-2026-114136/7/8); `requirements.txt` da `>=3.18.2,<3.19`. 278 ta backend testi o‘tdi. `pip-audit` toza. — `f063971`
+- **Xavfsizlik (sayt, npm):** `nuxt` 4.4.8 → 4.6.4; `vue-i18n` va `@intlify/*` 11.4.18 ga `overrides` bilan majburlandi (XSS: GHSA-8rc2-428q-7ww3, GHSA-83rm-6c8r-g728). `npm audit`: 19 → 13 ta, qolgani faqat past/o‘rta va build vositalarida (nitropack → deepmerge/glob/minimatch, tuzatishi hali chiqmagan); admin: 0 ta. — `2f41b93`, `9db1bf3`, `d22212b`
 
 ## 2026-11-11
 
