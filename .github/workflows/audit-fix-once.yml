@@ -19,9 +19,8 @@ jobs:
       - name: frontend — nuxt 4.6.4 + intlify overrides
         run: |
           cd frontend
-          npm install nuxt@4.6.4 --save-exact
           npm audit --audit-level=high || true
-          for p in @intlify/core-base @intlify/shared @intlify/message-compiler; do
+          for p in vue-i18n @intlify/core-base @intlify/shared @intlify/message-compiler; do
             v=$(npm view $p version); echo "$p -> $v"
             npm pkg set "overrides.$p=$v"
           done
