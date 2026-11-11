@@ -54,7 +54,9 @@ useSeo({ title: () => (q.value ? `${q.value} — ${t('search.title')}` : t('sear
       <form role="search" class="mt-5" @submit.prevent="submit">
         <label for="search-q" class="sr-only">{{ t('search.label') }}</label>
         <div class="flex h-16 items-center gap-2.5 rounded-[20px] border-2 border-brand-800 bg-white pr-2 pl-5">
-          <Icon name="lucide:search" class="size-[22px] shrink-0 text-brand-800" />
+          <button type="submit" class="grid shrink-0 cursor-pointer place-items-center text-brand-800" :aria-label="t('search.submit')">
+            <Icon name="lucide:search" class="size-[22px]" />
+          </button>
           <input id="search-q" v-model="input" type="search" autocomplete="off" :placeholder="t('nav.searchPlaceholder')" class="h-full min-w-0 flex-1 bg-transparent text-lg font-medium outline-none sm:text-xl">
           <button type="submit" class="h-12 shrink-0 rounded-[14px] bg-ink px-5 text-[15px] font-semibold text-white transition-colors hover:bg-brand-800">{{ t('search.submit') }}</button>
         </div>

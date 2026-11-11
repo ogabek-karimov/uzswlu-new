@@ -52,6 +52,21 @@ for (const [l, set] of Object.entries(locales)) {
 }
 check('tarjima kalitlari uz bilan teng', missing.slice(0, 30))
 
+// 5a. Bosiladigan elementlarda «qo'l» kursori: global qoida bor; qidiruv ikonkasi tugma (submit) ichida
+const css = readFileSync(join(root, 'app/assets/css/main.css'), 'utf8')
+check('main.css: button uchun cursor: pointer qoidasi', /button:not\(:disabled\)[\s\S]{0,400}cursor:\s*pointer/.test(css) ? [] : ['global cursor-pointer qoidasi yo‘q'])
+const bareSearchIcons: string[] = []
+for (const f of vue) {
+  const text = readFileSync(f, 'utf8')
+  for (const m of text.matchAll(/<form\b[^>]*role="search"[\s\S]*?<\/form>/g)) {
+    for (const ic of m[0].matchAll(/<Icon name="lucide:search"[^>]*\/>/g)) {
+      const before = m[0].slice(0, ic.index)
+      if (!/<button[^>]*>\s*$/.test(before)) bareSearchIcons.push(`${rel(f)}: qidiruv ikonkasi tugma ichida emas`)
+    }
+  }
+}
+check('qidiruv formalarida ikonka — submit tugmasi', bareSearchIcons)
+
 // 6. og-default.jpg mavjud (ijtimoiy tarmoq uchun standart rasm)
 check('public/og-default.jpg', statSync(join(root, 'public/og-default.jpg'), { throwIfNoEntry: false })?.size ? [] : ['yo‘q'])
 

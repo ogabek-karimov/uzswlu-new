@@ -74,7 +74,9 @@ const circleText = computed(() => `${t('university.short')} • 1949 • `.repea
         <form role="search" class="mt-10 max-w-xl" @submit.prevent="submit">
           <label for="hero-search" class="sr-only">{{ t('hero.searchLabel') }}</label>
           <div class="flex items-center gap-2 rounded-2xl border border-line bg-white p-2 shadow-sm transition focus-within:border-brand-300 focus-within:ring-4 focus-within:ring-brand-100">
-            <Icon name="lucide:search" class="ml-3 size-5 shrink-0 text-muted" />
+            <button type="submit" class="ml-3 grid shrink-0 cursor-pointer place-items-center text-muted transition-colors hover:text-brand-800" :aria-label="t('hero.searchButton')">
+              <Icon name="lucide:search" class="size-5" />
+            </button>
             <input
               id="hero-search"
               v-model="query"

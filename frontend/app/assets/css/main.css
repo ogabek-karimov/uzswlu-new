@@ -82,6 +82,24 @@
     letter-spacing: 0;
   }
 
+  /* Tailwind 4 tugmalarga `cursor: default` beradi — bosiladigan hamma narsada «qo'l» ko'rinsin */
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  [role='tab'],
+  summary,
+  select:not(:disabled),
+  label[for],
+  label:has(input:is([type='checkbox'], [type='radio'], [type='file']):not(:disabled)),
+  input:is([type='checkbox'], [type='radio'], [type='file'], [type='range'], [type='submit']):not(:disabled),
+  a[href] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled='true'] {
+    cursor: not-allowed;
+  }
+
   :focus-visible {
     outline: 2px solid var(--color-accent-600);
     outline-offset: 3px;

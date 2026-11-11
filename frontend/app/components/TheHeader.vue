@@ -141,7 +141,10 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
       <form role="search" class="mx-auto hidden w-full max-w-sm xl:block" @submit.prevent="submitSearch">
         <label for="header-search" class="sr-only">{{ t('hero.searchLabel') }}</label>
         <div class="flex h-11 items-center gap-2 rounded-full border border-line bg-white px-4 transition focus-within:border-brand-300 focus-within:ring-4 focus-within:ring-brand-100">
-          <Icon name="lucide:search" class="size-4 shrink-0 text-muted" />
+          <!-- Ikonka — qidirish tugmasi (bosilsa so'rov yuboriladi) -->
+          <button type="submit" class="grid shrink-0 cursor-pointer place-items-center text-muted transition-colors hover:text-brand-800" :aria-label="t('nav.search')">
+            <Icon name="lucide:search" class="size-4" />
+          </button>
           <input
             id="header-search"
             v-model="query"
