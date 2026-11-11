@@ -114,3 +114,25 @@ class DocsLinksTests(SimpleTestCase):
                 elif fenced:
                     bad += [f'{p.name}:{n} → manage.py {c}' for c in MANAGE.findall(line) if c not in known]
         self.assertEqual(bad, [])
+
+
+@unittest.skipUnless(MD_FILES, 'docs/ papkasi yo‘q')
+class ChangelogTests(SimpleTestCase):
+    """docs/13-yangiliklar.md: sanalar tartibli (yangisi tepada), har kunda kamida bitta punkt, eng so'nggi yozuv eskirmagan."""
+
+    def setUp(self):
+        path = DOCS / '13-yangiliklar.md'
+        self.assertTrue(path.exists(), 'docs/13-yangiliklar.md yo‘q')
+        self.text = path.read_text(encoding='utf-8')
+        self.days = re.findall(r'^## (\d{4}-\d{2}-\d{2})\s*$', self.text, re.M)
+
+    def test_dates_descending_and_unique(self):
+        self.assertTrue(self.days, 'Hech bir «## YYYY-MM-DD» sarlavhasi yo‘q')
+        self.assertEqual(self.days, sorted(set(self.days), reverse=True), 'Sanalar kamayish tartibida va takrorsiz bo‘lsin')
+
+    def test_every_day_has_entries(self):
+        for block in re.split(r'^## \d{4}-\d{2}-\d{2}\s*$', self.text, flags=re.M)[1:]:
+            self.assertRegex(block, r'(?m)^- \*\*', 'Har kunda kamida bitta «- **Toifa:** …» punkt bo‘lsin')
+
+    def test_readme_links_changelog(self):
+        self.assertIn('(13-yangiliklar.md)', (DOCS / 'README.md').read_text(encoding='utf-8'))

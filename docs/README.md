@@ -108,12 +108,14 @@ Bu — loyiha bo‘yicha **yagona kirish nuqtasi**: «nimani qayerdan topaman»,
 10. [10-server](10-server.md) — serverga chiqish
 11. [11-muammolar](11-muammolar.md) — xato → sabab → yechim
 12. [12-qanday-qilaman](12-qanday-qilaman.md) — kodni kengaytirish retseptlari
-13. [reference](reference.md) — **koddan avtomatik**: rollar jadvali, manzillar, buyruqlar, sozlamalar, testlar, fayllar xaritasi
+13. [13-yangiliklar](13-yangiliklar.md) — **nima o‘zgardi** (sana bo‘yicha, har o‘zgarishdan keyin yoziladi)
+14. [reference](reference.md) — **koddan avtomatik**: rollar jadvali, manzillar, buyruqlar, sozlamalar, testlar, fayllar xaritasi
 
 Eski, chuqur hujjatlar: [`backend/README.md`](../backend/README.md) (HEMIS, xavfsizlik, fayllar), [`backend/tests/README.md`](../backend/tests/README.md), [`frontend/README.md`](../frontend/README.md).
 
 ## Bu hujjat qanday yangilanadi
 
+- **Har o‘zgarishdan keyin** [13-yangiliklar](13-yangiliklar.md) ga yozuv qo‘shiladi (qoida: ildizdagi `CLAUDE.md`).
 - `docs/*.md` — qo‘lda yoziladi. Yangi qo‘llanma qo‘shsangiz: `NN-nom.md` (raqam tartibni belgilaydi) va yuqoridagi xaritaga qo‘shing.
 - `docs/reference.md` va `docs/index.html` — **avtomatik**: `cd backend && python manage.py build_docs`.
 - Hujjat eskirmasligi testlar bilan kafolatlanadi (`backend/tests/core/test_docs.py`): havolalar, `manage.py` buyruqlari va `backend/…` yo‘llari mavjudligi, `reference.md` kodga mosligi tekshiriladi. Kodni o‘zgartirib, `build_docs` ni ishga tushirishni unutsangiz — CI yiqiladi.
