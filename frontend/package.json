@@ -33,6 +33,7 @@
   "overrides": {
     "@intlify/core-base": "11.4.18",
     "@intlify/shared": "11.4.18",
-    "@intlify/message-compiler": "11.4.18"
+    "@intlify/message-compiler": "11.4.18",
+    "vue-i18n": "11.4.18"
   }
 }
