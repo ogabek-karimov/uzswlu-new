@@ -2,6 +2,10 @@
 
 Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `CLAUDE.md`). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.
 
+## 2026-11-12
+
+- **Xavfsizlik:** `djangorestframework` 3.16.1 → 3.18.3 (5 ta ma’lum zaiflik yopildi: PYSEC-2026-3827/3828, CVE-2026-114136/7/8); `requirements.txt` da `>=3.18.2,<3.19`. 278 ta backend testi o‘tdi.
+
 ## 2026-11-11
 
 - **Sayt:** ishonch telefoni va ichki raqamlar yuqori qatorning o‘rtasida, hamma ekranda; `1061–1064` diapazoni `1061, 1062, 1063, 1064` bo‘lib chiqadi (yuqori qator va footer). — `6121d3b`, `0bdebba`
