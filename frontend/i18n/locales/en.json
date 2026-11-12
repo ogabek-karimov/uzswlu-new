@@ -878,5 +878,14 @@
     "openMap": "Open in Maps",
     "map": "map",
     "all": "All contacts"
+  },
+  "social": {
+    "title": "Follow us",
+    "buildings": "Academic buildings",
+    "show": "Open the social media panel",
+    "hide": "Hide the panel"
+  },
+  "journal": {
+    "name": "Philology Matters journal"
   }
 }

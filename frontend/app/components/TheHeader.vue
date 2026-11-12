@@ -8,6 +8,7 @@ const router = useRouter()
 const { data: site } = await useSiteData()
 
 const groups = computed<MenuGroup[]>(() => site.value?.menu ?? [])
+const socials = computed(() => sortSocials(site.value?.socials ?? []))
 
 // ── Ochiq menyu: bo'lim id'si, 'more' ("⋯") yoki null ─────────────────────
 const open = ref<string | null>(null)
@@ -157,6 +158,20 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
       </form>
 
       <div class="ml-auto flex items-center gap-1.5 xl:ml-0">
+        <!-- «Filologiya masalalari» ilmiy jurnali (eski saytda chap paneldagi «FM» belgisi) -->
+        <a
+          :href="JOURNAL.url"
+          target="_blank"
+          rel="noopener"
+          class="group relative mr-1 hidden h-11 shrink-0 items-center rounded-xl px-1.5 transition-colors hover:bg-brand-50 focus-visible:bg-brand-50 md:inline-flex"
+          :aria-label="t('journal.name')"
+        >
+          <img :src="JOURNAL.logo" alt="" width="150" height="91" loading="eager" class="h-9 w-auto transition-transform duration-200 group-hover:scale-105">
+          <span
+            aria-hidden="true"
+            class="pointer-events-none absolute top-full left-1/2 z-10 mt-2 -translate-x-1/2 -translate-y-1 rounded-lg bg-ink px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-white opacity-0 shadow-lg transition duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
+          >{{ t('journal.name') }}</span>
+        </a>
         <LangSwitcher />
         <NuxtLink
           :to="localePath('/search')"
@@ -371,6 +386,26 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
             {{ t('nav.admission') }}
             <Icon name="lucide:arrow-up-right" class="size-4" />
           </NuxtLink>
+
+          <!-- Telefonda chap panel o'rniga: jurnal, ijtimoiy tarmoqlar va o'quv binolari -->
+          <a :href="JOURNAL.url" target="_blank" rel="noopener" class="mt-4 flex items-center gap-3 rounded-2xl border border-line bg-white p-3 text-ink">
+            <img :src="JOURNAL.logo" alt="" width="150" height="91" loading="lazy" class="h-10 w-auto">
+            <span class="flex-1 text-[15px] font-semibold">{{ t('journal.name') }}</span>
+            <Icon name="lucide:arrow-up-right" class="text-base text-muted" />
+          </a>
+          <ul class="mt-4 flex flex-wrap gap-2" :aria-label="t('social.title')">
+            <li v-for="s in socials" :key="s.network">
+              <a :href="s.url" target="_blank" rel="noopener" class="grid size-11 place-items-center rounded-2xl text-white" :class="siteNetworks[s.network].fill" :aria-label="siteNetworks[s.network].label">
+                <Icon :name="siteNetworks[s.network].icon" class="text-[1.2rem]" />
+              </a>
+            </li>
+            <li>
+              <NuxtLink :to="localePath('/oquv-binolari')" class="flex h-11 items-center gap-2 rounded-2xl bg-brand-700 px-4 text-sm font-semibold text-white">
+                <Icon name="lucide:landmark" class="text-[1.1rem]" />
+                {{ t('social.buildings') }}
+              </NuxtLink>
+            </li>
+          </ul>
         </nav>
       </div>
     </Transition>

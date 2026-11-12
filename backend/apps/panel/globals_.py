@@ -96,7 +96,7 @@ class Settings(Global):
             'site': {'name': i18n_out(s.name), 'abbr': i18n_out(s.abbr), 'description': i18n_out(s.description)},
             'contact': {
                 'phone': s.phone or None, 'email': s.email or None, 'address': i18n_out(s.address), 'telegram': s.telegram or None,
-                'instagram': s.instagram or None, 'facebook': s.facebook or None, 'youtube': s.youtube or None,
+                'instagram': s.instagram or None, 'facebook': s.facebook or None, 'youtube': s.youtube or None, 'x': s.x_url or None,
                 'campuses': [campus_out(c) for c in Campus.objects.all()],
             },
             'support': {
@@ -119,6 +119,8 @@ class Settings(Global):
             for key in ('phone', 'email', 'telegram', 'instagram', 'facebook', 'youtube'):
                 if key in contact:
                     setattr(s, key, text(contact[key]))
+            if 'x' in contact:
+                s.x_url = text(contact['x'])
             if 'address' in contact:
                 s.address = i18n_in(contact['address'])
             if 'campuses' in contact:

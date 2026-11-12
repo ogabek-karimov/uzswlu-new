@@ -13,7 +13,7 @@ import { loadSiteSettings } from '@/lib/settings'
 type Campus = { key?: string; name: I18n; address: I18n; phone?: string | null; email?: string | null; coords?: string | null; mapUrl?: string | null }
 type SettingsDoc = {
   site: { name: I18n; abbr: I18n; description: I18n }
-  contact: { phone?: string; email?: string; address: I18n; telegram?: string; instagram?: string; facebook?: string; youtube?: string; campuses: Campus[] }
+  contact: { phone?: string; email?: string; address: I18n; telegram?: string; instagram?: string; facebook?: string; youtube?: string; x?: string; campuses: Campus[] }
   support: { telegram?: string; text: I18n; showInAdmin: boolean; showOnSite: boolean; pages: string[]; place: 'float' | 'end' | 'footer' | 'header' }
   numbers: { auto: boolean; students?: number | null; staff?: number | null; faculties?: number | null; departments?: number | null }
 }
@@ -149,7 +149,7 @@ function flash(text: string) {
         <input v-model="form.contact.address[lang]" aria-label="Manzil" class="field">
       </div>
       <div class="grid gap-3.5 sm:grid-cols-2">
-        <div v-for="k in (['telegram', 'instagram', 'facebook', 'youtube'] as const)" :key="k"><label :for="`c-${k}`" class="label capitalize">{{ k }}</label><input :id="`c-${k}`" v-model="form.contact[k]" class="field" placeholder="havola"></div>
+        <div v-for="k in (['telegram', 'instagram', 'facebook', 'youtube', 'x'] as const)" :key="k"><label :for="`c-${k}`" class="label capitalize">{{ k === 'x' ? 'X (Twitter)' : k }}</label><input :id="`c-${k}`" v-model="form.contact[k]" class="field" placeholder="havola"></div>
       </div>
     </section>
 

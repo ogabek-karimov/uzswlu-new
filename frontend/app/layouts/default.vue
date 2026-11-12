@@ -16,6 +16,7 @@ const { t } = useI18n()
       <slot />
     </main>
     <TheFooter />
+    <SocialDock />
     <A11ySpeechBar />
   </div>
 </template>

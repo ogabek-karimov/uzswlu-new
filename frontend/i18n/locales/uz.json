@@ -878,5 +878,14 @@
     "openMap": "Xaritada oçiş",
     "map": "xarita",
     "all": "Barça aloqa ma’lumotlari"
+  },
+  "social": {
+    "title": "Ijtimoiy tarmoqlar",
+    "buildings": "Öquv binolari",
+    "show": "Ijtimoiy tarmoqlar panelini oçiş",
+    "hide": "Panelni yopiş"
+  },
+  "journal": {
+    "name": "«Filologiya masalalari» jurnali"
   }
 }

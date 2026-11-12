@@ -88,6 +88,15 @@ class GlobalsAndVersionsTests(PanelBase):
                 r = self.send('post', f'/api/cms/globals/{g}', self.j(r))
                 self.assertEqual(r.status_code, 200, r.content[:200])
 
+    def test_settings_x_link_reaches_site(self):
+        # Sozlamalar → X (Twitter) havolasi saytdagi chap panelga (GET /site → socials) chiqadi
+        r = self.send('post', '/api/cms/globals/settings', {'contact': {'x': 'https://x.com/uzswlu'}})
+        self.assertEqual(r.status_code, 200, r.content[:200])
+        self.assertEqual(self.j(self.client.get('/api/cms/globals/settings'))['contact']['x'], 'https://x.com/uzswlu')
+        self.assertIn({'network': 'x', 'url': 'https://x.com/uzswlu'}, self.client.get('/api/site?lang=uz').json()['socials'])
+        self.send('post', '/api/cms/globals/settings', {'contact': {'x': ''}})
+        self.assertNotIn('x', [s['network'] for s in self.client.get('/api/site?lang=uz').json()['socials']])
+
     def test_global_version_restore(self):
         self.send('post', '/api/cms/globals/settings', self.j(self.client.get('/api/cms/globals/settings')))
         versions = self.j(self.client.get('/api/cms/globals/settings/versions?limit=5'))['docs']
