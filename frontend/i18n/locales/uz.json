@@ -195,7 +195,9 @@
     "title": "Biz öqitadigan tillar",
     "text": "Ğarb va Şarq tillari — bir kampusda.",
     "prev": "Oldingi",
-    "next": "Keyingi"
+    "next": "Keyingi",
+    "faculties": "Fakultetlar: {n}",
+    "programs": "Yönalişlar: {n}"
   },
   "symbols": {
     "eyebrow": "Özbekiston Respublikasi",

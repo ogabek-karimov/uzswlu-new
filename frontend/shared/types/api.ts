@@ -66,6 +66,10 @@ export interface TaughtLanguage {
   code: string
   /** Tilning o'z yozuvidagi nomi: Deutsch, 中文, العربية */
   native: string
+  /** Shu tilda o'qitiladigan yo'nalishlar soni */
+  programs?: number
+  /** Shu tilda yo'nalishi bor fakultetlar soni */
+  faculties?: number
 }
 
 /** GET /home?lang= — bosh sahifa */
@@ -486,7 +490,7 @@ export interface ProgramList {
 /** Fakultet kartasi (fakultetlar ro'yxati) */
 export interface FacultySummary extends Faculty {
   departments: number
-  programs: number
+  programs?: number
 }
 
 /** GET /faculties?lang= */

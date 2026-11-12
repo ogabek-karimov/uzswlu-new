@@ -12,7 +12,7 @@ const latest = computed(() => props.news.slice(0, 3))
 </script>
 
 <template>
-  <section class="relative z-10 mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:-mt-20 lg:px-8" :aria-label="t('admission.title')">
+  <section class="relative z-10 mx-auto max-w-7xl px-4 pt-6 sm:px-6 sm:pt-8 lg:px-8" :aria-label="t('admission.title')">
     <div class="grid gap-5 lg:grid-cols-12">
       <!-- Qabul paneli -->
       <div class="relative overflow-hidden rounded-[1.75rem] bg-brand-900 p-7 text-white shadow-[0_30px_60px_-30px_var(--color-brand-950)] sm:p-8 lg:col-span-7">

@@ -520,6 +520,8 @@ components:
       properties:
         code: { type: string, description: ISO 639-1 kodi, example: de }
         native: { type: string, description: Tilning o'z yozuvidagi nomi, example: Deutsch }
+        programs: { type: integer, description: "Shu tilda o'qitiladigan yo'nalishlar soni", example: 4 }
+        faculties: { type: integer, description: "Shu tilda yo'nalishi bor fakultetlar soni", example: 2 }
 
     Partner:
       type: object

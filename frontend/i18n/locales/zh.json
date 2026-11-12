@@ -195,7 +195,9 @@
     "title": "我们教授的语言",
     "text": "东西方语言，汇聚一校。",
     "prev": "上一个",
-    "next": "下一个"
+    "next": "下一个",
+    "faculties": "院系：{n}",
+    "programs": "专业：{n}"
   },
   "symbols": {
     "eyebrow": "乌兹别克斯坦共和国",

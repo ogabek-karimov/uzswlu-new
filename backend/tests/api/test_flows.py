@@ -147,3 +147,21 @@ class AppealAndHitTests(SeededTestCase):
         self.assertEqual(self.client.post('/api/hit', 'garbage', content_type='text/plain').status_code, 204)
         r = self.client.post('/api/site/hit', json.dumps({'kind': 'event', 'name': 'x'}), content_type='text/plain', HTTP_USER_AGENT='Mozilla/5.0')
         self.assertEqual(r.status_code, 204)
+
+
+class HomeLanguagesCountTests(SeededTestCase):
+    """Bosh sahifadagi tillar: har til uchun yo'nalishlar va fakultetlar soni."""
+
+    def test_counts(self):
+        from apps.content.models import TaughtLanguage
+        from apps.structure.models import Faculty, Program
+
+        lang = TaughtLanguage.objects.create(code='zz', native='Test', order=99)
+        f1 = Faculty.objects.create(slug='zz-1', name={'uz': 'F1'})
+        f2 = Faculty.objects.create(slug='zz-2', name={'uz': 'F2'})
+        for i, fac in enumerate([f1, f1, f2]):
+            Program.objects.create(code=f'ZZ{i}', title={'uz': f'P{i}'}, language=lang, faculty=fac)
+        from apps.api.builders_site import languages_out
+
+        row = next(x for x in languages_out() if x['code'] == 'zz')
+        self.assertEqual((row['programs'], row['faculties']), (3, 2))

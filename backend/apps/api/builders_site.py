@@ -71,6 +71,25 @@ def faculties_brief(lang: str) -> list[dict]:
     ]
 
 
+def languages_out() -> list[dict]:
+    """O'qitiladigan tillar; har biri uchun shu tilda o'qitiladigan yo'nalishlar va ularni olib boruvchi fakultetlar soni."""
+    counts = {
+        r['language_id']: r
+        for r in Program.objects.filter(language__isnull=False)
+        .values('language_id')
+        .annotate(programs=Count('id'), faculties=Count('faculty', distinct=True))
+    }
+    return [
+        {
+            'code': x.code,
+            'native': x.native,
+            'programs': counts.get(x.pk, {}).get('programs', 0),
+            'faculties': counts.get(x.pk, {}).get('faculties', 0),
+        }
+        for x in TaughtLanguage.objects.all()
+    ]
+
+
 def home_out(lang: str) -> dict:
     synced = get_client().synced_at()
     if synced and timezone.is_naive(synced):
@@ -82,7 +101,7 @@ def home_out(lang: str) -> dict:
         'news': [news_item(p, lang) for p in latest_posts(lang, 'news', 4)],
         'announcements': [announcement_item(p, lang) for p in latest_posts(lang, 'announcements', 4)],
         'events': [event_item(p, lang) for p in upcoming_events(lang, 3)],
-        'languages': [{'code': x.code, 'native': x.native} for x in TaughtLanguage.objects.all()],
+        'languages': languages_out(),
         'partners': [
             {'id': str(p.pk), 'name': tr(p.name, lang), 'logo': img(p.logo, 'card'), 'url': p.url or None}
             for p in Partner.objects.select_related('logo')

@@ -40,15 +40,38 @@ function scrollBy(dir: 1 | -1) {
       </div>
     </div>
 
-    <ul ref="scroller" class="mx-auto mt-8 flex max-w-7xl snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:px-6 lg:px-8">
+    <ul ref="scroller" class="mx-auto mt-8 flex max-w-7xl snap-x snap-mandatory gap-4 overflow-x-auto px-4 pt-3 pb-6 [scrollbar-width:none] sm:px-6 lg:px-8">
       <li
         v-for="(lang, i) in languages"
         :key="lang.code"
         :lang="lang.code"
-        class="flex h-44 w-64 shrink-0 snap-start items-end rounded-[1.75rem] p-6 sm:w-72"
+        class="group relative flex h-56 w-64 shrink-0 snap-start flex-col justify-between overflow-hidden rounded-[1.75rem] p-6 transition duration-500 ease-out hover:-translate-y-2 hover:-rotate-1 hover:shadow-[0_28px_50px_-24px_rgba(19,17,47,0.55)] sm:w-72"
         :class="tones[i % tones.length]"
       >
-        <span class="font-display text-4xl leading-none font-semibold sm:text-5xl">{{ lang.native }}</span>
+        <!-- Orqa fondagi katta yozuv: kursor kelganda kattalashib buriladi -->
+        <span
+          class="decor pointer-events-none absolute -right-4 -bottom-10 font-display text-[9rem] leading-none font-semibold whitespace-nowrap opacity-[0.12] transition duration-700 ease-out select-none group-hover:-rotate-6 group-hover:scale-125 group-hover:opacity-25"
+          aria-hidden="true"
+        >{{ lang.native }}</span>
+
+        <div class="relative flex items-center justify-between">
+          <span class="rounded-full border border-current/30 px-2.5 py-0.5 text-xs font-semibold tracking-widest uppercase opacity-80">{{ lang.code }}</span>
+          <span class="grid size-9 -translate-x-2 scale-75 place-items-center rounded-full bg-current/15 opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100" aria-hidden="true">
+            <Icon name="lucide:arrow-up-right" class="size-4" />
+          </span>
+        </div>
+
+        <div class="relative">
+          <p class="font-display text-4xl leading-none font-semibold sm:text-5xl">{{ lang.native }}</p>
+          <ul v-if="lang.faculties || lang.programs" class="mt-4 flex flex-wrap gap-1.5 text-xs font-medium">
+            <li v-if="lang.faculties" class="inline-flex items-center gap-1 rounded-full bg-current/10 px-2.5 py-1 transition-colors group-hover:bg-current/20">
+              <Icon name="lucide:building-2" class="size-3.5" />{{ t('languages.faculties', { n: lang.faculties }) }}
+            </li>
+            <li v-if="lang.programs" class="inline-flex items-center gap-1 rounded-full bg-current/10 px-2.5 py-1 transition-colors group-hover:bg-current/20">
+              <Icon name="lucide:book-open" class="size-3.5" />{{ t('languages.programs', { n: lang.programs }) }}
+            </li>
+          </ul>
+        </div>
       </li>
     </ul>
   </section>

@@ -458,14 +458,14 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (278 ta test)
+### Backend testlari xaritasi (279 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
 | Fayl | Testlar | Nimani tekshiradi |
 |---|---|---|
 | `backend/tests/api/test_contract.py` | 6 | Shartnoma testi: ochiq API javoblari `frontend/docs/openapi.yaml` sxemalariga mos bo'lishi shart (4 til × barcha endpoint). |
-| `backend/tests/api/test_flows.py` | 12 | Ochiq API oqimlari (demo ma'lumot bilan): sanoqlar, eski /api/site/* manzillari, API token, xodim kabineti, murojaat, statistika. |
+| `backend/tests/api/test_flows.py` | 13 | Ochiq API oqimlari (demo ma'lumot bilan): sanoqlar, eski /api/site/* manzillari, API token, xodim kabineti, murojaat, statistika. |
 | `backend/tests/api/test_swagger.py` | 11 | Swagger to'liqligi: kodda ishlaydigan har bir amal hujjatda bo'lishi shart (yangi endpoint/kolleksiya qo'shilganda |
 | `backend/tests/core/test_backup.py` | 41 | Zaxira va tiklash: yaratish, tekshirish, tiklash (SQLite va PostgreSQL — qaysi baza bilan ishlayotgan bo'lsa), ko'chma JSON, |
 | `backend/tests/core/test_docs.py` | 10 | Qo'llanma (docs/) eskirmasligi: avtomatik fayllar kodga mos, havolalar/anchorlar/yo'llar/buyruqlar mavjud. |

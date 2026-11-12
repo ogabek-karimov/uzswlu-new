@@ -128,7 +128,7 @@ function onClickCapture(e: MouseEvent) {
 <template>
   <section
     v-if="count"
-    class="mx-auto max-w-7xl px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8"
+    class="mx-auto max-w-7xl px-4 pt-2 sm:px-6 sm:pt-3 lg:px-8"
     :aria-label="t('carousel.label')"
     aria-roledescription="carousel"
     @keydown.left.prevent="prev"
