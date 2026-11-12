@@ -271,15 +271,6 @@
     },
     {
      "t": {
-      "uz": "Toshkent haqida",
-      "ru": "О Ташкенте",
-      "en": "About Tashkent",
-      "zh": "关于塔什干"
-     },
-     "url": "/toshkent-haqida"
-    },
-    {
-     "t": {
       "uz": "Qabul – 2026/2027",
       "ru": "Приём – 2026/2027",
       "en": "Admission 2026/2027",
@@ -305,15 +296,6 @@
       "zh": "博士项目"
      },
      "url": "/phd-dasturlari"
-    },
-    {
-     "t": {
-      "uz": "Kontingent",
-      "ru": "Контингент",
-      "en": "Enrolment",
-      "zh": "在校生规模"
-     },
-     "url": "/kontingent"
     },
     {
      "t": {
