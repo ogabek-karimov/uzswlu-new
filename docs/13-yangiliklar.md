@@ -4,6 +4,8 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-12
 
+- **Sayt (bosh sahifa, soddalashtirildi):** olib tashlandi — slayder tagidagi «Qabul» paneli va so‘nggi yangiliklar kartasi, «Yaqin tadbir» yo‘lagi, 11 tildagi salomlashuv tasmasi, «Biz o‘qitadigan tillar» karuseli va «Qabul» (4 qadam) bloki (`Hero`, `Today`, `Greetings`, `Languages`, `Admission` komponentlari o‘chirildi). «Universitet haqida» yangi ko‘rinishda: to‘q raqamlar tasmasi — 1949, talabalar va professor-o‘qituvchilar (HEMIS), o‘qitiladigan tillar va xorijiy hamkorlar soni (`GET /home`) — va uchta karta: «Tillar va madaniyatlar ko‘prigi» (→ `/universitet-haqida`), «Rektor murojaati» (ism va surat `GET /leadership` dan, → `/rektorat`), «Video tur» (→ `/video-darsliklar`). `about.*` matnlari 4 tilda yangilandi. Testlar: `test:pages`, `test:seo`, `test:last-good`. — `cb2231b`
+
 - **Sayt (bosh sahifa):** «O‘qitiladigan tillar» haqiqiy karusel: o‘zi har ~3 soniyada bir karta suriladi, oxiriga yetganda boshiga qaytadi; strelkalar ham aylanadi (boshida «oldingi» — oxiriga); kursor/fokus ustida, yashirin tabda yoki «harakatni kamaytir» yoqilganda to‘xtaydi. — `44801b0`
 
 - **Sayt (bosh sahifa, tuzatishlar):** slayder yuqoriroq, qabul paneli uni qoplamaydi (strelkalar/nuqtalar ko‘rinadi); «O‘qitiladigan tillar» — kursor kelganda ko‘tariladigan/buriladigan kartalar, har bir til ostida shu tilda o‘qitiladigan yo‘nalishlar va fakultetlar soni; «Qabul» bloki maketdagidek: 4 qadam gorizontal chiziqda + mint harakat kartasi. API: `GET /home` → `languages[]` ga `programs` va `faculties` (Program.language bo‘yicha hisoblanadi; admin ish qilmaydi). Talabalar soni til bo‘yicha hozircha yo‘q (HEMIS’da til kesimi bog‘lanmagan). — `fd2ce11`
