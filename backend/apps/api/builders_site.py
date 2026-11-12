@@ -2,7 +2,6 @@
 import re
 from collections import defaultdict
 from datetime import datetime
-from urllib.parse import quote
 from zoneinfo import ZoneInfo
 
 from django.conf import settings
@@ -11,7 +10,7 @@ from django.db.models.functions import TruncMonth
 from django.utils import timezone
 
 from apps.content.models import (
-    Document, DocCategory, Leader, Partner, Post, Slide, StateSymbol, TaughtLanguage, Video, VideoCategory, VideoPage,
+    Document, DocCategory, HomeBanner, Leader, Partner, Post, Slide, StateSymbol, TaughtLanguage, Video, VideoCategory, VideoPage,
 )
 from apps.core.fields import pick, tr
 from apps.core.html import restore_timeline, text_of
@@ -19,6 +18,7 @@ from apps.core.models import SiteSettings
 from apps.core.utils import local_date, size_label
 from apps.hemis import get_client
 from apps.pages.models import Page, SdgGoal, SdgPage
+from apps.structure.maps import map_embed, map_link
 from apps.structure.models import (
     FORM_LABELS, AdmissionSettings, Campus, ContactEmail, Faculty, Program, ProgramGroup,
 )
@@ -106,8 +106,17 @@ def home_out(lang: str) -> dict:
             {'id': str(p.pk), 'name': tr(p.name, lang), 'logo': img(p.logo, 'card'), 'url': p.url or None}
             for p in Partner.objects.select_related('logo')
         ],
+        'banner': banner_out(lang),
         'updatedAt': iso(synced or timezone.now()),
     }
+
+
+def banner_out(lang: str) -> dict | None:
+    """Bayram banneri: yashirilgan yoki rasmi yo'q bo'lsa — null (blok chiqmaydi)."""
+    b = HomeBanner.load()
+    if not b.visible or not b.image_id:
+        return None
+    return {'image': img(b.image, 'hero'), 'alt': tr(b.alt, lang), 'link': b.link or None}
 
 
 def menu_out(lang: str) -> list[dict]:
@@ -539,10 +548,13 @@ def contact_out(lang: str) -> dict:
     return {
         'hotline': {'phone': s.phone, 'ext': s.phone_ext or None},
         'emails': [{'title': tr(e.title, lang), 'value': e.value, 'extra': lines(e.extra, lang)} for e in ContactEmail.objects.all()],
+        # Binolar (bosh sahifadagi «Biz bilan bog'lanish» kartalari ham shundan): xarita koordinata bo'yicha, bo'lmasa manzil bo'yicha
         'campuses': [
             {
                 'id': c.key, 'name': tr(c.name, lang), 'address': tr(c.address, lang), 'phone': c.phone or s.phone,
-                'mapUrl': c.map_url or f"https://www.google.com/maps/search/?api=1&query={quote(tr(c.address, 'uz'))}",
+                'email': c.email or s.email or None,
+                'mapUrl': c.map_url or map_link(c.coords, tr(c.address, 'uz')),
+                'mapEmbed': map_embed(c.coords, tr(c.address, 'uz'), lang),
             }
             for c in Campus.objects.all()
         ],

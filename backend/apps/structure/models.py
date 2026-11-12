@@ -212,6 +212,9 @@ class Campus(models.Model):
     name = I18nField('Nomi', required_uz=True)
     address = I18nField('Manzil', required_uz=True)
     phone = models.CharField('Telefon', max_length=40, blank=True)
+    email = models.EmailField('E-pochta', blank=True)
+    # "41.286038, 69.194908" — bosh sahifa va Aloqa sahifasidagi xarita shu nuqtada (bo'sh bo'lsa — manzil bo'yicha)
+    coords = models.CharField('Xaritadagi joy (koordinata)', max_length=40, blank=True)
     map_url = models.URLField('Xarita havolasi', blank=True, max_length=600)
     order = models.PositiveIntegerField('Tartib', default=0)
 

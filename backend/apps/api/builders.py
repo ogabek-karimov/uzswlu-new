@@ -32,11 +32,15 @@ def post_summary(p: Post, lang: str) -> dict:
 
 def news_item(p: Post, lang: str) -> dict:
     s = post_summary(p, lang)
-    return {k: s[k] for k in ('id', 'slug', 'title', 'category', 'date', 'image')}
+    # sdg — BRM maqsadi (bosh sahifa kartasida rangli belgi), 0 — kirmaydi → null
+    return {**{k: s[k] for k in ('id', 'slug', 'title', 'category', 'date', 'image')}, 'sdg': p.sdg or None}
 
 
 def announcement_item(p: Post, lang: str) -> dict:
-    return {'id': str(p.pk), 'slug': p.slug, 'title': tr(p.title, lang), 'date': local_date(p.published_at)}
+    return {
+        'id': str(p.pk), 'slug': p.slug, 'title': tr(p.title, lang), 'date': local_date(p.published_at),
+        'image': cover_for(p, lang), 'sdg': p.sdg or None,
+    }
 
 
 def event_item(p: Post, lang: str) -> dict:

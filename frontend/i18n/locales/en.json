@@ -191,7 +191,8 @@
     "all": "All news",
     "announcements": "Announcements",
     "allAnnouncements": "All announcements",
-    "readMore": "Read more"
+    "readMore": "Read more",
+    "sdg": "SDG {n}"
   },
   "events": {
     "eyebrow": "Calendar",
@@ -862,5 +863,15 @@
     "scroll": "Scroll to read",
     "viewer": "PDF viewer: {title}",
     "files": "Files"
+  },
+  "homeContact": {
+    "eyebrow": "Contact",
+    "title": "Get in touch",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "openMap": "Open in Maps",
+    "map": "map",
+    "all": "All contacts"
   }
 }

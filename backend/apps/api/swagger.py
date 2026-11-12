@@ -148,6 +148,7 @@ LABELS = {
     'staff-profiles': 'Xodim profillari', 'sdg-goals': 'BRM maqsadlari', 'pages': 'Sahifalar',
     'login-events': 'Kirish tarixi', 'activity': 'Faollik jurnali',
     'settings': 'Sayt sozlamalari', 'symbols': 'Davlat ramzlari', 'video-page': 'Video sahifasi', 'sdg-page': 'BRM bosh sahifasi',
+    'home-banner': 'Bayram banneri',
 }
 ADMIN_TAG = {
     'posts': 'Admin: Postlar', 'categories': 'Admin: Postlar',
@@ -155,7 +156,7 @@ ADMIN_TAG = {
     'pages': 'Admin: Sahifalar va hujjatlar', 'documents': 'Admin: Sahifalar va hujjatlar', 'doc-categories': 'Admin: Sahifalar va hujjatlar',
     'videos': 'Admin: Sahifalar va hujjatlar', 'video-categories': 'Admin: Sahifalar va hujjatlar', 'video-page': 'Admin: Sozlamalar',
     'slides': 'Admin: Tuzilma va bosh sahifa', 'leaders': 'Admin: Tuzilma va bosh sahifa', 'faculties': 'Admin: Tuzilma va bosh sahifa',
-    'departments': 'Admin: Tuzilma va bosh sahifa', 'staff-profiles': 'Admin: Tuzilma va bosh sahifa',
+    'departments': 'Admin: Tuzilma va bosh sahifa', 'staff-profiles': 'Admin: Tuzilma va bosh sahifa', 'home-banner': 'Admin: Tuzilma va bosh sahifa',
     'sdg-goals': 'Admin: BRM', 'sdg-page': 'Admin: BRM',
     'users': 'Admin: Foydalanuvchilar va jurnal', 'login-events': 'Admin: Foydalanuvchilar va jurnal', 'activity': 'Admin: Foydalanuvchilar va jurnal',
     'settings': 'Admin: Sozlamalar', 'symbols': 'Admin: Sozlamalar',

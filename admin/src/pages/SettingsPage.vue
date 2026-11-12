@@ -9,24 +9,26 @@ import type { Lang } from '@/lib/constants'
 import { dateTime } from '@/lib/format'
 import { loadSiteSettings } from '@/lib/settings'
 
+/** Bino: bosh sahifadagi «Biz bilan bog'lanish» kartasi va Aloqa sahifasi. coords — koordinata yoki Google Maps havolasi (backend koordinataga aylantiradi) */
+type Campus = { key?: string; name: I18n; address: I18n; phone?: string | null; email?: string | null; coords?: string | null; mapUrl?: string | null }
 type SettingsDoc = {
   site: { name: I18n; abbr: I18n; description: I18n }
-  contact: { phone?: string; email?: string; address: I18n; telegram?: string; instagram?: string; facebook?: string; youtube?: string }
+  contact: { phone?: string; email?: string; address: I18n; telegram?: string; instagram?: string; facebook?: string; youtube?: string; campuses: Campus[] }
   support: { telegram?: string; text: I18n; showInAdmin: boolean; showOnSite: boolean; pages: string[]; place: 'float' | 'end' | 'footer' | 'header' }
   numbers: { auto: boolean; students?: number | null; staff?: number | null; faculties?: number | null; departments?: number | null }
 }
 type Version = { id: string; updatedAt: string; createdAt: string; version: SettingsDoc & { updatedAt?: string } }
 type Section = keyof SettingsDoc
 
-const TABS: [Section | 'history', string][] = [['site', 'Umumiy'], ['contact', 'Aloqa'], ['support', 'Texnik yordam'], ['numbers', 'Raqamlar'], ['history', 'Özgarişlar tarixi']]
+const TABS: [Section | 'campuses' | 'history', string][] = [['site', 'Umumiy'], ['contact', 'Aloqa'], ['campuses', 'Binolar va xarita'], ['support', 'Texnik yordam'], ['numbers', 'Raqamlar'], ['history', 'Özgarişlar tarixi']]
 const PAGES = [['all', 'Barça sahifalar'], ['home', 'Boş sahifa'], ['contact', 'Aloqa'], ['staff', 'Xodim sahifalari'], ['admission', 'Qabul']] as const
 const PLACES = [['float', 'Öng pastki burçakda', 'Suzib turadi, har doim körinadi'], ['end', 'Sahifa oxirida', 'Matndan keyin karta bölib'], ['footer', 'Footer içida', 'Pastki qismda kiçik havola'], ['header', 'Sarlavha qatorida', 'Menyu yonida kiçik tugma']] as const
 
-const tab = ref<Section | 'history'>('site')
+const tab = ref<Section | 'campuses' | 'history'>('site')
 const lang = ref<Lang>('uz')
 const form = reactive<SettingsDoc>({
   site: { name: {}, abbr: {}, description: {} },
-  contact: { address: {} },
+  contact: { address: {}, campuses: [] },
   support: { text: {}, showInAdmin: true, showOnSite: false, pages: [], place: 'float' },
   numbers: { auto: true },
 })
@@ -78,6 +80,29 @@ function togglePage(p: string) {
   form.support.pages = form.support.pages.includes(p) ? form.support.pages.filter(x => x !== p) : [...form.support.pages, p]
 }
 
+function addCampus() {
+  form.contact.campuses.push({ name: {}, address: {}, phone: form.contact.phone ?? '', email: form.contact.email ?? '', coords: '' })
+}
+function moveCampus(i: number, step: -1 | 1) {
+  const list = form.contact.campuses
+  const [item] = list.splice(i, 1)
+  if (item) list.splice(i + step, 0, item)
+}
+function removeCampus(i: number) {
+  if (window.confirm(`«${form.contact.campuses[i]?.name.uz || 'Yangi bino'}» öçirilsinmi? (Saqlaşdan keyin saytdan ham olinadi)`)) form.contact.campuses.splice(i, 1)
+}
+
+/** Xarita oldindan körinişi: koordinata (yoki havoladagi koordinata), bo'lmasa — manzil bo'yicha (backend ham şunday qiladi) */
+const COORDS = [/!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/, /!2d(-?\d+(?:\.\d+)?)!3d(-?\d+(?:\.\d+)?)/, /@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/, /^\s*(-?\d+(?:\.\d+)?)\s*[,;\s]\s*(-?\d+(?:\.\d+)?)\s*$/]
+function mapPreview(c: Campus) {
+  const raw = (c.coords ?? '').trim()
+  for (const [i, re] of COORDS.entries()) {
+    const m = raw.match(re)
+    if (m) return `https://maps.google.com/maps?q=${i === 1 ? `${m[2]},${m[1]}` : `${m[1]},${m[2]}`}&z=16&output=embed`
+  }
+  return c.address.uz ? `https://maps.google.com/maps?q=${encodeURIComponent(c.address.uz)}&z=16&output=embed` : ''
+}
+
 function flash(text: string) {
   message.value = text
   setTimeout(() => { if (message.value === text) message.value = '' }, 3000)
@@ -126,6 +151,52 @@ function flash(text: string) {
       <div class="grid gap-3.5 sm:grid-cols-2">
         <div v-for="k in (['telegram', 'instagram', 'facebook', 'youtube'] as const)" :key="k"><label :for="`c-${k}`" class="label capitalize">{{ k }}</label><input :id="`c-${k}`" v-model="form.contact[k]" class="field" placeholder="havola"></div>
       </div>
+    </section>
+
+    <!-- Binolar va xarita -->
+    <section v-if="tab === 'campuses'" class="flex flex-col gap-4">
+      <div class="card flex flex-wrap items-center justify-between gap-3 p-[22px]">
+        <div>
+          <h2 class="text-base font-bold">Binolar va xarita</h2>
+          <p class="mt-1 text-[13px] text-muted">Boş sahifadagi «Biz bilan bog‘lanish» kartalari va Aloqa sahifasi. Saytda şu tartibda çiqadi.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <LangTabs v-model="lang" compact />
+          <button type="button" class="btn-ghost h-[34px]! px-3! text-xs!" @click="addCampus"><Icon name="plus" :size="14" />Bino qöşiş</button>
+        </div>
+      </div>
+
+      <article v-for="(c, i) in form.contact.campuses" :key="c.key || `new-${i}`" class="card grid gap-5 p-[22px] lg:grid-cols-[minmax(0,1fr)_320px]">
+        <div class="flex min-w-0 flex-col gap-3.5">
+          <div class="flex items-center justify-between gap-2">
+            <span class="chip bg-brand-100 text-brand-800">{{ String(i + 1).padStart(2, '0') }} · {{ c.name.uz || 'Yangi bino' }}</span>
+            <div class="flex items-center gap-1">
+              <button type="button" class="btn-ghost size-9! p-0!" :disabled="i === 0" aria-label="Yuqoriga" title="Yuqoriga" @click="moveCampus(i, -1)"><span class="rotate-180"><Icon name="chevronDown" :size="16" /></span></button>
+              <button type="button" class="btn-ghost size-9! p-0!" :disabled="i === form.contact.campuses.length - 1" aria-label="Pastga" title="Pastga" @click="moveCampus(i, 1)"><Icon name="chevronDown" :size="16" /></button>
+              <button type="button" class="btn-ghost size-9! p-0! text-[#B42318]!" aria-label="Öçiriş" title="Öçiriş" @click="removeCampus(i)"><Icon name="trash" :size="16" /></button>
+            </div>
+          </div>
+          <div><label :for="`cp-name-${i}`" class="label">Nomi · {{ lang.toUpperCase() }}</label><input :id="`cp-name-${i}`" v-model="c.name[lang]" class="field" placeholder="Bosh bino"></div>
+          <div><label :for="`cp-addr-${i}`" class="label">Manzil · {{ lang.toUpperCase() }}</label><input :id="`cp-addr-${i}`" v-model="c.address[lang]" class="field" placeholder="Toshkent sh., …"></div>
+          <div class="grid gap-3.5 sm:grid-cols-2">
+            <div><label :for="`cp-phone-${i}`" class="label">Telefon</label><input :id="`cp-phone-${i}`" v-model="c.phone" class="field" placeholder="+998 71 230 13 73"></div>
+            <div><label :for="`cp-mail-${i}`" class="label">E-poçta</label><input :id="`cp-mail-${i}`" v-model="c.email" type="email" class="field" placeholder="uzdjtu@uzswlu.uz"></div>
+          </div>
+          <div>
+            <label :for="`cp-geo-${i}`" class="label">Xaritadagi joy</label>
+            <input :id="`cp-geo-${i}`" v-model="c.coords" class="field" placeholder="41.286038, 69.194908 yoki Google Maps havolasi">
+            <p class="mt-1 text-xs text-subtle">Google Maps’da binoni toping → koordinatani yoki «Ulaşiş» havolasini nusxalab qöying. Saqlanganda koordinataga aylanadi; böş qolsa — manzil böyiça topiladi.</p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <span class="label mb-0!">Saytdagi xarita</span>
+          <div class="overflow-hidden rounded-[14px] border border-[#E8E3D8] bg-[#FAF8F4]">
+            <iframe v-if="mapPreview(c)" :src="mapPreview(c)" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="block aspect-[4/3] w-full" :title="`${c.name.uz || 'Bino'} — xarita`" />
+            <div v-else class="grid aspect-[4/3] place-items-center px-4 text-center text-xs text-subtle">Manzil yoki xaritadagi joyni kiriting</div>
+          </div>
+        </div>
+      </article>
+      <p v-if="!form.contact.campuses.length" class="card p-6 text-center text-sm text-muted">Hali bino yöq — «Bino qöşiş» tugmasini bosing.</p>
     </section>
 
     <!-- Texnik yordam -->

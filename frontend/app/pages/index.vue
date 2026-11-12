@@ -10,6 +10,8 @@ const { data } = await useHomeData()
     <HomeFaculties class="mt-14 lg:mt-20" :faculties="data?.faculties ?? []" />
     <HomeNews :news="data?.news ?? []" :announcements="data?.announcements ?? []" />
     <HomeEvents :events="data?.events ?? []" />
+    <HomeContact />
+    <HomeBanner :banner="data?.banner ?? null" />
     <HomeStateSymbols />
     <HomePartners :partners="data?.partners ?? []" />
   </div>

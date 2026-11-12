@@ -315,7 +315,8 @@ class Command(BaseCommand):
 
         if not Campus.objects.exists():
             for i, c in enumerate(mock['contact']['campuses'], start=1):
-                Campus.objects.create(key=c['id'], name=i18n(c['name']), address=i18n(c['address']), phone=c.get('phone') or '', map_url=c.get('mapUrl') or '', order=i)
+                Campus.objects.create(key=c['id'], name=i18n(c['name']), address=i18n(c['address']), phone=c.get('phone') or '',
+                                      email=c.get('email') or '', coords=c.get('coords') or '', map_url=c.get('mapUrl') or '', order=i)
             for i, e in enumerate(mock['contact']['emails'], start=1):
                 ContactEmail.objects.create(title=i18n(e['title']), value=e['value'], extra=lang_lines(e['extra']), order=i)
             self.say('Aloqa ma’lumotlari yuklandi')

@@ -366,7 +366,7 @@ class VersionsView(PanelView):
 
 @extend_schema(tags=['Admin panel: globallar'])
 class GlobalView(PanelView):
-    @extend_schema(summary='Global sozlama (settings, video-page, symbols, sdg-page)', responses=OpenApiTypes.OBJECT)
+    @extend_schema(summary='Global sozlama (settings, video-page, symbols, sdg-page, home-banner)', responses=OpenApiTypes.OBJECT)
     def get(self, request, slug):
         g = GLOBALS.get(slug)
         if not g:

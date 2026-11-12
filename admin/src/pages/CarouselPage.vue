@@ -8,6 +8,7 @@ import { SITE_URL } from '@/lib/constants'
 import Icon from '@/components/Icon.vue'
 import ImageField from '@/components/ImageField.vue'
 import I18nFields from '@/components/I18nFields.vue'
+import HomeBannerCard from '@/components/HomeBannerCard.vue'
 
 // Bosh sahifa karuseli: shu slaydlar xodim sahifalari pastida ham chiqadi (bitta manba)
 type Slide = { id: number; name: string; image: MediaDoc | number | null; alt?: I18n; link?: string | null; startsAt?: string | null; endsAt?: string | null; order?: number | null }
@@ -208,5 +209,8 @@ const LINKS = ['/qabul-20262027', '/yangiliklar', '/fakultetlar-va-kafedralar', 
         </div>
       </form>
     </div>
+
+    <!-- Bayram banneri (bitta rasm, ko'z belgisi bilan yashiriladi) -->
+    <HomeBannerCard />
   </div>
 </template>

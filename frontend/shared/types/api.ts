@@ -41,6 +41,8 @@ export interface NewsItem {
   /** ISO sana: 2026-10-20 */
   date: string
   image?: string | null
+  /** BRM (barqaror rivojlanish) maqsadi raqami 1–17 — kartada rangli belgi; kirmasa null */
+  sdg?: number | null
 }
 
 export interface Announcement {
@@ -48,6 +50,9 @@ export interface Announcement {
   slug: string
   title: string
   date: string
+  /** E'lon surati (odatda tik afisha) */
+  image?: string | null
+  sdg?: number | null
 }
 
 export interface EventItem {
@@ -84,8 +89,18 @@ export interface HomeData {
   events: EventItem[]
   languages: TaughtLanguage[]
   partners: Partner[]
+  /** Bayram banneri — admin panelda bitta rasm; yashirilgan yoki rasmi yo'q bo'lsa null */
+  banner?: HomeBanner | null
   /** HEMIS ma'lumotlari oxirgi marta yangilangan vaqt (ISO) */
   updatedAt: string
+}
+
+export interface HomeBanner {
+  image: string
+  /** Rasm tavsifi (bo'sh bo'lishi mumkin) */
+  alt: string
+  /** Bosilganda ochiladi: /ichki-sahifa yoki https://… */
+  link?: string | null
 }
 
 export interface Campus {
@@ -613,7 +628,9 @@ export interface VideoList {
 export interface ContactPage {
   hotline: { phone: string; ext?: string | null }
   emails: { title: string; value: string; extra: string[] }[]
-  campuses: (Campus & { phone: string; mapUrl: string })[]
+  /** Binolar (bosh sahifadagi «Biz bilan bog'lanish» kartalari ham) — admin panel: Sozlamalar → Binolar va xarita.
+   * mapEmbed — sahifadagi kichik xarita (iframe), mapUrl — «Xaritada ochish» */
+  campuses: (Campus & { phone: string; email?: string | null; mapUrl: string; mapEmbed?: string | null })[]
   leaders: { name: string; role: string; ext: string; phone: string }[]
   reception: string
   /** Virtual qabulxona: "Kimga" ro'yxati */

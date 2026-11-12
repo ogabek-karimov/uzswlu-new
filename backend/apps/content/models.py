@@ -309,6 +309,23 @@ class VideoPage(SingletonModel):
         return 'Video sahifasi'
 
 
+class HomeBanner(SingletonModel):
+    """Bosh sahifadagi bayram banneri («Biz bilan bog'lanish» va «Davlat ramzlari» orasida): faqat bitta rasm,
+    admin panelda ko'z belgisi bilan yashiriladi (masalan, Mustaqillik bayramida qo'yiladi)."""
+
+    image = models.ForeignKey('core.Media', null=True, blank=True, on_delete=models.PROTECT, related_name='+', verbose_name='Rasm')
+    visible = models.BooleanField('Saytda ko‘rinadi', default=True)
+    alt = I18nField('Rasm tavsifi (ko‘rish imkoniyati cheklanganlar uchun)')
+    link = models.CharField('Havola (ixtiyoriy)', max_length=500, blank=True)
+
+    class Meta:
+        verbose_name = 'Bayram banneri'
+        verbose_name_plural = 'Bayram banneri'
+
+    def __str__(self):
+        return 'Bayram banneri'
+
+
 class StateSymbol(models.Model):
     """Davlat ramzlari: bayroq, gerb va madhiya (bosh sahifadagi blok)."""
 

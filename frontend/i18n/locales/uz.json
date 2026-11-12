@@ -191,7 +191,8 @@
     "all": "Barça yangiliklar",
     "announcements": "E’lonlar",
     "allAnnouncements": "Barça e’lonlar",
-    "readMore": "Batafsil"
+    "readMore": "Batafsil",
+    "sdg": "BRM {n}-maqsad"
   },
   "events": {
     "eyebrow": "Taqvim",
@@ -862,5 +863,15 @@
     "scroll": "Aylantirib öqing",
     "viewer": "PDF körinişi: {title}",
     "files": "Fayllar"
+  },
+  "homeContact": {
+    "eyebrow": "Aloqa",
+    "title": "Biz bilan boğlaniş",
+    "phone": "Telefon",
+    "email": "E-poçta",
+    "address": "Manzil",
+    "openMap": "Xaritada oçiş",
+    "map": "xarita",
+    "all": "Barça aloqa ma’lumotlari"
   }
 }

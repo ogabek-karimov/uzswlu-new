@@ -191,7 +191,8 @@
     "all": "全部新闻",
     "announcements": "通知公告",
     "allAnnouncements": "全部公告",
-    "readMore": "阅读全文"
+    "readMore": "阅读全文",
+    "sdg": "可持续发展目标 {n}"
   },
   "events": {
     "eyebrow": "日历",
@@ -862,5 +863,15 @@
     "scroll": "滚动阅读",
     "viewer": "PDF 查看：{title}",
     "files": "附件"
+  },
+  "homeContact": {
+    "eyebrow": "联系",
+    "title": "联系我们",
+    "phone": "电话",
+    "email": "电子邮件",
+    "address": "地址",
+    "openMap": "在地图中打开",
+    "map": "地图",
+    "all": "全部联系方式"
   }
 }

@@ -1,11 +1,58 @@
 """Vue admin panel global sozlamalari (bitta yozuvli): sayt sozlamalari, video sahifasi, ramzlar, BRM sahifasi."""
 from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
+from django.utils.text import slugify
 
-from apps.content.models import StateSymbol, VideoPage
+from apps.content.models import HomeBanner, StateSymbol, VideoPage
 from apps.core.models import SiteSettings
 from apps.pages.models import SdgPage
+from apps.structure.maps import parse_coords
+from apps.structure.models import Campus
 
 from .collections import ALL, PAGES, SDG, SUPER, dt, flag, i18n_in, i18n_out, media_out, media_ref, num, parse_dt, text
+
+
+def campus_out(c: Campus) -> dict:
+    return {
+        'key': c.key, 'name': i18n_out(c.name), 'address': i18n_out(c.address), 'phone': c.phone or None,
+        'email': c.email or None, 'coords': c.coords or None, 'mapUrl': c.map_url or None,
+    }
+
+
+def save_campuses(items) -> None:
+    """Binolar ro'yxati (bosh sahifadagi «Biz bilan bog'lanish» va Aloqa sahifasi): tartib — ro'yxatdagi o'rni,
+    ro'yxatda yo'q bino o'chiriladi. Kalit saqlanadi (yangi binoga nomidan yasaladi)."""
+    if not isinstance(items, list):
+        raise ValidationError('Binolar ro‘yxati noto‘g‘ri')
+    keep: list[str] = []
+    for i, item in enumerate(items, start=1):
+        if not isinstance(item, dict):
+            continue
+        name, address = i18n_in(item.get('name')), i18n_in(item.get('address'))
+        if not name.get('uz') or not address.get('uz'):
+            raise ValidationError(f'{i}-bino: nomi va manzili (o‘zbekcha) majburiy')
+        base = (slugify(text(item.get('key'))) or slugify(name['uz']) or f'bino-{i}')[:30]
+        key, n = base, 2
+        while key in keep:
+            key, n = f'{base[:27]}-{n}', n + 1
+        email, map_url = text(item.get('email')), text(item.get('mapUrl'))
+        if email:
+            try:
+                validate_email(email)
+            except ValidationError as exc:
+                raise ValidationError(f'{i}-bino: e-pochta manzili noto‘g‘ri') from exc
+        try:
+            coords = parse_coords(item.get('coords'))
+        except ValidationError as exc:
+            raise ValidationError(f'{i}-bino: {exc.messages[0]}') from exc
+        if map_url and not map_url.startswith(('https://', 'http://')):
+            raise ValidationError(f'{i}-bino: xarita havolasi https:// bilan boshlanishi kerak')
+        Campus.objects.update_or_create(key=key, defaults={
+            'name': name, 'address': address, 'phone': text(item.get('phone'))[:40], 'email': email,
+            'coords': coords, 'map_url': map_url[:600], 'order': i,
+        })
+        keep.append(key)
+    Campus.objects.exclude(key__in=keep).delete()
 
 
 class Global:
@@ -50,6 +97,7 @@ class Settings(Global):
             'contact': {
                 'phone': s.phone or None, 'email': s.email or None, 'address': i18n_out(s.address), 'telegram': s.telegram or None,
                 'instagram': s.instagram or None, 'facebook': s.facebook or None, 'youtube': s.youtube or None,
+                'campuses': [campus_out(c) for c in Campus.objects.all()],
             },
             'support': {
                 'telegram': s.support_telegram or None, 'text': i18n_out(s.support_text), 'showInAdmin': s.support_show_in_admin,
@@ -73,6 +121,8 @@ class Settings(Global):
                     setattr(s, key, text(contact[key]))
             if 'address' in contact:
                 s.address = i18n_in(contact['address'])
+            if 'campuses' in contact:
+                save_campuses(contact['campuses'])
         support = data.get('support')
         if isinstance(support, dict):
             if 'telegram' in support:
@@ -190,7 +240,40 @@ class SdgPageGlobal(Global):
             p.impact_year = num(data['impactYear'])
 
 
-GLOBALS: dict[str, Global] = {g.slug: g for g in (Settings(), VideoPageGlobal(), SymbolsGlobal(), SdgPageGlobal())}
+class HomeBannerGlobal(Global):
+    """Bosh sahifadagi bayram banneri: bitta rasm (yangisi eskisining o'rniga), ko'z belgisi — yashirish."""
+
+    slug = 'home-banner'
+    entity = 'home-banner'
+    label = 'Bayram banneri'
+    tags = ('home',)
+    versions = 30
+
+    def load(self):
+        return HomeBanner.load()
+
+    def out(self, b, depth):
+        return {
+            'id': 1, 'globalType': 'home-banner',
+            'image': media_out(b.image, depth) if b.image_id else None, 'visible': b.visible,
+            'alt': i18n_out(b.alt), 'link': b.link or None,
+        }
+
+    def write(self, b, data, request):
+        if 'image' in data:
+            b.image = media_ref(data['image'])
+        if 'visible' in data:
+            b.visible = flag(data['visible'])
+        if 'alt' in data:
+            b.alt = i18n_in(data['alt'])
+        if 'link' in data:
+            link = text(data['link'])
+            if link and not link.startswith(('/', 'https://', 'http://')):
+                raise ValidationError('Havola / (sayt ichidagi sahifa) yoki https:// bilan boshlanishi kerak')
+            b.link = link[:500]
+
+
+GLOBALS: dict[str, Global] = {g.slug: g for g in (Settings(), VideoPageGlobal(), SymbolsGlobal(), SdgPageGlobal(), HomeBannerGlobal())}
 
 
 def save_global(g: Global, obj):

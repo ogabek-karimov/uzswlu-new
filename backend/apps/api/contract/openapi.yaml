@@ -422,6 +422,16 @@ components:
         partners:
           type: array
           items: { $ref: '#/components/schemas/Partner' }
+        banner:
+          description: Bayram banneri («Biz bilan bog'lanish» va «Davlat ramzlari» orasida) — admin panelda bitta rasm; yashirilgan yoki rasmi yo'q bo'lsa null
+          oneOf:
+            - type: 'null'
+            - type: object
+              required: [image, alt]
+              properties:
+                image: { type: string, format: uri }
+                alt: { type: string, description: Rasm tavsifi (bo'sh bo'lishi mumkin) }
+                link: { type: [string, 'null'], description: Bosilganda ochiladigan sahifa (/... yoki https://...) }
         updatedAt:
           type: string
           format: date-time
@@ -491,6 +501,12 @@ components:
           type: [string, 'null']
           format: uri
           description: Muqova rasmi (bo'lmasa, frontend bezak muqova chizadi)
+        sdg:
+          type: [integer, 'null']
+          minimum: 1
+          maximum: 17
+          description: BRM (barqaror rivojlanish) maqsadi raqami — kartada rangli belgi; kirmasa null
+          example: 4
 
     Announcement:
       type: object
@@ -500,6 +516,16 @@ components:
         slug: { type: string, example: phd-himoya-pedagogika }
         title: { type: string, example: Pedagogika fanlari bo‘yicha falsafa doktori (PhD) dissertatsiyasi himoyasi }
         date: { type: string, format: date, example: '2026-10-20' }
+        image:
+          type: [string, 'null']
+          format: uri
+          description: E'lon surati (odatda tik afisha); bo'lmasa, frontend bezak muqova chizadi
+        sdg:
+          type: [integer, 'null']
+          minimum: 1
+          maximum: 17
+          description: BRM maqsadi raqami; kirmasa null
+          example: 4
 
     EventItem:
       type: object
@@ -1298,7 +1324,14 @@ components:
           items:
             type: object
             required: [id, name, address, phone, mapUrl]
-            properties: { id: { type: string }, name: { type: string }, address: { type: string }, phone: { type: string }, mapUrl: { type: string, format: uri } }
+            properties:
+              id: { type: string }
+              name: { type: string }
+              address: { type: string }
+              phone: { type: string }
+              email: { type: [string, 'null'], description: Bino e-pochtasi (bo'lmasa — saytning umumiy e-pochtasi) }
+              mapUrl: { type: string, format: uri, description: «Xaritada ochish» havolasi }
+              mapEmbed: { type: string, format: uri, description: Sahifadagi kichik xarita (iframe) — admin panelda kiritilgan koordinata bo'yicha, bo'lmasa manzil bo'yicha }
         leaders:
           type: array
           items: { type: object, required: [name, role, ext, phone], properties: { name: { type: string }, role: { type: string }, ext: { type: string }, phone: { type: string } } }

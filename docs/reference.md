@@ -27,6 +27,7 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 | `users` | RCUD | RU | RU | RU | RU |
 | `video-categories` | RCUD | R | R | RCU | R |
 | `videos` | RCUD | R | R | RCUD | R |
+| `home-banner` (global) | RU | R | R | R | R |
 | `sdg-page` (global) | RU | R | R | R | RU |
 | `settings` (global) | RU | R | R | R | R |
 | `symbols` (global) | RU | R | R | R | R |
@@ -453,6 +454,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/panel/urls.py` | Vue admin panel API'si: /api/cms/* (Payload REST bilan bir xil manzillar va javoblar). |
 | `backend/apps/panel/usage.py` | Media fayli qayerda ishlatilgan: "Qayerda ishlatilgan" ro'yxati va ishlatilayotgan faylni o'chirishdan himoya. |
 | `backend/apps/panel/views.py` | Vue admin panel API'si (/api/cms/*): kolleksiyalar, globallar, versiyalar — Payload REST bilan bir xil shakl. |
+| `backend/apps/structure/maps.py` | Bino xaritasi: koordinatani matndan yoki Google Maps havolasidan ajratish va xarita manzillarini qurish. |
 | `backend/apps/structure/models.py` | — |
 | `backend/config/settings.py` | ÖzDJTU sayti — backend (Django + DRF) sozlamalari. Hamma narsa .env orqali boshqariladi. |
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
@@ -506,6 +508,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `content` | `VideoCategory` | Video toifasi | `apps/content/models.py` |
 | `content` | `Video` | Video | `apps/content/models.py` |
 | `content` | `VideoPage` | Video sahifasi | `apps/content/models.py` |
+| `content` | `HomeBanner` | Bayram banneri | `apps/content/models.py` |
 | `content` | `StateSymbol` | Davlat ramzi | `apps/content/models.py` |
 | `content` | `Partner` | Hamkor | `apps/content/models.py` |
 | `content` | `TaughtLanguage` | O‘qitiladigan til | `apps/content/models.py` |
