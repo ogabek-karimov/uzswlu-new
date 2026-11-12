@@ -23,6 +23,8 @@ const to = computed(() => (props.banner?.link && !external.value ? localePath(pr
       <img
         :src="banner.image"
         :alt="banner.alt"
+        :width="banner.width ?? undefined"
+        :height="banner.height ?? undefined"
         loading="lazy"
         decoding="async"
         class="block h-auto w-full transition-transform duration-700 ease-out motion-reduce:transition-none"

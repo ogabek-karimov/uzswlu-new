@@ -116,7 +116,9 @@ def banner_out(lang: str) -> dict | None:
     b = HomeBanner.load()
     if not b.visible or not b.image_id:
         return None
-    return {'image': img(b.image, 'hero'), 'alt': tr(b.alt, lang), 'link': b.link or None}
+    # width/height — brauzer rasm yuklanguncha joyini oldindan ajratadi (sahifa sakramaydi)
+    return {'image': img(b.image, 'hero'), 'width': b.image.width or None, 'height': b.image.height or None,
+            'alt': tr(b.alt, lang), 'link': b.link or None}
 
 
 def menu_out(lang: str) -> list[dict]:

@@ -35,7 +35,7 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
               <span class="relative grid size-12 place-items-center rounded-2xl bg-brand-800 text-[22px] text-accent-400 transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-6 motion-reduce:transition-none">
                 <Icon name="lucide:building-2" />
               </span>
-              <h3 class="relative mt-4 font-display text-[1.375rem] leading-tight font-semibold text-ink">{{ c.name }}</h3>
+              <h3 class="relative mt-4 line-clamp-2 min-h-[2lh] font-display text-[1.375rem] leading-tight font-semibold text-ink">{{ c.name }}</h3>
             </div>
 
             <!-- Aloqa qatorlari: har biri bosiladi -->
@@ -55,7 +55,7 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
               <li>
                 <a :href="c.mapUrl" target="_blank" rel="noopener" class="flex items-start gap-3 rounded-2xl px-3 py-2 transition-colors hover:bg-brand-50">
                   <span class="grid size-8 shrink-0 place-items-center rounded-xl bg-[#FFF1D6] text-base text-[#9A5B00]"><Icon name="lucide:map-pin" /></span>
-                  <span class="min-w-0"><span class="block text-[11px] font-semibold tracking-wider text-muted uppercase">{{ t('homeContact.address') }}</span><span class="font-medium text-ink">{{ c.address }}</span></span>
+                  <span class="min-w-0"><span class="block text-[11px] font-semibold tracking-wider text-muted uppercase">{{ t('homeContact.address') }}</span><span class="line-clamp-3 min-h-[3lh] font-medium text-ink">{{ c.address }}</span></span>
                 </a>
               </li>
             </ul>

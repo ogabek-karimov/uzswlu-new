@@ -97,6 +97,9 @@ export interface HomeData {
 
 export interface HomeBanner {
   image: string
+  /** Asl rasm o'lchami — rasm yuklanguncha joyi oldindan ajratiladi */
+  width?: number | null
+  height?: number | null
   /** Rasm tavsifi (bo'sh bo'lishi mumkin) */
   alt: string
   /** Bosilganda ochiladi: /ichki-sahifa yoki https://… */

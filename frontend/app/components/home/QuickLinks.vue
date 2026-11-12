@@ -28,11 +28,11 @@ const links = [
               <Icon :name="link.icon" class="size-5" />
             </span>
             <span>
-              <span class="flex items-center gap-1 text-[15px] font-semibold text-ink">
+              <span class="flex min-h-[2lh] items-start gap-1 text-[15px] font-semibold text-ink">
                 {{ t(`quick.items.${link.key}.title`) }}
                 <Icon v-if="link.href" name="lucide:arrow-up-right" class="size-3.5 text-muted" />
               </span>
-              <span class="mt-0.5 block text-[13px] leading-snug text-muted">{{ t(`quick.items.${link.key}.text`) }}</span>
+              <span class="mt-0.5 line-clamp-3 min-h-[3lh] text-[13px] leading-snug text-muted">{{ t(`quick.items.${link.key}.text`) }}</span>
             </span>
           </component>
         </li>

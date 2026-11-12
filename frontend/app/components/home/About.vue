@@ -33,12 +33,12 @@ const facts = computed(() => [
         class="flex flex-col-reverse gap-2 lg:px-8 lg:first:pl-2"
         :class="i > 0 && 'lg:border-l lg:border-white/10'"
       >
-        <dt class="text-[15px] text-white/70">{{ t(`about.facts.${fact.key}`) }}</dt>
+        <dt class="text-[15px] text-white/70 lg:min-h-[2lh]">{{ t(`about.facts.${fact.key}`) }}</dt>
         <dd class="font-display text-[2.6rem] leading-none text-accent-400 sm:text-5xl">{{ fact.number }}{{ fact.suffix }}</dd>
       </div>
     </dl>
 
-    <div class="mt-8 grid gap-6 lg:grid-cols-12">
+    <div class="mt-8 grid gap-6 lg:auto-rows-[minmax(25rem,auto)] lg:grid-cols-12">
       <!-- Universitet haqida -->
       <article class="flex flex-col rounded-[28px] border border-line bg-white p-8 sm:p-9 lg:col-span-5">
         <p class="text-[13px] font-semibold tracking-[0.12em] text-brand-600 uppercase">{{ t('about.eyebrow') }}</p>

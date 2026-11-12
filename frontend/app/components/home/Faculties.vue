@@ -33,7 +33,7 @@ const localePath = useLocalePath()
         <li v-for="(faculty, i) in faculties" :key="faculty.id">
           <NuxtLink
             :to="localePath(`/faculty/${faculty.slug}`)"
-            class="group flex h-full min-h-56 flex-col rounded-2xl border border-white/18 bg-white/9 p-6 text-white backdrop-blur-md backdrop-saturate-150 transition duration-300 hover:-translate-y-1 hover:border-accent-400/60 hover:bg-white/16"
+            class="group flex h-full min-h-72 flex-col rounded-2xl border border-white/18 bg-white/9 p-6 text-white backdrop-blur-md backdrop-saturate-150 transition duration-300 hover:-translate-y-1 hover:border-accent-400/60 hover:bg-white/16"
           >
             <span class="flex items-start justify-between">
               <!-- Hover'da logo tanga kabi bir marta aylanadi: orqa tomonida universitet logosi -->
@@ -55,7 +55,7 @@ const localePath = useLocalePath()
               <span class="block text-xs font-semibold text-accent-400 tabular-nums">
                 {{ String(i + 1).padStart(2, '0') }}
               </span>
-              <span class="mt-1 block text-lg leading-snug font-semibold">
+              <span class="mt-1 line-clamp-4 text-lg leading-snug font-semibold">
                 {{ faculty.name }}
               </span>
             </span>
@@ -64,7 +64,7 @@ const localePath = useLocalePath()
         <li>
           <NuxtLink
             :to="localePath('/fakultetlar-va-kafedralar')"
-            class="group flex h-full min-h-56 flex-col justify-between rounded-2xl bg-accent-400 p-6 text-ink transition-colors hover:bg-accent-300"
+            class="group flex h-full min-h-72 flex-col justify-between rounded-2xl bg-accent-400 p-6 text-ink transition-colors hover:bg-accent-300"
           >
             <Icon name="lucide:building-2" class="size-7" />
             <span class="flex items-center justify-between gap-3 text-lg font-semibold">

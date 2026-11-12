@@ -39,7 +39,7 @@ const announcements = computed(() => props.announcements.slice(0, 4))
               <Icon name="lucide:calendar" class="size-3.5" />
               {{ formatDate(item.date) }}
             </time>
-            <h3 class="mt-2 line-clamp-3 text-[17px] leading-snug font-semibold text-ink transition-colors group-hover:text-brand-700">
+            <h3 class="mt-2 line-clamp-3 min-h-[3lh] text-[17px] leading-snug font-semibold text-ink transition-colors group-hover:text-brand-700">
               <NuxtLink :to="localePath(`/news/${item.slug}`)">
                 <span class="absolute inset-0" aria-hidden="true" />
                 {{ item.title }}
@@ -93,7 +93,7 @@ const announcements = computed(() => props.announcements.slice(0, 4))
               >{{ item.sdg }}</span>
             </div>
             <div class="flex flex-1 flex-col p-4 sm:p-5">
-              <h3 class="line-clamp-3 text-[15px] leading-snug font-semibold text-ink transition-colors group-hover:text-brand-700 sm:text-base">
+              <h3 class="line-clamp-3 min-h-[3lh] text-[15px] leading-snug font-semibold text-ink transition-colors group-hover:text-brand-700 sm:text-base">
                 <NuxtLink :to="localePath(`/announcements/${item.slug}`)">
                   <span class="absolute inset-0" aria-hidden="true" />
                   {{ item.title }}

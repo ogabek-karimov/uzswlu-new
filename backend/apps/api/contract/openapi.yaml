@@ -430,6 +430,8 @@ components:
               required: [image, alt]
               properties:
                 image: { type: string, format: uri }
+                width: { type: [integer, 'null'], description: Asl rasm kengligi (px) — joy oldindan ajratiladi }
+                height: { type: [integer, 'null'], description: Asl rasm balandligi (px) }
                 alt: { type: string, description: Rasm tavsifi (bo'sh bo'lishi mumkin) }
                 link: { type: [string, 'null'], description: Bosilganda ochiladigan sahifa (/... yoki https://...) }
         updatedAt:

@@ -18,7 +18,7 @@ defineProps<{
       <h2 class="mt-4 font-display text-4xl leading-tight font-semibold tracking-tight sm:text-5xl" :class="dark ? 'text-white' : 'text-ink'">
         {{ title }}
       </h2>
-      <p v-if="text" class="mt-4 text-lg leading-relaxed" :class="dark ? 'text-white/65' : 'text-muted'">{{ text }}</p>
+      <p v-if="text" class="mt-4 text-lg leading-relaxed md:min-h-[2lh]" :class="dark ? 'text-white/65' : 'text-muted'">{{ text }}</p>
     </div>
     <NuxtLink
       v-if="link"
