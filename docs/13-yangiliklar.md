@@ -4,6 +4,8 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-12
 
+- **Sayt (bosh sahifa):** «O‘qitiladigan tillar» haqiqiy karusel: o‘zi har ~3 soniyada bir karta suriladi, oxiriga yetganda boshiga qaytadi; strelkalar ham aylanadi (boshida «oldingi» — oxiriga); kursor/fokus ustida, yashirin tabda yoki «harakatni kamaytir» yoqilganda to‘xtaydi. — `COMMIT`
+
 - **Sayt (bosh sahifa, tuzatishlar):** slayder yuqoriroq, qabul paneli uni qoplamaydi (strelkalar/nuqtalar ko‘rinadi); «O‘qitiladigan tillar» — kursor kelganda ko‘tariladigan/buriladigan kartalar, har bir til ostida shu tilda o‘qitiladigan yo‘nalishlar va fakultetlar soni; «Qabul» bloki maketdagidek: 4 qadam gorizontal chiziqda + mint harakat kartasi. API: `GET /home` → `languages[]` ga `programs` va `faculties` (Program.language bo‘yicha hisoblanadi; admin ish qilmaydi). Talabalar soni til bo‘yicha hozircha yo‘q (HEMIS’da til kesimi bog‘lanmagan). — `fd2ce11`
 
 - **Sayt (bosh sahifa, to‘liq qayta dizayn):** slayder tagida qisman ustiga chiqib turuvchi «Qabul» paneli va so‘nggi yangiliklar (eski hero-qidiruv va salomlashuv kartasi olib tashlandi; qidiruv sarlavhada qoladi); «Yaqin tadbir» yo‘lagi; 11 tildagi salomlashuv tasmasi; xizmatlar tasmasi (`QuickLinks`) «Universitet haqida» tagida, bir xil kenglikda, yumaloq konteynerda; tillar — rangli siljiydigan karusel (strelkalar bilan; yangi `languages.prev/next` kalitlari 4 tilda); tadbirlar — och fonli band; hamkorlar — to‘q indigo konteynerda. Ichki sahifalar va sarlavha o‘zgarmadi. — `d7e602d`

@@ -16,14 +16,46 @@ const tones = [
 ]
 
 const scroller = ref<HTMLElement>()
-function scrollBy(dir: 1 | -1) {
+const paused = ref(false)
+
+/** Bitta karta kengligi (+ oraliq) — har bosishda shuncha suriladi */
+function step() {
   const el = scroller.value
-  if (el) el.scrollBy({ left: dir * (el.clientWidth * 0.8), behavior: 'smooth' })
+  const first = el?.firstElementChild as HTMLElement | undefined
+  return first ? first.offsetWidth + 16 : 0
 }
+
+// Uzluksiz karusel: oxiriga yetganda boshiga, boshida "oldingi" bosilsa oxiriga qaytadi
+function go(dir: 1 | -1) {
+  const el = scroller.value
+  if (!el) return
+  const max = el.scrollWidth - el.clientWidth
+  if (dir === 1 && el.scrollLeft >= max - 4) el.scrollTo({ left: 0, behavior: 'smooth' })
+  else if (dir === -1 && el.scrollLeft <= 4) el.scrollTo({ left: max, behavior: 'smooth' })
+  else el.scrollBy({ left: dir * step(), behavior: 'smooth' })
+}
+
+// O'zi aylanadi; kursor/fokus ustida, yashirin tabda yoki "harakatni kamaytir" yoqilgan bo'lsa to'xtaydi
+let timer: ReturnType<typeof setInterval> | undefined
+onMounted(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  timer = setInterval(() => {
+    if (!paused.value && !document.hidden) go(1)
+  }, 3200)
+})
+onBeforeUnmount(() => clearInterval(timer))
 </script>
 
 <template>
-  <section class="overflow-hidden py-12 lg:py-16">
+  <section
+    class="overflow-hidden py-12 lg:py-16"
+    :aria-label="t('languages.title')"
+    aria-roledescription="carousel"
+    @mouseenter="paused = true"
+    @mouseleave="paused = false"
+    @focusin="paused = true"
+    @focusout="paused = false"
+  >
     <div class="mx-auto flex max-w-7xl flex-wrap items-end justify-between gap-4 px-4 sm:px-6 lg:px-8">
       <div class="max-w-2xl">
         <p class="text-xs font-semibold tracking-[0.2em] text-accent-600 uppercase">{{ t('languages.eyebrow') }}</p>
@@ -31,10 +63,10 @@ function scrollBy(dir: 1 | -1) {
         <p class="mt-3 text-lg text-muted">{{ t('languages.text') }}</p>
       </div>
       <div class="flex gap-2">
-        <button type="button" class="grid size-11 cursor-pointer place-items-center rounded-full border border-ink/15 text-ink transition-colors hover:bg-ink hover:text-white" :aria-label="t('languages.prev')" @click="scrollBy(-1)">
+        <button type="button" class="grid size-11 cursor-pointer place-items-center rounded-full border border-ink/15 text-ink transition-colors hover:bg-ink hover:text-white" :aria-label="t('languages.prev')" @click="go(-1)">
           <Icon name="lucide:arrow-left" class="size-5" />
         </button>
-        <button type="button" class="grid size-11 cursor-pointer place-items-center rounded-full bg-brand-700 text-white transition-colors hover:bg-brand-800" :aria-label="t('languages.next')" @click="scrollBy(1)">
+        <button type="button" class="grid size-11 cursor-pointer place-items-center rounded-full bg-brand-700 text-white transition-colors hover:bg-brand-800" :aria-label="t('languages.next')" @click="go(1)">
           <Icon name="lucide:arrow-right" class="size-5" />
         </button>
       </div>
