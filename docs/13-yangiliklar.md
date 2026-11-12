@@ -4,6 +4,8 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-12
 
+- **Backend (menyu tozalash):** «Toshkent haqida» va «Kontingent» sahifalari endi mavjud bazalardan ham o‘zi o‘chadi — `pages/0002_remove_toshkent_kontingent` migratsiyasi (backend qayta ishga tushganda bajariladi; qo‘lda buyruq kerak emas; ostida bolasi bor sahifa saqlanadi). Sabab: seed faqat bo‘sh bazaga yuklanadi, shuning uchun eski bazada sahifalar menyuda qolib ketgan edi. — `COMMIT`
+
 - **Sayt (Faoliyat → «Universitet bitiruvchilari haqida»):** endi PDF emas, saytdagi matnli sahifa — `/universitet-bitiruvchilari-haqida`: kirish matni 4 tilda va PDF’dagi infografika rasmi (`public/images/pages/bitiruvchilar.webp`, 2400 px, PDF’dan chizilgan). Matnli sahifa, yangilik va BRM sahifalaridagi har qanday rasm (havola ichida bo‘lmasa) bosilsa to‘liq ekranda kattalashadi (`ProseHtml` + `ImageViewer`). `pages-seed.json` va `mock-menu.ts` yangilandi; mavjud bazada — admin panel → Sahifalar: shablon «Matnli sahifa», manzil `universitet-bitiruvchilari-haqida`. — `d86a741`
 
 - **Sayt (menyu):** «Abiturientlar» bo‘limidan «Toshkent haqida» va «Kontingent» sahifalari butunlay olib tashlandi (`pages-seed.json`, `mock-menu.ts`; mavjud bazada — admin panel → Sahifalar orqali o‘chiriladi). Endi `/toshkent-haqida` va `/kontingent` — 404. — `84688f2`
