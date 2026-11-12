@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-12
 
-- **Sayt (bosh sahifa dizayni):** «Universitet haqida» ixcham qilindi — katta 2×2 raqamlar o‘rniga matn va bitta statistika tasmasi; bosh sahifadagi bo‘limlar orasidagi bo‘shliq qisqartirildi (hero, fakultetlar, yangiliklar, tadbirlar, qabul, ramzlar, hamkorlar); tillar tasmasi kichraytirildi. Ichki sahifalar, sarlavha (header) va ma’lumotlar o‘zgarmadi. Maket: Figma uslubidagi Design artifact. — `COMMIT`
+- **Sayt (bosh sahifa dizayni):** «Universitet haqida» ixcham qilindi — katta 2×2 raqamlar o‘rniga matn va bitta statistika tasmasi; bosh sahifadagi bo‘limlar orasidagi bo‘shliq qisqartirildi (hero, fakultetlar, yangiliklar, tadbirlar, qabul, ramzlar, hamkorlar); tillar tasmasi kichraytirildi. Ichki sahifalar, sarlavha (header) va ma’lumotlar o‘zgarmadi. Maket: Figma uslubidagi Design artifact. — `23536d1`
 
 - **Sayt (UI):** qidiruv ikonkasi (yuqori qator, bosh sahifa, qidiruv va 404 sahifalari) endi haqiqiy tugma — bosilsa qidiradi, kursor «qo‘l»; butun saytga `button`/`summary`/`select`/`label` uchun umumiy `cursor: pointer` qoidasi (Tailwind 4 tugmalarga oddiy kursor berardi). Admin: katak/radio o‘rab turgan `label` ham «qo‘l». Test: `test:pages`.
 
