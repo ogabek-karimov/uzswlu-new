@@ -68,7 +68,7 @@ const menu: Group[] = [
       { t: { uz: 'Korrupsiyaga qarshi kurashish', ru: 'Противодействие коррупции', en: 'Anti-Corruption', zh: '反腐败' }, url: '/korrupsiyaga-qarshi-kurashish' },
       { t: { uz: 'Yashil universitet', ru: 'Зелёный университет', en: 'Green University', zh: '绿色大学' }, url: '/yashil-universitet' },
       { t: { uz: 'Madaniy-ma’rifiy faoliyat', ru: 'Культурно-просветительская деятельность', en: 'Cultural Activities', zh: '文化教育活动' }, url: '/madaniy-marifiy-faoliyat' },
-      { t: { uz: 'Universitet bitiruvchilari haqida', ru: 'О выпускниках университета', en: 'About Our Graduates', zh: '毕业生情况' }, url: `${OLD}/backend/web/uploads/pagepdf/icon/17411731596747.pdf`, file: 'pdf' },
+      { t: { uz: 'Universitet bitiruvchilari haqida', ru: 'О выпускниках университета', en: 'About Our Graduates', zh: '毕业生情况' }, url: '/universitet-bitiruvchilari-haqida' },
       { t: { uz: 'Xalqaro aloqalar', ru: 'Международные связи', en: 'International Relations', zh: '国际交流' }, url: '/xalqaro-aloqalar' },
       { t: { uz: 'Moliyaviy faoliyat', ru: 'Финансовая деятельность', en: 'Financial Activities', zh: '财务工作' }, url: '/moliyaviy-faoliyat' },
       { t: { uz: 'Ilmiy faoliyat', ru: 'Научная деятельность', en: 'Research', zh: '科学研究' }, url: '/ilmiy-faoliyat' },

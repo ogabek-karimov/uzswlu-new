@@ -248,6 +248,8 @@ html[data-scheme] [data-speaking] {
 
 .prose-page figure { margin-block: 2.25rem 0; }
 .prose-page img { width: 100%; border-radius: 1.75rem; aspect-ratio: 16 / 9; object-fit: cover; }
+/* Havola ichida bo'lmagan rasm bosilsa to'liq ekranda kattalashadi (ProseHtml) */
+.prose-page :not(a) > img { cursor: zoom-in; }
 .prose-page figcaption { margin-top: 0.625rem; font-size: 0.8125rem; color: var(--color-muted); }
 
 .prose-page h4 { font-size: 1.125rem; font-weight: 600; color: var(--color-ink); margin-top: 1.5rem; }

@@ -377,8 +377,7 @@
       "en": "About Our Graduates",
       "zh": "毕业生情况"
      },
-     "url": "https://uzswlu.uz/backend/web/uploads/pagepdf/icon/17411731596747.pdf",
-     "file": "pdf"
+     "url": "/universitet-bitiruvchilari-haqida"
     },
     {
      "t": {
@@ -879,6 +878,20 @@
     }
    ],
    "updatedAt": "2026-10-21T09:00:00+05:00"
+  },
+  "universitet-bitiruvchilari-haqida": {
+   "lead": {
+    "uz": "Universitetimiz bitiruvçilari orasida davlat arboblari, diplomatlar, oliy ta’lim muassasalari rahbarlari, olimlar va sport şarhlovçilari bor.",
+    "ru": "Среди выпускников университета — государственные деятели, дипломаты, руководители вузов, учёные и спортивные комментаторы.",
+    "en": "Our graduates include statesmen, diplomats, university leaders, scholars and sports commentators.",
+    "zh": "我校毕业生中有国务活动家、外交官、高校领导、学者和体育评论员。"
+   },
+   "body": {
+    "uz": "<figure><img src=\"/images/pages/bitiruvchilar.webp\" alt=\"ÖzDJTU bitiruvçilari haqida ma’lumot: 14 nafar bitiruvçining surati, ismi va lavozimi\" width=\"2400\" height=\"1350\"><figcaption>Kattalaştiriş uçun rasm ustiga bosing.</figcaption></figure>",
+    "ru": "<figure><img src=\"/images/pages/bitiruvchilar.webp\" alt=\"Информация о выпускниках УзГУМЯ: фотографии, имена и должности 14 выпускников\" width=\"2400\" height=\"1350\"><figcaption>Нажмите на изображение, чтобы увеличить.</figcaption></figure>",
+    "en": "<figure><img src=\"/images/pages/bitiruvchilar.webp\" alt=\"Information about UzSWLU graduates: photos, names and positions of 14 graduates\" width=\"2400\" height=\"1350\"><figcaption>Click the image to enlarge.</figcaption></figure>",
+    "zh": "<figure><img src=\"/images/pages/bitiruvchilar.webp\" alt=\"乌兹别克斯坦国立世界语言大学毕业生信息：14位毕业生的照片、姓名和职务\" width=\"2400\" height=\"1350\"><figcaption>点击图片可放大。</figcaption></figure>"
+   }
   }
  },
  "sample": {

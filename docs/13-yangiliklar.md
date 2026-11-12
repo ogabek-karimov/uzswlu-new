@@ -4,7 +4,9 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-12
 
-- **Sayt (menyu):** «Abiturientlar» bo‘limidan «Toshkent haqida» va «Kontingent» sahifalari butunlay olib tashlandi (`pages-seed.json`, `mock-menu.ts`; mavjud bazada — admin panel → Sahifalar orqali o‘chiriladi). Endi `/toshkent-haqida` va `/kontingent` — 404.
+- **Sayt (Faoliyat → «Universitet bitiruvchilari haqida»):** endi PDF emas, saytdagi matnli sahifa — `/universitet-bitiruvchilari-haqida`: kirish matni 4 tilda va PDF’dagi infografika rasmi (`public/images/pages/bitiruvchilar.webp`, 2400 px, PDF’dan chizilgan). Matnli sahifa, yangilik va BRM sahifalaridagi har qanday rasm (havola ichida bo‘lmasa) bosilsa to‘liq ekranda kattalashadi (`ProseHtml` + `ImageViewer`). `pages-seed.json` va `mock-menu.ts` yangilandi; mavjud bazada — admin panel → Sahifalar: shablon «Matnli sahifa», manzil `universitet-bitiruvchilari-haqida`.
+
+- **Sayt (menyu):** «Abiturientlar» bo‘limidan «Toshkent haqida» va «Kontingent» sahifalari butunlay olib tashlandi (`pages-seed.json`, `mock-menu.ts`; mavjud bazada — admin panel → Sahifalar orqali o‘chiriladi). Endi `/toshkent-haqida` va `/kontingent` — 404. — `84688f2`
 
 - **Sayt (bosh sahifa, til almashtirish):** til o‘zgarganda kartalar endi kattalashib-kichraymaydi — matn uchun hamma tilda bir xil joy ajratiladi: xizmatlar tasmasi (sarlavha 2, izoh 3 qator), «Universitet haqida» kartalari (kamida 400 px) va raqamlar tasmasi yozuvlari (2 qator), fakultet kartalari (288 px, nom 4 qatorgacha), yangilik/e’lon sarlavhalari (3 qator), tadbirlar (sarlavha 3 qator, joy 1 qator), binolar (nomi 2, manzili 3 qator), bo‘lim tavsifi (`SectionHeading`, 2 qator). 1280/1440/1920 px da 4 tilda sahifa balandligi bir xil. Bayram banneri rasm yuklanguncha joyini oldindan egallaydi: `GET /home → banner.width/height` (shartnomada ham), sahifa sakramaydi. — `dcd74f8`
 
