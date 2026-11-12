@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-12
 
-- **Backend (mavjud bazalar uchun migratsiya):** «Universitet bitiruvchilari haqida» menyu bandi PDF-havoladan matnli sahifaga o‘zi aylanadi — `pages/0003_graduates_text_page` (qo‘lda admin panelda o‘zgartirish kerak emas; faqat hali PDF-havola bo‘lsa ishlaydi, allaqachon o‘zgartirilgan bo‘lsa tegmaydi). Oldingi `d86a741` yozuvidagi «mavjud bazada admin orqali» qadami endi shart emas. — `COMMIT`
+- **Backend (mavjud bazalar uchun migratsiya):** «Universitet bitiruvchilari haqida» menyu bandi PDF-havoladan matnli sahifaga o‘zi aylanadi — `pages/0003_graduates_text_page` (qo‘lda admin panelda o‘zgartirish kerak emas; faqat hali PDF-havola bo‘lsa ishlaydi, allaqachon o‘zgartirilgan bo‘lsa tegmaydi). Oldingi `d86a741` yozuvidagi «mavjud bazada admin orqali» qadami endi shart emas. — `b81ff12`
 
 - **Backend (menyu tozalash):** «Toshkent haqida» va «Kontingent» sahifalari endi mavjud bazalardan ham o‘zi o‘chadi — `pages/0002_remove_toshkent_kontingent` migratsiyasi (backend qayta ishga tushganda bajariladi; qo‘lda buyruq kerak emas; ostida bolasi bor sahifa saqlanadi). Sabab: seed faqat bo‘sh bazaga yuklanadi, shuning uchun eski bazada sahifalar menyuda qolib ketgan edi. — `fde8ce7`
 
