@@ -26,7 +26,7 @@ const symbols = computed(() => stateSymbols.map((base) => {
       <span class="flex-1 bg-[#1EB53A]" />
     </div>
 
-    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
+    <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
       <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-accent-600 uppercase">
         <span class="h-px w-8 bg-accent-500" />
         {{ t('symbols.eyebrow') }}

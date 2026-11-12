@@ -13,7 +13,7 @@ const rest = computed(() => props.news.slice(1, 4))
 
 <template>
   <section class="border-t border-line bg-white">
-    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+    <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
       <SectionHeading
         :eyebrow="t('news.eyebrow')"
         :title="t('news.title')"

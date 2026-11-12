@@ -8,7 +8,7 @@ const localePath = useLocalePath()
 </script>
 
 <template>
-  <section v-if="partners.length" class="overflow-hidden border-t border-line bg-white py-20 lg:py-28">
+  <section v-if="partners.length" class="overflow-hidden border-t border-line bg-white py-14 lg:py-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading
         :eyebrow="t('partners.eyebrow')"

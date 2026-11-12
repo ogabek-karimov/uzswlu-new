@@ -7,7 +7,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <section class="overflow-hidden bg-accent-100/70 py-20 lg:py-24">
+  <section class="overflow-hidden bg-accent-100/70 py-12 lg:py-14">
     <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
       <p class="text-xs font-semibold tracking-[0.2em] text-accent-600 uppercase">{{ t('languages.eyebrow') }}</p>
       <h2 class="mt-3 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">{{ t('languages.title') }}</h2>
@@ -17,10 +17,10 @@ const { t } = useI18n()
       </ul>
     </div>
 
-    <div class="mt-12 space-y-4" aria-hidden="true">
+    <div class="mt-8 space-y-3" aria-hidden="true">
       <div class="flex w-max animate-marquee gap-10 pr-10">
         <template v-for="copy in 2" :key="copy">
-          <span v-for="lang in languages" :key="`${copy}-${lang.code}`" class="flex items-center gap-10 font-display text-5xl font-semibold whitespace-nowrap text-ink sm:text-7xl">
+          <span v-for="lang in languages" :key="`${copy}-${lang.code}`" class="flex items-center gap-10 font-display text-4xl font-semibold whitespace-nowrap text-ink sm:text-5xl">
             {{ lang.native }}
             <span class="text-3xl text-accent-500">✦</span>
           </span>
@@ -31,7 +31,7 @@ const { t } = useI18n()
           <span
             v-for="lang in [...languages].reverse()"
             :key="`${copy}-${lang.code}`"
-            class="flex items-center gap-10 font-display text-5xl font-semibold whitespace-nowrap text-transparent italic [-webkit-text-stroke:1.5px_var(--color-brand-700)] sm:text-7xl"
+            class="flex items-center gap-10 font-display text-4xl font-semibold whitespace-nowrap text-transparent italic [-webkit-text-stroke:1.5px_var(--color-brand-700)] sm:text-5xl"
           >
             {{ lang.native }}
             <span class="text-3xl text-brand-300 not-italic [-webkit-text-stroke:0]">✦</span>

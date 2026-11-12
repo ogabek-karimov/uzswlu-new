@@ -41,7 +41,7 @@ const circleText = computed(() => `${t('university.short')} • 1949 • `.repea
       <div class="absolute top-1/3 -left-48 size-[28rem] rounded-full bg-accent-100 blur-3xl" />
     </div>
 
-    <div class="mx-auto grid max-w-7xl items-center gap-14 px-4 pt-10 pb-20 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-8 lg:pt-16 lg:pb-24">
+    <div class="mx-auto grid max-w-7xl items-center gap-14 px-4 pt-8 pb-12 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-8 lg:pt-10 lg:pb-14">
       <div class="lg:col-span-7">
         <p class="inline-flex items-center gap-2 rounded-full border border-line bg-white/70 px-3.5 py-1.5 text-xs font-semibold tracking-[0.14em] text-brand-700 uppercase">
           <span class="size-1.5 rounded-full bg-accent-500" />

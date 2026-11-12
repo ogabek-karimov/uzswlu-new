@@ -6,8 +6,8 @@ const steps = ['s1', 's2', 's3', 's4'] as const
 </script>
 
 <template>
-  <section class="px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-    <div class="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-brand-900 px-6 py-14 text-white sm:px-12 lg:px-16 lg:py-20">
+  <section class="px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+    <div class="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-brand-900 px-6 py-12 text-white sm:px-12 lg:px-14 lg:py-14">
       <div class="decor pointer-events-none absolute inset-0" aria-hidden="true">
         <span class="absolute -top-32 -right-32 size-[30rem] rounded-full border-[3rem] border-white/[0.04]" />
         <span class="absolute -bottom-40 left-1/3 size-80 rounded-full bg-brand-600/30 blur-3xl" />

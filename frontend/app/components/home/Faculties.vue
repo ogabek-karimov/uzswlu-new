@@ -21,7 +21,7 @@ const localePath = useLocalePath()
     >
     <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(17_12_46/0.9)_0%,rgb(17_12_46/0.68)_45%,rgb(17_12_46/0.88)_100%)]" />
 
-    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+    <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
       <SectionHeading
         :eyebrow="t('faculties.eyebrow')"
         :title="t('faculties.title')"

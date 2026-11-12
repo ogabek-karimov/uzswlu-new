@@ -9,7 +9,7 @@ const formatDate = useFormatDate()
 </script>
 
 <template>
-  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
     <SectionHeading
       :eyebrow="t('events.eyebrow')"
       :title="t('events.title')"
