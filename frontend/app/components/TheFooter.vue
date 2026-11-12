@@ -69,7 +69,7 @@ const usefulLinks = [
 
     <div class="border-t border-white/10">
       <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-6 text-xs text-white/45 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
-        <p>© 1949–{{ new Date().getFullYear() }} {{ t('university.name') }}. {{ t('footer.rights') }}</p>
+        <p>{{ t('footer.copyright', { year: new Date().getFullYear(), name: t('university.name'), rights: t('footer.rights') }) }}</p>
         <nav :aria-label="t('footer.symbols.title')" class="flex flex-wrap items-center gap-x-5 gap-y-2">
           <span class="text-white/30">{{ t('footer.symbols.title') }}:</span>
           <a v-for="s in stateSymbols" :key="s.key" :href="symbolHref(s.key, s.href)" target="_blank" rel="noopener" class="transition-colors hover:text-white">

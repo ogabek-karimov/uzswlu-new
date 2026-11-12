@@ -4,6 +4,8 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-12
 
+- **Sayt (tarjima, til almashtirish):** universitet nomi (sarlavha, footer logosi, footer pastki qatori, sahifa sarlavhasi/OG) endi tanlangan tilda: ru — «Узбекский государственный университет мировых языков» (УзГУМЯ), en — «Uzbekistan State World Languages University» (UzSWLU), zh — «乌兹别克斯坦国立世界语言大学»; avval `university.*` 4 tilda ham o‘zbekcha edi. Footer pastki qatori bitta `footer.copyright` kaliti (xitoychada «。»). Til almashtirilganda sahifa tepaga sakramaydi — o‘sha joyida qoladi (`app/plugins/locale-scroll.client.ts`: faqat til o‘zgargan o‘tishda `meta.scrollToTop = false`; boshqa o‘tishlar avvalgidek). Testlar: `test:pages`, `test:seo`, `test:last-good`.
+
 - **Sayt (footer):** «Binolar» ustuni va «Ijtimoiy tarmoqlar» olib tashlandi (binolar — bosh sahifadagi «Biz bilan bog‘lanish» va Aloqa sahifasida); endi: logo va tavsif · «Bog‘lanish» · «Foydali havolalar» · QR kod (`public/images/footer-qr.png`, asl rasmdan modulma-modul qayta chizilgan, `qr.me-qr.com/OA2VhTfV`). `footer.qr.*` matnlari 4 tilda. Footer tepasidagi bo‘sh joy qisqartirildi (80 → 40 px). — `44c7b95`
 
 - **Sayt (bosh sahifa): yangiliklar, e’lonlar, aloqa va bayram banneri.** «Yangiliklar» — 4 ta karta (rasm, toifa, sana, BRM maqsadi belgisi, hover’da ko‘tariladi); «E’lonlar» — alohida doskada 4 ta afisha (tik rasm, varaqli taqvim ko‘rinishidagi sana). «Taqvim»dan keyin «Biz bilan bog‘lanish»: binolar kartalari (telefon, e-pochta, manzil, rangli Google xarita, «Xaritada ochish»). Undan keyin «Davlat ramzlari» oldidan bayram banneri — bitta rasm. API: `NewsItem.sdg`, `Announcement.image/sdg`, `ContactPage.campuses[].email/mapEmbed`, `HomeData.banner` (shartnomada ham). — `44efb59`

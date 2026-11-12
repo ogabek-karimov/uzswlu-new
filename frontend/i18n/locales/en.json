@@ -3,10 +3,10 @@
     "description": "Uzbekistan State University of World Languages — higher education in foreign languages, philology, translation and international journalism."
   },
   "university": {
-    "name": "Özbekiston davlat jahon tillari universiteti",
-    "short": "ÖzDJTU",
-    "line1": "Özbekiston davlat",
-    "line2": "jahon tillari universiteti"
+    "name": "Uzbekistan State World Languages University",
+    "short": "UzSWLU",
+    "line1": "Uzbekistan State",
+    "line2": "World Languages University"
   },
   "nav": {
     "skip": "Skip to main content",
@@ -265,6 +265,7 @@
     },
     "social": "Social media",
     "rights": "All rights reserved.",
+    "copyright": "© 1949–{year} {name}. {rights}",
     "phone": "Phone",
     "email": "Email",
     "ext": "ext.",

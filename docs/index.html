@@ -739,6 +739,9 @@ Batafsil: <a href="#doc-06-testlar">06-testlar</a>.
 <p>Eng yangisi tepada. <strong>Har bir o‘zgarishdan keyin shu yerga yozing</strong> (qoida: <code>CLAUDE.md</code>). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.</p>
 <h2 id="doc-13-yangiliklar--2026-11-12">2026-11-12<a class="anchor" href="#doc-13-yangiliklar--2026-11-12" aria-label="Havola">#</a></h2>
 <ul><li>
+<strong>Sayt (tarjima, til almashtirish):</strong> universitet nomi (sarlavha, footer logosi, footer pastki qatori, sahifa sarlavhasi/OG) endi tanlangan tilda: ru — «Узбекский государственный университет мировых языков» (УзГУМЯ), en — «Uzbekistan State World Languages University» (UzSWLU), zh — «乌兹别克斯坦国立世界语言大学»; avval <code>university.*</code> 4 tilda ham o‘zbekcha edi. Footer pastki qatori bitta <code>footer.copyright</code> kaliti (xitoychada «。»). Til almashtirilganda sahifa tepaga sakramaydi — o‘sha joyida qoladi (<code>app/plugins/locale-scroll.client.ts</code>: faqat til o‘zgargan o‘tishda <code>meta.scrollToTop = false</code>; boshqa o‘tishlar avvalgidek). Testlar: <code>test:pages</code>, <code>test:seo</code>, <code>test:last-good</code>.
+</li></ul>
+<ul><li>
 <strong>Sayt (footer):</strong> «Binolar» ustuni va «Ijtimoiy tarmoqlar» olib tashlandi (binolar — bosh sahifadagi «Biz bilan bog‘lanish» va Aloqa sahifasida); endi: logo va tavsif · «Bog‘lanish» · «Foydali havolalar» · QR kod (<code>public/images/footer-qr.png</code>, asl rasmdan modulma-modul qayta chizilgan, <code>qr.me-qr.com/OA2VhTfV</code>). <code>footer.qr.*</code> matnlari 4 tilda. Footer tepasidagi bo‘sh joy qisqartirildi (80 → 40 px). — <code>44c7b95</code>
 </li></ul>
 <ul><li>

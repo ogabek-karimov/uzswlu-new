@@ -3,10 +3,10 @@
     "description": "乌兹别克斯坦国立世界语言大学——外语、语文学、翻译与国际新闻领域的高等教育。"
   },
   "university": {
-    "name": "Özbekiston davlat jahon tillari universiteti",
-    "short": "ÖzDJTU",
-    "line1": "Özbekiston davlat",
-    "line2": "jahon tillari universiteti"
+    "name": "乌兹别克斯坦国立世界语言大学",
+    "short": "UzSWLU",
+    "line1": "乌兹别克斯坦国立",
+    "line2": "世界语言大学"
   },
   "nav": {
     "skip": "跳至主要内容",
@@ -265,6 +265,7 @@
     },
     "social": "社交媒体",
     "rights": "版权所有。",
+    "copyright": "© 1949–{year} {name}。{rights}",
     "phone": "电话",
     "email": "电子邮箱",
     "ext": "分机",
