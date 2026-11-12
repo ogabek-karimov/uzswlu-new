@@ -157,9 +157,20 @@
   },
   "about": {
     "eyebrow": "Universitet haqida",
-    "title": "Yetmiş yildan ortiq tajriba — yangi avlod uçun",
-    "text": "Universitet 1949-yilda xorijiy tillar pedagogika instituti sifatida taşkil topgan. Bugun u xorijiy tillar, filologiya, tarjimonlik va xalqaro jurnalistika böyiça kadrlar tayyorlaydigan yirik oliy ta’lim muassasasidir.",
-    "link": "Universitet tarixi"
+    "title": "Tillar va madaniyatlar köprigi",
+    "text": "Universitet 1949-yildan beri xorijiy tillar böyiça mutaxassislar tayyorlaydi: filologlar, tarjimonlar va öqituvçilar.",
+    "link": "Batafsil öqiş",
+    "facts": {
+      "founded": "taşkil topgan yil",
+      "students": "talaba",
+      "staff": "professor-öqituvçi",
+      "languages": "öqitiladigan til",
+      "partners": "xorijiy hamkor"
+    },
+    "rector": "Rektor murojaati",
+    "quote": "Bizning maqsad — talabaga dunyo tillarini emas, dunyoga çiqiş yölini örgatiş.",
+    "videoLabel": "Video tur",
+    "videoTitle": "Universitet böylab 3 daqiqalik sayohat"
   },
   "stats": {
     "faculties": "Fakultetlar",

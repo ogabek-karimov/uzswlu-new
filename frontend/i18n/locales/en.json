@@ -156,10 +156,21 @@
     }
   },
   "about": {
-    "eyebrow": "About us",
-    "title": "Over seventy years of experience — for a new generation",
-    "text": "The university was founded in 1949 as a pedagogical institute of foreign languages. Today it is a major higher education institution training specialists in foreign languages, philology, translation and international journalism.",
-    "link": "University history"
+    "eyebrow": "About the university",
+    "title": "A bridge between languages and cultures",
+    "text": "Since 1949 the university has trained specialists in foreign languages: philologists, translators and teachers.",
+    "link": "Read more",
+    "facts": {
+      "founded": "year founded",
+      "students": "students",
+      "staff": "professors and lecturers",
+      "languages": "languages taught",
+      "partners": "foreign partners"
+    },
+    "rector": "Rector’s address",
+    "quote": "Our goal is to teach students not the world’s languages, but the way into the world.",
+    "videoLabel": "Video tour",
+    "videoTitle": "A 3-minute walk around the university"
   },
   "stats": {
     "faculties": "Faculties",
