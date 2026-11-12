@@ -9,7 +9,8 @@ const formatDate = useFormatDate()
 </script>
 
 <template>
-  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+  <section class="bg-brand-50/70">
+    <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
     <SectionHeading
       :eyebrow="t('events.eyebrow')"
       :title="t('events.title')"
@@ -54,5 +55,6 @@ const formatDate = useFormatDate()
     </ul>
 
     <p v-else class="mt-12 rounded-2xl border border-dashed border-line p-10 text-center text-muted">{{ t('events.empty') }}</p>
+      </div>
   </section>
 </template>

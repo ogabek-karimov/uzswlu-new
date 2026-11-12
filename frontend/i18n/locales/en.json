@@ -193,7 +193,9 @@
   "languages": {
     "eyebrow": "Languages",
     "title": "Languages we teach",
-    "text": "Languages of the West and the East — on one campus."
+    "text": "Languages of the West and the East — on one campus.",
+    "prev": "Previous",
+    "next": "Next"
   },
   "symbols": {
     "eyebrow": "Republic of Uzbekistan",

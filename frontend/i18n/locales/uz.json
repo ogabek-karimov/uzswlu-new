@@ -193,7 +193,9 @@
   "languages": {
     "eyebrow": "Tillar",
     "title": "Biz öqitadigan tillar",
-    "text": "Ğarb va Şarq tillari — bir kampusda."
+    "text": "Ğarb va Şarq tillari — bir kampusda.",
+    "prev": "Oldingi",
+    "next": "Keyingi"
   },
   "symbols": {
     "eyebrow": "Özbekiston Respublikasi",

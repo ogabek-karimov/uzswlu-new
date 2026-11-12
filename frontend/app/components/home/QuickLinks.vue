@@ -15,9 +15,9 @@ const links = [
 </script>
 
 <template>
-  <section class="border-y border-line bg-white" :aria-label="t('quick.title')">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <ul class="-mx-4 flex snap-x snap-mandatory overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-4 sm:px-0 lg:grid-cols-7 lg:divide-x lg:divide-line">
+  <section class="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8" :aria-label="t('quick.title')">
+    <div class="overflow-hidden rounded-3xl border border-line bg-white">
+      <ul class="flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] sm:grid sm:grid-cols-4 lg:grid-cols-7 lg:divide-x lg:divide-line">
         <li v-for="link in links" :key="link.key" class="min-w-[44%] shrink-0 snap-start sm:min-w-0">
           <component
             :is="link.href ? 'a' : NuxtLink"
