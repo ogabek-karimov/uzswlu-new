@@ -20,7 +20,7 @@ const usefulLinks = [
 
 <template>
   <footer class="bg-brand-950 text-white/65">
-    <div class="mx-auto grid max-w-7xl gap-12 px-4 pt-20 pb-12 sm:px-6 lg:grid-cols-12 lg:gap-8 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 px-4 pt-10 pb-12 sm:px-6 lg:grid-cols-12 lg:gap-8 lg:px-8">
       <div class="lg:col-span-4">
         <NuxtLink :to="localePath('/')" class="flex items-center gap-3">
           <BrandMark class="size-14" />
