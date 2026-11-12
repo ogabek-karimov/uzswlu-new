@@ -267,7 +267,11 @@
     "rights": "All rights reserved.",
     "phone": "Phone",
     "email": "Email",
-    "ext": "ext."
+    "ext": "ext.",
+    "qr": {
+      "alt": "QR code",
+      "caption": "Scan with your phone camera"
+    }
   },
   "placeholder": {
     "title": "Page coming soon",

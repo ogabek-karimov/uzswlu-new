@@ -267,7 +267,11 @@
     "rights": "Barça huquqlar himoyalangan.",
     "phone": "Telefon",
     "email": "E-poçta",
-    "ext": "içki raqam"
+    "ext": "içki raqam",
+    "qr": {
+      "alt": "QR kod",
+      "caption": "Telefon kamerasi bilan skanerlang"
+    }
   },
   "placeholder": {
     "title": "Sahifa tayyorlanmoqda",

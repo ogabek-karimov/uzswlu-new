@@ -9,14 +9,6 @@ const symbolHref = (key: string, fallback: string) => {
   return s?.href || s?.audio || fallback
 }
 
-const socialIcons: Record<string, string> = {
-  telegram: 'simple-icons:telegram',
-  instagram: 'simple-icons:instagram',
-  facebook: 'simple-icons:facebook',
-  youtube: 'simple-icons:youtube',
-  x: 'simple-icons:x',
-}
-
 const usefulLinks = [
   { label: 'menu.applicants.items.admission', to: '/qabul-20262027' },
   { label: 'menu.applicants.items.bachelor', to: '/bakalavriat' },
@@ -38,37 +30,10 @@ const usefulLinks = [
           </span>
         </NuxtLink>
         <p class="mt-6 max-w-sm text-sm leading-relaxed">{{ t('footer.about') }}</p>
-
-        <p class="mt-8 text-xs font-semibold tracking-[0.18em] text-white/40 uppercase">{{ t('footer.social') }}</p>
-        <ul class="mt-3 flex gap-2">
-          <li v-for="social in site?.socials" :key="social.network">
-            <a
-              :href="social.url"
-              target="_blank"
-              rel="noopener"
-              :aria-label="social.network"
-              class="grid size-10 place-items-center rounded-full border border-white/10 text-white/70 transition-colors hover:border-accent-400 hover:bg-accent-400 hover:text-ink"
-            >
-              <Icon :name="socialIcons[social.network]!" class="size-4" />
-            </a>
-          </li>
-        </ul>
       </div>
 
-      <div class="lg:col-span-5">
-        <p class="text-sm font-semibold text-white">{{ t('footer.campuses') }}</p>
-        <ul class="mt-5 grid gap-6 sm:grid-cols-2">
-          <li v-for="campus in site?.campuses" :key="campus.id" class="flex gap-3">
-            <Icon name="lucide:map-pin" class="mt-0.5 size-4 shrink-0 text-accent-400" />
-            <span class="text-sm leading-relaxed">
-              <span class="block font-medium text-white/90">{{ campus.name }}</span>
-              {{ campus.address }}
-            </span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="grid gap-10 sm:grid-cols-2 lg:col-span-3 lg:grid-cols-1">
+      <!-- Bog'lanish, foydali havolalar va QR kod (binolar — bosh sahifadagi «Biz bilan bog'lanish» va Aloqa sahifasida) -->
+      <div class="grid gap-10 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] lg:gap-8">
         <div>
           <p class="text-sm font-semibold text-white">{{ t('footer.contacts') }}</p>
           <ul v-if="site" class="mt-5 space-y-3 text-sm">
@@ -94,6 +59,11 @@ const usefulLinks = [
             </li>
           </ul>
         </div>
+
+        <figure class="flex flex-col items-start gap-3">
+          <img src="/images/footer-qr.png" :alt="t('footer.qr.alt')" width="132" height="132" loading="lazy" class="size-[132px] rounded-2xl bg-white p-1.5 [image-rendering:pixelated]">
+          <figcaption class="max-w-[132px] text-xs leading-snug text-white/55">{{ t('footer.qr.caption') }}</figcaption>
+        </figure>
       </div>
     </div>
 

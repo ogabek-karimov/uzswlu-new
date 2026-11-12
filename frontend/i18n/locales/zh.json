@@ -267,7 +267,11 @@
     "rights": "版权所有。",
     "phone": "电话",
     "email": "电子邮箱",
-    "ext": "分机"
+    "ext": "分机",
+    "qr": {
+      "alt": "二维码",
+      "caption": "用手机相机扫描"
+    }
   },
   "placeholder": {
     "title": "页面建设中",
