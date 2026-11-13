@@ -94,7 +94,7 @@ So‘rov yo‘li va har qatlamdagi kesh — foydalanuvchi baza yoki HEMIS’gach
 | Nuxt `routeRules` (`frontend/nuxt.config.ts`) | bosh sahifalar (4 til) Node’da stale-while-revalidate; boshqa sahifalarga `s-maxage=60` sarlavhasi | 60 s |
 | Nuxt `server/api` kesh | `/api/home` va boshqalar | 5 daqiqa |
 | «Oxirgi yaxshi javob» | backend o‘chsa, saqlangan nusxa | 3 soat |
-| Backend ochiq javob keshi (`PUBLIC_CACHE_SECONDS`) | bazaga qayta bormaydi, kontent o‘zgarsa darhol yangilanadi | 60 s |
+| Backend ochiq javob keshi (`PUBLIC_CACHE_SECONDS`) | bazaga qayta bormaydi, kontent o‘zgarsa darhol yangilanadi; **to‘dan himoya**: muddati tugaganda (yoki kesh bo‘shaganda) bazaga bitta so‘rov boradi, qolgan minglablari eski nusxani oladi yoki natijani kutadi (`PUBLIC_CACHE_STALE_SECONDS`) | 60 s (+ 300 s eski nusxa) |
 
 **HEMIS ta’siri:** ochiq sahifa so‘rovi HEMIS’ga **bormaydi** — talaba/xodim ma’lumotlari bazadagi nusxadan o‘qiladi (`HEMIS_CACHE_SECONDS`), nusxa esa alohida sinxronlash bilan yangilanadi. HEMIS sekin yoki o‘chiq bo‘lsa, sayt eski nusxani ko‘rsatadi, qotmaydi (o‘chirgich: `backend/apps/hemis/guard.py`). Faqat HEMIS orqali **kirish** (OAuth) HEMIS’ga boradi — u alohida cheklangan (`THROTTLE_HEMIS_AUTH`).
 

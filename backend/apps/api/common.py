@@ -1,5 +1,6 @@
 """Ochiq API uchun umumiy yordamchilar: til, rasm/fayl manzillari, biriktirmalar, token tekshiruvi."""
 import hmac
+import time
 import os
 import re
 from urllib.parse import parse_qsl, urlencode
@@ -60,6 +61,13 @@ def bump_content_version() -> None:
         cache.set('content_ver', 1, None)
 
 
+# Kesh yozuvi formati va «to'dan himoya» qulfi (CachedGetMixin._cached_or_build)
+CACHE_FORMAT = 'v2'
+CACHE_LOCK_TTL = 15      # qulf shuncha soniyadan keyin o'zi bo'shaydi (egasi yiqilsa ham)
+CACHE_LOCK_WAIT = 5.0    # yig'ilayotgan nusxani kutishning eng ko'pi (soniya)
+CACHE_LOCK_POLL = 0.05
+
+
 class CachedGetMixin:
     """Ochiq GET javoblarini qisqa muddat keshlaydi: bir xil sahifani minglab odam ochsa ham baza bir marta so'raladi.
     Autentifikatsiya, ruxsat va so'rov cheklovi keshdan OLDIN tekshiriladi (kesh ularni chetlab o'tmaydi)."""
@@ -77,13 +85,7 @@ class CachedGetMixin:
         try:
             self.initial(request, *args, **kwargs)
             key = _cache_key(request, 'x')
-            data = cache.get(key)
-            if data is None:
-                response = self.get(request, *args, **kwargs)
-                if response.status_code == 200:
-                    cache.set(key, response.data, ttl)
-            else:
-                response = Response(data)
+            response = self._cached_or_build(key, ttl, request, args, kwargs)
             # Token bilan himoyalangan javob oraliq kesh/CDN'da «public» bo'lib qolmasin (tokensiz mijozga berilib ketishi mumkin)
             gated = bool(settings.API_TOKEN) and ApiToken in getattr(self, 'permission_classes', ())
             response['Cache-Control'] = f"{'private' if gated else 'public'}, max-age={min(ttl, 30)}"
@@ -92,6 +94,44 @@ class CachedGetMixin:
             response = self.handle_exception(exc)
         self.response = self.finalize_response(request, response, *args, **kwargs)
         return self.response
+
+
+    def _cached_or_build(self, key, ttl, request, args, kwargs):
+        """Kesh + «to'dan himoya» (stampede): muddati tugaganda yoki kesh bo'shaganda minglab so'rov bazaga bir vaqtda urilmaydi.
+
+        - yangi nusxa — darhol beriladi;
+        - muddati o'tgan, lekin hali saqlanayotgan nusxa — darhol beriladi, yangilashni QULFNI olgan BITTA so'rov bajaradi;
+        - nusxa umuman yo'q (birinchi so'rov, kontent o'zgargandan keyin) — bitta so'rov yig'adi, qolganlari natijani kutadi
+          (eng ko'pi bilan CACHE_LOCK_WAIT soniya, keyin o'zi yig'adi — qulf egasi yiqilsa ham so'rov osilib qolmaydi).
+        """
+        entry = cache.get(key)
+        now = time.time()
+        if isinstance(entry, tuple) and len(entry) == 3 and entry[0] == CACHE_FORMAT:
+            _, data, fresh_until = entry
+            if now < fresh_until or not cache.add(f'{key}:lock', 1, CACHE_LOCK_TTL):
+                return Response(data)           # yangi, yoki boshqa so'rov hozir yangilayapti — eskisini beramiz
+            return self._build_and_store(key, ttl, request, args, kwargs, locked=True)
+
+        if cache.add(f'{key}:lock', 1, CACHE_LOCK_TTL):
+            return self._build_and_store(key, ttl, request, args, kwargs, locked=True)
+        deadline = now + CACHE_LOCK_WAIT        # kimdir yig'ayapti — natijani kutamiz
+        while time.time() < deadline:
+            time.sleep(CACHE_LOCK_POLL)
+            entry = cache.get(key)
+            if isinstance(entry, tuple) and len(entry) == 3 and entry[0] == CACHE_FORMAT:
+                return Response(entry[1])
+        return self._build_and_store(key, ttl, request, args, kwargs, locked=False)
+
+    def _build_and_store(self, key, ttl, request, args, kwargs, locked):
+        try:
+            response = self.get(request, *args, **kwargs)
+            if response.status_code == 200:
+                grace = max(0, settings.PUBLIC_CACHE_STALE_SECONDS)
+                cache.set(key, (CACHE_FORMAT, response.data, time.time() + ttl), ttl + grace)
+            return response
+        finally:
+            if locked:
+                cache.delete(f'{key}:lock')
 
 
 class PublicView(CachedGetMixin, APIView):
