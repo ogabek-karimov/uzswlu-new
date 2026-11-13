@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-13
 
-- **Sayt (tezlik, yuklama):** `routeRules` — sahifalarga `Cache-Control: public, s-maxage=60, stale-while-revalidate=300` (kabinet, qidiruv va `/api/**` — `no-store`), bosh sahifalar (4 til) Node’da `swr: 60`; hashli `/_nuxt/**` — `immutable`. `docs/10-server.md` ga «Yuklama va tezlik» bo‘limi: nginx `proxy_cache` + bir nechta Node nusxasi namunasi, qatlamlar jadvali, HEMIS ta’siri (ochiq sahifa HEMIS’ga bormaydi), tekshirish buyruqlari. Backend yuk sinovi (sandbox): 1000 bir vaqtdagi so‘rov — xatosiz, ~3 s. — `COMMIT`
+- **Sayt (tezlik, yuklama):** `routeRules` — sahifalarga `Cache-Control: public, s-maxage=60, stale-while-revalidate=300` (kabinet, qidiruv va `/api/**` — `no-store`), bosh sahifalar (4 til) Node’da `swr: 60`; hashli `/_nuxt/**` — `immutable`. `docs/10-server.md` ga «Yuklama va tezlik» bo‘limi: nginx `proxy_cache` + bir nechta Node nusxasi namunasi, qatlamlar jadvali, HEMIS ta’siri (ochiq sahifa HEMIS’ga bormaydi), tekshirish buyruqlari. Backend yuk sinovi (sandbox): 1000 bir vaqtdagi so‘rov — xatosiz, ~3 s. — `feaf988`
 
 ## 2026-11-12
 
