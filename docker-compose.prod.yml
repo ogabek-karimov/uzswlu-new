@@ -1,0 +1,113 @@
+# ÖzDJTU — PRODUCTION tuzilmasi: nginx (kesh) → Nuxt (build) → backend (gunicorn) → PostgreSQL, Redis (umumiy kesh).
+# Lokal sinash (nginx keshi, Redis, to'dan himoyani haqiqiy ko'rish):
+#   cp .env.docker.example .env.docker ; cp backend/.env.example backend/.env ; cp frontend/.env.example frontend/.env
+#   backend/.env: API_TOKEN=<uzun tasodifiy>, SECRET_KEY, SUPERADMIN_PASSWORD (docs/10-server.md); frontend/.env: NUXT_API_TOKEN=<xuddi shu>
+#   .env (ildiz):  EDGE_REFRESH_TOKEN=<uzun tasodifiy>   (majburiy)
+#   docker compose -f docker-compose.prod.yml up -d --build
+#   sayt http://localhost:8080 · admin http://admin.localhost:8080 · API http://api.localhost:8080  (SITE_HOST/ADMIN_HOST/API_HOST ni o'zgartirsa bo'ladi)
+#   Tekshirish:  curl -sI http://localhost:8080/ | grep -i x-cache     (MISS → keyingisi HIT)
+# Ildiz `.env` o'zgaruvchilari: SITE_HOST, ADMIN_HOST, API_HOST, HTTP_PORT, EDGE_REFRESH_TOKEN.
+name: uzswlu-prod
+
+x-backend: &backend
+  build: ./backend
+  image: uzswlu-drf-backend
+  env_file: backend/.env
+  environment: &backend-env
+    DEBUG: "false"
+    REDIS_URL: redis://redis:6379/1      # umumiy kesh va so'rov cheklovi hisobi (barcha gunicorn jarayonlari uchun bitta)
+    NUM_PROXIES: "1"                     # backend oldida bitta proksi — nginx
+    EDGE_PURGE_URL: http://frontend:3000/api/_purge
+    EDGE_REFRESH_URLS: http://nginx/,http://nginx/ru,http://nginx/en,http://nginx/zh
+    EDGE_REFRESH_TOKEN: ${EDGE_REFRESH_TOKEN:?ildiz .env da EDGE_REFRESH_TOKEN yozing (uzun tasodifiy qator)}
+  depends_on:
+    db: { condition: service_healthy }
+    redis: { condition: service_healthy }
+
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    env_file: .env.docker
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    # volatile-lru: xotira to'lsa faqat muddati bor kalitlar (kesh) o'chadi; muddatsiz `content_ver` (versiya hisoblagichi) saqlanadi.
+    # Kesh — qayta tiklanuvchi ma'lumot, shuning uchun diskka yozish (persistence) o'chirilgan.
+    command: ["redis-server", "--maxmemory", "256mb", "--maxmemory-policy", "volatile-lru", "--save", "", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    <<: *backend
+    restart: unless-stopped
+    volumes:
+      - media:/app/media
+      - private:/app/private
+      - backups:/app/backups
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://localhost:8000/healthz', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 120s
+
+  nightly:
+    <<: *backend
+    restart: unless-stopped
+    entrypoint: ["python", "manage.py", "run_nightly"]
+    command: []
+    volumes:
+      - media:/app/media
+      - private:/app/private
+      - backups:/app/backups
+    depends_on:
+      backend: { condition: service_healthy }
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    env_file:
+      - path: frontend/.env
+        required: false
+    environment:
+      NUXT_API_BASE: http://backend:8000/api
+      NUXT_CMS_BASE: http://backend:8000/api/site
+    depends_on:
+      backend: { condition: service_healthy }
+
+  nginx:
+    build:
+      context: .
+      dockerfile: deploy/nginx/Dockerfile
+    restart: unless-stopped
+    environment:
+      SITE_HOST: ${SITE_HOST:-localhost}
+      ADMIN_HOST: ${ADMIN_HOST:-admin.localhost}
+      API_HOST: ${API_HOST:-api.localhost}
+      EDGE_REFRESH_TOKEN: ${EDGE_REFRESH_TOKEN:?ildiz .env da EDGE_REFRESH_TOKEN yozing}
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+    volumes:
+      - nginx_cache:/var/cache/nginx
+    depends_on:
+      - frontend
+      - backend
+
+volumes:
+  pgdata:
+  media:
+  private:
+  backups:
+  nginx_cache:

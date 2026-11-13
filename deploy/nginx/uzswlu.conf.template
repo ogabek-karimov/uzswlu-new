@@ -1,0 +1,83 @@
+# nginx: sayt (kesh + bir xil sahifaga to'dan himoya), API va admin. Muhit: SITE_HOST, API_HOST, ADMIN_HOST, EDGE_REFRESH_TOKEN.
+# TLS (HTTPS) bu yerda yo'q: uni oldingi qatlam (certbot/Cloudflare/yuk balansirovchi) beradi — docs/10-server.md.
+
+proxy_cache_path /var/cache/nginx/site levels=1:2 keys_zone=site:50m max_size=1g inactive=10m use_temp_path=off;
+
+# Backend admin saqlaganda shu sarlavha bilan sahifani so'raydi → nginx keshni chetlab o'tib YANGI nusxani saqlaydi.
+# DIQQAT: kalit bo'sh bo'lsa hamma so'rov keshni chetlab o'tadi — compose kalit berilmasa ishga tushmaydi.
+map $http_x_cache_refresh $cache_refresh {
+  default 0;
+  "${EDGE_REFRESH_TOKEN}" 1;
+}
+
+# Backenddagi to'g'ridan-to'g'ri so'rovlar uchun real IP: oldimizda yana bir proksi (Cloudflare/LB) bo'lsa, real_ip sozlang.
+upstream nuxt    { server frontend:3000; keepalive 32; }
+upstream backend { server backend:8000;  keepalive 32; }
+
+# --- Sayt ---
+server {
+  listen 80 default_server;
+  server_name ${SITE_HOST};
+
+  location /_nuxt/ {                       # fayl nomida xesh bor — bir yil keshlanadi
+    proxy_pass http://nuxt;
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+    expires 1y;
+    add_header Cache-Control "public, immutable";
+  }
+
+  location = /api/_purge { return 404; }   # Nuxt keshini tozalash faqat ichki tarmoqdan (backend → frontend:3000), tashqaridan yo'q
+
+  location / {
+    proxy_pass http://nuxt;
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;   # ustiga yozamiz: soxta IP bilan so'rov cheklovini aylanib o'tib bo'lmasin
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    proxy_cache site;
+    proxy_cache_key $scheme$host$request_uri;
+    proxy_cache_valid 200 30s;             # Nuxt `Cache-Control: no-store/private` bergan sahifalar (kabinet, qidiruv) keshlanmaydi
+    proxy_cache_lock on;                   # bir xil sahifaga ming so'rov — Node'ga bittasi boradi (single-flight)
+    proxy_cache_lock_timeout 10s;
+    proxy_cache_background_update on;       # eskirgan nusxa darrov beriladi, yangisi fonda olinadi (stale-while-revalidate)
+    proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+    proxy_cache_bypass $cache_refresh;     # admin saqlaganda yangilash (yuqoridagi map)
+    add_header X-Cache $upstream_cache_status;   # HIT / MISS / STALE / BYPASS — tekshirish uchun
+  }
+}
+
+# --- API (backend) ---
+server {
+  listen 80;
+  server_name ${API_HOST};
+  client_max_body_size 25m;                # backenddagi BODY_LIMITS/UPLOAD_LIMITS bilan mos
+  location / {
+    proxy_pass http://backend;
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;   # NUM_PROXIES=1 shunga tayanadi
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_read_timeout 40s;
+  }
+}
+
+# --- Admin panel (statik) + /api → backend ---
+server {
+  listen 80;
+  server_name ${ADMIN_HOST};
+  root /usr/share/nginx/admin;
+  client_max_body_size 25m;
+  location /api/ {
+    proxy_pass http://backend;
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+    proxy_set_header Host ${API_HOST};
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+  location / { try_files $uri /index.html; }   # SPA marshrutlari
+}

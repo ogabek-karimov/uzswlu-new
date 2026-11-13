@@ -8,3 +8,4 @@ gunicorn>=23.0
 whitenoise>=6.9,<7
 drf-spectacular>=0.28,<0.30
 drf-spectacular-sidecar>=2024.7
+redis>=5.0,<7        # REDIS_URL berilganda Django keshi (umumiy kesh, so'rov cheklovi)

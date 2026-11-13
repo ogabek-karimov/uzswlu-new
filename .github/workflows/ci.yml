@@ -74,6 +74,24 @@ jobs:
       - run: npm test               # API qatlami (timeout, 401, HTML xato) + manba kodi qoidalari
       - run: npm run build          # vue-tsc --noEmit && vite build
 
+  deploy:
+    name: Production tuzilmasi (nginx sintaksisi + compose)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: docker-compose.prod.yml to'g'ri
+        run: |
+          cp .env.docker.example .env.docker && cp backend/.env.example backend/.env
+          EDGE_REFRESH_TOKEN=ci-token docker compose -f docker-compose.prod.yml config -q
+      - name: Kalitsiz compose ishga tushmaydi (bo'sh kalit hamma so'rovni keshdan chetlab o'tardi)
+        run: "! docker compose -f docker-compose.prod.yml config -q 2>/dev/null"
+      - name: nginx sozlamasi (nginx -t)
+        run: |
+          docker run --rm --add-host frontend:127.0.0.1 --add-host backend:127.0.0.1 \
+            -e SITE_HOST=localhost -e API_HOST=api.localhost -e ADMIN_HOST=admin.localhost -e EDGE_REFRESH_TOKEN=ci-token \
+            -v "$PWD/deploy/nginx/uzswlu.conf.template:/etc/nginx/templates/default.conf.template:ro" \
+            nginx:1.27-alpine nginx -t
+
   audit:
     name: Zaif bog'liqliklar (ma'lumot uchun)
     runs-on: ubuntu-latest
