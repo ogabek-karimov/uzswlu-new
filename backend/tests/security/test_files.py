@@ -424,6 +424,27 @@ class CabinetQuotaTests(TestCase):
         self.assertEqual(StaffDocument.objects.filter(hemis_id='777').count(), 2)
 
 
+class CabinetOwnershipTests(TestCase):
+    """Hujjat identifikatori (pk) taxmin qilinsa ham, boshqa xodimning hujjatiga tegib bo'lmaydi (IDOR)."""
+
+    def test_cannot_delete_other_users_document(self):
+        from rest_framework.exceptions import NotFound
+
+        from apps.api import builders_staff as bst
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp, ignore_errors=True)
+        with override_settings(MEDIA_ROOT=tmp):
+            bst.add_document('111', 'cv', {'title_uz': 'Mening'}, {'file': upload('cv.pdf', pdf())})
+            doc = StaffDocument.objects.get(hemis_id='111')
+            with self.assertRaises(NotFound):
+                bst.delete_document('222', 'cv', str(doc.pk))          # boshqa xodim
+            with self.assertRaises(NotFound):
+                bst.delete_document('111', 'cv', 'abc')                # raqam bo'lmagan identifikator
+            self.assertTrue(StaffDocument.objects.filter(pk=doc.pk).exists())
+            bst.delete_document('111', 'cv', str(doc.pk))              # egasi o'chira oladi
+        self.assertFalse(StaffDocument.objects.filter(pk=doc.pk).exists())
+
+
 class _patched:
     def __init__(self, mod, **attrs):
         self.mod, self.attrs, self.old = mod, attrs, {}

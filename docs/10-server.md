@@ -90,7 +90,7 @@ So‘rov yo‘li va har qatlamdagi kesh — foydalanuvchi baza yoki HEMIS’gach
 
 | Qatlam | Nima qiladi | Muddat |
 |---|---|---|
-| nginx `proxy_cache` | tayyor sahifa HTML’i, Node’ga so‘rov bormaydi | 60 s (+ eskirgan nusxa xatoda) |
+| nginx `proxy_cache` | tayyor sahifa HTML’i, Node’ga so‘rov bormaydi | 30–60 s (+ eskirgan nusxa xatoda); admin saqlasa darrov yangilanadi |
 | Nuxt `routeRules` (`frontend/nuxt.config.ts`) | bosh sahifalar (4 til) Node’da stale-while-revalidate; boshqa sahifalarga `s-maxage=60` sarlavhasi | 60 s |
 | Nuxt `server/api` kesh | `/api/home` va boshqalar | 5 daqiqa |
 | «Oxirgi yaxshi javob» | backend o‘chsa, saqlangan nusxa | 3 soat |
@@ -185,3 +185,43 @@ Nginx saytga `Host` va `X-Forwarded-Proto` ni uzatsin — `NUXT_PUBLIC_SITE_URL`
 ## Keyingi qadam
 
 Muammo chiqsa: [11-muammolar](11-muammolar.md). Zaxira: [07-zaxira](07-zaxira.md).
+
+### Tayyor production tuzilmasi: `docker-compose.prod.yml` (nginx + Redis + gunicorn)
+
+Yuqoridagi tavsiyalarning hammasi repoda tayyor va lokalda sinab ko‘rish mumkin (lokal `docker-compose.yml` dev uchun, bunda nginx va Redis yo‘q):
+
+| Xizmat | Vazifasi |
+|---|---|
+| `nginx` (`deploy/nginx/`) | sayt keshi (`proxy_cache`, `proxy_cache_lock` = single-flight, `background_update` + `use_stale` = stale-while-revalidate), API va admin (statik) |
+| `frontend` (`frontend/Dockerfile`) | Nuxt build, Node serveri |
+| `backend` | gunicorn, `DEBUG=false`, `REDIS_URL=redis://redis:6379/1`, `NUM_PROXIES=1` |
+| `redis` | umumiy kesh va so‘rov-cheklov hisobi; `volatile-lru` (xotira to‘lsa faqat muddatli kesh o‘chadi, `content_ver` hisoblagichi saqlanadi) |
+| `db`, `nightly` | PostgreSQL, kechki vazifalar (zaxira, HEMIS) |
+
+```bash
+cp .env.docker.example .env.docker; cp backend/.env.example backend/.env; cp frontend/.env.example frontend/.env
+# backend/.env: SECRET_KEY, SUPERADMIN_PASSWORD, API_TOKEN;  frontend/.env: NUXT_API_TOKEN (xuddi shu)
+echo "EDGE_REFRESH_TOKEN=$(python3 -c 'import secrets;print(secrets.token_urlsafe(32))')" >> .env
+docker compose -f docker-compose.prod.yml up -d --build
+curl -sI http://localhost:8080/ | grep -i x-cache      # 1-so‘rov MISS, keyingisi HIT
+```
+
+`EDGE_REFRESH_TOKEN` majburiy: u bo‘sh bo‘lsa nginx hamma so‘rovni keshdan chetlab o‘tkazardi, shuning uchun compose kalitsiz ishga tushmaydi (CI buni tekshiradi). TLS (HTTPS) shu tuzilma oldida turadi (certbot, Cloudflare yoki yuk balansirovchi); shunda `NUM_PROXIES` ni (Cloudflare + nginx — `2`) moslang.
+
+**Redis kerak bo‘lgan joylar:** (1) backend ochiq javob keshi va to‘dan himoya qulfi (`cache.add`) barcha gunicorn jarayonlari uchun bitta bo‘lishi; (2) so‘rov cheklovi (`throttle`) hisobi jarayonlar/serverlar orasida umumiy bo‘lishi; (3) `content_ver` (kontent versiyasi) hamma jarayonda bir xil ko‘rinishi. Redis bo‘lmasa fayl keshi ishlaydi (bitta server uchun yetadi, sekinroq).
+
+### Admin ma’lumotni o‘zgartirganda keshni yangilash
+
+Backend keshi `content_ver` bilan darrov eskiradi. Oldindagi qatlamlar uchun (`backend/apps/api/edge.py`) saqlashdan keyin fonda (ketma-ket saqlashlar bitta yangilanishga birlashadi, saqlash hech qachon to‘xtamaydi):
+
+1. **Nuxt keshi tozalanadi:** `POST EDGE_PURGE_URL` (`http://frontend:3000/api/_purge`, `Authorization: Bearer <API_TOKEN>`). Endpoint tokensiz 401, token sozlanmagan bo‘lsa 404; nginx uni tashqariga ochmaydi.
+2. **nginx keshi yangilanadi:** ochiq nginx’da `purge` yo‘q, shuning uchun bosh sahifalar (`EDGE_REFRESH_URLS`, 4 til) `X-Cache-Refresh: <EDGE_REFRESH_TOKEN>` sarlavhasi bilan so‘raladi — nginx keshni chetlab o‘tib yangi nusxani saqlaydi.
+
+Cheklovlar: nginx’da faqat bosh sahifalar darrov yangilanadi; boshqa sahifalar eng ko‘pi bilan `proxy_cache_valid` (30 s) eski turadi. Bir nechta Node nusxasi bo‘lsa, tozalash faqat so‘rov tushgan nusxaga yetadi (qolganlari 5 daqiqagacha). Sozlamalar bo‘sh bo‘lsa (lokal) bu mexanizm o‘chiq.
+
+### UUID, token va resurslarni himoya qilish
+
+- **UUID fayl nomida** (`appeals/2026/11/<uuid>.pdf`) manzilni taxmin qilib bo‘lmasligi uchun, lekin **ruxsat tekshiruvi emas**. Himoya — endpoint huquqi: yopiq fayllar (`/api/cms/private/…`) faqat superadmin uchun, `safe_join` bilan (`../` o‘tmaydi), har doim `attachment`, `nosniff`, `no-store`; ochiq `/media/` da ular yo‘q.
+- **Kabinet hujjatlari** egasiga bog‘langan: boshqa xodimning hujjat identifikatorini (`pk`) bilsa ham o‘chirib/ko‘rib bo‘lmaydi (`StaffDocument` so‘rovi `hemis_id` bo‘yicha filtrlanadi; test: `CabinetOwnershipTests`).
+- **`API_TOKEN`** faqat Nuxt serveri ↔ backend orasida (`Authorization: Bearer`), brauzerga chiqmaydi (`runtimeConfig.apiToken` — `public` emas). Almashtirish uzluksiz: `API_TOKEN=yangi,eski`. Token bilan kelgan so‘rovlar `public` limitidan o‘tadi, shuning uchun uni **loglarga, xato xabarlariga va `NUXT_PUBLIC_*` o‘zgaruvchilariga yozmang**.
+- Kesh kalitiga shaxsiy ma’lumot kirmaydi: kabinet, qidiruv va `/api/**` — `Cache-Control: no-store`, nginx ularni saqlamaydi.

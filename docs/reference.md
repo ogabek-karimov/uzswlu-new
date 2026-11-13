@@ -97,6 +97,9 @@ Fayllar: `backend/.env` (namuna: `backend/.env.example`), `.env.docker` (namuna:
 | `THROTTLE_HEMIS_AUTH` | `20/min` |  |  |
 | `PUBLIC_CACHE_SECONDS` | `60` | Ochiq GET javoblari keshi (soniya, 0 — o'chirilgan). Admin panelda o'zgarish bo'lsa kesh darhol yangilanadi |  |
 | `PUBLIC_CACHE_STALE_SECONDS` | `300` | Muddati o'tgan keshni yana shuncha soniya saqlash: yangilanguncha eski nusxa tez beriladi, bazaga bir vaqtda faqat bitta so'rov boradi (to'dan himoya) |  |
+| `EDGE_PURGE_URL` | *(bo‘sh)* | Admin saqlaganda sayt keshini darrov yangilash (productionda nginx + Nuxt bilan; bo'sh bo'lsa o'chiq). docs/10-server.md |  |
+| `EDGE_REFRESH_URLS` | *(bo‘sh)* |  |  |
+| `EDGE_REFRESH_TOKEN` | *(bo‘sh)* |  |  |
 | `HEMIS_CACHE_SECONDS` | `300` | HEMIS nusxasini bazadan qayta o'qish oralig'i (soniya) va sinxronlashda sahifalar orasidagi pauza |  |
 | `HEMIS_REQUEST_DELAY` | `0.2` |  |  |
 | `HEMIS_OAUTH_TIMEOUT` | `8` |  |  |
@@ -141,37 +144,37 @@ Standart qiymat bilan ishlaydi; kerak bo‘lsa `backend/.env` ga qo‘shing.
 
 | O‘zgaruvchi | Standart | Qayerda |
 |---|---|---|
-| `BACKUP_MAX_AGE_HOURS` | `'36'` | `backend/config/settings.py:284` |
-| `BACKUP_MEDIA` | `True` | `backend/config/settings.py:282` |
+| `BACKUP_MAX_AGE_HOURS` | `'36'` | `backend/config/settings.py:291` |
+| `BACKUP_MEDIA` | `True` | `backend/config/settings.py:289` |
 | `CACHE_DIR` | `'/tmp/uzswlu-cache'` | `backend/config/settings.py:202` |
 | `COOKIE_SECURE` | `True` | `backend/config/settings.py:188` |
-| `HEMIS_CLIENT` | `'apps.hemis.cache.CachedHemis' if HEMIS_API_URL else 'apps.hemis.snapshot.SnapshotHemis'` | `backend/config/settings.py:285` |
-| `HEMIS_MAX_CONSECUTIVE_FAILURES` | `'5'` | `backend/config/settings.py:267` |
-| `HEMIS_MAX_REQUESTS` | `'3000'` | `backend/config/settings.py:266` |
-| `HEMIS_OAUTH_AUTHORIZE_PATH` | `'/oauth/authorize'` | `backend/config/settings.py:290` |
-| `HEMIS_OAUTH_GLOBAL_PER_MIN` | `'120'` | `backend/config/settings.py:268` |
-| `HEMIS_OAUTH_TOKEN_PATH` | `'/oauth/access-token'` | `backend/config/settings.py:291` |
-| `HEMIS_OAUTH_USER_PATH` | `'/oauth/api/user'` | `backend/config/settings.py:292` |
-| `HEMIS_SNAPSHOT` | `str(BASE_DIR / 'seed_data' / 'hemis-snapshot.json')` | `backend/config/settings.py:319` |
-| `HEMIS_SYNC_AT` | `'02:30'` | `backend/config/settings.py:264` |
-| `HEMIS_SYNC_JITTER_MINUTES` | `'20'` | `backend/config/settings.py:265` |
-| `HEMIS_SYNC_WINDOW` | `'01:00-05:00'` | `backend/config/settings.py:263` |
-| `HEMIS_TIMEOUT` | `'20'` | `backend/config/settings.py:259` |
-| `HIT_RETENTION_DAYS` | `'730'` | `backend/config/settings.py:269` |
+| `HEMIS_CLIENT` | `'apps.hemis.cache.CachedHemis' if HEMIS_API_URL else 'apps.hemis.snapshot.SnapshotHemis'` | `backend/config/settings.py:292` |
+| `HEMIS_MAX_CONSECUTIVE_FAILURES` | `'5'` | `backend/config/settings.py:274` |
+| `HEMIS_MAX_REQUESTS` | `'3000'` | `backend/config/settings.py:273` |
+| `HEMIS_OAUTH_AUTHORIZE_PATH` | `'/oauth/authorize'` | `backend/config/settings.py:297` |
+| `HEMIS_OAUTH_GLOBAL_PER_MIN` | `'120'` | `backend/config/settings.py:275` |
+| `HEMIS_OAUTH_TOKEN_PATH` | `'/oauth/access-token'` | `backend/config/settings.py:298` |
+| `HEMIS_OAUTH_USER_PATH` | `'/oauth/api/user'` | `backend/config/settings.py:299` |
+| `HEMIS_SNAPSHOT` | `str(BASE_DIR / 'seed_data' / 'hemis-snapshot.json')` | `backend/config/settings.py:326` |
+| `HEMIS_SYNC_AT` | `'02:30'` | `backend/config/settings.py:271` |
+| `HEMIS_SYNC_JITTER_MINUTES` | `'20'` | `backend/config/settings.py:272` |
+| `HEMIS_SYNC_WINDOW` | `'01:00-05:00'` | `backend/config/settings.py:270` |
+| `HEMIS_TIMEOUT` | `'20'` | `backend/config/settings.py:266` |
+| `HIT_RETENTION_DAYS` | `'730'` | `backend/config/settings.py:276` |
 | `HSTS_SECONDS` | `'31536000'` | `backend/config/settings.py:191` |
-| `LOGIN_EVENT_RETENTION_DAYS` | `'365'` | `backend/config/settings.py:270` |
-| `LOG_LEVEL` | `'INFO'` | `backend/config/settings.py:325` |
-| `SITE_PURGE_TOKEN` | `''` | `backend/config/settings.py:253` |
-| `SITE_PURGE_URL` | `''` | `backend/config/settings.py:252` |
-| `STAFF_SESSION_COOKIE` | `'session'` | `backend/config/settings.py:247` |
-| `STAFF_SESSION_TTL_HOURS` | `'12'` | `backend/config/settings.py:248` |
-| `THROTTLE_CABINET` | `'180/min'` | `backend/config/settings.py:229` |
-| `THROTTLE_CABINET_UPLOAD` | `'30/hour'` | `backend/config/settings.py:230` |
-| `THROTTLE_DOCS` | `'60/min'` | `backend/config/settings.py:233` |
-| `THROTTLE_HIT` | `'240/min'` | `backend/config/settings.py:232` |
-| `THROTTLE_OPEN` | `'1200/min'` | `backend/config/settings.py:223` |
-| `THROTTLE_PANEL_READ` | `'1200/min'` | `backend/config/settings.py:227` |
-| `THROTTLE_PANEL_WRITE` | `'180/min'` | `backend/config/settings.py:228` |
+| `LOGIN_EVENT_RETENTION_DAYS` | `'365'` | `backend/config/settings.py:277` |
+| `LOG_LEVEL` | `'INFO'` | `backend/config/settings.py:332` |
+| `SITE_PURGE_TOKEN` | `''` | `backend/config/settings.py:260` |
+| `SITE_PURGE_URL` | `''` | `backend/config/settings.py:259` |
+| `STAFF_SESSION_COOKIE` | `'session'` | `backend/config/settings.py:254` |
+| `STAFF_SESSION_TTL_HOURS` | `'12'` | `backend/config/settings.py:255` |
+| `THROTTLE_CABINET` | `'180/min'` | `backend/config/settings.py:236` |
+| `THROTTLE_CABINET_UPLOAD` | `'30/hour'` | `backend/config/settings.py:237` |
+| `THROTTLE_DOCS` | `'60/min'` | `backend/config/settings.py:240` |
+| `THROTTLE_HIT` | `'240/min'` | `backend/config/settings.py:239` |
+| `THROTTLE_OPEN` | `'1200/min'` | `backend/config/settings.py:230` |
+| `THROTTLE_PANEL_READ` | `'1200/min'` | `backend/config/settings.py:234` |
+| `THROTTLE_PANEL_WRITE` | `'180/min'` | `backend/config/settings.py:235` |
 
 ### Production tekshiruvlari (`python manage.py check`)
 
@@ -365,6 +368,7 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 
 | Manzil | Fayl |
 |---|---|
+| `POST /api/_purge` | `frontend/server/api/_purge.post.ts` |
 | `GET /api/admission` | `frontend/server/api/admission.get.ts` |
 | `POST /api/appeals` | `frontend/server/api/appeals.post.ts` |
 | `GET /api/contact` | `frontend/server/api/contact.get.ts` |
@@ -407,6 +411,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/api/builders_site.py` | Ochiq sayt API'si javoblarini yig'ish (frontend/docs/openapi.yaml shartnomasi). |
 | `backend/apps/api/builders_staff.py` | Xodimlar: ommaviy ro'yxat/profil (HEMIS + saytdagi qo'shimcha ma'lumot) va xodim kabineti. |
 | `backend/apps/api/common.py` | Ochiq API uchun umumiy yordamchilar: til, rasm/fayl manzillari, biriktirmalar, token tekshiruvi. |
+| `backend/apps/api/edge.py` | Kontent o'zgarganda sayt qatlamlari keshini darrov yangilash (Nuxt + nginx). |
 | `backend/apps/api/hits.py` | Sayt statistikasi — cookie'siz va shaxsiy ma'lumotsiz (Umami usulida). |
 | `backend/apps/api/schema.py` | Swagger: ochiq API ko'rinishlari serializer'siz yozilgan — javob umumiy JSON obyekt sifatida ko'rsatiladi, teglar manzildan. |
 | `backend/apps/api/staff_auth.py` | Xodim kabineti autentifikatsiyasi: HEMIS (my.gov) orqali kirgan xodimning sessiyasi. |
@@ -461,7 +466,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (292 ta test)
+### Backend testlari xaritasi (298 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -469,6 +474,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 |---|---|---|
 | `backend/tests/api/test_cache_stampede.py` | 8 | Ochiq javoblar keshi: to'dan himoya — bir xil so'rovlar bazaga bir vaqtda urilmaydi (CachedGetMixin._cached_or_build). |
 | `backend/tests/api/test_contract.py` | 6 | Shartnoma testi: ochiq API javoblari `frontend/docs/openapi.yaml` sxemalariga mos bo'lishi shart (4 til × barcha endpoint). |
+| `backend/tests/api/test_edge_refresh.py` | 5 | Kontent o'zgarganda Nuxt/nginx keshini yangilash (apps/api/edge.py). |
 | `backend/tests/api/test_flows.py` | 13 | Ochiq API oqimlari (demo ma'lumot bilan): sanoqlar, eski /api/site/* manzillari, API token, xodim kabineti, murojaat, statistika. |
 | `backend/tests/api/test_swagger.py` | 11 | Swagger to'liqligi: kodda ishlaydigan har bir amal hujjatda bo'lishi shart (yangi endpoint/kolleksiya qo'shilganda |
 | `backend/tests/core/test_backup.py` | 41 | Zaxira va tiklash: yaratish, tekshirish, tiklash (SQLite va PostgreSQL — qaysi baza bilan ishlayotgan bo'lsa), ko'chma JSON, |
@@ -482,7 +488,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/security/test_auth.py` | 22 | Kirish: JWT, parol almashganda bekor qilish, 2FA (TOTP). |
 | `backend/tests/security/test_cache_pressure.py` | 15 | Kesh va bosim: cache-busting, kesh to'qnashuvi, token bilan himoyalangan javob keshi, statistika/yuklab olish suiiste'moli. |
 | `backend/tests/security/test_data_theft.py` | 17 | Hujum simulyatsiyasi: ma'lumot o'g'irlash (oracle, enumeration, IDOR, draft sizishi, token/rol), scraping va suiiste'mol. |
-| `backend/tests/security/test_files.py` | 30 | Fayl xavfsizligi testlari: yuklash (tekshiruv, tozalash), yopiq saqlash, yuklab olish sarlavhalari, hajm cheklovi. |
+| `backend/tests/security/test_files.py` | 31 | Fayl xavfsizligi testlari: yuklash (tekshiruv, tozalash), yopiq saqlash, yuklab olish sarlavhalari, hajm cheklovi. |
 | `backend/tests/security/test_hardening.py` | 17 | Chiqishdan oldingi audit topilmalari: har biri uchun regressiya testi (hujum so'rovi → xavfsiz javob). |
 | `backend/tests/security/test_jwt_roles.py` | 8 | JWT va rollar: soxta/muddati o'tgan token, rol cheklovlari, yopilgan hisob, Swagger ruxsati. |
 | `backend/tests/security/test_production_checks.py` | 2 | API_TOKEN almashtirish va production sozlama ogohlantirishlari. |
