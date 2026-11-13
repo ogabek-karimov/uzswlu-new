@@ -202,6 +202,13 @@ else:
     CACHES = {'default': {'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache', 'LOCATION': env('CACHE_DIR', '/tmp/uzswlu-cache'), 'OPTIONS': {'MAX_ENTRIES': 5000}}}
 PUBLIC_CACHE_SECONDS = int(env('PUBLIC_CACHE_SECONDS', '60'))   # ochiq GET javoblari keshi (0 — o'chirilgan); kontent o'zgarsa darhol yangilanadi
 PUBLIC_CACHE_STALE_SECONDS = int(env('PUBLIC_CACHE_STALE_SECONDS', '300'))  # muddati o'tgan nusxa shuncha vaqt yana saqlanadi: yangilanguncha tez beriladi (bazaga to'da bo'lib urilmaydi)
+# Admin kontentni saqlaganda sayt qatlamlari (Nuxt kesh + nginx kesh) darrov yangilanishi uchun — barchasi ixtiyoriy, bo'sh bo'lsa o'chiq:
+#   EDGE_PURGE_URL     Nuxt tozalash manzili (masalan http://frontend:3000/api/_purge), token — API_TOKEN (birinchisi)
+#   EDGE_REFRESH_URLS  nginx orqali yangilanadigan sahifalar (masalan http://nginx/,http://nginx/ru,http://nginx/en,http://nginx/zh)
+#   EDGE_REFRESH_TOKEN nginx `X-Cache-Refresh` sarlavhasi uchun maxfiy kalit (nginx sozlamasidagi bilan bir xil)
+EDGE_PURGE_URL = env('EDGE_PURGE_URL')
+EDGE_REFRESH_URLS = env_list('EDGE_REFRESH_URLS')
+EDGE_REFRESH_TOKEN = env('EDGE_REFRESH_TOKEN')
 HEMIS_CACHE_SECONDS = int(env('HEMIS_CACHE_SECONDS', '300'))    # HEMIS nusxasini bazadan qayta o'qish oralig'i
 ADMIN_MAX_LIMIT = int(env('ADMIN_MAX_LIMIT', '5000'))           # admin ro'yxatida bir so'rovda ko'pi bilan
 SESSION_COOKIE_AGE = 60 * 60 * 12

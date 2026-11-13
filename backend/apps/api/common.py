@@ -59,6 +59,8 @@ def bump_content_version() -> None:
         cache.incr('content_ver')
     except ValueError:
         cache.set('content_ver', 1, None)
+    from .edge import schedule_edge_refresh
+    schedule_edge_refresh()
 
 
 # Kesh yozuvi formati va «to'dan himoya» qulfi (CachedGetMixin._cached_or_build)
