@@ -212,6 +212,18 @@ Domenlar ildiz `.env` dan olinadi (`SITE_HOST`, `ADMIN_HOST`, `API_HOST`, `HTTP_
 
 **Redis kerak bo‘lgan joylar:** (1) backend ochiq javob keshi va to‘dan himoya qulfi (`cache.add`) barcha gunicorn jarayonlari uchun bitta bo‘lishi; (2) so‘rov cheklovi (`throttle`) hisobi jarayonlar/serverlar orasida umumiy bo‘lishi; (3) `content_ver` (kontent versiyasi) hamma jarayonda bir xil ko‘rinishi. Redis bo‘lmasa fayl keshi ishlaydi (bitta server uchun yetadi, sekinroq).
 
+### Yuk sinovi skripti
+
+`scripts/loadtest.ps1` (PowerShell 7+, `pwsh`) ko‘p parallel so‘rov yuboradi va necha soniya ketganini, tezlikni, kechikishni (p50/p95/p99), HTTP holatlarini va nginx keshini (`X-Cache`: HIT/MISS/STALE) ko‘rsatadi:
+
+```powershell
+pwsh scripts/loadtest.ps1                         # 10 000 so‘rov, 100 parallel, bosh sahifa
+pwsh scripts/loadtest.ps1 -Concurrency 200 -Warmup
+pwsh scripts/loadtest.ps1 -Urls http://localhost:8080/,http://localhost:8080/ru,http://localhost:8080/en,http://localhost:8080/zh
+```
+
+Raqamlar sinaydigan kompyuter va Docker’ga bog‘liq (sinov va server bir mashinada bo‘lsa haqiqiy serverdan past chiqadi). Faqat o‘z serveringizga yuboring.
+
 ### Admin ma’lumotni o‘zgartirganda keshni yangilash
 
 Backend keshi `content_ver` bilan darrov eskiradi. Oldindagi qatlamlar uchun (`backend/apps/api/edge.py`) saqlashdan keyin fonda (ketma-ket saqlashlar bitta yangilanishga birlashadi, saqlash hech qachon to‘xtamaydi):
