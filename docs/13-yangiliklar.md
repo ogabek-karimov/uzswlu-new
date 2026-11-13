@@ -2,6 +2,10 @@
 
 Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `CLAUDE.md`). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.
 
+## 2026-11-13
+
+- **Sayt (tezlik, yuklama):** `routeRules` — sahifalarga `Cache-Control: public, s-maxage=60, stale-while-revalidate=300` (kabinet, qidiruv va `/api/**` — `no-store`), bosh sahifalar (4 til) Node’da `swr: 60`; hashli `/_nuxt/**` — `immutable`. `docs/10-server.md` ga «Yuklama va tezlik» bo‘limi: nginx `proxy_cache` + bir nechta Node nusxasi namunasi, qatlamlar jadvali, HEMIS ta’siri (ochiq sahifa HEMIS’ga bormaydi), tekshirish buyruqlari. Backend yuk sinovi (sandbox): 1000 bir vaqtdagi so‘rov — xatosiz, ~3 s. — `COMMIT`
+
 ## 2026-11-12
 
 - **Backend (mavjud bazalar uchun migratsiya):** «Universitet bitiruvchilari haqida» menyu bandi PDF-havoladan matnli sahifaga o‘zi aylanadi — `pages/0003_graduates_text_page` (qo‘lda admin panelda o‘zgartirish kerak emas; faqat hali PDF-havola bo‘lsa ishlaydi, allaqachon o‘zgartirilgan bo‘lsa tegmaydi). Oldingi `d86a741` yozuvidagi «mavjud bazada admin orqali» qadami endi shart emas. — `b81ff12`

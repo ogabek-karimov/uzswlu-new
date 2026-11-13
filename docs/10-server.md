@@ -82,6 +82,65 @@ server {
 
 > `X-Forwarded-For` ni **ustiga yozing** (`$remote_addr`), `$proxy_add_x_forwarded_for` emas — aks holda foydalanuvchi soxta IP yuborib so‘rov cheklovini aylanib o‘tadi.
 
+## Yuklama va tezlik (1000+ bir vaqtdagi foydalanuvchi)
+
+**Sinov natijasi (sandbox, 2 yadro, SQLite — taxminiy):** backend API ~500 so‘rov/soniya beradi, 1000 so‘rov bir lahzada kelsa ham hammasi ~3 soniyada, xatosiz javob oladi (o‘rtacha so‘rov — 5 ms). Sayt tomoni (Nuxt, sahifani serverda chizish) sinalmagan — u eng og‘ir qism, shuning uchun quyidagi qatlamlar kerak.
+
+So‘rov yo‘li va har qatlamdagi kesh — foydalanuvchi baza yoki HEMIS’gacha deyarli yetib bormaydi:
+
+| Qatlam | Nima qiladi | Muddat |
+|---|---|---|
+| nginx `proxy_cache` | tayyor sahifa HTML’i, Node’ga so‘rov bormaydi | 60 s (+ eskirgan nusxa xatoda) |
+| Nuxt `routeRules` (`frontend/nuxt.config.ts`) | bosh sahifalar (4 til) Node’da stale-while-revalidate; boshqa sahifalarga `s-maxage=60` sarlavhasi | 60 s |
+| Nuxt `server/api` kesh | `/api/home` va boshqalar | 5 daqiqa |
+| «Oxirgi yaxshi javob» | backend o‘chsa, saqlangan nusxa | 3 soat |
+| Backend ochiq javob keshi (`PUBLIC_CACHE_SECONDS`) | bazaga qayta bormaydi, kontent o‘zgarsa darhol yangilanadi | 60 s |
+
+**HEMIS ta’siri:** ochiq sahifa so‘rovi HEMIS’ga **bormaydi** — talaba/xodim ma’lumotlari bazadagi nusxadan o‘qiladi (`HEMIS_CACHE_SECONDS`), nusxa esa alohida sinxronlash bilan yangilanadi. HEMIS sekin yoki o‘chiq bo‘lsa, sayt eski nusxani ko‘rsatadi, qotmaydi (o‘chirgich: `backend/apps/hemis/guard.py`). Faqat HEMIS orqali **kirish** (OAuth) HEMIS’ga boradi — u alohida cheklangan (`THROTTLE_HEMIS_AUTH`).
+
+### Nginx: sayt uchun kesh va bir nechta Node nusxasi
+
+```nginx
+proxy_cache_path /var/cache/nginx/uzswlu levels=1:2 keys_zone=site:50m max_size=1g inactive=10m use_temp_path=off;
+
+upstream nuxt {                       # Node bitta yadroda ishlaydi — yadro soniga qarab nusxa ishga tushiring
+  least_conn;
+  server 127.0.0.1:3000;
+  server 127.0.0.1:3001;              # PORT=3001 node .output/server/index.mjs
+  keepalive 64;
+}
+
+server {
+  listen 443 ssl http2;
+  server_name sizning.uz;
+
+  location /_nuxt/ {                  # fayl nomida xesh bor — bir yil keshlanadi
+    proxy_pass http://nuxt;
+    expires 1y;
+    add_header Cache-Control "public, immutable";
+  }
+  location / {
+    proxy_pass http://nuxt;
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    proxy_cache site;
+    proxy_cache_valid 200 60s;        # sayt `Cache-Control` bergan sahifalar (kabinet, qidiruv) keshlanmaydi
+    proxy_cache_lock on;              # bir xil sahifaga 1000 ta so‘rov — Node’ga bittasi boradi
+    proxy_cache_background_update on;
+    proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+    add_header X-Cache $upstream_cache_status;   # HIT/MISS/STALE — tekshirish uchun
+  }
+}
+```
+
+Backend (gunicorn) uchun: `WEB_CONCURRENCY` ≈ yadro soni × 2 + 1, `WEB_THREADS` 2–4 (standart 3×2 — kichik server uchun). Kesh umumiy bo‘lishi uchun productionda **Redis** (`REDIS_URL`) bo‘lsin, aks holda har gunicorn jarayoni alohida kesh va alohida so‘rov-cheklov hisoblagichi yuritadi.
+
+**Production’da tekshirish** (ishga tushirgach, 1–2 daqiqa): `curl -sI https://sizning.uz/ | grep -i x-cache` ikkinchi marta `HIT` bo‘lishi kerak; `hey -n 1000 -c 200 https://sizning.uz/` (yoki `ab`) natijasida xato 0 va p95 ~100 ms dan past bo‘lishi kerak.
+
 ## Sayt SEO (qidiruv va ijtimoiy tarmoq)
 
 | Tekshiruv | Qanday |

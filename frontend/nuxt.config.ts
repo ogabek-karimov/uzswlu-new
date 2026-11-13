@@ -37,6 +37,27 @@ export default defineNuxtConfig({
     },
   },
 
+  // Yuklama (ko'p tashrifchi): sahifalar CDN/nginx keshida 60 soniya turishi uchun javob sarlavhalari beriladi;
+  // bosh sahifalar (4 til) Node'ning o'zida ham stale-while-revalidate bilan keshlanadi — SSR har so'rovda qayta ishlamaydi.
+  // Shaxsiy yoki cheksiz xilma-xil sahifalar (kabinet, qidiruv) keshlanmaydi. Nginx namunasi: docs/10-server.md
+  routeRules: {
+    '/**': { headers: { 'cache-control': 'public, s-maxage=60, stale-while-revalidate=300' } },
+    '/_nuxt/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+    '/': { swr: 60 },
+    '/ru': { swr: 60 },
+    '/en': { swr: 60 },
+    '/zh': { swr: 60 },
+    '/dashboard': { headers: { 'cache-control': 'private, no-store' } },
+    '/ru/dashboard': { headers: { 'cache-control': 'private, no-store' } },
+    '/en/dashboard': { headers: { 'cache-control': 'private, no-store' } },
+    '/zh/dashboard': { headers: { 'cache-control': 'private, no-store' } },
+    '/search': { headers: { 'cache-control': 'private, no-store' } },
+    '/ru/search': { headers: { 'cache-control': 'private, no-store' } },
+    '/en/search': { headers: { 'cache-control': 'private, no-store' } },
+    '/zh/search': { headers: { 'cache-control': 'private, no-store' } },
+    '/api/**': { headers: { 'cache-control': 'private, no-store' } },
+  },
+
   i18n: {
     defaultLocale: 'uz',
     strategy: 'prefix_except_default',
