@@ -206,6 +206,8 @@ docker compose -f docker-compose.prod.yml up -d --build
 curl -sI http://localhost:8080/ | grep -i x-cache      # 1-so‘rov MISS, keyingisi HIT
 ```
 
+Domenlar ildiz `.env` dan olinadi (`SITE_HOST`, `ADMIN_HOST`, `API_HOST`, `HTTP_PORT`) va backendning `ALLOWED_HOSTS`/`TRUSTED_ORIGINS`/`PUBLIC_SERVER_URL` ga avtomatik beriladi. **http da** (HTTPS siz, lokal sinov) admin panelga kirish uchun ildiz `.env` ga `COOKIE_SECURE=false` yozing; haqiqiy serverda (HTTPS) yozmang.
+
 `EDGE_REFRESH_TOKEN` majburiy: u bo‘sh bo‘lsa nginx hamma so‘rovni keshdan chetlab o‘tkazardi, shuning uchun compose kalitsiz ishga tushmaydi (CI buni tekshiradi). TLS (HTTPS) shu tuzilma oldida turadi (certbot, Cloudflare yoki yuk balansirovchi); shunda `NUM_PROXIES` ni (Cloudflare + nginx — `2`) moslang.
 
 **Redis kerak bo‘lgan joylar:** (1) backend ochiq javob keshi va to‘dan himoya qulfi (`cache.add`) barcha gunicorn jarayonlari uchun bitta bo‘lishi; (2) so‘rov cheklovi (`throttle`) hisobi jarayonlar/serverlar orasida umumiy bo‘lishi; (3) `content_ver` (kontent versiyasi) hamma jarayonda bir xil ko‘rinishi. Redis bo‘lmasa fayl keshi ishlaydi (bitta server uchun yetadi, sekinroq).

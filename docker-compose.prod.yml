@@ -6,7 +6,7 @@
 #   docker compose -f docker-compose.prod.yml up -d --build
 #   sayt http://localhost:8080 · admin http://admin.localhost:8080 · API http://api.localhost:8080  (SITE_HOST/ADMIN_HOST/API_HOST ni o'zgartirsa bo'ladi)
 #   Tekshirish:  curl -sI http://localhost:8080/ | grep -i x-cache     (MISS → keyingisi HIT)
-# Ildiz `.env` o'zgaruvchilari: SITE_HOST, ADMIN_HOST, API_HOST, HTTP_PORT, EDGE_REFRESH_TOKEN.
+# Ildiz `.env` o'zgaruvchilari: SITE_HOST, ADMIN_HOST, API_HOST, HTTP_PORT, EDGE_REFRESH_TOKEN, COOKIE_SECURE (http da sinash uchun false).
 name: uzswlu-prod
 
 x-backend: &backend
@@ -17,6 +17,14 @@ x-backend: &backend
     DEBUG: "false"
     REDIS_URL: redis://redis:6379/1      # umumiy kesh va so'rov cheklovi hisobi (barcha gunicorn jarayonlari uchun bitta)
     NUM_PROXIES: "1"                     # backend oldida bitta proksi — nginx
+    # Domenlar (ildiz .env dagi SITE_HOST/ADMIN_HOST/API_HOST/HTTP_PORT dan). Bular bo'lmasa: Host rad etiladi (400), login CSRF/CORS'da to'xtaydi.
+    ALLOWED_HOSTS: ${API_HOST:-api.localhost},${ADMIN_HOST:-admin.localhost},${SITE_HOST:-localhost},backend,nginx,127.0.0.1
+    TRUSTED_ORIGINS: http://${ADMIN_HOST:-admin.localhost}:${HTTP_PORT:-8080},http://${SITE_HOST:-localhost}:${HTTP_PORT:-8080}
+    PUBLIC_SERVER_URL: http://${API_HOST:-api.localhost}:${HTTP_PORT:-8080}
+    ADMIN_PANEL_URL: http://${ADMIN_HOST:-admin.localhost}:${HTTP_PORT:-8080}
+    SITE_URL: http://${SITE_HOST:-localhost}:${HTTP_PORT:-8080}
+    # HTTPS orqasida (haqiqiy server) true qoldiring; faqat http://localhost da sinash uchun ildiz .env: COOKIE_SECURE=false
+    COOKIE_SECURE: ${COOKIE_SECURE:-true}
     EDGE_PURGE_URL: http://frontend:3000/api/_purge
     EDGE_REFRESH_URLS: http://nginx/,http://nginx/ru,http://nginx/en,http://nginx/zh
     EDGE_REFRESH_TOKEN: ${EDGE_REFRESH_TOKEN:?ildiz .env da EDGE_REFRESH_TOKEN yozing (uzun tasodifiy qator)}
