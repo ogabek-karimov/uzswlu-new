@@ -816,7 +816,7 @@ Batafsil: <a href="#doc-06-testlar">06-testlar</a>.
 <p>Eng yangisi tepada. <strong>Har bir o‘zgarishdan keyin shu yerga yozing</strong> (qoida: <code>CLAUDE.md</code>). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.</p>
 <h2 id="doc-13-yangiliklar--2026-11-13">2026-11-13<a class="anchor" href="#doc-13-yangiliklar--2026-11-13" aria-label="Havola">#</a></h2>
 <ul><li>
-<strong>Server (yuk sinovi skripti):</strong> <code>scripts/loadtest.ps1</code> — 10 000 (sozlanadi) parallel so‘rov, jami vaqt, so‘rov/soniya, kechikish (p50/p95/p99), HTTP holatlari va <code>X-Cache</code> taqsimoti; <code>-Warmup</code>, <code>-Concurrency</code>, <code>-Urls</code> parametrlari. Ishlatish: <code>docs/10-server.md</code>. — <code>COMMIT</code>
+<strong>Server (yuk sinovi skripti):</strong> <code>scripts/loadtest.ps1</code> — 10 000 (sozlanadi) parallel so‘rov, jami vaqt, so‘rov/soniya, kechikish (p50/p95/p99), HTTP holatlari va <code>X-Cache</code> taqsimoti; <code>-Warmup</code>, <code>-Concurrency</code>, <code>-Urls</code> parametrlari. Ishlatish: <code>docs/10-server.md</code>. — <code>42a46c5</code>
 </li></ul>
 <ul><li>
 <strong>Server (prod compose: admin kirishi):</strong> <code>docker-compose.prod.yml</code> backendga domenlarni (<code>ALLOWED_HOSTS</code>, <code>TRUSTED_ORIGINS</code>, <code>PUBLIC_SERVER_URL</code>, <code>ADMIN_PANEL_URL</code>, <code>SITE_URL</code>) ildiz <code>.env</code> dagi <code>SITE_HOST</code>/<code>ADMIN_HOST</code>/<code>API_HOST</code>/<code>HTTP_PORT</code> dan beradi — avval <code>api.localhost</code> Host’i rad etilib, admin panel «Server bilan aloqa yo‘q» ko‘rsatardi. Lokal http sinovi uchun <code>COOKIE_SECURE=false</code> (ildiz <code>.env</code>). — <code>18ccad3</code>
