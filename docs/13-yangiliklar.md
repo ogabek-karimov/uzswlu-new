@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-13
 
-- **Server (yuk sinovi skripti tuzatildi):** `-Urls a,b,c` bilan chaqirilganda ro‘yxat bitta qator bo‘lib kelib, hamma so‘rov 404 bo‘lardi — endi vergul bo‘yicha ajratiladi. Skript PowerShell tezligi bilan cheklangani (~150–250 so‘rov/s) hujjatga yozildi va serverning haqiqiy tezligini o‘lchash uchun Docker’dagi `ab` buyrug‘i qo‘shildi (`docs/10-server.md`). — `COMMIT`
+- **Server (yuk sinovi skripti tuzatildi):** `-Urls a,b,c` bilan chaqirilganda ro‘yxat bitta qator bo‘lib kelib, hamma so‘rov 404 bo‘lardi — endi vergul bo‘yicha ajratiladi. Skript PowerShell tezligi bilan cheklangani (~150–250 so‘rov/s) hujjatga yozildi va serverning haqiqiy tezligini o‘lchash uchun Docker’dagi `ab` buyrug‘i qo‘shildi (`docs/10-server.md`). — `dbbf8cf`
 
 - **Server (yuk sinovi skripti):** `scripts/loadtest.ps1` — 10 000 (sozlanadi) parallel so‘rov, jami vaqt, so‘rov/soniya, kechikish (p50/p95/p99), HTTP holatlari va `X-Cache` taqsimoti; `-Warmup`, `-Concurrency`, `-Urls` parametrlari. Ishlatish: `docs/10-server.md`. — `42a46c5`
 
