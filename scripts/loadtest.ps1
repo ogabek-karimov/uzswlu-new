@@ -8,7 +8,8 @@
     pwsh scripts/loadtest.ps1 -Urls http://localhost:8080/,http://localhost:8080/ru,http://localhost:8080/en,http://localhost:8080/zh
     pwsh scripts/loadtest.ps1 -Warmup                           # avval keshni isitadi (faqat HIT ni o'lchash uchun)
 
-  Eslatma: o'lchov kompyuteringiz va Docker'ga bog'liq (sinash va server bir mashinada — raqamlar haqiqiy serverdan past bo'lishi mumkin).
+  Eslatma: bu skript kesh va xatolarni TEKSHIRISH uchun (PowerShell o'zi sekin: ~150–250 so'rov/s dan oshmaydi). Serverning haqiqiy
+  tezligini o'lchash uchun docs/10-server.md dagi `ab` (Docker) buyrug'idan foydalaning.
   Faqat o'z serveringizga yuboring.
 #>
 param(
@@ -18,6 +19,9 @@ param(
   [int]$TimeoutSec = 30,
   [switch]$Warmup
 )
+
+# `pwsh scripts/loadtest.ps1 -Urls a,b` buyrug'ida ro'yxat bitta qator bo'lib keladi — vergul bo'yicha ajratamiz
+$Urls = @($Urls | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } | Where-Object { $_ })
 
 if ($PSVersionTable.PSVersion.Major -lt 7) {
   Write-Error 'PowerShell 7+ kerak. O''rnatish: winget install Microsoft.PowerShell, keyin `pwsh scripts/loadtest.ps1` bilan ishga tushiring.'

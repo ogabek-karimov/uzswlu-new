@@ -4,6 +4,8 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-13
 
+- **Server (yuk sinovi skripti tuzatildi):** `-Urls a,b,c` bilan chaqirilganda ro‘yxat bitta qator bo‘lib kelib, hamma so‘rov 404 bo‘lardi — endi vergul bo‘yicha ajratiladi. Skript PowerShell tezligi bilan cheklangani (~150–250 so‘rov/s) hujjatga yozildi va serverning haqiqiy tezligini o‘lchash uchun Docker’dagi `ab` buyrug‘i qo‘shildi (`docs/10-server.md`). — `COMMIT`
+
 - **Server (yuk sinovi skripti):** `scripts/loadtest.ps1` — 10 000 (sozlanadi) parallel so‘rov, jami vaqt, so‘rov/soniya, kechikish (p50/p95/p99), HTTP holatlari va `X-Cache` taqsimoti; `-Warmup`, `-Concurrency`, `-Urls` parametrlari. Ishlatish: `docs/10-server.md`. — `42a46c5`
 
 - **Server (prod compose: admin kirishi):** `docker-compose.prod.yml` backendga domenlarni (`ALLOWED_HOSTS`, `TRUSTED_ORIGINS`, `PUBLIC_SERVER_URL`, `ADMIN_PANEL_URL`, `SITE_URL`) ildiz `.env` dagi `SITE_HOST`/`ADMIN_HOST`/`API_HOST`/`HTTP_PORT` dan beradi — avval `api.localhost` Host’i rad etilib, admin panel «Server bilan aloqa yo‘q» ko‘rsatardi. Lokal http sinovi uchun `COOKIE_SECURE=false` (ildiz `.env`). — `18ccad3`

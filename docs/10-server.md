@@ -222,7 +222,14 @@ pwsh scripts/loadtest.ps1 -Concurrency 200 -Warmup
 pwsh scripts/loadtest.ps1 -Urls http://localhost:8080/,http://localhost:8080/ru,http://localhost:8080/en,http://localhost:8080/zh
 ```
 
-Raqamlar sinaydigan kompyuter va Docker’ga bog‘liq (sinov va server bir mashinada bo‘lsa haqiqiy serverdan past chiqadi). Faqat o‘z serveringizga yuboring.
+Bu skript kesh va xatolarni **tekshirish** uchun: PowerShell’ning o‘zi sekin (~150–250 so‘rov/s), shuning uchun u serverning chegarasini emas, o‘zining chegarasini o‘lchaydi (kechikish 1–2 ms bo‘lsa ham tezlik past chiqadi). Serverning haqiqiy tezligini Docker tarmog‘ida `ab` bilan o‘lchang (klient nginx’ga to‘g‘ridan-to‘g‘ri ulanadi):
+
+```powershell
+docker network ls                       # nomi uzswlu-prod_default bo‘lishi kerak
+docker run --rm --network uzswlu-prod_default httpd:2.4-alpine ab -k -n 20000 -c 200 http://nginx/
+```
+
+Natijada `Requests per second`, `Time per request` va foizli kechikish jadvali (50%, 95%, 99%) chiqadi. Sinov va server bir mashinada bo‘lsa raqamlar haqiqiy serverdan past bo‘lishi mumkin. Faqat o‘z serveringizga yuboring.
 
 ### Admin ma’lumotni o‘zgartirganda keshni yangilash
 
