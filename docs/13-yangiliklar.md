@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-13
 
-- **Server (prod compose: admin kirishi):** `docker-compose.prod.yml` backendga domenlarni (`ALLOWED_HOSTS`, `TRUSTED_ORIGINS`, `PUBLIC_SERVER_URL`, `ADMIN_PANEL_URL`, `SITE_URL`) ildiz `.env` dagi `SITE_HOST`/`ADMIN_HOST`/`API_HOST`/`HTTP_PORT` dan beradi — avval `api.localhost` Host’i rad etilib, admin panel «Server bilan aloqa yo‘q» ko‘rsatardi. Lokal http sinovi uchun `COOKIE_SECURE=false` (ildiz `.env`). — `COMMIT`
+- **Server (prod compose: admin kirishi):** `docker-compose.prod.yml` backendga domenlarni (`ALLOWED_HOSTS`, `TRUSTED_ORIGINS`, `PUBLIC_SERVER_URL`, `ADMIN_PANEL_URL`, `SITE_URL`) ildiz `.env` dagi `SITE_HOST`/`ADMIN_HOST`/`API_HOST`/`HTTP_PORT` dan beradi — avval `api.localhost` Host’i rad etilib, admin panel «Server bilan aloqa yo‘q» ko‘rsatardi. Lokal http sinovi uchun `COOKIE_SECURE=false` (ildiz `.env`). — `18ccad3`
 
 - **Server (nginx + Redis, production tuzilmasi):** `docker-compose.prod.yml` — nginx (`proxy_cache`, single-flight `proxy_cache_lock`, stale-while-revalidate, API va admin statik), Nuxt build (`frontend/Dockerfile`), gunicorn backend, **Redis** (umumiy kesh va so‘rov-cheklov, `volatile-lru`), PostgreSQL. `requirements.txt` ga `redis` paketi. Lokal sinash: `docker compose -f docker-compose.prod.yml up -d --build`, `X-Cache: MISS → HIT`. CI’da yangi `deploy` ishi: compose to‘g‘riligi, kalitsiz ishga tushmasligi va `nginx -t`. Hali haqiqiy Docker’da to‘liq ishga tushirib sinalmagan (sandbox’da Docker yo‘q) — birinchi ishga tushirishda `docker compose ... logs nginx` ni tekshiring. — `a34cef4`
 
