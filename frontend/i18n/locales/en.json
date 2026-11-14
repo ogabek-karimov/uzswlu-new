@@ -160,6 +160,11 @@
     "title": "A bridge between languages and cultures",
     "text": "Since 1949 the university has trained specialists in foreign languages: philologists, translators and teachers.",
     "link": "Read more",
+    "numbers": {
+      "eyebrow": "In numbers",
+      "title": "Numbers and the university",
+      "text": "The university’s key figures today."
+    },
     "facts": {
       "faculties": "faculties",
       "staff": "academic staff",

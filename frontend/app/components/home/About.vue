@@ -13,12 +13,13 @@ const { data: leadership } = useFetch<Leadership>('/api/leadership', { key: 'lea
 const rector = computed(() => leadership.value?.rector ?? null)
 const initials = (name: string) => name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase()
 
-// Tartib: fakultet → akademik xodim → kafedra → talaba. Har birining ikonkasi va rangi (tile) o'zgacha.
+// Tartib: fakultet → akademik xodim → kafedra → talaba. Ikonkalar ma'nosi original saytdagidek (qalam, kurs, sertifikat, bitiruvchi);
+// kartalar bir xil emas: shaxmat tartibida rang beriladi, o'ng ustun pastroqda turadi.
 const FACTS = [
-  { key: 'faculties', icon: 'lucide:building-2', tile: 'bg-accent-400 text-brand-950', glow: 'bg-accent-400/30' },
-  { key: 'staff', icon: 'lucide:presentation', tile: 'bg-brand-300 text-brand-950', glow: 'bg-brand-300/30' },
-  { key: 'departments', icon: 'lucide:library-big', tile: 'bg-white text-brand-700', glow: 'bg-white/25' },
-  { key: 'students', icon: 'lucide:graduation-cap', tile: 'bg-accent-300 text-brand-950', glow: 'bg-accent-300/30' },
+  { key: 'faculties', icon: 'lucide:pencil-ruler', card: 'bg-white/[0.07] text-white ring-1 ring-white/10', label: 'text-white/70', tile: 'bg-accent-400 text-brand-950', ghost: 'text-white/[0.06]', suffixColor: 'text-accent-400' },
+  { key: 'staff', icon: 'lucide:book-open', card: 'bg-accent-400 text-brand-950', label: 'text-brand-950/70', tile: 'bg-brand-950 text-accent-400', ghost: 'text-brand-950/[0.08]', suffixColor: 'text-brand-700' },
+  { key: 'departments', icon: 'lucide:award', card: 'bg-brand-600 text-white', label: 'text-white/75', tile: 'bg-white text-brand-700', ghost: 'text-white/[0.09]', suffixColor: 'text-accent-300' },
+  { key: 'students', icon: 'lucide:graduation-cap', card: 'bg-white text-brand-950', label: 'text-muted', tile: 'bg-brand-950 text-accent-400', ghost: 'text-brand-600/[0.07]', suffixColor: 'text-brand-600' },
 ] as const
 
 const facts = computed(() => FACTS.flatMap((fact) => {
@@ -29,27 +30,34 @@ const facts = computed(() => FACTS.flatMap((fact) => {
 
 <template>
   <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" :aria-label="t('about.eyebrow')">
-    <!-- Raqamlar tasmasi: to'rtta karta, har birida o'zgacha ikonka -->
-    <dl v-if="facts.length" class="grid grid-cols-2 gap-3 rounded-[28px] bg-brand-950 p-3 sm:gap-4 sm:p-4 lg:grid-cols-4">
-      <div
-        v-for="fact in facts"
-        :key="fact.key"
-        class="group relative overflow-hidden rounded-[20px] bg-white/[0.06] p-5 ring-1 ring-white/10 transition duration-300 hover:-translate-y-1 hover:bg-white/10 hover:ring-white/25 sm:p-6 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
-      >
-        <!-- yumshoq nur va katta xira ikonka (bezak) -->
-        <span class="pointer-events-none absolute -top-10 -right-10 size-32 rounded-full opacity-60 blur-2xl transition-opacity duration-300 group-hover:opacity-100" :class="fact.glow" aria-hidden="true" />
-        <Icon :name="fact.icon" class="pointer-events-none absolute -right-3 -bottom-5 size-28 text-white/[0.05] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6 motion-reduce:transition-none" aria-hidden="true" />
-        <div class="relative flex flex-col gap-5">
-          <span class="grid size-12 -rotate-6 place-items-center rounded-2xl shadow-[0_12px_28px_-10px_rgb(0_0_0/0.6)] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-0 motion-reduce:transition-none" :class="fact.tile" aria-hidden="true">
-            <Icon :name="fact.icon" class="size-6" />
-          </span>
-          <div class="flex flex-col-reverse gap-1.5">
-            <dt class="text-[15px] text-white/70 lg:min-h-[2lh]">{{ t(`about.facts.${fact.key}`) }}</dt>
-            <dd class="font-display text-[2.6rem] leading-none text-white sm:text-5xl">{{ fact.number }}<span class="text-accent-400">{{ fact.suffix }}</span></dd>
+    <!-- Raqamlar: chapda sarlavha, o'ngda 2×2 kartalar (o'ng ustun pastroqda — bir qatordagi «tasma» emas) -->
+    <div v-if="facts.length" class="grid gap-8 rounded-[28px] bg-brand-950 p-5 sm:p-8 lg:grid-cols-12 lg:items-center lg:gap-10 lg:p-12">
+      <div class="lg:col-span-4">
+        <p class="text-[13px] font-semibold tracking-[0.12em] text-accent-400 uppercase">{{ t('about.numbers.eyebrow') }}</p>
+        <h2 class="mt-4 font-display text-4xl leading-[1.1] font-semibold text-white sm:text-[2.6rem]">{{ t('about.numbers.title') }}</h2>
+        <p class="mt-4 max-w-sm text-[17px] leading-relaxed text-white/70">{{ t('about.numbers.text') }}</p>
+      </div>
+      <dl class="grid grid-cols-2 gap-3 sm:gap-4 lg:col-span-8 lg:items-start">
+        <div
+          v-for="fact in facts"
+          :key="fact.key"
+          class="group relative overflow-hidden rounded-3xl p-5 sm:p-7 lg:even:mt-10"
+          :class="fact.card"
+        >
+          <!-- katta xira ikonka (bezak) -->
+          <Icon :name="fact.icon" class="pointer-events-none absolute -right-4 -bottom-6 size-36 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6 motion-reduce:transition-none" :class="fact.ghost" aria-hidden="true" />
+          <div class="relative flex flex-col gap-6 sm:gap-8">
+            <span class="grid size-12 -rotate-6 place-items-center rounded-2xl shadow-[0_12px_28px_-12px_rgb(0_0_0/0.55)] transition-transform duration-300 group-hover:rotate-0 group-hover:scale-110 sm:size-14 motion-reduce:transition-none" :class="fact.tile" aria-hidden="true">
+              <Icon :name="fact.icon" class="size-6 sm:size-7" />
+            </span>
+            <div class="flex flex-col-reverse gap-2">
+              <dt class="text-[15px] sm:text-base lg:min-h-[2lh]" :class="fact.label">{{ t(`about.facts.${fact.key}`) }}</dt>
+              <dd class="font-display text-5xl leading-none sm:text-6xl lg:text-7xl">{{ fact.number }}<span :class="fact.suffixColor">{{ fact.suffix }}</span></dd>
+            </div>
           </div>
         </div>
-      </div>
-    </dl>
+      </dl>
+    </div>
 
     <div class="mt-8 grid gap-6 lg:auto-rows-[minmax(25rem,auto)] lg:grid-cols-12">
       <!-- Universitet haqida -->
