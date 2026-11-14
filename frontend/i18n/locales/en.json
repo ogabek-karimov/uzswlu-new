@@ -161,11 +161,10 @@
     "text": "Since 1949 the university has trained specialists in foreign languages: philologists, translators and teachers.",
     "link": "Read more",
     "facts": {
-      "founded": "year founded",
-      "students": "students",
-      "staff": "professors and lecturers",
-      "languages": "languages taught",
-      "partners": "foreign partners"
+      "faculties": "faculties",
+      "staff": "academic staff",
+      "departments": "departments",
+      "students": "students"
     },
     "rector": "Rector’s address",
     "quote": "Our goal is to teach students not the world’s languages, but the way into the world.",

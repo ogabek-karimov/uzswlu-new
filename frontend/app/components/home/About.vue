@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { Leadership, Stat } from '#shared/types/api'
 
-// «Universitet haqida»: to'q statistika tasmasi (1949, talaba, professor-o'qituvchi, til, hamkor)
+// «Universitet haqida»: raqamlar tasmasi (fakultet, akademik xodim, kafedra, talaba — HEMIS'dan)
 // va uchta karta — universitet haqida, rektor murojaati, video tur
-const props = defineProps<{ stats: Stat[]; languages: number; partners: number }>()
+const props = defineProps<{ stats: Stat[] }>()
 
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
@@ -13,28 +13,41 @@ const { data: leadership } = useFetch<Leadership>('/api/leadership', { key: 'lea
 const rector = computed(() => leadership.value?.rector ?? null)
 const initials = (name: string) => name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase()
 
-const statValue = (key: Stat['key']) => props.stats.find(s => s.key === key)?.value
-const facts = computed(() => [
-  { key: 'founded', number: '1949', suffix: '', hide: false },
-  { key: 'students', ...formatStat(statValue('students') ?? 0), hide: statValue('students') === undefined },
-  { key: 'staff', ...formatStat(statValue('staff') ?? 0), hide: statValue('staff') === undefined },
-  { key: 'languages', number: String(props.languages), suffix: '', hide: !props.languages },
-  { key: 'partners', number: String(props.partners), suffix: '', hide: !props.partners },
-].filter(fact => !fact.hide))
+// Tartib: fakultet → akademik xodim → kafedra → talaba. Har birining ikonkasi va rangi (tile) o'zgacha.
+const FACTS = [
+  { key: 'faculties', icon: 'lucide:building-2', tile: 'bg-accent-400 text-brand-950', glow: 'bg-accent-400/30' },
+  { key: 'staff', icon: 'lucide:presentation', tile: 'bg-brand-300 text-brand-950', glow: 'bg-brand-300/30' },
+  { key: 'departments', icon: 'lucide:library-big', tile: 'bg-white text-brand-700', glow: 'bg-white/25' },
+  { key: 'students', icon: 'lucide:graduation-cap', tile: 'bg-accent-300 text-brand-950', glow: 'bg-accent-300/30' },
+] as const
+
+const facts = computed(() => FACTS.flatMap((fact) => {
+  const value = props.stats.find(stat => stat.key === fact.key)?.value
+  return value === undefined ? [] : [{ ...fact, ...formatStat(value) }]
+}))
 </script>
 
 <template>
   <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" :aria-label="t('about.eyebrow')">
-    <!-- Raqamlar tasmasi -->
-    <dl class="grid grid-cols-2 gap-x-6 gap-y-7 rounded-[28px] bg-brand-950 px-7 py-8 sm:grid-cols-3 sm:px-10 lg:grid-cols-5 lg:gap-0">
+    <!-- Raqamlar tasmasi: to'rtta karta, har birida o'zgacha ikonka -->
+    <dl v-if="facts.length" class="grid grid-cols-2 gap-3 rounded-[28px] bg-brand-950 p-3 sm:gap-4 sm:p-4 lg:grid-cols-4">
       <div
-        v-for="(fact, i) in facts"
+        v-for="fact in facts"
         :key="fact.key"
-        class="flex flex-col-reverse gap-2 lg:px-8 lg:first:pl-2"
-        :class="i > 0 && 'lg:border-l lg:border-white/10'"
+        class="group relative overflow-hidden rounded-[20px] bg-white/[0.06] p-5 ring-1 ring-white/10 transition duration-300 hover:-translate-y-1 hover:bg-white/10 hover:ring-white/25 sm:p-6 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
       >
-        <dt class="text-[15px] text-white/70 lg:min-h-[2lh]">{{ t(`about.facts.${fact.key}`) }}</dt>
-        <dd class="font-display text-[2.6rem] leading-none text-accent-400 sm:text-5xl">{{ fact.number }}{{ fact.suffix }}</dd>
+        <!-- yumshoq nur va katta xira ikonka (bezak) -->
+        <span class="pointer-events-none absolute -top-10 -right-10 size-32 rounded-full opacity-60 blur-2xl transition-opacity duration-300 group-hover:opacity-100" :class="fact.glow" aria-hidden="true" />
+        <Icon :name="fact.icon" class="pointer-events-none absolute -right-3 -bottom-5 size-28 text-white/[0.05] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6 motion-reduce:transition-none" aria-hidden="true" />
+        <div class="relative flex flex-col gap-5">
+          <span class="grid size-12 -rotate-6 place-items-center rounded-2xl shadow-[0_12px_28px_-10px_rgb(0_0_0/0.6)] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-0 motion-reduce:transition-none" :class="fact.tile" aria-hidden="true">
+            <Icon :name="fact.icon" class="size-6" />
+          </span>
+          <div class="flex flex-col-reverse gap-1.5">
+            <dt class="text-[15px] text-white/70 lg:min-h-[2lh]">{{ t(`about.facts.${fact.key}`) }}</dt>
+            <dd class="font-display text-[2.6rem] leading-none text-white sm:text-5xl">{{ fact.number }}<span class="text-accent-400">{{ fact.suffix }}</span></dd>
+          </div>
+        </div>
       </div>
     </dl>
 

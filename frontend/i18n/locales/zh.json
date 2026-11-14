@@ -161,11 +161,10 @@
     "text": "自1949年以来，大学一直培养外语专业人才：语文学家、翻译和教师。",
     "link": "了解更多",
     "facts": {
-      "founded": "建校年份",
-      "students": "学生",
-      "staff": "教授和教师",
-      "languages": "教授语言",
-      "partners": "国外合作伙伴"
+      "faculties": "院系",
+      "staff": "学术人员",
+      "departments": "教研室",
+      "students": "学生"
     },
     "rector": "校长致辞",
     "quote": "我们的目标不是教学生世界的语言，而是教他们走向世界的道路。",

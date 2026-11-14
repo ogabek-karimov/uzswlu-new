@@ -161,11 +161,10 @@
     "text": "Universitet 1949-yildan beri xorijiy tillar böyiça mutaxassislar tayyorlaydi: filologlar, tarjimonlar va öqituvçilar.",
     "link": "Batafsil öqiş",
     "facts": {
-      "founded": "taşkil topgan yil",
-      "students": "talaba",
-      "staff": "professor-öqituvçi",
-      "languages": "öqitiladigan til",
-      "partners": "xorijiy hamkor"
+      "faculties": "fakultet",
+      "staff": "akademik xodim",
+      "departments": "kafedra",
+      "students": "talaba"
     },
     "rector": "Rektor murojaati",
     "quote": "Bizning maqsad — talabaga dunyo tillarini emas, dunyoga çiqiş yölini örgatiş.",
