@@ -833,7 +833,7 @@ Batafsil: <a href="#doc-06-testlar">06-testlar</a>.
 <p>Eng yangisi tepada. <strong>Har bir o‘zgarishdan keyin shu yerga yozing</strong> (qoida: <code>CLAUDE.md</code>). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.</p>
 <h2 id="doc-13-yangiliklar--2026-11-14">2026-11-14<a class="anchor" href="#doc-13-yangiliklar--2026-11-14" aria-label="Havola">#</a></h2>
 <ul><li>
-<strong>Server (nginx: gzip va ko‘p qurilma uchun sozlamalar):</strong> sahifa HTML’i (~154 KB) siqilmay ketardi, endi gzip yoqildi (<code>gzip_comp_level 4</code>, <code>gzip_proxied any</code>, <code>gzip_vary on</code>, matn turlari); keshda bitta (siqilmagan) nusxa saqlanadi, siqishni nginx har mijoz uchun qiladi; <code>server_tokens off</code>. Umumiy IP (universitet tarmog‘i/NAT) sababli IP bo‘yicha <code>limit_req</code> ataylab qo‘yilmagani hujjatda tushuntirildi (<code>docs/10-server.md</code>). CI’dagi <code>nginx -t</code> yangi sozlamani tekshiradi. — <code>COMMIT</code>
+<strong>Server (nginx: gzip va ko‘p qurilma uchun sozlamalar):</strong> sahifa HTML’i (~154 KB) siqilmay ketardi, endi gzip yoqildi (<code>gzip_comp_level 4</code>, <code>gzip_proxied any</code>, <code>gzip_vary on</code>, matn turlari); keshda bitta (siqilmagan) nusxa saqlanadi, siqishni nginx har mijoz uchun qiladi; <code>server_tokens off</code>. Umumiy IP (universitet tarmog‘i/NAT) sababli IP bo‘yicha <code>limit_req</code> ataylab qo‘yilmagani hujjatda tushuntirildi (<code>docs/10-server.md</code>). CI’dagi <code>nginx -t</code> yangi sozlamani tekshiradi. — <code>8b8d511</code>
 </li></ul>
 <h2 id="doc-13-yangiliklar--2026-11-13">2026-11-13<a class="anchor" href="#doc-13-yangiliklar--2026-11-13" aria-label="Havola">#</a></h2>
 <ul><li>

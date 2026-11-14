@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-14
 
-- **Server (nginx: gzip va ko‘p qurilma uchun sozlamalar):** sahifa HTML’i (~154 KB) siqilmay ketardi, endi gzip yoqildi (`gzip_comp_level 4`, `gzip_proxied any`, `gzip_vary on`, matn turlari); keshda bitta (siqilmagan) nusxa saqlanadi, siqishni nginx har mijoz uchun qiladi; `server_tokens off`. Umumiy IP (universitet tarmog‘i/NAT) sababli IP bo‘yicha `limit_req` ataylab qo‘yilmagani hujjatda tushuntirildi (`docs/10-server.md`). CI’dagi `nginx -t` yangi sozlamani tekshiradi. — `COMMIT`
+- **Server (nginx: gzip va ko‘p qurilma uchun sozlamalar):** sahifa HTML’i (~154 KB) siqilmay ketardi, endi gzip yoqildi (`gzip_comp_level 4`, `gzip_proxied any`, `gzip_vary on`, matn turlari); keshda bitta (siqilmagan) nusxa saqlanadi, siqishni nginx har mijoz uchun qiladi; `server_tokens off`. Umumiy IP (universitet tarmog‘i/NAT) sababli IP bo‘yicha `limit_req` ataylab qo‘yilmagani hujjatda tushuntirildi (`docs/10-server.md`). CI’dagi `nginx -t` yangi sozlamani tekshiradi. — `8b8d511`
 
 ## 2026-11-13
 
