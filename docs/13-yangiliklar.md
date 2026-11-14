@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-14
 
-- **Sayt (bosh sahifa, raqamlar tasmasi):** slayder tagidagi statistikadan ortiqcha raqamlar (tashkil topgan yil, o‘qitiladigan tillar, hamkorlar) olib tashlandi; faqat HEMIS’dan keladigan to‘rttasi qoldi: **fakultet, akademik xodim, kafedra, talaba**. Har biri o‘z ikonkasi va rangi bilan alohida kartada (mint, binafsha, oq, och mint tile; xira katta ikonka va yumshoq nur, ustiga olib borilganda ko‘tarilib burilish; `prefers-reduced-motion` hurmat qilinadi). Tarjima kalitlari 4 tilda yangilandi (`about.facts.*`). — `COMMIT`
+- **Sayt (bosh sahifa, raqamlar tasmasi):** slayder tagidagi statistikadan ortiqcha raqamlar (tashkil topgan yil, o‘qitiladigan tillar, hamkorlar) olib tashlandi; faqat HEMIS’dan keladigan to‘rttasi qoldi: **fakultet, akademik xodim, kafedra, talaba**. Har biri o‘z ikonkasi va rangi bilan alohida kartada (mint, binafsha, oq, och mint tile; xira katta ikonka va yumshoq nur, ustiga olib borilganda ko‘tarilib burilish; `prefers-reduced-motion` hurmat qilinadi). Tarjima kalitlari 4 tilda yangilandi (`about.facts.*`). — `0182bb9`
 
 - **Server (nginx: siqilgan nusxani keshlash):** `wrk` o‘lchovi har so‘rovda gzip siqish tezlikni 10 232 → 1 106 so‘rov/s ga (9 baravar) tushirishini ko‘rsatdi. Endi siqish bir marta: ichki server (`127.0.0.1:8081`) siqadi, nginx keshi siqilgan nusxani saqlaydi va to‘g‘ridan-to‘g‘ri beradi (`gunzip on` — siqishni bilmaydigan mijoz uchun), `/_nuxt/*` ham keshlanadi; `proxy_ignore_headers Vary` kesh bo‘linib ketishining oldini oladi. Hajm 156 KB → 21 KB. `ab` (HTTP/1.0) gzip’ni sinamasligi hujjatga yozildi, `wrk` buyrug‘i qo‘shildi. CI’dagi `nginx -t` sozlamani tekshiradi. — `49285db`
 
