@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-15
 
-- **Sayt (bosh sahifa, «Hamkorlarimiz»):** bo‘lim yumaloq ramkali (chetlari bo‘sh) konteynerdan chiqarildi — endi butun kenglikdagi qorong‘i tasma (`bg-brand-900`), sarlavha markazlashgan `max-w-7xl` ichida, hamkorlar tasmasi esa ekran chetigacha yuguradi; globus fonlari saqlandi. — `COMMIT`
+- **Sayt (bosh sahifa, «Hamkorlarimiz»):** bo‘lim yumaloq ramkali (chetlari bo‘sh) konteynerdan chiqarildi — endi butun kenglikdagi qorong‘i tasma (`bg-brand-900`), sarlavha markazlashgan `max-w-7xl` ichida, hamkorlar tasmasi esa ekran chetigacha yuguradi; globus fonlari saqlandi. — `d5b7063`
 
 - **Sayt (bosh sahifa, bo‘lim fonlari va hoverlar):** har bir bo‘limga mavzuga mos, juda xira (kontentni bosmaydigan, bosilmaydigan, ekran o‘quvchilardan yashirin) fon qo‘shildi: «Universitet haqida» + tezkor havolalar — turli tillardagi harflar buluti (A, Ж, 你, あ, ع…) va yumshoq nurlar; yangiliklar — gazeta yarim-tonli nuqtalari, halqalar va matn qatorlari; tadbirlar — taqvim katakchalari va katta xira taqvim belgisi; hamkorlar — globus chiziqlari. Fon uchun yangi `home/Backdrop.vue` (variantlar `glyphs`, `newsprint`). Fakultetlar (kampus surati), ramzlar (bayroq) va aloqa fonlari avvaldan bor edi. Hoverlar: tezkor havolalarda ikonka ko‘tarilib buriladi va pastda mint chiziq o‘sadi (klaviatura fokusida ham), «Universitet haqida» kartasi ko‘tariladi va chegarasi/nuri o‘zgaradi, video karta ko‘tariladi; harakatlar `prefers-reduced-motion` da o‘chadi. — `4387370`
 
