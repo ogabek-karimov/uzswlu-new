@@ -2,6 +2,10 @@
 
 Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `CLAUDE.md`). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.
 
+## 2026-11-14
+
+- **Server (nginx: gzip va ko‘p qurilma uchun sozlamalar):** sahifa HTML’i (~154 KB) siqilmay ketardi, endi gzip yoqildi (`gzip_comp_level 4`, `gzip_proxied any`, `gzip_vary on`, matn turlari); keshda bitta (siqilmagan) nusxa saqlanadi, siqishni nginx har mijoz uchun qiladi; `server_tokens off`. Umumiy IP (universitet tarmog‘i/NAT) sababli IP bo‘yicha `limit_req` ataylab qo‘yilmagani hujjatda tushuntirildi (`docs/10-server.md`). CI’dagi `nginx -t` yangi sozlamani tekshiradi. — `COMMIT`
+
 ## 2026-11-13
 
 - **Server (yuk sinovi skripti tuzatildi):** `-Urls a,b,c` bilan chaqirilganda ro‘yxat bitta qator bo‘lib kelib, hamma so‘rov 404 bo‘lardi — endi vergul bo‘yicha ajratiladi. Skript PowerShell tezligi bilan cheklangani (~150–250 so‘rov/s) hujjatga yozildi va serverning haqiqiy tezligini o‘lchash uchun Docker’dagi `ab` buyrug‘i qo‘shildi (`docs/10-server.md`). — `dbbf8cf`

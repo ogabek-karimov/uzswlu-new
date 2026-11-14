@@ -1,6 +1,15 @@
 # nginx: sayt (kesh + bir xil sahifaga to'dan himoya), API va admin. Muhit: SITE_HOST, API_HOST, ADMIN_HOST, EDGE_REFRESH_TOKEN.
 # TLS (HTTPS) bu yerda yo'q: uni oldingi qatlam (certbot/Cloudflare/yuk balansirovchi) beradi — docs/10-server.md.
 
+# --- Siqish (gzip): HTML ~150 KB; siqilmasa ming-minglab qurilma (telefon, sekin tarmoq, umumiy kanal) uchun asosiy to'siq shu ---
+gzip on;
+gzip_comp_level 4;            # 4 — tezlik/siqish o'rtasi (yuqori daraja CPU'ni yeydi, foydasi kam)
+gzip_min_length 1024;         # kichik javobni siqishdan foyda yo'q
+gzip_proxied any;             # mobil operator/kompaniya proksilari ortidagi (Via sarlavhali) mijozlarga ham siqib beramiz
+gzip_vary on;                 # `Vary: Accept-Encoding` — oraliq keshlar siqilgan/siqilmagan nusxani adashtirmasin
+gzip_types text/plain text/css text/xml application/json application/javascript text/javascript application/xml application/rss+xml application/manifest+json image/svg+xml font/ttf font/otf application/vnd.ms-fontobject;
+server_tokens off;            # nginx versiyasini sarlavhada ko'rsatmaymiz
+
 proxy_cache_path /var/cache/nginx/site levels=1:2 keys_zone=site:50m max_size=1g inactive=10m use_temp_path=off;
 
 # Backend admin saqlaganda shu sarlavha bilan sahifani so'raydi → nginx keshni chetlab o'tib YANGI nusxani saqlaydi.
@@ -36,6 +45,7 @@ server {
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $remote_addr;   # ustiga yozamiz: soxta IP bilan so'rov cheklovini aylanib o'tib bo'lmasin
     proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Accept-Encoding "";   # Nuxtdan siqilmagan olamiz: keshda bitta nusxa, siqishni nginx har mijoz uchun o'zi qiladi
 
     proxy_cache site;
     proxy_cache_key $scheme$host$request_uri;

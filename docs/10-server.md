@@ -212,6 +212,18 @@ Domenlar ildiz `.env` dan olinadi (`SITE_HOST`, `ADMIN_HOST`, `API_HOST`, `HTTP_
 
 **Redis kerak bo‘lgan joylar:** (1) backend ochiq javob keshi va to‘dan himoya qulfi (`cache.add`) barcha gunicorn jarayonlari uchun bitta bo‘lishi; (2) so‘rov cheklovi (`throttle`) hisobi jarayonlar/serverlar orasida umumiy bo‘lishi; (3) `content_ver` (kontent versiyasi) hamma jarayonda bir xil ko‘rinishi. Redis bo‘lmasa fayl keshi ishlaydi (bitta server uchun yetadi, sekinroq).
 
+### Ko‘p qurilmadan foydalanish: siqish va umumiy IP
+
+Sayt bir vaqtda ko‘plab kompyuter, telefon va sekin tarmoqdan ochiladi. Shuning uchun nginx’da:
+
+- **gzip yoqilgan** (HTML, JSON, CSS, JS, SVG, shriftlar): bosh sahifa HTML’i ~154 KB (siqilmagan). Real kanalda aynan hajm chegara bo‘ladi (1 Gbit/s da siqilmasa ≈ 800 so‘rov/s), siqilgach u bir necha baravar kam. `gzip_proxied any` — operator/kompaniya proksilari ortidagi mijozlarga ham siqib beradi; `gzip_vary on` — oraliq keshlar adashmaydi.
+- **Keshda bitta nusxa:** Nuxtdan siqilmagan javob olinadi (`Accept-Encoding` bo‘sh uzatiladi), nginx har mijoz uchun siqadi. Bu har so‘rovga ~1–2 ms CPU qo‘shadi, evaziga kesh bo‘linib ketmaydi. Juda katta yukda siqilgan nusxani oldindan tayyorlash (CDN yoki `gzip_static`) mumkin.
+- **Real IP:** nginx `X-Forwarded-For` ni `$remote_addr` bilan **ustiga yozadi**, soxta sarlavha bilan so‘rov cheklovini aylanib o‘tib bo‘lmaydi. Cloudflare/yuk balansirovchi orqasida `set_real_ip_from` + `real_ip_header` sozlang va `NUM_PROXIES` ni moslang, aks holda hamma foydalanuvchi bitta IP bo‘lib ko‘rinadi.
+- **Umumiy IP (universitet tarmog‘i, mobil operator NAT):** minglab talaba bitta IP’dan chiqishi mumkin. Shuning uchun nginx’da IP bo‘yicha `limit_req` ataylab qo‘yilmagan (bitta sahifa ochilishi ~40 so‘rov, umumiy IP tez bloklanib qolardi). Himoya backenddagi so‘rov cheklovi (`THROTTLE_*`, qidiruv va login qattiqroq) va tashqi qatlam (Cloudflare) bilan.
+- **Brauzer keshi:** `/_nuxt/*` bir yil (fayl nomida xesh bor), sahifaning o‘zi brauzerda saqlanmaydi (har tashrif yangi nusxani nginx keshidan oladi).
+
+Tekshirish: `curl.exe -sI -H "Accept-Encoding: gzip" http://localhost:8080/` — javobda `Content-Encoding: gzip` va `Vary: Accept-Encoding` bo‘lishi kerak.
+
 ### Yuk sinovi skripti
 
 `scripts/loadtest.ps1` (PowerShell 7+, `pwsh`) ko‘p parallel so‘rov yuboradi va necha soniya ketganini, tezlikni, kechikishni (p50/p95/p99), HTTP holatlarini va nginx keshini (`X-Cache`: HIT/MISS/STALE) ko‘rsatadi:
