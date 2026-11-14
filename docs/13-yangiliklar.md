@@ -2,6 +2,10 @@
 
 Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `CLAUDE.md`). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.
 
+## 2026-11-15
+
+- **Sayt (bosh sahifa, «Davlat ramzlari»):** blok ijodiyroq qilindi: gerb orqasida sekin aylanadigan oltin nurlar va tepaga ko‘tariladigan oltin «chang» zarralari, pastki chetda naqshli romblar tasmasi, sarlavha ostida oltin chiziq (bayroq fonida ko‘k qism kengaytirildi — sarlavha doim ko‘k fonda o‘qiladi). Kartalarda tartib raqami (01–03), turi yorlig‘i («Bayroq/Gerb/Madhiya», yangi `symbols.kind.*` kalitlari, 4 til), tile atrofida sekin aylanadigan chiziqli halqa, bayroq tile ichida sekin hilpirash, ustiga olib borilganda 3D burilish va yaltirash o‘tishi, madhiya kartasida ovoz tebranishi. Barcha harakatlar `prefers-reduced-motion` da o‘chadi. Ma’lumot (CMS «Ramzlar») va havolalar o‘zgarmadi. — `COMMIT`
+
 ## 2026-11-14
 
 - **Sayt (bosh sahifa, «Universitet haqida»):** rektor murojaati kartasi olib tashlandi; video tur kartasi uning o‘rniga kengaytirildi (`lg:col-span-3` → `7`, «Universitet haqida» kartasi bilan birga qator to‘ladi). Ishlatilmay qolgan kod va tarjimalar (`about.rector`, `about.quote`, bosh sahifadagi `/api/leadership` so‘rovi) o‘chirildi; «Rektorat» sahifasi va menyudagi havola o‘zgarmadi. — `ab2b5dd`
