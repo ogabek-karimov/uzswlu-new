@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-15
 
-- **Sayt (bosh sahifa, «Davlat ramzlari»):** blok ijodiyroq qilindi: gerb orqasida sekin aylanadigan oltin nurlar va tepaga ko‘tariladigan oltin «chang» zarralari, pastki chetda naqshli romblar tasmasi, sarlavha ostida oltin chiziq (bayroq fonida ko‘k qism kengaytirildi — sarlavha doim ko‘k fonda o‘qiladi). Kartalarda tartib raqami (01–03), turi yorlig‘i («Bayroq/Gerb/Madhiya», yangi `symbols.kind.*` kalitlari, 4 til), tile atrofida sekin aylanadigan chiziqli halqa, bayroq tile ichida sekin hilpirash, ustiga olib borilganda 3D burilish va yaltirash o‘tishi, madhiya kartasida ovoz tebranishi. Barcha harakatlar `prefers-reduced-motion` da o‘chadi. Ma’lumot (CMS «Ramzlar») va havolalar o‘zgarmadi. — `COMMIT`
+- **Sayt (bosh sahifa, «Davlat ramzlari»):** blok ijodiyroq qilindi: gerb orqasida sekin aylanadigan oltin nurlar va tepaga ko‘tariladigan oltin «chang» zarralari, pastki chetda naqshli romblar tasmasi, sarlavha ostida oltin chiziq (bayroq fonida ko‘k qism kengaytirildi — sarlavha doim ko‘k fonda o‘qiladi). Kartalarda tartib raqami (01–03), turi yorlig‘i («Bayroq/Gerb/Madhiya», yangi `symbols.kind.*` kalitlari, 4 til), tile atrofida sekin aylanadigan chiziqli halqa, bayroq tile ichida sekin hilpirash, ustiga olib borilganda 3D burilish va yaltirash o‘tishi, madhiya kartasida ovoz tebranishi. Barcha harakatlar `prefers-reduced-motion` da o‘chadi. Ma’lumot (CMS «Ramzlar») va havolalar o‘zgarmadi. — `fd829de`
 
 ## 2026-11-14
 
