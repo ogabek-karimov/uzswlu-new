@@ -22,9 +22,9 @@ const links = [
           <component
             :is="link.href ? 'a' : NuxtLink"
             v-bind="link.href ? { href: link.href, target: '_blank', rel: 'noopener' } : { to: localePath(link.to!) }"
-            class="group flex h-full flex-col gap-3 px-4 py-6 transition-colors hover:bg-brand-50 lg:px-5"
+            class="group relative flex h-full flex-col gap-3 px-4 py-6 transition-colors hover:bg-brand-50 focus-visible:bg-brand-50 lg:px-5"
           >
-            <span class="grid size-11 place-items-center rounded-xl bg-brand-50 text-brand-700 transition-colors group-hover:bg-brand-800 group-hover:text-accent-400">
+            <span class="grid size-11 place-items-center rounded-xl bg-brand-50 text-brand-700 transition duration-300 group-hover:-translate-y-1 group-hover:-rotate-6 group-hover:bg-brand-800 group-hover:text-accent-400 group-hover:shadow-[0_12px_24px_-12px_var(--color-brand-800)] motion-reduce:transition-none motion-reduce:group-hover:transform-none">
               <Icon :name="link.icon" class="size-5" />
             </span>
             <span>
@@ -34,6 +34,8 @@ const links = [
               </span>
               <span class="mt-0.5 line-clamp-3 min-h-[3lh] text-[13px] leading-snug text-muted">{{ t(`quick.items.${link.key}.text`) }}</span>
             </span>
+            <!-- ustiga olib borilganda chapdan o'ngga o'sadigan mint chiziq -->
+            <span class="pointer-events-none absolute inset-x-4 bottom-0 h-0.5 origin-left scale-x-0 rounded-full bg-accent-400 transition-transform duration-300 group-hover:scale-x-100 group-focus-visible:scale-x-100 motion-reduce:transition-none lg:inset-x-5" aria-hidden="true" />
           </component>
         </li>
       </ul>

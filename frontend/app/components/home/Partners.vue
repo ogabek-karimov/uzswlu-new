@@ -9,7 +9,15 @@ const localePath = useLocalePath()
 
 <template>
   <section v-if="partners.length" class="px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
-    <div class="mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-brand-900 py-10 sm:py-12">
+    <div class="relative isolate mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-brand-900 py-10 sm:py-12">
+      <!-- Fon: xalqaro hamkorlik — globus chiziqlari (meridian va parallellar), juda xira -->
+      <svg class="decor pointer-events-none absolute -top-28 -right-24 -z-10 size-[28rem] text-white/[0.07]" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+        <circle cx="200" cy="200" r="190" /><ellipse cx="200" cy="200" rx="190" ry="70" /><ellipse cx="200" cy="200" rx="190" ry="130" />
+        <ellipse cx="200" cy="200" rx="70" ry="190" /><ellipse cx="200" cy="200" rx="130" ry="190" /><path d="M10 200H390M200 10V390" />
+      </svg>
+      <svg class="decor pointer-events-none absolute -bottom-24 -left-16 -z-10 size-72 text-accent-400/[0.08]" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <circle cx="200" cy="200" r="190" /><ellipse cx="200" cy="200" rx="190" ry="90" /><ellipse cx="200" cy="200" rx="90" ry="190" /><path d="M10 200H390M200 10V390" />
+      </svg>
       <div class="px-6 sm:px-10">
         <SectionHeading
           :eyebrow="t('partners.eyebrow')"

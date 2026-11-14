@@ -56,7 +56,8 @@ const facts = computed(() => FACTS.flatMap((fact) => {
 
     <div class="mt-8 grid gap-6 lg:auto-rows-[minmax(25rem,auto)] lg:grid-cols-12">
       <!-- Universitet haqida -->
-      <article class="flex flex-col rounded-[28px] border border-line bg-white p-8 sm:p-9 lg:col-span-5">
+      <article class="group/about relative flex flex-col overflow-hidden rounded-[28px] border border-line bg-white p-8 transition duration-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_var(--color-brand-700)] sm:p-9 lg:col-span-5 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+        <span class="pointer-events-none absolute -top-16 -right-16 size-48 rounded-full bg-brand-100 opacity-0 blur-2xl transition-opacity duration-500 group-hover/about:opacity-100" aria-hidden="true" />
         <p class="text-[13px] font-semibold tracking-[0.12em] text-brand-600 uppercase">{{ t('about.eyebrow') }}</p>
         <h2 class="mt-4 font-display text-4xl leading-[1.1] font-semibold text-ink sm:text-[2.6rem]">{{ t('about.title') }}</h2>
         <p class="mt-4 text-[17px] leading-relaxed text-muted">{{ t('about.text') }}</p>
@@ -67,7 +68,7 @@ const facts = computed(() => FACTS.flatMap((fact) => {
       </article>
 
       <!-- Video tur -->
-      <NuxtLink :to="localePath('/video-darsliklar')" class="oz-stripes group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[28px] bg-brand-600 p-6 text-white lg:col-span-7">
+      <NuxtLink :to="localePath('/video-darsliklar')" class="oz-stripes group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[28px] bg-brand-600 p-6 text-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_var(--color-brand-700)] lg:col-span-7 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
         <span class="text-sm text-white/80">{{ t('about.videoLabel') }}</span>
         <span class="grid size-[70px] place-self-center place-items-center rounded-full bg-white text-brand-600 shadow-[0_18px_40px_-16px_rgba(17,12,46,0.7)] transition-transform group-hover:scale-110 motion-reduce:transition-none" aria-hidden="true">
           <Icon name="lucide:play" class="ml-0.5 size-6 fill-current" />

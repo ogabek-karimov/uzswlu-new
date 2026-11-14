@@ -9,7 +9,12 @@ const formatDate = useFormatDate()
 </script>
 
 <template>
-  <section class="bg-brand-50/70">
+  <section class="relative isolate overflow-hidden bg-brand-50/70">
+    <!-- Fon: taqvim katakchalari (o'ng-tepadan so'nadi) va katta xira taqvim belgisi -->
+    <div class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+      <span class="events-grid absolute inset-0" />
+      <Icon name="lucide:calendar-days" class="absolute -bottom-10 -left-8 size-72 -rotate-12 text-brand-600/[0.06]" />
+    </div>
     <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
     <SectionHeading
       :eyebrow="t('events.eyebrow')"
@@ -58,3 +63,13 @@ const formatDate = useFormatDate()
       </div>
   </section>
 </template>
+
+<style scoped>
+.events-grid {
+  background-image:
+    linear-gradient(to right, rgb(56 43 133 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(56 43 133 / 0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(75% 95% at 88% 8%, #000, transparent 75%);
+}
+</style>
