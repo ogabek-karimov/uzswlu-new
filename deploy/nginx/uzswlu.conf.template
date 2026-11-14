@@ -2,6 +2,9 @@
 # TLS (HTTPS) bu yerda yo'q: uni oldingi qatlam (certbot/Cloudflare/yuk balansirovchi) beradi — docs/10-server.md.
 
 # --- Siqish (gzip): HTML ~150 KB; siqilmasa ming-minglab qurilma (telefon, sekin tarmoq, umumiy kanal) uchun asosiy to'siq shu ---
+# Sayt (sahifa va /_nuxt) uchun siqish HAR so'rovda emas, BIR marta qilinadi: ichki server (127.0.0.1:8081) siqadi, nginx keshi
+# siqilgan nusxani saqlaydi va to'g'ridan-to'g'ri beradi (o'lchov: har so'rovda siqish 10 232 → 1 106 so'rov/s ga tushirgan edi).
+# Quyidagi sozlama API va boshqa javoblar uchun ham amal qiladi.
 gzip on;
 gzip_comp_level 4;            # 4 — tezlik/siqish o'rtasi (yuqori daraja CPU'ni yeydi, foydasi kam)
 gzip_min_length 1024;         # kichik javobni siqishdan foyda yo'q
@@ -22,30 +25,60 @@ map $http_x_cache_refresh $cache_refresh {
 # Backenddagi to'g'ridan-to'g'ri so'rovlar uchun real IP: oldimizda yana bir proksi (Cloudflare/LB) bo'lsa, real_ip sozlang.
 upstream nuxt    { server frontend:3000; keepalive 32; }
 upstream backend { server backend:8000;  keepalive 32; }
+upstream gz      { server 127.0.0.1:8081; keepalive 32; }   # quyidagi ichki siqish serveri
+
+# --- Ichki siqish serveri: faqat nginx'ning o'zidan (127.0.0.1) so'raladi, tashqariga ochilmaydi ---
+# Nuxtdan siqilmagan javob oladi va BIR marta siqadi; sayt serveri shuni keshlaydi. Yuqori daraja (6) — chunki keshga bir marta yoziladi.
+server {
+  listen 127.0.0.1:8081;
+  gzip_comp_level 6;
+  location / {
+    proxy_pass http://nuxt;
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $http_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+    proxy_set_header Accept-Encoding "";   # Nuxt siqmaydi; siqishni shu server o'zi qiladi
+  }
+}
 
 # --- Sayt ---
 server {
   listen 80 default_server;
   server_name ${SITE_HOST};
 
-  location /_nuxt/ {                       # fayl nomida xesh bor — bir yil keshlanadi
-    proxy_pass http://nuxt;
+  location /_nuxt/ {                       # fayl nomida xesh bor — brauzerda bir yil, nginx keshida siqilgan holda
+    proxy_pass http://gz;
     proxy_http_version 1.1;
     proxy_set_header Connection "";
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Accept-Encoding gzip;  # keshda doim siqilgan nusxa; siqishni bilmaydigan mijozga `gunzip` ochib beradi
+    gunzip on;
+    proxy_ignore_headers Vary;              # kesh Vary bo'yicha bo'linib ketmasin (brauzerlarning Accept-Encoding qatori har xil); sarlavha mijozga baribir boradi
+    proxy_cache site;
+    proxy_cache_key $scheme$host$request_uri;
+    proxy_cache_valid 200 7d;               # fayl nomi o'zgarsa yangi kalit — eskirish xavfi yo'q
+    proxy_cache_lock on;
     expires 1y;
     add_header Cache-Control "public, immutable";
+    add_header X-Cache $upstream_cache_status;
   }
 
   location = /api/_purge { return 404; }   # Nuxt keshini tozalash faqat ichki tarmoqdan (backend → frontend:3000), tashqaridan yo'q
 
   location / {
-    proxy_pass http://nuxt;
+    proxy_pass http://gz;                  # ichki siqish serveri orqali (yuqorida)
     proxy_http_version 1.1;
     proxy_set_header Connection "";
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $remote_addr;   # ustiga yozamiz: soxta IP bilan so'rov cheklovini aylanib o'tib bo'lmasin
     proxy_set_header X-Forwarded-Proto $scheme;
-    proxy_set_header Accept-Encoding "";   # Nuxtdan siqilmagan olamiz: keshda bitta nusxa, siqishni nginx har mijoz uchun o'zi qiladi
+    proxy_set_header Accept-Encoding gzip; # keshda doim SIQILGAN nusxa (bitta variant); har so'rovda qayta siqilmaydi
+    gunzip on;                             # siqishni bilmaydigan kam uchraydigan mijozga nginx ochib beradi
+    proxy_ignore_headers Vary;             # kesh Vary bo'yicha bo'linib ketmasin: har brauzer Accept-Encoding'ni boshqacha yozadi (gzip, deflate, br...) — aks holda har variant alohida MISS bo'lardi
 
     proxy_cache site;
     proxy_cache_key $scheme$host$request_uri;

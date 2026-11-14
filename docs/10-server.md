@@ -216,13 +216,12 @@ Domenlar ildiz `.env` dan olinadi (`SITE_HOST`, `ADMIN_HOST`, `API_HOST`, `HTTP_
 
 Sayt bir vaqtda ko‘plab kompyuter, telefon va sekin tarmoqdan ochiladi. Shuning uchun nginx’da:
 
-- **gzip yoqilgan** (HTML, JSON, CSS, JS, SVG, shriftlar): bosh sahifa HTML’i ~154 KB (siqilmagan). Real kanalda aynan hajm chegara bo‘ladi (1 Gbit/s da siqilmasa ≈ 800 so‘rov/s), siqilgach u bir necha baravar kam. `gzip_proxied any` — operator/kompaniya proksilari ortidagi mijozlarga ham siqib beradi; `gzip_vary on` — oraliq keshlar adashmaydi.
-- **Keshda bitta nusxa:** Nuxtdan siqilmagan javob olinadi (`Accept-Encoding` bo‘sh uzatiladi), nginx har mijoz uchun siqadi. Bu har so‘rovga ~1–2 ms CPU qo‘shadi, evaziga kesh bo‘linib ketmaydi. Juda katta yukda siqilgan nusxani oldindan tayyorlash (CDN yoki `gzip_static`) mumkin.
+- **gzip yoqilgan va bir marta siqiladi:** bosh sahifa HTML’i ~152 KB (siqilmagan), siqilgach ~21 KB (7 baravar kam). Real kanalda aynan hajm chegara bo‘ladi (1 Gbit/s da siqilmasa ≈ 800 so‘rov/s). Lekin **har so‘rovda siqish juda qimmat**: o‘lchovda `wrk` bilan 10 232 → 1 106 so‘rov/s ga tushdi (CPU to‘siq). Shuning uchun siqish keshga yozishda bir marta bajariladi: nginx ichki serveri (`127.0.0.1:8081`) Nuxtdan olgan javobni siqadi, sayt serveri **siqilgan nusxani keshlaydi** va to‘g‘ridan-to‘g‘ri beradi; siqishni bilmaydigan kam uchraydigan mijozga `gunzip on` ochib beradi. `/_nuxt/*` (JS, CSS) ham xuddi shunday keshlanadi. `proxy_ignore_headers Vary` — brauzerlarning `Accept-Encoding` qatori har xil bo‘lgani uchun kesh bo‘linib ketmasin. `gzip_proxied any` — operator/kompaniya proksilari ortidagi mijozlarga ham siqilgan javob beriladi.
 - **Real IP:** nginx `X-Forwarded-For` ni `$remote_addr` bilan **ustiga yozadi**, soxta sarlavha bilan so‘rov cheklovini aylanib o‘tib bo‘lmaydi. Cloudflare/yuk balansirovchi orqasida `set_real_ip_from` + `real_ip_header` sozlang va `NUM_PROXIES` ni moslang, aks holda hamma foydalanuvchi bitta IP bo‘lib ko‘rinadi.
 - **Umumiy IP (universitet tarmog‘i, mobil operator NAT):** minglab talaba bitta IP’dan chiqishi mumkin. Shuning uchun nginx’da IP bo‘yicha `limit_req` ataylab qo‘yilmagan (bitta sahifa ochilishi ~40 so‘rov, umumiy IP tez bloklanib qolardi). Himoya backenddagi so‘rov cheklovi (`THROTTLE_*`, qidiruv va login qattiqroq) va tashqi qatlam (Cloudflare) bilan.
 - **Brauzer keshi:** `/_nuxt/*` bir yil (fayl nomida xesh bor), sahifaning o‘zi brauzerda saqlanmaydi (har tashrif yangi nusxani nginx keshidan oladi).
 
-Tekshirish: `curl.exe -sI -H "Accept-Encoding: gzip" http://localhost:8080/` — javobda `Content-Encoding: gzip` va `Vary: Accept-Encoding` bo‘lishi kerak.
+Tekshirish: `curl.exe -sI -H "Accept-Encoding: gzip" http://localhost:8080/` — javobda `Content-Encoding: gzip` va `Vary: Accept-Encoding` bo‘lishi kerak. Tezlikni `ab` bilan emas (u HTTP/1.0 yuboradi, nginx siqmaydi), `wrk` bilan o‘lchang: `docker run --rm --network uzswlu-prod_default williamyeh/wrk -t4 -c200 -d15s --latency -H "Accept-Encoding: gzip" http://nginx/`.
 
 ### Yuk sinovi skripti
 
