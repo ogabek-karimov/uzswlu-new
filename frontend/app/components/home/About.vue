@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import type { Leadership, Stat } from '#shared/types/api'
+import type { Stat } from '#shared/types/api'
 
 // «Universitet haqida»: raqamlar tasmasi (fakultet, akademik xodim, kafedra, talaba — HEMIS'dan)
-// va uchta karta — universitet haqida, rektor murojaati, video tur
+// va ikkita karta — universitet haqida va video tur
 const props = defineProps<{ stats: Stat[] }>()
 
-const { t, locale } = useI18n()
+const { t } = useI18n()
 const localePath = useLocalePath()
-
-// Rektor ismi va surati — «Rektorat» sahifasi bilan bitta so'rov (kalit umumiy)
-const { data: leadership } = useFetch<Leadership>('/api/leadership', { key: 'leadership', query: { lang: locale }, lazy: true })
-const rector = computed(() => leadership.value?.rector ?? null)
-const initials = (name: string) => name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase()
 
 // Tartib: fakultet → akademik xodim → kafedra → talaba. Ikonkalar ma'nosi original saytdagidek (qalam, kurs, sertifikat, bitiruvchi);
 // kartalar bir xil emas: shaxmat tartibida rang beriladi, o'ng ustun pastroqda turadi.
@@ -71,23 +66,8 @@ const facts = computed(() => FACTS.flatMap((fact) => {
         </NuxtLink>
       </article>
 
-      <!-- Rektor murojaati -->
-      <NuxtLink :to="localePath('/rektorat')" class="group flex flex-col rounded-[28px] bg-brand-100 p-8 transition-colors hover:bg-brand-200/70 lg:col-span-4">
-        <span class="flex items-center gap-4">
-          <span class="oz-stripes grid size-[70px] shrink-0 place-items-center overflow-hidden rounded-full bg-brand-600 font-display text-xl font-semibold text-white">
-            <img v-if="rector?.photo" :src="rector.photo" :alt="rector.name" loading="lazy" width="70" height="70" class="size-full object-cover">
-            <template v-else-if="rector">{{ initials(rector.name) }}</template>
-          </span>
-          <span>
-            <span class="block font-semibold text-ink">{{ t('about.rector') }}</span>
-            <span v-if="rector" class="block text-muted">{{ rector.name }}</span>
-          </span>
-        </span>
-        <blockquote class="mt-8 font-display text-[1.375rem] leading-relaxed text-ink">“{{ t('about.quote') }}”</blockquote>
-      </NuxtLink>
-
       <!-- Video tur -->
-      <NuxtLink :to="localePath('/video-darsliklar')" class="oz-stripes group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[28px] bg-brand-600 p-6 text-white lg:col-span-3">
+      <NuxtLink :to="localePath('/video-darsliklar')" class="oz-stripes group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[28px] bg-brand-600 p-6 text-white lg:col-span-7">
         <span class="text-sm text-white/80">{{ t('about.videoLabel') }}</span>
         <span class="grid size-[70px] place-self-center place-items-center rounded-full bg-white text-brand-600 shadow-[0_18px_40px_-16px_rgba(17,12,46,0.7)] transition-transform group-hover:scale-110 motion-reduce:transition-none" aria-hidden="true">
           <Icon name="lucide:play" class="ml-0.5 size-6 fill-current" />
