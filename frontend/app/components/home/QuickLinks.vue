@@ -15,8 +15,17 @@ const links = [
 </script>
 
 <template>
-  <section class="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8" :aria-label="t('quick.title')">
-    <div class="overflow-hidden rounded-3xl border border-line bg-white">
+  <section class="mx-auto max-w-7xl px-4 pt-14 sm:px-6 lg:px-8 lg:pt-20" aria-labelledby="quick-title">
+    <div class="mb-8 flex items-end justify-between gap-6">
+      <div>
+        <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-accent-600 uppercase">
+          <span class="h-px w-8 bg-accent-500" />
+          {{ t('quick.eyebrow') }}
+        </p>
+        <h2 id="quick-title" class="mt-3 font-display text-3xl leading-tight font-semibold tracking-tight text-ink sm:text-4xl">{{ t('quick.title') }}</h2>
+      </div>
+    </div>
+    <div class="overflow-hidden rounded-3xl border border-line bg-white shadow-[0_24px_50px_-40px_var(--color-brand-700)]">
       <ul class="flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] sm:grid sm:grid-cols-4 lg:grid-cols-7 lg:divide-x lg:divide-line">
         <li v-for="link in links" :key="link.key" class="min-w-[44%] shrink-0 snap-start sm:min-w-0">
           <component

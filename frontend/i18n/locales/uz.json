@@ -123,6 +123,7 @@
     "greeting": "Salom, dunyo!"
   },
   "quick": {
+    "eyebrow": "Bir bosişda",
     "title": "Tezkor xizmatlar",
     "items": {
       "reception": {
@@ -160,11 +161,6 @@
     "title": "Tillar va madaniyatlar köprigi",
     "text": "Universitet 1949-yildan beri xorijiy tillar böyiça mutaxassislar tayyorlaydi: filologlar, tarjimonlar va öqituvçilar.",
     "link": "Batafsil öqiş",
-    "numbers": {
-      "eyebrow": "Raqamlarda",
-      "title": "Raqamlar va universitet",
-      "text": "Universitetning bugungi körsatkiçlari."
-    },
     "facts": {
       "faculties": "fakultet",
       "staff": "akademik xodim",

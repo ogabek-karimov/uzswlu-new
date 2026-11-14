@@ -123,6 +123,7 @@
     "greeting": "你好，世界！"
   },
   "quick": {
+    "eyebrow": "一键直达",
     "title": "快捷服务",
     "items": {
       "reception": {
@@ -160,11 +161,6 @@
     "title": "语言与文化之桥",
     "text": "自1949年以来，大学一直培养外语专业人才：语文学家、翻译和教师。",
     "link": "了解更多",
-    "numbers": {
-      "eyebrow": "数据一览",
-      "title": "数字里的大学",
-      "text": "学校目前的主要数据。"
-    },
     "facts": {
       "faculties": "院系",
       "staff": "学术人员",
