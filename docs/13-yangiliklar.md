@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-14
 
-- **Sayt (bosh sahifa, «Universitet haqida»):** rektor murojaati kartasi olib tashlandi; video tur kartasi uning o‘rniga kengaytirildi (`lg:col-span-3` → `7`, «Universitet haqida» kartasi bilan birga qator to‘ladi). Ishlatilmay qolgan kod va tarjimalar (`about.rector`, `about.quote`, bosh sahifadagi `/api/leadership` so‘rovi) o‘chirildi; «Rektorat» sahifasi va menyudagi havola o‘zgarmadi. — `COMMIT`
+- **Sayt (bosh sahifa, «Universitet haqida»):** rektor murojaati kartasi olib tashlandi; video tur kartasi uning o‘rniga kengaytirildi (`lg:col-span-3` → `7`, «Universitet haqida» kartasi bilan birga qator to‘ladi). Ishlatilmay qolgan kod va tarjimalar (`about.rector`, `about.quote`, bosh sahifadagi `/api/leadership` so‘rovi) o‘chirildi; «Rektorat» sahifasi va menyudagi havola o‘zgarmadi. — `ab2b5dd`
 
 - **Sayt (bosh sahifa, raqamlar bloki qayta dizayn):** to‘rt karta bir qatorli tasma o‘rniga sarlavhali blokka aylandi: chapda «Raqamlar va universitet» (original saytdagi bo‘lim nomi) matni, o‘ngda 2×2 kartalar; o‘ng ustun pastroqda turadi (shaxmat tartibi), kartalar turli rangda (shaffof, mint, binafsha, oq), raqamlar kattaroq (`lg:text-7xl`), ikonkalar original ma’nosida (qalam, kitob/kurs, sertifikat, bitiruvchi). Yangi tarjima kalitlari `about.numbers.*` (4 til). Original saytning faqat matn tuzilmasi ko‘rildi (ko‘rinishini ko‘rib bo‘lmadi), shuning uchun joylashuv bizning talqin. — `2e1f08f`
 
