@@ -55,13 +55,13 @@ def _members(department: dict, exclude_id: str) -> list[dict]:
     """Shu bo'limda ishlaydigan boshqa xodimlar (id yoki nom bo'yicha moslik)."""
     dep_id, dep_name = department.get('id'), _norm(department.get('name'))
     out = []
-    for p in get_client().staff('uz'):
-        if str(p['id']) == str(exclude_id):
+    for who in get_client().staff('uz'):
+        if str(who['id']) == str(exclude_id):
             continue
-        for e in _employments(p):
+        for e in _employments(who):
             d = e.get('department') or {}
             if (dep_id and d.get('id') == dep_id) or (dep_name and _norm(d.get('name')) == dep_name):
-                out.append({'id': str(p['id']), 'name': p['name'], 'position': (e.get('position') or {}).get('name') or '', 'photo': p.get('photo')})
+                out.append({'id': str(who['id']), 'name': who['name'], 'position': (e.get('position') or {}).get('name') or '', 'photo': who.get('photo')})
                 break
     return out
 
@@ -86,9 +86,9 @@ def panel_out(person: dict, role: str, emp: dict | None, lang: str) -> dict:
         f = _faculty_for(emp)
         if f:
             members = {}
-            for p in get_client().staff('uz'):
-                for e in _employments(p):
-                    members.setdefault(_norm(((e.get('department') or {}).get('name'))), set()).add(str(p['id']))
+            for who in get_client().staff('uz'):
+                for e in _employments(who):
+                    members.setdefault(_norm(((e.get('department') or {}).get('name'))), set()).add(str(who['id']))
             base['faculty'] = {
                 'slug': f['slug'],
                 'name': tr(f["name"], lang),
