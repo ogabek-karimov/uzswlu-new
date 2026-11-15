@@ -23,7 +23,7 @@ const announcements = computed(() => props.announcements.slice(0, 4))
     />
 
     <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      <li v-for="(item, i) in news" :key="item.id">
+      <li data-reveal-item v-for="(item, i) in news" :key="item.id">
         <article class="group relative flex h-full flex-col rounded-[26px] border border-line bg-white p-2.5 transition duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-[0_30px_60px_-34px_rgba(19,17,47,0.45)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
           <div class="relative">
             <NewsCover :item="item" :tone="i" class="aspect-[4/3] rounded-[20px]" />

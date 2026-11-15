@@ -33,7 +33,7 @@ const preview = computed(() => props.faculties.slice(0, 4))
       />
 
       <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        <li v-for="(faculty, i) in faculties" :key="faculty.id">
+        <li data-reveal-item v-for="(faculty, i) in faculties" :key="faculty.id">
           <NuxtLink
             :to="localePath(`/faculty/${faculty.slug}`)"
             class="group relative flex h-full min-h-80 flex-col items-center overflow-hidden rounded-3xl border border-white/18 bg-white/9 px-6 pt-8 pb-7 text-center text-white backdrop-blur-md backdrop-saturate-150 transition duration-300 hover:-translate-y-1.5 hover:border-accent-400/60 hover:bg-white/16 hover:shadow-[0_30px_60px_-30px_rgb(0_0_0/0.7)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"

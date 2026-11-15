@@ -23,7 +23,7 @@ const formatDate = useFormatDate()
     />
 
     <ul v-if="events.length" class="mt-12 grid gap-4 md:grid-cols-3">
-      <li v-for="event in events" :key="event.id">
+      <li data-reveal-item v-for="event in events" :key="event.id">
         <article class="group relative flex h-full flex-col rounded-2xl border border-line bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_24px_50px_-28px_var(--color-brand-700)]">
           <div class="flex items-start justify-between gap-4">
             <time :datetime="event.startsAt" class="flex items-end gap-3">

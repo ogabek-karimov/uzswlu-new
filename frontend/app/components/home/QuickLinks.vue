@@ -27,7 +27,7 @@ const links = [
     </div>
     <div class="overflow-hidden rounded-3xl border border-line bg-white shadow-[0_24px_50px_-40px_var(--color-brand-700)]">
       <ul class="flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] sm:grid sm:grid-cols-4 lg:grid-cols-7 lg:divide-x lg:divide-line">
-        <li v-for="link in links" :key="link.key" class="min-w-[44%] shrink-0 snap-start sm:min-w-0">
+        <li data-reveal-item v-for="link in links" :key="link.key" class="min-w-[44%] shrink-0 snap-start sm:min-w-0">
           <component
             :is="link.href ? 'a' : NuxtLink"
             v-bind="link.href ? { href: link.href, target: '_blank', rel: 'noopener' } : { to: localePath(link.to!) }"

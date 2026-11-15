@@ -41,7 +41,7 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
       />
 
       <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <li v-for="(c, i) in campuses" :key="c.id">
+        <li data-reveal-item v-for="(c, i) in campuses" :key="c.id">
           <article class="group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-white bg-white/85 shadow-[0_1px_0_rgba(19,17,47,0.04)] backdrop-blur transition duration-300 hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-[0_34px_70px_-38px_rgba(19,17,47,0.55)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
             <!-- Sarlavha: tartib raqami, belgi va nomi -->
             <div class="relative px-6 pt-6">
