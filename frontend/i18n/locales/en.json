@@ -215,11 +215,6 @@
     "flag": "State Flag of the Republic of Uzbekistan",
     "emblem": "State Emblem of the Republic of Uzbekistan",
     "anthem": "State Anthem of the Republic of Uzbekistan",
-    "kind": {
-      "flag": "Flag",
-      "emblem": "Coat of arms",
-      "anthem": "Anthem"
-    },
     "view": "Learn more",
     "listen": "Listen",
     "newTab": "opens in a new tab"
