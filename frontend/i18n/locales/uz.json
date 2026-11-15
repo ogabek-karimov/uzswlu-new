@@ -466,7 +466,35 @@
       "removeYes": "Ha, qaytariş",
       "bad": "Faqat JPG, PNG yoki WEBP, 10 MB gaça"
     },
-    "error": "Xatolik yuz berdi, qayta urinib köring"
+    "error": "Xatolik yuz berdi, qayta urinib köring",
+    "role": {
+      "dean": "Dekan",
+      "chair_head": "Kafedra mudiri",
+      "teacher": "Öqituvchi",
+      "staff": "Xodim",
+      "student": "Talaba"
+    },
+    "roleDesc": {
+      "dean": "Fakultetingiz ko‘rsatkichlari va kafedralaringiz bir joyda.",
+      "chair_head": "Kafedrangiz xodimlari va ularning sahifalari.",
+      "teacher": "Shaxsiy sahifangiz, hujjatlaringiz va ilmiy havolalaringiz.",
+      "staff": "Shaxsiy sahifangiz va aloqa ma’lumotlaringiz.",
+      "student": "Talaba kabineti."
+    },
+    "rolePanel": {
+      "title": "Sizning panelingiz",
+      "openFaculty": "Fakultet sahifasi",
+      "students": "Talabalar",
+      "teachers": "Öqituvchilar",
+      "departments": "Kafedralar",
+      "programs": "Yönalişlar",
+      "chairs": "Kafedralar",
+      "staffCount": "{n} xodim",
+      "team": "Kafedra xodimlari",
+      "empty": "Ma’lumot topilmadi",
+      "myPage": "Mening sahifam",
+      "studentSoon": "Talaba kabineti tez orada ishga tüşadi: buning uçun HEMIS talaba kirişi ulanadi."
+    }
   },
   "page": {
     "share": "Ulaşiş",

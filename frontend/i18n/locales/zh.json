@@ -466,7 +466,35 @@
       "removeYes": "是，恢复",
       "bad": "仅限 JPG、PNG 或 WEBP，最大 10 MB"
     },
-    "error": "出错了，请重试"
+    "error": "出错了，请重试",
+    "role": {
+      "dean": "院长",
+      "chair_head": "系主任",
+      "teacher": "教师",
+      "staff": "员工",
+      "student": "学生"
+    },
+    "roleDesc": {
+      "dean": "您所在学院的数据和各系情况一览。",
+      "chair_head": "本系教职工及其个人页面。",
+      "teacher": "您的个人页面、文档和科研链接。",
+      "staff": "您的个人页面和联系方式。",
+      "student": "学生中心。"
+    },
+    "rolePanel": {
+      "title": "您的面板",
+      "openFaculty": "学院页面",
+      "students": "学生",
+      "teachers": "教师",
+      "departments": "系",
+      "programs": "专业",
+      "chairs": "各系",
+      "staffCount": "{n} 人",
+      "team": "本系教职工",
+      "empty": "未找到数据",
+      "myPage": "我的页面",
+      "studentSoon": "学生中心即将上线：需要接入 HEMIS 学生登录。"
+    }
   },
   "page": {
     "share": "分享",

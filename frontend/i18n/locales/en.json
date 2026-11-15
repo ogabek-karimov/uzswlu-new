@@ -466,7 +466,35 @@
       "removeYes": "Yes, restore",
       "bad": "JPG, PNG or WEBP only, up to 10 MB"
     },
-    "error": "Something went wrong, please try again"
+    "error": "Something went wrong, please try again",
+    "role": {
+      "dean": "Dean",
+      "chair_head": "Head of Department",
+      "teacher": "Teacher",
+      "staff": "Staff member",
+      "student": "Student"
+    },
+    "roleDesc": {
+      "dean": "Your faculty’s figures and departments in one place.",
+      "chair_head": "Your department’s staff and their pages.",
+      "teacher": "Your personal page, documents and research links.",
+      "staff": "Your personal page and contact details.",
+      "student": "Student cabinet."
+    },
+    "rolePanel": {
+      "title": "Your panel",
+      "openFaculty": "Faculty page",
+      "students": "Students",
+      "teachers": "Teachers",
+      "departments": "Departments",
+      "programs": "Programmes",
+      "chairs": "Departments",
+      "staffCount": "{n} staff",
+      "team": "Department staff",
+      "empty": "No data found",
+      "myPage": "My page",
+      "studentSoon": "The student cabinet is coming soon: it needs HEMIS student sign-in to be connected."
+    }
   },
   "page": {
     "share": "Share",

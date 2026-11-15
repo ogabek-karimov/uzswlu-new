@@ -13,6 +13,7 @@ from apps.core.utils import abs_url
 from apps.hemis import get_client
 from apps.structure.models import StaffDocument, StaffProfile
 
+from .cabinet_roles import cabinet_role
 from .common import img, iso
 
 GROUPS = ('lead', 'faculty', 'chair', 'unit')
@@ -174,6 +175,7 @@ def cabinet_out(hemis_id: str, lang: str) -> dict:
     counts = dict(StaffDocument.objects.filter(hemis_id=hemis_id).values_list('section').annotate(n=Count('id')))
     hemis = get_client().person(hemis_id) or {}
     return {
+        **cabinet_role(person, lang),
         'profile': staff_profile_out(person, profile, lang),
         'hemis': {
             'firstName': hemis.get('firstName', ''),

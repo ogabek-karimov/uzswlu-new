@@ -846,6 +846,43 @@ components:
       type: object
       required: [profile, hemis, about, hasOwnPhoto, documents]
       properties:
+        role:
+          type: string
+          enum: [dean, chair_head, teacher, staff, student]
+          description: Kabinet roli — HEMIS lavozimidan avtomatik (dekan > kafedra mudiri > o'qituvchi > xodim); har rolga o'z paneli
+        panel:
+          type: object
+          description: Rolga mos panel ma'lumoti. Hammada position/department; dekanda faculty (stats, kafedralar), kafedra mudirida team
+          properties:
+            position: { type: string }
+            department: { type: string }
+            faculty:
+              type: object
+              properties:
+                slug: { type: string }
+                name: { type: string }
+                stats: { type: object, additionalProperties: true }
+                chairs:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id: { type: string }
+                      name: { type: string }
+                      staffCount: { type: integer }
+            team:
+              type: object
+              properties:
+                count: { type: integer }
+                members:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id: { type: string }
+                      name: { type: string }
+                      position: { type: string }
+                      photo: { type: [string, 'null'] }
         profile: { $ref: '#/components/schemas/StaffProfile' }
         hemis:
           type: object

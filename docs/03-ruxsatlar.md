@@ -14,6 +14,20 @@
 
 Foydalanuvchi holati (`status`): `active`, `invited`, `disabled`. **`disabled` bo‘lsa tokenlari ham darhol ishlamay qoladi** — xodim ketganda eng tez yo‘l: Foydalanuvchilar → holatini «Yopilgan» qiling.
 
+## Xodim kabinetidagi rollar (rolga asoslangan panel)
+
+Admin paneldagi rollardan **alohida**: saytdagi kabinetda (`/dashboard`) har xodim uchun rol **HEMIS lavozimidan avtomatik** aniqlanadi va unga mos panel chiqadi (`GET /api/me` javobida `role` va `panel`). Kod: `backend/apps/api/cabinet_roles.py`.
+
+| Rol | Qanday aniqlanadi | Panelda nima |
+|---|---|---|
+| `dean` | lavozimi «Dekan» (o‘rinbosari/muovini emas) | fakultet ko‘rsatkichlari (talaba, o‘qituvchi, kafedra, yo‘nalish), kafedralar va ulardagi xodimlar soni, fakultet sahifasiga havola |
+| `chair_head` | lavozimi «Kafedra mudiri» | kafedra xodimlari (sahifalariga havola bilan) |
+| `teacher` | HEMIS xodim turi «12» (professor-o‘qituvchi) | shaxsiy sahifa havolasi (hujjatlar, ilmiy havolalar — kabinetning o‘zida) |
+| `staff` | qolgan xodimlar | shaxsiy sahifa havolasi |
+| `student` | HEMIS **talaba** kirishi ulanganda | hozircha «tez orada» (talaba OAuth hali ulanmagan) |
+
+Bir necha lavozimda ishlasa, eng yuqorisi olinadi: `dean` > `chair_head` > `teacher` > `staff`. Rol **faqat ko‘rsatish uchun** — kabinetning ruxsati o‘zgarmaydi: har xodim faqat o‘z HEMIS ID'sini ko‘radi va o‘zgartiradi (`/api/me*`, IDOR yo‘q). Testlar: `tests/api/test_cabinet_roles.py`.
+
 ## Obyekt darajasidagi qoidalar (rol jadvalidan tashqari)
 
 - **Fakultet admini** (`faculty`) faqat `User.scope` dagi fakultet va uning kafedralarini o‘zgartiradi; boshqasi `403`; kafedrani boshqa fakultetga ko‘chira olmaydi. **`scope` bo‘sh fakultet admini hech narsani o‘zgartira olmaydi** (xavfsiz sukut) — yangi `faculty` foydalanuvchi yaratganda `scope` ni to‘ldirishni unutmang.

@@ -178,6 +178,7 @@ const menuClass = 'flex items-center gap-3 rounded-[14px] px-3.5 py-3 font-mediu
 
         <p v-if="failed" role="alert" class="rounded-2xl bg-[#fdecec] px-5 py-3 text-[#8e1b1b]">{{ t('cabinet.error') }}</p>
 
+        <CabinetRolePanel v-if="cabinet.panel" :role="cabinet.role" :panel="cabinet.panel" :person-id="person.id" />
         <CabinetHemisCard :cabinet="cabinet" />
         <CabinetAboutCard :about="cabinet.about" :text="person.about" :saving="saving" @save="about => patch({ about })" />
         <CabinetLinksCard kind="contacts" :title="t('staff.profile.contact')" :person="person" @save="e => saveLinks('contacts', e)" />

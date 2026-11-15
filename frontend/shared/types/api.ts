@@ -263,7 +263,26 @@ export interface CabinetDocument {
  * GET /me — xodim kabineti (dashboard). Faqat saytga HEMIS (my.gov) orqali kirgan xodimga;
  * kirmagan bo'lsa 401. Ism, sharif, tug'ilgan kun, telefon, e-pochta, ish joylari — HEMIS'dan (faqat o'qish).
  */
+/** Kabinet roli: HEMIS lavozimidan avtomatik (dekan > kafedra mudiri > o'qituvchi > xodim); talaba — HEMIS talaba kirishi ulanganda */
+export type CabinetRole = 'dean' | 'chair_head' | 'teacher' | 'staff' | 'student'
+
+export interface CabinetPanel {
+  position: string
+  department: string
+  /** Dekan uchun: fakultet ko'rsatkichlari va kafedralar */
+  faculty?: {
+    slug: string
+    name: string
+    stats: { students?: number; departments?: number; programs?: number; teachers?: number }
+    chairs: { id: string; name: string; staffCount: number }[]
+  }
+  /** Kafedra mudiri uchun: kafedra xodimlari */
+  team?: { count: number; members: { id: string; name: string; position: string; photo?: string | null }[] }
+}
+
 export interface StaffCabinet {
+  role: CabinetRole
+  panel: CabinetPanel
   /** Ommaviy profil (Staff sahifasidagi bilan bir xil ko'rinish uchun) */
   profile: StaffProfile
   hemis: {
