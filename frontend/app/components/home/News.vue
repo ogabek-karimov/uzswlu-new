@@ -47,12 +47,12 @@ const announcements = computed(() => props.announcements.slice(0, 4))
                 {{ item.title }}
               </NuxtLink>
             </h3>
-            <span class="mt-auto flex items-center justify-between pt-5 text-sm font-semibold text-brand-700">
+            <NuxtLink :to="localePath(`/news/${item.slug}`)" tabindex="-1" class="relative z-10 mt-auto flex items-center justify-between pt-5 text-sm font-semibold text-brand-700">
               {{ t('news.readMore') }}
-              <span class="pointer-events-none grid size-9 place-items-center rounded-full border border-brand-200 transition duration-300 group-hover:-rotate-45 group-hover:border-accent-400 group-hover:bg-accent-400 group-hover:text-ink motion-reduce:transition-none" aria-hidden="true">
+              <span class="grid size-9 place-items-center rounded-full border border-brand-200 transition duration-300 group-hover:-rotate-45 group-hover:border-accent-400 group-hover:bg-accent-400 group-hover:text-ink motion-reduce:transition-none" aria-hidden="true">
                 <Icon name="lucide:arrow-right" class="size-4" />
               </span>
-            </span>
+            </NuxtLink>
           </div>
           <span class="pointer-events-none absolute inset-x-8 bottom-0 h-1 origin-left scale-x-0 rounded-full bg-accent-400 transition-transform duration-500 group-hover:scale-x-100 motion-reduce:transition-none" aria-hidden="true" />
         </article>
@@ -102,10 +102,10 @@ const announcements = computed(() => props.announcements.slice(0, 4))
                   {{ item.title }}
                 </NuxtLink>
               </h3>
-              <span class="mt-auto inline-flex items-center gap-1.5 pt-4 text-[13px] font-semibold text-brand-700">
+              <NuxtLink :to="localePath(`/announcements/${item.slug}`)" tabindex="-1" class="relative z-10 mt-auto inline-flex items-center gap-1.5 pt-4 text-[13px] font-semibold text-brand-700">
                 {{ t('news.readMore') }}
-                <Icon name="lucide:arrow-up-right" class="pointer-events-none size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </span>
+                <Icon name="lucide:arrow-up-right" class="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </NuxtLink>
             </div>
           </article>
         </li>

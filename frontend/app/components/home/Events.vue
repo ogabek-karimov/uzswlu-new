@@ -63,11 +63,11 @@ const formatDate = useFormatDate()
               </div>
             </dl>
 
-            <span class="pointer-events-none mt-auto flex justify-end pt-5" aria-hidden="true">
+            <NuxtLink :to="localePath(`/events/${event.slug}`)" tabindex="-1" :aria-label="event.title" class="relative z-10 mt-auto flex justify-end pt-5">
               <span class="grid size-10 place-items-center rounded-full border border-brand-200 text-brand-700 transition duration-300 group-hover:-rotate-45 group-hover:border-accent-400 group-hover:bg-accent-400 group-hover:text-ink motion-reduce:transition-none">
                 <Icon name="lucide:arrow-right" class="size-4" />
               </span>
-            </span>
+            </NuxtLink>
           </div>
         </article>
       </li>

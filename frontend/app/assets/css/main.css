@@ -373,5 +373,6 @@ html[data-scheme] [data-speaking] {
 
 /* Butun kartani qoplagan havola (stretched link) bo'lgan kartalarda bezak/strelka elementlari bosishni «yutib» qo'ymasin:
    hoverda transform olgan strelka havola ustiga chiqib qolib, bosilmay va kursor «qo'l» bo'lmay qolardi */
-[data-spot] [aria-hidden='true'] { pointer-events: none; }
+/* (butun kartani qoplovchi `.inset-0` qatlamning o'zi mustasno — u bosilishi kerak) */
+[data-spot] [aria-hidden='true']:not(.inset-0) { pointer-events: none; }
 [data-spot]:has(a[href]) { cursor: pointer; }
