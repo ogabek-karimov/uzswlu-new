@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-15
 
-- **Sayt (bosh sahifa, «Biz bilan bog‘lanish», logotiplar to‘g‘rilandi):** har kartada bitta dumaloq logo: **Bosh bino** — universitetning haqiqiy logosi, **Filologiya / Xalqaro jurnalistika / Rus filologiyasi** binolari — o‘z fakultetining logosi (Fakultetlar bo‘limidagi rasm). Bino kaliti (`philology`, `journalism`, `russian`) fakultet slug’iga `Contact.vue` ichidagi ro‘yxat orqali bog‘lanadi; yangi bino yoki mos fakultet topilmasa — universitet logosi. (Oldingi «3 tadan aralash logo» varianti almashtirildi.) — `COMMIT`
+- **Sayt (bosh sahifa, «Biz bilan bog‘lanish», logotiplar to‘g‘rilandi):** har kartada bitta dumaloq logo: **Bosh bino** — universitetning haqiqiy logosi, **Filologiya / Xalqaro jurnalistika / Rus filologiyasi** binolari — o‘z fakultetining logosi (Fakultetlar bo‘limidagi rasm). Bino kaliti (`philology`, `journalism`, `russian`) fakultet slug’iga `Contact.vue` ichidagi ro‘yxat orqali bog‘lanadi; yangi bino yoki mos fakultet topilmasa — universitet logosi. (Oldingi «3 tadan aralash logo» varianti almashtirildi.) — `b913527`
 
 - **Sayt (bosh sahifa, «Biz bilan bog‘lanish»):** har bir bino kartasi tepasidagi oddiy bino belgisi o‘rniga **fakultetlar logotiplari** (Fakultetlar bo‘limidagi bilan bir xil rasmlar) qo‘yildi: dumaloq, oltin halqali, bir-birining ustiga tushgan 3 ta logo; har kartada boshqa uchtasi ko‘rinadi, hoverda siljiydi. Fakultet logosi bo‘lmasa — universitet logosi. Ma’lumot bosh sahifaning mavjud fakultetlar ro‘yxatidan olinadi (qo‘shimcha so‘rov yo‘q). — `d7002b6`
 
