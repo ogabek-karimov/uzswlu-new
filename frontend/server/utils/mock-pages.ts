@@ -208,7 +208,8 @@ export function getMockContact(lang: Locale): ContactPage {
     campuses: site.campuses.map(c => ({
       ...c,
       phone: campusPhones[c.id] ?? site.phone,
-      mapUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(uzCampuses.find(u => u.id === c.id)?.address ?? c.address)}`,
+      mapUrl: `https://yandex.com/maps/?text=${encodeURIComponent(uzCampuses.find(u => u.id === c.id)?.address ?? c.address)}`,
+      mapEmbed: `https://yandex.com/map-widget/v1/?mode=search&text=${encodeURIComponent(uzCampuses.find(u => u.id === c.id)?.address ?? c.address)}&z=16`,
     })),
     // uzswlu.uz/aloqa sahifasidan (2026-10-21)
     leaders: [

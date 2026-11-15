@@ -94,9 +94,18 @@ useSeo({ title: () => t('contact.title'), description: () => t('contact.lead') }
       <h2 class="font-display text-4xl font-semibold sm:text-[40px]">{{ t('contact.campuses') }}</h2>
       <ul class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <li v-for="c in data.campuses" :key="c.id" class="overflow-hidden rounded-3xl border border-line bg-white">
-          <a :href="c.mapUrl" target="_blank" rel="noopener" :aria-label="`${t('contact.route')}: ${c.name}`" class="relative grid h-[150px] place-items-center bg-brand-100 transition-colors hover:bg-brand-200">
-            <span class="size-10 -rotate-45 rounded-[999px_999px_999px_0] bg-brand-800 shadow-[0_8px_20px_-6px_rgba(42,32,102,0.6)]" aria-hidden="true" />
-          </a>
+          <!-- Yandex xaritasi (bosh sahifadagi bilan bir xil); xarita bo'lmasa — belgi -->
+          <div class="relative h-[190px] overflow-hidden bg-brand-100">
+            <iframe
+              v-if="c.mapEmbed"
+              :src="c.mapEmbed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              :title="`${c.name} — ${t('contact.route')}`"
+              class="absolute inset-0 size-full border-0"
+            />
+            <span v-else class="absolute top-1/2 left-1/2 size-10 -translate-x-1/2 -translate-y-1/2 -rotate-45 rounded-[999px_999px_999px_0] bg-brand-800" aria-hidden="true" />
+          </div>
           <div class="p-5">
             <h3 class="text-lg font-semibold">{{ c.name }}</h3>
             <p class="mt-2 text-sm leading-normal text-muted">{{ c.address }}</p>

@@ -164,10 +164,27 @@ useSeo({ title: () => faculty.value?.name ?? '', description: () => faculty.valu
           <li class="flex gap-3"><Icon name="lucide:phone" class="mt-0.5 size-5 shrink-0 text-brand-700" /><a :href="tel(faculty.contact.phone)" class="hover:text-brand-700">{{ faculty.contact.phone }}</a></li>
           <li v-if="faculty.contact.email" class="flex gap-3"><Icon name="lucide:mail" class="mt-0.5 size-5 shrink-0 text-brand-700" /><a :href="`mailto:${faculty.contact.email}`" class="break-all hover:text-brand-700">{{ faculty.contact.email }}</a></li>
         </ul>
-        <a v-if="faculty.contact.mapUrl" :href="faculty.contact.mapUrl" target="_blank" rel="noopener" class="mt-6 flex h-40 flex-col items-center justify-center gap-2 rounded-[18px] bg-brand-100 font-semibold text-brand-700 transition-colors hover:bg-brand-200">
-          <Icon name="lucide:map" class="size-7" />
-          {{ t('faculty.map') }}
-        </a>
+        <!-- Yandex xaritasi; tugma — to'liq xaritada ochish -->
+        <div v-if="faculty.contact.mapEmbed || faculty.contact.mapUrl" class="relative mt-6 h-52 overflow-hidden rounded-[18px] bg-brand-100">
+          <iframe
+            v-if="faculty.contact.mapEmbed"
+            :src="faculty.contact.mapEmbed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            :title="t('faculty.map')"
+            class="absolute inset-0 size-full border-0"
+          />
+          <a
+            v-if="faculty.contact.mapUrl"
+            :href="faculty.contact.mapUrl"
+            target="_blank"
+            rel="noopener"
+            class="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-brand-900 px-3.5 py-2 text-xs font-semibold text-white shadow-[0_10px_24px_-12px_rgb(17_12_46/0.8)] transition hover:bg-brand-800"
+          >
+            <Icon name="lucide:map" class="size-4 text-accent-400" />
+            {{ t('faculty.map') }}
+          </a>
+        </div>
       </aside>
     </section>
   </div>

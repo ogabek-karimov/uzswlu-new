@@ -1167,7 +1167,7 @@ components:
         contact:
           type: object
           required: [address, phone]
-          properties: { address: { type: string }, phone: { type: string }, email: { type: [string, 'null'] }, mapUrl: { type: [string, 'null'], format: uri } }
+          properties: { address: { type: string }, phone: { type: string }, email: { type: [string, 'null'] }, mapUrl: { type: [string, 'null'], format: uri }, mapEmbed: { type: [string, 'null'], format: uri } }
 
     Admission:
       type: object

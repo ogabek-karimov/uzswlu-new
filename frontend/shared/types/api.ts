@@ -548,7 +548,7 @@ export interface FacultyDetail extends Faculty {
   departments: { id: string; name: string; head?: string | null }[]
   deanery: FacultyPerson[]
   news: PostSummary[]
-  contact: { address: string; phone: string; email?: string | null; mapUrl?: string | null }
+  contact: { address: string; phone: string; email?: string | null; mapUrl?: string | null; mapEmbed?: string | null }
 }
 
 /** GET /admission?lang= — qabul sahifasi */

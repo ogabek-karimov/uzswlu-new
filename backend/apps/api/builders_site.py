@@ -454,7 +454,10 @@ def faculty_out(f: Faculty, lang: str) -> dict:
             'address': tr(f.address, lang) or contact.get('address', ''),
             'phone': f.phone or contact.get('phone', ''),
             'email': f.email or contact.get('email') or None,
-            'mapUrl': f.map_url or contact.get('mapUrl') or None,
+            # Google havolasi (eski ma'lumot) o'rniga Yandex; qo'lda kiritilgan boshqa havola saqlanadi
+            'mapUrl': (f.map_url if f.map_url and 'google.' not in f.map_url else map_link('', tr(f.address, 'uz') or contact.get('address', '')))
+            if (f.map_url or tr(f.address, 'uz') or contact.get('address')) else None,
+            'mapEmbed': map_embed('', tr(f.address, 'uz') or contact.get('address', ''), lang) if (tr(f.address, 'uz') or contact.get('address')) else None,
         },
     }
 

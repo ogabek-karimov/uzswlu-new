@@ -85,7 +85,7 @@ export const staffContacts: Record<StaffContactType, { icon: string; tile: strin
   phone: { icon: 'lucide:phone', tile: 'bg-brand-800', hover: 'hover:bg-brand-700', href: v => `tel:${digits(v)}` },
   office: {
     icon: 'lucide:map-pin', tile: 'bg-[#14a37f]', hover: 'hover:bg-[#14a37f]', external: true,
-    href: v => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v)}`,
+    href: v => `https://yandex.com/maps/?text=${encodeURIComponent(v)}`,
   },
 }
 

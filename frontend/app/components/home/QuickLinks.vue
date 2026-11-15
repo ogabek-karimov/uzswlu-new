@@ -25,15 +25,16 @@ const links = [
         <h2 id="quick-title" class="mt-3 font-display text-3xl leading-tight font-semibold tracking-tight text-ink sm:text-4xl">{{ t('quick.title') }}</h2>
       </div>
     </div>
-    <div class="overflow-hidden rounded-3xl border border-line bg-white shadow-[0_24px_50px_-40px_var(--color-brand-700)]">
-      <ul class="flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] sm:grid sm:grid-cols-4 lg:grid-cols-7 lg:divide-x lg:divide-line">
-        <li data-reveal-item v-for="link in links" :key="link.key" class="min-w-[44%] shrink-0 snap-start sm:min-w-0">
+    <div>
+      <ul class="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-3 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-7">
+        <li data-reveal-item v-for="link in links" :key="link.key" class="group/li min-w-[46%] shrink-0 snap-start sm:min-w-0">
           <component
             :is="link.href ? 'a' : NuxtLink"
             v-bind="link.href ? { href: link.href, target: '_blank', rel: 'noopener' } : { to: localePath(link.to!) }"
-            class="group relative flex h-full flex-col gap-3 px-4 py-6 transition-colors hover:bg-brand-50 focus-visible:bg-brand-50 lg:px-5"
+            class="group relative flex h-full flex-col gap-3 overflow-hidden rounded-3xl border border-line bg-white px-4 py-5 shadow-[0_1px_0_rgba(19,17,47,0.04)] transition duration-300 group-hover/li:-translate-y-1 hover:border-brand-200 hover:bg-brand-50 hover:shadow-[0_26px_50px_-30px_var(--color-brand-700)] focus-visible:-translate-y-1 focus-visible:bg-brand-50 lg:px-5 motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0"
           >
-            <span class="grid size-11 place-items-center rounded-xl bg-brand-50 text-brand-700 transition duration-300 group-hover:-translate-y-1 group-hover:-rotate-6 group-hover:bg-brand-800 group-hover:text-accent-400 group-hover:shadow-[0_12px_24px_-12px_var(--color-brand-800)] motion-reduce:transition-none motion-reduce:group-hover:transform-none">
+            <span class="decor pointer-events-none absolute -top-8 -right-8 size-24 rounded-full bg-brand-100/60 transition-transform duration-500 group-hover:scale-150 group-hover:bg-accent-100 motion-reduce:transition-none" aria-hidden="true" />
+            <span class="relative grid size-11 place-items-center rounded-xl bg-brand-50 text-brand-700 transition duration-300 group-group-hover/li:-translate-y-1 group-hover:-rotate-6 group-hover:bg-brand-800 group-hover:text-accent-400 group-hover:shadow-[0_12px_24px_-12px_var(--color-brand-800)] motion-reduce:transition-none motion-reduce:group-hover:transform-none">
               <Icon :name="link.icon" class="size-5" />
             </span>
             <span>

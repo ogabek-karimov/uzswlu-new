@@ -189,7 +189,7 @@ export function getMockFaculty(lang: Locale, slug: string): FacultyDetail | null
     departments: chairs.slice(0, Math.max(1, departments)).map((c, i) => ({ id: `${slug}-${i + 1}`, name: c[lang], head: null })),
     deanery: [PLACE.dean!, PLACE.deputyStudy!, PLACE.deputyYouth!, PLACE.methodist!].map(role => ({ staffId: null, name: '[F.I.Ş.]', role: role[lang], photo: null })),
     news: getMockLatest(lang, 'news', 2),
-    contact: { address: PLACE.address![lang], phone: '+998 71 230 13 73', email: `${slug}@uzswlu.uz`, mapUrl: 'https://www.google.com/maps/search/?api=1&query=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021' },
+    contact: { address: PLACE.address![lang], phone: '+998 71 230 13 73', email: `${slug}@uzswlu.uz`, mapUrl: 'https://yandex.com/maps/?text=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021', mapEmbed: 'https://yandex.com/map-widget/v1/?mode=search&text=Toshkent%2C%20Kichik%20halqa%20yo%E2%80%98li%2C%2021&z=16' },
   }
 }
 
