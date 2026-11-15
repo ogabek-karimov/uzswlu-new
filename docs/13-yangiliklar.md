@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-15
 
-- **Sayt (kartalar: «Batafsil» va strelka bosilganda sahifaga o‘tadi — xato tuzatildi):** oldingi o‘zgarishdagi umumiy qoida (`[data-spot] [aria-hidden='true'] { pointer-events: none }`) kartani qoplovchi havola qatlamining o‘zini ham bosilmas qilib qo‘ygan edi — yangilik/e’lon/tadbir kartalari bosilmay qolgan. Endi qoida `.inset-0` qatlamni istisno qiladi. Qo‘shimcha ishonch uchun «Batafsil» + strelka (yangilik, e’lon) va tadbir strelkasi alohida **haqiqiy havola** (`NuxtLink`, `z-10`) qilindi — bosilsa, ichki sahifa ochiladi. — `COMMIT`
+- **Sayt (kartalar: «Batafsil» va strelka bosilganda sahifaga o‘tadi — xato tuzatildi):** oldingi o‘zgarishdagi umumiy qoida (`[data-spot] [aria-hidden='true'] { pointer-events: none }`) kartani qoplovchi havola qatlamining o‘zini ham bosilmas qilib qo‘ygan edi — yangilik/e’lon/tadbir kartalari bosilmay qolgan. Endi qoida `.inset-0` qatlamni istisno qiladi. Qo‘shimcha ishonch uchun «Batafsil» + strelka (yangilik, e’lon) va tadbir strelkasi alohida **haqiqiy havola** (`NuxtLink`, `z-10`) qilindi — bosilsa, ichki sahifa ochiladi. — `370ea00`
 
 - **Sayt (kartalardagi strelkalar bosiladigan bo‘ldi):** yangilik, e’lon va tadbir kartalaridagi strelka (→ ↗) hoverda aylanganda (`transform`) havola qatlami ustiga chiqib qolib, bosilmas va kursor «qo‘l» bo‘lmay qolardi. Endi strelka/bezak elementlari `pointer-events: none` — bosish kartaning asosiy havolasiga o‘tadi (ichki sahifaga kiradi); butun kartada kursor `pointer`. Umumiy qoida `main.css` da: `[data-spot] [aria-hidden='true']`. — `d2e7a91`
 
