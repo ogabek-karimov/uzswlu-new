@@ -555,7 +555,8 @@ def contact_out(lang: str) -> dict:
             {
                 'id': c.key, 'name': tr(c.name, lang), 'address': tr(c.address, lang), 'phone': c.phone or s.phone,
                 'email': c.email or s.email or None,
-                'mapUrl': c.map_url or map_link(c.coords, tr(c.address, 'uz')),
+                # Admin qo'lda boshqa (Google emas) havola kiritgan bo'lsa — o'sha; aks holda Yandex (xarita bilan bir xil xizmat)
+                'mapUrl': c.map_url if c.map_url and 'google.' not in c.map_url else map_link(c.coords, tr(c.address, 'uz')),
                 'mapEmbed': map_embed(c.coords, tr(c.address, 'uz'), lang),
             }
             for c in Campus.objects.all()

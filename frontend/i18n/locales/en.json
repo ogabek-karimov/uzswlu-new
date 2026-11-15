@@ -869,6 +869,7 @@
   },
   "homeContact": {
     "eyebrow": "Contact",
+    "choose": "Choose a building",
     "title": "Get in touch",
     "phone": "Phone",
     "email": "Email",

@@ -9,7 +9,7 @@ import type { Lang } from '@/lib/constants'
 import { dateTime } from '@/lib/format'
 import { loadSiteSettings } from '@/lib/settings'
 
-/** Bino: bosh sahifadagi «Biz bilan bog'lanish» kartasi va Aloqa sahifasi. coords — koordinata yoki Google Maps havolasi (backend koordinataga aylantiradi) */
+/** Bino: bosh sahifadagi «Biz bilan bog'lanish» kartasi va Aloqa sahifasi. coords — koordinata yoki Yandex/Google Maps havolasi (backend koordinataga aylantiradi) */
 type Campus = { key?: string; name: I18n; address: I18n; phone?: string | null; email?: string | null; coords?: string | null; mapUrl?: string | null }
 type SettingsDoc = {
   site: { name: I18n; abbr: I18n; description: I18n }
@@ -92,15 +92,24 @@ function removeCampus(i: number) {
   if (window.confirm(`«${form.contact.campuses[i]?.name.uz || 'Yangi bino'}» öçirilsinmi? (Saqlaşdan keyin saytdan ham olinadi)`)) form.contact.campuses.splice(i, 1)
 }
 
-/** Xarita oldindan körinişi: koordinata (yoki havoladagi koordinata), bo'lmasa — manzil bo'yicha (backend ham şunday qiladi) */
-const COORDS = [/!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/, /!2d(-?\d+(?:\.\d+)?)!3d(-?\d+(?:\.\d+)?)/, /@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/, /^\s*(-?\d+(?:\.\d+)?)\s*[,;\s]\s*(-?\d+(?:\.\d+)?)\s*$/]
+/** Xarita oldindan körinişi (saytdagi bilan bir xil — Yandex): koordinata (yoki havoladagi koordinata), bo'lmasa — manzil bo'yicha */
+const COORDS: [RegExp, boolean][] = [ // [naqsh, birinchi son uzunlikmi]
+  [/!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/, false],
+  [/!2d(-?\d+(?:\.\d+)?)!3d(-?\d+(?:\.\d+)?)/, true],
+  [/@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/, false],
+  [/[?&](?:ll|pt)=(-?\d+(?:\.\d+)?)(?:,|%2C)(-?\d+(?:\.\d+)?)/i, true],
+  [/^\s*(-?\d+(?:\.\d+)?)\s*[,;\s]\s*(-?\d+(?:\.\d+)?)\s*$/, false],
+]
 function mapPreview(c: Campus) {
   const raw = (c.coords ?? '').trim()
-  for (const [i, re] of COORDS.entries()) {
+  for (const [re, lngFirst] of COORDS) {
     const m = raw.match(re)
-    if (m) return `https://maps.google.com/maps?q=${i === 1 ? `${m[2]},${m[1]}` : `${m[1]},${m[2]}`}&z=16&output=embed`
+    if (m) {
+      const pt = lngFirst ? `${m[1]},${m[2]}` : `${m[2]},${m[1]}`
+      return `https://yandex.com/map-widget/v1/?ll=${pt}&z=17&pt=${pt},pm2rdl`
+    }
   }
-  return c.address.uz ? `https://maps.google.com/maps?q=${encodeURIComponent(c.address.uz)}&z=16&output=embed` : ''
+  return c.address.uz ? `https://yandex.com/map-widget/v1/?mode=search&text=${encodeURIComponent(c.address.uz)}&z=16` : ''
 }
 
 function flash(text: string) {
@@ -184,8 +193,8 @@ function flash(text: string) {
           </div>
           <div>
             <label :for="`cp-geo-${i}`" class="label">Xaritadagi joy</label>
-            <input :id="`cp-geo-${i}`" v-model="c.coords" class="field" placeholder="41.286038, 69.194908 yoki Google Maps havolasi">
-            <p class="mt-1 text-xs text-subtle">Google Maps’da binoni toping → koordinatani yoki «Ulaşiş» havolasini nusxalab qöying. Saqlanganda koordinataga aylanadi; böş qolsa — manzil böyiça topiladi.</p>
+            <input :id="`cp-geo-${i}`" v-model="c.coords" class="field" placeholder="41.286038, 69.194908 yoki Yandex Xaritalar havolasi">
+            <p class="mt-1 text-xs text-subtle">Yandex Xaritalar’da (yoki Google Maps’da) binoni toping → koordinatani yoki «Ulaşiş» havolasini nusxalab qöying. Saqlanganda koordinataga aylanadi; böş qolsa — manzil böyiça topiladi.</p>
           </div>
         </div>
         <div class="flex flex-col gap-2">
