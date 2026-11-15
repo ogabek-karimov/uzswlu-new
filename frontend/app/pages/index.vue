@@ -14,7 +14,7 @@ const { data } = await useHomeData()
       <HomeNews :news="data?.news ?? []" :announcements="data?.announcements ?? []" />
     </HomeBackdrop>
     <HomeEvents :events="data?.events ?? []" />
-    <HomeContact />
+    <HomeContact :faculties="data?.faculties ?? []" />
     <HomeBanner :banner="data?.banner ?? null" />
     <HomeStateSymbols />
     <HomePartners :partners="data?.partners ?? []" />
