@@ -10,12 +10,17 @@ const localePath = useLocalePath()
 
 const { data } = useFetch<ContactPage>('/api/contact', { key: 'contact', query: { lang: locale }, lazy: true })
 const campuses = computed(() => data.value?.campuses ?? [])
-// Bino belgisi o'rniga fakultetlar logolari (Fakultetlar bo'limidagi bilan bir xil); har kartada boshqa uchtasi ko'rinadi
-const logoFaculties = computed(() => (props.faculties ?? []).filter(f => f.logo))
-function logosFor(i: number) {
-  const list = logoFaculties.value
-  if (!list.length) return []
-  return Array.from({ length: Math.min(3, list.length) }, (_, k) => list[(i * 3 + k) % list.length]!)
+// Bino belgisi: bosh bino — universitet logosi, qolganlari — o'z fakultetining logosi (Fakultetlar bo'limidagi rasm).
+// Bino kaliti (admin: Binolar va kampuslar) fakultet slug'iga shu ro'yxat orqali bog'lanadi; topilmasa — universitet logosi
+const FACULTY_OF: Record<string, string> = {
+  philology: 'english-philology',
+  journalism: 'international-journalism',
+  russian: 'russian-philology',
+}
+function logoFor(key: string) {
+  const slug = FACULTY_OF[key] ?? key
+  const f = (props.faculties ?? []).find(x => x.slug === slug)
+  return f?.logo || '/logos/uzswlu.png'
 }
 const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
 </script>
@@ -41,19 +46,15 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
             <!-- Sarlavha: tartib raqami, belgi va nomi -->
             <div class="relative px-6 pt-6">
               <span class="pointer-events-none absolute -top-2 right-4 font-display text-[5.5rem] leading-none font-semibold text-brand-50 transition-colors duration-300 select-none group-hover:text-accent-100" aria-hidden="true">{{ String(i + 1).padStart(2, '0') }}</span>
-              <span class="relative flex items-center -space-x-3" aria-hidden="true">
-                <template v-if="logosFor(i).length">
-                  <span
-                    v-for="f in logosFor(i)"
-                    :key="f.id"
-                    class="grid size-14 place-items-center overflow-hidden rounded-full bg-white shadow-[0_8px_18px_-8px_rgba(17,12,46,0.55)] ring-[3px] ring-accent-300 transition-transform duration-300 group-hover:translate-x-1"
-                  >
-                    <img :src="f.logo!" alt="" width="56" height="56" loading="lazy" class="size-full object-cover">
-                  </span>
-                </template>
-                <span v-else class="grid size-14 place-items-center overflow-hidden rounded-full bg-white ring-[3px] ring-accent-300">
-                  <img src="/logos/uzswlu.png" alt="" width="44" height="44" loading="lazy" class="size-[78%] object-contain">
-                </span>
+              <span class="relative grid size-16 place-items-center overflow-hidden rounded-full bg-white p-0 shadow-[0_10px_22px_-10px_rgba(17,12,46,0.6)] ring-[3px] ring-accent-300 transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-6 motion-reduce:transition-none" aria-hidden="true">
+                <img
+                  :src="logoFor(c.id)"
+                  alt=""
+                  width="64"
+                  height="64"
+                  loading="lazy"
+                  :class="logoFor(c.id) === '/logos/uzswlu.png' ? 'size-[80%] object-contain' : 'size-full object-cover'"
+                >
               </span>
               <h3 class="relative mt-4 line-clamp-2 min-h-[2lh] font-display text-[1.375rem] leading-tight font-semibold text-ink">{{ c.name }}</h3>
             </div>
