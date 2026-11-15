@@ -51,6 +51,7 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
             <li v-for="(c, i) in campuses" :key="c.id" data-reveal-item>
               <button
                 type="button"
+                data-spot
                 :aria-pressed="i === current"
                 class="group flex w-full items-center gap-4 rounded-[22px] border p-3 pr-4 text-left transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 motion-reduce:transition-none"
                 :class="i === current

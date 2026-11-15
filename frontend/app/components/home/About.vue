@@ -37,7 +37,7 @@ const facts = computed(() => FACTS.flatMap((fact) => {
         </span>
         <div class="relative flex min-w-0 flex-col-reverse">
           <dt class="text-sm leading-snug text-white/70 sm:text-[15px]">{{ t(`about.facts.${fact.key}`) }}</dt>
-          <dd class="font-display text-4xl leading-none text-white sm:text-5xl">{{ fact.number }}<span class="text-accent-400">{{ fact.suffix }}</span></dd>
+          <dd class="font-display text-4xl leading-none text-white sm:text-5xl"><CountUp :value="fact.number" /><span class="text-accent-400">{{ fact.suffix }}</span></dd>
         </div>
       </div>
     </dl>

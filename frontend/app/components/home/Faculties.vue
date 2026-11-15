@@ -33,10 +33,11 @@ const preview = computed(() => props.faculties.slice(0, 4))
       />
 
       <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        <li data-reveal-item v-for="(faculty, i) in faculties" :key="faculty.id">
+        <li data-reveal-item class="group/li" v-for="(faculty, i) in faculties" :key="faculty.id">
           <NuxtLink
             :to="localePath(`/faculty/${faculty.slug}`)"
-            class="group relative flex h-full min-h-80 flex-col items-center overflow-hidden rounded-3xl border border-white/18 bg-white/9 px-6 pt-8 pb-7 text-center text-white backdrop-blur-md backdrop-saturate-150 transition duration-300 hover:-translate-y-1.5 hover:border-accent-400/60 hover:bg-white/16 hover:shadow-[0_30px_60px_-30px_rgb(0_0_0/0.7)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+            data-spot
+            class="group relative flex h-full min-h-80 flex-col items-center overflow-hidden rounded-3xl border border-white/18 bg-white/9 px-6 pt-8 pb-7 text-center text-white backdrop-blur-md backdrop-saturate-150 transition duration-300 group-hover/li:-translate-y-1.5 hover:border-accent-400/60 hover:bg-white/16 hover:shadow-[0_30px_60px_-30px_rgb(0_0_0/0.7)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0"
           >
             <!-- Tartib raqami va strelka (burchaklarda) -->
             <span class="absolute top-5 left-6 font-display text-lg font-semibold text-accent-400 tabular-nums">{{ String(i + 1).padStart(2, '0') }}</span>
@@ -71,7 +72,7 @@ const preview = computed(() => props.faculties.slice(0, 4))
         <li>
           <NuxtLink
             :to="localePath('/fakultetlar-va-kafedralar')"
-            class="group relative flex h-full min-h-80 flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-accent-300 via-accent-400 to-accent-500 p-7 text-brand-950 transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_34px_70px_-30px_var(--color-accent-400)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+            class="group relative flex h-full min-h-80 flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-accent-300 via-accent-400 to-accent-500 p-7 text-brand-950 transition duration-300 group-hover/li:-translate-y-1.5 hover:shadow-[0_34px_70px_-30px_var(--color-accent-400)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0"
           >
             <!-- Bezak: nuqtali to'r va katta xira bino -->
             <span class="pointer-events-none absolute inset-0 opacity-30 [background-image:radial-gradient(rgb(17_12_46/0.45)_1px,transparent_1.6px)] [background-size:16px_16px] [mask-image:linear-gradient(to_bottom_left,black,transparent_65%)]" aria-hidden="true" />

@@ -31,7 +31,7 @@ const links = [
           <component
             :is="link.href ? 'a' : NuxtLink"
             v-bind="link.href ? { href: link.href, target: '_blank', rel: 'noopener' } : { to: localePath(link.to!) }"
-            class="group relative flex h-full flex-col gap-3 overflow-hidden rounded-3xl border border-line bg-white px-4 py-5 shadow-[0_1px_0_rgba(19,17,47,0.04)] transition duration-300 group-hover/li:-translate-y-1 hover:border-brand-200 hover:bg-brand-50 hover:shadow-[0_26px_50px_-30px_var(--color-brand-700)] focus-visible:-translate-y-1 focus-visible:bg-brand-50 lg:px-5 motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0"
+            data-spot class="group relative flex h-full flex-col gap-3 overflow-hidden rounded-3xl border border-line bg-white px-4 py-5 shadow-[0_1px_0_rgba(19,17,47,0.04)] transition duration-300 group-hover/li:-translate-y-1 hover:border-brand-200 hover:bg-brand-50 hover:shadow-[0_26px_50px_-30px_var(--color-brand-700)] focus-visible:-translate-y-1 focus-visible:bg-brand-50 lg:px-5 motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0"
           >
             <span class="decor pointer-events-none absolute -top-8 -right-8 size-24 rounded-full bg-brand-100/60 transition-transform duration-500 group-hover:scale-150 group-hover:bg-accent-100 motion-reduce:transition-none" aria-hidden="true" />
             <span class="relative grid size-11 place-items-center rounded-xl bg-brand-50 text-brand-700 transition duration-300 group-group-hover/li:-translate-y-1 group-hover:-rotate-6 group-hover:bg-brand-800 group-hover:text-accent-400 group-hover:shadow-[0_12px_24px_-12px_var(--color-brand-800)] motion-reduce:transition-none motion-reduce:group-hover:transform-none">
