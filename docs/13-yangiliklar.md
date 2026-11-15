@@ -2,6 +2,12 @@
 
 Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `CLAUDE.md`). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.
 
+## 2026-11-16
+
+- **Sayt (chap panel):** chap paneldan «Öquv binolari» ikonkasi (va ajratuvchi chiziq) olib tashlandi; ijtimoiy tarmoq ikonkalari kattalashtirildi (tugma 40→48 px, belgi 18→24 px). Telefon menyusidagi «Öquv binolari» havolasi o‘zgarmadi. — `COMMIT`
+- **Sayt («Oldingi / Keyingi» hamma kerakli joyda):** yangi `components/SectionNav.vue` — sayt menyusidagi shu bo‘lim sahifalari orasida «Oldingi / Keyingi» (sahifa menyuda bo‘lmasa hech narsa chiqmaydi). Qo‘shildi: bakalavriat/magistratura (`ProgramsView`), rektorat, fakultetlar va kafedralar, me’yoriy hujjatlar, video darsliklar, qabul, aloqa, BRM, tadbirlar va yangiliklar ro‘yxati. **Post sahifalari** (yangilik/e’lon/tadbir) uchun API’ga `prev`/`next` (shu turdagi avvalroq/keyinroq post; `PostLink` sxemasi, `openapi.yaml`) va sahifada tugmalar. Yangi test: `tests/api/test_post_neighbors.py`. — `COMMIT`
+- **Sayt (qaltirash — asosiy sabablar bartaraf etildi):** (1) hoverda **o‘zi ko‘tariladigan** kartalar/tugmalar (`hover:-translate-y-*`, ~30 joy) sichqoncha chetda turganda ostidan chiqib ketib, hover yoqilib-o‘chib «titrar» edi — bu ko‘tarilishlar olib tashlandi (soya/chegara/rang o‘zgarishi qoldi; qimirlamaydigan `li` hoveriga bog‘langanlari saqlandi); (2) **Hamkorlar** tasmasida harakatlanayotgan logo ustida ko‘tarilish olib tashlandi, tasma alohida GPU qatlamiga olindi (`will-change`); (3) **Fakultet** kartasida 3D «tanga» aylanishi `backdrop-blur` ostida edi — blur olib tashlandi; (4) chap paneldagi tarmoq tugmalarining siljishi olib tashlandi. — `COMMIT`
+
 ## 2026-11-15
 
 - **Sayt (kartalar: «Batafsil» va strelka bosilganda sahifaga o‘tadi — xato tuzatildi):** oldingi o‘zgarishdagi umumiy qoida (`[data-spot] [aria-hidden='true'] { pointer-events: none }`) kartani qoplovchi havola qatlamining o‘zini ham bosilmas qilib qo‘ygan edi — yangilik/e’lon/tadbir kartalari bosilmay qolgan. Endi qoida `.inset-0` qatlamni istisno qiladi. Qo‘shimcha ishonch uchun «Batafsil» + strelka (yangilik, e’lon) va tadbir strelkasi alohida **haqiqiy havola** (`NuxtLink`, `z-10`) qilindi — bosilsa, ichki sahifa ochiladi. — `370ea00`

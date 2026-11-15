@@ -99,7 +99,7 @@ function onFile(e: Event) {
           :href="q.href"
           target="_blank"
           rel="noopener"
-          class="grid size-11 place-items-center rounded-full bg-white/10 text-white transition duration-200 hover:-translate-y-[3px] hover:scale-110 hover:shadow-[0_8px_18px_rgba(0,0,0,0.3)] focus-visible:-translate-y-[3px]"
+          class="grid size-11 place-items-center rounded-full bg-white/10 text-white transition duration-200 hover:scale-110 hover:shadow-[0_8px_18px_rgba(0,0,0,0.3)] focus-visible:-translate-y-[3px]"
           :class="q.hover"
         >
           <Icon :name="q.icon" class="size-[18px]" />

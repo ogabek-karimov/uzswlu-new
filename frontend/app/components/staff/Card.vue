@@ -12,7 +12,7 @@ const fullName = computed(() => staffName(props.person.name, props.person.patron
 <template>
   <NuxtLink
     :to="localePath(`/teacher/${person.id}`)"
-    class="group flex h-full items-center gap-4 rounded-3xl border border-line bg-white p-4 text-ink transition duration-300 hover:-translate-y-0.5 hover:border-accent-500 hover:shadow-[0_20px_44px_-30px_var(--color-accent-600)] sm:p-[18px]"
+    class="group flex h-full items-center gap-4 rounded-3xl border border-line bg-white p-4 text-ink transition duration-300 hover:border-accent-500 hover:shadow-[0_20px_44px_-30px_var(--color-accent-600)] sm:p-[18px]"
   >
     <StaffAvatar :id="person.id" :name="fullName" :photo="person.photo" :fallback="person.photoFallback" decorative class="size-[72px] shrink-0 rounded-[20px] text-2xl" />
     <span class="min-w-0 flex-1">

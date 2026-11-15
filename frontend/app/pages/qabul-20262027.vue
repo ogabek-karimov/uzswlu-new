@@ -187,5 +187,6 @@ useSeo({ title: () => t('admission.title'), description: () => t('admissionPage.
         </div>
       </div>
     </section>
+    <SectionNav />
   </div>
 </template>

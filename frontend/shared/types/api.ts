@@ -401,6 +401,12 @@ export interface PostTranslation {
 }
 
 /** GET /posts/:type/:slug?lang= — bitta yangilik / e'lon / tadbir */
+export interface PostLink {
+  slug: string
+  title: string
+  type: 'news' | 'announcements' | 'events'
+}
+
 export interface Post extends PostSummary {
   /** Matn — HTML (ContentPage.body qoidalari bilan) */
   body: string
@@ -430,6 +436,9 @@ export interface Post extends PostSummary {
   startsAt?: string | null
   endsAt?: string | null
   location?: string | null
+  /** Oldingi (avvalroq) va keyingi (keyinroq) post — shu turdagi */
+  prev?: PostLink | null
+  next?: PostLink | null
   /** O'xshash postlar (3 ta) */
   related: PostSummary[]
   /** So'nggi postlar (4 ta, yon panel) */

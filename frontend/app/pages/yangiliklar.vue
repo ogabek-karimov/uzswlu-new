@@ -168,5 +168,6 @@ useSeo({ title: () => t('posts.title'), description: () => t('posts.lead') })
         </span>
       </a>
     </section>
+    <SectionNav />
   </div>
 </template>

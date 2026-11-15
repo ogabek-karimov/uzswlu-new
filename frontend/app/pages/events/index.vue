@@ -199,5 +199,6 @@ useSeo({ title: () => t('calendar.title'), description: () => t('calendar.lead')
         </article>
       </div>
     </section>
+    <SectionNav />
   </div>
 </template>

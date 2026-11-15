@@ -97,5 +97,6 @@ useSeo({ title: () => t(`programs.${props.level}.title`), description: () => t(`
         </span>
       </NuxtLink>
     </section>
+    <SectionNav />
   </div>
 </template>

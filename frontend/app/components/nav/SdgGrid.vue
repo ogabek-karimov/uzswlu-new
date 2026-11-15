@@ -14,7 +14,7 @@ const extras = computed(() => props.links.filter(l => !l.sdg))
       <li v-for="goal in goals" :key="goal.url">
         <NavMenuLink
           :link="goal"
-          class="group/sdg block h-full overflow-hidden rounded-xl bg-white ring-1 ring-line transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-16px_rgba(19,17,47,0.45)] hover:ring-transparent"
+          class="group/sdg block h-full overflow-hidden rounded-xl bg-white ring-1 ring-line transition duration-200 hover:shadow-[0_14px_30px_-16px_rgba(19,17,47,0.45)] hover:ring-transparent"
           :title="`${goal.sdg}. ${goal.title}`"
         >
           <span

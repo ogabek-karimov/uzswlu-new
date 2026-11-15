@@ -115,7 +115,7 @@ const menuClass = 'flex items-center gap-3 rounded-[14px] px-3.5 py-3 font-mediu
           <p v-if="photoError" role="alert" class="mt-4 rounded-xl bg-white/10 px-3 py-2 text-sm text-white">{{ photoError }}</p>
           <NuxtLink
             :to="localePath(`/teacher/${person.id}`)"
-            class="mt-6 flex h-13 w-full items-center justify-center gap-2 rounded-2xl bg-accent-400 font-bold text-ink transition hover:-translate-y-0.5 hover:bg-accent-300 hover:shadow-[0_0_24px_rgba(0,252,180,0.45)]"
+            class="mt-6 flex h-13 w-full items-center justify-center gap-2 rounded-2xl bg-accent-400 font-bold text-ink transition hover:bg-accent-300 hover:shadow-[0_0_24px_rgba(0,252,180,0.45)]"
           >
             <Icon name="lucide:circle-user-round" class="size-[18px]" />
             {{ t('cabinet.myPage') }}
@@ -126,7 +126,7 @@ const menuClass = 'flex items-center gap-3 rounded-[14px] px-3.5 py-3 font-mediu
               :key="a.key"
               type="button"
               aria-haspopup="dialog"
-              class="flex h-11.5 items-center justify-center gap-2 rounded-[14px] border border-white/22 bg-white/6 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/12"
+              class="flex h-11.5 items-center justify-center gap-2 rounded-[14px] border border-white/22 bg-white/6 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/12"
               @click="a.key === 'qr' ? (qrOpen = true) : (shareOpen = true)"
             >
               <Icon :name="a.icon" class="size-[17px]" />

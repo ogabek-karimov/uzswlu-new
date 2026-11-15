@@ -5,7 +5,7 @@ defineProps<{ title: string; active?: boolean }>()
 
 <template>
   <section
-    class="rounded-[28px] border bg-white p-6 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_50px_-34px_rgba(17,12,46,0.35)] sm:p-7"
+    class="rounded-[28px] border bg-white p-6 transition duration-300 hover:shadow-[0_24px_50px_-34px_rgba(17,12,46,0.35)] sm:p-7"
     :class="active ? 'border-accent-500' : 'border-line'"
   >
     <div class="flex items-center gap-3.5">

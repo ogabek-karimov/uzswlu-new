@@ -27,7 +27,7 @@ const SECTIONS: { key: CabinetDocSection; icon: string; color: string; soft: str
       <li
         v-for="s in SECTIONS"
         :key="s.key"
-        class="group/doc relative flex flex-col overflow-hidden rounded-[22px] border border-t-4 border-line bg-white px-4 pt-4.5 pb-4 transition duration-300 hover:-translate-y-1 hover:scale-[1.03]"
+        class="group/doc relative flex flex-col overflow-hidden rounded-[22px] border border-t-4 border-line bg-white px-4 pt-4.5 pb-4 transition duration-300 hover:scale-[1.03]"
         :style="{ borderTopColor: s.color }"
       >
         <span aria-hidden="true" class="pointer-events-none absolute -top-10 -right-10 size-28 rounded-full" :style="{ background: s.soft }" />

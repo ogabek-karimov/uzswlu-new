@@ -65,7 +65,7 @@ function toggleVoice() {
         :aria-checked="a11y.scheme.value === s"
         :aria-label="t(`a11y.schemes.${s}`)"
         :title="t(`a11y.schemes.${s}`)"
-        class="h-11 rounded-xl border-2 text-lg font-extrabold transition-transform hover:-translate-y-0.5"
+        class="h-11 rounded-xl border-2 text-lg font-extrabold transition-transform"
         :class="[SWATCH[s], a11y.scheme.value === s && 'ring-2 ring-accent-600 ring-offset-2']"
         @click="a11y.setScheme(s)"
       >

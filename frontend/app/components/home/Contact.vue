@@ -56,7 +56,7 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
                 class="group flex w-full items-center gap-4 rounded-[22px] border p-3 pr-4 text-left transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 motion-reduce:transition-none"
                 :class="i === current
                   ? 'border-brand-900 bg-brand-900 text-white shadow-[0_22px_40px_-22px_rgb(17_12_46/0.7)]'
-                  : 'border-white bg-white/85 text-ink shadow-[0_1px_0_rgba(19,17,47,0.04)] backdrop-blur hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_18px_36px_-24px_rgb(17_12_46/0.45)]'"
+                  : 'border-white bg-white/85 text-ink shadow-[0_1px_0_rgba(19,17,47,0.04)] backdrop-blur hover:border-brand-200 hover:shadow-[0_18px_36px_-24px_rgb(17_12_46/0.45)]'"
                 @click="current = i"
               >
                 <span

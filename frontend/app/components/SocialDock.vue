@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Chap chetdagi panel (eski saytdagidek): ijtimoiy tarmoqlar va «Öquv binolari».
+// Chap chetdagi panel (eski saytdagidek): ijtimoiy tarmoqlar.
 // Keng ekranda (≥1360px) doim ochiq; torroq ekranda kontentni yopmasligi uchun chetga yig'iladi —
 // kursor kelsa yoki tilcha bosilsa chiqadi. Telefonda bu havolalar mobil menyuda.
 const { t } = useI18n()
@@ -11,27 +11,19 @@ const socials = computed(() => sortSocials(site.value?.socials ?? []))
 const open = ref(false)
 watch(() => route.fullPath, () => (open.value = false))
 
-const item = 'group relative grid size-10 place-items-center rounded-[14px] outline-none transition-transform duration-200 hover:translate-x-0.5 focus-visible:ring-2 focus-visible:ring-brand-400'
+const item = 'group relative grid size-12 place-items-center rounded-2xl outline-none transition-transform duration-200 focus-visible:ring-2 focus-visible:ring-brand-400'
 const tip = 'pointer-events-none absolute top-1/2 left-full z-10 ml-3 -translate-x-1 -translate-y-1/2 rounded-lg bg-ink px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-white opacity-0 shadow-lg transition duration-200 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100'
 </script>
 
 <template>
   <nav class="social-dock fixed top-1/2 left-0 z-40 hidden items-center md:flex print:hidden" :class="open && 'is-open'" :aria-label="t('social.title')">
-    <ul class="flex flex-col gap-1 rounded-r-[20px] border border-l-0 border-line bg-white p-1.5 shadow-[0_18px_40px_-22px_rgba(19,17,47,0.5)]">
+    <ul class="flex flex-col gap-1.5 rounded-r-[22px] border border-l-0 border-line bg-white p-2 shadow-[0_18px_40px_-22px_rgba(19,17,47,0.5)]">
       <li v-for="s in socials" :key="s.network">
         <a :href="s.url" target="_blank" rel="noopener" :class="[item, siteNetworks[s.network].ink]" :aria-label="siteNetworks[s.network].label">
           <span aria-hidden="true" class="absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100" :class="siteNetworks[s.network].fill" />
-          <Icon :name="siteNetworks[s.network].icon" class="relative text-[1.15rem] transition-colors duration-200 group-hover:text-white group-focus-visible:text-white" />
+          <Icon :name="siteNetworks[s.network].icon" class="relative text-[1.5rem] transition-colors duration-200 group-hover:text-white group-focus-visible:text-white" />
           <span aria-hidden="true" :class="tip">{{ siteNetworks[s.network].label }}</span>
         </a>
-      </li>
-      <li v-if="socials.length" aria-hidden="true" class="mx-auto my-0.5 h-px w-6 bg-line" />
-      <li>
-        <NuxtLink :to="localePath('/oquv-binolari')" :class="[item, 'text-brand-700']" :aria-label="t('social.buildings')">
-          <span aria-hidden="true" class="absolute inset-0 rounded-[inherit] bg-brand-700 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100" />
-          <Icon name="lucide:landmark" class="relative text-[1.15rem] transition-colors duration-200 group-hover:text-white group-focus-visible:text-white" />
-          <span aria-hidden="true" :class="tip">{{ t('social.buildings') }}</span>
-        </NuxtLink>
       </li>
     </ul>
     <button

@@ -67,6 +67,21 @@ def latest_posts(lang: str, type_: str, limit: int, exclude_pk=None):
     return list(qs[:limit])
 
 
+def neighbor_posts(p: Post, lang: str):
+    """Shu turdagi qo'shni postlar: (oldingi = avvalroq nashr etilgan, keyingi = keyinroq nashr etilgan)."""
+    base = Post.visible(lang).filter(type=p.type).exclude(pk=p.pk)
+    when = p.published_at
+    if when is None:
+        return None, None
+    older = base.filter(published_at__lt=when).order_by('-published_at', '-pk').first()
+    newer = base.filter(published_at__gt=when).order_by('published_at', 'pk').first()
+    return older, newer
+
+
+def _post_link(x, lang: str):
+    return {'slug': x.slug, 'title': pick(x.title, lang), 'type': x.type} if x else None
+
+
 def reading_minutes(body_html: str, lang: str) -> int:
     plain = text_of(body_html)
     amount = len(plain) / 400 if lang == 'zh' else len(plain.split()) / 180
@@ -95,6 +110,7 @@ def post_detail(p: Post, lang: str) -> dict:
         a = p.author
         author = {'name': a.name or a.username, 'role': a.position or None, 'avatar': img(a.avatar, 'thumb') if a.avatar_id else None}
     is_event = p.type == 'events'
+    older, newer = neighbor_posts(p, lang)
     return {
         **post_summary(p, lang),
         'image': cover_for(p, lang, 'hero'),
@@ -111,6 +127,8 @@ def post_detail(p: Post, lang: str) -> dict:
         'startsAt': iso(p.starts_at) if is_event else None,
         'endsAt': iso(p.ends_at) if is_event else None,
         'location': pick(p.location, lang),
+        'prev': _post_link(older, lang),
+        'next': _post_link(newer, lang),
         'related': [post_summary(x, lang) for x in latest_posts(lang, p.type, 3, p.pk)],
         'latest': [post_summary(x, lang) for x in latest_posts(lang, 'news', 4, p.pk)],
     }

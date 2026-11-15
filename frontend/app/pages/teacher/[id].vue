@@ -77,7 +77,7 @@ useSeo({
           v-if="connectOptions.length"
           type="button"
           aria-haspopup="dialog"
-          class="mt-6 flex h-13 w-full items-center justify-center gap-2 rounded-2xl bg-accent-400 font-bold text-ink transition hover:-translate-y-0.5 hover:bg-accent-300 hover:shadow-[0_0_24px_rgba(0,252,180,0.45)]"
+          class="mt-6 flex h-13 w-full items-center justify-center gap-2 rounded-2xl bg-accent-400 font-bold text-ink transition hover:bg-accent-300 hover:shadow-[0_0_24px_rgba(0,252,180,0.45)]"
           @click="contactOpen = true"
         >
           <Icon name="lucide:message-square-text" class="size-[18px]" />
@@ -156,7 +156,7 @@ useSeo({
         :key="action.key"
         type="button"
         aria-haspopup="dialog"
-        class="flex h-14 min-w-44 items-center justify-center gap-2.5 rounded-[18px] border border-line bg-white px-7 font-bold text-ink shadow-[0_10px_30px_-22px_rgba(19,17,47,0.4)] transition duration-200 hover:-translate-y-0.5 hover:border-accent-500 sm:min-w-50"
+        class="flex h-14 min-w-44 items-center justify-center gap-2.5 rounded-[18px] border border-line bg-white px-7 font-bold text-ink shadow-[0_10px_30px_-22px_rgba(19,17,47,0.4)] transition duration-200 hover:border-accent-500 sm:min-w-50"
         @click="action.open"
       >
         <Icon :name="action.icon" class="size-5" />

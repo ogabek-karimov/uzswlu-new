@@ -96,5 +96,6 @@ useSeo({ title: () => t('video.title'), description: () => t('video.lead') })
         </li>
       </ul>
     </section>
+    <SectionNav />
   </div>
 </template>

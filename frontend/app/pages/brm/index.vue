@@ -58,7 +58,7 @@ useSeo({ title: () => t('sdg.eyebrow'), description: () => t('sdg.lead') })
         <li v-for="c in data.categories" :key="c.code">
           <NuxtLink
             :to="localePath(c.url)"
-            class="flex h-full items-center gap-4 rounded-[22px] border p-[22px] transition hover:-translate-y-0.5"
+            class="flex h-full items-center gap-4 rounded-[22px] border p-[22px] transition"
             :class="c.badge ? 'border-brand-950 bg-brand-950 text-white' : 'border-line bg-white text-ink hover:border-accent-500'"
           >
             <span class="grid size-14 shrink-0 place-items-center rounded-2xl text-[15px] font-extrabold tracking-[0.04em]" :class="c.badge ? 'bg-accent-400 text-ink' : 'bg-accent-100 text-accent-700'">{{ c.code }}</span>
@@ -80,7 +80,7 @@ useSeo({ title: () => t('sdg.eyebrow'), description: () => t('sdg.lead') })
       </div>
       <ul data-a11y-keep class="mt-8 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
         <li v-for="g in data.goals" :key="g.n">
-          <NuxtLink :to="localePath(g.url)" class="group flex h-full flex-col overflow-hidden rounded-[22px] border border-line bg-white text-ink transition hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-24px_rgba(19,17,47,0.5)]">
+          <NuxtLink :to="localePath(g.url)" class="group flex h-full flex-col overflow-hidden rounded-[22px] border border-line bg-white text-ink transition hover:shadow-[0_18px_40px_-24px_rgba(19,17,47,0.5)]">
             <span class="flex min-h-[104px] items-start justify-between gap-3 px-5 py-[18px]" :style="{ background: sdgColor(g.n), color: sdgInk(g.n) }">
               <span class="font-display text-5xl leading-none font-semibold">{{ g.n }}</span>
               <span class="max-w-[70%] text-right text-[15px] leading-snug font-bold">{{ g.title }}</span>
@@ -125,5 +125,6 @@ useSeo({ title: () => t('sdg.eyebrow'), description: () => t('sdg.lead') })
         <li v-for="(item, i) in data.news" :key="item.id"><PostCard :item="item" :tone="i + 1" /></li>
       </ul>
     </section>
+    <SectionNav />
   </div>
 </template>

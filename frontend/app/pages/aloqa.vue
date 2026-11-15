@@ -200,5 +200,6 @@ useSeo({ title: () => t('contact.title'), description: () => t('contact.lead') }
         </template>
       </form>
     </section>
+    <SectionNav />
   </div>
 </template>

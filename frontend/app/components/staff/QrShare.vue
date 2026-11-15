@@ -108,7 +108,7 @@ function sendCard() {
     </div>
     <ul class="mt-4 flex justify-center gap-3">
       <li v-for="s in shareTo" :key="s.key">
-        <a :href="s.href" target="_blank" rel="noopener" class="grid size-12 place-items-center rounded-full text-white transition-transform hover:-translate-y-0.5" :class="s.tile">
+        <a :href="s.href" target="_blank" rel="noopener" class="grid size-12 place-items-center rounded-full text-white transition-transform" :class="s.tile">
           <Icon :name="s.icon" class="size-[22px]" />
           <span class="sr-only">{{ s.label }} ({{ t('staff.profile.newTab') }})</span>
         </a>

@@ -107,5 +107,6 @@ useSeo({ title: () => t('leaders.title'), description: () => t('leaders.lead') }
         </span>
       </NuxtLink>
     </section>
+    <SectionNav />
   </div>
 </template>

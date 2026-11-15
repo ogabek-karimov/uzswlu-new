@@ -142,7 +142,7 @@ function slideStyle(i: number) {
         <button
           type="button"
           :aria-label="t('carousel.prev')"
-          class="grid size-11 place-items-center rounded-full border border-line bg-white text-ink transition hover:-translate-y-0.5 hover:border-accent-500"
+          class="grid size-11 place-items-center rounded-full border border-line bg-white text-ink transition hover:border-accent-500"
           @click="go(-1)"
         >
           <Icon name="lucide:chevron-left" class="size-5" />
@@ -153,7 +153,7 @@ function slideStyle(i: number) {
         <button
           type="button"
           :aria-label="t('carousel.next')"
-          class="grid size-11 place-items-center rounded-full border border-line bg-white text-ink transition hover:-translate-y-0.5 hover:border-accent-500"
+          class="grid size-11 place-items-center rounded-full border border-line bg-white text-ink transition hover:border-accent-500"
           @click="go(1)"
         >
           <Icon name="lucide:chevron-right" class="size-5" />

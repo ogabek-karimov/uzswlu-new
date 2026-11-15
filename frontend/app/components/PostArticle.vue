@@ -193,6 +193,27 @@ useSeo({
       </div>
     </article>
 
+    <!-- Oldingi / Keyingi (shu turdagi postlar orasida) -->
+    <nav v-if="post.prev || post.next" :aria-label="t('page.sectionNav')" class="no-print mx-auto grid max-w-7xl gap-4 px-4 pt-12 sm:grid-cols-2 sm:px-6 lg:px-8">
+      <NuxtLink
+        v-if="post.prev"
+        :to="localePath(`/${post.prev.type}/${post.prev.slug}`)"
+        class="group flex items-center gap-4 rounded-[22px] border border-line bg-white p-5 text-ink transition-colors duration-200 hover:border-accent-500 hover:bg-brand-50"
+      >
+        <span class="grid size-11 shrink-0 place-items-center rounded-full border border-brand-200 text-brand-700 transition-colors group-hover:border-accent-400 group-hover:bg-accent-400 group-hover:text-ink"><Icon name="lucide:arrow-left" class="size-5" /></span>
+        <span class="min-w-0"><span class="block text-[13px] text-muted">{{ t('page.prev') }}</span><span class="mt-0.5 line-clamp-2 block text-base font-semibold">{{ post.prev.title }}</span></span>
+      </NuxtLink>
+      <span v-else class="hidden sm:block" />
+      <NuxtLink
+        v-if="post.next"
+        :to="localePath(`/${post.next.type}/${post.next.slug}`)"
+        class="group flex items-center justify-end gap-4 rounded-[22px] border border-line bg-white p-5 text-right text-ink transition-colors duration-200 hover:border-accent-500 hover:bg-brand-50"
+      >
+        <span class="min-w-0"><span class="block text-[13px] text-muted">{{ t('page.next') }}</span><span class="mt-0.5 line-clamp-2 block text-base font-semibold">{{ post.next.title }}</span></span>
+        <span class="grid size-11 shrink-0 place-items-center rounded-full border border-brand-200 text-brand-700 transition-colors group-hover:border-accent-400 group-hover:bg-accent-400 group-hover:text-ink"><Icon name="lucide:arrow-right" class="size-5" /></span>
+      </NuxtLink>
+    </nav>
+
     <!-- O'xshash -->
     <section v-if="post.related.length" class="no-print mx-auto max-w-7xl px-4 pt-20 pb-24 sm:px-6 lg:px-8">
       <h2 class="font-display text-3xl font-semibold sm:text-4xl">{{ t('posts.related') }}</h2>

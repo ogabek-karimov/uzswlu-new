@@ -77,5 +77,6 @@ useSeo({ title: () => t('docs.title'), description: () => t('docs.lead') })
 
       <p class="mt-5 text-sm text-muted" aria-live="polite">{{ t('docs.shown', { n: items.length }) }}</p>
     </section>
+    <SectionNav />
   </div>
 </template>

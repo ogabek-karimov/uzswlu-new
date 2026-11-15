@@ -12,7 +12,7 @@ const { t } = useI18n()
         :href="tile.href"
         :target="tile.external ? '_blank' : undefined"
         :rel="tile.external ? 'noopener' : undefined"
-        class="flex items-center gap-3.5 rounded-[18px] border border-line bg-white p-4 text-ink transition duration-200 hover:-translate-y-0.5 hover:scale-[1.02] hover:border-accent-500 hover:shadow-[0_18px_40px_-28px_var(--color-accent-600)]"
+        class="flex items-center gap-3.5 rounded-[18px] border border-line bg-white p-4 text-ink transition duration-200 hover:scale-[1.02] hover:border-accent-500 hover:shadow-[0_18px_40px_-28px_var(--color-accent-600)]"
       >
         <span class="grid size-11 shrink-0 place-items-center rounded-xl text-white" :class="tile.tile"><Icon :name="tile.icon" class="size-5" /></span>
         <span class="min-w-0 flex-1">

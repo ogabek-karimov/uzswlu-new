@@ -983,6 +983,14 @@ components:
           properties: { news: { type: integer }, announcements: { type: integer }, events: { type: integer } }
         months: { type: array, items: { type: string, example: '2026-10' }, description: 'Post bor oylar, yangidan eskiga' }
 
+    PostLink:
+      description: Qo'shni post (Oldingi / Keyingi tugmasi uchun)
+      type: object
+      required: [slug, title, type]
+      properties:
+        slug: { type: string }
+        title: { type: string }
+        type: { type: string, enum: [news, announcements, events] }
     Post:
       description: PostSummary maydonlari + to'liq matn
       type: object
@@ -1013,6 +1021,8 @@ components:
         startsAt: { type: [string, 'null'], format: date-time, description: Faqat tadbirlarda }
         endsAt: { type: [string, 'null'], format: date-time }
         location: { type: [string, 'null'] }
+        prev: { oneOf: [{ $ref: '#/components/schemas/PostLink' }, { type: 'null' }], description: Oldingi (avvalroq nashr etilgan) post }
+        next: { oneOf: [{ $ref: '#/components/schemas/PostLink' }, { type: 'null' }], description: Keyingi (keyinroq nashr etilgan) post }
         related: { type: array, items: { $ref: '#/components/schemas/PostSummary' }, description: O'xshash postlar (3 ta) }
         latest: { type: array, items: { $ref: '#/components/schemas/PostSummary' }, description: So'nggi yangiliklar (4 ta) }
 
