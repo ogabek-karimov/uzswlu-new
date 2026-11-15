@@ -24,7 +24,7 @@ const formatDate = useFormatDate()
 
     <ul v-if="events.length" class="mt-12 grid gap-4 md:grid-cols-3">
       <li data-reveal-item class="group/li" v-for="event in events" :key="event.id">
-        <article data-spot class="group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-line bg-white transition duration-300 group-hover/li:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-32px_var(--color-brand-700)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
+        <article data-spot class="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[28px] border border-line bg-white transition duration-300 group-hover/li:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-32px_var(--color-brand-700)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
           <!-- Sarlavha: to'q gradient, katta sana, toifa -->
           <div class="relative overflow-hidden bg-gradient-to-br from-brand-800 via-brand-900 to-brand-950 px-6 pt-6 pb-7 text-white">
             <span class="decor pointer-events-none absolute -top-10 -right-10 size-40 rounded-full border-[1.6rem] border-white/[0.06] transition-transform duration-700 group-hover:scale-125 motion-reduce:transition-none" aria-hidden="true" />
@@ -63,7 +63,7 @@ const formatDate = useFormatDate()
               </div>
             </dl>
 
-            <span class="mt-auto flex justify-end pt-5" aria-hidden="true">
+            <span class="pointer-events-none mt-auto flex justify-end pt-5" aria-hidden="true">
               <span class="grid size-10 place-items-center rounded-full border border-brand-200 text-brand-700 transition duration-300 group-hover:-rotate-45 group-hover:border-accent-400 group-hover:bg-accent-400 group-hover:text-ink motion-reduce:transition-none">
                 <Icon name="lucide:arrow-right" class="size-4" />
               </span>

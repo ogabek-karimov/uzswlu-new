@@ -24,7 +24,7 @@ const announcements = computed(() => props.announcements.slice(0, 4))
 
     <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       <li data-reveal-item class="group/li" v-for="(item, i) in news" :key="item.id">
-        <article data-spot class="group relative flex h-full flex-col rounded-[26px] border border-line bg-white p-2.5 transition duration-300 group-hover/li:-translate-y-1 hover:border-brand-200 hover:shadow-[0_30px_60px_-34px_rgba(19,17,47,0.45)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
+        <article data-spot class="group relative flex h-full cursor-pointer flex-col rounded-[26px] border border-line bg-white p-2.5 transition duration-300 group-hover/li:-translate-y-1 hover:border-brand-200 hover:shadow-[0_30px_60px_-34px_rgba(19,17,47,0.45)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
           <div class="relative">
             <NewsCover :item="item" :tone="i" class="aspect-[4/3] rounded-[20px]" />
             <!-- Rasm pastidan qorong'i qatlam va shisha sana belgisi -->
@@ -49,7 +49,7 @@ const announcements = computed(() => props.announcements.slice(0, 4))
             </h3>
             <span class="mt-auto flex items-center justify-between pt-5 text-sm font-semibold text-brand-700">
               {{ t('news.readMore') }}
-              <span class="grid size-9 place-items-center rounded-full border border-brand-200 transition duration-300 group-hover:-rotate-45 group-hover:border-accent-400 group-hover:bg-accent-400 group-hover:text-ink motion-reduce:transition-none" aria-hidden="true">
+              <span class="pointer-events-none grid size-9 place-items-center rounded-full border border-brand-200 transition duration-300 group-hover:-rotate-45 group-hover:border-accent-400 group-hover:bg-accent-400 group-hover:text-ink motion-reduce:transition-none" aria-hidden="true">
                 <Icon name="lucide:arrow-right" class="size-4" />
               </span>
             </span>
@@ -76,7 +76,7 @@ const announcements = computed(() => props.announcements.slice(0, 4))
 
       <ul class="mt-8 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
         <li data-reveal-item class="group/li" v-for="(item, i) in announcements" :key="item.id">
-          <article data-spot class="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white shadow-[0_1px_0_rgba(19,17,47,0.04)] transition duration-300 group-hover/li:-translate-y-1 hover:shadow-[0_30px_60px_-34px_rgba(19,17,47,0.5)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
+          <article data-spot class="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[24px] bg-white shadow-[0_1px_0_rgba(19,17,47,0.04)] transition duration-300 group-hover/li:-translate-y-1 hover:shadow-[0_30px_60px_-34px_rgba(19,17,47,0.5)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
             <div class="relative aspect-[4/5] overflow-hidden" :class="!item.image && (i % 2 ? 'bg-brand-800' : 'bg-brand-950')">
               <img v-if="item.image" :src="item.image" :alt="item.title" loading="lazy" decoding="async" class="size-full object-cover object-top transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none">
               <div v-else class="decor absolute inset-0 grid place-items-center" aria-hidden="true">
@@ -104,7 +104,7 @@ const announcements = computed(() => props.announcements.slice(0, 4))
               </h3>
               <span class="mt-auto inline-flex items-center gap-1.5 pt-4 text-[13px] font-semibold text-brand-700">
                 {{ t('news.readMore') }}
-                <Icon name="lucide:arrow-up-right" class="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <Icon name="lucide:arrow-up-right" class="pointer-events-none size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
             </div>
           </article>
