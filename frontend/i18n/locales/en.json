@@ -27,6 +27,7 @@
     "overview": "Section overview"
   },
   "topbar": {
+    "season": { "winter": "Winter", "spring": "Spring", "summer": "Summer", "autumn": "Autumn" },
     "hotline": "Hotline",
     "ext": "Extension",
     "fontSize": "Font size",

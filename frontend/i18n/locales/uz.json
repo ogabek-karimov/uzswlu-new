@@ -27,6 +27,7 @@
     "overview": "Bölim sahifasi"
   },
   "topbar": {
+    "season": { "winter": "Qiş fasli", "spring": "Bahor fasli", "summer": "Yoz fasli", "autumn": "Kuz fasli" },
     "hotline": "Işonç telefoni",
     "ext": "Içki raqam",
     "fontSize": "Şrift ölçami",

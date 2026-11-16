@@ -27,6 +27,7 @@
     "overview": "栏目首页"
   },
   "topbar": {
+    "season": { "winter": "冬季", "spring": "春季", "summer": "夏季", "autumn": "秋季" },
     "hotline": "热线电话",
     "ext": "分机",
     "fontSize": "字号",
