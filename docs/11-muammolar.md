@@ -2,6 +2,10 @@
 
 Avval **logni** ko‘ring: `docker compose logs --tail=100 backend` (yoki `nightly`, `frontend`, `admin`, `db`). Holat: `docker compose ps`.
 
+## Admin o‘zgartirdi, saytda eski ma’lumot ko‘rinyapti
+
+Sababi odatda nginx keshi edi: `/api/…` javoblari (sayt ma’lumoti, bosh sahifa bloklari) nginx'da saqlanardi. Endi `/api/` nginx keshisiz ishlaydi (`deploy/nginx/uzswlu.conf.template`); yangi sozlama uchun bir marta `docker compose -f docker-compose.prod.yml up -d --build nginx`. Hali ham eski ko‘rinsa: `docker compose -f docker-compose.prod.yml exec nginx sh -c "rm -rf /var/cache/nginx/site/* && nginx -s reload"`, so‘ng brauzerda `Ctrl+Shift+R`. Qatlamlarni ajratish: `curl.exe -s -D - -o NUL "http://localhost:8080/api/site?lang=uz"` — `X-Cache: HIT` bo‘lsa nginx keshi.
+
 ## `502 Bad Gateway` (backend yoki frontend'ni qayta qurgandan keyin)
 
 Eski nginx sozlamasi backend/frontend IP'sini ishga tushganda **bir marta** eslab qolardi: `docker compose up -d --build backend` konteynerni qayta yaratib, IP o‘zgartirsa, nginx eski manzilga borib `502` berardi. Hozirgi sozlamada (`deploy/nginx/uzswlu.conf.template`) nomlar Docker DNS orqali har 5 soniyada qayta aniqlanadi, shuning uchun bu o‘z-o‘zidan tuzaladi. Eski nginx konteyneri hali ishlab turgan bo‘lsa (yangi sozlama olinmagan): `docker compose -f docker-compose.prod.yml up -d --build nginx` yoki `restart nginx`. Tekshirish: `curl -i http://api.localhost:8080/healthz` → `200`.
