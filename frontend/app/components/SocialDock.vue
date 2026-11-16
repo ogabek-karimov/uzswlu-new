@@ -37,12 +37,12 @@ const tip = 'pointer-events-none absolute top-1/2 left-full z-10 ml-3 -translate
 
 <template>
   <nav class="social-dock fixed top-1/2 left-0 z-40 hidden items-center md:flex print:hidden" :class="open && 'is-open'" :aria-label="t('social.title')">
-    <ul class="flex flex-col gap-1.5 rounded-r-[22px] border border-l-0 border-line bg-white p-2 shadow-[0_18px_40px_-22px_rgba(19,17,47,0.5)]">
+    <ul class="flex flex-col items-center gap-1.5 rounded-r-[22px] border border-l-0 border-line bg-white p-2 shadow-[0_18px_40px_-22px_rgba(19,17,47,0.5)]">
       <!-- Joriy fasl belgisi: ijtimoiy tarmoqlar tepasida; bosilsa animatsiya -->
-      <li class="mb-0.5 border-b border-line pb-2">
-        <button type="button" :class="[item, 'season-btn !h-auto min-h-12 !w-full gap-0.5 bg-gradient-to-br px-1 py-2 text-white shadow-md', season.bg, spin && 'is-spin']" :aria-label="t(`topbar.season.${season.key}`)" @click="burst">
+      <li class="mb-0.5 w-full border-b border-line pb-2">
+        <button type="button" :class="[item, 'season-btn !h-12 !w-full grid-flow-col gap-2 bg-gradient-to-br px-3 text-white shadow-md', season.bg, spin && 'is-spin']" :aria-label="t(`topbar.season.${season.key}`)" @click="burst">
           <Icon :name="season.icon" class="season-ico relative text-[1.5rem]" />
-          <span class="relative max-w-[3.25rem] text-center text-[9px] leading-[1.1] font-extrabold tracking-wide uppercase">{{ t(`topbar.season.${season.key}`) }}</span>
+          <span class="relative text-xs font-extrabold tracking-wider whitespace-nowrap uppercase">{{ t(`topbar.season.${season.key}`) }}</span>
           <span aria-hidden="true" class="season-ring" />
         </button>
       </li>

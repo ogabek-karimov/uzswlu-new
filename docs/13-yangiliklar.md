@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-16
 
+- **Sayt — fasl yozuvi yonma-yon:** «KUZ FASLI» yozuvi ikonka ostida emas, yonida (bir qatorda) ko‘rsatiladi. — `COMMIT`
 - **Sayt — fasl yozuvi:** panel tepasidagi fasl belgisi ikonka ostida fasl nomini ham ko‘rsatadi («KUZ FASLI»). — `1dbbf01`
 - **Sayt — fasl ikonkasi ijtimoiy tarmoqlar tepasiga ko‘chirildi:** ijtimoiy panel avvalgi joyiga (chap chet, ekran o‘rtasi) qaytarildi va animatsiyalari olib tashlandi; fasl belgisi (gradient doira: ❄/🌸/☀/🍂) panelning eng tepasiga qo‘yildi, bosilganda aylanib kattalashadi va halqa tarqaladi, nomi hover'da ko‘rinadi. Slayderdagi yorliq (`SeasonBadge.vue`) olib tashlandi. — `789926a`
 - **Sayt — ijtimoiy tarmoq paneli:** chap chetdagi panel yuqoriroqqa (ekranning ~30% balandligiga) ko‘chirildi; ikonkalar birin-ketin chiqadi, hover'da kattalashib tebranadi, bosilganda «sakrab» halqa tarqaladi (`SocialDock.vue`); `prefers-reduced-motion` da animatsiyasiz. — `05710a3`
