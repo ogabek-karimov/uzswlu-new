@@ -169,7 +169,8 @@
       "students": "students"
     },
     "videoLabel": "Video tour",
-    "videoTitle": "A 3-minute walk around the university"
+    "videoTitle": "A 3-minute walk around the university",
+    "videoSoon": "Video coming soon"
   },
   "stats": {
     "faculties": "Faculties",

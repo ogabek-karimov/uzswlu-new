@@ -82,13 +82,17 @@ const facts = computed(() => FACTS.flatMap((fact) => {
           </div>
         </AppDialog>
       </template>
-      <NuxtLink v-else :to="localePath('/video-darsliklar')" class="oz-stripes group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[28px] bg-brand-600 p-6 text-white transition duration-300 hover:shadow-[0_30px_60px_-30px_var(--color-brand-700)] lg:col-span-7 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+      <!-- Video tur hali kiritilmagan: «Video darsliklar» ga olib bormaydi — admin panelda havola kiritilgach ochiladi -->
+      <div v-else class="oz-stripes relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[28px] bg-brand-600 p-6 text-white lg:col-span-7">
         <span class="text-sm text-white/80">{{ t('about.videoLabel') }}</span>
-        <span class="grid size-[70px] place-self-center place-items-center rounded-full bg-white text-brand-600 shadow-[0_18px_40px_-16px_rgba(17,12,46,0.7)] transition-transform group-hover:scale-110 motion-reduce:transition-none" aria-hidden="true">
+        <span class="grid size-[70px] place-self-center place-items-center rounded-full bg-white/25 text-white" aria-hidden="true">
           <Icon name="lucide:play" class="ml-0.5 size-6 fill-current" />
         </span>
-        <span class="text-[17px] leading-snug font-semibold">{{ t('about.videoTitle') }}</span>
-      </NuxtLink>
+        <span>
+          <span class="block text-[17px] leading-snug font-semibold">{{ t('about.videoTitle') }}</span>
+          <span class="mt-1 block text-sm text-white/75">{{ t('about.videoSoon') }}</span>
+        </span>
+      </div>
     </div>
   </section>
 </template>
