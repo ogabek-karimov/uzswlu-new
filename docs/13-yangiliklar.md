@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-17
 
-- **Admin — «Video tur» kartasi ko‘rinmasligi tuzatildi:** «Universitet haqida» matnli sahifa (`/universitet-haqida`), menyu guruhi emas, shuning uchun karta ko‘rinmasdi. Endi u shu sahifani ochganda (Sahifalar → Universitet → Universitet haqida) «Sahifa mazmuni» ustida chiqadi. — `COMMIT`
+- **Admin — «Video tur» kartasi ko‘rinmasligi tuzatildi:** «Universitet haqida» matnli sahifa (`/universitet-haqida`), menyu guruhi emas, shuning uchun karta ko‘rinmasdi. Endi u shu sahifani ochganda (Sahifalar → Universitet → Universitet haqida) «Sahifa mazmuni» ustida chiqadi. — `fa9dabb`
 
 ## 2026-11-16
 
