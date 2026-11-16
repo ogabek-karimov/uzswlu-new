@@ -11,17 +11,27 @@ const socials = computed(() => sortSocials(site.value?.socials ?? []))
 const open = ref(false)
 watch(() => route.fullPath, () => (open.value = false))
 
-const item = 'group relative grid size-12 place-items-center rounded-2xl outline-none transition-transform duration-200 focus-visible:ring-2 focus-visible:ring-brand-400'
+// Bosilganda: tugma "sakraydi" va halqa tarqaladi (.pop ~600ms)
+const popped = ref<string | null>(null)
+let popTimer: ReturnType<typeof setTimeout> | undefined
+function pop(network: string) {
+  popped.value = network
+  clearTimeout(popTimer)
+  popTimer = setTimeout(() => (popped.value = null), 650)
+}
+onBeforeUnmount(() => clearTimeout(popTimer))
+
+const item = 'dock-item group relative grid size-12 place-items-center rounded-2xl outline-none transition-transform duration-200 focus-visible:ring-2 focus-visible:ring-brand-400'
 const tip = 'pointer-events-none absolute top-1/2 left-full z-10 ml-3 -translate-x-1 -translate-y-1/2 rounded-lg bg-ink px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-white opacity-0 shadow-lg transition duration-200 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100'
 </script>
 
 <template>
-  <nav class="social-dock fixed top-1/2 left-0 z-40 hidden items-center md:flex print:hidden" :class="open && 'is-open'" :aria-label="t('social.title')">
+  <nav class="social-dock fixed top-[30%] left-0 z-40 hidden items-center md:flex print:hidden" :class="open && 'is-open'" :aria-label="t('social.title')">
     <ul class="flex flex-col gap-1.5 rounded-r-[22px] border border-l-0 border-line bg-white p-2 shadow-[0_18px_40px_-22px_rgba(19,17,47,0.5)]">
-      <li v-for="s in socials" :key="s.network">
-        <a :href="s.url" target="_blank" rel="noopener" :class="[item, siteNetworks[s.network].ink]" :aria-label="siteNetworks[s.network].label">
+      <li v-for="(s, i) in socials" :key="s.network" class="dock-li" :style="{ '--i': i }">
+        <a :href="s.url" target="_blank" rel="noopener" :class="[item, siteNetworks[s.network].ink, popped === s.network && 'pop']" @click="pop(s.network)" :aria-label="siteNetworks[s.network].label">
           <span aria-hidden="true" class="absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100" :class="siteNetworks[s.network].fill" />
-          <Icon :name="siteNetworks[s.network].icon" class="relative text-[1.5rem] transition-colors duration-200 group-hover:text-white group-focus-visible:text-white" />
+          <Icon :name="siteNetworks[s.network].icon" class="dock-icon relative text-[1.5rem] transition-colors duration-200 group-hover:text-white group-focus-visible:text-white" />
           <span aria-hidden="true" :class="tip">{{ siteNetworks[s.network].label }}</span>
         </a>
       </li>
@@ -60,9 +70,61 @@ const tip = 'pointer-events-none absolute top-1/2 left-full z-10 ml-3 -translate
     display: grid;
   }
 }
+/* Kirish: ikonkalar birin-ketin chapdan chiqadi */
+.dock-li {
+  animation: dock-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) calc(0.35s + var(--i, 0) * 0.07s) both;
+}
+@keyframes dock-in {
+  from { opacity: 0; transform: translateX(-14px) scale(0.8); }
+  to { opacity: 1; transform: none; }
+}
+/* Hover: ikonka kattalashib biroz buriladi */
+.dock-item:hover {
+  transform: translateX(3px) scale(1.08);
+}
+.dock-item:hover .dock-icon {
+  animation: dock-wiggle 0.5s ease;
+}
+.dock-item:active {
+  transform: scale(0.9);
+}
+@keyframes dock-wiggle {
+  0%, 100% { transform: rotate(0); }
+  30% { transform: rotate(-14deg) scale(1.1); }
+  65% { transform: rotate(10deg) scale(1.1); }
+}
+/* Bosilganda: sakrash va tarqaluvchi halqa */
+.dock-item.pop {
+  animation: dock-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.dock-item.pop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 2px currentColor;
+  opacity: 0;
+  animation: dock-ring 0.65s ease-out;
+  pointer-events: none;
+}
+@keyframes dock-pop {
+  0% { transform: scale(0.85); }
+  55% { transform: scale(1.22) rotate(-6deg); }
+  100% { transform: scale(1); }
+}
+@keyframes dock-ring {
+  0% { opacity: 0.7; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.9); }
+}
 @media (prefers-reduced-motion: reduce) {
   .social-dock {
     transition: none;
+  }
+  .dock-li, .dock-item, .dock-item:hover .dock-icon, .dock-item.pop, .dock-item.pop::after {
+    animation: none;
+  }
+  .dock-item:hover, .dock-item:active {
+    transform: none;
   }
 }
 </style>
