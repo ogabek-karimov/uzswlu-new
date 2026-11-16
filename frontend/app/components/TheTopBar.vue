@@ -2,14 +2,6 @@
 const { t } = useI18n()
 const { data: site } = await useSiteData()
 
-// Joriy fasl (shimoliy yarimshar): dek-fev qish, mar-may bahor, iyun-avg yoz, sen-noy kuz
-const SEASONS = [
-  { key: 'winter', icon: 'lucide:snowflake' },
-  { key: 'spring', icon: 'lucide:flower-2' },
-  { key: 'summer', icon: 'lucide:sun' },
-  { key: 'autumn', icon: 'lucide:leaf' },
-] as const
-const season = computed(() => SEASONS[Math.floor(((new Date().getMonth() + 1) % 12) / 3)]!)
 </script>
 
 <template>
@@ -22,12 +14,6 @@ const season = computed(() => SEASONS[Math.floor(((new Date().getMonth() + 1) % 
         <span class="font-medium text-white">{{ site.phone }}</span>
         <span v-if="site.phoneExt">({{ t('topbar.ext') }}: {{ formatExtensions(site.phoneExt) }})</span>
       </a>
-
-      <!-- Joriy fasl belgisi (chap chet, kompyuterda) -->
-      <span class="absolute top-1/2 left-4 hidden -translate-y-1/2 items-center gap-1.5 text-white/80 lg:inline-flex xl:left-8" :title="t(`topbar.season.${season.key}`)">
-        <Icon :name="season.icon" class="size-4 text-accent-400" />
-        <span>{{ t(`topbar.season.${season.key}`) }}</span>
-      </span>
 
       <!-- Telefonda — shu yerda (o'ng chetda); kattaroq ekranda menyu qatorida (TheHeader) -->
       <div class="absolute top-1/2 right-4 flex -translate-y-1/2 items-center sm:right-6 md:hidden">
