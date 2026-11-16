@@ -2,6 +2,10 @@
 
 Avval **logni** ko‘ring: `docker compose logs --tail=100 backend` (yoki `nightly`, `frontend`, `admin`, `db`). Holat: `docker compose ps`.
 
+## `502 Bad Gateway` (backend yoki frontend'ni qayta qurgandan keyin)
+
+Eski nginx sozlamasi backend/frontend IP'sini ishga tushganda **bir marta** eslab qolardi: `docker compose up -d --build backend` konteynerni qayta yaratib, IP o‘zgartirsa, nginx eski manzilga borib `502` berardi. Hozirgi sozlamada (`deploy/nginx/uzswlu.conf.template`) nomlar Docker DNS orqali har 5 soniyada qayta aniqlanadi, shuning uchun bu o‘z-o‘zidan tuzaladi. Eski nginx konteyneri hali ishlab turgan bo‘lsa (yangi sozlama olinmagan): `docker compose -f docker-compose.prod.yml up -d --build nginx` yoki `restart nginx`. Tekshirish: `curl -i http://api.localhost:8080/healthz` → `200`.
+
 ## Ishga tushirish
 
 | Belgi | Sabab | Yechim |

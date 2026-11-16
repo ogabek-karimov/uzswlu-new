@@ -23,9 +23,12 @@ map $http_x_cache_refresh $cache_refresh {
 }
 
 # Backenddagi to'g'ridan-to'g'ri so'rovlar uchun real IP: oldimizda yana bir proksi (Cloudflare/LB) bo'lsa, real_ip sozlang.
-upstream nuxt    { server frontend:3000; keepalive 32; }
-upstream backend { server backend:8000;  keepalive 32; }
-upstream gz      { server 127.0.0.1:8081; keepalive 32; }   # quyidagi ichki siqish serveri
+# Docker DNS: konteyner qayta yaratilsa (docker compose up -d --build backend) IP o'zgaradi. `upstream { server backend:8000 }` IP'ni nginx
+# ishga tushganda BIR marta eslab qoladi → 502 Bad Gateway bo'lardi. Shuning uchun nomlar so'rov paytida (har 5 s) qayta aniqlanadi:
+# `set $x host:port; proxy_pass http://$x;`. Bonus: backend/frontend hali ko'tarilmagan bo'lsa ham nginx ishga tushadi.
+resolver 127.0.0.11 valid=5s ipv6=off;
+resolver_timeout 3s;
+upstream gz      { server 127.0.0.1:8081; keepalive 32; }   # quyidagi ichki siqish serveri (127.0.0.1 — o'zgarmaydi)
 
 # --- Ichki siqish serveri: faqat nginx'ning o'zidan (127.0.0.1) so'raladi, tashqariga ochilmaydi ---
 # Nuxtdan siqilmagan javob oladi va BIR marta siqadi; sayt serveri shuni keshlaydi. Yuqori daraja (6) — chunki keshga bir marta yoziladi.
@@ -33,7 +36,8 @@ server {
   listen 127.0.0.1:8081;
   gzip_comp_level 6;
   location / {
-    proxy_pass http://nuxt;
+    set $nuxt_up frontend:3000;
+    proxy_pass http://$nuxt_up;
     proxy_http_version 1.1;
     proxy_set_header Connection "";
     proxy_set_header Host $host;
@@ -98,7 +102,8 @@ server {
   server_name ${API_HOST};
   client_max_body_size 25m;                # backenddagi BODY_LIMITS/UPLOAD_LIMITS bilan mos
   location / {
-    proxy_pass http://backend;
+    set $backend_up backend:8000;
+    proxy_pass http://$backend_up;
     proxy_http_version 1.1;
     proxy_set_header Connection "";
     proxy_set_header Host $host;
@@ -115,7 +120,8 @@ server {
   root /usr/share/nginx/admin;
   client_max_body_size 25m;
   location /api/ {
-    proxy_pass http://backend;
+    set $backend_up backend:8000;
+    proxy_pass http://$backend_up;
     proxy_http_version 1.1;
     proxy_set_header Connection "";
     proxy_set_header Host ${API_HOST};
