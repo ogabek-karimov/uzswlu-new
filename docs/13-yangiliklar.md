@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-16
 
-- **Sayt — fasl ikonkasi ijtimoiy tarmoqlar tepasiga ko‘chirildi:** ijtimoiy panel avvalgi joyiga (chap chet, ekran o‘rtasi) qaytarildi va animatsiyalari olib tashlandi; fasl belgisi (gradient doira: ❄/🌸/☀/🍂) panelning eng tepasiga qo‘yildi, bosilganda aylanib kattalashadi va halqa tarqaladi, nomi hover'da ko‘rinadi. Slayderdagi yorliq (`SeasonBadge.vue`) olib tashlandi. — `COMMIT`
+- **Sayt — fasl ikonkasi ijtimoiy tarmoqlar tepasiga ko‘chirildi:** ijtimoiy panel avvalgi joyiga (chap chet, ekran o‘rtasi) qaytarildi va animatsiyalari olib tashlandi; fasl belgisi (gradient doira: ❄/🌸/☀/🍂) panelning eng tepasiga qo‘yildi, bosilganda aylanib kattalashadi va halqa tarqaladi, nomi hover'da ko‘rinadi. Slayderdagi yorliq (`SeasonBadge.vue`) olib tashlandi. — `789926a`
 - **Sayt — ijtimoiy tarmoq paneli:** chap chetdagi panel yuqoriroqqa (ekranning ~30% balandligiga) ko‘chirildi; ikonkalar birin-ketin chiqadi, hover'da kattalashib tebranadi, bosilganda «sakrab» halqa tarqaladi (`SocialDock.vue`); `prefers-reduced-motion` da animatsiyasiz. — `05710a3`
 - **Sayt — fasl belgisi qayta ishlandi:** yuqori qatordan olib, bosh sahifa slayderining chap chetiga ko‘chirildi (uzswlu.uz kabi): fasl rangidagi gradient «KUZ FASLI» yorlig‘i (`SeasonBadge.vue`), chapdan suzib kiradi, ikonka tebranadi, yaltirash effekti; `prefers-reduced-motion` da animatsiyasiz. — `2d5cb0b`
 - **Sayt — fasl belgisi:** yuqori qatorda (chap chet, kompyuterda) joriy fasl ikonkasi va nomi (qish ❄ / bahor 🌸 / yoz ☀ / kuz 🍂) ko‘rinadi; oy bo‘yicha avtomatik aniqlanadi, 4 tilda (`topbar.season.*`). — `73d03c2`
