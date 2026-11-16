@@ -40,10 +40,10 @@ const tip = 'pointer-events-none absolute top-1/2 left-full z-10 ml-3 -translate
     <ul class="flex flex-col gap-1.5 rounded-r-[22px] border border-l-0 border-line bg-white p-2 shadow-[0_18px_40px_-22px_rgba(19,17,47,0.5)]">
       <!-- Joriy fasl belgisi: ijtimoiy tarmoqlar tepasida; bosilsa animatsiya -->
       <li class="mb-0.5 border-b border-line pb-2">
-        <button type="button" :class="[item, 'season-btn bg-gradient-to-br text-white shadow-md', season.bg, spin && 'is-spin']" :aria-label="t(`topbar.season.${season.key}`)" @click="burst">
+        <button type="button" :class="[item, 'season-btn !h-auto min-h-12 !w-full gap-0.5 bg-gradient-to-br px-1 py-2 text-white shadow-md', season.bg, spin && 'is-spin']" :aria-label="t(`topbar.season.${season.key}`)" @click="burst">
           <Icon :name="season.icon" class="season-ico relative text-[1.5rem]" />
+          <span class="relative max-w-[3.25rem] text-center text-[9px] leading-[1.1] font-extrabold tracking-wide uppercase">{{ t(`topbar.season.${season.key}`) }}</span>
           <span aria-hidden="true" class="season-ring" />
-          <span aria-hidden="true" :class="tip">{{ t(`topbar.season.${season.key}`) }}</span>
         </button>
       </li>
       <li v-for="s in socials" :key="s.network">
