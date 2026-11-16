@@ -2,6 +2,10 @@
 
 Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `CLAUDE.md`). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.
 
+## 2026-11-17
+
+- **Admin — «Video tur» kartasi ko‘rinmasligi tuzatildi:** «Universitet haqida» matnli sahifa (`/universitet-haqida`), menyu guruhi emas, shuning uchun karta ko‘rinmasdi. Endi u shu sahifani ochganda (Sahifalar → Universitet → Universitet haqida) «Sahifa mazmuni» ustida chiqadi. — `COMMIT`
+
 ## 2026-11-16
 
 - **Sayt — video tur kartasi «Video darsliklar» ga olib bormaydi:** admin panelda video havolasi kiritilmaguncha karta bosilmaydi va «Video tez orada qo‘shiladi» yozuvi chiqadi (`about.videoSoon`, 4 tilda); havola kiritilgach bosilganda video oynada ochiladi. — `be83828`

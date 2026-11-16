@@ -302,7 +302,7 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
         </section>
 
         <!-- «Universitet haqida» bo'limi: bosh sahifadagi video tur (media va ma'lumot faqat shu yerdan) -->
-        <VideoTourCard v-if="form.template === 'group' && form.groupKey === 'university'" />
+        <VideoTourCard v-if="form.slug === 'universitet-haqida' || (form.template === 'group' && form.groupKey === 'university')" />
 
         <!-- Bo'lim (menyu guruhi) -->
         <section v-if="form.template === 'group'" class="card flex flex-col gap-3 px-[22px] py-5">
