@@ -326,6 +326,8 @@ export interface SiteData {
   emails: string[]
   campuses: Campus[]
   socials: SocialLink[]
+  /** AKT izohli lug'ati mobil ilovasi (Play Market) havolasi — admin panelda kiritiladi; bo'sh bo'lsa bosh sahifada karta ko'rsatilmaydi */
+  glossaryApp?: string | null
   /** Davlat ramzlari (bosh sahifa bloki va footer) — admin panelda boshqariladi; berilmasa saytdagi standart havolalar */
   symbols?: StateSymbol[] | null
 }

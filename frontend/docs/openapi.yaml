@@ -586,6 +586,10 @@ components:
         socials:
           type: array
           items: { $ref: '#/components/schemas/SocialLink' }
+        glossaryApp:
+          type: string
+          nullable: true
+          description: AKT izohli lug'ati mobil ilovasi (Play Market) havolasi — admin panel → Sozlamalar → Aloqa; bo'sh bo'lsa bosh sahifada karta ko'rsatilmaydi
         symbols:
           type: array
           nullable: true

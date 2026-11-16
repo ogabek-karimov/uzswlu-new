@@ -97,6 +97,7 @@ class Settings(Global):
             'contact': {
                 'phone': s.phone or None, 'email': s.email or None, 'address': i18n_out(s.address), 'telegram': s.telegram or None,
                 'instagram': s.instagram or None, 'facebook': s.facebook or None, 'youtube': s.youtube or None, 'x': s.x_url or None,
+                'glossaryApp': s.glossary_app_url or None,
                 'campuses': [campus_out(c) for c in Campus.objects.all()],
             },
             'support': {
@@ -121,6 +122,8 @@ class Settings(Global):
                     setattr(s, key, text(contact[key]))
             if 'x' in contact:
                 s.x_url = text(contact['x'])
+            if 'glossaryApp' in contact:
+                s.glossary_app_url = text(contact['glossaryApp'])
             if 'address' in contact:
                 s.address = i18n_in(contact['address'])
             if 'campuses' in contact:

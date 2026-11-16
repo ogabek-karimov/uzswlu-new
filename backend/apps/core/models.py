@@ -162,6 +162,7 @@ class SiteSettings(SingletonModel):
     facebook = models.URLField('Facebook', blank=True)
     youtube = models.URLField('YouTube', blank=True, default='https://www.youtube.com/c/Ozbekistondavlatjahontillariuniversiteti')
     x_url = models.URLField('X (Twitter)', blank=True)
+    glossary_app_url = models.URLField('AKT izohli lug‘ati: Play Market havolasi', blank=True)
 
     support_telegram = models.URLField('Texnik yordam: Telegram', blank=True, default='https://t.me/Uzswlu_rttm')
     support_text = I18nField('Texnik yordam: tugma matni')

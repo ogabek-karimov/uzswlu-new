@@ -192,6 +192,7 @@ def site_out(lang: str) -> dict:
         'emails': [e.value for e in ContactEmail.objects.all()],
         'campuses': [{'id': c.key, 'name': tr(c.name, lang), 'address': tr(c.address, lang)} for c in Campus.objects.all()],
         'socials': socials,
+        'glossaryApp': s.glossary_app_url or None,
         'symbols': symbols_out(lang) or None,
     }
 

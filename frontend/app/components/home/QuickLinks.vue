@@ -2,16 +2,19 @@
 const { t } = useI18n()
 const localePath = useLocalePath()
 const NuxtLink = resolveComponent('NuxtLink')
+const { data: site } = await useSiteData()
 
-const links = [
+type QuickLink = { key: string; icon: string; to?: string; href?: string }
+const base: QuickLink[] = [
   { key: 'reception', icon: 'lucide:message-square-text', to: '/site/reception' },
   { key: 'student', icon: 'lucide:graduation-cap', href: 'https://student.uzswlu.uz' },
   { key: 'hemis', icon: 'lucide:database', href: 'https://hemis.uzswlu.uz' },
   { key: 'mail', icon: 'lucide:mail', to: '/services/mail' },
   { key: 'career', icon: 'lucide:briefcase-business', to: '/career' },
   { key: 'brm', icon: 'lucide:sprout', to: '/sdg-report' },
-  { key: 'glossary', icon: 'lucide:book-a', to: '/services/glossary' },
 ]
+// AKT luğati — Play Market havolasi admin paneldan kiritiladi; havola bo'lmasa karta ko'rsatilmaydi
+const links = computed<QuickLink[]>(() => (site.value?.glossaryApp ? [...base, { key: 'glossary', icon: 'lucide:book-a', href: site.value.glossaryApp }] : base))
 </script>
 
 <template>
