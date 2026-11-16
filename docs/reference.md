@@ -32,6 +32,7 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 | `settings` (global) | RU | R | R | R | R |
 | `symbols` (global) | RU | R | R | R | R |
 | `video-page` (global) | RU | R | R | RU | R |
+| `video-tour` (global) | RU | — | — | RU | — |
 
 **Obyekt darajasidagi qoidalar** (rol jadvalidan tashqari):
 
@@ -423,6 +424,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/api/views.py` | Ochiq sayt API'si (frontend/docs/openapi.yaml). Hamma javob `?lang=uz\|ru\|en\|zh` bo'yicha. |
 | `backend/apps/api/views_staff.py` | Xodimlar (ommaviy) va xodim kabineti (/me — faqat HEMIS orqali kirgan xodim). |
 | `backend/apps/content/models.py` | — |
+| `backend/apps/content/video_tour.py` | Video tur havolasini tekshirish: faqat YouTube, Vimeo yoki to'g'ridan-to'g'ri https video fayl (mp4/webm/ogg). |
 | `backend/apps/core/activity.py` | Faollik jurnali va sayt keshini yangilash. |
 | `backend/apps/core/backup.py` | Zaxira nusxa (backup) va tiklash — faqat Python, cron/tashqi dastur shart emas (PostgreSQL uchun `pg_dump` bo'lsa u ishlatiladi). |
 | `backend/apps/core/checks.py` | Ishga tushganda xavfsizlik sozlamalarini tekshiradi (`manage.py check`, gunicorn/Docker ishga tushishida chiqadi). |
@@ -468,7 +470,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (318 ta test)
+### Backend testlari xaritasi (324 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -490,6 +492,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/panel/test_collections.py` | 11 | Admin panel API (`/api/cms/*`): har bir kolleksiya uchun o'qish → o'zini PATCH → nusxa yaratish → o'chirish aylanishi, · `slow` |
 | `backend/tests/panel/test_pagination.py` | 5 | Sahifalash: har bir kolleksiyada barcha sahifalarni aylanib chiqqanda yozuvlar yo'qolmaydi va takrorlanmaydi; · `slow` |
 | `backend/tests/panel/test_spa_queries.py` | 4 | Admin SPA yuboradigan murakkab so'rovlar (`where[and][0][...]`, `like`, `not_in`, `exists`, `trash` ...): |
+| `backend/tests/panel/test_video_tour.py` | 6 |  |
 | `backend/tests/security/test_access_control.py` | 22 | Ob‘ekt darajasidagi ruxsat: id almashtirib begona ma’lumot olish (IDOR), kabinet izolyatsiyasi, post egaligi. |
 | `backend/tests/security/test_auth.py` | 22 | Kirish: JWT, parol almashganda bekor qilish, 2FA (TOTP). |
 | `backend/tests/security/test_cache_pressure.py` | 15 | Kesh va bosim: cache-busting, kesh to'qnashuvi, token bilan himoyalangan javob keshi, statistika/yuklab olish suiiste'moli. |
@@ -524,6 +527,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `content` | `Video` | Video | `apps/content/models.py` |
 | `content` | `VideoPage` | Video sahifasi | `apps/content/models.py` |
 | `content` | `HomeBanner` | Bayram banneri | `apps/content/models.py` |
+| `content` | `HomeVideoTour` | Video tur | `apps/content/models.py` |
 | `content` | `StateSymbol` | Davlat ramzi | `apps/content/models.py` |
 | `content` | `Partner` | Hamkor | `apps/content/models.py` |
 | `content` | `TaughtLanguage` | O‘qitiladigan til | `apps/content/models.py` |
