@@ -239,6 +239,7 @@ SWAGGER_THEME=modern (sukut) | classic
       <button class="tab" role="tab" data-p="lang" aria-selected="false">Til va sahifalash</button>
       <button class="tab" role="tab" data-p="err" aria-selected="false">Xatolar</button>
       <button class="tab" role="tab" data-p="roles" aria-selected="false">Rollar</button>
+      <button class="tab" role="tab" data-p="handbook" aria-selected="false">Loyiha qo‘llanmasi</button>
     </div>
 
     <div class="panel on" id="p-start">
@@ -400,6 +401,10 @@ SWAGGER_THEME=modern (sukut) | classic
       <div id="role-matrix" aria-live="polite"></div>
       <p class="note">Barcha rollar hamma bo‘limni <b>ko‘ra oladi</b> (kirish tarixi va faollik jurnalidan tashqari — ular faqat superadmin uchun). Har amalning tavsifida shu amalga ruxsat etilgan rollar jadvali bor.</p>
     </div>
+    <div class="panel" id="p-handbook">
+      <p class="note" style="margin-top:0">Loyihaning to‘liq qo‘llanmasi (qidiruv bilan): o‘rnatish, ruxsatlar, xavfsizlik, server, tez-tez uchraydigan muammolar. <a href="/api/docs/handbook/" target="_blank" rel="noopener">Alohida oynada ochish</a></p>
+      <iframe id="handbook-frame" title="Loyiha qo‘llanmasi" loading="lazy" style="width:100%;height:78vh;min-height:520px;border:1px solid var(--line,#d9dee8);border-radius:14px;background:#fff"></iframe>
+    </div>
   </section>
 </header>
 {{ block.super }}
@@ -413,6 +418,10 @@ SWAGGER_THEME=modern (sukut) | classic
       b.addEventListener('click', function () {
         document.querySelectorAll('.tab').forEach(function (x) { x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
         document.querySelectorAll('.panel').forEach(function (p) { p.classList.toggle('on', p.id === 'p-' + b.dataset.p); });
+        if (b.dataset.p === 'handbook') {   // qo'llanma faqat ochilganda yuklanadi (sahifa yengil qoladi)
+          var f = document.getElementById('handbook-frame');
+          if (f && !f.getAttribute('src')) f.setAttribute('src', '/api/docs/handbook/');
+        }
       });
     });
     document.querySelectorAll('.copy').forEach(function (c) {

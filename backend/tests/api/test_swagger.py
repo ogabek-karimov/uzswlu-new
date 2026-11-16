@@ -187,3 +187,20 @@ class SwaggerMatchesRealResponsesTests(SeededTestCase):
         self.assertIn('o‘zi yozgan', paths['/api/cms/posts/{id}']['delete']['description'])
         self.assertIn('multipart/form-data', paths['/api/cms/media']['post']['requestBody']['content'])
         self.assertEqual(paths['/api/cms/users']['patch']['x-roles'], ['superadmin'])  # ommaviy: faqat superadmin
+
+
+class HandbookTabTests(TestCase):
+    """Swagger sahifasidagi «Loyiha qo'llanmasi» bo'limi."""
+
+    def test_swagger_page_has_handbook_tab(self):
+        html = self.client.get('/api/docs/').content.decode()
+        self.assertIn('data-p="handbook"', html)
+        self.assertIn('/api/docs/handbook/', html)
+
+    def test_handbook_is_served_framable_only_by_same_origin(self):
+        res = self.client.get('/api/docs/handbook/')
+        self.assertEqual(res.status_code, 200)
+        self.assertIn('text/html', res['Content-Type'])
+        self.assertEqual(res['X-Frame-Options'], 'SAMEORIGIN')
+        self.assertIn("frame-ancestors 'self'", res['Content-Security-Policy'])
+        self.assertIn(b'<html', res.content[:500].lower())

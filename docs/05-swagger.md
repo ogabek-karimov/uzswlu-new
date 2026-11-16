@@ -8,6 +8,9 @@
 | http://localhost:8000/api/redoc/ | ReDoc |
 | http://localhost:8000/api/schema/ | OpenAPI 3.1 JSON/YAML |
 | `/api/schema/?role=editor` | faqat shu rolga ruxsat etilgan amallar |
+| http://localhost:8000/api/docs/handbook/ | **Loyiha qo‘llanmasi** (Swagger sahifasidagi «Loyiha qo‘llanmasi» bo‘limi shu sahifani ramkada ko‘rsatadi) |
+
+Swagger sahifasi tepasidagi bo‘limlar qatorida **«Loyiha qo‘llanmasi»** bor: bu shu `docs/` qo‘llanmasining o‘zi (qidiruv bilan). U `python manage.py build_docs` bilan yig‘iladi va `backend/apps/api/handbook.html` ga nusxalanadi (Docker'da faqat `backend/` bor), shuning uchun qo‘llanma tahrirlansa `build_docs` ni ishga tushirib, natijani commit qiling (CI `--check` tekshiradi). Qo‘llanma Swagger bilan bir xil ruxsatda: `API_DOCS_PUBLIC=false` bo‘lsa faqat admin panelga kirganlarga.
 
 Productionda `API_DOCS_PUBLIC=false`: hujjatni faqat admin panelga kirgan xodim ko‘radi.
 

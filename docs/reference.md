@@ -300,6 +300,7 @@ Batafsil parametr va javoblar — Swagger: `http://localhost:8000/api/docs/`. Pa
 |---|---|---|---|
 | `/` | `RedirectView` | `django/views/generic/base.py` |  |
 | `/api/docs/` | `SwaggerView` | `config/urls.py` | `docs` |
+| `/api/docs/handbook/` | `HandbookView` | `config/urls.py` | `docs` |
 | `/api/media/file/<path:name>` | `MediaFileCompat` | `apps/panel/views.py` | `open` |
 | `/api/redoc/` | `RedocView` | `config/urls.py` | `docs` |
 | `/api/schema/` | `SchemaView` | `config/urls.py` | `docs` |

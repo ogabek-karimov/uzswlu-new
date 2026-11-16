@@ -17,6 +17,8 @@ from django.conf import settings
 
 REPO = Path(settings.BASE_DIR).parent
 DOCS = REPO / 'docs'
+# Swagger sahifasidagi «Loyiha qo'llanmasi» bo'limi shu nusxani beradi (Docker'da faqat backend/ bor — docs/ yo'q)
+HANDBOOK = Path(settings.BASE_DIR) / 'apps' / 'api' / 'handbook.html'
 GENERATED_NOTE = '> ⚙️ **Bu fayl koddan avtomatik yig‘iladi** — qo‘lda tahrirlamang: `cd backend && python manage.py build_docs`.\n'
 
 
@@ -418,4 +420,8 @@ def write_all(check: bool = False) -> list[str]:
         stale.append('docs/index.html')
         if not check:
             idx.write_text(new_idx, encoding='utf-8', newline='\n')
+    if not HANDBOOK.exists() or HANDBOOK.read_text(encoding='utf-8') != new_idx:
+        stale.append('backend/apps/api/handbook.html')
+        if not check:
+            HANDBOOK.write_text(new_idx, encoding='utf-8', newline='\n')
     return stale
