@@ -141,7 +141,6 @@ function onClickCapture(e: MouseEvent) {
       @focusin="hovered = true"
       @focusout="hovered = false"
     >
-      <SeasonBadge />
       <div
         ref="track"
         class="absolute inset-0 flex touch-pan-y select-none"
