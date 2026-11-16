@@ -468,7 +468,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (314 ta test)
+### Backend testlari xaritasi (316 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -481,7 +481,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/api/test_flows.py` | 13 | Ochiq API oqimlari (demo ma'lumot bilan): sanoqlar, eski /api/site/* manzillari, API token, xodim kabineti, murojaat, statistika. |
 | `backend/tests/api/test_maps.py` | 5 |  |
 | `backend/tests/api/test_post_neighbors.py` | 1 |  |
-| `backend/tests/api/test_swagger.py` | 11 | Swagger to'liqligi: kodda ishlaydigan har bir amal hujjatda bo'lishi shart (yangi endpoint/kolleksiya qo'shilganda |
+| `backend/tests/api/test_swagger.py` | 13 | Swagger to'liqligi: kodda ishlaydigan har bir amal hujjatda bo'lishi shart (yangi endpoint/kolleksiya qo'shilganda |
 | `backend/tests/core/test_backup.py` | 41 | Zaxira va tiklash: yaratish, tekshirish, tiklash (SQLite va PostgreSQL — qaysi baza bilan ishlayotgan bo'lsa), ko'chma JSON, |
 | `backend/tests/core/test_docs.py` | 10 | Qo'llanma (docs/) eskirmasligi: avtomatik fayllar kodga mos, havolalar/anchorlar/yo'llar/buyruqlar mavjud. |
 | `backend/tests/core/test_page_cleanup.py` | 4 | «Toshkent haqida» / «Kontingent» sahifalarini o'chiruvchi migratsiya (0002_remove_toshkent_kontingent). |
