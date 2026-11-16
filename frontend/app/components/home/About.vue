@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import type { Stat } from '#shared/types/api'
+import type { HomeVideoTour, Stat } from '#shared/types/api'
 
 // «Universitet haqida»: raqamlar tasmasi (fakultet, akademik xodim, kafedra, talaba — HEMIS'dan)
 // va ikkita karta — universitet haqida va video tur
-const props = defineProps<{ stats: Stat[] }>()
+const props = defineProps<{ stats: Stat[]; videoTour?: HomeVideoTour | null }>()
 
 const { t } = useI18n()
 const localePath = useLocalePath()
+const playing = ref(false)
 
 // Tartib: fakultet → akademik xodim → kafedra → talaba. Ikonkalar ma'nosi original saytdagidek (qalam, kurs, sertifikat, bitiruvchi).
 const FACTS = [
@@ -55,8 +56,33 @@ const facts = computed(() => FACTS.flatMap((fact) => {
         </NuxtLink>
       </article>
 
-      <!-- Video tur -->
-      <NuxtLink :to="localePath('/video-darsliklar')" class="oz-stripes group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[28px] bg-brand-600 p-6 text-white transition duration-300 hover:shadow-[0_30px_60px_-30px_var(--color-brand-700)] lg:col-span-7 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+      <!-- Video tur: admin panelda («Universitet haqida» bo'limi) havola kiritilsa — shu yerning o'zida ochiladi, aks holda video sahifasiga olib boradi -->
+      <template v-if="videoTour">
+        <button
+          type="button"
+          class="oz-stripes group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[28px] bg-brand-600 p-6 text-left text-white transition duration-300 hover:shadow-[0_30px_60px_-30px_var(--color-brand-700)] lg:col-span-7 motion-reduce:transition-none"
+          :aria-label="`${t('about.videoLabel')}: ${videoTour.title || t('about.videoTitle')}`"
+          @click="playing = true"
+        >
+          <img v-if="videoTour.poster" :src="videoTour.poster" alt="" class="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none" loading="lazy">
+          <span class="absolute inset-0 bg-gradient-to-t from-brand-950/85 via-brand-950/25 to-brand-950/30" aria-hidden="true" />
+          <span class="relative text-sm text-white/85">{{ t('about.videoLabel') }}</span>
+          <span class="relative grid size-[70px] place-self-center place-items-center rounded-full bg-white text-brand-600 shadow-[0_18px_40px_-16px_rgba(17,12,46,0.7)] transition-transform group-hover:scale-110 motion-reduce:transition-none" aria-hidden="true">
+            <Icon name="lucide:play" class="ml-0.5 size-6 fill-current" />
+          </span>
+          <span class="relative">
+            <span class="block text-[17px] leading-snug font-semibold">{{ videoTour.title || t('about.videoTitle') }}</span>
+            <span v-if="videoTour.text" class="mt-1 line-clamp-2 block text-sm text-white/80">{{ videoTour.text }}</span>
+          </span>
+        </button>
+        <AppDialog v-model:open="playing" class="max-w-4xl" :title="videoTour.title || t('about.videoTitle')" body-class="p-0">
+          <div v-if="playing" class="aspect-video w-full bg-black">
+            <video v-if="videoTour.kind === 'file'" :src="videoTour.url" :poster="videoTour.poster || undefined" class="size-full" controls autoplay playsinline />
+            <iframe v-else :src="videoTour.url" :title="videoTour.title || t('about.videoTitle')" class="size-full" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" />
+          </div>
+        </AppDialog>
+      </template>
+      <NuxtLink v-else :to="localePath('/video-darsliklar')" class="oz-stripes group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[28px] bg-brand-600 p-6 text-white transition duration-300 hover:shadow-[0_30px_60px_-30px_var(--color-brand-700)] lg:col-span-7 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
         <span class="text-sm text-white/80">{{ t('about.videoLabel') }}</span>
         <span class="grid size-[70px] place-self-center place-items-center rounded-full bg-white text-brand-600 shadow-[0_18px_40px_-16px_rgba(17,12,46,0.7)] transition-transform group-hover:scale-110 motion-reduce:transition-none" aria-hidden="true">
           <Icon name="lucide:play" class="ml-0.5 size-6 fill-current" />

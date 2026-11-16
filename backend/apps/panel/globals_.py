@@ -3,7 +3,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.utils.text import slugify
 
-from apps.content.models import HomeBanner, StateSymbol, VideoPage
+from apps.content.models import HomeBanner, HomeVideoTour, StateSymbol, VideoPage
+from apps.content.video_tour import parse_video
 from apps.core.models import SiteSettings
 from apps.pages.models import SdgPage
 from apps.structure.maps import parse_coords
@@ -278,7 +279,43 @@ class HomeBannerGlobal(Global):
             b.link = link[:500]
 
 
-GLOBALS: dict[str, Global] = {g.slug: g for g in (Settings(), VideoPageGlobal(), SymbolsGlobal(), SdgPageGlobal(), HomeBannerGlobal())}
+class VideoTourGlobal(Global):
+    """«Universitet haqida» video turi: havola (YouTube/Vimeo/MP4), muqova rasmi, sarlavha va qisqa ma'lumot."""
+
+    slug = 'video-tour'
+    entity = 'video-tour'
+    label = 'Video tur'
+    tags = ('home',)
+    versions = 30
+    access = {'read': PAGES, 'update': PAGES}  # «Universitet haqida» sahifalarini tahrirlovchilar
+
+    def load(self):
+        return HomeVideoTour.load()
+
+    def out(self, v, depth):
+        return {
+            'id': 1, 'globalType': 'video-tour',
+            'url': v.url or None, 'poster': media_out(v.poster, depth) if v.poster_id else None,
+            'title': i18n_out(v.title), 'text': i18n_out(v.text), 'visible': v.visible,
+        }
+
+    def write(self, v, data, request):
+        if 'url' in data:
+            url = text(data['url'])
+            if url and not parse_video(url):
+                raise ValidationError('Havola YouTube, Vimeo yoki https://…/video.mp4 (webm, ogg) bo‘lishi kerak')
+            v.url = url[:500]
+        if 'poster' in data:
+            v.poster = media_ref(data['poster'])
+        if 'title' in data:
+            v.title = i18n_in(data['title'])
+        if 'text' in data:
+            v.text = i18n_in(data['text'])
+        if 'visible' in data:
+            v.visible = flag(data['visible'])
+
+
+GLOBALS: dict[str, Global] = {g.slug: g for g in (Settings(), VideoPageGlobal(), SymbolsGlobal(), SdgPageGlobal(), HomeBannerGlobal(), VideoTourGlobal())}
 
 
 def save_global(g: Global, obj):

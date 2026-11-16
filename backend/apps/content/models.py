@@ -326,6 +326,24 @@ class HomeBanner(SingletonModel):
         return 'Bayram banneri'
 
 
+class HomeVideoTour(SingletonModel):
+    """«Universitet haqida» blokidagi video tur (3 daqiqalik sayohat): havola (YouTube/Vimeo yoki to'g'ridan-to'g'ri MP4),
+    muqova rasmi va matnlar. Admin panelda faqat «Universitet haqida» bo'limi orqali kiritiladi."""
+
+    url = models.CharField('Video havolasi', max_length=500, blank=True)
+    poster = models.ForeignKey('core.Media', null=True, blank=True, on_delete=models.PROTECT, related_name='+', verbose_name='Muqova rasmi')
+    title = I18nField('Sarlavha')
+    text = I18nField('Qisqa ma‘lumot', multiline=True)
+    visible = models.BooleanField('Saytda ko‘rinadi', default=True)
+
+    class Meta:
+        verbose_name = 'Video tur'
+        verbose_name_plural = 'Video tur'
+
+    def __str__(self):
+        return 'Video tur'
+
+
 class StateSymbol(models.Model):
     """Davlat ramzlari: bayroq, gerb va madhiya (bosh sahifadagi blok)."""
 

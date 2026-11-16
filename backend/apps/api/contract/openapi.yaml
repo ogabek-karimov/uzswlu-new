@@ -422,6 +422,18 @@ components:
         partners:
           type: array
           items: { $ref: '#/components/schemas/Partner' }
+        videoTour:
+          description: «Universitet haqida» video turi — admin panel → Sahifalar → «Universitet haqida» bo'limi; havola yo'q yoki yashirilgan bo'lsa null (eski karta qoladi)
+          oneOf:
+            - type: 'null'
+            - type: object
+              required: [kind, url]
+              properties:
+                kind: { type: string, enum: [youtube, vimeo, file] }
+                url: { type: string, format: uri, description: "Ko'mish manzili (iframe yoki video src)" }
+                poster: { type: [string, 'null'], format: uri }
+                title: { type: [string, 'null'] }
+                text: { type: [string, 'null'] }
         banner:
           description: Bayram banneri («Biz bilan bog'lanish» va «Davlat ramzlari» orasida) — admin panelda bitta rasm; yashirilgan yoki rasmi yo'q bo'lsa null
           oneOf:

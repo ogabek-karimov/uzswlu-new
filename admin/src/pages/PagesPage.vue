@@ -8,6 +8,7 @@ import I18nFields from '@/components/I18nFields.vue'
 import MediaPicker from '@/components/MediaPicker.vue'
 import PdfSlot from '@/components/PdfSlot.vue'
 import RichEditor from '@/components/RichEditor.vue'
+import VideoTourCard from '@/components/VideoTourCard.vue'
 import ToggleSwitch from '@/components/ToggleSwitch.vue'
 
 // Sahifalar daraxti: sahifa ichida sahifa, nomini o'zgartirish, tartib — sayt menyusi o'z-o'zidan yangilanadi
@@ -299,6 +300,9 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
           <p v-if="error" class="mt-3 rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-800">{{ error }}</p>
           <p v-else-if="saved" class="mt-3 rounded-xl bg-[#DDFBF0] px-3.5 py-2.5 text-sm text-[#0B5A43]">Saqlandi — sayt menyusi va sahifa yangilandi.</p>
         </section>
+
+        <!-- «Universitet haqida» bo'limi: bosh sahifadagi video tur (media va ma'lumot faqat shu yerdan) -->
+        <VideoTourCard v-if="form.template === 'group' && form.groupKey === 'university'" />
 
         <!-- Bo'lim (menyu guruhi) -->
         <section v-if="form.template === 'group'" class="card flex flex-col gap-3 px-[22px] py-5">

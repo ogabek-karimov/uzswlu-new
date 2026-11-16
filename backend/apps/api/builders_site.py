@@ -10,8 +10,9 @@ from django.db.models.functions import TruncMonth
 from django.utils import timezone
 
 from apps.content.models import (
-    Document, DocCategory, HomeBanner, Leader, Partner, Post, Slide, StateSymbol, TaughtLanguage, Video, VideoCategory, VideoPage,
+    Document, DocCategory, HomeBanner, HomeVideoTour, Leader, Partner, Post, Slide, StateSymbol, TaughtLanguage, Video, VideoCategory, VideoPage,
 )
+from apps.content.video_tour import parse_video
 from apps.core.fields import pick, tr
 from apps.core.html import restore_timeline, text_of
 from apps.core.models import SiteSettings
@@ -107,6 +108,7 @@ def home_out(lang: str) -> dict:
             for p in Partner.objects.select_related('logo')
         ],
         'banner': banner_out(lang),
+        'videoTour': video_tour_out(lang),
         'updatedAt': iso(synced or timezone.now()),
     }
 
@@ -119,6 +121,17 @@ def banner_out(lang: str) -> dict | None:
     # width/height — brauzer rasm yuklanguncha joyini oldindan ajratadi (sahifa sakramaydi)
     return {'image': img(b.image, 'hero'), 'width': b.image.width or None, 'height': b.image.height or None,
             'alt': tr(b.alt, lang), 'link': b.link or None}
+
+
+def video_tour_out(lang: str) -> dict | None:
+    """«Universitet haqida» blokidagi video tur: havola yo'q/noto'g'ri yoki yashirilgan bo'lsa — null (eski karta qoladi)."""
+    v = HomeVideoTour.load()
+    parsed = parse_video(v.url) if v.visible else None
+    if not parsed:
+        return None
+    kind, embed = parsed
+    return {'kind': kind, 'url': embed, 'poster': img(v.poster, 'hero') if v.poster_id else None,
+            'title': tr(v.title, lang) or None, 'text': tr(v.text, lang) or None}
 
 
 def menu_out(lang: str) -> list[dict]:

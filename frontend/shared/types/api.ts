@@ -91,6 +91,8 @@ export interface HomeData {
   partners: Partner[]
   /** Bayram banneri — admin panelda bitta rasm; yashirilgan yoki rasmi yo'q bo'lsa null */
   banner?: HomeBanner | null
+  /** «Universitet haqida» video turi — admin panelda («Universitet haqida» bo'limi) kiritiladi; havola yo'q yoki yashirilgan bo'lsa null */
+  videoTour?: HomeVideoTour | null
   /** HEMIS ma'lumotlari oxirgi marta yangilangan vaqt (ISO) */
   updatedAt: string
 }
@@ -315,6 +317,15 @@ export interface CabinetPatch {
   socials?: StaffProfile['socials']
   science?: StaffProfile['science']
   visibility?: Partial<Record<StaffDocSection, boolean>>
+}
+
+/** Bosh sahifadagi video tur: `url` — ko'mish (iframe/video) manzili */
+export interface HomeVideoTour {
+  kind: 'youtube' | 'vimeo' | 'file'
+  url: string
+  poster?: string | null
+  title?: string | null
+  text?: string | null
 }
 
 /** GET /site?lang= — har bir sahifada kerak bo'ladigan umumiy ma'lumot (menyu, footer, kontaktlar) */
