@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-16
 
-- **Admin/Sayt — AKT luğati Play Market havolasi:** Admin panel → Sozlamalar → Aloqa bo‘limida «AKT izohli luğati — Play Market havolasi» maydoni qo‘shildi (`SiteSettings.glossary_app_url`, migratsiya `0003`). Havola `/site` javobida `glossaryApp` bo‘lib keladi; bosh sahifadagi «AKT izohli luğati» kartasi shu havolaga yangi oynada ochiladi, havola kiritilmasa karta ko‘rsatilmaydi (avval mavjud bo‘lmagan `/services/glossary` ga olib borardi). Test: `tests/api/test_glossary_app.py`. — `COMMIT`
+- **Admin/Sayt — AKT luğati Play Market havolasi:** Admin panel → Sozlamalar → Aloqa bo‘limida «AKT izohli luğati — Play Market havolasi» maydoni qo‘shildi (`SiteSettings.glossary_app_url`, migratsiya `0003`). Havola `/site` javobida `glossaryApp` bo‘lib keladi; bosh sahifadagi «AKT izohli luğati» kartasi shu havolaga yangi oynada ochiladi, havola kiritilmasa karta ko‘rsatilmaydi (avval mavjud bo‘lmagan `/services/glossary` ga olib borardi). Test: `tests/api/test_glossary_app.py`. — `6744816`
 - **Sayt — fasl yozuvi yonma-yon:** «KUZ FASLI» yozuvi ikonka ostida emas, yonida (bir qatorda) ko‘rsatiladi. — `7432dce`
 - **Sayt — fasl yozuvi:** panel tepasidagi fasl belgisi ikonka ostida fasl nomini ham ko‘rsatadi («KUZ FASLI»). — `1dbbf01`
 - **Sayt — fasl ikonkasi ijtimoiy tarmoqlar tepasiga ko‘chirildi:** ijtimoiy panel avvalgi joyiga (chap chet, ekran o‘rtasi) qaytarildi va animatsiyalari olib tashlandi; fasl belgisi (gradient doira: ❄/🌸/☀/🍂) panelning eng tepasiga qo‘yildi, bosilganda aylanib kattalashadi va halqa tarqaladi, nomi hover'da ko‘rinadi. Slayderdagi yorliq (`SeasonBadge.vue`) olib tashlandi. — `789926a`
