@@ -41,7 +41,10 @@ const current = computed(() => locales.value.find(l => l.code === locale.value))
         class="absolute top-full right-0 z-[60] mt-2 w-48 rounded-xl border border-line bg-white p-1.5 text-ink shadow-[0_20px_40px_-16px_rgba(19,17,47,0.35)]"
       >
         <li v-for="l in locales" :key="l.code">
+          <!-- `external`: til almashtirganda sahifa TO'LIQ qayta yuklanadi. SPA o'tishida `site`/`home` kabi umumiy ma'lumotlar yangi til
+               yuklanguncha eski tilda qolib, menyu/kartalar aralash tilda ko'rinardi (ayniqsa telefonda, sekin tarmoqda). -->
           <NuxtLink
+            external
             :to="switchLocalePath(l.code)"
             :hreflang="l.language"
             :lang="l.language"
