@@ -41,12 +41,11 @@ export default defineNuxtConfig({
   // bosh sahifalar (4 til) Node'ning o'zida ham stale-while-revalidate bilan keshlanadi — SSR har so'rovda qayta ishlamaydi.
   // Shaxsiy yoki cheksiz xilma-xil sahifalar (kabinet, qidiruv) keshlanmaydi. Nginx namunasi: docs/10-server.md
   routeRules: {
-    '/**': { headers: { 'cache-control': 'public, s-maxage=60, stale-while-revalidate=300' } },
+    // Sahifani nginx keshlaydi (kalit: domen + manzil). Muddatlar QISQA: nginx ham, Nitro ham «eskisini berib, fonda yangilash»ni
+    // ketma-ket qilsa, admin o'zgartirgan kontent 2 daqiqagacha ko'rinmay qolardi (o'lchangan: 114 s). Shuning uchun Nitro'da `swr` yo'q —
+    // keshlash faqat nginx'da (`proxy_cache_lock`: Node'ga har sahifa uchun 30 sekundda bitta so'rov).
+    '/**': { headers: { 'cache-control': 'public, s-maxage=30, stale-while-revalidate=30' } },
     '/_nuxt/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
-    '/': { swr: 60 },
-    '/ru': { swr: 60 },
-    '/en': { swr: 60 },
-    '/zh': { swr: 60 },
     '/dashboard': { headers: { 'cache-control': 'private, no-store' } },
     '/ru/dashboard': { headers: { 'cache-control': 'private, no-store' } },
     '/en/dashboard': { headers: { 'cache-control': 'private, no-store' } },
