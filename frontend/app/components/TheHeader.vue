@@ -399,12 +399,6 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
                 <Icon :name="siteNetworks[s.network].icon" class="text-[1.2rem]" />
               </a>
             </li>
-            <li>
-              <NuxtLink :to="localePath('/oquv-binolari')" class="flex h-11 items-center gap-2 rounded-2xl bg-brand-700 px-4 text-sm font-semibold text-white">
-                <Icon name="lucide:landmark" class="text-[1.1rem]" />
-                {{ t('social.buildings') }}
-              </NuxtLink>
-            </li>
           </ul>
         </nav>
       </div>
