@@ -21,6 +21,7 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 | `media` | RCUD | RCU | RCU | RCU | RCU |
 | `pages` | RCUD | R | R | RCUD | R |
 | `posts` | RCUD | RCUD | RCUD | RCUD | R |
+| `quick-links` | RCUD | R | R | RCUD | R |
 | `sdg-goals` | RCUD | R | R | R | RU |
 | `slides` | RCUD | R | R | R | R |
 | `staff-profiles` | RCUD | R | R | R | R |
@@ -41,6 +42,7 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 - `faculties` · **update**: `faculty` faqat **o‘z fakultetini** (`User.scope`) o‘zgartiradi; doirasi belgilanmagan bo‘lsa — hech narsani.
 - `posts` · **update**: `faculty` va `pages` faqat **o‘zi yozgan** postni o‘zgartiradi; `superadmin` va `editor` — hammasini.
 - `posts` · **delete**: `faculty` va `pages` faqat **o‘zi yozgan** postni o‘chiradi; `superadmin` va `editor` — hammasini.
+- `quick-links` · **create**: `icon` — `lucide:*` ro‘yxatidan; `url` — `/yo‘l` yoki `https://…`; `title.uz` majburiy.
 
 ### `manage.py` buyruqlari (loyihaniki)
 
@@ -323,6 +325,7 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `/faollik` | `admin/src/pages/ActivityPage.vue` | faqat `superadmin` |
 | `/sozlamalar` | `admin/src/pages/SettingsPage.vue` | faqat `superadmin` |
 | `/profil` | `admin/src/pages/ProfilePage.vue` | hamma kirgan xodim |
+| `/tezkor-xizmatlar` | `admin/src/pages/QuickLinksPage.vue` | `superadmin`, `pages` |
 | `/karusel` | `admin/src/pages/CarouselPage.vue` | `superadmin` |
 | `/media` | `admin/src/pages/MediaPage.vue` | hamma kirgan xodim |
 | `/hujjatlar` | `admin/src/pages/DocumentsPage.vue` | `superadmin`, `pages` |
@@ -424,6 +427,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/api/views.py` | Ochiq sayt API'si (frontend/docs/openapi.yaml). Hamma javob `?lang=uz\|ru\|en\|zh` bo'yicha. |
 | `backend/apps/api/views_staff.py` | Xodimlar (ommaviy) va xodim kabineti (/me — faqat HEMIS orqali kirgan xodim). |
 | `backend/apps/content/models.py` | — |
+| `backend/apps/content/quick_links.py` | «Tezkor xizmatlar» kartalari: ruxsat etilgan ikonkalar va havolani tekshirish. |
 | `backend/apps/content/video_tour.py` | Video tur havolasini tekshirish: faqat YouTube, Vimeo yoki to'g'ridan-to'g'ri https video fayl (mp4/webm/ogg). |
 | `backend/apps/core/activity.py` | Faollik jurnali va sayt keshini yangilash. |
 | `backend/apps/core/backup.py` | Zaxira nusxa (backup) va tiklash — faqat Python, cron/tashqi dastur shart emas (PostgreSQL uchun `pg_dump` bo'lsa u ishlatiladi). |
@@ -470,7 +474,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (326 ta test)
+### Backend testlari xaritasi (330 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -481,7 +485,6 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/api/test_contract.py` | 6 | Shartnoma testi: ochiq API javoblari `frontend/docs/openapi.yaml` sxemalariga mos bo'lishi shart (4 til × barcha endpoint). |
 | `backend/tests/api/test_edge_refresh.py` | 7 | Kontent o'zgarganda Nuxt/nginx keshini yangilash (apps/api/edge.py). |
 | `backend/tests/api/test_flows.py` | 13 | Ochiq API oqimlari (demo ma'lumot bilan): sanoqlar, eski /api/site/* manzillari, API token, xodim kabineti, murojaat, statistika. |
-| `backend/tests/api/test_glossary_app.py` | 2 |  |
 | `backend/tests/api/test_maps.py` | 5 |  |
 | `backend/tests/api/test_post_neighbors.py` | 1 |  |
 | `backend/tests/api/test_swagger.py` | 13 | Swagger to'liqligi: kodda ishlaydigan har bir amal hujjatda bo'lishi shart (yangi endpoint/kolleksiya qo'shilganda |
@@ -491,6 +494,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/hemis/test_load_control.py` | 25 | HEMIS'ga va serverga bosim: tinch oyna, qulf, so'rov byudjeti, ketma-ket xatoda to'xtash, kechki jadval. |
 | `backend/tests/panel/test_collections.py` | 11 | Admin panel API (`/api/cms/*`): har bir kolleksiya uchun o'qish → o'zini PATCH → nusxa yaratish → o'chirish aylanishi, · `slow` |
 | `backend/tests/panel/test_pagination.py` | 5 | Sahifalash: har bir kolleksiyada barcha sahifalarni aylanib chiqqanda yozuvlar yo'qolmaydi va takrorlanmaydi; · `slow` |
+| `backend/tests/panel/test_quick_links.py` | 6 |  |
 | `backend/tests/panel/test_spa_queries.py` | 4 | Admin SPA yuboradigan murakkab so'rovlar (`where[and][0][...]`, `like`, `not_in`, `exists`, `trash` ...): |
 | `backend/tests/panel/test_video_tour.py` | 6 |  |
 | `backend/tests/security/test_access_control.py` | 22 | Ob‘ekt darajasidagi ruxsat: id almashtirib begona ma’lumot olish (IDOR), kabinet izolyatsiyasi, post egaligi. |
@@ -528,6 +532,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `content` | `VideoPage` | Video sahifasi | `apps/content/models.py` |
 | `content` | `HomeBanner` | Bayram banneri | `apps/content/models.py` |
 | `content` | `HomeVideoTour` | Video tur | `apps/content/models.py` |
+| `content` | `QuickLink` | Tezkor xizmat | `apps/content/models.py` |
 | `content` | `StateSymbol` | Davlat ramzi | `apps/content/models.py` |
 | `content` | `Partner` | Hamkor | `apps/content/models.py` |
 | `content` | `TaughtLanguage` | O‘qitiladigan til | `apps/content/models.py` |

@@ -125,37 +125,7 @@
   },
   "quick": {
     "eyebrow": "Bir bosişda",
-    "title": "Tezkor xizmatlar",
-    "items": {
-      "reception": {
-        "title": "Virtual qabulxona",
-        "text": "Rektorga murojaat yuboriş"
-      },
-      "student": {
-        "title": "Talaba portali",
-        "text": "Baholar, jadval, davomat"
-      },
-      "hemis": {
-        "title": "HEMIS",
-        "text": "Oliy ta’lim axborot tizimi"
-      },
-      "mail": {
-        "title": "Korporativ poçta",
-        "text": "Xodimlar uçun e-poçta"
-      },
-      "career": {
-        "title": "Karyera markazi",
-        "text": "Amaliyot va iş örinlari"
-      },
-      "brm": {
-        "title": "BRM",
-        "text": "Barqaror rivojlaniş maqsadlari"
-      },
-      "glossary": {
-        "title": "AKT izohli luğati",
-        "text": "Mobil ilova"
-      }
-    }
+    "title": "Tezkor xizmatlar"
   },
   "about": {
     "eyebrow": "Universitet haqida",

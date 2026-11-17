@@ -344,6 +344,25 @@ class HomeVideoTour(SingletonModel):
         return 'Video tur'
 
 
+class QuickLink(models.Model):
+    """Bosh sahifadagi «Tezkor xizmatlar» kartasi. Admin panelda alohida sahifadan boshqariladi."""
+
+    icon = models.CharField('Ikonka', max_length=60, default='lucide:globe')
+    url = models.CharField('Havola', max_length=500, help_text='Sayt ichida: /career — tashqi: https://…')
+    title = I18nField('Nomi', required_uz=True)
+    text = I18nField('Qisqa izoh')
+    order = models.PositiveIntegerField('Tartib', default=0, db_index=True)
+    visible = models.BooleanField('Saytda ko‘rinadi', default=True)
+
+    class Meta:
+        verbose_name = 'Tezkor xizmat'
+        verbose_name_plural = 'Tezkor xizmatlar'
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return self.title.get('uz') or self.url
+
+
 class StateSymbol(models.Model):
     """Davlat ramzlari: bayroq, gerb va madhiya (bosh sahifadagi blok)."""
 

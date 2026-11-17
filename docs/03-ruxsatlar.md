@@ -7,7 +7,7 @@
 | `superadmin` | texnik rahbar | hamma narsa: foydalanuvchilar, sozlamalar, statistika, kirish tarixi, faollik jurnali, yopiq murojaat fayllari |
 | `editor` | kontent muharriri | postlar (yangilik/e’lon/tadbir), media |
 | `faculty` | fakultet admini | **faqat o‘z fakulteti** (`scope`) va uning kafedralari; postlar (faqat o‘zinikini tahrirlaydi) |
-| `pages` | sahifalar muharriri | statik sahifalar, hujjatlar, video, postlar (faqat o‘zinikini) |
+| `pages` | sahifalar muharriri | statik sahifalar, hujjatlar, video, tezkor xizmatlar, postlar (faqat o‘zinikini) |
 | `sdg` | BRM menejeri | faqat BRM (17 maqsad): matn, rasm, PDF hisobotlar |
 
 **To‘liq jadval (har kolleksiya × har rol: o‘qish/yaratish/tahrirlash/o‘chirish)** koddan avtomatik yig‘iladi: [reference → Rol × kolleksiya](reference.md). Jadvalning manbasi — `backend/apps/panel/collections.py` (`access` va `rules`) va `globals_.py`.

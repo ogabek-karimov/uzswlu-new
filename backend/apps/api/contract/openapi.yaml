@@ -434,6 +434,19 @@ components:
                 poster: { type: [string, 'null'], format: uri }
                 title: { type: [string, 'null'] }
                 text: { type: [string, 'null'] }
+        quickLinks:
+          type: array
+          description: «Tezkor xizmatlar» kartalari — admin panel → Tezkor xizmatlar sahifasi; tartib bo'yicha, faqat ko'rinadiganlari (bo'sh bo'lsa blok chiqmaydi)
+          items:
+            type: object
+            required: [id, icon, url, external, title]
+            properties:
+              id: { type: string }
+              icon: { type: string, description: "Ruxsat etilgan `lucide:*` ikonka nomi" }
+              url: { type: string, description: "Sayt ichida `/yo'l` yoki tashqi `https://…`" }
+              external: { type: boolean, description: Tashqi havola — yangi oynada ochiladi }
+              title: { type: string }
+              text: { type: [string, 'null'] }
         banner:
           description: Bayram banneri («Biz bilan bog'lanish» va «Davlat ramzlari» orasida) — admin panelda bitta rasm; yashirilgan yoki rasmi yo'q bo'lsa null
           oneOf:
@@ -598,10 +611,6 @@ components:
         socials:
           type: array
           items: { $ref: '#/components/schemas/SocialLink' }
-        glossaryApp:
-          type: string
-          nullable: true
-          description: AKT izohli lug'ati mobil ilovasi (Play Market) havolasi — admin panel → Sozlamalar → Aloqa; bo'sh bo'lsa bosh sahifada karta ko'rsatilmaydi
         symbols:
           type: array
           nullable: true

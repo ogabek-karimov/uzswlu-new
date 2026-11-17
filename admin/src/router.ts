@@ -19,6 +19,7 @@ export const router = createRouter({
         { path: 'faollik', name: 'activity', component: () => import('./pages/ActivityPage.vue'), meta: { title: 'Faollik jurnali', superOnly: true } },
         { path: 'sozlamalar', name: 'settings', component: () => import('./pages/SettingsPage.vue'), meta: { title: 'Sayt sozlamalari', superOnly: true } },
         { path: 'profil', name: 'profile', component: () => import('./pages/ProfilePage.vue'), meta: { title: 'Mening profilim' } },
+        { path: 'tezkor-xizmatlar', name: 'quick-links', component: () => import('./pages/QuickLinksPage.vue'), meta: { title: 'Tezkor xizmatlar', roles: ['superadmin', 'pages'] } },
         { path: 'karusel', name: 'carousel', component: () => import('./pages/CarouselPage.vue'), meta: { title: 'Boş sahifa karuseli', roles: ['superadmin'] } },
         { path: 'media', name: 'media', component: () => import('./pages/MediaPage.vue'), meta: { title: 'Media kutubxona' } },
         { path: 'hujjatlar', name: 'documents', component: () => import('./pages/DocumentsPage.vue'), meta: { title: 'Hujjatlar', roles: ['superadmin', 'pages'] } },

@@ -58,7 +58,7 @@ Asosiy qoidalar:
 |---|---|---|
 | `core` | umumiy: media, sozlamalar, faollik, fayl xavfsizligi, middleware, kechki vazifalar, zaxira, so‘rov cheklovi | `Media`, `SiteSettings`, `Activity`, `Hit` |
 | `accounts` | admin foydalanuvchilar va xodim kabineti sessiyalari | `User`, `StaffSession` |
-| `content` | postlar (yangilik/e’lon/tadbir), slayd, rahbariyat, hujjat, video, ramzlar | `Post`, `Slide`, `Document`, `Video`, … |
+| `content` | postlar (yangilik/e’lon/tadbir), slayd, rahbariyat, hujjat, video, tezkor xizmatlar, ramzlar | `Post`, `Slide`, `Document`, `Video`, `QuickLink`, … |
 | `structure` | fakultet, kafedra, xodim profili, dasturlar, qabul, murojaat | `Faculty`, `Department`, `StaffProfile`, `Appeal` |
 | `pages` | statik sahifalar va BRM (barqaror rivojlanish maqsadlari) | `Page`, `SdgGoal` |
 | `hemis` | HEMIS klienti, nusxa, OAuth kirish, jadval | `HemisSnapshot` |

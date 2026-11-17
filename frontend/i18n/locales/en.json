@@ -125,37 +125,7 @@
   },
   "quick": {
     "eyebrow": "One click away",
-    "title": "Quick services",
-    "items": {
-      "reception": {
-        "title": "Virtual reception",
-        "text": "Send an appeal to the rector"
-      },
-      "student": {
-        "title": "Student portal",
-        "text": "Grades, schedule, attendance"
-      },
-      "hemis": {
-        "title": "HEMIS",
-        "text": "Higher education information system"
-      },
-      "mail": {
-        "title": "Corporate mail",
-        "text": "Email for staff"
-      },
-      "career": {
-        "title": "Career centre",
-        "text": "Internships and jobs"
-      },
-      "brm": {
-        "title": "SDG",
-        "text": "Sustainable Development Goals"
-      },
-      "glossary": {
-        "title": "ICT glossary",
-        "text": "Mobile app"
-      }
-    }
+    "title": "Quick services"
   },
   "about": {
     "eyebrow": "About the university",

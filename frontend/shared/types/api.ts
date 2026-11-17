@@ -93,6 +93,8 @@ export interface HomeData {
   banner?: HomeBanner | null
   /** «Universitet haqida» video turi — admin panelda («Universitet haqida» bo'limi) kiritiladi; havola yo'q yoki yashirilgan bo'lsa null */
   videoTour?: HomeVideoTour | null
+  /** «Tezkor xizmatlar» kartalari — admin panelda alohida sahifadan boshqariladi; bo'sh bo'lsa blok chiqmaydi */
+  quickLinks?: QuickLinkItem[]
   /** HEMIS ma'lumotlari oxirgi marta yangilangan vaqt (ISO) */
   updatedAt: string
 }
@@ -319,6 +321,16 @@ export interface CabinetPatch {
   visibility?: Partial<Record<StaffDocSection, boolean>>
 }
 
+/** «Tezkor xizmatlar» kartasi: `external` — tashqi havola (yangi oynada ochiladi) */
+export interface QuickLinkItem {
+  id: string
+  icon: string
+  url: string
+  external: boolean
+  title: string
+  text?: string | null
+}
+
 /** Bosh sahifadagi video tur: `url` — ko'mish (iframe/video) manzili */
 export interface HomeVideoTour {
   kind: 'youtube' | 'vimeo' | 'file'
@@ -337,8 +349,6 @@ export interface SiteData {
   emails: string[]
   campuses: Campus[]
   socials: SocialLink[]
-  /** AKT izohli lug'ati mobil ilovasi (Play Market) havolasi — admin panelda kiritiladi; bo'sh bo'lsa bosh sahifada karta ko'rsatilmaydi */
-  glossaryApp?: string | null
   /** Davlat ramzlari (bosh sahifa bloki va footer) — admin panelda boshqariladi; berilmasa saytdagi standart havolalar */
   symbols?: StateSymbol[] | null
 }

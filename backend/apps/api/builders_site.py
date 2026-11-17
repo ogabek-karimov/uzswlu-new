@@ -10,7 +10,7 @@ from django.db.models.functions import TruncMonth
 from django.utils import timezone
 
 from apps.content.models import (
-    Document, DocCategory, HomeBanner, HomeVideoTour, Leader, Partner, Post, Slide, StateSymbol, TaughtLanguage, Video, VideoCategory, VideoPage,
+    Document, DocCategory, HomeBanner, HomeVideoTour, Leader, Partner, QuickLink, Post, Slide, StateSymbol, TaughtLanguage, Video, VideoCategory, VideoPage,
 )
 from apps.content.video_tour import parse_video
 from apps.core.fields import pick, tr
@@ -109,6 +109,7 @@ def home_out(lang: str) -> dict:
         ],
         'banner': banner_out(lang),
         'videoTour': video_tour_out(lang),
+        'quickLinks': quick_links_out(lang),
         'updatedAt': iso(synced or timezone.now()),
     }
 
@@ -121,6 +122,18 @@ def banner_out(lang: str) -> dict | None:
     # width/height — brauzer rasm yuklanguncha joyini oldindan ajratadi (sahifa sakramaydi)
     return {'image': img(b.image, 'hero'), 'width': b.image.width or None, 'height': b.image.height or None,
             'alt': tr(b.alt, lang), 'link': b.link or None}
+
+
+def quick_links_out(lang: str) -> list[dict]:
+    """«Tezkor xizmatlar»: faqat ko'rinadigan kartalar, tartib bo'yicha. Sarlavhasi tanlangan tilda bo'sh bo'lsa — o'zbekcha."""
+    out = []
+    for q in QuickLink.objects.filter(visible=True):
+        title = tr(q.title, lang) or q.title.get('uz') or ''
+        if not title:
+            continue
+        out.append({'id': str(q.pk), 'icon': q.icon, 'url': q.url, 'external': q.url.startswith('http'),
+                    'title': title, 'text': tr(q.text, lang) or None})
+    return out
 
 
 def video_tour_out(lang: str) -> dict | None:
@@ -205,7 +218,6 @@ def site_out(lang: str) -> dict:
         'emails': [e.value for e in ContactEmail.objects.all()],
         'campuses': [{'id': c.key, 'name': tr(c.name, lang), 'address': tr(c.address, lang)} for c in Campus.objects.all()],
         'socials': socials,
-        'glossaryApp': s.glossary_app_url or None,
         'symbols': symbols_out(lang) or None,
     }
 

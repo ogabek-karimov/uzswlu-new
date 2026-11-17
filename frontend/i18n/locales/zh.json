@@ -125,37 +125,7 @@
   },
   "quick": {
     "eyebrow": "一键直达",
-    "title": "快捷服务",
-    "items": {
-      "reception": {
-        "title": "网上接待室",
-        "text": "向校长提交申请"
-      },
-      "student": {
-        "title": "学生门户",
-        "text": "成绩、课表、考勤"
-      },
-      "hemis": {
-        "title": "HEMIS",
-        "text": "高等教育信息系统"
-      },
-      "mail": {
-        "title": "企业邮箱",
-        "text": "教职工电子邮箱"
-      },
-      "career": {
-        "title": "就业中心",
-        "text": "实习与就业"
-      },
-      "brm": {
-        "title": "SDG",
-        "text": "可持续发展目标"
-      },
-      "glossary": {
-        "title": "信息通信技术词典",
-        "text": "移动应用"
-      }
-    }
+    "title": "快捷服务"
   },
   "about": {
     "eyebrow": "关于大学",

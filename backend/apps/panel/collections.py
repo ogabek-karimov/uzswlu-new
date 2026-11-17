@@ -16,8 +16,9 @@ from django.utils.dateparse import parse_datetime
 
 from apps.accounts.models import User
 from apps.content.models import (
-    Category, DocCategory, Document, Leader, Post, PostAttachment, PostGalleryImage, Slide, Video, VideoCategory,
+    Category, DocCategory, Document, Leader, Post, PostAttachment, PostGalleryImage, QuickLink, Slide, Video, VideoCategory,
 )
+from apps.content.quick_links import ICON_NAMES, valid_url
 from apps.core.fields import LANGS
 from apps.core.models import Activity, Media
 from apps.pages.models import Page, PageAttachment, PageFact, PageTimeline, SdgGoal, SdgGoalReport, SdgSection
@@ -644,6 +645,29 @@ class Videos(Collection):
             v.thumbnail = f'https://i.ytimg.com/vi/{vid}/hqdefault.jpg'
 
 
+class QuickLinks(Collection):
+    slug = 'quick-links'
+    model = QuickLink
+    tags = ('home',)
+    default_sort = ['order', 'id']
+    access = {'read': ALL, 'create': PAGES, 'update': PAGES, 'delete': PAGES}
+    rules = {'create': '`icon` — `lucide:*` ro‘yxatidan; `url` — `/yo‘l` yoki `https://…`; `title.uz` majburiy.'}
+
+    def out(self, q, depth):
+        return {'id': q.pk, 'icon': q.icon, 'url': q.url, 'title': i18n_out(q.title), 'text': i18n_out(q.text),
+                'order': q.order, 'visible': q.visible}
+
+    def write(self, q, data, request, creating):
+        put(q, data, {'icon': ('icon', text), 'url': ('url', text), 'title': ('title', i18n_in), 'text': ('text', i18n_in),
+                      'order': ('order', num), 'visible': ('visible', flag)})
+        if q.icon not in ICON_NAMES:
+            raise ValidationError('Ikonkani ro‘yxatdan tanlang')
+        if not valid_url(q.url):
+            raise ValidationError('Havola «/yo‘l» yoki «https://…» ko‘rinishida bo‘lishi kerak')
+        if not (q.title or {}).get('uz'):
+            raise ValidationError('Nomi (o‘zbekcha) majburiy')
+
+
 # ─── Tuzilma ────────────────────────────────────────────────────────────────
 
 class Faculties(Collection):
@@ -902,6 +926,6 @@ class Activities(Collection):
 
 
 REGISTRY: dict[str, Collection] = {c.slug: c for c in (
-    Users(), Medias(), Categories(), Posts(), Slides(), Leaders(), DocCategories(), Documents(), VideoCategories(), Videos(),
+    Users(), Medias(), Categories(), Posts(), Slides(), Leaders(), DocCategories(), Documents(), VideoCategories(), Videos(), QuickLinks(),
     Faculties(), Departments(), StaffProfiles(), SdgGoals(), Pages(), LoginEvents(), Activities(),
 )}
