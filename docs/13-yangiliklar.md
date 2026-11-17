@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-17
 
-- **Server — admin saqlagan kontent saytda «eski keshda qolib ketishi» bartaraf etildi:** (1) Nuxt `server/api` keshlari 5 daqiqa/1 soatdan **60 soniyaga** tushirildi (`/api/site` 1 soat edi) — kesh tozalash biror sababga ko‘ra o‘tmay qolsa ham sayt bir daqiqada yangilanadi; (2) backend Nuxt keshini tozalashda 1 marta qayta urinadi va natijani logga yozadi (`Sayt keshi yangilandi: …`); (3) nginx `/api/` keshi oldingi tuzatishda o‘chirilgan. Qo‘llash: `docker compose -f docker-compose.prod.yml up -d --build backend frontend nginx`. Qo‘llanma: `docs/10-server.md`. — `COMMIT`
+- **Server — admin saqlagan kontent saytda «eski keshda qolib ketishi» bartaraf etildi:** (1) Nuxt `server/api` keshlari 5 daqiqa/1 soatdan **60 soniyaga** tushirildi (`/api/site` 1 soat edi) — kesh tozalash biror sababga ko‘ra o‘tmay qolsa ham sayt bir daqiqada yangilanadi; (2) backend Nuxt keshini tozalashda 1 marta qayta urinadi va natijani logga yozadi (`Sayt keshi yangilandi: …`); (3) nginx `/api/` keshi oldingi tuzatishda o‘chirilgan. Qo‘llash: `docker compose -f docker-compose.prod.yml up -d --build backend frontend nginx`. Qo‘llanma: `docs/10-server.md`. — `2c4e4a7`
 - **Admin — «Video tur» kartasi ko‘rinmasligi tuzatildi:** «Universitet haqida» matnli sahifa (`/universitet-haqida`), menyu guruhi emas, shuning uchun karta ko‘rinmasdi. Endi u shu sahifani ochganda (Sahifalar → Universitet → Universitet haqida) «Sahifa mazmuni» ustida chiqadi. — `fa9dabb`
 
 ## 2026-11-16
