@@ -12,6 +12,7 @@ import logging
 import threading
 import time
 import urllib.request
+from urllib.parse import urlparse
 
 from django.conf import settings
 from django.core.cache import cache
@@ -51,9 +52,16 @@ def refresh_edge() -> dict:
                 if attempt == 1:
                     time.sleep(1.0)
     if settings.EDGE_REFRESH_URLS and settings.EDGE_REFRESH_TOKEN:
+        # nginx keshi kaliti `$scheme$host$request_uri`: ichki so'rov (`http://nginx/`) Host'i `nginx` bo'lsa, YANGILANGAN nusxa
+        # boshqa kalitga yoziladi, haqiqiy mehmonlarga esa eski nusxa (30 s + «yangilanguncha eskisi») berilaveradi. Shuning uchun
+        # sayt domeni Host sifatida yuboriladi.
+        host = urlparse(settings.SITE_URL).hostname
         for url in settings.EDGE_REFRESH_URLS:
             try:
-                _request(url, 'GET', {'X-Cache-Refresh': settings.EDGE_REFRESH_TOKEN})
+                headers = {'X-Cache-Refresh': settings.EDGE_REFRESH_TOKEN}
+                if host:
+                    headers['Host'] = host
+                _request(url, 'GET', headers)
                 out['refreshed'] += 1
             except Exception as exc:  # noqa: BLE001
                 log.warning('nginx sahifasini yangilab bo‘lmadi (%s): %s', url, exc)

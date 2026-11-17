@@ -248,7 +248,7 @@ Natijada `Requests per second`, `Time per request` va foizli kechikish jadvali (
 Backend keshi `content_ver` bilan darrov eskiradi. Oldindagi qatlamlar uchun (`backend/apps/api/edge.py`) saqlashdan keyin fonda (ketma-ket saqlashlar bitta yangilanishga birlashadi, saqlash hech qachon to‘xtamaydi):
 
 1. **Nuxt keshi tozalanadi:** `POST EDGE_PURGE_URL` (`http://frontend:3000/api/_purge`, `Authorization: Bearer <API_TOKEN>`). Endpoint tokensiz 401, token sozlanmagan bo‘lsa 404; nginx uni tashqariga ochmaydi.
-2. **nginx keshi yangilanadi:** ochiq nginx’da `purge` yo‘q, shuning uchun bosh sahifalar (`EDGE_REFRESH_URLS`, 4 til) `X-Cache-Refresh: <EDGE_REFRESH_TOKEN>` sarlavhasi bilan so‘raladi — nginx keshni chetlab o‘tib yangi nusxani saqlaydi.
+2. **nginx keshi yangilanadi:** ochiq nginx’da `purge` yo‘q, shuning uchun bosh sahifalar (`EDGE_REFRESH_URLS`, 4 til) `X-Cache-Refresh: <EDGE_REFRESH_TOKEN>` sarlavhasi bilan so‘raladi — nginx keshni chetlab o‘tib yangi nusxani saqlaydi. **Muhim:** nginx kesh kaliti `$scheme$host$request_uri`, shuning uchun yangilash so‘rovi `Host: <SITE_URL domeni>` bilan yuboriladi (`http://nginx/` manzili bo‘lsa ham) — aks holda yangi nusxa boshqa kalitga yozilib, haqiqiy mehmonlarga bir o‘zgarish eski sahifa berilardi.
 
 Cheklovlar: nginx’da faqat bosh sahifalar darrov yangilanadi; boshqa sahifalar eng ko‘pi bilan `proxy_cache_valid` (30 s) eski turadi. Bir nechta Node nusxasi bo‘lsa, tozalash faqat so‘rov tushgan nusxaga yetadi (qolganlari 5 daqiqagacha). Sozlamalar bo‘sh bo‘lsa (lokal) bu mexanizm o‘chiq.
 

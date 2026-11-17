@@ -42,6 +42,17 @@ class EdgeRefreshTests(SimpleTestCase):
         self.assertEqual(calls[0][2]['Authorization'], 'Bearer tok-new')      # API_TOKEN ning birinchisi
         self.assertEqual(calls[1][2]['X-cache-refresh'], 'r-secret')
 
+    @override_settings(SITE_URL='https://uzswlu.example.uz', **ON)
+    def test_refresh_uses_site_host_so_nginx_cache_key_matches_visitors(self):
+        # nginx kaliti $host ni o'z ichiga oladi: «http://nginx/» (Host: nginx) emas, sayt domeni bilan yangilanishi shart
+        hosts = []
+        def fake(req, timeout=0):
+            hosts.append(dict(req.header_items()).get('Host'))
+            return _Resp()
+        with mock.patch('urllib.request.urlopen', fake):
+            edge.refresh_edge()
+        self.assertEqual(hosts, [None, 'uzswlu.example.uz', 'uzswlu.example.uz'])   # birinchisi — Nuxt tozalash (POST)
+
     @override_settings(**ON)
     def test_failure_does_not_raise(self):
         with mock.patch('urllib.request.urlopen', side_effect=OSError('down')):
