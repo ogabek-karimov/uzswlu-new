@@ -20,7 +20,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: 60 * 5,
+    maxAge: 60,
     getKey: event => `contact:${normalizeLocale(getQuery(event).lang)}`,
     shouldBypassCache: () => import.meta.dev,
   },

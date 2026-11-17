@@ -2,7 +2,7 @@ import { timingSafeEqual } from 'node:crypto'
 
 /**
  * Sayt (Nuxt) ichki keshini tozalash. Backend admin kontentni saqlaganda chaqiradi (backend/apps/api/edge.py),
- * shunda bosh sahifa va ro'yxatlar 5 daqiqa kutmay yangilanadi.
+ * shunda bosh sahifa va ro'yxatlar kutmay yangilanadi (tozalash o'tmay qolsa ham — keshlar 1 daqiqada o'zi eskiradi).
  * Himoya: `Authorization: Bearer <NUXT_API_TOKEN>` (backenddagi API_TOKEN bilan bir xil). Token bo'sh bo'lsa endpoint o'chiq (404).
  */
 function sameToken(given: string, expected: string): boolean {

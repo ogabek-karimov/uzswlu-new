@@ -40,12 +40,16 @@ def refresh_edge() -> dict:
     """Nuxt keshini tozalaydi, so'ng nginx'dagi sahifalarni yangilaydi. Natija: {'purge': bool|None, 'refreshed': n}."""
     out = {'purge': None, 'refreshed': 0}
     if settings.EDGE_PURGE_URL:
-        try:
-            _request(settings.EDGE_PURGE_URL, 'POST', {'Authorization': f'Bearer {_first_token()}'})
-            out['purge'] = True
-        except Exception as exc:  # noqa: BLE001
-            out['purge'] = False
-            log.warning('Nuxt keshini tozalab bo‘lmadi: %s', exc)
+        for attempt in (1, 2):   # frontend shu paytda qayta ishga tushayotgan bo'lsa — bir marta qayta uriniladi
+            try:
+                _request(settings.EDGE_PURGE_URL, 'POST', {'Authorization': f'Bearer {_first_token()}'})
+                out['purge'] = True
+                break
+            except Exception as exc:  # noqa: BLE001
+                out['purge'] = False
+                log.warning('Nuxt keshini tozalab bo‘lmadi (urinish %s/2): %s', attempt, exc)
+                if attempt == 1:
+                    time.sleep(1.0)
     if settings.EDGE_REFRESH_URLS and settings.EDGE_REFRESH_TOKEN:
         for url in settings.EDGE_REFRESH_URLS:
             try:
@@ -53,6 +57,7 @@ def refresh_edge() -> dict:
                 out['refreshed'] += 1
             except Exception as exc:  # noqa: BLE001
                 log.warning('nginx sahifasini yangilab bo‘lmadi (%s): %s', url, exc)
+    log.info('Sayt keshi yangilandi: %s', out)
     return out
 
 

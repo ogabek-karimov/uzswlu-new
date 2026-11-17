@@ -12,7 +12,7 @@ export default defineCachedEventHandler(
     return backendFetch<EventMonth>(event, '/events', { lang, month })
   },
   {
-    maxAge: 60 * 5,
+    maxAge: 60,
     getKey: (event) => {
       const q = readEventQuery(event)
       return `events:${q.lang}:${q.month}`

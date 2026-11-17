@@ -26,7 +26,7 @@ export default defineCachedEventHandler(
     return backendFetch<ContentPage>(event, `/pages/${slug}`, { lang })
   },
   {
-    maxAge: 60 * 5,
+    maxAge: 60,
     getKey: event => `page:${getRouterParam(event, 'slug')}:${normalizeLocale(getQuery(event).lang)}`,
     shouldBypassCache: () => import.meta.dev,
   },

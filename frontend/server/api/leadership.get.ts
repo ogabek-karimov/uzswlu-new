@@ -14,7 +14,7 @@ export default defineCachedEventHandler(
     return backendFetch<Leadership>(event, '/leadership', { lang })
   },
   {
-    maxAge: 60 * 5,
+    maxAge: 60,
     getKey: event => `leadership:${normalizeLocale(getQuery(event).lang)}`,
     shouldBypassCache: () => import.meta.dev,
   },

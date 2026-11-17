@@ -17,7 +17,7 @@ export default defineCachedEventHandler(
     return { ...overview, goals: cms?.goals.length ? cms.goals : overview.goals, impactYear: cms?.impactYear ?? overview.impactYear, news }
   },
   {
-    maxAge: 60 * 5,
+    maxAge: 60,
     getKey: event => `sdg:${normalizeLocale(getQuery(event).lang)}`,
     shouldBypassCache: () => import.meta.dev,
   },

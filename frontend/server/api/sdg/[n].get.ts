@@ -26,7 +26,7 @@ export default defineCachedEventHandler(
     return backendFetch<SdgGoal>(event, `/sdg/${n}`, { lang })
   },
   {
-    maxAge: 60 * 5,
+    maxAge: 60,
     getKey: event => `sdg-goal:${getRouterParam(event, 'n')}:${normalizeLocale(getQuery(event).lang)}`,
     shouldBypassCache: () => import.meta.dev,
   },

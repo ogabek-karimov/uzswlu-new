@@ -14,7 +14,7 @@ export default defineCachedEventHandler(
     return backendFetch<VideoList>(event, '/videos', { lang })
   },
   {
-    maxAge: 60 * 5,
+    maxAge: 60,
     getKey: event => `videos:${normalizeLocale(getQuery(event).lang)}`,
     shouldBypassCache: () => import.meta.dev,
   },

@@ -18,7 +18,7 @@ export default defineCachedEventHandler(
     return { ...site, ...(menu?.length ? { menu } : {}), ...(symbols ? { symbols } : {}) }
   },
   {
-    maxAge: 60 * 60,
+    maxAge: 60,
     getKey: event => `site:${normalizeLocale(getQuery(event).lang)}`,
     shouldBypassCache: () => import.meta.dev,
   },

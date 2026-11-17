@@ -11,7 +11,7 @@ export default defineCachedEventHandler(
     return backendFetch<ProgramList>(event, '/programs', { lang, level })
   },
   {
-    maxAge: 60 * 5,
+    maxAge: 60,
     getKey: (event) => {
       const q = readProgramQuery(event)
       return `programs:${q.lang}:${q.level}`

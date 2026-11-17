@@ -26,8 +26,8 @@ export default defineCachedEventHandler(
     return { ...home, ...latest, slides, faculties }
   },
   {
-    // HEMIS'ga ortiqcha yuk tushmasligi uchun javob 5 daqiqa keshda turadi
-    maxAge: 60 * 5,
+    // Javob 1 daqiqa keshda turadi (HEMIS'ga backend yetkazmaydi, u o'z nusxasidan o'qiydi); admin saqlasa kesh darrov tozalanadi
+    maxAge: 60,
     getKey: event => `home:${normalizeLocale(getQuery(event).lang)}`,
     shouldBypassCache: () => import.meta.dev,
   },

@@ -11,7 +11,7 @@ export default defineCachedEventHandler(
     return backendFetch<Admission>(event, '/admission', { lang })
   },
   {
-    maxAge: 60 * 5,
+    maxAge: 60,
     getKey: event => `admission:${normalizeLocale(getQuery(event).lang)}`,
     shouldBypassCache: () => import.meta.dev,
   },

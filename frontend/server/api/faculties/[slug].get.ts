@@ -26,7 +26,7 @@ export default defineCachedEventHandler(
     return backendFetch<FacultyDetail>(event, `/faculties/${slug}`, { lang })
   },
   {
-    maxAge: 60 * 5,
+    maxAge: 60,
     getKey: event => `faculty:${getRouterParam(event, 'slug')}:${normalizeLocale(getQuery(event).lang)}`,
     shouldBypassCache: () => import.meta.dev,
   },

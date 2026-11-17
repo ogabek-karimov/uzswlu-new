@@ -14,7 +14,7 @@ export default defineCachedEventHandler(
     return backendFetch<DocumentList>(event, '/documents', { lang })
   },
   {
-    maxAge: 60 * 5,
+    maxAge: 60,
     getKey: event => `documents:${normalizeLocale(getQuery(event).lang)}`,
     shouldBypassCache: () => import.meta.dev,
   },
