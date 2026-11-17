@@ -122,7 +122,9 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
             :title="`${active.name} — ${t('homeContact.map')}`"
             class="absolute inset-0 size-full border-0"
           />
+          <!-- Yandex iframe'ning o'z «Открыть в Яндекс Картах» havolasi bor — ustma-ust tushmasligi uchun bizning tugma faqat xarita yo'q bo'lganda -->
           <a
+            v-if="!active.mapEmbed"
             :href="active.mapUrl"
             target="_blank"
             rel="noopener"

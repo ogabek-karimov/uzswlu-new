@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-18
 
+- **Sayt — xaritadagi ustma-ust tugmalar tuzatildi; telefonda «Tezkor xizmatlar» karusel:** Yandex xaritasi ustidagi bizning «Xaritada ochish» tugmasi xaritaning o‘z «Открыть в Яндекс Картах» havolasi bilan ustma-ust tushardi — endi tugma faqat xarita (iframe) bo‘lmaganda ko‘rinadi (bosh sahifa «Biz bilan bog‘lanish» va fakultet sahifasi; «Aloqa»dagi havola xarita ostida, o‘zgarmadi). Telefonda «Tezkor xizmatlar» yonga suriladigan karusel: keyingi karta qirqilib ko‘rinadi, pastda oldingi/keyingi strelkalar (`QuickLinks.vue`, `quick.prev/next`). — `COMMIT`
 - **Sayt — fasl belgisi menyudan ajratildi:** keng ekranda (≥1536 px) menyu qatorining eng chap chetida alohida turadi; torroq ekranda menyu oldida, ajratuvchi chiziq bilan (`TheHeader.vue`). — `1aed3bc`
 - **Sayt — ijtimoiy tarmoq ikonkalari fon va chegarasiz:** chap paneldagi oq quti, chegara va soya olib tashlandi — ikonkalar to‘g‘ridan-to‘g‘ri sahifa ustida, chap chetga yopishgan (`SocialDock.vue`). Fasl belgisi menyu qatorining eng boshida qoldi. — `47408f5`
 - **Sayt — fasl belgisi asosiy menyu boshiga ko‘chirildi:** endi menyu qatorining eng boshida (`SeasonButton.vue`: fasl nomi + belgi, bosilganda animatsiya). Chap ijtimoiy tarmoq paneli (`SocialDock.vue`) faqat tarmoqlar bilan, chap chetga yopishgan, chegarasiz (border olib tashlandi).

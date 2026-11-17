@@ -174,8 +174,9 @@ useSeo({ title: () => faculty.value?.name ?? '', description: () => faculty.valu
             :title="t('faculty.map')"
             class="absolute inset-0 size-full border-0"
           />
+          <!-- Yandex iframe'ning o'z havolasi bor: ustma-ust tushmasligi uchun bizning tugma faqat xarita yo'q bo'lganda -->
           <a
-            v-if="faculty.contact.mapUrl"
+            v-if="faculty.contact.mapUrl && !faculty.contact.mapEmbed"
             :href="faculty.contact.mapUrl"
             target="_blank"
             rel="noopener"

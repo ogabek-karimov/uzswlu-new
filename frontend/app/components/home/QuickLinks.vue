@@ -27,6 +27,24 @@ const ALLOWED = [
   'lucide:life-buoy',
 ]
 const links = computed(() => (home.value?.quickLinks ?? []).map(q => ({ ...q, icon: ALLOWED.includes(q.icon) ? q.icon : 'lucide:globe' })))
+
+// Telefonda kartalar yonga suriladi (karusel): strelkalar bir karta kengligiga suradi
+const track = ref<HTMLElement>()
+const edge = reactive({ start: true, end: false })
+function measure() {
+  const el = track.value
+  if (!el) return
+  edge.start = el.scrollLeft < 8
+  edge.end = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8
+}
+function slide(dir: 1 | -1) {
+  const el = track.value
+  if (!el) return
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: reduce ? 'auto' : 'smooth' })
+}
+onMounted(measure)
+watch(links, () => nextTick(measure))
 </script>
 
 <template>
@@ -41,8 +59,8 @@ const links = computed(() => (home.value?.quickLinks ?? []).map(q => ({ ...q, ic
       </div>
     </div>
     <div>
-      <ul class="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-3 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-7">
-        <li data-reveal-item v-for="link in links" :key="link.id" class="group/li min-w-[46%] shrink-0 snap-start sm:min-w-0">
+      <ul ref="track" class="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto overscroll-x-contain px-4 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-7" @scroll.passive="measure">
+        <li data-reveal-item v-for="link in links" :key="link.id" class="group/li min-w-[62%] shrink-0 snap-start min-[480px]:min-w-[44%] sm:min-w-0">
           <component
             :is="link.external ? 'a' : NuxtLink"
             v-bind="link.external ? { href: link.url, target: '_blank', rel: 'noopener' } : { to: localePath(link.url) }"
@@ -64,6 +82,14 @@ const links = computed(() => (home.value?.quickLinks ?? []).map(q => ({ ...q, ic
           </component>
         </li>
       </ul>
+      <div v-if="links.length > 2" class="mt-3 flex justify-center gap-3 sm:hidden">
+        <button type="button" class="grid size-11 place-items-center rounded-full border border-line bg-white text-ink transition disabled:opacity-35" :disabled="edge.start" :aria-label="t('quick.prev')" @click="slide(-1)">
+          <Icon name="lucide:chevron-left" class="size-5" />
+        </button>
+        <button type="button" class="grid size-11 place-items-center rounded-full border border-line bg-white text-ink transition disabled:opacity-35" :disabled="edge.end" :aria-label="t('quick.next')" @click="slide(1)">
+          <Icon name="lucide:chevron-right" class="size-5" />
+        </button>
+      </div>
     </div>
   </section>
 </template>
