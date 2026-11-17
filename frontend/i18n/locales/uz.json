@@ -123,6 +123,70 @@
     "students": "talaba tahsil oladi",
     "greeting": "Salom, dunyo!"
   },
+  "reception": {
+    "title": "Virtual qabulxona",
+    "lead": "Rektor va universitet rahbariyatiga masofadan murojaat yuborişning rasmiy usuli.",
+    "stepsTitle": "Murojaat qanday ko‘rib çiqiladi",
+    "rulesTitle": "Yuborişdan oldin",
+    "phone": "Qabulxona telefoni",
+    "hotline": "Işonç telefoni",
+    "formCrumb": "Murojaat yuboriş",
+    "steps": [
+      {
+        "title": "Murojaatni yozing",
+        "text": "Pastdagi şaklda F.I.Ş., telefon va e-poçtangizni kiriting, murojaat qaratiladigan rahbarni tanlang va mazmunini yozing."
+      },
+      {
+        "title": "Raqam oling",
+        "text": "Yuborilgandan so‘ng murojaatingizga raqam beriladi — uni saqlab qo‘ying."
+      },
+      {
+        "title": "Ko‘rib çiqiş",
+        "text": "Murojaat tegişli bo‘limga yo‘naltiriladi va qonunçilikda belgilangan muddatda (odatda 15 kun içida) ko‘rib çiqiladi."
+      },
+      {
+        "title": "Javob oling",
+        "text": "Javob siz ko‘rsatgan e-poçta yoki telefon orqali yetkaziladi."
+      }
+    ],
+    "rules": [
+      "Murojaatda o‘z ismingiz va aloqa ma’lumotlaringizni to‘g‘ri ko‘rsating — aks holda javob yetkazib bo‘lmaydi.",
+      "Masalani qisqa va aniq bayon qiling; zarur bo‘lsa hujjat (PDF, rasm, Word, 10 MB gaça) biriktiring.",
+      "Bir masala bo‘yiça takroriy murojaat yubormang — avval berilgan raqam bo‘yiça so‘rang.",
+      "Shoşilinç holatlarda işonç telefoni yoki qabulxonaga qo‘ng‘iroq qiling."
+    ]
+  },
+  "corpMail": {
+    "title": "Korporativ poçta",
+    "lead": "Universitet xodimlari uçun rasmiy elektron poçta xizmati.",
+    "open": "Poçtaga kiriş",
+    "openHint": "Yangi oynada webmail.uzswlu.uz ochiladi",
+    "accessTitle": "Kirişning tartibi",
+    "rulesTitle": "Foydalanish qoidalari",
+    "helpTitle": "Yordam kerakmi?",
+    "helpText": "Kiriş yoki parol bilan muammo bo‘lsa, AKT markaziga murojaat qiling.",
+    "helpCta": "Aloqa sahifasi",
+    "access": [
+      {
+        "title": "Login",
+        "text": "To‘liq manzilingizni yozing: ismingiz@uzswlu.uz."
+      },
+      {
+        "title": "Parol",
+        "text": "Birinçi kirişda berilgan vaqtinçalik parolni almaştiring. Parol kamida 8 ta belgi bo‘lsin: harf, raqam va belgi aralaş."
+      },
+      {
+        "title": "Qurilmalar",
+        "text": "Poçtaga brauzer orqali yoki telefon/kompyuterdagi poçta dasturi (IMAP/SMTP) orqali ulanish mumkin; sozlamalarni AKT markazidan so‘rang."
+      }
+    ],
+    "rules": [
+      "Poçta faqat xizmat yozişmalari uçun mo‘ljallangan.",
+      "Parolingizni hesh kimga bermang, universitet xodimlari ham uni so‘ramaydi.",
+      "Notanish jo‘natuvçilardan kelgan havola va fayllarni oçmang — firibgarlik (fişing) bo‘lishi mumkin.",
+      "Xodim işdan ketsa, poçta qaydnomasi o‘çiriladi: muhim yozişmalarni oldindan saqlab qo‘ying."
+    ]
+  },
   "quick": {
     "eyebrow": "Bir bosişda",
     "title": "Tezkor xizmatlar"

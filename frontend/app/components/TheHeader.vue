@@ -204,6 +204,8 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
     <!-- 2-qator: asosiy menyu (planshet va kompyuter) -->
     <div class="hidden border-t border-line/70 md:block">
       <div class="mx-auto flex h-14 max-w-7xl items-center overflow-x-clip px-4 sm:px-6 lg:px-8">
+        <!-- Joriy fasl belgisi: menyuning eng boshida -->
+        <SeasonButton class="mr-3" />
         <nav ref="navEl" class="relative min-w-0 flex-1" :aria-label="t('nav.menu')">
           <!-- O'lchagich: hamma bo'limlar ko'rinmas holda — qaysilari sig'ishini hisoblash uchun -->
           <ul ref="measureEl" aria-hidden="true" class="pointer-events-none invisible absolute top-0 left-0 flex gap-0.5">

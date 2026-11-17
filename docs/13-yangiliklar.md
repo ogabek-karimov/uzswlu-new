@@ -2,6 +2,11 @@
 
 Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `CLAUDE.md`). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.
 
+## 2026-11-18
+
+- **Sayt — fasl belgisi asosiy menyu boshiga ko‘chirildi:** endi menyu qatorining eng boshida (`SeasonButton.vue`: fasl nomi + belgi, bosilganda animatsiya). Chap ijtimoiy tarmoq paneli (`SocialDock.vue`) faqat tarmoqlar bilan, chap chetga yopishgan, chegarasiz (border olib tashlandi).
+- **Sayt — «Virtual qabulxona» va «Korporativ poçta» ichki sahifalari:** `/virtual-qabulxona` (murojaat tartibi 4 qadamda, yuborishdan oldingi qoidalar, ishonch va qabulxona telefonlari, murojaat shakli — `AppealForm.vue`, «Aloqa» sahifasidagi bilan bir xil komponent) va `/korporativ-pochta` (webmail.uzswlu.uz ga kirish tugmasi, kirish tartibi, foydalanish qoidalari, yordam). Matnlar 4 tilda (`reception.*`, `corpMail.*`); sitemap’ga qo‘shildi. Tezkor xizmatlardagi ikki karta migratsiya (`content/0007`) bilan shu sahifalarga yo‘naltirildi (avval `/site/reception` va `/services/mail` — mavjud bo‘lmagan manzillar edi). Eslatma: uzswlu.uz/site/reception sahifasini o‘qib bo‘lmadi, matnlar o‘zimiz yozilgan — admin matnlarini keyin tekshirib to‘g‘rilang. Qo‘llash: `git pull origin azik && docker compose -f docker-compose.prod.yml up -d --build backend frontend`. — `COMMIT`
+
 ## 2026-11-17
 
 - **Admin + Sayt — «Tezkor xizmatlar» alohida sahifadan boshqariladi:** admin panelda yangi «Tezkor xizmatlar» sahifasi (Kontent bo‘limi, `superadmin` va `pages`): karta qo‘shish/tahrirlash/o‘chirish, surib tartiblash, saytda yashirish, ikonka (ro‘yxatdan), havola (`/yo‘l` yoki `https://…`), 4 tilda nom va izoh. Bosh sahifa kartalari endi shu yerdan keladi (`home.quickLinks`; bo‘sh bo‘lsa blok chiqmaydi). Avvalgi 6 karta migratsiya bilan bazaga ko‘chirildi; Aloqa’da kiritilgan AKT lug‘ati havolasi alohida karta bo‘ldi, **Sozlamalar → Aloqa**dagi AKT maydoni va `SiteSettings.glossary_app_url`, `site.glossaryApp` olib tashlandi. Qo‘llash: `git pull origin azik && docker compose -f docker-compose.prod.yml up -d --build backend frontend nginx` (migratsiyalar o‘zi ishlaydi). Test: `tests/panel/test_quick_links.py`. — `225ae2c`

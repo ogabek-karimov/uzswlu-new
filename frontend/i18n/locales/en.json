@@ -123,6 +123,70 @@
     "students": "students enrolled",
     "greeting": "Hello, world!"
   },
+  "reception": {
+    "title": "Virtual reception",
+    "lead": "The official way to send an appeal to the rector and university leadership remotely.",
+    "stepsTitle": "How your appeal is handled",
+    "rulesTitle": "Before you send",
+    "phone": "Reception phone",
+    "hotline": "Hotline",
+    "formCrumb": "Send an appeal",
+    "steps": [
+      {
+        "title": "Write your appeal",
+        "text": "In the form below, enter your full name, phone and e-mail, choose the leader your appeal is addressed to, and describe the matter."
+      },
+      {
+        "title": "Get a number",
+        "text": "After sending, your appeal receives a number — keep it."
+      },
+      {
+        "title": "Review",
+        "text": "The appeal is forwarded to the relevant unit and reviewed within the period set by law (usually within 15 days)."
+      },
+      {
+        "title": "Receive a reply",
+        "text": "The reply is delivered to the e-mail or phone you provided."
+      }
+    ],
+    "rules": [
+      "Give your real name and contact details — otherwise we cannot reply.",
+      "Describe the matter briefly and clearly; attach a document if needed (PDF, image, Word, up to 10 MB).",
+      "Do not send repeat appeals on the same matter — ask about it using your appeal number.",
+      "In urgent cases call the hotline or the reception."
+    ]
+  },
+  "corpMail": {
+    "title": "Corporate mail",
+    "lead": "The official e-mail service for university staff.",
+    "open": "Open webmail",
+    "openHint": "webmail.uzswlu.uz opens in a new window",
+    "accessTitle": "How to sign in",
+    "rulesTitle": "Rules of use",
+    "helpTitle": "Need help?",
+    "helpText": "If you have trouble signing in or with your password, contact the ICT centre.",
+    "helpCta": "Contact page",
+    "access": [
+      {
+        "title": "Login",
+        "text": "Enter your full address: yourname@uzswlu.uz."
+      },
+      {
+        "title": "Password",
+        "text": "Change the temporary password you were given at first sign-in. Use at least 8 characters mixing letters, digits and symbols."
+      },
+      {
+        "title": "Devices",
+        "text": "Use a browser or a mail app (IMAP/SMTP) on your phone or computer; ask the ICT centre for the settings."
+      }
+    ],
+    "rules": [
+      "The mailbox is for official correspondence only.",
+      "Never share your password — university staff will not ask for it either.",
+      "Do not open links or files from unknown senders — it may be phishing.",
+      "When you leave the university the mailbox is deleted: save important messages beforehand."
+    ]
+  },
   "quick": {
     "eyebrow": "One click away",
     "title": "Quick services"

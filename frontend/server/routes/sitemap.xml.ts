@@ -7,7 +7,7 @@ import { buildSitemapXml, menuPaths, prefixedPath, type SitemapEntry } from '#sh
 
 const POST_TYPES: PostType[] = ['news', 'announcements', 'events']
 const MAX_PAGES = 40 // har bir ro'yxat uchun xavfsizlik chegarasi (40 × 48)
-const FIXED = ['/', '/yangiliklar', '/events', '/fakultetlar-va-kafedralar', '/staff', '/rektorat', '/aloqa', '/video-darsliklar', '/brm', '/bakalavriat', '/magistratura']
+const FIXED = ['/', '/yangiliklar', '/events', '/fakultetlar-va-kafedralar', '/staff', '/rektorat', '/aloqa', '/virtual-qabulxona', '/korporativ-pochta', '/video-darsliklar', '/brm', '/bakalavriat', '/magistratura']
 
 interface Entry { path: string; lastmod?: string }
 

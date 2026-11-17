@@ -28,6 +28,13 @@ class QuickLinkPanelTests(PanelBase):
         self.assertGreaterEqual(QuickLink.objects.count(), 6)
         self.assertTrue(any(q['url'] == '/career' for q in quick_links_out('uz')))
 
+    def test_seeded_cards_point_to_own_pages(self):
+        urls = {q['url'] for q in quick_links_out('uz')}
+        self.assertTrue({'/virtual-qabulxona', '/korporativ-pochta'} <= urls, urls)
+        self.assertFalse({'/site/reception', '/services/mail'} & urls)
+        for page in ('virtual-qabulxona', 'korporativ-pochta'):
+            self.assertTrue((ROOT / f'frontend/app/pages/{page}.vue').exists(), page)
+
     def test_create_and_expose(self):
         QuickLink.objects.all().delete()
         r = self.send('post', '/api/cms/quick-links', {'icon': 'lucide:book-a', 'url': 'https://play.google.com/store/apps/details?id=uz.soft.aktlugat23',
