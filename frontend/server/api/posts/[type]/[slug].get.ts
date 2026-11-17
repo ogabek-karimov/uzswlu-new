@@ -51,7 +51,8 @@ export default defineCachedEventHandler(
     return { ...sized, translations }
   },
   {
-    maxAge: 60,
+    maxAge: 5,
+    swr: false,   // eskirgan nusxa BERILMAYDI: admin saqlagach kesh tozalash o'tmay qolsa ham eng ko'pi 5 soniya (backend o'z keshi bilan himoyalaydi)
     getKey: event => `post:${getRouterParam(event, 'type')}:${getRouterParam(event, 'slug')}:${normalizeLocale(getQuery(event).lang)}`,
     shouldBypassCache: () => import.meta.dev,
   },

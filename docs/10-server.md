@@ -92,7 +92,7 @@ So‘rov yo‘li va har qatlamdagi kesh — foydalanuvchi baza yoki HEMIS’gach
 |---|---|---|
 | nginx `proxy_cache` | tayyor sahifa HTML’i, Node’ga so‘rov bormaydi | 30–60 s (+ eskirgan nusxa xatoda); admin saqlasa darrov yangilanadi |
 | Nuxt `routeRules` (`frontend/nuxt.config.ts`) | sahifalarga `s-maxage=30, stale-while-revalidate=30` sarlavhasi (Node'da alohida sahifa keshi yo‘q — ketma-ket «eskisini berib yangilash» kontentni 2 daqiqagacha kechiktirardi) | 30 s (+30 s) |
-| Nuxt `server/api` kesh | `/api/home`, `/api/site` va boshqalar; admin saqlasa tozalanadi (`/api/_purge`), tozalash o‘tmay qolsa ham o‘zi eskiradi | 60 s |
+| Nuxt `server/api` kesh | `/api/home`, `/api/site` va boshqalar; admin saqlasa tozalanadi (`/api/_purge`); eskirgan nusxa **berilmaydi** (`swr: false`) — asosiy kesh backendda | 5 s |
 | nginx `/api/` | **keshlanmaydi** (`proxy_cache off`, brauzerga `no-cache`) | — |
 | «Oxirgi yaxshi javob» | backend o‘chsa, saqlangan nusxa | 3 soat |
 | Backend ochiq javob keshi (`PUBLIC_CACHE_SECONDS`) | bazaga qayta bormaydi, kontent o‘zgarsa darhol yangilanadi; **to‘dan himoya**: muddati tugaganda (yoki kesh bo‘shaganda) bazaga bitta so‘rov boradi, qolgan minglablari eski nusxani oladi yoki natijani kutadi (`PUBLIC_CACHE_STALE_SECONDS`) | 60 s (+ 300 s eski nusxa) |

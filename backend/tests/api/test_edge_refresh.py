@@ -71,3 +71,12 @@ class EdgeRefreshTests(SimpleTestCase):
         with mock.patch.object(edge, 'schedule_edge_refresh') as sch:
             bump_content_version()
         sch.assert_called_once()
+
+
+class EdgeWorkerTests(SimpleTestCase):
+    def test_worker_refreshes_twice(self):
+        # birinchi yangilash Nuxt keshi tugamasidan olingan bo'lsa ham, ikkinchisi sahifani to'g'rilaydi
+        with mock.patch.object(edge.time, 'sleep') as sl, mock.patch.object(edge, 'refresh_edge') as rf:
+            edge._worker()
+        self.assertEqual(rf.call_count, 2)
+        self.assertEqual([c.args[0] for c in sl.call_args_list], [edge.DEBOUNCE_SECONDS, edge.SECOND_PASS_SECONDS])

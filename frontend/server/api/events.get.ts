@@ -12,7 +12,8 @@ export default defineCachedEventHandler(
     return backendFetch<EventMonth>(event, '/events', { lang, month })
   },
   {
-    maxAge: 60,
+    maxAge: 5,
+    swr: false,   // eskirgan nusxa BERILMAYDI: admin saqlagach kesh tozalash o'tmay qolsa ham eng ko'pi 5 soniya (backend o'z keshi bilan himoyalaydi)
     getKey: (event) => {
       const q = readEventQuery(event)
       return `events:${q.lang}:${q.month}`

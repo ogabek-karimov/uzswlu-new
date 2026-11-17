@@ -26,7 +26,8 @@ export default defineCachedEventHandler(
     return backendFetch<SdgGoal>(event, `/sdg/${n}`, { lang })
   },
   {
-    maxAge: 60,
+    maxAge: 5,
+    swr: false,   // eskirgan nusxa BERILMAYDI: admin saqlagach kesh tozalash o'tmay qolsa ham eng ko'pi 5 soniya (backend o'z keshi bilan himoyalaydi)
     getKey: event => `sdg-goal:${getRouterParam(event, 'n')}:${normalizeLocale(getQuery(event).lang)}`,
     shouldBypassCache: () => import.meta.dev,
   },

@@ -26,8 +26,9 @@ export default defineCachedEventHandler(
     return { ...home, ...latest, slides, faculties }
   },
   {
-    // Javob 1 daqiqa keshda turadi (HEMIS'ga backend yetkazmaydi, u o'z nusxasidan o'qiydi); admin saqlasa kesh darrov tozalanadi
-    maxAge: 60,
+    // Nuxt keshi QISQA (5 s, eskirgan nusxasiz): asosiy kesh backendda (`content_ver` bilan darrov yangilanadi) va nginx'da; bu yerda uzoq tursa admin o'zgarishi kechikadi (o'lchangan: 62 s)
+    maxAge: 5,
+    swr: false,   // eskirgan nusxa BERILMAYDI: admin saqlagach kesh tozalash o'tmay qolsa ham eng ko'pi 5 soniya (backend o'z keshi bilan himoyalaydi)
     getKey: event => `home:${normalizeLocale(getQuery(event).lang)}`,
     shouldBypassCache: () => import.meta.dev,
   },

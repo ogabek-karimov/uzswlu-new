@@ -6,7 +6,7 @@ tugamaguncha eski sahifani berardi. Shuning uchun `bump_content_version()` dan k
   2. nginx orqali bosh sahifalar `X-Cache-Refresh: <EDGE_REFRESH_TOKEN>` sarlavhasi bilan so'raladi — nginx keshni chetlab
      o'tib yangi nusxani saqlaydi (ochiq nginx'da `purge` yo'q, shuning uchun «yangilash» usuli).
 Hammasi ixtiyoriy: sozlama bo'sh bo'lsa hech narsa qilinmaydi. Xato bo'lsa saqlash to'xtamaydi — TTL baribir yangilaydi.
-Ketma-ket ko'p saqlash (masalan 20 ta rasm) bitta yangilanishga birlashtiriladi.
+Ketma-ket ko'p saqlash (masalan 20 ta rasm) bitta yangilanishga birlashtiriladi. Yangilash 2 marta bajariladi (+1,5 s va +8,5 s): Nuxt keshi tozalanmay qolsa ham sahifa nginx'da eski qolmaydi.
 """
 import logging
 import threading
@@ -69,8 +69,13 @@ def refresh_edge() -> dict:
     return out
 
 
+SECOND_PASS_SECONDS = 7   # ikkinchi yangilash: birinchisi Nuxt'ning qisqa keshi tugamasidan olingan bo'lsa ham, sahifa nginx'da eski qolmasin
+
+
 def _worker() -> None:
     time.sleep(DEBOUNCE_SECONDS)
+    refresh_edge()
+    time.sleep(SECOND_PASS_SECONDS)
     refresh_edge()
 
 

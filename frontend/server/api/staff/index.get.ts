@@ -18,7 +18,8 @@ export default defineCachedEventHandler(
   },
   {
     // Qisqa kesh: xodim yangi rasm yuklasa ro'yxatda ham tez almashsin
-    maxAge: 60,
+    maxAge: 5,
+    swr: false,   // eskirgan nusxa BERILMAYDI: admin saqlagach kesh tozalash o'tmay qolsa ham eng ko'pi 5 soniya (backend o'z keshi bilan himoyalaydi)
     getKey: (event) => {
       const q = readStaffQuery(event)
       return `staff:${q.lang}:${q.group}:${q.department ?? ''}:${q.page}:${q.perPage}:${q.q ?? ''}`
