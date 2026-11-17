@@ -470,7 +470,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (324 ta test)
+### Backend testlari xaritasi (325 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -479,7 +479,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/api/test_cabinet_roles.py` | 10 |  |
 | `backend/tests/api/test_cache_stampede.py` | 8 | Ochiq javoblar keshi: to'dan himoya — bir xil so'rovlar bazaga bir vaqtda urilmaydi (CachedGetMixin._cached_or_build). |
 | `backend/tests/api/test_contract.py` | 6 | Shartnoma testi: ochiq API javoblari `frontend/docs/openapi.yaml` sxemalariga mos bo'lishi shart (4 til × barcha endpoint). |
-| `backend/tests/api/test_edge_refresh.py` | 5 | Kontent o'zgarganda Nuxt/nginx keshini yangilash (apps/api/edge.py). |
+| `backend/tests/api/test_edge_refresh.py` | 6 | Kontent o'zgarganda Nuxt/nginx keshini yangilash (apps/api/edge.py). |
 | `backend/tests/api/test_flows.py` | 13 | Ochiq API oqimlari (demo ma'lumot bilan): sanoqlar, eski /api/site/* manzillari, API token, xodim kabineti, murojaat, statistika. |
 | `backend/tests/api/test_glossary_app.py` | 2 |  |
 | `backend/tests/api/test_maps.py` | 5 |  |
