@@ -358,6 +358,7 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `/faculty/:slug` | `frontend/app/pages/faculty/[slug].vue` |
 | `/fakultetlar-va-kafedralar` | `frontend/app/pages/fakultetlar-va-kafedralar.vue` |
 | `/` | `frontend/app/pages/index.vue` |
+| `/korporativ-pochta` | `frontend/app/pages/korporativ-pochta.vue` |
 | `/magistratura` | `frontend/app/pages/magistratura.vue` |
 | `/meyoriy-hujjatlar` | `frontend/app/pages/meyoriy-hujjatlar.vue` |
 | `/news/:slug` | `frontend/app/pages/news/[slug].vue` |
@@ -367,6 +368,7 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `/staff` | `frontend/app/pages/staff/index.vue` |
 | `/teacher/:id` | `frontend/app/pages/teacher/[id].vue` |
 | `/video-darsliklar` | `frontend/app/pages/video-darsliklar.vue` |
+| `/virtual-qabulxona` | `frontend/app/pages/virtual-qabulxona.vue` |
 | `/yangiliklar` | `frontend/app/pages/yangiliklar.vue` |
 
 #### Nuxt server qatlami (brauzer → shu yerga → backend)
@@ -474,7 +476,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (330 ta test)
+### Backend testlari xaritasi (331 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -494,7 +496,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/hemis/test_load_control.py` | 25 | HEMIS'ga va serverga bosim: tinch oyna, qulf, so'rov byudjeti, ketma-ket xatoda to'xtash, kechki jadval. |
 | `backend/tests/panel/test_collections.py` | 11 | Admin panel API (`/api/cms/*`): har bir kolleksiya uchun o'qish → o'zini PATCH → nusxa yaratish → o'chirish aylanishi, · `slow` |
 | `backend/tests/panel/test_pagination.py` | 5 | Sahifalash: har bir kolleksiyada barcha sahifalarni aylanib chiqqanda yozuvlar yo'qolmaydi va takrorlanmaydi; · `slow` |
-| `backend/tests/panel/test_quick_links.py` | 6 |  |
+| `backend/tests/panel/test_quick_links.py` | 7 |  |
 | `backend/tests/panel/test_spa_queries.py` | 4 | Admin SPA yuboradigan murakkab so'rovlar (`where[and][0][...]`, `like`, `not_in`, `exists`, `trash` ...): |
 | `backend/tests/panel/test_video_tour.py` | 6 |  |
 | `backend/tests/security/test_access_control.py` | 22 | Ob‘ekt darajasidagi ruxsat: id almashtirib begona ma’lumot olish (IDOR), kabinet izolyatsiyasi, post egaligi. |
