@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-18
 
-- **Sayt — bosh sahifa jonli fonlari qaytarildi (revert):** foydalanuvchi faqat dizayn (taxta) so‘ragan edi, kod so‘ralmagan — `8ecf1ea` va `e2d8bd1` o‘zgarishlari bekor qilindi. Dizayn taxtasi (4 fon, 5 o‘tish, telefon) alohida saqlanadi; kodga o‘tkazish — foydalanuvchi tanlagandan keyin. — `COMMIT`
+- **Sayt — bosh sahifa jonli fonlari qaytarildi (revert):** foydalanuvchi faqat dizayn (taxta) so‘ragan edi, kod so‘ralmagan — `8ecf1ea` va `e2d8bd1` o‘zgarishlari bekor qilindi. Dizayn taxtasi (4 fon, 5 o‘tish, telefon) alohida saqlanadi; kodga o‘tkazish — foydalanuvchi tanlagandan keyin. — `cacc887`
 - **Sayt — xaritadagi ustma-ust tugmalar tuzatildi; telefonda «Tezkor xizmatlar» karusel:** Yandex xaritasi ustidagi bizning «Xaritada ochish» tugmasi xaritaning o‘z «Открыть в Яндекс Картах» havolasi bilan ustma-ust tushardi — endi tugma faqat xarita (iframe) bo‘lmaganda ko‘rinadi (bosh sahifa «Biz bilan bog‘lanish» va fakultet sahifasi; «Aloqa»dagi havola xarita ostida, o‘zgarmadi). Telefonda «Tezkor xizmatlar» yonga suriladigan karusel: keyingi karta qirqilib ko‘rinadi, pastda oldingi/keyingi strelkalar (`QuickLinks.vue`, `quick.prev/next`). — `dab13d3`
 - **Sayt — fasl belgisi menyudan ajratildi:** keng ekranda (≥1536 px) menyu qatorining eng chap chetida alohida turadi; torroq ekranda menyu oldida, ajratuvchi chiziq bilan (`TheHeader.vue`). — `1aed3bc`
 - **Sayt — ijtimoiy tarmoq ikonkalari fon va chegarasiz:** chap paneldagi oq quti, chegara va soya olib tashlandi — ikonkalar to‘g‘ridan-to‘g‘ri sahifa ustida, chap chetga yopishgan (`SocialDock.vue`). Fasl belgisi menyu qatorining eng boshida qoldi. — `47408f5`
