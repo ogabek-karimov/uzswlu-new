@@ -23,27 +23,6 @@ const preview = computed(() => props.faculties.slice(0, 4))
       class="decor absolute -inset-6 -z-20 h-[calc(100%+3rem)] w-[calc(100%+3rem)] max-w-none object-cover blur-[5px] saturate-[1.1]"
     >
     <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(17_12_46/0.9)_0%,rgb(17_12_46/0.68)_45%,rgb(17_12_46/0.88)_100%)]" />
-    <!-- Islimiy naqsh: o'ng tomonda ko'rinadi, chap (matn) tomonga so'nadi; chiziqlar asta «chizilib» boradi -->
-    <svg class="decor naqsh-mask pointer-events-none absolute inset-0 -z-10 size-full opacity-[0.16] max-md:opacity-[0.1]" aria-hidden="true">
-      <defs>
-        <pattern id="home-naqsh" width="120" height="120" patternUnits="userSpaceOnUse">
-          <g stroke="currentColor" class="text-accent-400" stroke-width="1.2">
-            <path class="naqsh-line" pathLength="1" d="M30 30H90V90H30Z" />
-            <circle class="naqsh-line" pathLength="1" cx="60" cy="60" r="16" />
-          </g>
-          <g stroke="currentColor" class="text-brand-300" stroke-width="1.2">
-            <path class="naqsh-line naqsh-line-b" pathLength="1" d="M60 10L110 60L60 110L10 60Z" />
-            <path class="naqsh-line naqsh-line-b" pathLength="1" d="M0 -14L14 0L0 14L-14 0Z" />
-            <path class="naqsh-line naqsh-line-b" pathLength="1" d="M120 -14L134 0L120 14L106 0Z" />
-            <path class="naqsh-line naqsh-line-b" pathLength="1" d="M0 106L14 120L0 134L-14 120Z" />
-            <path class="naqsh-line naqsh-line-b" pathLength="1" d="M120 106L134 120L120 134L106 120Z" />
-          </g>
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#home-naqsh)" />
-    </svg>
-    <SectionWave position="top" />
-    <SectionWave position="bottom" />
 
     <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
       <SectionHeading

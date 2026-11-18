@@ -12,12 +12,9 @@ const formatDate = useFormatDate()
   <section class="relative isolate overflow-hidden bg-brand-50/70">
     <!-- Fon: taqvim katakchalari (o'ng-tepadan so'nadi) va katta xira taqvim belgisi -->
     <div class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-      <span class="aurora-a absolute -top-24 right-[8%] size-[24rem] rounded-full bg-brand-200/45 blur-3xl" />
-      <span class="aurora-b absolute -bottom-28 left-[22%] size-[22rem] rounded-full bg-accent-100/55 blur-3xl" />
       <span class="events-grid absolute inset-0" />
       <Icon name="lucide:calendar-days" class="absolute -bottom-10 -left-8 size-72 -rotate-12 text-brand-600/[0.06]" />
     </div>
-    <SectionWave position="top" />
     <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
     <SectionHeading
       :eyebrow="t('events.eyebrow')"
