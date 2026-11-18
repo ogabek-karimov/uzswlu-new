@@ -376,3 +376,61 @@ html[data-scheme] [data-speaking] {
 /* (butun kartani qoplovchi `.inset-0` qatlamning o'zi mustasno — u bosilishi kerak) */
 [data-spot] [aria-hidden='true']:not(.inset-0) { pointer-events: none; }
 [data-spot]:has(a[href]) { cursor: pointer; }
+
+
+/* ───────── Bosh sahifa: jonli fon va bo'limlar o'tishi (faqat transform/opacity; kamaytirilgan harakatda o'chadi) ───────── */
+
+/* Harflar: sekin suzadi; qo'llab-quvvatlansa scroll bilan chuqurlik (parallax) ham beradi */
+@keyframes glyph-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--r, 0deg)); }
+  50% { transform: translate3d(14px, -26px, 0) rotate(calc(var(--r, 0deg) + 7deg)); }
+}
+@keyframes glyph-parallax {
+  from { transform: translate3d(0, calc(var(--p, 30) * 1px), 0); }
+  to { transform: translate3d(0, calc(var(--p, 30) * -1px), 0); }
+}
+.glyph-par { position: absolute; }
+.glyph-drift { display: block; animation: glyph-drift var(--d, 24s) ease-in-out infinite; animation-delay: var(--l, 0s); will-change: transform; }
+@supports (animation-timeline: view()) {
+  .glyph-par { animation: glyph-parallax linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+}
+
+/* Aurora: yumshoq rangli dog'lar sekin shaklini o'zgartiradi */
+@keyframes aurora-a { 0%, 100% { transform: translate3d(0, 0, 0) scale(1); } 33% { transform: translate3d(90px, 40px, 0) scale(1.15); } 66% { transform: translate3d(-40px, 80px, 0) scale(0.92); } }
+@keyframes aurora-b { 0%, 100% { transform: translate3d(0, 0, 0) scale(1); } 40% { transform: translate3d(-100px, -30px, 0) scale(1.2); } 75% { transform: translate3d(50px, -60px, 0) scale(0.9); } }
+.aurora-a { animation: aurora-a 22s ease-in-out infinite; }
+.aurora-b { animation: aurora-b 28s ease-in-out infinite; }
+
+/* Islimiy naqsh: chiziqlar asta «chizilib» boradi */
+@keyframes naqsh-draw { to { stroke-dashoffset: 0; } }
+.naqsh-line { fill: none; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: naqsh-draw 8s ease-in-out infinite alternate; }
+.naqsh-line-b { animation-delay: -3s; }
+.naqsh-mask {
+  -webkit-mask-image: radial-gradient(ellipse 75% 95% at 85% 35%, #000 12%, transparent 75%);
+  mask-image: radial-gradient(ellipse 75% 95% at 85% 35%, #000 12%, transparent 75%);
+}
+
+/* Globus: meridianlar aylanadi, aloqa chiziqlari oqadi, shaharlar «uradi» */
+@keyframes globe-spin { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(-1); } }
+@keyframes globe-flow { to { stroke-dashoffset: -56; } }
+@keyframes globe-ping { 0% { transform: scale(0.4); opacity: 0.9; } 100% { transform: scale(2.6); opacity: 0; } }
+.globe-mer { transform-box: fill-box; transform-origin: center; animation: globe-spin 18s linear infinite; }
+.globe-arc { stroke-dasharray: 5 7; animation: globe-flow 3.4s linear infinite; }
+.globe-ping { transform-box: fill-box; transform-origin: center; animation: globe-ping 2.8s ease-out infinite; }
+
+/* Bo'limlar orasidagi egri ajratgich (SectionWave): ikki qatlam turli tezlikda siljiydi */
+@keyframes wave-slide { to { transform: translateX(-50%); } }
+.wave-a { animation: wave-slide 24s linear infinite; }
+.wave-b { animation: wave-slide 38s linear infinite reverse; }
+
+@media (max-width: 767px) {
+  /* Telefonda yengillashtirish: kamroq harf, parallax yo'q */
+  .glyph-par { animation: none !important; }
+  .glyph-extra { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .glyph-drift, .aurora-a, .aurora-b, .naqsh-line, .globe-mer, .globe-arc, .globe-ping, .wave-a, .wave-b { animation: none !important; }
+  .glyph-par { animation: none !important; }
+  .naqsh-line { stroke-dashoffset: 0; }
+  .globe-ping { display: none; }
+}

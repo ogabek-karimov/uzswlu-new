@@ -12,9 +12,26 @@ const localePath = useLocalePath()
   <section v-if="partners.length" class="relative isolate overflow-hidden bg-brand-900 py-14 lg:py-20">
     <div>
       <!-- Fon: xalqaro hamkorlik — globus chiziqlari (meridian va parallellar), juda xira -->
-      <svg class="decor pointer-events-none absolute -top-28 -right-24 -z-10 size-[28rem] text-white/[0.07]" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
-        <circle cx="200" cy="200" r="190" /><ellipse cx="200" cy="200" rx="190" ry="70" /><ellipse cx="200" cy="200" rx="190" ry="130" />
-        <ellipse cx="200" cy="200" rx="70" ry="190" /><ellipse cx="200" cy="200" rx="130" ry="190" /><path d="M10 200H390M200 10V390" />
+      <svg class="decor pointer-events-none absolute -top-28 -right-24 -z-10 size-[28rem] max-md:size-80" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+        <g class="text-white/[0.09]" stroke="currentColor" stroke-width="1">
+          <circle cx="200" cy="200" r="190" />
+          <ellipse class="globe-mer" cx="200" cy="200" rx="150" ry="190" />
+          <ellipse class="globe-mer" style="animation-delay: -6s" cx="200" cy="200" rx="100" ry="190" />
+          <ellipse class="globe-mer" style="animation-delay: -12s" cx="200" cy="200" rx="50" ry="190" />
+          <path d="M10 200H390M26 120Q200 150 374 120M26 280Q200 250 374 280M70 52Q200 78 330 52M70 348Q200 322 330 348" />
+        </g>
+        <g class="text-accent-400/55" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <path class="globe-arc" d="M150 190Q215 90 290 140" />
+          <path class="globe-arc" style="animation-delay: -1s" d="M150 190Q235 80 330 150" />
+          <path class="globe-arc" style="animation-delay: -2s" d="M150 190Q90 100 70 112" />
+          <path class="globe-arc" style="animation-delay: -2.6s" d="M150 190Q110 90 118 96" />
+        </g>
+        <g class="text-accent-400/70" fill="currentColor">
+          <circle cx="150" cy="190" r="4.5" /><circle cx="290" cy="140" r="3.2" /><circle cx="330" cy="150" r="3.2" /><circle cx="70" cy="112" r="3.2" /><circle cx="118" cy="96" r="3.2" />
+        </g>
+        <g class="text-accent-400/60" stroke="currentColor" stroke-width="1.2">
+          <circle class="globe-ping" cx="150" cy="190" r="8" /><circle class="globe-ping" style="animation-delay: -1s" cx="290" cy="140" r="6" /><circle class="globe-ping" style="animation-delay: -1.9s" cx="330" cy="150" r="6" />
+        </g>
       </svg>
       <svg class="decor pointer-events-none absolute -bottom-24 -left-16 -z-10 size-72 text-accent-400/[0.08]" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
         <circle cx="200" cy="200" r="190" /><ellipse cx="200" cy="200" rx="190" ry="90" /><ellipse cx="200" cy="200" rx="90" ry="190" /><path d="M10 200H390M200 10V390" />
