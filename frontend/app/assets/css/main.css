@@ -381,7 +381,7 @@ html[data-scheme] [data-speaking] {
    va «animatsiyani kamaytirish» yoqilganda to'xtaydi. */
 @keyframes bg-kb {
   from { transform: scale(1) translate3d(0, 0, 0); }
-  to { transform: scale(1.18) translate3d(-2.5%, -2%, 0); }
+  to { transform: scale(1.08) translate3d(0, 0, 0); } /* faqat markazdan kattalashadi — surat chetga surilmaydi */
 }
 @keyframes bg-reel {
   to { transform: translateX(-50%); }
@@ -402,7 +402,7 @@ html[data-scheme] [data-speaking] {
   to { background-position: -40px 0; }
 }
 
-.bg-kb { animation: bg-kb 36s ease-in-out infinite alternate; }
+.bg-kb { transform-origin: center; animation: bg-kb 36s ease-in-out infinite alternate; }
 .bg-reel { animation: bg-reel 70s linear infinite; }
 .bg-reel-rev { animation-direction: reverse; animation-duration: 85s; }
 .bg-slide { opacity: 0; animation: bg-slide 24s ease-in-out infinite; }

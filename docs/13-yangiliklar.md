@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-19
 
+- **Sayt (fon animatsiyasi):** `bg-kb` (Fakultetlar va Hamkorlar fonidagi surat) endi faqat markazdan sekin kattalashadi (1 → 1,08), chetga surilmaydi.
 - **Sayt (fakultet kartalari):** kartalar shaffof yashil (`#0e7a5a` 45%, yengil blur, mint chegara; hover’da 60%) — tiniq bino suratidan ajralib turadi.
 - **Sayt (Fakultetlar foni):** orqa fonda asosiy binoning kechki surati (`public/images/main-building.webp`, 1920 px, 281 KB; foydalanuvchi bergan rasmdan) — tiniq (blur’siz), ustida yengil indigo qatlam (oldingi holat: `blur-[3px]`, qatlam 0.78/0.5/0.78).
 - **Sayt (ranglar — «muvozanat»):** bo‘g‘iq deyarli qora ranglar (`#110c2e`, `#1c1548`) ochildi: yuqori qator va footer — yumshoq indigo (`#2f2675` → `#241c5e`); «Universitet haqida» raqamlari — oq kartalarda indigo raqamlar; «Fakultetlar» — yorqin o‘rta indigo gradient (aksent bo‘lim); «Yaqin tadbirlar» — och moviy-lavanda, atlas naqshi, karta sarlavhasi yorqinroq; «Hamkorlar» — oq fon, nozik chegarali logolar; rasmsiz yangilik/e’lon muqovalari — pastel (lavanda, mint, moviy, shaftoli).
