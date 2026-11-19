@@ -23,8 +23,8 @@ function star(cx: number, cy: number, outer = 9, inner = 3.7): string {
   }).join(' ')
 }
 const stars = [
-  ...[190, 226, 262].map(x => [x, 28]),
-  ...[172, 208, 244, 280].map(x => [x, 64]),
+  ...[226, 262, 298].map(x => [x, 28]),
+  ...[190, 226, 262, 298].map(x => [x, 64]),
   ...[154, 190, 226, 262, 298].map(x => [x, 100]),
 ].map(([x, y], i) => ({ points: star(x!, y!), delay: `${((i * 0.37) % 2.4).toFixed(2)}s` }))
 </script>
@@ -160,7 +160,17 @@ const stars = [
   transform-origin: center;
 }
 /* Bayroq tile ichida yengil hilpirash (faqat shu rasm; transform — GPU, atrofga ta'sir qilmaydi) */
+/* Bayroq tile ichida yengil hilpirash (faqat shu rasm; transform — GPU, atrofga ta'sir qilmaydi) */
 .symbols-wave {
-  transform: perspective(300px) rotateY(-8deg) skewY(-1deg); /* tile ichidagi bayroq — qotgan hilpirash holatida */
+  transform-origin: left center;
+  will-change: transform;
+  animation: symbols-wave 5s ease-in-out infinite;
+}
+@keyframes symbols-wave {
+  0%, 100% { transform: perspective(300px) rotateY(0deg) skewY(0deg); }
+  50% { transform: perspective(300px) rotateY(-12deg) skewY(-1.5deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .symbols-wave { animation: none; }
 }
 </style>
