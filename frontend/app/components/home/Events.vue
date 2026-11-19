@@ -9,19 +9,21 @@ const formatDate = useFormatDate()
 </script>
 
 <template>
-  <section class="relative isolate overflow-hidden bg-brand-50/70">
+  <section class="relative isolate overflow-hidden bg-brand-950">
     <!-- Fon: tadbir suratlari (sekin almashadi), taqvim katakchalari va katta xira taqvim belgisi; pastda chipta qirrasi -->
     <div class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-      <img v-for="(name, i) in ['graduation', 'festival', 'conference']" :key="name" :src="`/images/bg/${name}.webp`" alt="" width="1280" height="720" loading="lazy" decoding="async" class="bg-slide absolute -inset-10 size-[calc(100%+5rem)] max-w-none object-cover" :style="{ animationDelay: `-${i * 8}s` }">
-      <span class="absolute inset-0 bg-[linear-gradient(180deg,rgb(246_244_252/0.75),rgb(246_244_252/0.2)_40%,rgb(246_244_252/0.15)_70%,rgb(246_244_252/0.85))]" />
-      <span class="events-grid absolute inset-0" />
-      <Icon name="lucide:calendar-days" class="absolute -bottom-10 -left-8 size-72 -rotate-12 text-brand-600/[0.06]" />
+      <span class="absolute inset-0 bg-[linear-gradient(150deg,var(--color-brand-950)_0%,var(--color-brand-900)_55%,#2a1f6b_100%)]" />
+      <span class="absolute -top-40 right-[-10%] size-[34rem] rounded-full bg-brand-500/30 blur-3xl" />
+      <span class="absolute -bottom-40 -left-24 size-[30rem] rounded-full bg-accent-400/15 blur-3xl" />
+      <span class="absolute inset-0 text-white/[0.06] [mask-image:radial-gradient(90%_80%_at_50%_40%,#000_40%,transparent_95%)]"><HomeOrnament /></span>
+      <Icon name="lucide:calendar-days" class="absolute -bottom-10 -left-8 size-72 -rotate-12 text-white/[0.04]" />
     </div>
     <div class="mx-auto max-w-7xl px-4 pt-14 pb-20 sm:px-6 lg:px-8 lg:pt-16 lg:pb-24">
     <SectionHeading
       :eyebrow="t('events.eyebrow')"
       :title="t('events.title')"
       :link="{ to: localePath('/events'), label: t('events.all') }"
+      dark
     />
 
     <ul v-if="events.length" class="mt-12 grid gap-4 md:grid-cols-3">
@@ -75,19 +77,10 @@ const formatDate = useFormatDate()
       </li>
     </ul>
 
-    <p v-else class="mt-12 rounded-2xl border border-dashed border-line p-10 text-center text-muted">{{ t('events.empty') }}</p>
+    <p v-else class="mt-12 rounded-2xl border border-dashed border-white/25 p-10 text-center text-white/70">{{ t('events.empty') }}</p>
       </div>
     <!-- O'tish: chipta qirrasi (teshiklari sekin suriladi) -->
     <span class="bg-perf decor pointer-events-none absolute inset-x-0 bottom-0 h-[30px]" aria-hidden="true" />
   </section>
 </template>
 
-<style scoped>
-.events-grid {
-  background-image:
-    linear-gradient(to right, rgb(56 43 133 / 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(56 43 133 / 0.07) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(75% 95% at 88% 8%, #000, transparent 75%);
-}
-</style>
