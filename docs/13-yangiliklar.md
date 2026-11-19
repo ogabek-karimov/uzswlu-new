@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-19
 
-- **Sayt (Davlat ramzlari, bayroq):** SVG bayroq o‘rniga hilpirab turgan ipak bayroq surati (`public/symbols/flag-wave.webp`, 1920 px, 51 KB; foydalanuvchi bergan rasmdan) — qotgan, animatsiyasiz; ustidagi alohida chizilgan oy va yulduzlar olib tashlandi (suratda bor); gerb bayroq oldida, kompyuterda o‘ngroqda (yulduzlarni to‘smaydi).
+- **Sayt (Davlat ramzlari, bayroq):** SVG bayroq o‘rniga hilpirab turgan ipak bayroq surati (`public/symbols/flag-wave.webp`, 1920 px, 51 KB; foydalanuvchi bergan rasmdan) — qotgan, animatsiyasiz; ustidagi alohida chizilgan oy va yulduzlar olib tashlandi (suratda bor); gerb bayroq oldida, kompyuterda o‘ngroqda (yulduzlarni to‘smaydi). — `2a92a6c`
 - **Sayt (Davlat ramzlari):** sarlavha bayroqdan tashqariga — ustiga (och fonda, boshqa bo‘limlar kabi) chiqdi; bayroq SVG’da to‘lqinsimon chiziqlar, to‘lqinli yuqori qirra va mato burmalari soyasi bilan — hilpirab turgan mato ko‘rinishi, animatsiyasiz (yorug‘lik va tile’dagi bayroq animatsiyalari olib tashlandi); gerb xira emas, bayroq oldida to‘liq ko‘rinadi. — `0569e6d`
 - **Sayt (bosh sahifa, fakultetlar):** kartalar ixchamlashtirildi (≈320 → 216 px): logo 128 → 80 px, nomi oddiy shriftda va to‘liq ko‘rinadi (qisqartirilmaydi); «Barcha fakultetlar» kartasi ham shu shaklda (dastlabki 4 logo taxlanib turadi, oxirida soni). Hamma kartalar bir xil balandlikda. — `a0a7a04`
 - **Qidiruv (CI tuzatishi):** `search.py` dagi xodim o‘zgaruvchisi `person` deb nomlandi — `test_cache_pressure` `p.get('patronymic')` ni so‘rov parametri deb o‘qib, kesh kalitida yo‘q deb yiqilardi. — `a4ae250`
