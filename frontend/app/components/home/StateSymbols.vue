@@ -30,17 +30,41 @@ const stars = [
 </script>
 
 <template>
-  <section class="symbols relative isolate overflow-hidden" aria-labelledby="symbols-title">
+  <section aria-labelledby="symbols-title">
+    <div class="mx-auto max-w-7xl px-4 pb-6 sm:px-6 lg:px-8">
+      <h2 id="symbols-title" class="section-title font-display text-4xl leading-tight font-semibold tracking-tight sm:text-5xl">
+        {{ t('symbols.title') }}
+      </h2>
+    </div>
+  <div class="symbols relative isolate overflow-hidden">
     <!-- Fon: bayroq (ko'k / oq / yashil, qizil chiziqlar), ipak yaltirashi, to'lqinlar, gerb va yarim oy bilan yulduzlar -->
     <div class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-      <div class="symbols-flag absolute inset-0" />
+      <!-- Bayroq: chiziqlari to'lqinsimon — mato hilpirab turganday (qotgan holat, animatsiyasiz) -->
+      <svg class="absolute inset-0 size-full" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="sym-blue" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#0a5f86" />
+            <stop offset="0.5" stop-color="#0099b5" />
+          </linearGradient>
+          <linearGradient id="sym-green" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0.7" stop-color="#1eb53a" />
+            <stop offset="1" stop-color="#0c7a2d" />
+          </linearGradient>
+        </defs>
+        <rect width="1440" height="1000" fill="url(#sym-blue)" />
+        <path d="M0 450 C 240 416 480 484 720 450 S 1200 416 1440 450 V1000 H0Z" fill="#ce1126" />
+        <path d="M0 464 C 240 430 480 498 720 464 S 1200 430 1440 464 V1000 H0Z" fill="#f4f8f6" />
+        <path d="M0 690 C 240 656 480 724 720 690 S 1200 656 1440 690 V1000 H0Z" fill="#ce1126" />
+        <path d="M0 704 C 240 670 480 738 720 704 S 1200 670 1440 704 V1000 H0Z" fill="url(#sym-green)" />
+      </svg>
+      <!-- Mato burmalari: to'lqin cho'qqilarida yorug', botiqlarida soya -->
+      <div class="symbols-folds absolute inset-0" />
       <div class="symbols-silk absolute inset-0" />
-      <div class="symbols-sheen" />
       <svg class="absolute inset-x-0 bottom-0 h-44 w-full" viewBox="0 0 1440 200" preserveAspectRatio="none">
         <path d="M0 120 C 240 40 480 200 720 120 S 1200 40 1440 130 V200 H0Z" fill="rgb(255 255 255 / 0.08)" />
         <path d="M0 150 C 300 80 520 210 780 140 S 1220 90 1440 160 V200 H0Z" fill="rgb(0 60 20 / 0.18)" />
       </svg>
-      <img src="/symbols/emblem.webp" alt="" loading="lazy" class="symbols-emblem absolute top-1/2 left-1/2 h-[118%] max-w-none select-none">
+      <img src="/symbols/emblem.webp" alt="" loading="lazy" class="symbols-emblem absolute top-[34%] left-1/2 h-[72%] max-w-none select-none">
       <svg class="absolute top-6 left-[8%] hidden w-[22rem] sm:block lg:left-[14%]" viewBox="0 0 320 130" fill="none">
         <defs>
           <linearGradient id="sym-gold" x1="0" y1="0" x2="1" y2="1">
@@ -57,23 +81,16 @@ const stars = [
       </svg>
     </div>
 
-    <!-- Bayroq ranglaridagi ingichka chiziq -->
-    <div class="decor flex h-1.5" aria-hidden="true">
-      <span class="flex-1 bg-[#0099B5]" />
-      <span class="w-1 bg-[#CE1126]" />
-      <span class="flex-1 bg-white" />
-      <span class="w-1 bg-[#CE1126]" />
-      <span class="flex-1 bg-[#1EB53A]" />
-    </div>
+    <!-- Bayroqning yuqori qirrasi to'lqinli (sahifa fonidagi to'lqin) -->
+    <svg class="decor pointer-events-none absolute inset-x-0 top-0 h-10 w-full sm:h-14" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 0 H1440 V18 C 1200 52 960 4 720 26 S 240 54 0 16 Z" fill="var(--color-paper)" />
+    </svg>
 
     <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-      <h2 id="symbols-title" class="section-title section-title-dark font-display text-4xl leading-tight font-semibold tracking-tight drop-shadow-[0_2px_18px_rgb(0_35_70/0.5)] sm:text-5xl lg:text-6xl">
-        {{ t('symbols.title') }}
-      </h2>
 
       <!-- Kartalar bir qatorda, bir xil balandlikda. Ko'tarilish li (qimirlamaydigan) ustiga olib borilganda ishlaydi —
            shunda karta sichqoncha ostidan chiqib ketib, «qaltirab» qolmaydi -->
-      <ul class="mt-24 grid gap-5 pb-4 md:mt-36 md:grid-cols-3 lg:mt-44">
+      <ul class="mt-40 grid gap-5 pb-4 sm:mt-52 md:grid-cols-3 lg:mt-64">
         <li v-for="symbol in symbols" :key="symbol.key" class="group/sym">
           <a
             :href="symbol.href"
@@ -110,14 +127,11 @@ const stars = [
         </li>
       </ul>
     </div>
+  </div>
   </section>
 </template>
 
 <style scoped>
-/* Bayroq: ko'k — qizil chiziq — oq — qizil chiziq — yashil */
-.symbols-flag {
-  background: linear-gradient(to bottom, #0a5f86 0%, #0099b5 48%, #ce1126 48%, #ce1126 49.4%, #ffffff 49.4%, #e9f2ef 70%, #ce1126 70%, #ce1126 71.4%, #1eb53a 71.4%, #0c7a2d 100%);
-}
 /* Ipak mato yaltirashi */
 .symbols-silk {
   background:
@@ -126,8 +140,16 @@ const stars = [
     radial-gradient(40% 35% at 60% 12%, rgb(255 255 255 / 0.1), transparent 70%);
 }
 /* Katta gerb: o'rtada, sekin «suzadi» */
+/* Mato burmalari: vertikal yorug'/soya yo'llari (to'lqin cho'qqilari bilan bir joyda) */
+.symbols-folds {
+  background: linear-gradient(90deg,
+    rgb(0 0 0 / 0.16) 0%, rgb(255 255 255 / 0.16) 10%, rgb(0 0 0 / 0.04) 22%, rgb(0 0 0 / 0.2) 33%,
+    rgb(255 255 255 / 0.14) 45%, rgb(0 0 0 / 0.06) 56%, rgb(0 0 0 / 0.18) 68%, rgb(255 255 255 / 0.16) 80%,
+    rgb(0 0 0 / 0.05) 90%, rgb(0 0 0 / 0.16) 100%);
+  mix-blend-mode: soft-light;
+}
 .symbols-emblem {
-  opacity: 0.4;
+  opacity: 1;
   filter: drop-shadow(0 30px 40px rgb(0 20 40 / 0.35));
   transform: translate(-50%, -50%);
 }
@@ -135,32 +157,8 @@ const stars = [
   transform-box: fill-box;
   transform-origin: center;
 }
-/* Bayroqning ko'k qismida (kartalardan yuqorida) sekin o'tadigan yorug' chiziq — mato hilpiraganday.
-   Kartalar ostiga tushmaydi: orqadagi harakat shisha (blur) kartalarni qayta chizdirib qaltiratadi. */
-.symbols-sheen {
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 30%;
-  background: linear-gradient(100deg, transparent 0 32%, rgb(255 255 255 / 0.16) 48%, transparent 64% 100%);
-  background-size: 260% 100%;
-  mask-image: linear-gradient(to bottom, #000, transparent);
-  animation: symbols-sheen 10s ease-in-out infinite alternate;
-}
 /* Bayroq tile ichida yengil hilpirash (faqat shu rasm; transform — GPU, atrofga ta'sir qilmaydi) */
 .symbols-wave {
-  transform-origin: left center;
-  will-change: transform;
-  animation: symbols-wave 5s ease-in-out infinite;
-}
-@keyframes symbols-sheen {
-  from { background-position: 0% 0; }
-  to { background-position: 100% 0; }
-}
-@keyframes symbols-wave {
-  0%, 100% { transform: perspective(300px) rotateY(0deg) skewY(0deg); }
-  50% { transform: perspective(300px) rotateY(-12deg) skewY(-1.5deg); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .symbols-sheen, .symbols-wave { animation: none; }
+  transform: perspective(300px) rotateY(-8deg) skewY(-1deg); /* tile ichidagi bayroq ham qotgan hilpirash holatida */
 }
 </style>
