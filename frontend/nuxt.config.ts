@@ -72,6 +72,8 @@ export default defineNuxtConfig({
   },
 
   fonts: {
+    // Shriftlar faqat Google'dan: bunny.net ga ulanish serverda uzilsa, build yiqilmasin (fonts.bunny.net/list — TLS xatosi)
+    providers: { bunny: false },
     families: [
       { name: 'Onest', provider: 'google', weights: [400, 500, 600, 700], global: true },
       { name: 'Playfair Display', provider: 'google', weights: [500, 600, 700], styles: ['normal', 'italic'], global: true },

@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-19
 
+- **Sayt — build xatosi tuzatildi (shriftlar):** serverda `docker compose ... --build` paytida `fonts.bunny.net` ga ulanish uzilib (`TLS socket disconnected`), `nuxt build` yiqilayotgan edi. `nuxt.config.ts` da `fonts.providers.bunny = false` — shriftlar faqat Google'dan olinadi (Onest va Playfair Display shunday ham `google` provayderida). Fon o‘zgarishlariga aloqasi yo‘q. — `COMMIT`
 - **Sayt — bosh sahifa bo‘lim fonlari (tasdiqlangan dizayn bo‘yicha), 1-bo‘lim tegilmadi:** «Fakultetlar» — kampus surati sekin yaqinlashadi (Ken Burns), tepa va pastda animatsiyali to‘lqin (`home/Wave.vue`); «Yangiliklar» (`Backdrop.vue`, variant `reel`, eski `newsprint` o‘rniga) — universitet hayoti tasvirlari «plyonkasi» qarama-qarshi yo‘nalishda sekin suriladi, pastda qiya kesim va yugurib o‘tuvchi yorug‘lik; «Tadbirlar» — bitiruv, madaniy tadbir va konferensiya tasvirlari sekin almashadi + taqvim katakchalari, pastda chipta qirrasi; «Aloqa» — xalqaro tasvir (Ken Burns); «Hamkorlar» — konferensiya tasviri globus chiziqlari ostida. Tasvirlar `frontend/public/images/bg/*.webp` (5 ta, ~100 KB, namuna tasvirlar — haqiqiy fotosuratlar bilan almashtirish mumkin). Hammasi `.decor` (maxsus imkoniyatlarda yashirinadi), `prefers-reduced-motion` da to‘xtaydi; animatsiyalar `main.css` oxirida (`bg-*`). — `e90730d`
 
 ## 2026-11-18
