@@ -840,7 +840,7 @@ Batafsil: <a href="#doc-06-testlar">06-testlar</a>.
 <p>Eng yangisi tepada. <strong>Har bir o‘zgarishdan keyin shu yerga yozing</strong> (qoida: <code>CLAUDE.md</code>). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.</p>
 <h2 id="doc-13-yangiliklar--2026-11-19">2026-11-19<a class="anchor" href="#doc-13-yangiliklar--2026-11-19" aria-label="Havola">#</a></h2>
 <ul><li>
-<strong>Sayt — tarjima xatosi tuzatildi:</strong> «Korporativ poçta» sahifasidagi «ismingiz@uzswlu.uz» matnida <code>@</code> vue-i18n uchun maxsus belgi (havola) — dev rejimida butun til fayli kompilyatsiyadan yiqilib, bosh sahifada ham hydration xatosi chiqardi. 4 tilda <code>{&#x27;@&#x27;}</code> bilan yozildi (<code>corpMail.access</code>).
+<strong>Sayt — tarjima xatosi tuzatildi:</strong> «Korporativ poçta» sahifasidagi «ismingiz@uzswlu.uz» matnida <code>@</code> vue-i18n uchun maxsus belgi (havola) — dev rejimida butun til fayli kompilyatsiyadan yiqilib, bosh sahifada ham hydration xatosi chiqardi. 4 tilda <code>{&#x27;@&#x27;}</code> bilan yozildi (<code>corpMail.access</code>). — <code>b274b56</code>
 </li><li>
 <strong>Sayt — build xatosi tuzatildi (shriftlar):</strong> serverda <code>docker compose ... --build</code> paytida <code>fonts.bunny.net</code> ga ulanish uzilib (<code>TLS socket disconnected</code>), <code>nuxt build</code> yiqilayotgan edi. <code>nuxt.config.ts</code> da <code>fonts.providers.bunny = false</code> — shriftlar faqat Google'dan olinadi (Onest va Playfair Display shunday ham <code>google</code> provayderida). Fon o‘zgarishlariga aloqasi yo‘q. — <code>59c687b</code>
 </li><li>
