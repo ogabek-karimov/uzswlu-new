@@ -9,6 +9,21 @@ export const auth = {
   user: computed(() => state.user),
   isSuper: computed(() => state.user?.role === 'superadmin'),
 
+  /** Rolga shu bo'lim ruxsat etilganmi (superadmin — hammasi) */
+  can(section: string, level: 'read' | 'write' = 'read') {
+    const u = state.user
+    if (!u) return false
+    if (u.role === 'superadmin') return true
+    const got = u.permissions?.[section]
+    return level === 'read' ? !!got : got === 'write'
+  },
+
+  /** Kirgandan keyin tushadigan sahifa */
+  homePath() {
+    const order: [string, string][] = [['dashboard', '/'], ['news', '/postlar/news'], ['announcements', '/postlar/announcements'], ['events', '/postlar/events'], ['pages', '/sahifalar'], ['faculties', '/fakultetlar'], ['departments', '/kafedralar'], ['sdg', '/brm'], ['documents', '/hujjatlar'], ['videos', '/video'], ['quick-links', '/tezkor-xizmatlar'], ['leaders', '/rahbariyat'], ['staff', '/xodimlar'], ['media', '/media']]
+    return order.find(([k]) => this.can(k))?.[1] ?? '/profil'
+  },
+
   /** Sessiyani tekshirish (sahifa yangilanganda) */
   async me() {
     try {
@@ -47,12 +62,8 @@ export const auth = {
   },
 }
 
-export const ROLE_LABELS: Record<User['role'], string> = {
-  superadmin: 'Superadmin',
-  editor: 'Kontent muharriri',
-  faculty: 'Fakultet admini',
-  pages: 'Sahifalar muharriri',
-  sdg: 'BRM menejeri',
+export function roleLabel(u?: User | null) {
+  return u?.roleName || u?.role || ''
 }
 
 export function initials(name?: string | null) {

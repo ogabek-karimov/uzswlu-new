@@ -14,7 +14,8 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 
-from apps.accounts.models import User
+from apps.accounts import roles as rl
+from apps.accounts.models import Role, User
 from apps.content.models import (
     Category, DocCategory, Document, Leader, Post, PostAttachment, PostGalleryImage, QuickLink, Slide, Video, VideoCategory,
 )
@@ -42,7 +43,7 @@ class Forbidden(Exception):
 def in_scope(user, value: str | None) -> bool:
     """Fakultet admini faqat o'z fakultetiga (`User.scope` = fakultet manzili) tegishli yozuvni o'zgartira oladi.
     Doirasi belgilanmagan fakultet admini hech narsani o'zgartira olmaydi (xavfsiz sukut). Boshqa rollar — cheklanmagan."""
-    if user.role != 'faculty':
+    if not rl.is_scoped(user):
         return True
     return bool(user.scope) and value == user.scope
 
@@ -225,9 +226,22 @@ class Collection:
     access = {'read': ALL, 'create': SUPER, 'update': SUPER, 'delete': SUPER}
     # Obyekt darajasidagi qo'shimcha qoidalar (`can()`/`scope()` da kodlangan) — Swagger'da ko'rsatiladi: {amal: matn}
     rules: dict = {}
+    # Menyu bo'limi (accounts.roles.SECTIONS kaliti): superadmin yaratgan rollar yozish huquqini shu bo'lim orqali oladi
+    section: str | None = None
+
+    def section_for(self, user, obj, action: str) -> str | None:
+        return self.section
 
     def can(self, user, action: str, obj=None) -> bool:
-        return bool(user and user.is_authenticated and user.status != 'disabled' and user.role in self.access.get(action, ()))
+        if not (user and user.is_authenticated and user.status != 'disabled'):
+            return False
+        if user.role in self.access.get(action, ()):
+            return True
+        if not rl.is_custom(user):
+            return False
+        if action == 'read':
+            return rl.can_read_public(user, self.slug)
+        return rl.allows(user, self.section_for(user, obj, action), action)
 
     def queryset(self, request):
         return self.model.objects.select_related(*self.select_related).prefetch_related(*self.prefetch)
@@ -265,10 +279,13 @@ class Users(Collection):
     fields = {'hemisId': 'hemis_id', 'lockUntil': 'lock_until', 'createdAt': 'date_joined', 'updatedAt': 'date_joined'}
 
     def can(self, user, action, obj=None):
+        # Har bir faol foydalanuvchi o'z profilini ko'radi va tahrirlaydi (ism, rasm, parol); qolganini faqat superadmin
+        if obj is not None and user and user.is_authenticated and user.status != 'disabled' and obj.pk == user.pk and action in ('read', 'update'):
+            return True
         if not super().can(user, action, obj):
             return False
         if action == 'update' and user.role != 'superadmin':
-            return obj is not None and obj.pk == user.pk
+            return False
         return True
 
     def scope(self, request, qs):
@@ -313,7 +330,7 @@ class Users(Collection):
                 'hemisId': ('hemis_id', text),
             })
             if 'role' in data:
-                if data['role'] not in dict(User.ROLES):
+                if not Role.objects.filter(slug=data['role']).exists():
                     raise ValidationError('Rol noto‘g‘ri')
                 u.role = data['role']
                 u.is_superuser = data['role'] == 'superadmin'
@@ -351,6 +368,7 @@ def _media_kind(op, value):
 
 
 class Medias(Collection):
+    section = 'media'
     slug = 'media'
     model = Media
     entity = 'media'
@@ -405,11 +423,22 @@ class Posts(Collection):
     def can(self, user, action, obj=None):
         if not super().can(user, action, obj):
             return False
-        # Fakultet admini va sahifalar muharriri faqat o'zi yozgan postni tahrirlaydi/o'chiradi;
+        # Fakultet admini, sahifalar muharriri va superadmin yaratgan rollar faqat o'zi yozgan postni tahrirlaydi/o'chiradi;
         # superadmin va kontent muharriri (editor) hamma postni boshqaradi.
-        if action in ('update', 'delete') and obj is not None and user.role in ('faculty', 'pages'):
+        if action in ('update', 'delete') and obj is not None and user.role not in ('superadmin', 'editor'):
             return obj.author_id == user.pk
         return True
+
+    def section_for(self, user, obj, action):
+        if obj is not None:
+            return obj.type  # yangiliklar / e'lonlar / tadbirlar — har biri alohida bo'lim
+        return next((t for t in rl.POST_SECTIONS if rl.allows(user, t, action)), None)
+
+    def scope(self, request, qs):
+        u = request.user
+        if rl.is_custom(u):  # superadmin yaratgan rol faqat o'ziga ochiq turdagi postlarni ko'radi
+            return qs.filter(type__in=rl.post_types_allowed(u, 'read'))
+        return qs
     fields = {
         'publishedAt': 'published_at', 'startsAt': 'starts_at', 'endsAt': 'ends_at', 'deletedAt': 'deleted_at',
         'createdAt': 'created_at', 'updatedAt': 'updated_at', 'label': 'title__uz',
@@ -455,6 +484,8 @@ class Posts(Collection):
         })
         if 'type' in data and data['type'] in dict(Post.TYPES):
             p.type = data['type']
+        if rl.is_custom(request.user) and not rl.allows(request.user, p.type, 'write'):
+            raise Forbidden('Bu turdagi postni yozishga ruxsat yo‘q')
         if 'tags' in data:
             p.tags = lists_to_lines(data['tags'])
         if 'category' in data:
@@ -522,6 +553,7 @@ class Slides(Collection):
 
 
 class Leaders(Collection):
+    section = 'leaders'
     slug = 'leaders'
     model = Leader
     tags = ('leadership', 'contact')
@@ -548,6 +580,7 @@ class Leaders(Collection):
 
 
 class DocCategories(Collection):
+    section = 'documents'
     slug = 'doc-categories'
     model = DocCategory
     tags = ('documents',)
@@ -562,6 +595,7 @@ class DocCategories(Collection):
 
 
 class Documents(Collection):
+    section = 'documents'
     slug = 'documents'
     model = Document
     tags = ('documents',)
@@ -605,6 +639,7 @@ def youtube_id(url: str) -> str | None:
 
 
 class VideoCategories(Collection):
+    section = 'videos'
     slug = 'video-categories'
     model = VideoCategory
     tags = ('videos',)
@@ -619,6 +654,7 @@ class VideoCategories(Collection):
 
 
 class Videos(Collection):
+    section = 'videos'
     slug = 'videos'
     model = Video
     tags = ('videos',)
@@ -646,6 +682,7 @@ class Videos(Collection):
 
 
 class QuickLinks(Collection):
+    section = 'quick-links'
     slug = 'quick-links'
     model = QuickLink
     tags = ('home',)
@@ -671,6 +708,7 @@ class QuickLinks(Collection):
 # ─── Tuzilma ────────────────────────────────────────────────────────────────
 
 class Faculties(Collection):
+    section = 'faculties'
     slug = 'faculties'
     model = Faculty
     tags = ('faculties', 'home')
@@ -703,6 +741,7 @@ class Faculties(Collection):
 
 
 class Departments(Collection):
+    section = 'departments'
     slug = 'departments'
     model = Department
     tags = ('faculties',)
@@ -752,6 +791,7 @@ SCIENCE = {
 
 
 class StaffProfiles(Collection):
+    section = 'staff'
     slug = 'staff-profiles'
     model = StaffProfile
     entity = 'staff-profiles'
@@ -785,6 +825,7 @@ class StaffProfiles(Collection):
 # ─── BRM va sahifalar ───────────────────────────────────────────────────────
 
 class SdgGoals(Collection):
+    section = 'sdg'
     slug = 'sdg-goals'
     model = SdgGoal
     tags = ('sdg',)
@@ -832,6 +873,7 @@ class SdgGoals(Collection):
 
 
 class Pages(Collection):
+    section = 'pages'
     slug = 'pages'
     model = Page
     tags = ('menu', 'pages')
@@ -925,7 +967,52 @@ class Activities(Collection):
         }
 
 
+# ─── Rollar ─────────────────────────────────────────────────────────────────
+
+class Roles(Collection):
+    slug = 'roles'
+    model = Role
+    default_sort = ['-system', 'name']
+    access = {'read': SUPER, 'create': SUPER, 'update': SUPER, 'delete': SUPER}
+    fields = {'createdAt': 'created_at', 'updatedAt': 'updated_at'}
+    rules = {'delete': 'Tizim roli yoki foydalanuvchisi bor rol o‘chirilmaydi.',
+             'update': 'Tizim rollarining (superadmin, editor, faculty, pages, sdg) bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi.'}
+
+    def can(self, user, action, obj=None):
+        if not super().can(user, action, obj):
+            return False
+        if action == 'delete' and obj is not None:
+            return not obj.system and not User.objects.filter(role=obj.slug).exists()
+        return True
+
+    def label(self, obj):
+        return obj.name
+
+    def out(self, r, depth):
+        return {
+            'id': r.pk, 'slug': r.slug, 'name': r.name, 'description': r.description or None, 'system': r.system, 'scoped': r.scoped,
+            'permissions': rl.permissions_of_role(r), 'users': User.objects.filter(role=r.slug).count(),
+            'createdAt': dt(r.created_at), 'updatedAt': dt(r.updated_at), 'collection': 'roles',
+        }
+
+    def write(self, r, data, request, creating):
+        from django.utils.text import slugify
+        put(r, data, {'name': ('name', text), 'description': ('description', text)})
+        if not r.name:
+            raise ValidationError('Rol nomi majburiy')
+        if creating:
+            slug = slugify(str(data.get('slug') or r.name), allow_unicode=False)[:40]
+            if not slug or slug in rl.SYSTEM_ROLES or Role.objects.filter(slug=slug).exists():
+                raise ValidationError('Bunday kalitli rol allaqachon bor — boshqa nom tanlang')
+            r.slug = slug
+        if not r.system:
+            if 'permissions' in data:
+                r.permissions = rl.clean_permissions(data['permissions'])
+            if 'scoped' in data:
+                r.scoped = flag(data['scoped'])
+
+
 REGISTRY: dict[str, Collection] = {c.slug: c for c in (
     Users(), Medias(), Categories(), Posts(), Slides(), Leaders(), DocCategories(), Documents(), VideoCategories(), Videos(), QuickLinks(),
-    Faculties(), Departments(), StaffProfiles(), SdgGoals(), Pages(), LoginEvents(), Activities(),
+    Faculties(), Departments(), StaffProfiles(), SdgGoals(), Pages(), LoginEvents(), Activities(), Roles(),
 )}

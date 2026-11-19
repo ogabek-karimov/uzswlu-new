@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
 import { api, ApiError } from '@/lib/api'
-import { auth, initials, ROLE_LABELS } from '@/lib/auth'
+import { auth, initials, roleLabel } from '@/lib/auth'
 
 const me = auth.user
 const info = reactive({ name: me.value?.name ?? '', position: me.value?.position ?? '', department: me.value?.department ?? '' })
@@ -109,7 +109,7 @@ function flash(text: string) {
         <span class="relative grid size-24 shrink-0 place-items-center rounded-full bg-gradient-to-br from-brand-700 to-night text-[34px] font-bold text-mint shadow-[0_0_0_5px_#fff]">{{ initials(me?.name) }}</span>
         <div class="min-w-0 flex-[1_1_260px] pt-12 pb-1">
           <h1 class="text-[26px] font-bold [overflow-wrap:anywhere]">{{ me?.name }}</h1>
-          <p class="mt-1 text-sm text-muted">{{ ROLE_LABELS[me?.role ?? 'editor'] }} · login: <b>{{ me?.username }}</b></p>
+          <p class="mt-1 text-sm text-muted">{{ (me?.roleName || me?.role) }} · login: <b>{{ me?.username }}</b></p>
         </div>
       </div>
     </section>

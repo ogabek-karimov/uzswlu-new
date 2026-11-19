@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.utils.text import slugify
 
+from apps.accounts import roles as rl
 from apps.content.models import HomeBanner, HomeVideoTour, StateSymbol, VideoPage
 from apps.content.video_tour import parse_video
 from apps.core.models import SiteSettings
@@ -64,10 +65,21 @@ class Global:
     versions = 0
     access = {'read': ALL, 'update': SUPER}
 
+    # Menyu bo'limi (accounts.roles.SECTIONS): superadmin yaratgan rollar yozishni shu orqali oladi
+    section: str | None = None
+
     def can(self, user, action: str) -> bool:
         if action == 'read' and self.access.get('read') is None:
             return True
-        return bool(user and user.is_authenticated and user.status != 'disabled' and user.role in self.access.get(action, ()))
+        if not (user and user.is_authenticated and user.status != 'disabled'):
+            return False
+        if user.role in self.access.get(action, ()):
+            return True
+        if not rl.is_custom(user):
+            return False
+        if action == 'read':
+            return rl.has_any(user)
+        return rl.allows(user, self.section, action)
 
     def load(self):
         raise NotImplementedError
@@ -154,6 +166,7 @@ class Settings(Global):
 
 
 class VideoPageGlobal(Global):
+    section = 'videos'
     slug = 'video-page'
     entity = 'video-page'
     label = 'Video sahifasi'
@@ -232,6 +245,7 @@ class SymbolsGlobal(Global):
 
 
 class SdgPageGlobal(Global):
+    section = 'sdg'
     slug = 'sdg-page'
     entity = 'sdg-page'
     label = 'BRM sahifasi'
@@ -283,6 +297,7 @@ class HomeBannerGlobal(Global):
 
 
 class VideoTourGlobal(Global):
+    section = 'pages'
     """«Universitet haqida» video turi: havola (YouTube/Vimeo/MP4), muqova rasmi, sarlavha va qisqa ma'lumot."""
 
     slug = 'video-tour'

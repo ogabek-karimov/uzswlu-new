@@ -15,13 +15,14 @@ from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.response import Response
 
+from apps.accounts import roles as rl
 from apps.content.models import Post
 from apps.core.models import Activity, Media
 from apps.hemis import get_client
 from apps.hemis.models import HemisSnapshot
 
 from .auth import error
-from .collections import ALL, MEDIA_ROLES, SDG, SUPER, youtube_id
+from .collections import ALL, EDITORS, MEDIA_ROLES, SDG, SUPER, youtube_id
 from .models import LoginEvent
 from .usage import media_usage, used_media_ids
 from .views import PanelView
@@ -31,13 +32,18 @@ TAG = ['Admin panel: yig‘ma ma’lumot']
 
 def role_in(request, roles) -> bool:
     u = request.user
-    return bool(u and u.is_authenticated and u.status != 'disabled' and u.role in roles)
+    if not (u and u.is_authenticated and u.status != 'disabled'):
+        return False
+    if u.role in roles:
+        return True
+    # superadmin yaratgan rollar: «hamma panel foydalanuvchisi» uchun ochiq so'rovlarga kiradi (superadmin-only emas)
+    return rl.is_custom(u) and set(roles) >= EDITORS and rl.has_any(u)
 
 
 class OverviewView(PanelView):
     @extend_schema(tags=TAG, summary='Boshqaruv paneli raqamlari', responses=OpenApiTypes.OBJECT)
     def get(self, request):
-        if not role_in(request, ALL):
+        if not role_in(request, ALL) or (rl.is_custom(request.user) and not rl.allows(request.user, 'dashboard', 'read')):
             return error('Ruxsat yo‘q', 401)
         now = timezone.now()
         local = timezone.localtime(now)

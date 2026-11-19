@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { auth, initials, ROLE_LABELS } from '@/lib/auth'
+import { auth, initials, roleLabel } from '@/lib/auth'
 import Icon from './Icon.vue'
 
 defineEmits<{ menu: [] }>()
@@ -21,7 +21,7 @@ async function logout() {
     </button>
 
     <div class="ml-auto flex items-center gap-2.5">
-      <RouterLink v-if="auth.user.value?.role !== 'sdg'" to="/postlar/news/yangi" class="btn-primary h-[42px]">
+      <RouterLink v-if="auth.can('news', 'write')" to="/postlar/news/yangi" class="btn-primary h-[42px]">
         <Icon name="plus" :size="16" />
         <span class="hidden sm:inline">Yangi qöşiş</span>
       </RouterLink>
@@ -31,7 +31,7 @@ async function logout() {
           <span class="grid size-[42px] place-items-center rounded-full bg-gradient-to-br from-brand-700 to-night text-sm font-bold text-mint">{{ initials(auth.user.value?.name) }}</span>
           <span class="hidden text-left leading-tight sm:block">
             <span class="block text-sm font-semibold">{{ auth.user.value?.name }}</span>
-            <span class="block text-xs text-muted">{{ ROLE_LABELS[auth.user.value?.role ?? 'editor'] }}</span>
+            <span class="block text-xs text-muted">{{ roleLabel(auth.user.value) }}</span>
           </span>
           <Icon name="chevronDown" :size="16" class="text-muted" />
         </button>

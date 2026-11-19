@@ -280,7 +280,7 @@ function addLink() {
           <section class="card flex flex-col gap-2 px-5 py-[18px]">
             <h3 class="text-base font-bold">Boğlangan postlar</h3>
             <p class="text-[13px] leading-normal text-muted"><b class="text-ink">{{ counts[current.n] ?? 0 }} ta</b> yangilik bu maqsadga boğlangan — ular sahifaning “Faoliyat” qismida öz-özidan çiqadi.</p>
-            <RouterLink v-if="auth.user.value?.role !== 'sdg'" :to="{ path: '/postlar/news', query: { sdg: String(current.n) } }" class="btn-ghost h-10!">Postlar röyxatida köriş</RouterLink>
+            <RouterLink v-if="auth.can('news', 'write')" :to="{ path: '/postlar/news', query: { sdg: String(current.n) } }" class="btn-ghost h-10!">Postlar röyxatida köriş</RouterLink>
           </section>
 
           <div class="sticky bottom-4 flex flex-col gap-2">

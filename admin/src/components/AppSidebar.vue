@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { auth, ROLE_LABELS } from '@/lib/auth'
+import { auth, roleLabel } from '@/lib/auth'
 import { siteSettings } from '@/lib/settings'
 import { SITE_URL } from '@/lib/constants'
 import Icon, { type ICONS } from './Icon.vue'
@@ -10,46 +10,48 @@ import TelegramIcon from './TelegramIcon.vue'
 defineProps<{ open: boolean }>()
 defineEmits<{ close: [] }>()
 
-type Item = { to: string; label: string; icon: keyof typeof ICONS; roles?: string[]; soon?: boolean }
+type Item = { to: string; label: string; icon: keyof typeof ICONS; section?: string; superOnly?: boolean; soon?: boolean }
 const route = useRoute()
 
 // Muharrir (kichik admin) faqat o'ziga ruxsat berilgan bo'limlarni ko'radi
 const groups: { label: string; items: Item[] }[] = [
   { label: 'Asosiy', items: [
-    { to: '/', label: 'Boşqaruv paneli', icon: 'dashboard', roles: ['superadmin', 'editor', 'faculty', 'pages'] },
-    { to: '/statistika', label: 'Statistika', icon: 'stats', roles: ['superadmin'] },
+    { to: '/', label: 'Boşqaruv paneli', icon: 'dashboard', section: 'dashboard' },
+    { to: '/statistika', label: 'Statistika', icon: 'stats', superOnly: true },
   ] },
   { label: 'Kontent', items: [
-    { to: '/postlar/news', label: 'Yangiliklar', icon: 'news', roles: ['superadmin', 'editor', 'faculty', 'pages'] },
-    { to: '/postlar/announcements', label: 'E’lonlar', icon: 'announcements', roles: ['superadmin', 'editor', 'faculty', 'pages'] },
-    { to: '/postlar/events', label: 'Tadbirlar', icon: 'events', roles: ['superadmin', 'editor', 'faculty', 'pages'] },
-    { to: '/sahifalar', label: 'Sahifalar', icon: 'pages', roles: ['superadmin', 'pages'] },
-    { to: '/tezkor-xizmatlar', label: 'Tezkor xizmatlar', icon: 'quick', roles: ['superadmin', 'pages'] },
-    { to: '/karusel', label: 'Boş sahifa karuseli', icon: 'carousel', roles: ['superadmin'] },
-    { to: '/media', label: 'Media kutubxona', icon: 'media' },
-    { to: '/hujjatlar', label: 'Hujjatlar', icon: 'docs', roles: ['superadmin', 'pages'] },
-    { to: '/video', label: 'Video darsliklar', icon: 'video', roles: ['superadmin', 'pages'] },
+    { to: '/postlar/news', label: 'Yangiliklar', icon: 'news', section: 'news' },
+    { to: '/postlar/announcements', label: 'E’lonlar', icon: 'announcements', section: 'announcements' },
+    { to: '/postlar/events', label: 'Tadbirlar', icon: 'events', section: 'events' },
+    { to: '/sahifalar', label: 'Sahifalar', icon: 'pages', section: 'pages' },
+    { to: '/tezkor-xizmatlar', label: 'Tezkor xizmatlar', icon: 'quick', section: 'quick-links' },
+    { to: '/karusel', label: 'Boş sahifa karuseli', icon: 'carousel', superOnly: true },
+    { to: '/media', label: 'Media kutubxona', icon: 'media', section: 'media' },
+    { to: '/hujjatlar', label: 'Hujjatlar', icon: 'docs', section: 'documents' },
+    { to: '/video', label: 'Video darsliklar', icon: 'video', section: 'videos' },
   ] },
   { label: 'Tuzilma', items: [
-    { to: '/fakultetlar', label: 'Fakultetlar', icon: 'faculties', roles: ['superadmin', 'faculty'] },
-    { to: '/kafedralar', label: 'Kafedralar', icon: 'departments', roles: ['superadmin', 'faculty'] },
-    { to: '/rahbariyat', label: 'Rahbariyat', icon: 'leaders', roles: ['superadmin'] },
-    { to: '/xodimlar', label: 'Xodimlar', icon: 'staff', roles: ['superadmin'] },
-    { to: '/brm', label: 'BRM', icon: 'sdg', roles: ['superadmin', 'sdg'] },
-    { to: '/ramzlar', label: 'Ramzlar', icon: 'symbols', roles: ['superadmin'] },
+    { to: '/fakultetlar', label: 'Fakultetlar', icon: 'faculties', section: 'faculties' },
+    { to: '/kafedralar', label: 'Kafedralar', icon: 'departments', section: 'departments' },
+    { to: '/rahbariyat', label: 'Rahbariyat', icon: 'leaders', section: 'leaders' },
+    { to: '/xodimlar', label: 'Xodimlar', icon: 'staff', section: 'staff' },
+    { to: '/brm', label: 'BRM', icon: 'sdg', section: 'sdg' },
+    { to: '/ramzlar', label: 'Ramzlar', icon: 'symbols', superOnly: true },
   ] },
   { label: 'Tizim', items: [
-    { to: '/foydalanuvchilar', label: 'Foydalanuvçilar va rollar', icon: 'users', roles: ['superadmin'] },
-    { to: '/kirish-tarixi', label: 'Kiriş tarixi', icon: 'logins', roles: ['superadmin'] },
-    { to: '/faollik', label: 'Faollik jurnali', icon: 'activity', roles: ['superadmin'] },
-    { to: '/sozlamalar', label: 'Sayt sozlamalari', icon: 'settings', roles: ['superadmin'] },
+    { to: '/rollar', label: 'Rollar va ruxsatlar', icon: 'users', superOnly: true },
+    { to: '/foydalanuvchilar', label: 'Foydalanuvçilar va rollar', icon: 'users', superOnly: true },
+    { to: '/kirish-tarixi', label: 'Kiriş tarixi', icon: 'logins', superOnly: true },
+    { to: '/faollik', label: 'Faollik jurnali', icon: 'activity', superOnly: true },
+    { to: '/sozlamalar', label: 'Sayt sozlamalari', icon: 'settings', superOnly: true },
   ] },
 ]
 
 const visible = computed(() => {
-  const role = auth.user.value?.role ?? ''
+  const isSuper = auth.isSuper.value
+  const ok = (i: Item) => isSuper || (!i.superOnly && (!i.section || auth.can(i.section)))
   return groups
-    .map(g => ({ ...g, items: g.items.filter(i => !i.roles || i.roles.includes(role)) }))
+    .map(g => ({ ...g, items: g.items.filter(ok) }))
     .filter(g => g.items.length)
 })
 
@@ -108,7 +110,7 @@ function active(to: string) {
       </a>
       <div class="rounded-2xl border border-white/8 bg-white/5 p-3.5">
         <p class="text-xs text-white/50">Sizning rolingiz</p>
-        <p class="mt-1 text-sm font-bold text-white">{{ ROLE_LABELS[auth.user.value?.role ?? 'editor'] }}</p>
+        <p class="mt-1 text-sm font-bold text-white">{{ roleLabel(auth.user.value) }}</p>
       </div>
       <a :href="SITE_URL" target="_blank" rel="noopener" class="mt-2.5 flex h-10 items-center justify-center gap-2 rounded-xl border border-white/14 text-[13px] font-semibold text-white">Saytni oçiş ↗</a>
     </div>

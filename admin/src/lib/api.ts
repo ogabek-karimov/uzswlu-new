@@ -134,7 +134,10 @@ export type User = {
   name: string
   username?: string | null
   email?: string | null
-  role: 'superadmin' | 'editor' | 'faculty' | 'pages' | 'sdg'
+  role: string
+  roleName?: string
+  permissions?: Record<string, 'read' | 'write'>
+  scoped?: boolean
   status?: 'active' | 'invited' | 'disabled'
   position?: string | null
   department?: string | null

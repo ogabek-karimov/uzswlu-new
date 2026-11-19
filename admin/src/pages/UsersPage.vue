@@ -2,7 +2,8 @@
 import { onMounted, reactive, ref } from 'vue'
 import Icon from '@/components/Icon.vue'
 import { api, ApiError, type Paginated, type User } from '@/lib/api'
-import { auth, initials, ROLE_LABELS } from '@/lib/auth'
+import { auth, initials } from '@/lib/auth'
+import type { RoleDoc } from '@/lib/roles'
 import { relative } from '@/lib/format'
 
 const users = ref<User[]>([])
@@ -10,15 +11,10 @@ const lastLogin = ref<Record<number, string>>({})
 const open = ref(false)
 const error = ref('')
 const message = ref('')
-const form = reactive({ name: '', username: '', password: '', role: 'editor' as User['role'], position: '', scope: '' })
+const form = reactive({ name: '', username: '', password: '', role: 'editor', position: '', scope: '' })
 
-const ROLE_SCOPE: Record<User['role'], string> = {
-  superadmin: 'Hammasi, adminlarni tayinlaş va sozlamalar',
-  editor: 'Yangiliklar, e’lonlar, tadbirlar, media',
-  faculty: 'Faqat öz fakulteti sahifasi va yangiliklari',
-  pages: 'Sahifalar, hujjatlar, video darsliklar',
-  sdg: 'Faqat BRM: 17 maqsad matni, rasmlari va PDF hisobotlari',
-}
+const roles = ref<RoleDoc[]>([])
+const roleOf = (slug: string) => roles.value.find(x => x.slug === slug)
 const STATUS: Record<string, [string, string]> = {
   active: ['Faol', 'bg-[#DDFBF0] text-[#0B5A43]'],
   invited: ['Taklif qilingan', 'bg-[#FEF3DC] text-[#8A5A00]'],
@@ -26,6 +22,7 @@ const STATUS: Record<string, [string, string]> = {
 }
 
 async function load() {
+  roles.value = (await api.get<Paginated<RoleDoc>>('/roles', { limit: 100 })).docs
   users.value = (await api.get<Paginated<User>>('/users', { limit: 200, sort: 'name', depth: 0 })).docs
   const events = await api.get<Paginated<{ user: number | null; createdAt: string }>>('/login-events', { where: { result: { equals: 'success' } }, sort: '-createdAt', limit: 300, depth: 0 })
   const map: Record<number, string> = {}
@@ -118,15 +115,15 @@ const locked = (u: User) => !!u.lockUntil && new Date(u.lockUntil).getTime() > D
         </div>
         <div class="sm:col-span-2">
           <span class="label">Rol</span>
-          <div role="radiogroup" aria-label="Rol" class="grid gap-2 sm:grid-cols-3 xl:grid-cols-5">
+          <div role="radiogroup" aria-label="Rol" class="grid gap-2 sm:grid-cols-3 xl:grid-cols-4">
             <button
-              v-for="(label, r) in ROLE_LABELS" :key="r" type="button" role="radio" :aria-checked="form.role === r"
-              class="min-h-[76px] rounded-[14px] px-3.5 py-3 text-left" :class="form.role === r ? 'border-2 border-brand-700 bg-brand-50' : 'border border-field bg-white'"
-              @click="form.role = r"
-            ><b class="block text-sm">{{ label }}</b><span class="mt-1 block text-xs leading-snug text-muted">{{ ROLE_SCOPE[r] }}</span></button>
+              v-for="r in roles" :key="r.slug" type="button" role="radio" :aria-checked="form.role === r.slug"
+              class="min-h-[76px] rounded-[14px] px-3.5 py-3 text-left"   :class="form.role === r.slug ? 'border-2 border-brand-700 bg-brand-50' : 'border border-field bg-white'"
+              @click="form.role = r.slug"
+            ><b class="block text-sm">{{ r.name }}</b><span class="mt-1 block text-xs leading-snug text-muted">{{ r.description }}</span></button>
           </div>
         </div>
-        <div v-if="form.role === 'faculty'" class="sm:col-span-2"><label for="u-scope" class="label">Qaysi fakultet?</label><input id="u-scope" v-model="form.scope" class="field" placeholder="Masalan: Ingliz filologiyasi fakulteti"></div>
+        <div v-if="roleOf(form.role)?.scoped" class="sm:col-span-2"><label for="u-scope" class="label">Qaysi fakultet?</label><input id="u-scope" v-model="form.scope" class="field" placeholder="Masalan: Ingliz filologiyasi fakulteti"></div>
         <p v-if="error" class="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-800 sm:col-span-2">{{ error }}</p>
         <div class="flex justify-end gap-2.5 sm:col-span-2">
           <button type="button" class="btn-ghost" @click="open = false">Bekor qiliş</button>
@@ -157,8 +154,8 @@ const locked = (u: User) => !!u.lockUntil && new Date(u.lockUntil).getTime() > D
                 </span>
               </td>
               <td class="px-3.5 py-3.5">
-                <select :value="u.role" :disabled="u.id === auth.user.value?.id" class="field h-9! w-auto! text-[13px]!" :aria-label="`${u.name} roli`" @change="update(u, { role: ($event.target as HTMLSelectElement).value as User['role'] }, 'Rol özgartirildi')">
-                  <option v-for="(label, r) in ROLE_LABELS" :key="r" :value="r">{{ label }}</option>
+                <select :value="u.role" :disabled="u.id === auth.user.value?.id" class="field h-9! w-auto! text-[13px]!" :aria-label="`${u.name} roli`" @change="update(u, { role: ($event.target as HTMLSelectElement).value as string }, 'Rol özgartirildi')">
+                  <option v-for="r in roles" :key="r.slug" :value="r.slug">{{ r.name }}</option>
                 </select>
               </td>
               <td class="px-3.5 py-3.5 whitespace-nowrap text-muted tabular-nums">{{ lastLogin[u.id] ? relative(lastLogin[u.id]) : 'hali kirmagan' }}</td>

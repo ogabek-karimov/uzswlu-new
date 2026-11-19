@@ -137,6 +137,19 @@ class LoginView(APIView):
         return complete_login(request, user, username)
 
 
+def me_out(user) -> dict:
+    """Kirgan foydalanuvchi + roli (nomi) va menyu bo'limlari bo'yicha ruxsati — admin yon menyusi shundan quriladi."""
+    from apps.accounts import roles as rl
+
+    from .collections import REGISTRY
+    role = rl.role_obj(user)
+    data = REGISTRY['users'].out(user, 1)
+    data['roleName'] = role.name if role else user.role
+    data['permissions'] = rl.permissions_of(user)
+    data['scoped'] = rl.is_scoped(user)
+    return data
+
+
 def complete_login(request, user, username: str) -> Response:
     """Kirishni yakunlaydi: sessiya, JWT, kirish tarixi (parol yoki parol+2FA tekshiruvidan keyin)."""
     now = timezone.now()
@@ -149,7 +162,7 @@ def complete_login(request, user, username: str) -> Response:
     token, token_exp = jwt.issue(user)
     return Response({
         'message': 'Kirish muvaffaqiyatli',
-        'user': REGISTRY['users'].out(user, 1),
+        'user': me_out(user),
         'exp': int((now + timedelta(seconds=settings.SESSION_COOKIE_AGE)).timestamp()),
         # Cookie'siz ishlash uchun: Authorization: Bearer <token> (Swagger "Authorize" tugmasi)
         'token': token, 'tokenType': 'Bearer', 'tokenExp': token_exp,
@@ -177,7 +190,7 @@ class MeView(APIView):
     def get(self, request):
         from .collections import REGISTRY
         user = request.user if request.user and request.user.is_authenticated and request.user.status != 'disabled' else None
-        return Response({'user': REGISTRY['users'].out(user, 1) if user else None, 'collection': 'users'})
+        return Response({'user': me_out(user) if user else None, 'collection': 'users'})
 
 
 class UnlockView(APIView):

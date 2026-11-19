@@ -2,6 +2,10 @@
 
 Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `CLAUDE.md`). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.
 
+## 2026-11-20
+
+- **Admin panel + backend (rol asosida menyu, dinamik rollar):** superadmin endi o‘zi rol yaratadi (admin → «Rollar va ruxsatlar»): har bir bo‘lim (Yangiliklar, E’lonlar, Tadbirlar, Sahifalar, Hujjatlar, Fakultetlar, BRM va h.k.) uchun «Yo‘q / Ko‘rish / Yozish» tanlanadi, rol «o‘z fakulteti/kafedrasi bilan cheklangan» bo‘lishi mumkin. Foydalanuvchi kirganda yon menyu va sahifalar faqat shu rolning bo‘limlaridan quriladi, boshlang‘ich sahifa — ruxsat etilgan birinchi bo‘lim; backend ham xuddi shu qoidani majburlaydi (ruxsatsiz bo‘limga 403). Tayyor namunalar: Rektor, Dekan, Kafedra mudiri, O‘qituvchi (o‘zgartirish/o‘chirish mumkin). Tizim rollari (superadmin, editor, faculty, pages, sdg) avvalgidek qat’iy. Custom rol faqat o‘z postlarini tahrirlaydi. Backend: `accounts.Role` modeli, `User.role` endi erkin kalit (`accounts.0006`), `apps/accounts/roles.py`, `panel` da `roles` kolleksiyasi, `/users/me` va login javobida `roleName`, `permissions`, `scoped`. Sayt tomonidagi HEMIS kabineti bu bosqichda o‘zgarmadi. Testlar: `tests/panel/test_roles.py`. — COMMIT
+
 ## 2026-11-19
 
 - **Sayt — «O‘quv binolari» sahifasi (`/oquv-binolari`):** Aloqa sahifasidagi binolar (Yandex xaritasi, manzil, telefon, «Yo‘nalish olish») endi shu sahifada ham chiqadi — ma’lumot bitta joydan (admin panel → Sozlamalar → «Binolar va xarita»), ikkala sahifa umumiy `CampusCards.vue` komponentidan foydalanadi. Chap paneldagi bino belgisi, menyudagi «O‘quv binolari» va sahifa endi ishlaydi; matnlar 4 tilda (`buildings.*`). — `3c27909`

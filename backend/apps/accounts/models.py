@@ -22,7 +22,8 @@ class User(AbstractUser):
     STATUSES = [('active', 'Faol'), ('invited', 'Taklif qilingan'), ('disabled', 'Yopilgan')]
 
     name = models.CharField('F.I.Sh.', max_length=200)
-    role = models.CharField('Rol', max_length=12, choices=ROLES, default='editor')
+    # Rol — `Role.slug` (superadmin admin panelda yangi rollar yaratadi); tizim rollari `ROLES` ro'yxatida
+    role = models.CharField('Rol', max_length=40, default='editor', db_index=True)
     status = models.CharField('Holati', max_length=10, choices=STATUSES, default='active')
     position = models.CharField('Lavozim', max_length=200, blank=True)
     department = models.CharField('Bo‘lim', max_length=200, blank=True)
@@ -57,6 +58,27 @@ class User(AbstractUser):
         self.is_staff = True
         self.is_active = self.status != 'disabled'
         super().save(*args, **kwargs)
+
+
+class Role(models.Model):
+    """Admin panel roli: qaysi menyu bo'limlarida nima qila olishi (`permissions`: {bo'lim: 'read' | 'write'}).
+    Tizim rollari (superadmin, editor, faculty, pages, sdg) o'chirilmaydi; qolganlarini superadmin yaratadi (dekan, rektor, o'qituvchi...)."""
+    slug = models.SlugField('Kalit', max_length=40, unique=True)
+    name = models.CharField('Nomi', max_length=120)
+    description = models.CharField('Izoh', max_length=300, blank=True)
+    permissions = models.JSONField('Bo‘limlar bo‘yicha ruxsat', default=dict, blank=True)
+    scoped = models.BooleanField('Faqat o‘z fakulteti doirasida (User.scope)', default=False)
+    system = models.BooleanField('Tizim roli', default=False, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Rol'
+        verbose_name_plural = 'Rollar'
+        ordering = ['-system', 'name']
+
+    def __str__(self):
+        return self.name
 
 
 class StaffSession(models.Model):
