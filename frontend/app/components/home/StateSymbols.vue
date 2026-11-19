@@ -26,7 +26,7 @@ const symbols = computed(() => stateSymbols.map((base) => {
   <div class="symbols relative isolate overflow-hidden">
     <!-- Fon: hilpirab turgan ipak bayroq surati (qotgan, animatsiyasiz); gerb — bayroq oldida -->
     <div class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-      <img src="/symbols/flag-wave.webp" alt="" width="1920" height="1280" loading="lazy" decoding="async" class="absolute inset-0 size-full object-cover object-[center_30%]">
+      <img src="/symbols/flag-wave.webp" alt="" width="1920" height="1280" loading="lazy" decoding="async" class="absolute inset-0 size-full object-fill">
       <img src="/symbols/emblem.webp" alt="" loading="lazy" class="symbols-emblem absolute top-[34%] left-1/2 h-[72%] md:left-[70%] max-w-none select-none">
     </div>
 
