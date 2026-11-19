@@ -15,7 +15,7 @@ const formatDate = useFormatDate()
       <span class="absolute inset-0 bg-[linear-gradient(150deg,var(--color-brand-950)_0%,var(--color-brand-900)_55%,#2a1f6b_100%)]" />
       <span class="absolute -top-40 right-[-10%] size-[34rem] rounded-full bg-brand-500/30 blur-3xl" />
       <span class="absolute -bottom-40 -left-24 size-[30rem] rounded-full bg-accent-400/15 blur-3xl" />
-      <span class="absolute inset-0 text-white/[0.06] [mask-image:radial-gradient(90%_80%_at_50%_40%,#000_40%,transparent_95%)]"><HomeOrnament /></span>
+      <span class="absolute inset-0 text-accent-300/[0.09] [mask-image:radial-gradient(90%_80%_at_50%_40%,#000_40%,transparent_95%)]"><HomeOrnament kind="ikat" /></span>
       <Icon name="lucide:calendar-days" class="absolute -bottom-10 -left-8 size-72 -rotate-12 text-white/[0.04]" />
     </div>
     <div class="mx-auto max-w-7xl px-4 pt-14 pb-20 sm:px-6 lg:px-8 lg:pt-16 lg:pb-24">

@@ -60,7 +60,11 @@ const announcements = computed(() => props.announcements.slice(0, 4))
     </ul>
 
     <!-- E'lonlar: afishalar alohida «doska»da -->
-    <div v-if="announcements.length" class="mt-16 rounded-[32px] bg-brand-50 p-5 sm:p-8 lg:p-10">
+    <div v-if="announcements.length" class="relative isolate mt-16 overflow-hidden rounded-[32px] border border-[#f1dfb8] bg-[linear-gradient(150deg,#fff8ea_0%,#fdecc8_55%,#f8dca6_100%)] p-5 sm:p-8 lg:p-10">
+      <!-- Fon: Registon peshtoqlari naqshi (tilla rang), burchaklarda iliq yog'du -->
+      <span class="decor pointer-events-none absolute inset-0 -z-10 text-[#b07a1a]/[0.13]" aria-hidden="true"><HomeOrnament kind="arch" /></span>
+      <span class="decor pointer-events-none absolute -top-24 -right-16 -z-10 size-80 rounded-full bg-white/70 blur-3xl" aria-hidden="true" />
+      <span class="decor pointer-events-none absolute -bottom-24 -left-16 -z-10 size-72 rounded-full bg-[#f3b94d]/25 blur-3xl" aria-hidden="true" />
       <div class="flex flex-wrap items-center justify-between gap-4">
         <h2 class="flex items-center gap-3 font-display text-3xl font-semibold text-ink sm:text-4xl">
           <span class="grid size-11 place-items-center rounded-2xl bg-brand-800 text-xl text-accent-400">
