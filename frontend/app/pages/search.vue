@@ -8,7 +8,7 @@ const router = useRouter()
 const localePath = useLocalePath()
 const formatDate = useFormatDate()
 
-const KINDS: SearchKind[] = ['pages', 'news', 'documents']
+const KINDS: SearchKind[] = ['pages', 'news', 'documents', 'people']
 const str = (v: unknown) => (typeof v === 'string' ? v : '')
 const q = computed(() => str(route.query.q).trim())
 const type = computed(() => (KINDS as string[]).includes(str(route.query.type)) ? str(route.query.type) as SearchKind : '')
@@ -28,7 +28,7 @@ function submit() {
 }
 const setType = (value: SearchKind | '') => router.replace({ query: { q: q.value, ...(value ? { type: value } : {}) } })
 
-const all = computed(() => (data.value ? data.value.counts.pages + data.value.counts.news + data.value.counts.documents : 0))
+const all = computed(() => (data.value ? KINDS.reduce((sum, k) => sum + (data.value?.counts[k] ?? 0), 0) : 0))
 const totalPages = computed(() => (data.value ? Math.ceil(data.value.total / data.value.perPage) : 0))
 
 // Topilgan so'zlarni ajratib ko'rsatish (HTML'siz — matn bo'laklari)
@@ -73,7 +73,7 @@ useSeo({ title: () => (q.value ? `${q.value} — ${t('search.title')}` : t('sear
           :class="type === kind ? 'border-ink bg-ink text-white' : 'border-line bg-white text-ink hover:border-accent-500'"
           @click="setType(kind)"
         >
-          {{ kind ? t(`search.kinds.${kind}`) : t('search.all') }} · {{ kind ? data.counts[kind] : all }}
+          {{ kind ? t(`search.kinds.${kind}`) : t('search.all') }} · {{ kind ? (data.counts[kind] ?? 0) : all }}
         </button>
       </div>
     </section>

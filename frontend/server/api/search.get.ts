@@ -1,7 +1,7 @@
 import type { SearchKind, SearchResults } from '#shared/types/api'
 import type { PostIndexItem } from '../utils/mock-search'
 
-const KINDS: SearchKind[] = ['pages', 'news', 'documents']
+const KINDS: SearchKind[] = ['pages', 'news', 'documents', 'people']
 
 // Sayt bo'yicha qidiruv. Natijalar keshlanmaydi (so'rovlar har xil).
 export default defineEventHandler(async (event): Promise<SearchResults> => {
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event): Promise<SearchResults> => {
   const page = Math.min(500, Math.max(1, Number.parseInt(String(raw.page), 10) || 1))
   const perPage = 10
 
-  if (!q) return { q, counts: { pages: 0, news: 0, documents: 0 }, quick: null, items: [], total: 0, page, perPage }
+  if (!q) return { q, counts: { pages: 0, news: 0, documents: 0, people: 0 }, quick: null, items: [], total: 0, page, perPage }
 
   const { apiBase, cmsBase } = useRuntimeConfig(event)
   if (!apiBase) {

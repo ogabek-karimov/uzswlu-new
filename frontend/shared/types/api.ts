@@ -698,7 +698,8 @@ export interface AppealResult {
 }
 
 /** Qidiruv natijasi turi */
-export type SearchKind = 'pages' | 'news' | 'documents'
+/** pages — sahifalar, fakultetlar, kafedralar, yo'nalishlar, video darslar; people — rahbariyat va xodimlar */
+export type SearchKind = 'pages' | 'news' | 'documents' | 'people'
 
 /** GET /search?lang=&q=&type=&page= — sayt bo'yicha qidiruv */
 export interface SearchResults {

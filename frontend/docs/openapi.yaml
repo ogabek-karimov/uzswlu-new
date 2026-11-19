@@ -1422,7 +1422,8 @@ components:
 
     SearchKind:
       type: string
-      enum: [pages, news, documents]
+      enum: [pages, news, documents, people]
+      description: "pages — sahifalar, fakultetlar, kafedralar, yo'nalishlar, video darslar; news — yangilik/e'lon/tadbirlar; documents — hujjatlar va PDF; people — rahbariyat va xodimlar (HEMIS)"
 
     SearchResults:
       type: object
@@ -1431,8 +1432,8 @@ components:
         q: { type: string }
         counts:
           type: object
-          required: [pages, news, documents]
-          properties: { pages: { type: integer }, news: { type: integer }, documents: { type: integer } }
+          required: [pages, news, documents, people]
+          properties: { pages: { type: integer }, news: { type: integer }, documents: { type: integer }, people: { type: integer } }
         quick:
           type: [object, 'null']
           required: [title, text, url]

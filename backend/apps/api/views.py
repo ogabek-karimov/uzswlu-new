@@ -19,7 +19,7 @@ from apps.core.utils import client_ip, sha256
 from apps.pages.models import Page, SdgGoal
 from apps.structure.models import Appeal, Faculty
 
-from . import builders, builders_site as bs
+from . import builders, builders_site as bs, search
 from .builders_staff import Unprocessable
 from .common import OpenView, PublicView, lang_of
 from .hits import record_hit
@@ -217,9 +217,9 @@ class SearchView(PublicView):
         page = _int(p.get('page'), 1, 1, 500)
         per_page = _int(p.get('perPage'), 10, 1, 50)
         if not q:
-            return Response({'q': q, 'counts': {'pages': 0, 'news': 0, 'documents': 0}, 'quick': None, 'items': [], 'total': 0, 'page': page, 'perPage': per_page})
-        kind = p.get('type') if p.get('type') in ('pages', 'news', 'documents') else None
-        return Response(bs.search_out(lang_of(request), q, kind, page, per_page))
+            return Response({'q': q, 'counts': dict.fromkeys(search.KINDS, 0), 'quick': None, 'items': [], 'total': 0, 'page': page, 'perPage': per_page})
+        kind = p.get('type') if p.get('type') in search.KINDS else None
+        return Response(search.search_out(lang_of(request), q, kind, page, per_page))
 
 
 APPEAL_FILE_TYPES = {'.pdf', '.jpg', '.jpeg', '.png', '.doc', '.docx'}

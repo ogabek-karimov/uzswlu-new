@@ -111,6 +111,8 @@ watch(mobileOpen, (value) => {
 })
 
 const query = ref('')
+// Boshqa sahifaga o'tilganda sarlavhadagi qidiruv maydoni tozalanadi (natijalar sahifasida so'rov o'z maydonida turadi)
+watch(() => route.path, () => (query.value = ''))
 function submitSearch() {
   const q = query.value.trim()
   router.push({ path: localePath('/search'), query: q ? { q } : undefined })

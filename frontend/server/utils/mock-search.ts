@@ -27,14 +27,14 @@ export function getMockSearch(lang: Locale, query: { q: string; type?: SearchKin
     .filter(d => match(d.title))
     .map(d => ({ kind: 'documents' as const, title: d.title, url: d.url, excerpt: null, meta: d.kind === 'pdf' ? 'PDF' : 'URL', date: null }))
 
-  const all = { pages, news, documents }
+  const all: Record<SearchKind, SearchResults['items']> = { pages, news, documents, people: [] }
   const list = query.type ? all[query.type] : [...pages, ...news, ...documents]
   const start = (query.page - 1) * query.perPage
   const quick = pages[0]
 
   return {
     q: query.q,
-    counts: { pages: pages.length, news: news.length, documents: documents.length },
+    counts: { pages: pages.length, news: news.length, documents: documents.length, people: 0 },
     quick: quick ? { title: quick.title, text: quick.meta, url: quick.url } : null,
     items: list.slice(start, start + query.perPage),
     total: list.length,
