@@ -14,7 +14,7 @@ import { loadSiteSettings } from '@/lib/settings'
 type Campus = { key?: string; name: I18n; address: I18n; phone?: string | null; email?: string | null; coords?: string | null; mapUrl?: string | null }
 type SettingsDoc = {
   site: { name: I18n; abbr: I18n; description: I18n }
-  contact: { phone?: string; email?: string; address: I18n; telegram?: string; instagram?: string; facebook?: string; youtube?: string; x?: string; showBuildings?: boolean; campuses: Campus[] }
+  contact: { phone?: string; email?: string; address: I18n; telegram?: string; instagram?: string; facebook?: string; youtube?: string; x?: string; showBuildings: boolean; campuses: Campus[] }
   support: { telegram?: string; text: I18n; showInAdmin: boolean; showOnSite: boolean; pages: string[]; place: 'float' | 'end' | 'footer' | 'header' }
   numbers: { auto: boolean; students?: number | null; staff?: number | null; faculties?: number | null; departments?: number | null }
 }
