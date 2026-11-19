@@ -14,6 +14,19 @@ const symbols = computed(() => stateSymbols.map((base) => {
   }
 }))
 
+// 12 yulduz (bayroqdagidek 3 + 4 + 5): har biri biroz boshqa vaqtda miltillaydi
+function star(cx: number, cy: number, outer = 9, inner = 3.7): string {
+  return Array.from({ length: 10 }, (_, i) => {
+    const r = i % 2 === 0 ? outer : inner
+    const angle = (Math.PI / 5) * i - Math.PI / 2
+    return `${(cx + r * Math.cos(angle)).toFixed(2)},${(cy + r * Math.sin(angle)).toFixed(2)}`
+  }).join(' ')
+}
+const stars = [
+  ...[190, 226, 262].map(x => [x, 28]),
+  ...[172, 208, 244, 280].map(x => [x, 64]),
+  ...[154, 190, 226, 262, 298].map(x => [x, 100]),
+].map(([x, y], i) => ({ points: star(x!, y!), delay: `${((i * 0.37) % 2.4).toFixed(2)}s` }))
 </script>
 
 <template>
@@ -24,12 +37,59 @@ const symbols = computed(() => stateSymbols.map((base) => {
       </h2>
     </div>
   <div class="symbols relative isolate overflow-hidden">
-    <!-- Fon: hilpirab turgan ipak bayroq surati (qotgan, animatsiyasiz); gerb — bayroq oldida -->
+    <!-- Fon: bayroq (ko'k / oq / yashil, qizil chiziqlar), ipak yaltirashi, to'lqinlar, gerb va yarim oy bilan yulduzlar -->
     <div class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-      <img src="/symbols/flag-wave.webp" alt="" width="1920" height="1280" loading="lazy" decoding="async" class="absolute inset-0 size-full object-fill">
+      <div class="symbols-flag absolute inset-0" />
+      <div class="symbols-silk absolute inset-0" />
+      <!-- Mato burmalari: namunadagi ipak bayroqdagidek yorug' va soya chiziqlari (qotgan, animatsiyasiz) -->
+      <svg class="symbols-folds absolute inset-0 size-full" viewBox="0 0 1440 800" preserveAspectRatio="none">
+        <defs>
+          <filter id="sym-fold-blur" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="22" /></filter>
+          <filter id="sym-fold-soft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="9" /></filter>
+        </defs>
+        <g filter="url(#sym-fold-blur)" fill="none" stroke-linecap="round">
+          <path d="M-40 250 C 260 330 520 420 760 560 S 1180 760 1500 820" stroke="rgb(255 255 255 / 0.55)" stroke-width="70" />
+          <path d="M-40 330 C 240 420 500 520 740 650 S 1100 820 1400 900" stroke="rgb(0 30 50 / 0.35)" stroke-width="60" />
+          <path d="M300 -40 C 520 120 700 260 980 420 S 1300 560 1500 600" stroke="rgb(255 255 255 / 0.4)" stroke-width="80" />
+          <path d="M420 -40 C 640 140 820 300 1100 470 S 1380 600 1500 640" stroke="rgb(0 30 50 / 0.3)" stroke-width="55" />
+          <path d="M1180 -40 C 1240 120 1300 260 1460 380" stroke="rgb(0 30 50 / 0.32)" stroke-width="70" />
+          <path d="M1100 -40 C 1160 140 1230 300 1420 440" stroke="rgb(255 255 255 / 0.45)" stroke-width="50" />
+        </g>
+        <g filter="url(#sym-fold-soft)" fill="none" stroke-linecap="round">
+          <path d="M60 300 C 300 380 560 470 800 600 S 1200 780 1480 840" stroke="rgb(255 255 255 / 0.5)" stroke-width="10" />
+          <path d="M520 40 C 720 180 880 300 1140 450" stroke="rgb(255 255 255 / 0.45)" stroke-width="8" />
+          <path d="M1240 60 C 1290 180 1340 280 1460 360" stroke="rgb(255 255 255 / 0.5)" stroke-width="8" />
+        </g>
+      </svg>
+      <svg class="absolute inset-x-0 bottom-0 h-44 w-full" viewBox="0 0 1440 200" preserveAspectRatio="none">
+        <path d="M0 120 C 240 40 480 200 720 120 S 1200 40 1440 130 V200 H0Z" fill="rgb(255 255 255 / 0.08)" />
+        <path d="M0 150 C 300 80 520 210 780 140 S 1220 90 1440 160 V200 H0Z" fill="rgb(0 60 20 / 0.18)" />
+      </svg>
       <img src="/symbols/emblem.webp" alt="" loading="lazy" class="symbols-emblem absolute top-[34%] left-1/2 h-[72%] max-w-none select-none">
+      <svg class="absolute top-6 left-[8%] hidden w-[22rem] sm:block lg:left-[14%]" viewBox="0 0 320 130" fill="none">
+        <defs>
+          <linearGradient id="sym-gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#fff6d6" />
+            <stop offset="1" stop-color="#d9b85a" />
+          </linearGradient>
+          <mask id="sym-moon">
+            <rect width="320" height="130" fill="#fff" />
+            <circle cx="98" cy="62" r="44" fill="#000" />
+          </mask>
+        </defs>
+        <circle cx="76" cy="66" r="52" fill="url(#sym-gold)" mask="url(#sym-moon)" />
+        <polygon v-for="(star, i) in stars" :key="i" :points="star.points" fill="url(#sym-gold)" class="symbols-star" :style="{ animationDelay: star.delay }" />
+      </svg>
     </div>
 
+    <!-- Bayroq ranglaridagi ingichka chiziq -->
+    <div class="decor flex h-1.5" aria-hidden="true">
+      <span class="flex-1 bg-[#0099B5]" />
+      <span class="w-1 bg-[#CE1126]" />
+      <span class="flex-1 bg-white" />
+      <span class="w-1 bg-[#CE1126]" />
+      <span class="flex-1 bg-[#1EB53A]" />
+    </div>
 
     <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
 
@@ -77,14 +137,30 @@ const symbols = computed(() => stateSymbols.map((base) => {
 </template>
 
 <style scoped>
+/* Bayroq: ko'k — qizil chiziq — oq — qizil chiziq — yashil */
+.symbols-flag {
+  background: linear-gradient(to bottom, #0a5f86 0%, #0099b5 48%, #ce1126 48%, #ce1126 49.4%, #ffffff 49.4%, #e9f2ef 70%, #ce1126 70%, #ce1126 71.4%, #1eb53a 71.4%, #0c7a2d 100%);
+}
+/* Ipak mato yaltirashi */
+.symbols-silk {
+  background:
+    radial-gradient(55% 45% at 18% 28%, rgb(255 255 255 / 0.2), transparent 70%),
+    radial-gradient(50% 55% at 82% 72%, rgb(255 255 255 / 0.14), transparent 70%),
+    radial-gradient(40% 35% at 60% 12%, rgb(255 255 255 / 0.1), transparent 70%);
+}
 /* Katta gerb: o'rtada, sekin «suzadi» */
+.symbols-folds { mix-blend-mode: overlay; }
 .symbols-emblem {
   opacity: 1;
   filter: drop-shadow(0 30px 40px rgb(0 20 40 / 0.35));
   transform: translate(-50%, -50%);
 }
+.symbols-star {
+  transform-box: fill-box;
+  transform-origin: center;
+}
 /* Bayroq tile ichida yengil hilpirash (faqat shu rasm; transform — GPU, atrofga ta'sir qilmaydi) */
 .symbols-wave {
-  transform: perspective(300px) rotateY(-8deg) skewY(-1deg); /* tile ichidagi bayroq ham qotgan hilpirash holatida */
+  transform: perspective(300px) rotateY(-8deg) skewY(-1deg); /* tile ichidagi bayroq — qotgan hilpirash holatida */
 }
 </style>
