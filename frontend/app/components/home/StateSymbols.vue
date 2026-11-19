@@ -83,11 +83,11 @@ const stars = [
     </div>
 
 
-    <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+    <div class="mx-auto max-w-7xl px-4 pt-14 pb-6 sm:px-6 lg:px-8 lg:pt-20 lg:pb-8">
 
       <!-- Kartalar bir qatorda, bir xil balandlikda. Ko'tarilish li (qimirlamaydigan) ustiga olib borilganda ishlaydi —
            shunda karta sichqoncha ostidan chiqib ketib, «qaltirab» qolmaydi -->
-      <ul class="mt-60 grid gap-5 pb-4 sm:mt-72 md:grid-cols-3 lg:mt-96">
+      <ul class="mt-72 grid gap-5 sm:mt-80 md:grid-cols-3 lg:mt-[26rem]">
         <li v-for="symbol in symbols" :key="symbol.key" class="group/sym">
           <a
             :href="symbol.href"
