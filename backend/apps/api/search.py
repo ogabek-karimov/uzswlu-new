@@ -216,16 +216,16 @@ def _people(lang: str) -> list[dict]:
         url = f'/teacher/{ld.staff_id}' if ld.staff_id else f'/rektorat#leader-{ld.pk}'
         out.append(_entry('people', ld.name, url, meta=META['leader'][lang], excerpt=role, order=i))
     hidden = set(StaffProfile.objects.filter(hidden=True).values_list('hemis_id', flat=True))
-    for p in get_client().staff(lang):
-        if str(p['id']) in hidden:
+    for person in get_client().staff(lang):
+        if str(person['id']) in hidden:
             continue
-        jobs = [e for e in p.get('employments') or [] if str((e.get('status') or {}).get('code')) != '14']
-        base, patronymic = p.get('name') or '', p.get('patronymic') or ''
+        jobs = [e for e in person.get('employments') or [] if str((e.get('status') or {}).get('code')) != '14']
+        base, patronymic = person.get('name') or '', person.get('patronymic') or ''
         name = f'{base} {patronymic}' if patronymic and patronymic not in base else base
         first = jobs[0] if jobs else None
         meta = ' · '.join(x for x in ((first['position'] or {}).get('name') if first else '', first['department']['name'] if first else '') if x)
         extra = ' '.join(f"{(e.get('position') or {}).get('name', '')} {e['department']['name']}" for e in jobs)
-        out.append(_entry('people', _person(name), f"/teacher/{p['id']}",
+        out.append(_entry('people', _person(name), f"/teacher/{person['id']}",
                           meta=meta or META['staff'][lang], body=extra, order=1000))
     return out
 
