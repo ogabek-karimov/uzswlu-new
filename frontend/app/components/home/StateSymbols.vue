@@ -30,10 +30,6 @@ const symbols = computed(() => stateSymbols.map((base) => {
       <img src="/symbols/emblem.webp" alt="" loading="lazy" class="symbols-emblem absolute top-[34%] left-1/2 h-[72%] max-w-none select-none">
     </div>
 
-    <!-- Bayroqning yuqori qirrasi to'lqinli (sahifa fonidagi to'lqin) -->
-    <svg class="decor pointer-events-none absolute inset-x-0 top-0 h-10 w-full sm:h-14" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 0 H1440 V18 C 1200 52 960 4 720 26 S 240 54 0 16 Z" fill="var(--color-paper)" />
-    </svg>
 
     <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
 

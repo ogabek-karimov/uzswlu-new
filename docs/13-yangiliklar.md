@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-19
 
+- **Sayt (Davlat ramzlari):** bayroqning yuqori qirrasi yana tekis (to‘lqinli qirra olib tashlandi).
 - **Sayt (Davlat ramzlari, bayroq):** SVG bayroq o‘rniga hilpirab turgan ipak bayroq surati (`public/symbols/flag-wave.webp`, 1920 px, 51 KB; foydalanuvchi bergan rasmdan) — bo‘limga to‘liq sig‘adi (kesilmaydi), oldingi bayroq kabi butun fonni egallaydi — qotgan, animatsiyasiz; ustidagi alohida chizilgan oy va yulduzlar olib tashlandi (suratda bor); gerb bayroq oldida, o‘rtada. — `2a92a6c`, `1126d79`
 - **Sayt (Davlat ramzlari):** sarlavha bayroqdan tashqariga — ustiga (och fonda, boshqa bo‘limlar kabi) chiqdi; bayroq SVG’da to‘lqinsimon chiziqlar, to‘lqinli yuqori qirra va mato burmalari soyasi bilan — hilpirab turgan mato ko‘rinishi, animatsiyasiz (yorug‘lik va tile’dagi bayroq animatsiyalari olib tashlandi); gerb xira emas, bayroq oldida to‘liq ko‘rinadi. — `0569e6d`
 - **Sayt (bosh sahifa, fakultetlar):** kartalar ixchamlashtirildi (≈320 → 216 px): logo 128 → 80 px, nomi oddiy shriftda va to‘liq ko‘rinadi (qisqartirilmaydi); «Barcha fakultetlar» kartasi ham shu shaklda (dastlabki 4 logo taxlanib turadi, oxirida soni). Hamma kartalar bir xil balandlikda. — `a0a7a04`
