@@ -30,8 +30,10 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
 
 <template>
   <section v-if="campuses.length" class="relative overflow-hidden py-16 lg:py-24" :aria-label="t('homeContact.title')">
-    <!-- Yumshoq rangli fon (yalpiz va lavanda) -->
-    <div class="decor pointer-events-none absolute inset-0" aria-hidden="true">
+    <!-- Fon: xalqaro aloqa tasviri (sekin harakatda) va yumshoq rangli nurlar (yalpiz va lavanda) -->
+    <div class="decor pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+      <img src="/images/bg/world.webp" alt="" width="1280" height="720" loading="lazy" decoding="async" class="bg-kb absolute -inset-10 size-[calc(100%+5rem)] max-w-none object-cover opacity-70">
+      <span class="absolute inset-0 bg-[linear-gradient(180deg,rgb(250_248_244/0.8),rgb(250_248_244/0.3)_35%,rgb(250_248_244/0.3)_80%,rgb(250_248_244/0.6))]" />
       <span class="absolute -top-24 -left-32 size-[520px] rounded-full bg-accent-100 opacity-80 blur-3xl" />
       <span class="absolute -right-24 -bottom-32 size-[560px] rounded-full bg-brand-100 opacity-80 blur-3xl" />
     </div>

@@ -10,12 +10,14 @@ const formatDate = useFormatDate()
 
 <template>
   <section class="relative isolate overflow-hidden bg-brand-50/70">
-    <!-- Fon: taqvim katakchalari (o'ng-tepadan so'nadi) va katta xira taqvim belgisi -->
+    <!-- Fon: tadbir suratlari (sekin almashadi), taqvim katakchalari va katta xira taqvim belgisi; pastda chipta qirrasi -->
     <div class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+      <img v-for="(name, i) in ['graduation', 'festival', 'conference']" :key="name" :src="`/images/bg/${name}.webp`" alt="" width="1280" height="720" loading="lazy" decoding="async" class="bg-slide absolute -inset-10 size-[calc(100%+5rem)] max-w-none object-cover" :style="{ animationDelay: `-${i * 8}s` }">
+      <span class="absolute inset-0 bg-[linear-gradient(180deg,rgb(246_244_252/0.75),rgb(246_244_252/0.2)_40%,rgb(246_244_252/0.15)_70%,rgb(246_244_252/0.85))]" />
       <span class="events-grid absolute inset-0" />
       <Icon name="lucide:calendar-days" class="absolute -bottom-10 -left-8 size-72 -rotate-12 text-brand-600/[0.06]" />
     </div>
-    <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+    <div class="mx-auto max-w-7xl px-4 pt-14 pb-20 sm:px-6 lg:px-8 lg:pt-16 lg:pb-24">
     <SectionHeading
       :eyebrow="t('events.eyebrow')"
       :title="t('events.title')"
@@ -75,6 +77,8 @@ const formatDate = useFormatDate()
 
     <p v-else class="mt-12 rounded-2xl border border-dashed border-line p-10 text-center text-muted">{{ t('events.empty') }}</p>
       </div>
+    <!-- O'tish: chipta qirrasi (teshiklari sekin suriladi) -->
+    <span class="bg-perf decor pointer-events-none absolute inset-x-0 bottom-0 h-[30px]" aria-hidden="true" />
   </section>
 </template>
 

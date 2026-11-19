@@ -11,7 +11,7 @@ const preview = computed(() => props.faculties.slice(0, 4))
 </script>
 
 <template>
-  <!-- Fon: kampus surati (biroz xira) + indigo qatlam; kartalar — shisha -->
+  <!-- Fon: kampus surati (sekin yaqinlashadi, Ken Burns) + indigo qatlam; tepa va pastda to'lqin; kartalar — shisha -->
   <section class="relative isolate overflow-hidden bg-brand-950">
     <img
       src="/images/campus-aerial.webp"
@@ -20,11 +20,14 @@ const preview = computed(() => props.faculties.slice(0, 4))
       height="335"
       loading="lazy"
       decoding="async"
-      class="decor absolute -inset-6 -z-20 h-[calc(100%+3rem)] w-[calc(100%+3rem)] max-w-none object-cover blur-[5px] saturate-[1.1]"
+      class="decor bg-kb absolute -inset-6 -z-20 h-[calc(100%+3rem)] w-[calc(100%+3rem)] max-w-none object-cover saturate-[1.1]"
     >
-    <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(17_12_46/0.9)_0%,rgb(17_12_46/0.68)_45%,rgb(17_12_46/0.88)_100%)]" />
+    <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(17_12_46/0.8)_0%,rgb(17_12_46/0.45)_45%,rgb(17_12_46/0.8)_100%)]" />
 
-    <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+    <HomeWave flip class="text-paper" />
+    <HomeWave class="text-paper" />
+
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
       <SectionHeading
         :eyebrow="t('faculties.eyebrow')"
         :title="t('faculties.title')"

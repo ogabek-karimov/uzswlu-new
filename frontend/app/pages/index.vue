@@ -10,7 +10,7 @@ const { data } = await useHomeData()
       <HomeQuickLinks v-reveal class="pb-2" />
     </HomeBackdrop>
     <HomeFaculties v-reveal class="mt-14 lg:mt-20" :faculties="data?.faculties ?? []" />
-    <HomeBackdrop v-reveal variant="newsprint">
+    <HomeBackdrop v-reveal variant="reel" class="pb-12 lg:pb-16">
       <HomeNews :news="data?.news ?? []" :announcements="data?.announcements ?? []" />
     </HomeBackdrop>
     <HomeEvents v-reveal :events="data?.events ?? []" />

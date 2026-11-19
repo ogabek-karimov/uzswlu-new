@@ -1,8 +1,17 @@
 <script setup lang="ts">
 // Bo'lim orqasidagi mavzuli fon. Kontentni bosmaydi: juda xira, bosilmaydi (pointer-events yo'q), ekran o'quvchilardan yashirin.
 //   glyphs    — turli tillardagi harflar buluti (til universiteti uchun): «Universitet haqida» va tezkor havolalar ortida
-//   newsprint — gazeta yarim-tonli nuqtalari va halqalar: yangiliklar ortida
-defineProps<{ variant: 'glyphs' | 'newsprint' }>()
+//   reel      — universitet hayoti suratlari «plyonkasi» (qarama-qarshi yo'nalishda sekin suriladi): yangiliklar ortida;
+//               pastki chetda qiya kesim va yorug'lik chizig'i — keyingi bo'limga o'tish
+defineProps<{ variant: 'glyphs' | 'reel' }>()
+
+// Plyonka qatorlari: har qatorda suratlar ketma-ketligi (ikki marta takrorlanadi — uzluksiz aylanish uchun)
+const reels = [
+  { top: '3%', rev: false, imgs: ['conference', 'graduation', 'library', 'world', 'festival', 'graduation'] },
+  { top: '27%', rev: true, imgs: ['world', 'festival', 'conference', 'library', 'graduation', 'festival'] },
+  { top: '51%', rev: false, imgs: ['library', 'world', 'graduation', 'festival', 'conference', 'world'] },
+  { top: '75%', rev: true, imgs: ['festival', 'conference', 'world', 'graduation', 'library', 'conference'] },
+] as const
 
 // [belgi, chap, tepa, o'lcham, burilish]: chekkalarga joylashtirilgan, qat'iy qiymatlar (server va brauzerda bir xil)
 const glyphs = [
@@ -26,28 +35,36 @@ const glyphs = [
       </template>
 
       <template v-else>
-        <span class="absolute -top-20 -right-20 size-[26rem] rounded-full bg-brand-100/70 blur-3xl" />
-        <span class="backdrop-dots absolute inset-0" />
-        <svg class="absolute -top-24 -right-24 size-[30rem] text-brand-300/35" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1">
-          <circle cx="200" cy="200" r="60" /><circle cx="200" cy="200" r="100" /><circle cx="200" cy="200" r="140" /><circle cx="200" cy="200" r="180" />
-        </svg>
-        <span class="backdrop-rules absolute bottom-0 left-0 h-2/5 w-1/3" />
+        <div class="absolute inset-0 scale-[1.2] -rotate-[4deg] overflow-hidden">
+          <div
+            v-for="(row, ri) in reels"
+            :key="ri"
+            class="bg-reel absolute -inset-x-32 flex w-max gap-4"
+            :class="{ 'bg-reel-rev': row.rev }"
+            :style="{ top: row.top }"
+          >
+            <template v-for="copy in 2" :key="copy">
+              <img
+                v-for="(name, ii) in row.imgs"
+                :key="`${copy}-${ii}`"
+                :src="`/images/bg/${name}.webp`"
+                alt=""
+                width="256"
+                height="160"
+                loading="lazy"
+                decoding="async"
+                class="h-32 w-52 shrink-0 rounded-2xl object-cover sm:h-40 sm:w-64"
+              >
+            </template>
+          </div>
+        </div>
+        <span class="absolute inset-0 bg-brand-800/20 mix-blend-multiply" />
+        <span class="absolute inset-0 bg-[linear-gradient(180deg,rgb(250_248_244/0.9)_0%,rgb(250_248_244/0.7)_14%,rgb(250_248_244/0.18)_32%,rgb(250_248_244/0.12)_80%,rgb(250_248_244/0.55)_100%)]" />
+        <!-- O'tish: qiya kesim (keyingi bo'lim rangida) va ustida yugurib o'tuvchi yorug'lik -->
+        <span class="absolute inset-x-0 bottom-0 h-16 bg-[color-mix(in_srgb,var(--color-brand-50)_70%,var(--color-paper))] [clip-path:polygon(0_56%,100%_0,100%_100%,0_100%)] lg:h-24" />
+        <span class="bg-shine absolute inset-x-0 bottom-0 h-16 [clip-path:polygon(0_52%,100%_0,100%_6%,0_58%)] lg:h-24" />
       </template>
     </div>
     <slot />
   </div>
 </template>
-
-<style scoped>
-/* Gazeta yarim-toni: nuqtalar o'ng-tepadan chap-pastga so'nadi */
-.backdrop-dots {
-  background-image: radial-gradient(circle, rgb(70 55 163 / 0.2) 1.2px, transparent 1.7px);
-  background-size: 20px 20px;
-  mask-image: linear-gradient(205deg, #000 0%, transparent 52%);
-}
-/* Matn qatorlarini eslatuvchi ingichka chiziqlar, chap-pastda */
-.backdrop-rules {
-  background-image: repeating-linear-gradient(to bottom, transparent 0 21px, rgb(70 55 163 / 0.07) 21px 22px);
-  mask-image: linear-gradient(to top right, #000 0%, transparent 85%);
-}
-</style>

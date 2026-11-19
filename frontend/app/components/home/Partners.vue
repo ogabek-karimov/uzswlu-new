@@ -11,6 +11,8 @@ const localePath = useLocalePath()
   <!-- Ramkasiz, butun kenglikdagi qorong'i tasma -->
   <section v-if="partners.length" class="relative isolate overflow-hidden bg-brand-900 py-14 lg:py-20">
     <div>
+      <img src="/images/bg/conference.webp" alt="" width="1280" height="720" loading="lazy" decoding="async" class="decor bg-kb pointer-events-none absolute -inset-10 -z-20 size-[calc(100%+5rem)] max-w-none object-cover opacity-40">
+      <span class="decor pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(28_21_72/0.85),rgb(28_21_72/0.6)_50%,rgb(28_21_72/0.88))]" aria-hidden="true" />
       <!-- Fon: xalqaro hamkorlik — globus chiziqlari (meridian va parallellar), juda xira -->
       <svg class="decor pointer-events-none absolute -top-28 -right-24 -z-10 size-[28rem] text-white/[0.07]" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
         <circle cx="200" cy="200" r="190" /><ellipse cx="200" cy="200" rx="190" ry="70" /><ellipse cx="200" cy="200" rx="190" ry="130" />

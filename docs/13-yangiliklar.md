@@ -2,6 +2,10 @@
 
 Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `CLAUDE.md`). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.
 
+## 2026-11-19
+
+- **Sayt — bosh sahifa bo‘lim fonlari (tasdiqlangan dizayn bo‘yicha), 1-bo‘lim tegilmadi:** «Fakultetlar» — kampus surati sekin yaqinlashadi (Ken Burns), tepa va pastda animatsiyali to‘lqin (`home/Wave.vue`); «Yangiliklar» (`Backdrop.vue`, variant `reel`, eski `newsprint` o‘rniga) — universitet hayoti tasvirlari «plyonkasi» qarama-qarshi yo‘nalishda sekin suriladi, pastda qiya kesim va yugurib o‘tuvchi yorug‘lik; «Tadbirlar» — bitiruv, madaniy tadbir va konferensiya tasvirlari sekin almashadi + taqvim katakchalari, pastda chipta qirrasi; «Aloqa» — xalqaro tasvir (Ken Burns); «Hamkorlar» — konferensiya tasviri globus chiziqlari ostida. Tasvirlar `frontend/public/images/bg/*.webp` (5 ta, ~100 KB, namuna tasvirlar — haqiqiy fotosuratlar bilan almashtirish mumkin). Hammasi `.decor` (maxsus imkoniyatlarda yashirinadi), `prefers-reduced-motion` da to‘xtaydi; animatsiyalar `main.css` oxirida (`bg-*`). — `COMMIT`
+
 ## 2026-11-18
 
 - **Sayt — bosh sahifa jonli fonlari qaytarildi (revert):** foydalanuvchi faqat dizayn (taxta) so‘ragan edi, kod so‘ralmagan — `8ecf1ea` va `e2d8bd1` o‘zgarishlari bekor qilindi. Dizayn taxtasi (4 fon, 5 o‘tish, telefon) alohida saqlanadi; kodga o‘tkazish — foydalanuvchi tanlagandan keyin. — `cacc887`
