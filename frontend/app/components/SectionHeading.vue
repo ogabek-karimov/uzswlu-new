@@ -11,7 +11,7 @@ defineProps<{
 <template>
   <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
     <div class="max-w-2xl">
-      <h2 class="font-display text-4xl leading-tight font-semibold tracking-tight sm:text-5xl" :class="dark ? 'text-white' : 'text-ink'">
+      <h2 class="section-title font-display text-4xl leading-tight font-semibold tracking-tight sm:text-5xl" :class="dark && 'section-title-dark'">
         {{ title }}
       </h2>
       <p v-if="text" class="mt-4 text-lg leading-relaxed md:min-h-[2lh]" :class="dark ? 'text-white/65' : 'text-muted'">{{ text }}</p>

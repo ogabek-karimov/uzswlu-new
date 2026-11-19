@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-19
 
+- **Sayt (bo‘lim sarlavhalari dizayni):** barcha bo‘lim sarlavhalari gradient matnda (to‘q indigo → binafsha; to‘q fonda oq → mint), ostida mint→indigo chiziq — kursor kelsa uzayadi. Umumiy `.section-title` / `.section-title-dark` (`main.css`): `SectionHeading`, «Tezkor xizmatlar», «Davlat ramzlari», «Universitet haqida» kartasi (chiziqsiz). Chop etishda oddiy qora.
 - **Sayt (bo‘lim sarlavhalari):** sarlavha ustidagi kichik yozuv («BIR BOSISDA», «YANGILIKLAR» va h.k.) barcha bo‘limlardan olib tashlandi, sarlavha yuqoriga ko‘tarildi — `SectionHeading` (hamma sahifalarda), «Tezkor xizmatlar», «Davlat ramzlari», «Universitet haqida» kartasi. `*.eyebrow` matnlari faqat `aria-label` uchun qoldi. — `da736ce`
 - **Sayt (sarlavha):** mega-menyu yopilish animatsiyasi paytida kursor kelsa chiqadigan `activeMega.id` xatosi tuzatildi (`TheHeader.vue`). — `fc62c4b`
 - **Qidiruv (tuzatish):** bitta manzil natijalarda bir marta (eng mosi qoladi) — CI’dagi `test_public_lists_walk_without_duplicates`; kafedra natijasi fakultet sahifasida aynan o‘sha kafedraga olib boradi (`#dept-<id>`), yo‘nalish/video o‘z belgisi bilan, HEMIS’ga bog‘langan rahbar — profil sahifasiga. — `f067fdb`

@@ -422,3 +422,32 @@ html[data-scheme] [data-speaking] {
   .bg-kb, .bg-reel, .bg-slide, .bg-wave-a, .bg-wave-b, .bg-shine, .bg-perf { animation: none; }
   .bg-slide:first-of-type { opacity: 0.5; }
 }
+
+/* ── Bo'lim sarlavhalari: gradient matn + ostida mint→indigo chiziq (kursor kelsa uzayadi) ── */
+.section-title {
+  background-image: linear-gradient(100deg, var(--color-ink) 0%, var(--color-brand-800) 42%, var(--color-brand-500) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.08em; /* "g", "y" kabi harflar dumi kesilmasin */
+}
+.section-title::after {
+  content: '';
+  display: block;
+  width: 3.5rem;
+  height: 0.3rem;
+  margin-top: 0.85rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-accent-500), var(--color-brand-500));
+  transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.section-title:hover::after,
+:hover > .section-title::after { width: 6rem; }
+/* To'q fonda: oqdan och mintga */
+.section-title-dark {
+  background-image: linear-gradient(100deg, #fff 0%, #ece9ff 45%, var(--color-accent-300) 100%);
+}
+.section-title-dark::after { background: linear-gradient(90deg, var(--color-accent-400), rgb(255 255 255 / 0.55)); }
+.section-title-plain::after { display: none; } /* karta ichidagi sarlavha — chiziqsiz */
+@media (prefers-reduced-motion: reduce) { .section-title::after { transition: none; } }
+@media print { .section-title { color: var(--color-ink); background: none; } }
