@@ -349,6 +349,8 @@ export interface SiteData {
   emails: string[]
   campuses: Campus[]
   socials: SocialLink[]
+  /** Chap panelda «O'quv binolari» belgisi (admin panelda yoqiladi/o'chiriladi); berilmasa — ko'rsatiladi */
+  showBuildings?: boolean
   /** Davlat ramzlari (bosh sahifa bloki va footer) — admin panelda boshqariladi; berilmasa saytdagi standart havolalar */
   symbols?: StateSymbol[] | null
   /** «Davlat ramzlari» orqa foni (bayroq va gerb) — admin panelda yoqiladi/yashiriladi; berilmasa ko'rsatiladi */

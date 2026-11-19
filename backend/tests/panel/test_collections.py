@@ -105,6 +105,16 @@ class GlobalsAndVersionsTests(PanelBase):
         self.assertFalse(self.j(self.client.get('/api/cms/globals/symbols'))['background'])
         self.assertFalse(self.client.get('/api/site?lang=uz').json()['symbolsBackground'])
 
+    def test_settings_buildings_link_toggle(self):
+        # Sozlamalar → «Binolar va xarita»: chap paneldagi «O'quv binolari» belgisi yoqiladi/o'chiriladi (GET /site → showBuildings)
+        self.assertTrue(self.client.get('/api/site?lang=uz').json()['showBuildings'])
+        r = self.send('post', '/api/cms/globals/settings', {'contact': {'showBuildings': False}})
+        self.assertEqual(r.status_code, 200, r.content[:200])
+        self.assertFalse(self.j(self.client.get('/api/cms/globals/settings'))['contact']['showBuildings'])
+        self.assertFalse(self.client.get('/api/site?lang=uz').json()['showBuildings'])
+        self.send('post', '/api/cms/globals/settings', {'contact': {'showBuildings': True}})
+        self.assertTrue(self.client.get('/api/site?lang=uz').json()['showBuildings'])
+
     def test_global_version_restore(self):
         self.send('post', '/api/cms/globals/settings', self.j(self.client.get('/api/cms/globals/settings')))
         versions = self.j(self.client.get('/api/cms/globals/settings/versions?limit=5'))['docs']

@@ -601,6 +601,7 @@ components:
           items: { $ref: '#/components/schemas/MenuGroup' }
         phone: { type: string, example: '+998 71 230 13 73' }
         phoneExt: { type: string, description: Ichki raqamlar, example: '1061–1064' }
+        showBuildings: { type: boolean, description: Chap panelda «O‘quv binolari» belgisi ko‘rsatiladimi (admin panel → Sozlamalar → Binolar va xarita), default: true }
         emails:
           type: array
           items: { type: string, format: email }

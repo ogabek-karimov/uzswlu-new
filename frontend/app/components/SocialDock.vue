@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Chap chetdagi panel (eski saytdagidek): ijtimoiy tarmoqlar.
+// Chap chetdagi panel (eski saytdagidek): ijtimoiy tarmoqlar va «O'quv binolari».
 // Keng ekranda (≥1360px) doim ochiq; torroq ekranda kontentni yopmasligi uchun chetga yig'iladi —
 // kursor kelsa yoki tilcha bosilsa chiqadi. Telefonda bu havolalar mobil menyuda.
 const { t } = useI18n()
@@ -8,6 +8,8 @@ const route = useRoute()
 const { data: site } = await useSiteData()
 
 const socials = computed(() => sortSocials(site.value?.socials ?? []))
+// «O'quv binolari» belgisi — admin paneldan (Sozlamalar → Binolar va xarita) ko'rsatiladi/yashiriladi
+const showBuildings = computed(() => site.value?.showBuildings !== false)
 const open = ref(false)
 watch(() => route.fullPath, () => (open.value = false))
 
@@ -24,6 +26,14 @@ const tip = 'pointer-events-none absolute top-1/2 left-full z-10 ml-3 -translate
           <Icon :name="siteNetworks[s.network].icon" class="relative text-[1.5rem] transition-colors duration-200 group-hover:text-white group-focus-visible:text-white" />
           <span aria-hidden="true" :class="tip">{{ siteNetworks[s.network].label }}</span>
         </a>
+      </li>
+      <li v-if="socials.length && showBuildings" aria-hidden="true" class="mx-auto my-0.5 h-px w-6 bg-line" />
+      <li v-if="showBuildings">
+        <NuxtLink :to="localePath('/oquv-binolari')" :class="[item, 'text-brand-700']" :aria-label="t('social.buildings')">
+          <span aria-hidden="true" class="absolute inset-0 rounded-[inherit] bg-brand-700 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100" />
+          <Icon name="lucide:landmark" class="relative text-[1.5rem] transition-colors duration-200 group-hover:text-white group-focus-visible:text-white" />
+          <span aria-hidden="true" :class="tip">{{ t('social.buildings') }}</span>
+        </NuxtLink>
       </li>
     </ul>
     <button

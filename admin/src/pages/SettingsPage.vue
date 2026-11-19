@@ -14,7 +14,7 @@ import { loadSiteSettings } from '@/lib/settings'
 type Campus = { key?: string; name: I18n; address: I18n; phone?: string | null; email?: string | null; coords?: string | null; mapUrl?: string | null }
 type SettingsDoc = {
   site: { name: I18n; abbr: I18n; description: I18n }
-  contact: { phone?: string; email?: string; address: I18n; telegram?: string; instagram?: string; facebook?: string; youtube?: string; x?: string; campuses: Campus[] }
+  contact: { phone?: string; email?: string; address: I18n; telegram?: string; instagram?: string; facebook?: string; youtube?: string; x?: string; showBuildings?: boolean; campuses: Campus[] }
   support: { telegram?: string; text: I18n; showInAdmin: boolean; showOnSite: boolean; pages: string[]; place: 'float' | 'end' | 'footer' | 'header' }
   numbers: { auto: boolean; students?: number | null; staff?: number | null; faculties?: number | null; departments?: number | null }
 }
@@ -29,7 +29,7 @@ const tab = ref<Section | 'campuses' | 'history'>('site')
 const lang = ref<Lang>('uz')
 const form = reactive<SettingsDoc>({
   site: { name: {}, abbr: {}, description: {} },
-  contact: { address: {}, campuses: [] },
+  contact: { address: {}, showBuildings: true, campuses: [] },
   support: { text: {}, showInAdmin: true, showOnSite: false, pages: [], place: 'float' },
   numbers: { auto: true },
 })
@@ -174,6 +174,14 @@ function flash(text: string) {
           <LangTabs v-model="lang" compact />
           <button type="button" class="btn-ghost h-[34px]! px-3! text-xs!" @click="addCampus"><Icon name="plus" :size="14" />Bino qöşiş</button>
         </div>
+      </div>
+
+      <div class="card flex flex-wrap items-center justify-between gap-3 p-[22px]">
+        <div>
+          <h3 class="text-sm font-bold">Chap paneldagi «Öquv binolari» belgisi</h3>
+          <p class="mt-1 text-[13px] text-muted">{{ form.contact.showBuildings ? 'Saytning chap chetida, ijtimoiy tarmoqlar tagida körinadi.' : 'Yaşirilgan — saytning chap panelida çiqmaydi.' }}</p>
+        </div>
+        <ToggleSwitch v-model="form.contact.showBuildings" label="Saytda körsatiş" />
       </div>
 
       <article v-for="(c, i) in form.contact.campuses" :key="c.key || `new-${i}`" class="card grid gap-5 p-[22px] lg:grid-cols-[minmax(0,1fr)_320px]">
