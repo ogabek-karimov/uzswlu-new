@@ -169,7 +169,7 @@
     "access": [
       {
         "title": "账号",
-        "text": "输入完整邮箱地址：姓名@uzswlu.uz。"
+        "text": "输入完整邮箱地址：姓名{'@'}uzswlu.uz。"
       },
       {
         "title": "密码",

@@ -169,7 +169,7 @@
     "access": [
       {
         "title": "Login",
-        "text": "Enter your full address: yourname@uzswlu.uz."
+        "text": "Enter your full address: yourname{'@'}uzswlu.uz."
       },
       {
         "title": "Password",

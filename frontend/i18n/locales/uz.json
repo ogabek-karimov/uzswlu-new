@@ -169,7 +169,7 @@
     "access": [
       {
         "title": "Login",
-        "text": "To‘liq manzilingizni yozing: ismingiz@uzswlu.uz."
+        "text": "To‘liq manzilingizni yozing: ismingiz{'@'}uzswlu.uz."
       },
       {
         "title": "Parol",
