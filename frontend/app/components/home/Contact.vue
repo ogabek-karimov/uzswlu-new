@@ -115,15 +115,7 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
 
         <!-- O'ng: tanlangan binoning Yandex xaritasi (katta) -->
         <div v-if="active" class="relative min-h-[360px] overflow-hidden rounded-[32px] border-4 border-white bg-brand-50 shadow-[0_34px_70px_-40px_rgb(17_12_46/0.6)] lg:col-span-7 lg:min-h-[560px]">
-          <iframe
-            v-if="active.mapEmbed"
-            :key="active.id"
-            :src="active.mapEmbed"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            :title="`${active.name} — ${t('homeContact.map')}`"
-            class="absolute inset-0 size-full border-0"
-          />
+          <MapFrame v-if="active.mapEmbed" :key="active.id" :src="active.mapEmbed" :title="`${active.name} — ${t('homeContact.map')}`" />
           <!-- Yandex iframe'ning o'z «Открыть в Яндекс Картах» havolasi bor — ustma-ust tushmasligi uchun bizning tugma faqat xarita yo'q bo'lganda -->
           <a
             v-if="!active.mapEmbed"

@@ -958,5 +958,8 @@
   },
   "journal": {
     "name": "Philology Matters journal"
+  },
+  "map": {
+    "activate": "Click to use the map"
   }
 }

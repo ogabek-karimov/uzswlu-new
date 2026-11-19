@@ -166,14 +166,7 @@ useSeo({ title: () => faculty.value?.name ?? '', description: () => faculty.valu
         </ul>
         <!-- Yandex xaritasi; tugma — to'liq xaritada ochish -->
         <div v-if="faculty.contact.mapEmbed || faculty.contact.mapUrl" class="relative mt-6 h-52 overflow-hidden rounded-[18px] bg-brand-100">
-          <iframe
-            v-if="faculty.contact.mapEmbed"
-            :src="faculty.contact.mapEmbed"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            :title="t('faculty.map')"
-            class="absolute inset-0 size-full border-0"
-          />
+          <MapFrame v-if="faculty.contact.mapEmbed" :src="faculty.contact.mapEmbed" :title="t('faculty.map')" />
           <!-- Yandex iframe'ning o'z havolasi bor: ustma-ust tushmasligi uchun bizning tugma faqat xarita yo'q bo'lganda -->
           <a
             v-if="faculty.contact.mapUrl && !faculty.contact.mapEmbed"

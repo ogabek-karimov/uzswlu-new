@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
+import MapFrame from '@/components/MapFrame.vue'
 import Icon from '@/components/Icon.vue'
 import LangTabs from '@/components/LangTabs.vue'
 import TelegramIcon from '@/components/TelegramIcon.vue'
@@ -200,7 +201,7 @@ function flash(text: string) {
         <div class="flex flex-col gap-2">
           <span class="label mb-0!">Saytdagi xarita</span>
           <div class="overflow-hidden rounded-[14px] border border-[#E8E3D8] bg-[#FAF8F4]">
-            <iframe v-if="mapPreview(c)" :src="mapPreview(c)" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="block aspect-[4/3] w-full" :title="`${c.name.uz || 'Bino'} — xarita`" />
+            <MapFrame v-if="mapPreview(c)" :src="mapPreview(c)!" :title="`${c.name.uz || 'Bino'} — xarita`" />
             <div v-else class="grid aspect-[4/3] place-items-center px-4 text-center text-xs text-subtle">Manzil yoki xaritadagi joyni kiriting</div>
           </div>
         </div>

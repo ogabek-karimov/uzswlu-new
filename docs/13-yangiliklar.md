@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-19
 
+- **Sayt va admin (xaritalar):** barcha xaritalar (bosh sahifa «Biz bilan bog‘lanish», «Aloqa», fakultet sahifasi, admin → Binolar va xarita) sahifa aylantirilganda kursorni «ushlamaydi» — bir marta bosilgandan keyin suriladi/kattalashadi, kursor chiqib ketsa yana qulflanadi. Yangi `MapFrame.vue` (sayt va admin), `map.activate` matni 4 tilda.
 - **Sayt (Davlat ramzlari):** kartalar bo‘lim pastiga (yashil yo‘lga) tushdi, pastki bo‘sh joy qisqartirildi — gerb to‘liq ko‘rinadi.
 - **Sayt (Davlat ramzlari):** kartalar yana pastroqda; shishasi yupqaroq (oq 10%, yengil blur) — orqadagi bayroq va gerb qisman ko‘rinib turadi.
 - **Sayt (Davlat ramzlari):** oy va yulduzlar har doim ko‘k yo‘l ichida (balandligi bo‘limga nisbatan), telefonda ham ko‘rinadi; gerb kattaroq (92%); kartalar pastroqda va oq shaffof shisha (oq matn, yengil soya).

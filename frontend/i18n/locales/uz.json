@@ -958,5 +958,8 @@
   },
   "journal": {
     "name": "«Filologiya masalalari» jurnali"
+  },
+  "map": {
+    "activate": "Xaritani boşqariş uçun bosing"
   }
 }
