@@ -950,6 +950,10 @@
     "map": "map",
     "all": "All contacts"
   },
+  "buildings": {
+    "lead": "University academic buildings: addresses, phone numbers and locations on the map.",
+    "empty": "No buildings have been added yet."
+  },
   "social": {
     "title": "Follow us",
     "buildings": "Academic buildings",

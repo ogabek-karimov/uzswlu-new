@@ -950,6 +950,10 @@
     "map": "xarita",
     "all": "Barça aloqa ma’lumotlari"
   },
+  "buildings": {
+    "lead": "Universitetning öquv binolari: manzillari, telefon raqamlari va xaritadagi joylashuvi.",
+    "empty": "Hozircha binolar kiritilmagan."
+  },
   "social": {
     "title": "Ijtimoiy tarmoqlar",
     "buildings": "Öquv binolari",
