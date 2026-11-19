@@ -14,19 +14,6 @@ const symbols = computed(() => stateSymbols.map((base) => {
   }
 }))
 
-// 12 yulduz (bayroqdagidek 3 + 4 + 5): har biri biroz boshqa vaqtda miltillaydi
-function star(cx: number, cy: number, outer = 9, inner = 3.7): string {
-  return Array.from({ length: 10 }, (_, i) => {
-    const r = i % 2 === 0 ? outer : inner
-    const angle = (Math.PI / 5) * i - Math.PI / 2
-    return `${(cx + r * Math.cos(angle)).toFixed(2)},${(cy + r * Math.sin(angle)).toFixed(2)}`
-  }).join(' ')
-}
-const stars = [
-  ...[190, 226, 262].map(x => [x, 28]),
-  ...[172, 208, 244, 280].map(x => [x, 64]),
-  ...[154, 190, 226, 262, 298].map(x => [x, 100]),
-].map(([x, y], i) => ({ points: star(x!, y!), delay: `${((i * 0.37) % 2.4).toFixed(2)}s` }))
 </script>
 
 <template>
@@ -37,48 +24,10 @@ const stars = [
       </h2>
     </div>
   <div class="symbols relative isolate overflow-hidden">
-    <!-- Fon: bayroq (ko'k / oq / yashil, qizil chiziqlar), ipak yaltirashi, to'lqinlar, gerb va yarim oy bilan yulduzlar -->
+    <!-- Fon: hilpirab turgan ipak bayroq surati (qotgan, animatsiyasiz); gerb — bayroq oldida -->
     <div class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-      <!-- Bayroq: chiziqlari to'lqinsimon — mato hilpirab turganday (qotgan holat, animatsiyasiz) -->
-      <svg class="absolute inset-0 size-full" viewBox="0 0 1440 1000" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="sym-blue" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#0a5f86" />
-            <stop offset="0.5" stop-color="#0099b5" />
-          </linearGradient>
-          <linearGradient id="sym-green" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0.7" stop-color="#1eb53a" />
-            <stop offset="1" stop-color="#0c7a2d" />
-          </linearGradient>
-        </defs>
-        <rect width="1440" height="1000" fill="url(#sym-blue)" />
-        <path d="M0 450 C 240 416 480 484 720 450 S 1200 416 1440 450 V1000 H0Z" fill="#ce1126" />
-        <path d="M0 464 C 240 430 480 498 720 464 S 1200 430 1440 464 V1000 H0Z" fill="#f4f8f6" />
-        <path d="M0 690 C 240 656 480 724 720 690 S 1200 656 1440 690 V1000 H0Z" fill="#ce1126" />
-        <path d="M0 704 C 240 670 480 738 720 704 S 1200 670 1440 704 V1000 H0Z" fill="url(#sym-green)" />
-      </svg>
-      <!-- Mato burmalari: to'lqin cho'qqilarida yorug', botiqlarida soya -->
-      <div class="symbols-folds absolute inset-0" />
-      <div class="symbols-silk absolute inset-0" />
-      <svg class="absolute inset-x-0 bottom-0 h-44 w-full" viewBox="0 0 1440 200" preserveAspectRatio="none">
-        <path d="M0 120 C 240 40 480 200 720 120 S 1200 40 1440 130 V200 H0Z" fill="rgb(255 255 255 / 0.08)" />
-        <path d="M0 150 C 300 80 520 210 780 140 S 1220 90 1440 160 V200 H0Z" fill="rgb(0 60 20 / 0.18)" />
-      </svg>
-      <img src="/symbols/emblem.webp" alt="" loading="lazy" class="symbols-emblem absolute top-[34%] left-1/2 h-[72%] max-w-none select-none">
-      <svg class="absolute top-6 left-[8%] hidden w-[22rem] sm:block lg:left-[14%]" viewBox="0 0 320 130" fill="none">
-        <defs>
-          <linearGradient id="sym-gold" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#fff6d6" />
-            <stop offset="1" stop-color="#d9b85a" />
-          </linearGradient>
-          <mask id="sym-moon">
-            <rect width="320" height="130" fill="#fff" />
-            <circle cx="98" cy="62" r="44" fill="#000" />
-          </mask>
-        </defs>
-        <circle cx="76" cy="66" r="52" fill="url(#sym-gold)" mask="url(#sym-moon)" />
-        <polygon v-for="(star, i) in stars" :key="i" :points="star.points" fill="url(#sym-gold)" class="symbols-star" :style="{ animationDelay: star.delay }" />
-      </svg>
+      <img src="/symbols/flag-wave.webp" alt="" width="1920" height="1280" loading="lazy" decoding="async" class="absolute inset-0 size-full object-cover object-[center_30%]">
+      <img src="/symbols/emblem.webp" alt="" loading="lazy" class="symbols-emblem absolute top-[34%] left-1/2 h-[72%] md:left-[70%] max-w-none select-none">
     </div>
 
     <!-- Bayroqning yuqori qirrasi to'lqinli (sahifa fonidagi to'lqin) -->
@@ -132,30 +81,11 @@ const stars = [
 </template>
 
 <style scoped>
-/* Ipak mato yaltirashi */
-.symbols-silk {
-  background:
-    radial-gradient(55% 45% at 18% 28%, rgb(255 255 255 / 0.2), transparent 70%),
-    radial-gradient(50% 55% at 82% 72%, rgb(255 255 255 / 0.14), transparent 70%),
-    radial-gradient(40% 35% at 60% 12%, rgb(255 255 255 / 0.1), transparent 70%);
-}
 /* Katta gerb: o'rtada, sekin «suzadi» */
-/* Mato burmalari: vertikal yorug'/soya yo'llari (to'lqin cho'qqilari bilan bir joyda) */
-.symbols-folds {
-  background: linear-gradient(90deg,
-    rgb(0 0 0 / 0.16) 0%, rgb(255 255 255 / 0.16) 10%, rgb(0 0 0 / 0.04) 22%, rgb(0 0 0 / 0.2) 33%,
-    rgb(255 255 255 / 0.14) 45%, rgb(0 0 0 / 0.06) 56%, rgb(0 0 0 / 0.18) 68%, rgb(255 255 255 / 0.16) 80%,
-    rgb(0 0 0 / 0.05) 90%, rgb(0 0 0 / 0.16) 100%);
-  mix-blend-mode: soft-light;
-}
 .symbols-emblem {
   opacity: 1;
   filter: drop-shadow(0 30px 40px rgb(0 20 40 / 0.35));
   transform: translate(-50%, -50%);
-}
-.symbols-star {
-  transform-box: fill-box;
-  transform-origin: center;
 }
 /* Bayroq tile ichida yengil hilpirash (faqat shu rasm; transform — GPU, atrofga ta'sir qilmaydi) */
 .symbols-wave {
