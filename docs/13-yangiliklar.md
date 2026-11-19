@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-19
 
+- **Sayt (Davlat ramzlari):** bayroq tepasidagi ingichka bayroq rangli chiziq olib tashlandi.
 - **Sayt (Davlat ramzlari, tuzatish):** kartadagi kichik bayroq yana hilpiraydi (animatsiya qaytarildi); fondagi 12 yulduz haqiqiy bayroqdagidek joylashdi — 3 / 4 / 5 qator, o‘ng tomonga tekislangan ustunlar (avval piramida shaklida edi). — `df818ee`
 - **Sayt (Davlat ramzlari, yakuniy):** oldingi bayroq qaytarildi (gradient chiziqlar, oy va yulduzlar, tepasi tekis, bayroq rangli ingichka chiziq) — faqat ustiga namunadagi ipak bayroqdagidek mato burmalari: qotgan yorug‘/soya chiziqlari (`.symbols-folds`, SVG + blur, `overlay`), animatsiyasiz. Bayroq surati (`flag-wave.webp`) olib tashlandi. Sarlavha tepada, gerb o‘rtada va oldinda qoladi. — `045343f`
 - **Sayt (Davlat ramzlari):** bayroqning yuqori qirrasi yana tekis (to‘lqinli qirra olib tashlandi).

@@ -82,14 +82,6 @@ const stars = [
       </svg>
     </div>
 
-    <!-- Bayroq ranglaridagi ingichka chiziq -->
-    <div class="decor flex h-1.5" aria-hidden="true">
-      <span class="flex-1 bg-[#0099B5]" />
-      <span class="w-1 bg-[#CE1126]" />
-      <span class="flex-1 bg-white" />
-      <span class="w-1 bg-[#CE1126]" />
-      <span class="flex-1 bg-[#1EB53A]" />
-    </div>
 
     <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
 
