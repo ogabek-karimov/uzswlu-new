@@ -310,7 +310,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
       <div
         v-if="activeMega"
         class="absolute inset-x-0 top-full hidden max-h-[calc(100dvh-10rem)] overflow-y-auto border-t border-line bg-paper shadow-[0_30px_60px_-30px_rgba(19,17,47,0.35)] md:block"
-        @mouseenter="show(activeMega.id)"
+        @mouseenter="activeMega && show(activeMega.id)"
       >
         <NavMegaPanel :group="activeMega" />
       </div>
