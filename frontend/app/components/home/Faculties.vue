@@ -38,7 +38,7 @@ const localePath = useLocalePath()
       <!-- Ixcham kartalar: kichik logo, nomi to'liq ko'rinadi; «Barcha fakultetlar» ham shu shaklda -->
       <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <li v-for="(faculty, i) in faculties" :key="faculty.id" data-reveal-item class="group/li">
-          <NuxtLink :to="localePath(`/faculty/${faculty.slug}`)" data-spot class="group relative flex h-full min-h-[13.5rem] flex-col items-center overflow-hidden rounded-3xl border border-white/18 bg-white/9 px-5 pt-7 pb-6 text-center text-white transition duration-300 group-hover/li:-translate-y-1 hover:border-accent-400/60 hover:bg-white/16 hover:shadow-[0_24px_48px_-28px_rgb(0_0_0/0.7)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
+          <NuxtLink :to="localePath(`/faculty/${faculty.slug}`)" data-spot class="group relative flex h-full min-h-[13.5rem] flex-col items-center overflow-hidden rounded-3xl border border-accent-300/45 bg-[#0e7a5a]/45 px-5 backdrop-blur-sm pt-7 pb-6 text-center text-white transition duration-300 group-hover/li:-translate-y-1 hover:border-accent-300/80 hover:bg-[#0e7a5a]/60 hover:shadow-[0_24px_48px_-28px_rgb(0_0_0/0.7)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
             <span class="absolute top-4 left-5 font-display text-base font-semibold text-accent-400 tabular-nums">{{ String(i + 1).padStart(2, '0') }}</span>
             <Icon name="lucide:arrow-up-right" class="absolute top-4 right-4 text-[1.1rem] text-white/60 transition duration-300 group-hover:rotate-45 group-hover:text-accent-400" />
 
@@ -61,7 +61,7 @@ const localePath = useLocalePath()
         </li>
 
         <li data-reveal-item class="group/li">
-          <NuxtLink :to="localePath('/fakultetlar-va-kafedralar')" data-spot class="group relative flex h-full min-h-[13.5rem] flex-col items-center overflow-hidden rounded-3xl border border-white/18 bg-white/9 px-5 pt-7 pb-6 text-center text-white transition duration-300 group-hover/li:-translate-y-1 hover:border-accent-400/60 hover:bg-white/16 hover:shadow-[0_24px_48px_-28px_rgb(0_0_0/0.7)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
+          <NuxtLink :to="localePath('/fakultetlar-va-kafedralar')" data-spot class="group relative flex h-full min-h-[13.5rem] flex-col items-center overflow-hidden rounded-3xl border border-accent-300/45 bg-[#0e7a5a]/45 px-5 backdrop-blur-sm pt-7 pb-6 text-center text-white transition duration-300 group-hover/li:-translate-y-1 hover:border-accent-300/80 hover:bg-[#0e7a5a]/60 hover:shadow-[0_24px_48px_-28px_rgb(0_0_0/0.7)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
             <Icon name="lucide:arrow-up-right" class="absolute top-4 right-4 text-[1.1rem] text-white/60 transition duration-300 group-hover:rotate-45 group-hover:text-accent-400" />
             <!-- Dastlabki logolar taxlanib turadi, oxirida — fakultetlar soni -->
             <span class="flex h-20 items-center -space-x-3" aria-hidden="true">
