@@ -20,9 +20,9 @@ const localePath = useLocalePath()
       height="1080"
       loading="lazy"
       decoding="async"
-      class="decor bg-kb absolute -inset-6 -z-20 h-[calc(100%+3rem)] w-[calc(100%+3rem)] max-w-none object-cover blur-[3px] saturate-[1.1]"
+      class="decor bg-kb absolute -inset-6 -z-20 h-[calc(100%+3rem)] w-[calc(100%+3rem)] max-w-none object-cover saturate-[1.1]"
     >
-    <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[linear-gradient(160deg,rgb(70_55_163/0.78)_0%,rgb(91_75_190/0.5)_50%,rgb(106_91_208/0.78)_100%)]" />
+    <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[linear-gradient(160deg,rgb(70_55_163/0.6)_0%,rgb(91_75_190/0.3)_50%,rgb(106_91_208/0.6)_100%)]" />
 
     <HomeWave flip class="text-paper" />
     <HomeWave class="text-paper" />

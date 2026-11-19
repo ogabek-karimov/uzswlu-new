@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-19
 
-- **Sayt (Fakultetlar foni):** orqa fonda asosiy binoning kechki surati (`public/images/main-building.webp`, 1920 px, 281 KB; foydalanuvchi bergan rasmdan) — 3 px blur, ustida yengilroq indigo qatlam (surat ko‘rinadi).
+- **Sayt (Fakultetlar foni):** orqa fonda asosiy binoning kechki surati (`public/images/main-building.webp`, 1920 px, 281 KB; foydalanuvchi bergan rasmdan) — tiniq (blur’siz), ustida yengil indigo qatlam (oldingi holat: `blur-[3px]`, qatlam 0.78/0.5/0.78).
 - **Sayt (ranglar — «muvozanat»):** bo‘g‘iq deyarli qora ranglar (`#110c2e`, `#1c1548`) ochildi: yuqori qator va footer — yumshoq indigo (`#2f2675` → `#241c5e`); «Universitet haqida» raqamlari — oq kartalarda indigo raqamlar; «Fakultetlar» — yorqin o‘rta indigo gradient (aksent bo‘lim); «Yaqin tadbirlar» — och moviy-lavanda, atlas naqshi, karta sarlavhasi yorqinroq; «Hamkorlar» — oq fon, nozik chegarali logolar; rasmsiz yangilik/e’lon muqovalari — pastel (lavanda, mint, moviy, shaftoli).
 - **Sayt (E’lonlar):** e’lonlar endi yangiliklardan alohida, to‘liq kenglikdagi bo‘lim (`HomeNews show="news" | "announcements"`) — o‘z foni: och mint gradient va suzani gul-rozetkalari naqshi (`HomeBackdrop variant="mint"`, `HomeOrnament kind="suzani"`); avvalgi qum-tilla doska olib tashlandi.
 - **Sayt (bosh sahifa fonlari, har biri alohida):** «Yangiliklar» — lavanda–indigo, girih yulduzi naqshi; «E’lonlar» doskasi — iliq qum-tilla gradient, Registon peshtoqlari (ravoq) naqshi; «Yaqin tadbirlar» — to‘q indigo, mint atlas (ikat) rombchalari. `HomeOrnament` ga `kind`: `girih` / `arch` / `ikat`.
