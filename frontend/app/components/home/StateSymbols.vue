@@ -65,7 +65,7 @@ const stars = [
         <path d="M0 120 C 240 40 480 200 720 120 S 1200 40 1440 130 V200 H0Z" fill="rgb(255 255 255 / 0.08)" />
         <path d="M0 150 C 300 80 520 210 780 140 S 1220 90 1440 160 V200 H0Z" fill="rgb(0 60 20 / 0.18)" />
       </svg>
-      <img src="/symbols/emblem.webp" alt="" loading="lazy" class="symbols-emblem absolute top-[34%] left-1/2 h-[72%] max-w-none select-none">
+      <img src="/symbols/emblem.webp" alt="" loading="lazy" class="symbols-emblem absolute top-1/2 left-1/2 h-[80%] max-w-none select-none">
       <svg class="absolute top-6 left-[8%] hidden w-[22rem] sm:block lg:left-[14%]" viewBox="0 0 320 130" fill="none">
         <defs>
           <linearGradient id="sym-gold" x1="0" y1="0" x2="1" y2="1">
@@ -93,18 +93,16 @@ const stars = [
             :href="symbol.href"
             target="_blank"
             rel="noopener"
-            class="group flex h-full items-center gap-5 rounded-3xl border border-white/70 bg-white/70 p-5 text-ink shadow-[0_34px_60px_-32px_rgb(5_35_70/0.7)] backdrop-blur-xl transition duration-300 group-hover/sym:-translate-y-1.5 group-hover/sym:bg-white/90 group-hover/sym:shadow-[0_40px_70px_-30px_rgb(5_35_70/0.8)] sm:p-6 md:flex-col md:items-start xl:flex-row xl:items-center motion-reduce:transition-none motion-reduce:group-hover/sym:translate-y-0"
+            class="group flex h-full items-center gap-5 rounded-3xl border border-white/25 bg-brand-950/25 p-5 text-white shadow-[0_34px_60px_-32px_rgb(5_35_70/0.7)] backdrop-blur-md backdrop-saturate-150 transition duration-300 group-hover/sym:-translate-y-1.5 group-hover/sym:border-accent-400/60 group-hover/sym:bg-brand-950/40 group-hover/sym:shadow-[0_40px_70px_-30px_rgb(5_35_70/0.8)] sm:p-6 md:flex-col md:items-start xl:flex-row xl:items-center motion-reduce:transition-none motion-reduce:group-hover/sym:translate-y-0"
           >
             <!-- Oltin ramkali tile -->
             <span class="shrink-0 rounded-[22px] bg-gradient-to-br from-[#f3e3a8] via-[#b98f2f] to-[#f3e3a8] p-[3px] shadow-[0_10px_24px_-12px_rgb(120_90_20/0.8)] transition-transform duration-500 group-hover/sym:scale-105 motion-reduce:transition-none">
               <span class="grid size-24 place-items-center overflow-hidden rounded-[19px] bg-[#fbf6e8] sm:size-28">
-                <img
-                  v-if="symbol.image"
-                  :src="symbol.image"
-                  alt=""
-                  loading="lazy"
-                  :class="symbol.key === 'flag' ? 'symbols-wave w-[86%] rounded-sm shadow-sm' : 'size-[86%] object-contain'"
-                >
+                <!-- Bayroq: chap tomondan mahkam, to'lqin o'ngga qarab yuguradi -->
+                <span v-if="symbol.image && symbol.key === 'flag'" class="symbols-wave relative block w-[86%] overflow-hidden rounded-sm shadow-sm">
+                  <img :src="symbol.image" alt="" loading="lazy" class="block w-full">
+                </span>
+                <img v-else-if="symbol.image" :src="symbol.image" alt="" loading="lazy" class="size-[86%] object-contain">
                 <span v-else class="grid size-[62%] place-items-center rounded-full bg-brand-900 text-accent-400 shadow-[0_8px_20px_-8px_var(--color-brand-900)]">
                   <Icon name="lucide:music" class="size-7" />
                 </span>
@@ -113,7 +111,7 @@ const stars = [
 
             <span class="min-w-0 flex-1">
               <span class="block text-[17px] leading-snug font-semibold">{{ symbol.title }}</span>
-              <span class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold whitespace-nowrap text-accent-600">
+              <span class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold whitespace-nowrap text-accent-300">
                 <Icon :name="symbol.key === 'anthem' ? 'lucide:play' : 'lucide:arrow-up-right'" class="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 {{ symbol.key === 'anthem' ? t('symbols.listen') : t('symbols.view') }}
                 <span v-if="symbol.source" class="font-normal opacity-70">· {{ symbol.source }}</span>
@@ -156,13 +154,29 @@ const stars = [
 .symbols-wave {
   transform-origin: left center;
   will-change: transform;
-  animation: symbols-wave 5s ease-in-out infinite;
+  animation: symbols-wave 3.6s ease-in-out infinite;
+}
+/* Mato to'lqini: yorug'/soya yo'llari chapdan o'ngga yuguradi (ikki barobar keng qatlam bir davrga suriladi — uzluksiz) */
+.symbols-wave::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 -100%;
+  width: 200%;
+  background: linear-gradient(90deg, rgb(0 0 0 / 0) 0%, rgb(255 255 255 / 0.32) 18%, rgb(0 0 0 / 0) 34%, rgb(0 0 0 / 0.2) 52%, rgb(0 0 0 / 0) 70%, rgb(255 255 255 / 0.22) 86%, rgb(0 0 0 / 0) 100%) 0 0 / 50% 100% repeat-x;
+  animation: symbols-ripple 1.8s linear infinite;
+  pointer-events: none;
 }
 @keyframes symbols-wave {
-  0%, 100% { transform: perspective(300px) rotateY(0deg) skewY(0deg); }
-  50% { transform: perspective(300px) rotateY(-12deg) skewY(-1.5deg); }
+  0%, 100% { transform: perspective(320px) rotateY(0deg) skewY(0deg) scaleX(1); }
+  25% { transform: perspective(320px) rotateY(-9deg) skewY(-1.6deg) scaleX(0.98); }
+  50% { transform: perspective(320px) rotateY(-3deg) skewY(1deg) scaleX(1); }
+  75% { transform: perspective(320px) rotateY(-11deg) skewY(-1deg) scaleX(0.97); }
+}
+@keyframes symbols-ripple {
+  from { transform: translateX(0); }
+  to { transform: translateX(50%); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .symbols-wave { animation: none; }
+  .symbols-wave, .symbols-wave::after { animation: none; }
 }
 </style>
