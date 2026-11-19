@@ -24,7 +24,7 @@ const current = computed(() => locales.value.find(l => l.code === locale.value))
       :aria-label="`${t('topbar.language')}: ${current?.name}`"
       @click="open = !open"
     >
-      <Icon name="lucide:globe" class="size-4" :class="props.variant === 'dark' ? 'text-accent-400' : 'text-brand-600'" />
+      <LangFlag :code="locale" class="size-[18px]" />
       {{ labels[locale] }}
       <Icon name="lucide:chevron-down" class="size-3.5 opacity-70 transition-transform duration-200" :class="open && 'rotate-180'" />
     </button>
@@ -52,7 +52,7 @@ const current = computed(() => locales.value.find(l => l.code === locale.value))
             class="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-brand-50"
             :class="locale === l.code ? 'bg-brand-50 font-semibold text-brand-800' : 'text-ink/85'"
           >
-            <span>{{ l.name }}</span>
+            <span class="flex items-center gap-2.5"><LangFlag :code="l.code" class="size-5" />{{ l.name }}</span>
             <Icon v-if="locale === l.code" name="lucide:check" class="size-4 text-brand-700" />
             <span v-else-if="labels[l.code] !== l.name" class="text-xs font-medium text-muted">{{ labels[l.code] }}</span>
           </NuxtLink>
