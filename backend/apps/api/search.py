@@ -195,16 +195,16 @@ def _structure(lang: str) -> list[dict]:
             head = d.get('head') or {}
             head_name = head.get('name', '') if isinstance(head, dict) else str(head)
             if dname:
-                out.append(_entry('pages', dname, f'/faculty/{f.slug}#departments', meta=f"{META['department'][lang]} · {name}",
+                out.append(_entry('pages', dname, f"/faculty/{f.slug}#dept-{d.get('id')}", meta=f"{META['department'][lang]} · {name}",
                                   body=head_name, order=100 + i))
     for i, ql in enumerate(QuickLink.objects.filter(visible=True)):
         out.append(_entry('pages', tr(ql.title, lang), ql.url, meta=META['quick'][lang], excerpt=tr(ql.text, lang), order=50 + i))
     for p in Program.objects.select_related('faculty'):
         title = f'{p.code} — {tr(p.title, lang)}'
-        out.append(_entry('pages', title, LEVEL_URL.get(p.level, '/bakalavriat'), meta=META['program'][lang],
+        out.append(_entry('pages', title, f"{LEVEL_URL.get(p.level, '/bakalavriat')}#{p.code}", meta=META['program'][lang],
                           body=tr(p.faculty.name, lang) if p.faculty_id else '', order=200))
     for v in Video.objects.select_related('category'):
-        out.append(_entry('pages', tr(v.title, lang), '/video-darsliklar', meta=META['video'][lang],
+        out.append(_entry('pages', tr(v.title, lang), f'/video-darsliklar#video-{v.pk}', meta=META['video'][lang],
                           body=f"{v.teacher} {tr(v.category.title, lang) if v.category_id else ''}", order=300))
     return out
 
@@ -213,7 +213,8 @@ def _people(lang: str) -> list[dict]:
     out = []
     for i, ld in enumerate(Leader.objects.all()):
         role = text_of(tr(ld.role, lang))
-        out.append(_entry('people', ld.name, '/rektorat', meta=META['leader'][lang], excerpt=role, order=i))
+        url = f'/teacher/{ld.staff_id}' if ld.staff_id else f'/rektorat#leader-{ld.pk}'
+        out.append(_entry('people', ld.name, url, meta=META['leader'][lang], excerpt=role, order=i))
     hidden = set(StaffProfile.objects.filter(hidden=True).values_list('hemis_id', flat=True))
     for p in get_client().staff(lang):
         if str(p['id']) in hidden:
@@ -319,22 +320,24 @@ def search_out(lang: str, q: str, kind: str | None, page: int, per_page: int) ->
             score = _score(entry, terms)
             if score:
                 found[entry['kind']].append((score, entry))
-    for k in KINDS:
-        found[k].sort(key=lambda se: (-se[0], -(int((se[1]['date'] or '0000-00-00').replace('-', '')[:8] or 0)), se[1]['order']))
+    # Eng mosi tepada; bir manzil bir marta (masalan bo'lim va uning umumiy sahifasi bitta manzilda)
+    ranked_all, urls = [], set()
+    for score, entry in sorted((se for k in KINDS for se in found[k]),
+                               key=lambda se: (-se[0], -int((se[1]['date'] or '0').replace('-', '') or 0), se[1]['order'])):
+        if entry['url'] not in urls:
+            urls.add(entry['url'])
+            ranked_all.append(entry)
 
     def out(entry: dict) -> dict:
         excerpt = _snippet(entry, raw_terms) if entry['kind'] in ('pages', 'news') else entry['excerpt']
         return {'kind': entry['kind'], 'title': entry['title'], 'url': entry['url'], 'excerpt': excerpt, 'meta': entry['meta'], 'date': entry['date']}
 
-    ranked = {k: [e for _, e in found[k]] for k in KINDS}
-    if kind in ranked:
-        chosen = ranked[kind]
-    else:
-        # "Hammasi": eng mos natijalar tepada — turidan qat'i nazar
-        chosen = [e for _, e in sorted((se for k in KINDS for se in found[k]), key=lambda se: -se[0])]
+    ranked = {k: [e for e in ranked_all if e['kind'] == k] for k in KINDS}
+    chosen = ranked[kind] if kind in ranked else ranked_all   # "Hammasi" — turidan qat'i nazar, mosligi bo'yicha
     start = (page - 1) * per_page
-    top = found['pages'][0] if found['pages'] else None
-    quick = top[1] if top and top[0] >= 4 * len(terms) else None   # tezkor javob — sarlavhasi so'rovga to'liq mos sahifa
+    best = {id(e): sc for sc, e in found['pages']}
+    top = ranked['pages'][0] if ranked['pages'] else None
+    quick = top if top and best[id(top)] >= 4 * len(terms) else None   # tezkor javob — sarlavhasi so'rovga to'liq mos sahifa
     return {
         'q': q,
         'counts': {k: len(v) for k, v in ranked.items()},
