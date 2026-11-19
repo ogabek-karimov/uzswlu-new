@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { Faculty } from '#shared/types/api'
 
-defineProps<{ faculties: Faculty[] }>()
+const props = defineProps<{ faculties: Faculty[] }>()
+// «Barça fakultetlar» kartasida taxlanib turadigan dastlabki logolar
+const preview = computed(() => props.faculties.slice(0, 4))
 
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -61,8 +63,17 @@ const localePath = useLocalePath()
         <li data-reveal-item class="group/li">
           <NuxtLink :to="localePath('/fakultetlar-va-kafedralar')" data-spot class="group relative flex h-full min-h-[13.5rem] flex-col items-center overflow-hidden rounded-3xl border border-white/18 bg-white/9 px-5 pt-7 pb-6 text-center text-white transition duration-300 group-hover/li:-translate-y-1 hover:border-accent-400/60 hover:bg-white/16 hover:shadow-[0_24px_48px_-28px_rgb(0_0_0/0.7)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
             <Icon name="lucide:arrow-up-right" class="absolute top-4 right-4 text-[1.1rem] text-white/60 transition duration-300 group-hover:rotate-45 group-hover:text-accent-400" />
-            <span class="grid size-20 shrink-0 place-items-center rounded-full bg-accent-400 font-display text-2xl font-semibold text-brand-950 shadow-[0_12px_28px_-12px_rgba(0,0,0,0.7)] transition-transform duration-300 group-hover:scale-105">
-              {{ faculties.length }}+
+            <!-- Dastlabki logolar taxlanib turadi, oxirida — fakultetlar soni -->
+            <span class="flex h-20 items-center -space-x-3" aria-hidden="true">
+              <span
+                v-for="faculty in preview"
+                :key="faculty.id"
+                class="grid size-12 place-items-center overflow-hidden rounded-full bg-white shadow-[0_8px_18px_-8px_rgba(0,0,0,0.7)] ring-[3px] ring-accent-400 transition-transform duration-300 group-hover:translate-x-1"
+              >
+                <img v-if="faculty.logo" :src="faculty.logo" alt="" width="48" height="48" loading="lazy" class="size-full object-cover">
+                <Icon v-else name="lucide:building-2" class="text-xl text-brand-700" />
+              </span>
+              <span class="relative z-10 grid size-12 place-items-center rounded-full bg-accent-400 text-sm font-semibold text-brand-950 ring-[3px] ring-accent-400">{{ faculties.length }}+</span>
             </span>
             <span class="mx-auto mt-5 mb-3 block h-px w-8 bg-accent-400/70 transition-all duration-300 group-hover:w-16" aria-hidden="true" />
             <span class="text-[1.05rem] leading-snug font-semibold text-balance text-accent-300">{{ t('faculties.all') }}</span>
