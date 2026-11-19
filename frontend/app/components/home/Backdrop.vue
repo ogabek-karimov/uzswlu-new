@@ -3,7 +3,7 @@
 //   glyphs    — turli tillardagi harflar buluti (til universiteti uchun): «Universitet haqida» va tezkor havolalar ortida
 //   reel      — universitet hayoti suratlari «plyonkasi» (qarama-qarshi yo'nalishda sekin suriladi): yangiliklar ortida;
 //               pastki chetda qiya kesim va yorug'lik chizig'i — keyingi bo'limga o'tish
-defineProps<{ variant: 'glyphs' | 'reel' | 'ornament' }>()
+defineProps<{ variant: 'glyphs' | 'reel' | 'ornament' | 'mint' }>()
 
 // Plyonka qatorlari: har qatorda suratlar ketma-ketligi (ikki marta takrorlanadi — uzluksiz aylanish uchun)
 const reels = [
@@ -23,7 +23,13 @@ const glyphs = [
 <template>
   <div class="relative isolate overflow-hidden">
     <div class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-      <template v-if="variant === 'ornament'">
+      <template v-if="variant === 'mint'">
+        <span class="absolute inset-0 bg-[linear-gradient(160deg,#effcf6_0%,#e2f9ef_50%,#d7f6ea_100%)]" />
+        <span class="absolute -top-32 -right-24 size-[30rem] rounded-full bg-white/75 blur-3xl" />
+        <span class="absolute -bottom-32 -left-24 size-[28rem] rounded-full bg-accent-300/25 blur-3xl" />
+        <span class="absolute inset-0 text-accent-700/[0.10]"><HomeOrnament kind="suzani" /></span>
+      </template>
+      <template v-else-if="variant === 'ornament'">
         <span class="absolute inset-0 bg-[linear-gradient(160deg,var(--color-paper)_0%,var(--color-brand-50)_45%,#ebe7fb_100%)]" />
         <span class="absolute -top-32 -left-24 size-[30rem] rounded-full bg-brand-200/45 blur-3xl" />
         <span class="absolute -right-24 bottom-0 size-[28rem] rounded-full bg-accent-100/70 blur-3xl" />

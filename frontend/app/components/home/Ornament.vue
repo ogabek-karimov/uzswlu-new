@@ -1,9 +1,9 @@
 <script setup lang="ts">
 // O'zbek naqshlari — takrorlanuvchi fon. Rangi — currentColor (ota elementning text-* rangi).
-//   girih — sakkiz qirrali yulduz (yangiliklar), arch — Registon peshtoqlari/ravoqlar (e'lonlar), ikat — atlas rombchalari (tadbirlar)
-const props = withDefaults(defineProps<{ kind?: 'girih' | 'arch' | 'ikat' }>(), { kind: 'girih' })
+//   girih — sakkiz qirrali yulduz (yangiliklar), suzani — gul-rozetkalar (e'lonlar), ikat — atlas rombchalari (tadbirlar), arch — ravoqlar
+const props = withDefaults(defineProps<{ kind?: 'girih' | 'arch' | 'ikat' | 'suzani' }>(), { kind: 'girih' })
 const id = useId()
-const tile = computed(() => ({ girih: [88, 88], arch: [64, 72], ikat: [48, 72] }[props.kind]))
+const tile = computed(() => ({ girih: [88, 88], arch: [64, 72], ikat: [48, 72], suzani: [80, 80] }[props.kind]))
 </script>
 
 <template>
@@ -17,6 +17,16 @@ const tile = computed(() => ({ girih: [88, 88], arch: [64, 72], ikat: [48, 72] }
           <circle cx="44" cy="44" r="7" />
           <path d="M44 0v12M44 76v12M0 44h12M76 44h12" />
           <path d="M0 6 6 0M82 0l6 6M0 82l6 6M82 88l6-6" />
+        </g>
+        <g v-else-if="kind === 'suzani'" fill="none" stroke="currentColor" stroke-width="1.2">
+          <!-- Suzani rozetkasi: doira, sakkizta gulbarg va o'rtada to'la gul; burchaklarda kichik gulchalar -->
+          <circle cx="40" cy="40" r="17" />
+          <ellipse v-for="a in [0, 45, 90, 135, 180, 225, 270, 315]" :key="a" cx="40" cy="27" rx="3.6" ry="7.5" :transform="`rotate(${a} 40 40)`" />
+          <circle cx="40" cy="40" r="4.5" fill="currentColor" stroke="none" />
+          <g v-for="[x, y] in [[0, 0], [80, 0], [0, 80], [80, 80]]" :key="`${x}-${y}`">
+            <circle :cx="x" :cy="y" r="6" />
+            <circle :cx="x" :cy="y" r="2" fill="currentColor" stroke="none" />
+          </g>
         </g>
         <g v-else-if="kind === 'arch'" fill="none" stroke="currentColor" stroke-width="1.2">
           <!-- O'tkir uchli ravoq (peshtoq) va ichida kichigi; qatorlar yarim qadamga surilgan -->

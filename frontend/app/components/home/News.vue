@@ -3,7 +3,8 @@ import type { Announcement, NewsItem } from '#shared/types/api'
 
 // Bosh sahifa: «Yangiliklar» (4 karta) va «E'lonlar» (4 afisha) — hozirgi saytdagi tuzilish, yangi dizaynda.
 // Kartada BRM maqsadi bo'lsa — rasm burchagida rangli belgi
-const props = defineProps<{ news: NewsItem[]; announcements: Announcement[] }>()
+// show: 'news' — faqat yangiliklar, 'announcements' — faqat e'lonlar (har biri o'z fonida), berilmasa ikkalasi
+const props = defineProps<{ news: NewsItem[]; announcements: Announcement[]; show?: 'news' | 'announcements' }>()
 
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -16,6 +17,7 @@ const announcements = computed(() => props.announcements.slice(0, 4))
 <template>
   <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
     <!-- Yangiliklar -->
+    <template v-if="show !== 'announcements'">
     <SectionHeading
       :eyebrow="t('news.eyebrow')"
       :title="t('news.title')"
@@ -59,12 +61,10 @@ const announcements = computed(() => props.announcements.slice(0, 4))
       </li>
     </ul>
 
-    <!-- E'lonlar: afishalar alohida «doska»da -->
-    <div v-if="announcements.length" class="relative isolate mt-16 overflow-hidden rounded-[32px] border border-[#f1dfb8] bg-[linear-gradient(150deg,#fff8ea_0%,#fdecc8_55%,#f8dca6_100%)] p-5 sm:p-8 lg:p-10">
-      <!-- Fon: Registon peshtoqlari naqshi (tilla rang), burchaklarda iliq yog'du -->
-      <span class="decor pointer-events-none absolute inset-0 -z-10 text-[#b07a1a]/[0.13]" aria-hidden="true"><HomeOrnament kind="arch" /></span>
-      <span class="decor pointer-events-none absolute -top-24 -right-16 -z-10 size-80 rounded-full bg-white/70 blur-3xl" aria-hidden="true" />
-      <span class="decor pointer-events-none absolute -bottom-24 -left-16 -z-10 size-72 rounded-full bg-[#f3b94d]/25 blur-3xl" aria-hidden="true" />
+    </template>
+
+    <!-- E'lonlar: bosh sahifada o'z fonli bo'limida (HomeBackdrop variant="mint") -->
+    <div v-if="announcements.length && show !== 'news'" :class="show !== 'announcements' && 'mt-16'">
       <div class="flex flex-wrap items-center justify-between gap-4">
         <h2 class="flex items-center gap-3 font-display text-3xl font-semibold text-ink sm:text-4xl">
           <span class="grid size-11 place-items-center rounded-2xl bg-brand-800 text-xl text-accent-400">
