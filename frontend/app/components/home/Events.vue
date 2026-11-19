@@ -9,28 +9,27 @@ const formatDate = useFormatDate()
 </script>
 
 <template>
-  <section class="relative isolate overflow-hidden bg-brand-950">
+  <section class="relative isolate overflow-hidden bg-[#eef0ff]">
     <!-- Fon: tadbir suratlari (sekin almashadi), taqvim katakchalari va katta xira taqvim belgisi; pastda chipta qirrasi -->
     <div class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-      <span class="absolute inset-0 bg-[linear-gradient(150deg,var(--color-brand-950)_0%,var(--color-brand-900)_55%,#2a1f6b_100%)]" />
-      <span class="absolute -top-40 right-[-10%] size-[34rem] rounded-full bg-brand-500/30 blur-3xl" />
-      <span class="absolute -bottom-40 -left-24 size-[30rem] rounded-full bg-accent-400/15 blur-3xl" />
-      <span class="absolute inset-0 text-accent-300/[0.09] [mask-image:radial-gradient(90%_80%_at_50%_40%,#000_40%,transparent_95%)]"><HomeOrnament kind="ikat" /></span>
-      <Icon name="lucide:calendar-days" class="absolute -bottom-10 -left-8 size-72 -rotate-12 text-white/[0.04]" />
+      <span class="absolute inset-0 bg-[linear-gradient(150deg,#f5f6ff_0%,#e9ecfd_55%,#dfe4fb_100%)]" />
+      <span class="absolute -top-40 right-[-10%] size-[34rem] rounded-full bg-brand-200/50 blur-3xl" />
+      <span class="absolute -bottom-40 -left-24 size-[30rem] rounded-full bg-accent-100/70 blur-3xl" />
+      <span class="absolute inset-0 text-brand-600/[0.09] [mask-image:radial-gradient(90%_80%_at_50%_40%,#000_40%,transparent_95%)]"><HomeOrnament kind="ikat" /></span>
+      <Icon name="lucide:calendar-days" class="absolute -bottom-10 -left-8 size-72 -rotate-12 text-brand-600/[0.05]" />
     </div>
     <div class="mx-auto max-w-7xl px-4 pt-14 pb-20 sm:px-6 lg:px-8 lg:pt-16 lg:pb-24">
     <SectionHeading
       :eyebrow="t('events.eyebrow')"
       :title="t('events.title')"
       :link="{ to: localePath('/events'), label: t('events.all') }"
-      dark
     />
 
     <ul v-if="events.length" class="mt-12 grid gap-4 md:grid-cols-3">
       <li data-reveal-item class="group/li" v-for="event in events" :key="event.id">
         <article data-spot class="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[28px] border border-line bg-white transition duration-300 group-hover/li:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-32px_var(--color-brand-700)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
           <!-- Sarlavha: to'q gradient, katta sana, toifa -->
-          <div class="relative overflow-hidden bg-gradient-to-br from-brand-800 via-brand-900 to-brand-950 px-6 pt-6 pb-7 text-white">
+          <div class="relative overflow-hidden bg-gradient-to-br from-brand-500 via-brand-600 to-brand-700 px-6 pt-6 pb-7 text-white">
             <span class="decor pointer-events-none absolute -top-10 -right-10 size-40 rounded-full border-[1.6rem] border-white/[0.06] transition-transform duration-700 group-hover:scale-125 motion-reduce:transition-none" aria-hidden="true" />
             <span class="decor pointer-events-none absolute -bottom-12 left-1/3 size-32 rounded-full bg-accent-400/15 blur-2xl" aria-hidden="true" />
             <div class="relative flex items-start justify-between gap-3">
@@ -77,7 +76,7 @@ const formatDate = useFormatDate()
       </li>
     </ul>
 
-    <p v-else class="mt-12 rounded-2xl border border-dashed border-white/25 p-10 text-center text-white/70">{{ t('events.empty') }}</p>
+    <p v-else class="mt-12 rounded-2xl border border-dashed border-line p-10 text-center text-muted">{{ t('events.empty') }}</p>
       </div>
     <!-- O'tish: chipta qirrasi (teshiklari sekin suriladi) -->
     <span class="bg-perf decor pointer-events-none absolute inset-x-0 bottom-0 h-[30px]" aria-hidden="true" />

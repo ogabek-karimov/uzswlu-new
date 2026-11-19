@@ -5,7 +5,7 @@ const { data: site } = await useSiteData()
 </script>
 
 <template>
-  <div class="bg-brand-950 text-[13px] text-white/70">
+  <div class="bg-[#2f2675] text-[13px] text-white/75">
     <div class="mx-auto flex min-h-10 max-w-7xl items-center justify-center px-4 py-1.5 max-md:justify-between max-md:gap-3 sm:px-6 lg:px-8">
       <!-- Ishonch telefoni: yuqori qatorning o'rtasida, barcha ekranlarda -->
       <a v-if="site" :href="`tel:${site.phone.replace(/\s/g, '')}`" class="inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5 text-center transition-colors hover:text-white max-md:min-w-0 max-md:flex-1 max-md:justify-start max-md:text-left">

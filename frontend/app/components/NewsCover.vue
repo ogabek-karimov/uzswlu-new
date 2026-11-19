@@ -5,10 +5,10 @@ const props = defineProps<{ item: NewsItem; tone?: number }>()
 
 // Rasm bo'lmaganda chiqadigan bezak muqova (backend rasm bersa, rasm ko'rsatiladi)
 const tones = [
-  { bg: 'bg-brand-800', ring: 'border-white/10', glyph: 'text-accent-400' },
+  { bg: 'bg-[#e9ecfd]', ring: 'border-brand-300/40', glyph: 'text-brand-600' },
   { bg: 'bg-accent-100', ring: 'border-accent-400/30', glyph: 'text-accent-600' },
   { bg: 'bg-brand-100', ring: 'border-brand-300/40', glyph: 'text-brand-700' },
-  { bg: 'bg-brand-950', ring: 'border-white/10', glyph: 'text-brand-300' },
+  { bg: 'bg-[#fdf1e4]', ring: 'border-[#e9c79a]/50', glyph: 'text-[#b07a1a]' },
 ]
 
 const tone = computed(() => tones[(props.tone ?? 0) % tones.length]!)

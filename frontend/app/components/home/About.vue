@@ -26,19 +26,19 @@ const facts = computed(() => FACTS.flatMap((fact) => {
 <template>
   <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" :aria-label="t('about.eyebrow')">
     <!-- Raqamlar: bitta qator (telefonda 2×2). Katakchalar ingichka chiziq bilan ajratilgan, hoverda yorishadi -->
-    <dl v-if="facts.length" class="grid grid-cols-2 gap-px overflow-hidden rounded-[28px] bg-white/12 lg:grid-cols-4">
+    <dl v-if="facts.length" class="grid grid-cols-2 gap-px overflow-hidden rounded-[28px] border border-brand-100 bg-brand-100 shadow-[0_24px_50px_-34px_rgb(56_43_133/0.45)] lg:grid-cols-4">
       <div
         v-for="fact in facts"
         :key="fact.key"
-        class="group relative flex items-center gap-4 overflow-hidden bg-brand-950 px-5 py-6 transition-colors duration-300 hover:bg-brand-900 sm:gap-5 sm:px-7 sm:py-8"
+        class="group relative flex items-center gap-4 overflow-hidden bg-white px-5 py-6 transition-colors duration-300 hover:bg-brand-50 sm:gap-5 sm:px-7 sm:py-8"
       >
         <span class="pointer-events-none absolute -top-10 -left-10 size-32 rounded-full opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" :class="fact.glow" aria-hidden="true" />
-        <span class="relative grid size-12 shrink-0 -rotate-6 place-items-center rounded-2xl shadow-[0_12px_28px_-12px_rgb(0_0_0/0.6)] transition-transform duration-300 group-hover:rotate-0 group-hover:scale-110 sm:size-14 motion-reduce:transition-none" :class="fact.tile" aria-hidden="true">
+        <span class="relative grid size-12 shrink-0 -rotate-6 place-items-center rounded-2xl shadow-[0_12px_24px_-14px_rgb(56_43_133/0.55)] transition-transform duration-300 group-hover:rotate-0 group-hover:scale-110 sm:size-14 motion-reduce:transition-none" :class="fact.tile" aria-hidden="true">
           <Icon :name="fact.icon" class="size-6 sm:size-7" />
         </span>
         <div class="relative flex min-w-0 flex-col-reverse">
-          <dt class="text-sm leading-snug text-white/70 sm:text-[15px]">{{ t(`about.facts.${fact.key}`) }}</dt>
-          <dd class="font-display text-4xl leading-none text-white sm:text-5xl"><CountUp :value="fact.number" /><span class="text-accent-400">{{ fact.suffix }}</span></dd>
+          <dt class="text-sm leading-snug text-muted sm:text-[15px]">{{ t(`about.facts.${fact.key}`) }}</dt>
+          <dd class="font-display text-4xl leading-none text-brand-800 sm:text-5xl"><CountUp :value="fact.number" /><span class="text-accent-600">{{ fact.suffix }}</span></dd>
         </div>
       </div>
     </dl>

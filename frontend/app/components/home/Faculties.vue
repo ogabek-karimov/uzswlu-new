@@ -12,7 +12,7 @@ const localePath = useLocalePath()
 
 <template>
   <!-- Fon: kampus surati (sekin yaqinlashadi, Ken Burns) + indigo qatlam; tepa va pastda to'lqin; kartalar — shisha -->
-  <section class="relative isolate overflow-hidden bg-brand-950">
+  <section class="relative isolate overflow-hidden bg-brand-600">
     <img
       src="/images/campus-aerial.webp"
       alt=""
@@ -22,7 +22,7 @@ const localePath = useLocalePath()
       decoding="async"
       class="decor bg-kb absolute -inset-6 -z-20 h-[calc(100%+3rem)] w-[calc(100%+3rem)] max-w-none object-cover saturate-[1.1]"
     >
-    <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(17_12_46/0.8)_0%,rgb(17_12_46/0.45)_45%,rgb(17_12_46/0.8)_100%)]" />
+    <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[linear-gradient(160deg,rgb(70_55_163/0.9)_0%,rgb(91_75_190/0.74)_50%,rgb(106_91_208/0.88)_100%)]" />
 
     <HomeWave flip class="text-paper" />
     <HomeWave class="text-paper" />

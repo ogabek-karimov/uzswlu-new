@@ -81,11 +81,11 @@ const announcements = computed(() => props.announcements.slice(0, 4))
       <ul class="mt-8 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
         <li data-reveal-item class="group/li" v-for="(item, i) in announcements" :key="item.id">
           <article data-spot class="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[24px] bg-white shadow-[0_1px_0_rgba(19,17,47,0.04)] transition duration-300 group-hover/li:-translate-y-1 hover:shadow-[0_30px_60px_-34px_rgba(19,17,47,0.5)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
-            <div class="relative aspect-[4/5] overflow-hidden" :class="!item.image && (i % 2 ? 'bg-brand-800' : 'bg-brand-950')">
+            <div class="relative aspect-[4/5] overflow-hidden" :class="!item.image && (i % 2 ? 'bg-brand-100' : 'bg-[#e9ecfd]')">
               <img v-if="item.image" :src="item.image" :alt="item.title" loading="lazy" decoding="async" class="size-full object-cover object-top transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none">
               <div v-else class="decor absolute inset-0 grid place-items-center" aria-hidden="true">
-                <span class="absolute -right-10 -bottom-10 size-44 rounded-full border-[1.75rem] border-white/5" />
-                <Icon name="lucide:megaphone" class="size-14 text-[3.5rem] text-accent-400/80" />
+                <span class="absolute -right-10 -bottom-10 size-44 rounded-full border-[1.75rem] border-brand-600/[0.07]" />
+                <Icon name="lucide:megaphone" class="size-14 text-[3.5rem] text-brand-600/70" />
               </div>
               <!-- Varaqli taqvim ko'rinishidagi sana -->
               <time :datetime="item.date" class="absolute top-3 left-3 w-14 overflow-hidden rounded-xl bg-white text-center shadow-[0_10px_24px_-12px_rgba(0,0,0,0.55)]">
