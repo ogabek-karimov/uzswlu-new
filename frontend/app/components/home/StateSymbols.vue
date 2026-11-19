@@ -67,11 +67,7 @@ const stars = [
     </div>
 
     <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-      <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-white/90 uppercase">
-        <span class="h-px w-8 bg-accent-300" />
-        {{ t('symbols.eyebrow') }}
-      </p>
-      <h2 id="symbols-title" class="mt-4 font-display text-4xl leading-tight font-semibold tracking-tight text-white drop-shadow-[0_2px_18px_rgb(0_35_70/0.5)] sm:text-5xl lg:text-6xl">
+      <h2 id="symbols-title" class="font-display text-4xl leading-tight font-semibold tracking-tight text-white drop-shadow-[0_2px_18px_rgb(0_35_70/0.5)] sm:text-5xl lg:text-6xl">
         {{ t('symbols.title') }}
       </h2>
 

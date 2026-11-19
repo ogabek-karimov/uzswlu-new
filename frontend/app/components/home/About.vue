@@ -47,8 +47,7 @@ const facts = computed(() => FACTS.flatMap((fact) => {
       <!-- Universitet haqida -->
       <article class="group/about relative flex flex-col overflow-hidden rounded-[28px] border border-line bg-white p-8 transition duration-300 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_var(--color-brand-700)] sm:p-9 lg:col-span-5 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
         <span class="pointer-events-none absolute -top-16 -right-16 size-48 rounded-full bg-brand-100 opacity-0 blur-2xl transition-opacity duration-500 group-hover/about:opacity-100" aria-hidden="true" />
-        <p class="text-[13px] font-semibold tracking-[0.12em] text-brand-600 uppercase">{{ t('about.eyebrow') }}</p>
-        <h2 class="mt-4 font-display text-4xl leading-[1.1] font-semibold text-ink sm:text-[2.6rem]">{{ t('about.title') }}</h2>
+        <h2 class="font-display text-4xl leading-[1.1] font-semibold text-ink sm:text-[2.6rem]">{{ t('about.title') }}</h2>
         <p class="mt-4 text-[17px] leading-relaxed text-muted">{{ t('about.text') }}</p>
         <NuxtLink :to="localePath('/universitet-haqida')" class="group mt-6 inline-flex items-center gap-1.5 self-start font-semibold text-brand-600 hover:text-brand-800">
           {{ t('about.link') }}

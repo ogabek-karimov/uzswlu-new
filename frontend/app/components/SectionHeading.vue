@@ -11,11 +11,7 @@ defineProps<{
 <template>
   <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
     <div class="max-w-2xl">
-      <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.2em] uppercase" :class="dark ? 'text-accent-400' : 'text-accent-600'">
-        <span class="h-px w-8" :class="dark ? 'bg-accent-400' : 'bg-accent-500'" />
-        {{ eyebrow }}
-      </p>
-      <h2 class="mt-4 font-display text-4xl leading-tight font-semibold tracking-tight sm:text-5xl" :class="dark ? 'text-white' : 'text-ink'">
+      <h2 class="font-display text-4xl leading-tight font-semibold tracking-tight sm:text-5xl" :class="dark ? 'text-white' : 'text-ink'">
         {{ title }}
       </h2>
       <p v-if="text" class="mt-4 text-lg leading-relaxed md:min-h-[2lh]" :class="dark ? 'text-white/65' : 'text-muted'">{{ text }}</p>

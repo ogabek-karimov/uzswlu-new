@@ -51,11 +51,7 @@ watch(links, () => nextTick(measure))
   <section v-if="links.length" class="mx-auto max-w-7xl px-4 pt-14 sm:px-6 lg:px-8 lg:pt-20" aria-labelledby="quick-title">
     <div class="mb-8 flex items-end justify-between gap-6">
       <div>
-        <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-accent-600 uppercase">
-          <span class="h-px w-8 bg-accent-500" />
-          {{ t('quick.eyebrow') }}
-        </p>
-        <h2 id="quick-title" class="mt-3 font-display text-3xl leading-tight font-semibold tracking-tight text-ink sm:text-4xl">{{ t('quick.title') }}</h2>
+        <h2 id="quick-title" class="font-display text-3xl leading-tight font-semibold tracking-tight text-ink sm:text-4xl">{{ t('quick.title') }}</h2>
       </div>
     </div>
     <div>
