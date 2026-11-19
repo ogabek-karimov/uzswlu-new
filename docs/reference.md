@@ -362,6 +362,7 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `/magistratura` | `frontend/app/pages/magistratura.vue` |
 | `/meyoriy-hujjatlar` | `frontend/app/pages/meyoriy-hujjatlar.vue` |
 | `/news/:slug` | `frontend/app/pages/news/[slug].vue` |
+| `/oquv-binolari` | `frontend/app/pages/oquv-binolari.vue` |
 | `/qabul-20262027` | `frontend/app/pages/qabul-20262027.vue` |
 | `/rektorat` | `frontend/app/pages/rektorat.vue` |
 | `/search` | `frontend/app/pages/search.vue` |
