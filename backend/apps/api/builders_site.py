@@ -219,6 +219,7 @@ def site_out(lang: str) -> dict:
         'campuses': [{'id': c.key, 'name': tr(c.name, lang), 'address': tr(c.address, lang)} for c in Campus.objects.all()],
         'socials': socials,
         'symbols': symbols_out(lang) or None,
+        'symbolsBackground': s.symbols_background,
     }
 
 

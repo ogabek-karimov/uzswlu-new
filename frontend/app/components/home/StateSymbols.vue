@@ -1,6 +1,11 @@
 <script setup lang="ts">
 const { t } = useI18n()
 const { data: site } = await useSiteData()
+// Orqa fon (bayroq va gerb) — admin panelda yashirilsa faqat kartalar qoladi
+const background = computed(() => site.value?.symbolsBackground !== false)
+
+const GLASS = 'border border-white/50 bg-white/10 text-white [text-shadow:0_1px_10px_rgb(0_40_25/0.55)] shadow-[0_34px_60px_-32px_rgb(5_35_70/0.7)] backdrop-blur-[3px] group-hover/sym:border-accent-400/60 group-hover/sym:bg-white/20 group-hover/sym:shadow-[0_40px_70px_-30px_rgb(5_35_70/0.8)]'
+const PLAIN = 'border border-line bg-white text-ink shadow-[0_1px_0_rgba(19,17,47,0.04)] group-hover/sym:border-brand-200 group-hover/sym:shadow-[0_30px_60px_-34px_rgba(19,17,47,0.45)]'
 
 // Admin paneldagi "Ramzlar" bo'limidan; CMS ulanmagan bo'lsa — standart havolalar
 const symbols = computed(() => stateSymbols.map((base) => {
@@ -36,9 +41,9 @@ const stars = [
         {{ t('symbols.title') }}
       </h2>
     </div>
-  <div class="symbols relative isolate overflow-hidden">
+  <div class="symbols relative isolate" :class="background && 'overflow-hidden'">
     <!-- Fon: bayroq (ko'k / oq / yashil, qizil chiziqlar), ipak yaltirashi, to'lqinlar, gerb va yarim oy bilan yulduzlar -->
-    <div class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div v-if="background" class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
       <div class="symbols-flag absolute inset-0" />
       <div class="symbols-silk absolute inset-0" />
       <!-- Mato burmalari: namunadagi ipak bayroqdagidek yorug' va soya chiziqlari (qotgan, animatsiyasiz) -->
@@ -83,17 +88,18 @@ const stars = [
     </div>
 
 
-    <div class="mx-auto max-w-7xl px-4 pt-14 pb-6 sm:px-6 lg:px-8 lg:pt-20 lg:pb-8">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" :class="background ? 'pt-14 pb-6 lg:pt-20 lg:pb-8' : 'pb-14 lg:pb-20'">
 
       <!-- Kartalar bir qatorda, bir xil balandlikda. Ko'tarilish li (qimirlamaydigan) ustiga olib borilganda ishlaydi —
            shunda karta sichqoncha ostidan chiqib ketib, «qaltirab» qolmaydi -->
-      <ul class="mt-72 grid gap-5 sm:mt-80 md:grid-cols-3 lg:mt-[26rem]">
+      <ul class="grid gap-5 md:grid-cols-3" :class="background && 'mt-72 sm:mt-80 lg:mt-[26rem]'">
         <li v-for="symbol in symbols" :key="symbol.key" class="group/sym">
           <a
             :href="symbol.href"
             target="_blank"
             rel="noopener"
-            class="group flex h-full items-center gap-5 rounded-3xl border border-white/50 bg-white/10 p-5 text-white [text-shadow:0_1px_10px_rgb(0_40_25/0.55)] shadow-[0_34px_60px_-32px_rgb(5_35_70/0.7)] backdrop-blur-[3px] transition duration-300 group-hover/sym:-translate-y-1.5 group-hover/sym:border-accent-400/60 group-hover/sym:bg-white/20 group-hover/sym:shadow-[0_40px_70px_-30px_rgb(5_35_70/0.8)] sm:p-6 md:flex-col md:items-start xl:flex-row xl:items-center motion-reduce:transition-none motion-reduce:group-hover/sym:translate-y-0"
+            :class="background ? GLASS : PLAIN"
+            class="group flex h-full items-center gap-5 rounded-3xl p-5 transition duration-300 group-hover/sym:-translate-y-1.5 sm:p-6 md:flex-col md:items-start xl:flex-row xl:items-center motion-reduce:transition-none motion-reduce:group-hover/sym:translate-y-0"
           >
             <!-- Oltin ramkali tile -->
             <span class="shrink-0 rounded-[22px] bg-gradient-to-br from-[#f3e3a8] via-[#b98f2f] to-[#f3e3a8] p-[3px] shadow-[0_10px_24px_-12px_rgb(120_90_20/0.8)] transition-transform duration-500 group-hover/sym:scale-105 motion-reduce:transition-none">
@@ -111,7 +117,7 @@ const stars = [
 
             <span class="min-w-0 flex-1">
               <span class="block text-[17px] leading-snug font-semibold">{{ symbol.title }}</span>
-              <span class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold whitespace-nowrap text-accent-300">
+              <span class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold whitespace-nowrap" :class="background ? 'text-accent-300' : 'text-accent-600'">
                 <Icon :name="symbol.key === 'anthem' ? 'lucide:play' : 'lucide:arrow-up-right'" class="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 {{ symbol.key === 'anthem' ? t('symbols.listen') : t('symbols.view') }}
                 <span v-if="symbol.source" class="font-normal opacity-70">· {{ symbol.source }}</span>

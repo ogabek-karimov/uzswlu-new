@@ -173,6 +173,7 @@ class SiteSettings(SingletonModel):
     ])
 
     numbers_auto = models.BooleanField('Bosh sahifa raqamlari HEMIS’dan avtomatik', default=True)
+    symbols_background = models.BooleanField('Davlat ramzlari: orqa fon (bayroq va gerb)', default=True)
     students = models.PositiveIntegerField('Talabalar', null=True, blank=True)
     staff = models.PositiveIntegerField('Xodimlar', null=True, blank=True)
     faculties = models.PositiveIntegerField('Fakultetlar', null=True, blank=True)

@@ -351,6 +351,8 @@ export interface SiteData {
   socials: SocialLink[]
   /** Davlat ramzlari (bosh sahifa bloki va footer) — admin panelda boshqariladi; berilmasa saytdagi standart havolalar */
   symbols?: StateSymbol[] | null
+  /** «Davlat ramzlari» orqa foni (bayroq va gerb) — admin panelda yoqiladi/yashiriladi; berilmasa ko'rsatiladi */
+  symbolsBackground?: boolean
 }
 
 /** Davlat ramzi: bayroq, gerb yoki madhiya */

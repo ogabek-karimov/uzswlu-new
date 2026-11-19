@@ -616,6 +616,9 @@ components:
           nullable: true
           description: Davlat ramzlari (bosh sahifa bloki va footer) — admin panelda boshqariladi; berilmasa saytdagi standart havolalar
           items: { $ref: '#/components/schemas/StateSymbol' }
+        symbolsBackground:
+          type: boolean
+          description: «Davlat ramzlari» orqa foni (bayroq va gerb) ko'rsatiladimi — admin panelda yoqiladi/yashiriladi
 
     StateSymbol:
       type: object

@@ -2,6 +2,7 @@
 import { onMounted, reactive, ref } from 'vue'
 import { api, type I18n, type MediaDoc } from '@/lib/api'
 import { LANGS, type Lang, SITE_URL } from '@/lib/constants'
+import Icon from '@/components/Icon.vue'
 import ImageField from '@/components/ImageField.vue'
 import PdfSlot from '@/components/PdfSlot.vue'
 
@@ -21,10 +22,13 @@ const saved = ref(false)
 const error = ref('')
 const blank = (): Symbol => ({ image: null, audio: null, title: {}, description: {}, link: '', source: '' })
 const form = reactive<Record<Key, Symbol>>({ emblem: blank(), flag: blank(), anthem: blank() })
+// Bosh sahifadagi blokning orqa foni (bayroq va gerb): yashirilsa faqat 3 ta karta qoladi
+const background = ref(true)
 const obj = (v: unknown) => (v && typeof v === 'object' ? v as MediaDoc : null)
 
 onMounted(async () => {
-  const g = await api.get<Record<Key, Record<string, any>>>('/globals/symbols', { depth: 1 })
+  const g = await api.get<Record<Key, Record<string, any>> & { background?: boolean }>('/globals/symbols', { depth: 1 })
+  background.value = g.background !== false
   for (const { key } of KEYS) {
     const s = g[key] ?? {}
     form[key] = { image: obj(s.image), audio: obj(s.audio), title: { ...(s.title ?? {}) }, description: { ...(s.description ?? {}) }, link: s.link ?? '', source: s.source ?? '' }
@@ -41,7 +45,7 @@ async function save() {
       const s = form[key]
       return [key, { image: s.image?.id ?? null, ...(key === 'anthem' ? { audio: s.audio?.id ?? null } : {}), title: s.title, description: s.description, link: s.link.trim() || null, source: s.source.trim() || null }]
     }))
-    await api.post('/globals/symbols', data)
+    await api.post('/globals/symbols', { ...data, background: background.value })
     saved.value = true
   }
   catch (e) {
@@ -66,6 +70,23 @@ async function save() {
           <button v-for="l in LANGS" :key="l.code" type="button" role="tab" :aria-selected="lang === l.code" class="h-[30px] min-w-10 rounded-lg px-2 text-xs font-bold" :class="lang === l.code ? 'bg-ink text-white' : 'border border-field bg-white text-muted'" @click="lang = l.code">{{ l.short }}</button>
         </div>
       </div>
+    </div>
+
+    <div v-if="!loading" class="card flex flex-wrap items-center justify-between gap-3 p-[18px]">
+      <div>
+        <h2 class="text-base font-bold">Orqa fon: bayroq va gerb</h2>
+        <p class="mt-1 text-[13px] text-muted">Yaşirilsa, boş sahifadagi blokda faqat 3 ta karta qoladi. Özgariş «Saqlaş» bosilgach saytga çiqadi.</p>
+      </div>
+      <button
+        type="button"
+        class="inline-flex h-10 items-center gap-2 rounded-full px-4 text-sm font-semibold transition-colors"
+        :class="background ? 'bg-[#DDFBF0] text-[#0B5A43]' : 'bg-[#F1F0F5] text-muted'"
+        :aria-pressed="background"
+        @click="background = !background"
+      >
+        <Icon :name="background ? 'eye' : 'eyeOff'" :size="18" />
+        {{ background ? 'Saytda körinadi' : 'Yaşirilgan' }}
+      </button>
     </div>
 
     <p v-if="loading" class="text-sm text-muted">Yuklanmoqda…</p>

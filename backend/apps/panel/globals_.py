@@ -194,7 +194,7 @@ class SymbolsGlobal(Global):
         return rows
 
     def out(self, rows, depth):
-        doc = {'id': 1, 'globalType': 'symbols'}
+        doc = {'id': 1, 'globalType': 'symbols', 'background': SiteSettings.load().symbols_background}
         for key, s in rows.items():
             item = {
                 'image': media_out(s.image, depth) if s.image_id else None, 'title': i18n_out(s.title),
@@ -206,6 +206,10 @@ class SymbolsGlobal(Global):
         return doc
 
     def write(self, rows, data, request):
+        if 'background' in data:   # bosh sahifadagi bayroq va gerb foni — ko'rsatish/yashirish
+            site = SiteSettings.load()
+            site.symbols_background = bool(data['background'])
+            site.save(update_fields=['symbols_background'])
         for key, s in rows.items():
             item = data.get(key)
             if not isinstance(item, dict):

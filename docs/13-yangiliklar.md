@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-19
 
+- **Admin + sayt (Davlat ramzlari foni):** admin → Ramzlar sahifasida «Orqa fon: bayroq va gerb» ko‘z tugmasi; yashirilsa bosh sahifadagi blokda bayroq, gerb, oy va yulduzlar chiqmaydi — faqat 3 ta karta (oq kartalar, qora matn). Backend: `SiteSettings.symbols_background` (`core.0005`), global `symbols` → `background`, `GET /site` → `symbolsBackground` (shartnomada ham). Test: `test_symbols_background_toggle_reaches_site`.
 - **Sayt (til tanlagich):** globus o‘rniga joriy til bayrog‘i, ro‘yxatda har bir til yonida bayroq (uz — O‘zbekiston, ru — Rossiya, en — Buyuk Britaniya, zh — Xitoy). Yangi `LangFlag.vue` — dumaloq ichki SVG, tashqi so‘rovsiz.
 - **Sayt va admin (xaritalar):** barcha xaritalar (bosh sahifa «Biz bilan bog‘lanish», «Aloqa», fakultet sahifasi, admin → Binolar va xarita) sahifa aylantirilganda kursorni «ushlamaydi» — bir marta bosilgandan keyin suriladi/kattalashadi, kursor chiqib ketsa yana qulflanadi. Yangi `MapFrame.vue` (sayt va admin), `map.activate` matni 4 tilda.
 - **Sayt (Davlat ramzlari):** kartalar bo‘lim pastiga (yashil yo‘lga) tushdi, pastki bo‘sh joy qisqartirildi — gerb to‘liq ko‘rinadi.

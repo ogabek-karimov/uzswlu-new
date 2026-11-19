@@ -97,6 +97,14 @@ class GlobalsAndVersionsTests(PanelBase):
         self.send('post', '/api/cms/globals/settings', {'contact': {'x': ''}})
         self.assertNotIn('x', [s['network'] for s in self.client.get('/api/site?lang=uz').json()['socials']])
 
+    def test_symbols_background_toggle_reaches_site(self):
+        # Ramzlar → orqa fon (bayroq va gerb) yashirilsa sayt API'da symbolsBackground=false
+        self.assertTrue(self.client.get('/api/site?lang=uz').json()['symbolsBackground'])
+        r = self.send('post', '/api/cms/globals/symbols', {'background': False})
+        self.assertEqual(r.status_code, 200, r.content[:200])
+        self.assertFalse(self.j(self.client.get('/api/cms/globals/symbols'))['background'])
+        self.assertFalse(self.client.get('/api/site?lang=uz').json()['symbolsBackground'])
+
     def test_global_version_restore(self):
         self.send('post', '/api/cms/globals/settings', self.j(self.client.get('/api/cms/globals/settings')))
         versions = self.j(self.client.get('/api/cms/globals/settings/versions?limit=5'))['docs']
