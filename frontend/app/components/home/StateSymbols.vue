@@ -93,7 +93,7 @@ const stars = [
       <!-- Kartalar bir qatorda, bir xil balandlikda. Ko'tarilish li (qimirlamaydigan) ustiga olib borilganda ishlaydi —
            shunda karta sichqoncha ostidan chiqib ketib, «qaltirab» qolmaydi -->
       <ul class="grid gap-5 md:grid-cols-3" :class="background && 'mt-72 sm:mt-80 lg:mt-[26rem]'">
-        <li v-for="symbol in symbols" :key="symbol.key" class="group/sym">
+        <li v-for="symbol in symbols" :key="symbol.key" data-reveal-item class="group/sym">
           <a
             :href="symbol.href"
             target="_blank"

@@ -1,31 +1,43 @@
 // Bo'limlar sahifa aylantirilganda ko'rinish maydoniga kirganda silliq paydo bo'ladi (fade-in + pastdan siljish).
 //   <HomeNews v-reveal />                — bo'lim bir marta paydo bo'ladi
-//   <HomeFaculties v-reveal />           — ichidagi [data-reveal-item] elementlar ketma-ket (0,07 s qadam) paydo bo'ladi
+//   <HomeFaculties v-reveal />           — ichidagi [data-reveal-item] kartalar har biri o'zi ekranga kirganda, navbat bilan (0,12 s) paydo bo'ladi
 // Qoidalar: server HTML'i har doim ko'rinadi (JS'siz ham o'qiladi); ekranda turgan bo'lim animatsiyasiz qoladi;
 // prefers-reduced-motion yoki IntersectionObserver yo'q bo'lsa — hech narsa yashirilmaydi; animatsiyadan so'ng klasslar olib tashlanadi
 // (transform qolmasin: hover/sticky/blur bilan to'qnashmasligi uchun). Stillar: main.css (.reveal).
-const STEP_MS = 70
-const MAX_ITEMS = 12
+const STEP_MS = 120 // birga ko'ringan kartalar orasidagi navbat
+const MAX_STEPS = 8
 
 export default defineNuxtPlugin((nuxtApp) => {
   let io: IntersectionObserver | undefined
-  const targets = new WeakMap<Element, () => void>()
-
-  function observer() {
-    return (io ??= new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (!e.isIntersecting) continue
-        io!.unobserve(e.target)
-        targets.get(e.target)?.()
-        targets.delete(e.target)
-      }
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }))
-  }
+  const watched = new WeakMap<Element, HTMLElement[]>()
 
   function done(el: HTMLElement) {
-    const clear = () => el.classList.remove('reveal', 'reveal-in')
+    const clear = () => {
+      el.classList.remove('reveal', 'reveal-in')
+      el.style.transitionDelay = ''
+    }
     el.addEventListener('transitionend', clear, { once: true })
-    setTimeout(clear, 1600) // transitionend kelmasa ham tozalanadi
+    setTimeout(clear, 2200) // transitionend kelmasa ham tozalanadi
+  }
+
+  // Har bir karta o'zi ekranga kirganda chiqadi; bir vaqtda kirganlar — yuqoridan pastga, chapdan o'ngga navbat bilan
+  function observer() {
+    return (io ??= new IntersectionObserver((entries) => {
+      const shown = entries
+        .filter(e => e.isIntersecting)
+        .map(e => e.target as HTMLElement)
+        .sort((a, b) => {
+          const ra = a.getBoundingClientRect()
+          const rb = b.getBoundingClientRect()
+          return Math.round(ra.top - rb.top) || ra.left - rb.left
+        })
+      shown.forEach((el, i) => {
+        io!.unobserve(el)
+        el.style.transitionDelay = `${Math.min(i, MAX_STEPS) * STEP_MS}ms`
+        el.classList.add('reveal-in')
+        done(el)
+      })
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.12 }))
   }
 
   nuxtApp.vueApp.directive('reveal', {
@@ -34,26 +46,19 @@ export default defineNuxtPlugin((nuxtApp) => {
     mounted(el: HTMLElement) {
       if (!import.meta.client || !(el instanceof HTMLElement)) return // v-if bo'lsa ildiz izoh (comment) bo'lishi mumkin
       if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return
-      // Birinchi ekranda turgan bo'lim — animatsiyasiz (yonib-o'chib qolmasin)
-      if (el.getBoundingClientRect().top < window.innerHeight * 0.9) return
-
-      const items = Array.from(el.querySelectorAll<HTMLElement>('[data-reveal-item]')).slice(0, MAX_ITEMS)
-      const hidden = items.length ? items : [el]
-      for (const h of hidden) h.classList.add('reveal')
-
-      targets.set(el, () => {
-        hidden.forEach((h, i) => {
-          h.style.transitionDelay = items.length ? `${i * STEP_MS}ms` : ''
-          h.classList.add('reveal-in')
-          done(h)
-          setTimeout(() => { h.style.transitionDelay = '' }, 1600)
-        })
-      })
-      observer().observe(el)
+      const items = Array.from(el.querySelectorAll<HTMLElement>('[data-reveal-item]'))
+      // Ekranda turgan narsa animatsiyasiz qoladi (yonib-o'chib qolmasin)
+      const below = (n: HTMLElement) => n.getBoundingClientRect().top > window.innerHeight * 0.92
+      const hidden = (items.length ? items : [el]).filter(below)
+      for (const h of hidden) {
+        h.classList.add('reveal')
+        observer().observe(h)
+      }
+      watched.set(el, hidden)
     },
     unmounted(el: HTMLElement) {
-      io?.unobserve(el)
-      targets.delete(el)
+      for (const h of watched.get(el) ?? []) io?.unobserve(h)
+      watched.delete(el)
     },
   })
 })
