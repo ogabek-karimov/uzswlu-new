@@ -31,12 +31,11 @@ const localePath = useLocalePath()
       <SectionHeading
         :eyebrow="t('faculties.eyebrow')"
         :title="t('faculties.title')"
-        :text="t('faculties.text')"
         dark
       />
 
       <!-- Ixcham kartalar: kichik logo, nomi to'liq ko'rinadi; «Barcha fakultetlar» ham shu shaklda -->
-      <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <li v-for="(faculty, i) in faculties" :key="faculty.id" data-reveal-item class="group/li">
           <NuxtLink :to="localePath(`/faculty/${faculty.slug}`)" data-spot class="group relative flex h-full min-h-[13.5rem] flex-col items-center overflow-hidden rounded-3xl border border-accent-300/45 bg-[#0e7a5a]/45 px-5 backdrop-blur-sm pt-7 pb-6 text-center text-white transition duration-300 group-hover/li:-translate-y-1 hover:border-accent-300/80 hover:bg-[#0e7a5a]/60 hover:shadow-[0_24px_48px_-28px_rgb(0_0_0/0.7)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
             <span class="absolute top-4 left-5 font-display text-base font-semibold text-accent-400 tabular-nums">{{ String(i + 1).padStart(2, '0') }}</span>
