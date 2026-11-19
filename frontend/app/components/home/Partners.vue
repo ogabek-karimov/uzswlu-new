@@ -9,7 +9,7 @@ const localePath = useLocalePath()
 
 <template>
   <!-- Ramkasiz, butun kenglikdagi qorong'i tasma -->
-  <section v-if="partners.length" class="relative isolate overflow-hidden border-y border-line bg-white py-14 lg:py-20">
+  <section v-if="partners.length" class="section-wave relative isolate overflow-hidden bg-white py-16 lg:py-24">
     <div>
       <img src="/images/bg/conference.webp" alt="" width="1280" height="720" loading="lazy" decoding="async" class="decor bg-kb pointer-events-none absolute -inset-10 -z-20 size-[calc(100%+5rem)] max-w-none object-cover opacity-[0.07]">
       <span class="decor pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(255_255_255/0.9),rgb(242_240_252/0.6)_50%,rgb(255_255_255/0.92))]" aria-hidden="true" />

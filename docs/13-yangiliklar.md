@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-19
 
+- **Sayt (bo‘limlar orasidagi o‘tish):** rangli bo‘limlar endi to‘g‘ri chiziq bilan emas, yuqori va pastki qirrasi yumshoq to‘lqin bilan ajraladi — orasidan sahifa foni ipak lentadek oqib o‘tadi (`.section-wave`, `.section-wave-top` — CSS mask; gradient, naqsh va suratli fonlarda ham ishlaydi): Yangiliklar, E’lonlar, Fakultetlar, Yaqin tadbirlar, Davlat ramzlari, Hamkorlar; footer — faqat yuqori qirrasi. Tadbirlardagi «chipta qirrasi» va hamkorlardagi chegara chiziqlari olib tashlandi.
 - **Sayt (Fakultetlar):** sarlavha ostidagi «Har bir fakultet — …» tavsifi olib tashlandi, kartalar yuqoriroq (bo‘lim ixchamroq).
 - **Sayt (fon animatsiyasi):** `bg-kb` (Fakultetlar va Hamkorlar fonidagi surat) endi faqat markazdan sekin kattalashadi (1 → 1,08), chetga surilmaydi.
 - **Sayt (fakultet kartalari):** kartalar shaffof yashil (`#0e7a5a` 45%, yengil blur, mint chegara; hover’da 60%) — tiniq bino suratidan ajralib turadi.

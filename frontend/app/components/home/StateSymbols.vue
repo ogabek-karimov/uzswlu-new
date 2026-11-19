@@ -41,7 +41,7 @@ const stars = [
         {{ t('symbols.title') }}
       </h2>
     </div>
-  <div class="symbols relative isolate" :class="background && 'overflow-hidden'">
+  <div class="symbols relative isolate" :class="background && 'section-wave overflow-hidden'">
     <!-- Fon: bayroq (ko'k / oq / yashil, qizil chiziqlar), ipak yaltirashi, to'lqinlar, gerb va yarim oy bilan yulduzlar -->
     <div v-if="background" class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
       <div class="symbols-flag absolute inset-0" />

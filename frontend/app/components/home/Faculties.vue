@@ -12,7 +12,7 @@ const localePath = useLocalePath()
 
 <template>
   <!-- Fon: kampus surati (sekin yaqinlashadi, Ken Burns) + indigo qatlam; tepa va pastda to'lqin; kartalar — shisha -->
-  <section class="relative isolate overflow-hidden bg-brand-600">
+  <section class="section-wave relative isolate overflow-hidden bg-brand-600">
     <img
       src="/images/main-building.webp"
       alt=""

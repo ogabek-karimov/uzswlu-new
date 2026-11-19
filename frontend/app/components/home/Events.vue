@@ -9,7 +9,7 @@ const formatDate = useFormatDate()
 </script>
 
 <template>
-  <section class="relative isolate overflow-hidden bg-[#eef0ff]">
+  <section class="section-wave relative isolate overflow-hidden bg-[#eef0ff]">
     <!-- Fon: tadbir suratlari (sekin almashadi), taqvim katakchalari va katta xira taqvim belgisi; pastda chipta qirrasi -->
     <div class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
       <span class="absolute inset-0 bg-[linear-gradient(150deg,#f5f6ff_0%,#e9ecfd_55%,#dfe4fb_100%)]" />
@@ -78,8 +78,6 @@ const formatDate = useFormatDate()
 
     <p v-else class="mt-12 rounded-2xl border border-dashed border-line p-10 text-center text-muted">{{ t('events.empty') }}</p>
       </div>
-    <!-- O'tish: chipta qirrasi (teshiklari sekin suriladi) -->
-    <span class="bg-perf decor pointer-events-none absolute inset-x-0 bottom-0 h-[30px]" aria-hidden="true" />
   </section>
 </template>
 

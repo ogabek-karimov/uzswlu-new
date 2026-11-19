@@ -19,7 +19,7 @@ const usefulLinks = [
 </script>
 
 <template>
-  <footer class="bg-[linear-gradient(180deg,#2f2675_0%,#241c5e_100%)] text-white/70">
+  <footer class="section-wave-top bg-[linear-gradient(180deg,#2f2675_0%,#241c5e_100%)] pt-6 text-white/70">
     <div class="mx-auto grid max-w-7xl gap-12 px-4 pt-10 pb-12 sm:px-6 lg:grid-cols-12 lg:gap-8 lg:px-8">
       <div class="lg:col-span-4">
         <NuxtLink :to="localePath('/')" class="flex items-center gap-3">

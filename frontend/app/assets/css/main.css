@@ -451,3 +451,21 @@ html[data-scheme] [data-speaking] {
 .section-title-plain::after { display: none; } /* karta ichidagi sarlavha — chiziqsiz */
 @media (prefers-reduced-motion: reduce) { .section-title::after { transition: none; } }
 @media print { .section-title { color: var(--color-ink); background: none; } }
+
+/* ── Bo'limlar orasidagi to'lqinli ajratgich: rangli bo'limning yuqori va pastki qirrasi yumshoq to'lqin (ipak lenta) ──
+   Niqob (mask) bilan kesiladi — gradient, naqsh va suratli fonlarda ham ishlaydi; qirralar orasidan sahifa foni ko'rinadi */
+.section-wave,
+.section-wave-top {
+  --wave: clamp(28px, 4vw, 56px);
+}
+.section-wave {
+  mask:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 56' preserveAspectRatio='none'%3E%3Cpath d='M0 56V26C240 2 480 50 720 28S1200 4 1440 30V56Z'/%3E%3C/svg%3E") top / 100% var(--wave) no-repeat,
+    linear-gradient(#000 0 0) center / 100% calc(100% - 2 * var(--wave) + 2px) no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 56' preserveAspectRatio='none'%3E%3Cpath d='M0 0V30C240 54 480 6 720 28S1200 52 1440 26V0Z'/%3E%3C/svg%3E") bottom / 100% var(--wave) no-repeat;
+}
+.section-wave-top {
+  mask:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 56' preserveAspectRatio='none'%3E%3Cpath d='M0 56V26C240 2 480 50 720 28S1200 4 1440 30V56Z'/%3E%3C/svg%3E") top / 100% var(--wave) no-repeat,
+    linear-gradient(#000 0 0) bottom / 100% calc(100% - var(--wave) + 1px) no-repeat;
+}
