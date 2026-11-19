@@ -129,7 +129,8 @@ const stars = [
 <style scoped>
 /* Bayroq: ko'k — qizil chiziq — oq — qizil chiziq — yashil */
 .symbols-flag {
-  background: linear-gradient(to bottom, #0a5f86 0%, #0099b5 48%, #ce1126 48%, #ce1126 49.4%, #ffffff 49.4%, #e9f2ef 70%, #ce1126 70%, #ce1126 71.4%, #1eb53a 71.4%, #0c7a2d 100%);
+  /* Rasmiy bayroqdagidek: ko'k, oq, yashil — teng enli (har biri ≈32,5%), oq yo'l ikki tomonidan ingichka qizil hoshiya bilan */
+  background: linear-gradient(to bottom, #0a5f86 0%, #0099b5 32.53%, #ce1126 32.53%, #ce1126 33.73%, #ffffff 33.73%, #e9f2ef 66.27%, #ce1126 66.27%, #ce1126 67.47%, #1eb53a 67.47%, #0c7a2d 100%);
 }
 /* Ipak mato yaltirashi */
 .symbols-silk {

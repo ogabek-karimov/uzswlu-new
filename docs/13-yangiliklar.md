@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-19
 
+- **Sayt (Davlat ramzlari):** fondagi bayroq rasmiy nisbatda — ko‘k, oq, yashil yo‘llar teng enli (≈32,5%), oq yo‘l ikki tomonidan ingichka qizil hoshiya (1,2%).
 - **Sayt (Davlat ramzlari):** gerb bo‘lim markazida, kartalar orqasida; kartalar fakultet kartalaridek shaffof shisha (oq matn, hover’da mint chegara); kartadagi bayroq tabiiyroq hilpiraydi — chap tomondan mahkam, yorug‘/soya to‘lqini o‘ngga qarab yuguradi (`prefers-reduced-motion` da to‘xtaydi). — `36d7d3b`
 - **Sayt (Davlat ramzlari):** bayroq tepasidagi ingichka bayroq rangli chiziq olib tashlandi.
 - **Sayt (Davlat ramzlari, tuzatish):** kartadagi kichik bayroq yana hilpiraydi (animatsiya qaytarildi); fondagi 12 yulduz haqiqiy bayroqdagidek joylashdi — 3 / 4 / 5 qator, o‘ng tomonga tekislangan ustunlar (avval piramida shaklida edi). — `df818ee`
