@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-19
 
-- **Admin panel (CI tuzatishi):** `SettingsPage.vue` da `contact.showBuildings` turi `boolean` qilindi (`vue-tsc`: ToggleSwitch `boolean | undefined` ni qabul qilmaydi). — `COMMIT`
+- **Admin panel (CI tuzatishi):** `SettingsPage.vue` da `contact.showBuildings` turi `boolean` qilindi (`vue-tsc`: ToggleSwitch `boolean | undefined` ni qabul qilmaydi). — `03e1606`
 - **Sayt (kartalar paydo bo‘lishi):** sahifa pastga aylantirilganda har bir karta o‘zi ekranga kirganda chiqadi (avval butun bo‘lim birdan); bir vaqtda kirganlar yuqoridan pastga, chapdan o‘ngga 0,12 s navbat bilan (`plugins/reveal.ts`). «Universitet haqida» raqamlari va kartalari hamda «Davlat ramzlari» kartalari ham qo‘shildi. Ekranda turgan narsa animatsiyasiz; `prefers-reduced-motion` da o‘chadi.
 - **Sayt (bo‘limlar orasidagi o‘tish):** rangli bo‘limlar endi to‘g‘ri chiziq bilan emas, yuqori va pastki qirrasi yumshoq to‘lqin bilan ajraladi — orasidan sahifa foni ipak lentadek oqib o‘tadi (`.section-wave`, `.section-wave-top` — CSS mask; gradient, naqsh va suratli fonlarda ham ishlaydi): Yangiliklar, E’lonlar, Fakultetlar, Yaqin tadbirlar, Davlat ramzlari, Hamkorlar; footer — faqat yuqori qirrasi. Tadbirlardagi «chipta qirrasi» va hamkorlardagi chegara chiziqlari olib tashlandi.
 - **Sayt (Fakultetlar):** sarlavha ostidagi «Har bir fakultet — …» tavsifi olib tashlandi, kartalar yuqoriroq (bo‘lim ixchamroq).
