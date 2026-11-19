@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-19
 
+- **Sayt (Davlat ramzlari):** kartalar yana pastroqda; shishasi yupqaroq (oq 10%, yengil blur) — orqadagi bayroq va gerb qisman ko‘rinib turadi.
 - **Sayt (Davlat ramzlari):** oy va yulduzlar har doim ko‘k yo‘l ichida (balandligi bo‘limga nisbatan), telefonda ham ko‘rinadi; gerb kattaroq (92%); kartalar pastroqda va oq shaffof shisha (oq matn, yengil soya).
 - **Sayt (Davlat ramzlari):** fondagi bayroq rasmiy nisbatda — ko‘k, oq, yashil yo‘llar teng enli (≈32,5%), oq yo‘l ikki tomonidan ingichka qizil hoshiya (1,2%).
 - **Sayt (Davlat ramzlari):** gerb bo‘lim markazida, kartalar orqasida; kartalar fakultet kartalaridek shaffof shisha (oq matn, hover’da mint chegara); kartadagi bayroq tabiiyroq hilpiraydi — chap tomondan mahkam, yorug‘/soya to‘lqini o‘ngga qarab yuguradi (`prefers-reduced-motion` da to‘xtaydi). — `36d7d3b`

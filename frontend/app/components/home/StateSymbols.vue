@@ -87,13 +87,13 @@ const stars = [
 
       <!-- Kartalar bir qatorda, bir xil balandlikda. Ko'tarilish li (qimirlamaydigan) ustiga olib borilganda ishlaydi —
            shunda karta sichqoncha ostidan chiqib ketib, «qaltirab» qolmaydi -->
-      <ul class="mt-52 grid gap-5 pb-4 sm:mt-64 md:grid-cols-3 lg:mt-80">
+      <ul class="mt-60 grid gap-5 pb-4 sm:mt-72 md:grid-cols-3 lg:mt-96">
         <li v-for="symbol in symbols" :key="symbol.key" class="group/sym">
           <a
             :href="symbol.href"
             target="_blank"
             rel="noopener"
-            class="group flex h-full items-center gap-5 rounded-3xl border border-white/50 bg-white/20 p-5 text-white [text-shadow:0_1px_10px_rgb(0_40_25/0.55)] shadow-[0_34px_60px_-32px_rgb(5_35_70/0.7)] backdrop-blur-md backdrop-saturate-150 transition duration-300 group-hover/sym:-translate-y-1.5 group-hover/sym:border-accent-400/60 group-hover/sym:bg-white/30 group-hover/sym:shadow-[0_40px_70px_-30px_rgb(5_35_70/0.8)] sm:p-6 md:flex-col md:items-start xl:flex-row xl:items-center motion-reduce:transition-none motion-reduce:group-hover/sym:translate-y-0"
+            class="group flex h-full items-center gap-5 rounded-3xl border border-white/50 bg-white/10 p-5 text-white [text-shadow:0_1px_10px_rgb(0_40_25/0.55)] shadow-[0_34px_60px_-32px_rgb(5_35_70/0.7)] backdrop-blur-[3px] transition duration-300 group-hover/sym:-translate-y-1.5 group-hover/sym:border-accent-400/60 group-hover/sym:bg-white/20 group-hover/sym:shadow-[0_40px_70px_-30px_rgb(5_35_70/0.8)] sm:p-6 md:flex-col md:items-start xl:flex-row xl:items-center motion-reduce:transition-none motion-reduce:group-hover/sym:translate-y-0"
           >
             <!-- Oltin ramkali tile -->
             <span class="shrink-0 rounded-[22px] bg-gradient-to-br from-[#f3e3a8] via-[#b98f2f] to-[#f3e3a8] p-[3px] shadow-[0_10px_24px_-12px_rgb(120_90_20/0.8)] transition-transform duration-500 group-hover/sym:scale-105 motion-reduce:transition-none">
