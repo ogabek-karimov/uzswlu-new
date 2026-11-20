@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-21
 
-- **Admin + backend + sayt (binolar):** «Sozlamalar → Binolar va xarita» da har bir binoga **fakultet** tanlanadi — binolar kartasidagi logo shu fakultetdan olinadi (avval frontendda qattiq yozilgan edi; mavjud 3 bino migratsiyada avtomatik bog‘landi, bosh binoda universitet logosi). `Campus.faculty` (`structure.0005`), API `campuses[].logo`, panel `facultyId`. Qo‘shimcha `/api/faculties` so‘rovi olib tashlandi. Chap paneldagi ikonkalar past ekranda (balandlik ≤ 680 px) kichrayadi, sig‘masa aylantiriladi; bino kartasi hover'da endi kattalashmaydi (qo‘shni kartani yopmasdi), faqat ko‘tariladi. — COMMIT
+- **Admin + backend + sayt (binolar):** «Sozlamalar → Binolar va xarita» da har bir binoga **fakultet** tanlanadi — binolar kartasidagi logo shu fakultetdan olinadi (avval frontendda qattiq yozilgan edi; mavjud 3 bino migratsiyada avtomatik bog‘landi, bosh binoda universitet logosi). `Campus.faculty` (`structure.0005`), API `campuses[].logo`, panel `facultyId`. Qo‘shimcha `/api/faculties` so‘rovi olib tashlandi. Chap paneldagi ikonkalar past ekranda (balandlik ≤ 680 px) kichrayadi, sig‘masa aylantiriladi; bino kartasi hover'da endi kattalashmaydi (qo‘shni kartani yopmasdi), faqat ko‘tariladi. — `2f85dc2`
 
 ## 2026-11-20
 
