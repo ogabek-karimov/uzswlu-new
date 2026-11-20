@@ -13,17 +13,17 @@ const showBuildings = computed(() => site.value?.showBuildings !== false)
 const open = ref(false)
 watch(() => route.fullPath, () => (open.value = false))
 
-const item = 'group relative grid size-14 place-items-center rounded-2xl outline-none transition-transform duration-200 focus-visible:ring-2 focus-visible:ring-brand-400'
+const item = 'group relative grid size-14 [@media(max-height:680px)]:size-11 place-items-center rounded-2xl outline-none transition-transform duration-200 focus-visible:ring-2 focus-visible:ring-brand-400'
 const tip = 'pointer-events-none absolute top-1/2 left-full z-10 ml-3 -translate-x-1 -translate-y-1/2 rounded-lg bg-ink px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-white opacity-0 shadow-lg transition duration-200 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100'
 </script>
 
 <template>
   <nav class="social-dock fixed top-1/2 left-0 z-40 hidden items-center md:flex print:hidden" :class="open && 'is-open'" :aria-label="t('social.title')">
-    <ul class="flex flex-col items-center gap-1.5 py-2 pr-2 pl-1">
+    <ul class="flex max-h-dvh flex-col items-center gap-1.5 overflow-y-auto py-2 pr-2 pl-1 [@media(max-height:680px)]:gap-0.5">
       <li v-for="s in socials" :key="s.network">
         <a :href="s.url" target="_blank" rel="noopener" :class="[item, siteNetworks[s.network].ink]" :aria-label="siteNetworks[s.network].label">
           <span aria-hidden="true" class="absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100" :class="siteNetworks[s.network].fill" />
-          <Icon :name="siteNetworks[s.network].icon" class="relative text-[1.85rem] transition-colors duration-200 group-hover:text-white group-focus-visible:text-white" />
+          <Icon :name="siteNetworks[s.network].icon" class="relative text-[1.85rem] [@media(max-height:680px)]:text-[1.4rem] transition-colors duration-200 group-hover:text-white group-focus-visible:text-white" />
           <span aria-hidden="true" :class="tip">{{ siteNetworks[s.network].label }}</span>
         </a>
       </li>
@@ -31,7 +31,7 @@ const tip = 'pointer-events-none absolute top-1/2 left-full z-10 ml-3 -translate
       <li v-if="showBuildings">
         <NuxtLink :to="localePath('/oquv-binolari')" :class="[item, 'text-brand-700']" :aria-label="t('social.buildings')">
           <span aria-hidden="true" class="absolute inset-0 rounded-[inherit] bg-brand-700 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100" />
-          <img src="/images/icon-building.webp" alt="" width="128" height="61" loading="lazy" class="relative h-auto w-[3.25rem] max-w-none drop-shadow-[0_2px_3px_rgb(0_0_0/0.25)] transition-transform duration-200 group-hover:scale-110">
+          <img src="/images/icon-building.webp" alt="" width="128" height="61" loading="lazy" class="relative h-auto w-[3.25rem] [@media(max-height:680px)]:w-10 max-w-none drop-shadow-[0_2px_3px_rgb(0_0_0/0.25)] transition-transform duration-200 group-hover:scale-110">
           <span aria-hidden="true" :class="tip">{{ t('social.buildings') }}</span>
         </NuxtLink>
       </li>

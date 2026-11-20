@@ -1409,6 +1409,7 @@ components:
               phone: { type: string }
               email: { type: [string, 'null'], description: Bino e-pochtasi (bo'lmasa — saytning umumiy e-pochtasi) }
               mapUrl: { type: string, format: uri, description: «Xaritada ochish» havolasi }
+              logo: { type: [string, 'null'], description: Binodagi fakultet logosi (admin: Binolar va xarita → Fakultet) }
               mapEmbed: { type: string, format: uri, description: Sahifadagi kichik xarita (iframe) — admin panelda kiritilgan koordinata bo'yicha, bo'lmasa manzil bo'yicha }
         leaders:
           type: array

@@ -688,7 +688,7 @@ export interface ContactPage {
   emails: { title: string; value: string; extra: string[] }[]
   /** Binolar (bosh sahifadagi «Biz bilan bog'lanish» kartalari ham) — admin panel: Sozlamalar → Binolar va xarita.
    * mapEmbed — sahifadagi kichik xarita (iframe), mapUrl — «Xaritada ochish» */
-  campuses: (Campus & { phone: string; email?: string | null; mapUrl: string; mapEmbed?: string | null })[]
+  campuses: (Campus & { phone: string; email?: string | null; mapUrl: string; mapEmbed?: string | null; logo?: string | null })[]
   leaders: { name: string; role: string; ext: string; phone: string }[]
   reception: string
   /** Virtual qabulxona: "Kimga" ro'yxati */

@@ -2,6 +2,10 @@
 
 Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `CLAUDE.md`). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.
 
+## 2026-11-21
+
+- **Admin + backend + sayt (binolar):** «Sozlamalar → Binolar va xarita» da har bir binoga **fakultet** tanlanadi — binolar kartasidagi logo shu fakultetdan olinadi (avval frontendda qattiq yozilgan edi; mavjud 3 bino migratsiyada avtomatik bog‘landi, bosh binoda universitet logosi). `Campus.faculty` (`structure.0005`), API `campuses[].logo`, panel `facultyId`. Qo‘shimcha `/api/faculties` so‘rovi olib tashlandi. Chap paneldagi ikonkalar past ekranda (balandlik ≤ 680 px) kichrayadi, sig‘masa aylantiriladi; bino kartasi hover'da endi kattalashmaydi (qo‘shni kartani yopmasdi), faqat ko‘tariladi. — COMMIT
+
 ## 2026-11-20
 
 - **Sayt (tuzatish):** Aloqa va O‘quv binolari kartalarida xarita yo‘q bo‘lgandagina zaxira belgi chiqadi (avval `v-else` bino logosiga bog‘lanib, xarita ustida ortiqcha belgi chiqishi mumkin edi); chap paneldagi bino ikonkasi nisbati saqlanadi (`CampusCards.vue`, `SocialDock.vue`). — `5e817cc`
