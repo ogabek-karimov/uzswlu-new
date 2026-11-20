@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-20
 
+- **Sayt (Qabul 2026/2027 sahifasi — yangi dizayn):** hero — asosiy bino surati ustida chuqur indigo → binafsha gradient va yog‘dular, sanalar kartasi shisha; «To‘rt qadamda talaba bo‘ling» — lavanda → mint gradient tasmada shaffof shisha kartalar, gradient raqamlar (01–04), qadamlarni bog‘lovchi yorug‘ chiziq, o‘tuvchi nur (ochilganda navbat bilan bir marta, keyin hover’da); yo‘nalish, narx va grant kartalari hover’da ko‘tariladi, tepasida gradient chiziq/ikonka; savol-javobda ochilgani ajralib turadi; qabul komissiyasi bloki gradient, yog‘du va nur bilan. Umumiy `.shine` (`main.css`).
 - **Sayt (menyu):** mega-menyudagi «Diqqat markazida» kartasi (Abituriyentlar → Qabul 2026/2027) olib tashlandi; ajratilgan havola ro‘yxatda qalin yozuv bilan qoladi.
 - **Sayt (til almashtirish):** til tanlagich sahifani to‘liq qayta yuklasa ham turgan joy saqlanadi — bosishdan oldin `scrollY` saqlanadi (`LangSwitcher`), yangi tildagi sahifada `page:finish` dan keyin tiklanadi (`plugins/locale-scroll.client.ts`); foydalanuvchi o‘zi aylantirsa to‘xtaydi.
 - **Sayt (footer, QR kod):** QR ostida vaqtinchalik qizil eslatma (`footer.qr.pending`, 4 tilda): «Sayt to‘liq ishga tushganda QR kod yangilanadi». Hozirgi QR eski saytdagidek me-qr.com havolasiga olib boradi (reklama sahifasi) — sayt serverga joylanib domen berilganda o‘zimizning QR (to‘g‘ridan-to‘g‘ri havola) qo‘yiladi va eslatma olib tashlanadi.
