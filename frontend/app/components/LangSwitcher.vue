@@ -3,6 +3,11 @@ const props = withDefaults(defineProps<{ variant?: 'dark' | 'light' }>(), { vari
 
 const { t, locale, locales } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
+// Til almashganda sahifa to'liq qayta yuklanadi — turgan joy eslab qolinadi va yangi tilda tiklanadi (plugins/locale-scroll.client.ts)
+const rememberScroll = () => sessionStorageSet('lang-scroll', String(Math.round(window.scrollY)))
+function sessionStorageSet(k: string, v: string) {
+  try { sessionStorage.setItem(k, v) } catch {}
+}
 const { open, root } = useDropdown()
 
 const labels: Record<string, string> = { uz: 'UZ', ru: 'RU', en: 'EN', zh: '中文' }
@@ -46,6 +51,7 @@ const current = computed(() => locales.value.find(l => l.code === locale.value))
           <NuxtLink
             external
             :to="switchLocalePath(l.code)"
+            @click="rememberScroll"
             :hreflang="l.language"
             :lang="l.language"
             :aria-current="locale === l.code ? 'true' : undefined"

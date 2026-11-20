@@ -4,6 +4,8 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-20
 
+- **Sayt (menyu):** mega-menyudagi «Diqqat markazida» kartasi (Abituriyentlar → Qabul 2026/2027) olib tashlandi; ajratilgan havola ro‘yxatda qalin yozuv bilan qoladi.
+- **Sayt (til almashtirish):** til tanlagich sahifani to‘liq qayta yuklasa ham turgan joy saqlanadi — bosishdan oldin `scrollY` saqlanadi (`LangSwitcher`), yangi tildagi sahifada `page:finish` dan keyin tiklanadi (`plugins/locale-scroll.client.ts`); foydalanuvchi o‘zi aylantirsa to‘xtaydi.
 - **Sayt (footer, QR kod):** QR ostida vaqtinchalik qizil eslatma (`footer.qr.pending`, 4 tilda): «Sayt to‘liq ishga tushganda QR kod yangilanadi». Hozirgi QR eski saytdagidek me-qr.com havolasiga olib boradi (reklama sahifasi) — sayt serverga joylanib domen berilganda o‘zimizning QR (to‘g‘ridan-to‘g‘ri havola) qo‘yiladi va eslatma olib tashlanadi.
 - **Sayt (footer):** yuqori chegarasi yana tekis (to‘lqin olib tashlandi).
 - **Sayt (Universitet hayoti):** tablar qatori yonidagi ortiqcha aylantirish polosasi olib tashlandi (`overflow-y-hidden`, polosa yashirin; telefonda gorizontal surish ishlaydi).

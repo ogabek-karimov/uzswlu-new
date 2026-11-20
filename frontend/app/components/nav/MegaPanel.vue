@@ -7,7 +7,6 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 
 const isSdg = computed(() => props.group.links.some(l => l.sdg))
-const featured = computed(() => props.group.links.find(l => l.highlight))
 const columns = computed(() => {
   const n = props.group.links.length
   return n > 10 ? 'columns-3' : n > 4 ? 'columns-2' : 'columns-1'
@@ -44,20 +43,6 @@ const columns = computed(() => {
         <Icon name="lucide:arrow-right" class="size-4 transition-transform group-hover/ovb:translate-x-1" />
       </NuxtLink>
 
-      <!-- Ajratilgan havola (masalan, Qabul 2026/2027) — alohida karta -->
-      <NavMenuLink
-        v-if="featured"
-        :link="featured"
-        class="group/feat relative mt-8 overflow-hidden rounded-2xl bg-brand-900 p-5 text-white"
-      >
-        <span class="decor absolute -right-8 -bottom-10 size-32 rounded-full border-[14px] border-white/5" />
-        <span class="relative text-[11px] font-semibold tracking-[0.2em] text-accent-400 uppercase">{{ t('nav.featured') }}</span>
-        <span class="relative mt-1.5 block font-display text-xl font-semibold">{{ featured.title }}</span>
-        <span class="relative mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-400">
-          {{ t('nav.open') }}
-          <Icon name="lucide:arrow-right" class="size-4 transition-transform group-hover/feat:translate-x-1" />
-        </span>
-      </NavMenuLink>
     </div>
 
     <div class="col-span-9 border-l border-line pl-10">
