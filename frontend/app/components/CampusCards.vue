@@ -6,6 +6,19 @@ import type { ContactPage } from '#shared/types/api'
 defineProps<{ campuses: ContactPage['campuses'] }>()
 
 const { t } = useI18n()
+
+// Bino logosi: bosh bino — universitet logosi, qolganlari — o'sha binodagi fakultet logosi (fakultetlar ma'lumotidan)
+const CAMPUS_FACULTY: Record<string, string> = {
+  philology: 'english-philology',
+  journalism: 'international-journalism',
+  russian: 'russian-philology',
+}
+const { data: faculties } = await useFetch<{ items: { slug: string; logo: string | null }[] }>('/api/faculties', { key: 'faculties-logos', query: { lang: 'uz' } })
+function logoOf(id: string): string | null {
+  if (id === 'main') return '/logos/uzswlu.png'
+  const slug = CAMPUS_FACULTY[id]
+  return faculties.value?.items.find(f => f.slug === slug)?.logo ?? null
+}
 const tel = (phone: string) => `tel:${phone.startsWith('+') ? '' : '+998'}${phone.replace(/[^\d+]/g, '')}`
 </script>
 
@@ -15,6 +28,10 @@ const tel = (phone: string) => `tel:${phone.startsWith('+') ? '' : '+998'}${phon
       <!-- Yandex xaritasi (bosh sahifadagi bilan bir xil); xarita bo'lmasa — belgi -->
       <div class="relative h-[190px] overflow-hidden bg-brand-100">
         <MapFrame v-if="c.mapEmbed" :src="c.mapEmbed" :title="`${c.name} — ${t('contact.route')}`" />
+        <!-- Bino logosi: hamma kartada bir xil o'lcham va joy (xaritaning yuqori chap burchagi) -->
+        <span v-if="logoOf(c.id)" class="pointer-events-none absolute top-3 left-3 z-10 grid size-14 place-items-center overflow-hidden rounded-full bg-white shadow-[0_8px_20px_-8px_rgb(17_12_46/0.5)] ring-2 ring-white" aria-hidden="true">
+          <img :src="logoOf(c.id)!" alt="" width="56" height="56" loading="lazy" class="size-full object-cover" :class="c.id === 'main' && 'scale-90 object-contain'">
+        </span>
         <span v-else class="absolute top-1/2 left-1/2 size-10 -translate-x-1/2 -translate-y-1/2 -rotate-45 rounded-[999px_999px_999px_0] bg-brand-800" aria-hidden="true" />
       </div>
       <div class="p-5">
