@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-20
 
+- **Sayt (Binolar kartalari):** xarita balandroq (190 → 250 px); kursor kelganda karta ko‘tarilib biroz kattalashadi (3%), indigo soya va chegara, sarlavha rangi o‘zgaradi.
 - **Sayt (Binolar kartalari):** logo atrofida aylanuvchi yorqin nur (mint → indigo → oq, 4 s; mint yog‘du) — xarita bilan qo‘shilib ketmaydi; `prefers-reduced-motion` da to‘xtaydi.
 - **Sayt (Binolar kartalari):** har bir bino xaritasining yuqori chap burchagida bir xil o‘lchamdagi dumaloq logo — bosh bino: universitet logosi; Filologiya fakulteti: Ingliz filologiyasi, Xalqaro jurnalistika va Rus filologiyasi binolari: o‘sha fakultetlarning logosi (`GET /faculties` dan, `CampusCards.vue`).
 - **Sayt (chap panel):** belgilar kattaroq (tugma 48 → 56 px, ikonka 24 → 30 px), bino tasviri to‘liqroq ko‘rinadi (52×25 px, 128 px manba).
