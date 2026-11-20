@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-20
 
-- **Sayt (tuzatish):** Aloqa va O‘quv binolari kartalarida xarita yo‘q bo‘lgandagina zaxira belgi chiqadi (avval `v-else` bino logosiga bog‘lanib, xarita ustida ortiqcha belgi chiqishi mumkin edi); chap paneldagi bino ikonkasi nisbati saqlanadi va darhol yuklanadi (`CampusCards.vue`, `SocialDock.vue`). — `5e817cc`
+- **Sayt (tuzatish):** Aloqa va O‘quv binolari kartalarida xarita yo‘q bo‘lgandagina zaxira belgi chiqadi (avval `v-else` bino logosiga bog‘lanib, xarita ustida ortiqcha belgi chiqishi mumkin edi); chap paneldagi bino ikonkasi nisbati saqlanadi (`CampusCards.vue`, `SocialDock.vue`). — `5e817cc`
 - **Sayt (Binolar kartalari):** xarita balandroq (190 → 250 px); kursor kelganda karta ko‘tarilib biroz kattalashadi (3%), indigo soya va chegara, sarlavha rangi o‘zgaradi.
 - **Sayt (Binolar kartalari):** logo atrofida aylanuvchi yorqin nur (mint → indigo → oq, 4 s; mint yog‘du) — xarita bilan qo‘shilib ketmaydi; `prefers-reduced-motion` da to‘xtaydi.
 - **Sayt (Binolar kartalari):** har bir bino xaritasining yuqori chap burchagida bir xil o‘lchamdagi dumaloq logo — bosh bino: universitet logosi; Filologiya fakulteti: Ingliz filologiyasi, Xalqaro jurnalistika va Rus filologiyasi binolari: o‘sha fakultetlarning logosi (`GET /faculties` dan, `CampusCards.vue`).
