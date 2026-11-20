@@ -36,7 +36,7 @@ const tel = (phone: string) => `tel:${phone.startsWith('+') ? '' : '+998'}${phon
             <img :src="logoOf(c.id)!" alt="" width="56" height="56" loading="lazy" class="size-full object-cover" :class="c.id === 'main' && 'scale-90 object-contain'">
           </span>
         </span>
-        <span v-else class="absolute top-1/2 left-1/2 size-10 -translate-x-1/2 -translate-y-1/2 -rotate-45 rounded-[999px_999px_999px_0] bg-brand-800" aria-hidden="true" />
+        <span v-if="!c.mapEmbed" class="absolute top-1/2 left-1/2 size-10 -translate-x-1/2 -translate-y-1/2 -rotate-45 rounded-[999px_999px_999px_0] bg-brand-800" aria-hidden="true" />
       </div>
       <div class="p-5">
         <h3 class="text-lg font-semibold transition-colors group-hover/campus:text-brand-700">{{ c.name }}</h3>
