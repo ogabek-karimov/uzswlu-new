@@ -22,6 +22,7 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 | `pages` | RCUD | R | R | RCUD | R |
 | `posts` | RCUD | RCUD | RCUD | RCUD | R |
 | `quick-links` | RCUD | R | R | RCUD | R |
+| `roles` | RCUD | — | — | — | — |
 | `sdg-goals` | RCUD | R | R | R | RU |
 | `slides` | RCUD | R | R | R | R |
 | `staff-profiles` | RCUD | R | R | R | R |
@@ -43,6 +44,8 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 - `posts` · **update**: `faculty` va `pages` faqat **o‘zi yozgan** postni o‘zgartiradi; `superadmin` va `editor` — hammasini.
 - `posts` · **delete**: `faculty` va `pages` faqat **o‘zi yozgan** postni o‘chiradi; `superadmin` va `editor` — hammasini.
 - `quick-links` · **create**: `icon` — `lucide:*` ro‘yxatidan; `url` — `/yo‘l` yoki `https://…`; `title.uz` majburiy.
+- `roles` · **delete**: Tizim roli yoki foydalanuvchisi bor rol o‘chirilmaydi.
+- `roles` · **update**: Tizim rollarining (superadmin, editor, faculty, pages, sdg) bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi.
 
 ### `manage.py` buyruqlari (loyihaniki)
 
@@ -317,26 +320,27 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 |---|---|---|
 | `//kirish` | `admin/src/pages/LoginPage.vue` | hamma kirgan xodim |
 | `/` | `admin/src/pages/DashboardPage.vue` | hamma kirgan xodim |
-| `/postlar/:type(news\|announcements\|events)` | `admin/src/pages/PostsPage.vue` | `superadmin`, `editor`, `faculty`, `pages` |
-| `/postlar/:type(news\|announcements\|events)/yangi` | `admin/src/pages/PostEditPage.vue` | `superadmin`, `editor`, `faculty`, `pages` |
-| `/postlar/:type(news\|announcements\|events)/:id(\\d+)` | `admin/src/pages/PostEditPage.vue` | `superadmin`, `editor`, `faculty`, `pages` |
+| `/postlar/:type(news\|announcements\|events)` | `admin/src/pages/PostsPage.vue` | hamma kirgan xodim |
+| `/postlar/:type(news\|announcements\|events)/yangi` | `admin/src/pages/PostEditPage.vue` | hamma kirgan xodim |
+| `/postlar/:type(news\|announcements\|events)/:id(\\d+)` | `admin/src/pages/PostEditPage.vue` | hamma kirgan xodim |
 | `/foydalanuvchilar` | `admin/src/pages/UsersPage.vue` | faqat `superadmin` |
+| `/rollar` | `admin/src/pages/RolesPage.vue` | faqat `superadmin` |
 | `/kirish-tarixi` | `admin/src/pages/LoginHistoryPage.vue` | faqat `superadmin` |
 | `/faollik` | `admin/src/pages/ActivityPage.vue` | faqat `superadmin` |
 | `/sozlamalar` | `admin/src/pages/SettingsPage.vue` | faqat `superadmin` |
 | `/profil` | `admin/src/pages/ProfilePage.vue` | hamma kirgan xodim |
-| `/tezkor-xizmatlar` | `admin/src/pages/QuickLinksPage.vue` | `superadmin`, `pages` |
-| `/karusel` | `admin/src/pages/CarouselPage.vue` | `superadmin` |
+| `/tezkor-xizmatlar` | `admin/src/pages/QuickLinksPage.vue` | hamma kirgan xodim |
+| `/karusel` | `admin/src/pages/CarouselPage.vue` | faqat `superadmin` |
 | `/media` | `admin/src/pages/MediaPage.vue` | hamma kirgan xodim |
-| `/hujjatlar` | `admin/src/pages/DocumentsPage.vue` | `superadmin`, `pages` |
-| `/video` | `admin/src/pages/VideosPage.vue` | `superadmin`, `pages` |
-| `/rahbariyat` | `admin/src/pages/LeadersPage.vue` | `superadmin` |
-| `/ramzlar` | `admin/src/pages/SymbolsPage.vue` | `superadmin` |
-| `/fakultetlar` | `admin/src/pages/FacultiesPage.vue` | `superadmin`, `faculty` |
-| `/kafedralar` | `admin/src/pages/DepartmentsPage.vue` | `superadmin`, `faculty` |
-| `/xodimlar` | `admin/src/pages/StaffPage.vue` | `superadmin` |
-| `/brm` | `admin/src/pages/BrmPage.vue` | `superadmin`, `sdg` |
-| `/sahifalar` | `admin/src/pages/PagesPage.vue` | `superadmin`, `pages` |
+| `/hujjatlar` | `admin/src/pages/DocumentsPage.vue` | hamma kirgan xodim |
+| `/video` | `admin/src/pages/VideosPage.vue` | hamma kirgan xodim |
+| `/rahbariyat` | `admin/src/pages/LeadersPage.vue` | hamma kirgan xodim |
+| `/ramzlar` | `admin/src/pages/SymbolsPage.vue` | faqat `superadmin` |
+| `/fakultetlar` | `admin/src/pages/FacultiesPage.vue` | hamma kirgan xodim |
+| `/kafedralar` | `admin/src/pages/DepartmentsPage.vue` | hamma kirgan xodim |
+| `/xodimlar` | `admin/src/pages/StaffPage.vue` | hamma kirgan xodim |
+| `/brm` | `admin/src/pages/BrmPage.vue` | hamma kirgan xodim |
+| `/sahifalar` | `admin/src/pages/PagesPage.vue` | hamma kirgan xodim |
 | `/statistika` | `admin/src/pages/StatsPage.vue` | faqat `superadmin` |
 
 ### Frontend (Nuxt)
@@ -415,6 +419,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/accounts/backends.py` | Payload'dan ko'chirilgan eski parollar bilan kirish (authenticate) ham ishlasin. |
 | `backend/apps/accounts/hashers.py` | Payload CMS'dan ko'chirilgan foydalanuvchilarning parollari (pbkdf2-sha256, 25000 marta, 512 bayt). |
 | `backend/apps/accounts/models.py` | — |
+| `backend/apps/accounts/roles.py` | Rollar va menyu bo'limlari bo'yicha ruxsat. |
 | `backend/apps/api/builders.py` | Model → API shakli (frontend/docs/openapi.yaml). Hamma matnli maydon so'ralgan tilda, bo'lmasa o'zbekcha. |
 | `backend/apps/api/builders_site.py` | Ochiq sayt API'si javoblarini yig'ish (frontend/docs/openapi.yaml shartnomasi). |
 | `backend/apps/api/builders_staff.py` | Xodimlar: ommaviy ro'yxat/profil (HEMIS + saytdagi qo'shimcha ma'lumot) va xodim kabineti. |
@@ -478,7 +483,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (342 ta test)
+### Backend testlari xaritasi (349 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -500,6 +505,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/panel/test_collections.py` | 13 | Admin panel API (`/api/cms/*`): har bir kolleksiya uchun o'qish → o'zini PATCH → nusxa yaratish → o'chirish aylanishi, · `slow` |
 | `backend/tests/panel/test_pagination.py` | 5 | Sahifalash: har bir kolleksiyada barcha sahifalarni aylanib chiqqanda yozuvlar yo'qolmaydi va takrorlanmaydi; · `slow` |
 | `backend/tests/panel/test_quick_links.py` | 7 |  |
+| `backend/tests/panel/test_roles.py` | 7 | Rollar: superadmin rol yaratadi, bo'limlar bo'yicha ruxsat beradi; foydalanuvchi faqat o'z bo'limlarini ko'radi va yozadi. |
 | `backend/tests/panel/test_spa_queries.py` | 4 | Admin SPA yuboradigan murakkab so'rovlar (`where[and][0][...]`, `like`, `not_in`, `exists`, `trash` ...): |
 | `backend/tests/panel/test_video_tour.py` | 6 |  |
 | `backend/tests/security/test_access_control.py` | 22 | Ob‘ekt darajasidagi ruxsat: id almashtirib begona ma’lumot olish (IDOR), kabinet izolyatsiyasi, post egaligi. |
@@ -523,6 +529,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `core` | `Activity` | Faollik | `apps/core/models.py` |
 | `core` | `Hit` | Tashrif | `apps/core/models.py` |
 | `accounts` | `User` | Foydalanuvchi | `apps/accounts/models.py` |
+| `accounts` | `Role` | Rol | `apps/accounts/models.py` |
 | `accounts` | `StaffSession` | Xodim sessiyasi | `apps/accounts/models.py` |
 | `content` | `Category` | Kategoriya | `apps/content/models.py` |
 | `content` | `Post` | Post | `apps/content/models.py` |

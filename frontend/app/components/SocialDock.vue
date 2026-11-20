@@ -31,7 +31,7 @@ const tip = 'pointer-events-none absolute top-1/2 left-full z-10 ml-3 -translate
       <li v-if="showBuildings">
         <NuxtLink :to="localePath('/oquv-binolari')" :class="[item, 'text-brand-700']" :aria-label="t('social.buildings')">
           <span aria-hidden="true" class="absolute inset-0 rounded-[inherit] bg-brand-700 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100" />
-          <Icon name="lucide:landmark" class="relative text-[1.5rem] transition-colors duration-200 group-hover:text-white group-focus-visible:text-white" />
+          <img src="/images/icon-building.webp" alt="" width="100" height="48" loading="lazy" class="relative w-10 drop-shadow-[0_2px_3px_rgb(0_0_0/0.25)] transition-transform duration-200 group-hover:scale-110">
           <span aria-hidden="true" :class="tip">{{ t('social.buildings') }}</span>
         </NuxtLink>
       </li>
