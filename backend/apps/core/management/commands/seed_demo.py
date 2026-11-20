@@ -245,7 +245,7 @@ class Command(BaseCommand):
                 base = {'title': link['t'], 'parent': group, 'order': li, 'highlight': bool(link.get('highlight')), 'sdg': link.get('sdg')}
                 if re.match(r'^https?:', url):
                     Page.objects.create(**base, template='link', url=url)
-                elif SPECIAL.match(url) or slug in seen:
+                elif SPECIAL.match(url.split('?')[0]) or slug in seen:
                     Page.objects.create(**base, template='special', url=url)
                 else:
                     seen.add(slug)

@@ -81,8 +81,12 @@ const menu: Group[] = [
   {
     id: 'news',
     t: { uz: 'Yangiliklar', ru: 'Новости', en: 'News', zh: '新闻' },
-    url: '/yangiliklar',
-    links: [],
+    overview: '/yangiliklar',
+    links: [
+      { t: { uz: 'Yangiliklar', ru: 'Новости', en: 'News', zh: '新闻' }, url: '/yangiliklar?type=news' },
+      { t: { uz: 'Tadbirlar', ru: 'Мероприятия', en: 'Events', zh: '活动' }, url: '/yangiliklar?type=events' },
+      { t: { uz: 'E’lonlar', ru: 'Объявления', en: 'Announcements', zh: '公告' }, url: '/yangiliklar?type=announcements' },
+    ],
   },
   {
     id: 'sdg',
