@@ -145,7 +145,7 @@ ALL_ROLES = {'superadmin', 'editor', 'faculty', 'pages', 'sdg'}
 LABELS = {
     'users': 'Foydalanuvchilar', 'media': 'Media fayllar', 'categories': 'Kategoriyalar', 'posts': 'Postlar',
     'slides': 'Bosh sahifa slaydlari', 'leaders': 'Rahbariyat', 'doc-categories': 'Hujjat toifalari', 'documents': 'Hujjatlar',
-    'video-categories': 'Video toifalari', 'videos': 'Videolar', 'quick-links': 'Tezkor xizmatlar', 'faculties': 'Fakultetlar', 'departments': 'Kafedralar',
+    'video-categories': 'Video toifalari', 'videos': 'Videolar', 'quick-links': 'Tezkor xizmatlar', 'phones': 'Telefonlar ma’lumotnomasi', 'rude-words': 'Haqoratli so‘zlar', 'faculties': 'Fakultetlar', 'departments': 'Kafedralar',
     'staff-profiles': 'Xodim profillari', 'sdg-goals': 'BRM maqsadlari', 'pages': 'Sahifalar',
     'login-events': 'Kirish tarixi', 'activity': 'Faollik jurnali', 'roles': 'Rollar',
     'settings': 'Sayt sozlamalari', 'symbols': 'Davlat ramzlari', 'video-page': 'Video sahifasi', 'sdg-page': 'BRM bosh sahifasi',
@@ -156,7 +156,7 @@ ADMIN_TAG = {
     'posts': 'Admin: Postlar', 'categories': 'Admin: Postlar',
     'media': 'Admin: Media',
     'pages': 'Admin: Sahifalar va hujjatlar', 'documents': 'Admin: Sahifalar va hujjatlar', 'doc-categories': 'Admin: Sahifalar va hujjatlar',
-    'videos': 'Admin: Sahifalar va hujjatlar', 'quick-links': 'Admin: Sahifalar va hujjatlar', 'video-categories': 'Admin: Sahifalar va hujjatlar', 'video-page': 'Admin: Sozlamalar',
+    'videos': 'Admin: Sahifalar va hujjatlar', 'quick-links': 'Admin: Sahifalar va hujjatlar', 'phones': 'Admin: Sahifalar va hujjatlar', 'rude-words': 'Admin: Sahifalar va hujjatlar', 'video-categories': 'Admin: Sahifalar va hujjatlar', 'video-page': 'Admin: Sozlamalar',
     'slides': 'Admin: Tuzilma va bosh sahifa', 'leaders': 'Admin: Tuzilma va bosh sahifa', 'faculties': 'Admin: Tuzilma va bosh sahifa',
     'departments': 'Admin: Tuzilma va bosh sahifa', 'staff-profiles': 'Admin: Tuzilma va bosh sahifa', 'home-banner': 'Admin: Tuzilma va bosh sahifa', 'video-tour': 'Admin: Tuzilma va bosh sahifa',
     'sdg-goals': 'Admin: BRM', 'sdg-page': 'Admin: BRM',

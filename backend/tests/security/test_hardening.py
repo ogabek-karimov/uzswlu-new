@@ -16,7 +16,7 @@ from apps.core.parsers import clean, clean_querydict
 from apps.structure.models import Appeal
 from tests.support import HOST, PASSWORD, Base, api, jwt_for, loose
 
-APPEAL = {'name': 'Test Foydalanuvchi', 'phone': '+998901234567', 'email': 'a@b.uz', 'recipient': 'rektor',
+APPEAL = {'name': 'Test Foydalanuvchi', 'passport': 'AA1234567', 'phone': '+998901234567', 'email': 'a@b.uz', 'recipient': 'rektor',
           'message': 'Salom, bu sinov murojaati.', 'consent': 'yes'}
 
 

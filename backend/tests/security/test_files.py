@@ -271,7 +271,7 @@ class EndpointBase(TestCase):
 
     @staticmethod
     def appeal_form(file=None, **over):
-        d = {'name': 'Test Foydalanuvchi', 'phone': '+998901234567', 'email': 'a@b.uz', 'recipient': 'rector',
+        d = {'name': 'Test Foydalanuvchi', 'passport': 'AA1234567', 'phone': '+998901234567', 'email': 'a@b.uz', 'recipient': 'rector',
              'message': 'Murojaat matni kamida o‘n belgi', 'consent': 'yes'}
         d.update(over)
         if file:

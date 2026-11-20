@@ -1,0 +1,746 @@
+[
+ {
+  "name": "Sadiyev Valijon Alijonovich",
+  "position": "Yoshlar masalalari va ma’naviy-marifiy ishlar bo‘yicha birinchi prorektor",
+  "ext": "1009",
+  "phone": "71-230-13-40"
+ },
+ {
+  "name": "",
+  "position": "Qabulxona",
+  "ext": "1014",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Yusupov Otabek Yakubovich",
+  "position": "Ilmiy ishlar va innovatsiyalar bo‘yicha prorektor",
+  "ext": "1006",
+  "phone": "71-230-12-93"
+ },
+ {
+  "name": "",
+  "position": "Qabulxona",
+  "ext": "1011",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Xamrayev Maqsudjon Saidaxmadovich",
+  "position": "Moliya-iqtisod ishlari bo‘yicha prorektor",
+  "ext": "1007",
+  "phone": "71-230-12-97"
+ },
+ {
+  "name": "",
+  "position": "Qabulxona",
+  "ext": "1012",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Nosirov Abduraxim Abdumutalipovich",
+  "position": "Xalqaro xamkorlik bo‘yicha prorektor",
+  "ext": "1008",
+  "phone": "71-230-12-90"
+ },
+ {
+  "name": "",
+  "position": "Qabulxona",
+  "ext": "1013",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Chutpulatov Muhammad Choriyevich",
+  "position": "O‘quv ishlari bo‘yicha prorektor",
+  "ext": "1010",
+  "phone": "71-230-12-94"
+ },
+ {
+  "name": "",
+  "position": "Qabulxona",
+  "ext": "1015",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Talabalarni orasida ijtimoiy-ma’naviy muhit barqarorligini ta’minlashga mas’ul bo‘lgan rektor maslahatchisi"
+ },
+ {
+  "name": "Zikirov Odiljon Obidjanovich",
+  "position": "Rektor maslahatchisi",
+  "ext": "1003",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Rektorning matbuot kotibi va axborot siyosati masalalari buyicha rektor maslaxatchisi"
+ },
+ {
+  "name": "Ibragimov Otabek Alisherovich",
+  "position": "Rektor maslahatchisi",
+  "ext": "1174",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Rektor yordamchisi"
+ },
+ {
+  "name": "Nurov Azizbek Elmurotovich",
+  "position": "Rektor yordamchisi",
+  "ext": "1004",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Ilmiy kengashning kotibi"
+ },
+ {
+  "name": "Ataxanova Sayera Otkurovna",
+  "position": "Ilmiy kengashning kotibi",
+  "ext": "1111",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Markazlar"
+ },
+ {
+  "name": "Abdug‘aniyeva Jamilya Rustamovna",
+  "position": "Oliy ta’lim pedagog xodimlarini qayta tayyorlash va malakasini oshirish tarmoq markazi",
+  "ext": "1018",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Akilova Gulnora",
+  "position": "Respublika til o‘qitish markazi",
+  "ext": "1019",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Shukurova Gulmira",
+  "position": "O‘zbekistonda xorijiy tillar elektron jurnal va internet portali",
+  "ext": "1069",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Ta’lim sifatini nazorat qilish bo‘limi"
+ },
+ {
+  "name": "Zaripov Lochin",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1043",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Korrupsiyaga qarshi kurashish “Komplaens-nazorat” tizimini boshqarish bo‘limi"
+ },
+ {
+  "name": "Xashimov Baxodir Rustamovich",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1044",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Jismoniy va yuridik shaxslarning murojaatlari bilan ishlash, nazorat va monitoring bo‘limi"
+ },
+ {
+  "name": "Raxmanov Sunatillo Mavlonovich",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1045",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Inson resurslarini rivojlantirish va boshqarish boʻlimi"
+ },
+ {
+  "name": "Musaxonov Xabibullo Muminovich",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1046",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Jurayev Asliddin Neʻmatillayevich",
+  "position": "Xodimlar boʻyicha muhandis 1-toifa",
+  "ext": "1169",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "1-bo‘lim"
+ },
+ {
+  "name": "Kasimxodjayeva Umida Raximovna",
+  "position": "1-bo‘lim",
+  "ext": "1047",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "2-bo‘lim"
+ },
+ {
+  "name": "Fozilov Rasuljon Siddikovich",
+  "position": "2-bo‘lim",
+  "ext": "1067",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Devonxona va arxiv"
+ },
+ {
+  "name": "Turayeva Feruza Tuxtamurodovna",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1048",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Yurustkonsult"
+ },
+ {
+  "name": "Abdilaev Sherzod",
+  "position": "Yurustkonsult",
+  "ext": "1170",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Ichki audit va moliyaviy nazorat xizmati bo‘limi"
+ },
+ {
+  "name": "Yangiboev Xumoyun",
+  "position": "Bosh auditor",
+  "ext": "1060",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Registrator ofisi"
+ },
+ {
+  "name": "Xalillayev Adilbek Kurambayevich",
+  "position": "Registrator ofisi boshlig’i",
+  "ext": "1066",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Axmedov Abdulaziz",
+  "position": "Xizmat ko‘rsatish bo’limi boshlig’i (Front Offise)",
+  "ext": "1058",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Erkayev Akrom Normuhammadovich",
+  "position": "Ma’lumotlar bazasi bo’limi boshlig’i ( Back Offise)",
+  "ext": "1059",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Yoshlar bilan ishlash, ma’naviyat va ma’rifat bo‘limi"
+ },
+ {
+  "name": "Xamdamov Doniyor Shuxratovich",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1022",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Talabalarni turar joy bilan ta’minlash ishlarni muvofiqlashtirish bo‘limi"
+ },
+ {
+  "name": "Fozilov Maxmudjon Siddikovich",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1023",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Tyutorlar faoliyatini muvofiqlashtirish bo‘limi"
+ },
+ {
+  "name": "Axmedov Xasan Isoqjon o‘g‘li",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1024",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "O‘quv uslubiy boshqarmasi"
+ },
+ {
+  "name": "Ibragimov Nuriddin Tolibovich",
+  "position": "Boshqarma boshligʻi",
+  "ext": "1021",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "O‘quv-metodik ta’minot bo‘limi"
+ },
+ {
+  "name": "Adinayev Odiljon Jumanazarovich",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1025",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Ta’lim jarayonini tashkil etish bo‘limi"
+ },
+ {
+  "name": "Norboyev Zafar Abdumuminovich",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1026",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Talabalar amaliyoti bo‘limi"
+ },
+ {
+  "name": "Ismailov Turgʻun Salohiddinovich",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1027",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Akademik litsey va texnikumlarga metodik yordam berish sektori"
+ },
+ {
+  "name": "Musayev Saidamirxon Saidasqarovich",
+  "position": "Bosh mutaxasis",
+  "ext": "1070",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Raqamli ta’lim texnologiyalari markazi"
+ },
+ {
+  "name": "Tuychiyev Sobir Abdusodikovich",
+  "position": "RTT markazi boshligʻi",
+  "ext": "1017",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Raqamli ta’lim texnologiyalarini joriy etish bo‘limi"
+ },
+ {
+  "name": "Norbutayev Xurshid Alijon o‘g‘li",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1049",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Tarmoqlarni boshqarish bo‘limi"
+ },
+ {
+  "name": "Onorboyev Gʻiyosiddin Sherali o‘g‘li",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1050",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Texnik qo‘llab quvvatlash bo‘limi"
+ },
+ {
+  "name": "Osipov Pavel Leonedovich",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1051",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Axborot xavfsizligini ta’minlash bo‘limi"
+ },
+ {
+  "name": "Boboqulov Azizbek Rashidovich",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1052",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Axborot-resurs markazi"
+ },
+ {
+  "name": "Kayumova Saida Irgashevna",
+  "position": "ARM diretori",
+  "ext": "1016",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Ilmiy-uslubiy va axborot-ma’lumot (davriy nashrlar) bo‘limi"
+ },
+ {
+  "name": "Inogamova Saida Yakubdjanovna",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1053",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Axborot-kutubxona resurslari butlash, kataloglashtirish va tizimlashtirish bo‘limi"
+ },
+ {
+  "name": "Ashurova Iroda Boymamatovna",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1054",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Elektron axborot resurslari bo‘limi"
+ },
+ {
+  "name": "Toʻxtayev Sardor Ramazon o‘g‘li",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1056",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Xorijiy axborot-kutubxona resurslari bilan ishlash bo‘limi"
+ },
+ {
+  "name": "Tursunov Iskandar Toxir o‘g‘li",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1057",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Ilmiy-tadqiqotlar, innovatsiyalar va ilmiy-pedagogik kadrlar tayyorlash bo‘limi"
+ },
+ {
+  "name": "Muradkasimova Kamola Shuxratovna",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1028",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Magistratura bo‘limi"
+ },
+ {
+  "name": "Djusupov Nursultan Maxanbet Uli",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1029",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Ilmiy va innovatsion ishlanmalarni tijoratlashtirish bo‘limi"
+ },
+ {
+  "name": "Abdullayeva Feruza Suyunovna",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1030",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Iqtidorli talabalarning ilmiy-tadqiqot faoliyatini tashkil etish bo‘limi"
+ },
+ {
+  "name": "Ismatova Shaxnoza Miraxmatovna",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1068",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Tahririy-nashriyot bo‘limi"
+ },
+ {
+  "name": "Muxitdinov Shavkatulla Sadirovich",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1031",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Buxgalteriya bo‘limi"
+ },
+ {
+  "name": "Nazarov Xurshid",
+  "position": "Bosh buxgalter",
+  "ext": "1032",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Reja-moliya bo‘limi"
+ },
+ {
+  "name": "Sultonov Boburjon",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1033",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Abdukadirova Saodat Kushakovna",
+  "position": "Iqtisodchi 1-toifali",
+  "ext": "1034",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Xaridlar bilan ishlash va ta’minot bo‘limi"
+ },
+ {
+  "name": "Xolmuradov Raxmatilla",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1035",
+  "phone": "71-230-12-85"
+ },
+ {
+  "name": "Erkayev Shuxrat Toʻxtayevich",
+  "position": "Bosh mutaxassis",
+  "ext": "1065",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Ishlar boshqarmasi"
+ },
+ {
+  "name": "Abdullayev Suyun Artiqovich",
+  "position": "Boshqarma boshligʻi",
+  "ext": "1020",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Artikov Anvar Raxmatovich",
+  "position": "Bosh muhandis",
+  "ext": "1172",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Nazarov Raxmonali Tojiddinovich",
+  "position": "Bosh energetik (energiya menejeri)",
+  "ext": "1173",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "O‘qitishning texnik vositalari bo‘limi"
+ },
+ {
+  "name": "Pardayev Jaxongir Abdurahmonovich",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1037",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Fuqaro va mehnat muhofazasi bo‘limi"
+ },
+ {
+  "name": "Urinov Shokir",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1038",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Xalqaro xamkorlik bo‘limi"
+ },
+ {
+  "name": "Yuldashev Xusanboy Ibragimovich",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1040",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Xalqaro reytinglar bilan ishlash bo‘limi"
+ },
+ {
+  "name": "Nishanaliyev Bekzod Xayrulla o‘g‘li",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1041",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Qo‘shma ta’lim dasturlarini muvofiqlashtirish bo‘limi"
+ },
+ {
+  "name": "Rashidova Feruza",
+  "position": "Boʻlim boshligʻi",
+  "ext": "1042",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Fakultetlar"
+ },
+ {
+  "section": "Ingliz tili 1-fakulteti"
+ },
+ {
+  "name": "Ergasheva Guli Ismoil qizi",
+  "position": "Dekan",
+  "ext": "1071",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Atayev Gulom Kabulovich",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1081",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Lapasov Nizomiddin Shakarboyevich",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1082",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Ingliz tili 2-fakulteti"
+ },
+ {
+  "name": "Bazarov Zokir Mexrikulovich",
+  "position": "Dekan",
+  "ext": "1072",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Abdusamadov Zafarbek Nurmat o‘g‘li",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1083",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Xasanov Zafar Baxtiyorovich",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1084",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Ingliz tili 3-fakulteti"
+ },
+ {
+  "name": "Bazarov Ixtiyor Rahmatullayevich",
+  "position": "Dekan",
+  "ext": "1073",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "O‘lmasov Sherbek",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1085",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Zokirov Sherzod Noʻmonjon o‘g‘li",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1086",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Ingliz filologiya fakulteti"
+ },
+ {
+  "name": "Azzamov Yusufjon Rajabboy o‘g‘li",
+  "position": "Dekan",
+  "ext": "1074",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Qobilov Davronbek Raxmatilla oʻgʻli",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1087",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Mamadaliyev Aziz Yusupaliyevich",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1089",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Sharq filologiyasi fakulteti"
+ },
+ {
+  "name": "Djurayev Dilshod Mamadiyarovich",
+  "position": "Dekan",
+  "ext": "1075",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Ergashev Baxrom",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1090",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Sattorov Azizjon",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1091",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Roman-german filologiyasi fakulteti"
+ },
+ {
+  "name": "Xakimov Xamidullo Inamovich",
+  "position": "Dekan",
+  "ext": "1076",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Elnazarov Shaxboz",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1093",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Mallayev Abdug‘ani Kayumovich",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1095",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Tarjimonlik fakulteti dekani"
+ },
+ {
+  "name": "Yo‘Ldoshev Ulug‘bek Ravshanbekovich",
+  "position": "Dekan",
+  "ext": "1077",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Nazarov Sherdor Rustam o‘g‘li",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1097",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Kodirov Sodirbek Muydonjonovich",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1098",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Rus filologiyasi fakulteti dekani"
+ },
+ {
+  "name": "Raxmonov Azizxon Bositxonovich",
+  "position": "Dekan",
+  "ext": "1078",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Axmedov Xasan Isoqjon o‘g‘li",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1099",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Dadaxanov Abror Nemat o‘g‘li",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1101",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Xalqaro jurnalistika fakulteti dekani"
+ },
+ {
+  "name": "Metyakubov Alisher",
+  "position": "Dekan",
+  "ext": "1079",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Shermatov Eldorjon Yovmiddinovich",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1102",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Xoshimova Dilorom Salimjon qizi",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1103",
+  "phone": "71-230-13-62"
+ },
+ {
+  "section": "Kechki va sirtki ta’lim fakulteti dekani"
+ },
+ {
+  "name": "Madamov Norpoʻlat Suyarovich",
+  "position": "Dekan",
+  "ext": "1080",
+  "phone": "71-230-13-62"
+ },
+ {
+  "name": "Rustamov Feruz Ravshan o‘g‘li",
+  "position": "Dekani o‘rinbosari",
+  "ext": "1104",
+  "phone": "71-230-13-62"
+ }
+]

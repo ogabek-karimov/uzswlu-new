@@ -337,9 +337,10 @@ paths:
           multipart/form-data:
             schema:
               type: object
-              required: [name, phone, email, recipient, message, consent]
+              required: [name, passport, phone, email, recipient, message, consent]
               properties:
                 name: { type: string, minLength: 3, maxLength: 200 }
+                passport: { type: string, pattern: '^[A-Z]{2}\d{7}$', description: 'Pasport (ID-karta) seriyasi va raqami, masalan AA1234567' }
                 phone: { type: string, pattern: '^\+?[\d\s()-]{7,20}$' }
                 email: { type: string, format: email, maxLength: 200 }
                 recipient: { type: string, description: 'ContactPage.recipients[].id' }
@@ -1413,6 +1414,22 @@ components:
         leaders:
           type: array
           items: { type: object, required: [name, role, ext, phone], properties: { name: { type: string }, role: { type: string }, ext: { type: string }, phone: { type: string } } }
+        phones:
+          type: array
+          description: Telefonlar ma'lumotnomasi (admin → Telefonlar), faqat ko'rinadiganlari, tartib bo'yicha; section=true — bo'lim sarlavhasi
+          items:
+            type: object
+            required: [section, position]
+            properties:
+              section: { type: boolean }
+              name: { type: [string, 'null'] }
+              position: { type: string }
+              ext: { type: [string, 'null'] }
+              phone: { type: [string, 'null'] }
+        rudeWords:
+          type: array
+          description: Murojaat shaklida taqiqlangan so'zlar (admin → Haqoratli so'zlar), faqat faollari; «*» bilan tugasa — so'z boshi
+          items: { type: string }
         reception: { type: string }
         recipients:
           type: array

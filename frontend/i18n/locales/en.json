@@ -857,8 +857,9 @@
     "leaders": "Leadership phone numbers",
     "table": {
       "name": "Name and position",
-      "ext": "Ext.",
-      "phone": "Office phone"
+      "ext": "Extension",
+      "phone": "Office phone",
+      "no": "No."
     },
     "reception": "Reception: {phone}",
     "form": {
@@ -878,8 +879,27 @@
       "success": "Your appeal has been received",
       "number": "Appeal number: {number}. The reply will be sent to your email.",
       "another": "Send another appeal",
-      "error": "The appeal was not sent. Please check the fields and try again."
-    }
+      "error": "The appeal was not sent. Please check the fields and try again.",
+      "lastName": "Last name",
+      "firstName": "First name",
+      "middleName": "Patronymic",
+      "letters": "New Uzbek alphabet letters",
+      "insertLetter": "Insert “{ch}”",
+      "passport": "Passport (ID card) series and number",
+      "pSeries": "Passport series",
+      "pNumber": "Passport number",
+      "bad": {
+        "random": "The text contains random letters (marked in red). Please remove them and describe your issue in clear words.",
+        "repeat": "A word is repeated too many times (marked in red). Please remove the repeats and write a complete sentence.",
+        "short": "The text is too short: please describe your issue clearly in at least 3 words.",
+        "rude": "The text contains an offensive word (marked in red). Please remove it — the message must be written respectfully."
+      }
+    },
+    "phones": "Contacts of the administration and departments",
+    "phonesSearch": "Search by name, position or number",
+    "phonesEmpty": "Nothing found",
+    "prev": "Previous",
+    "next": "Next"
   },
   "search": {
     "title": "Search",

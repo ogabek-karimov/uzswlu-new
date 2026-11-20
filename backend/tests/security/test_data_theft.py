@@ -235,7 +235,7 @@ class Public(Base):
         self.assertIn(429, codes, 'X-Forwarded-For bilan cheklovni aylanib o‘tish mumkin')
 
     def test_appeal_response_does_not_leak_neighbours(self):
-        body = {'name': 'Test User', 'phone': '+998901234567', 'email': 'a@b.uz', 'recipient': 'rector', 'message': 'Salom, bu sinov murojaati', 'consent': 'yes'}
+        body = {'name': 'Test User', 'passport': 'AA1234567', 'phone': '+998901234567', 'email': 'a@b.uz', 'recipient': 'rector', 'message': 'Salom, bu sinov murojaati', 'consent': 'yes'}
         res = self.c.post('/api/appeals', data=body)
         self.assertEqual(res.status_code, 200, res.content)
         self.assertEqual(set(res.json()), {'number'})

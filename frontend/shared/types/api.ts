@@ -690,6 +690,10 @@ export interface ContactPage {
    * mapEmbed — sahifadagi kichik xarita (iframe), mapUrl — «Xaritada ochish» */
   campuses: (Campus & { phone: string; email?: string | null; mapUrl: string; mapEmbed?: string | null })[]
   leaders: { name: string; role: string; ext: string; phone: string }[]
+  /** Telefonlar ma'lumotnomasi (admin → Telefonlar): section=true — bo'lim sarlavhasi (position matni) */
+  phones?: { section: boolean; name?: string | null; position: string; ext?: string | null; phone?: string | null }[]
+  /** Murojaatda taqiqlangan so'zlar (admin → Haqoratli so'zlar): «*» — so'z boshi */
+  rudeWords?: string[]
   reception: string
   /** Virtual qabulxona: "Kimga" ro'yxati */
   recipients: { id: string; title: string }[]

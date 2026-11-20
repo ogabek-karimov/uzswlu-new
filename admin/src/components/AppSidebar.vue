@@ -25,6 +25,8 @@ const groups: { label: string; items: Item[] }[] = [
     { to: '/postlar/events', label: 'Tadbirlar', icon: 'events', section: 'events' },
     { to: '/sahifalar', label: 'Sahifalar', icon: 'pages', section: 'pages' },
     { to: '/tezkor-xizmatlar', label: 'Tezkor xizmatlar', icon: 'quick', section: 'quick-links' },
+    { to: '/telefonlar', label: 'Telefonlar', icon: 'phone', section: 'phones' },
+    { to: '/haqoratli-sozlar', label: 'Haqoratli sözlar', icon: 'shield', section: 'rude-words' },
     { to: '/karusel', label: 'Boş sahifa karuseli', icon: 'carousel', superOnly: true },
     { to: '/media', label: 'Media kutubxona', icon: 'media', section: 'media' },
     { to: '/hujjatlar', label: 'Hujjatlar', icon: 'docs', section: 'documents' },

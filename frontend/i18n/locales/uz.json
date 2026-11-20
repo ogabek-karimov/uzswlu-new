@@ -857,8 +857,9 @@
     "leaders": "Rahbariyat telefonlari",
     "table": {
       "name": "F.I.Ş. va lavozim",
-      "ext": "Içki",
-      "phone": "Iş telefoni"
+      "ext": "Içki raqam",
+      "phone": "Iş telefoni",
+      "no": "T/r"
     },
     "reception": "Qabulxona: {phone}",
     "form": {
@@ -878,8 +879,27 @@
       "success": "Murojaatingiz qabul qilindi",
       "number": "Murojaat raqami: {number}. Javob e-poçtangizga yuboriladi.",
       "another": "Yana murojaat yuboriş",
-      "error": "Murojaat yuborilmadi. Maydonlarni tekşirib, qayta urinib köring."
-    }
+      "error": "Murojaat yuborilmadi. Maydonlarni tekşirib, qayta urinib köring.",
+      "lastName": "Familiya",
+      "firstName": "Ism",
+      "middleName": "Otasining ismi (sharif)",
+      "letters": "Yangi alifbo harflari",
+      "insertLetter": "«{ch}» harfini qöşiş",
+      "passport": "Pasport (ID-karta) seriyasi va raqami",
+      "pSeries": "Pasport seriyasi",
+      "pNumber": "Pasport raqami",
+      "bad": {
+        "random": "Matnda tasodifiy harflar bor (qizil bilan belgilangan). Iltimos, ularni öçirib, masalani tuşunarli sözlar bilan yozing.",
+        "repeat": "Bir söz ortiqça takrorlangan (qizil bilan belgilangan). Iltimos, takrorlarni öçirib, fikringizni töliq gap bilan yozing.",
+        "short": "Matn juda qisqa: masalani kamida 3 ta söz bilan, tuşunarli qilib yozing.",
+        "rude": "Matnda haqoratli söz bor (qizil bilan belgilangan). Iltimos, uni öçiring — murojaat hurmat bilan yozilişi kerak."
+      }
+    },
+    "phones": "Rahbariyat va bölinmalar bilan aloqa",
+    "phonesSearch": "F.I.Sh., lavozim yoki raqam böyiça qidiriş",
+    "phonesEmpty": "Heç narsa topilmadi",
+    "prev": "Oldingi",
+    "next": "Keyingi"
   },
   "search": {
     "title": "Qidiruv",

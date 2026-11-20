@@ -1,4 +1,5 @@
 import type { AppealResult } from '#shared/types/api'
+import { isMeaningfulText, SKIP_RUDE } from '#shared/utils/text-quality'
 
 const FILE_TYPES = ['application/pdf', 'image/jpeg', 'image/png', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
 const MAX_FILE = 10 * 1024 * 1024
@@ -14,6 +15,7 @@ export default defineEventHandler(async (event): Promise<AppealResult> => {
 
   const form = {
     name: field('name'),
+    passport: field('passport').replace(/\s/g, '').toUpperCase(),
     phone: field('phone'),
     email: field('email'),
     recipient: field('recipient'),
@@ -23,10 +25,11 @@ export default defineEventHandler(async (event): Promise<AppealResult> => {
 
   const invalid = (statusMessage: string) => createError({ statusCode: 422, statusMessage })
   if (form.name.length < 3 || form.name.length > 200) throw invalid('Invalid name')
+  if (!/^[A-Z]{2}\d{7}$/.test(form.passport)) throw invalid('Invalid passport')
   if (!/^\+?[\d\s()-]{7,20}$/.test(form.phone)) throw invalid('Invalid phone')
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) || form.email.length > 200) throw invalid('Invalid email')
   if (!/^[\w-]{1,40}$/.test(form.recipient)) throw invalid('Invalid recipient')
-  if (form.message.length < 10 || form.message.length > 5000) throw invalid('Invalid message')
+  if (form.message.length < 10 || form.message.length > 5000 || !isMeaningfulText(form.message, SKIP_RUDE)) throw invalid('Invalid message')   // haqoratli so'zlarni backend admin ro'yxati bilan tekshiradi
   if (form.consent !== 'yes') throw invalid('Consent required')
   if (file && (!FILE_TYPES.includes(file.type ?? '') || file.data.length > MAX_FILE)) throw invalid('Invalid file')
 

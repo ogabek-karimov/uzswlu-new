@@ -21,7 +21,7 @@ from apps.hemis import get_client
 from apps.pages.models import Page, SdgGoal, SdgPage
 from apps.structure.maps import map_embed, map_link
 from apps.structure.models import (
-    FORM_LABELS, AdmissionSettings, Campus, ContactEmail, Faculty, Program, ProgramGroup,
+    FORM_LABELS, AdmissionSettings, Campus, ContactEmail, Faculty, PhoneEntry, Program, ProgramGroup, RudeWord,
 )
 
 from .builders import (
@@ -596,6 +596,13 @@ def contact_out(lang: str) -> dict:
             {'name': d.name, 'role': tr(d.role, lang), 'ext': d.ext, 'phone': d.phone}
             for d in leaders if d.kind == 'prorector'
         ],
+        # Telefonlar ma'lumotnomasi (admin → Telefonlar): bo'lim sarlavhalari va xodim qatorlari, faqat ko'rinadiganlari
+        'phones': [
+            {'section': e.is_section, 'name': e.name or None, 'position': tr(e.position, lang), 'ext': e.ext or None, 'phone': e.phone or None}
+            for e in PhoneEntry.objects.filter(visible=True)
+        ],
+        # Murojaat shaklida taqiqlangan so'zlar (admin → Haqoratli so'zlar); backend ham shu ro'yxat bilan tekshiradi
+        'rudeWords': list(RudeWord.objects.filter(active=True).values_list('word', flat=True)),
         'reception': tr(s.reception, lang),
         'recipients': [{'id': f'leader-{d.pk}', 'title': tr(d.role, lang)} for d in leaders if d.reception],
     }

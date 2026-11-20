@@ -23,7 +23,7 @@ from apps.content.quick_links import ICON_NAMES, valid_url
 from apps.core.fields import LANGS
 from apps.core.models import Activity, Media
 from apps.pages.models import Page, PageAttachment, PageFact, PageTimeline, SdgGoal, SdgGoalReport, SdgSection
-from apps.structure.models import Department, Faculty, StaffProfile
+from apps.structure.models import Department, Faculty, PhoneEntry, RudeWord, StaffProfile
 
 from .models import LoginEvent
 
@@ -705,6 +705,51 @@ class QuickLinks(Collection):
             raise ValidationError('Nomi (o‘zbekcha) majburiy')
 
 
+class Phones(Collection):
+    """Aloqa → telefonlar ma'lumotnomasi (eski saytdagi jadval)."""
+    section = 'phones'
+    slug = 'phones'
+    model = PhoneEntry
+    tags = ('contact',)
+    default_sort = ['order', 'id']
+    access = {'read': ALL, 'create': PAGES, 'update': PAGES, 'delete': PAGES}
+    rules = {'create': '`position.uz` majburiy; `isSection` — butun qatorni egallagan bo‘lim sarlavhasi.'}
+
+    def out(self, e, depth):
+        return {'id': e.pk, 'isSection': e.is_section, 'name': e.name, 'position': i18n_out(e.position), 'ext': e.ext,
+                'phone': e.phone, 'order': e.order, 'visible': e.visible}
+
+    def write(self, e, data, request, creating):
+        put(e, data, {'isSection': ('is_section', flag), 'name': ('name', text), 'position': ('position', i18n_in), 'ext': ('ext', text),
+                      'phone': ('phone', text), 'order': ('order', num), 'visible': ('visible', flag)})
+        if not (e.position or {}).get('uz'):
+            raise ValidationError('Lavozimi / sarlavha (o‘zbekcha) majburiy')
+
+
+class RudeWords(Collection):
+    """Murojaatlarda taqiqlangan (haqoratli) so'zlar — virtual qabulxona shakli va backend tekshiruvi shu ro'yxatdan."""
+    section = 'rude-words'
+    slug = 'rude-words'
+    model = RudeWord
+    tags = ('contact',)
+    default_sort = ['lang', 'word']
+    access = {'read': ALL, 'create': PAGES, 'update': PAGES, 'delete': PAGES}
+    rules = {'create': '`word` majburiy, takrorlanmas (kichik harf); oxirida `*` — shu bilan boshlanuvchi barcha so‘zlar; `lang`: uz/ru/en/zh.'}
+
+    def out(self, e, depth):
+        return {'id': e.pk, 'word': e.word, 'lang': e.lang, 'active': e.active, 'createdAt': dt(e.created_at)}
+
+    def write(self, e, data, request, creating):
+        put(e, data, {'word': ('word', text), 'lang': ('lang', text), 'active': ('active', flag)})
+        e.word = (e.word or '').strip().lower().replace('ё', 'е')
+        if not 2 <= len(e.word.rstrip('*')) <= 60 or ' ' in e.word:
+            raise ValidationError('So‘z 2–60 belgidan iborat, bo‘sh joysiz bo‘lsin')
+        if e.lang not in dict(RudeWord.LANGS):
+            raise ValidationError('Til: uz, ru, en yoki zh')
+        if RudeWord.objects.filter(word=e.word).exclude(pk=e.pk).exists():
+            raise ValidationError('Bu so‘z ro‘yxatda allaqachon bor')
+
+
 # ─── Tuzilma ────────────────────────────────────────────────────────────────
 
 class Faculties(Collection):
@@ -988,10 +1033,17 @@ class Roles(Collection):
     def label(self, obj):
         return obj.name
 
+    def queryset(self, request):
+        # Foydalanuvchilar soni bitta so'rovda (har rol uchun alohida COUNT — N+1 bo'lardi)
+        from django.db.models import Count, IntegerField, OuterRef, Subquery
+        users = User.objects.filter(role=OuterRef('slug')).order_by().values('role').annotate(c=Count('pk')).values('c')
+        return super().queryset(request).annotate(users_count=Subquery(users, output_field=IntegerField()))
+
     def out(self, r, depth):
+        users = getattr(r, 'users_count', None)
         return {
             'id': r.pk, 'slug': r.slug, 'name': r.name, 'description': r.description or None, 'system': r.system, 'scoped': r.scoped,
-            'permissions': rl.permissions_of_role(r), 'users': User.objects.filter(role=r.slug).count(),
+            'permissions': rl.permissions_of_role(r), 'users': (users or 0) if hasattr(r, 'users_count') else User.objects.filter(role=r.slug).count(),
             'createdAt': dt(r.created_at), 'updatedAt': dt(r.updated_at), 'collection': 'roles',
         }
 
@@ -1013,6 +1065,6 @@ class Roles(Collection):
 
 
 REGISTRY: dict[str, Collection] = {c.slug: c for c in (
-    Users(), Medias(), Categories(), Posts(), Slides(), Leaders(), DocCategories(), Documents(), VideoCategories(), Videos(), QuickLinks(),
+    Users(), Medias(), Categories(), Posts(), Slides(), Leaders(), DocCategories(), Documents(), VideoCategories(), Videos(), QuickLinks(), Phones(), RudeWords(),
     Faculties(), Departments(), StaffProfiles(), SdgGoals(), Pages(), LoginEvents(), Activities(), Roles(),
 )}

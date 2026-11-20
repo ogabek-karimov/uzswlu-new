@@ -574,3 +574,36 @@ html[data-scheme] [data-speaking] {
   .side-nav-item, .side-nav-dot, .side-nav-arrow { transition: none; }
   .side-nav-item:hover, .side-nav-item:focus-visible { transform: none; }
 }
+
+/* ── Ko'tariluvchi karta: hover — biroz ko'tariladi, soya kattalashadi, ramka indigo ── */
+.lift-card {
+  border: 1px solid var(--color-line);
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(19 17 47 / 0.04), 0 8px 20px -18px rgb(56 43 133 / 0.35);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s, border-color 0.3s;
+}
+.lift-card:hover,
+.lift-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--color-brand-200);
+  box-shadow: 0 2px 4px rgb(19 17 47 / 0.04), 0 28px 48px -26px rgb(56 43 133 / 0.5);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lift-card { transition: none; }
+  .lift-card:hover, .lift-card:focus-visible { transform: none; }
+}
+
+/* Gradient ramka (indigo → mint): hover'da yorqinlashadi */
+.grad-border {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(140deg, var(--color-brand-200), rgb(0 252 180 / 0.35) 55%, var(--color-brand-100)) border-box;
+}
+.grad-border:hover,
+.grad-border:focus-visible {
+  border-color: transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(140deg, var(--color-brand-600), var(--color-accent-500) 60%, var(--color-brand-300)) border-box;
+}

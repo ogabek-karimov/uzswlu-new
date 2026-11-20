@@ -126,7 +126,7 @@ class StaffCabinetFlowTests(SeededTestCase):
 class AppealAndHitTests(SeededTestCase):
     def good(self):
         rec = self.client.get('/api/contact').json()['recipients'][0]['id']
-        return {'name': 'Test Foydalanuvchi', 'phone': '+998 90 123 45 67', 'email': 't@example.com',
+        return {'name': 'Test Foydalanuvchi', 'passport': 'AA1234567', 'phone': '+998 90 123 45 67', 'email': 't@example.com',
                 'recipient': rec, 'message': 'Bu test murojaati matni.', 'consent': 'yes'}
 
     def test_appeal(self):
@@ -136,6 +136,7 @@ class AppealAndHitTests(SeededTestCase):
         self.assertTrue(r.json()['number'].startswith('VQ-'))
         self.assertEqual(self.client.post('/api/appeals', {**good, 'consent': 'no'}).status_code, 422)
         self.assertEqual(self.client.post('/api/appeals', {**good, 'phone': 'abc'}).status_code, 422)
+        self.assertEqual(self.client.post('/api/appeals', {**good, 'passport': '12345'}).status_code, 422)
         r = self.client.post('/api/appeals', {**good, 'file': uploaded('a.pdf', PDF, 'application/pdf')})
         self.assertEqual(r.status_code, 200, r.content)
 
@@ -165,3 +166,18 @@ class HomeLanguagesCountTests(SeededTestCase):
 
         row = next(x for x in languages_out() if x['code'] == 'zz')
         self.assertEqual((row['programs'], row['faculties']), (3, 2))
+
+
+class PhoneDirectoryTests(SeededTestCase):
+    """Aloqa → rahbariyat va bo'linmalar telefonlari: tartib bo'yicha, yashirilganlari chiqmaydi."""
+
+    def test_contact_lists_only_visible_phones_in_order(self):
+        from apps.structure.models import PhoneEntry
+        PhoneEntry.objects.all().delete()
+        PhoneEntry.objects.create(is_section=True, position={'uz': 'Rektorat'}, order=1)
+        PhoneEntry.objects.create(name='Aliyev A.', position={'uz': 'Prorektor'}, ext='1009', phone='71-230-13-40', order=2)
+        PhoneEntry.objects.create(name='Yashirin', position={'uz': 'X'}, order=3, visible=False)
+        phones = self.client.get('/api/contact').json()['phones']
+        self.assertEqual([p['position'] for p in phones], ['Rektorat', 'Prorektor'])
+        self.assertTrue(phones[0]['section'])
+        self.assertEqual(phones[1]['ext'], '1009')

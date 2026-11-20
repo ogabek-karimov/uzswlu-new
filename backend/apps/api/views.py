@@ -18,6 +18,7 @@ from apps.core.throttles import ScopedThrottle
 from apps.core.utils import client_ip, sha256
 from apps.pages.models import Page, SdgGoal
 from apps.structure.models import Appeal, Faculty
+from apps.api.text_quality import is_meaningful_text
 
 from . import builders, builders_site as bs, search
 from .builders_staff import Unprocessable
@@ -238,13 +239,16 @@ class AppealView(PublicView):
         recipient, message = str(d.get('recipient') or '').strip(), str(d.get('message') or '').strip()
         if not 3 <= len(name) <= 200:
             raise Unprocessable('Invalid name')
+        passport = re.sub(r'\s', '', str(d.get('passport') or '')).upper()
+        if not re.fullmatch(r'[A-Z]{2}\d{7}', passport):
+            raise Unprocessable('Invalid passport')
         if not re.fullmatch(r'\+?[\d\s()-]{7,20}', phone):
             raise Unprocessable('Invalid phone')
         if len(email) > 200 or not re.fullmatch(r'[^\s@]+@[^\s@]+\.[^\s@]+', email):
             raise Unprocessable('Invalid email')
         if not re.fullmatch(r'[\w-]{1,40}', recipient):
             raise Unprocessable('Invalid recipient')
-        if not 10 <= len(message) <= 5000:
+        if not 10 <= len(message) <= 5000 or not is_meaningful_text(message):
             raise Unprocessable('Invalid message')
         if str(d.get('consent') or '') != 'yes':
             raise Unprocessable('Consent required')
@@ -264,7 +268,7 @@ class AppealView(PublicView):
             leader = Leader.objects.filter(pk=m.group(1)).first()
             title = leader.role.get('uz', recipient) if leader else recipient
         appeal = Appeal.objects.create(
-            name=name, phone=phone, email=email, recipient=recipient, recipient_title=title[:300],
+            name=name, passport=passport, phone=phone, email=email, recipient=recipient, recipient_title=title[:300],
             message=message, ip=client_ip(request),
         )
         if file:

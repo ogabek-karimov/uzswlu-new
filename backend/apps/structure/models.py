@@ -227,6 +227,26 @@ class Campus(models.Model):
         return self.name.get('uz') or self.key
 
 
+class PhoneEntry(models.Model):
+    """Aloqa sahifasidagi telefonlar ma'lumotnomasi: bo'lim sarlavhasi yoki xodim qatori (F.I.Sh., lavozim, ichki raqam, telefon)."""
+
+    is_section = models.BooleanField('Bo‘lim sarlavhasi', default=False, help_text='Belgilansa — jadvalda butun qatorni egallagan sarlavha (lavozim maydoni matni)')
+    name = models.CharField('F.I.Sh.', max_length=200, blank=True)
+    position = I18nField('Lavozimi / sarlavha', required_uz=True)
+    ext = models.CharField('Ichki raqami', max_length=40, blank=True)
+    phone = models.CharField('Ish telefoni', max_length=60, blank=True)
+    order = models.PositiveIntegerField('Tartib', default=0, db_index=True)
+    visible = models.BooleanField('Saytda ko‘rinadi', default=True)
+
+    class Meta:
+        verbose_name = 'Telefon'
+        verbose_name_plural = 'Telefonlar ma’lumotnomasi'
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return self.name or self.position.get('uz', '')
+
+
 class ContactEmail(models.Model):
     title = I18nField('Nomi', required_uz=True)
     value = models.EmailField('E-pochta')
@@ -242,12 +262,32 @@ class ContactEmail(models.Model):
         return self.value
 
 
+class RudeWord(models.Model):
+    """Murojaatlarda taqiqlangan (haqoratli) so'z. «*» bilan tugasa — shu bilan boshlanuvchi barcha so'zlar;
+    kirillcha so'z lotincha yozilishi bilan ham ushlanadi (blyad, nahuy)."""
+
+    LANGS = [('uz', 'O‘zbekcha'), ('ru', 'Ruscha'), ('en', 'Inglizcha'), ('zh', 'Xitoycha')]
+    word = models.CharField('So‘z', max_length=60, unique=True)
+    lang = models.CharField('Til', max_length=2, choices=LANGS, default='uz', db_index=True)
+    active = models.BooleanField('Faol', default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Haqoratli so‘z'
+        verbose_name_plural = 'Haqoratli so‘zlar'
+        ordering = ['lang', 'word']
+
+    def __str__(self):
+        return self.word
+
+
 class Appeal(models.Model):
     """Virtual qabulxona murojaati."""
 
     STATUSES = [('new', 'Yangi'), ('in_progress', 'Ko‘rib chiqilmoqda'), ('done', 'Javob berildi')]
     number = models.CharField('Raqami', max_length=20, blank=True, db_index=True)
     name = models.CharField('F.I.Sh.', max_length=200)
+    passport = models.CharField('Pasport seriyasi va raqami', max_length=9, blank=True, help_text='Masalan AA1234567')
     phone = models.CharField('Telefon', max_length=30)
     email = models.EmailField('E-pochta')
     recipient = models.CharField('Kimga', max_length=40)

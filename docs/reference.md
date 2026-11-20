@@ -20,9 +20,11 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 | `login-events` | R | — | — | — | — |
 | `media` | RCUD | RCU | RCU | RCU | RCU |
 | `pages` | RCUD | R | R | RCUD | R |
+| `phones` | RCUD | R | R | RCUD | R |
 | `posts` | RCUD | RCUD | RCUD | RCUD | R |
 | `quick-links` | RCUD | R | R | RCUD | R |
 | `roles` | RCUD | — | — | — | — |
+| `rude-words` | RCUD | R | R | RCUD | R |
 | `sdg-goals` | RCUD | R | R | R | RU |
 | `slides` | RCUD | R | R | R | R |
 | `staff-profiles` | RCUD | R | R | R | R |
@@ -41,11 +43,13 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 - `departments` · **create**: `faculty` faqat **o‘z fakultetiga** kafedra qo‘sha oladi.
 - `departments` · **update**: `faculty` faqat **o‘z fakultetidagi** kafedrani o‘zgartiradi.
 - `faculties` · **update**: `faculty` faqat **o‘z fakultetini** (`User.scope`) o‘zgartiradi; doirasi belgilanmagan bo‘lsa — hech narsani.
+- `phones` · **create**: `position.uz` majburiy; `isSection` — butun qatorni egallagan bo‘lim sarlavhasi.
 - `posts` · **update**: `faculty` va `pages` faqat **o‘zi yozgan** postni o‘zgartiradi; `superadmin` va `editor` — hammasini.
 - `posts` · **delete**: `faculty` va `pages` faqat **o‘zi yozgan** postni o‘chiradi; `superadmin` va `editor` — hammasini.
 - `quick-links` · **create**: `icon` — `lucide:*` ro‘yxatidan; `url` — `/yo‘l` yoki `https://…`; `title.uz` majburiy.
 - `roles` · **delete**: Tizim roli yoki foydalanuvchisi bor rol o‘chirilmaydi.
 - `roles` · **update**: Tizim rollarining (superadmin, editor, faculty, pages, sdg) bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi.
+- `rude-words` · **create**: `word` majburiy, takrorlanmas (kichik harf); oxirida `*` — shu bilan boshlanuvchi barcha so‘zlar; `lang`: uz/ru/en/zh.
 
 ### `manage.py` buyruqlari (loyihaniki)
 
@@ -330,6 +334,8 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `/sozlamalar` | `admin/src/pages/SettingsPage.vue` | faqat `superadmin` |
 | `/profil` | `admin/src/pages/ProfilePage.vue` | hamma kirgan xodim |
 | `/tezkor-xizmatlar` | `admin/src/pages/QuickLinksPage.vue` | hamma kirgan xodim |
+| `/telefonlar` | `admin/src/pages/PhonesPage.vue` | hamma kirgan xodim |
+| `/haqoratli-sozlar` | `admin/src/pages/RudeWordsPage.vue` | hamma kirgan xodim |
 | `/karusel` | `admin/src/pages/CarouselPage.vue` | faqat `superadmin` |
 | `/media` | `admin/src/pages/MediaPage.vue` | hamma kirgan xodim |
 | `/hujjatlar` | `admin/src/pages/DocumentsPage.vue` | hamma kirgan xodim |
@@ -432,6 +438,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/api/staff_auth.py` | Xodim kabineti autentifikatsiyasi: HEMIS (my.gov) orqali kirgan xodimning sessiyasi. |
 | `backend/apps/api/swagger.py` | Swagger: ochiq sayt API'sining aniq tavsifi `frontend/docs/openapi.yaml` shartnomasidan olinadi. |
 | `backend/apps/api/swagger_fields.py` | Admin panel (`/api/cms/*`) sxemalari: kolleksiya kodidan avtomatik olinadi — qo'lda yozilgan ro'yxat yo'q. |
+| `backend/apps/api/text_quality.py` | Murojaat matni «haqiqiy matn»mi: tasodifiy harflar, bir so'zni takrorlash va belgilar to'plamini rad etadi. |
 | `backend/apps/api/urls.py` | API manzillari. Asosiy shartnoma — frontend/docs/openapi.yaml (`/api/home`, `/api/posts` …). |
 | `backend/apps/api/views.py` | Ochiq sayt API'si (frontend/docs/openapi.yaml). Hamma javob `?lang=uz\|ru\|en\|zh` bo'yicha. |
 | `backend/apps/api/views_staff.py` | Xodimlar (ommaviy) va xodim kabineti (/me — faqat HEMIS orqali kirgan xodim). |
@@ -483,7 +490,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (349 ta test)
+### Backend testlari xaritasi (353 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -493,11 +500,12 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/api/test_cache_stampede.py` | 8 | Ochiq javoblar keshi: to'dan himoya — bir xil so'rovlar bazaga bir vaqtda urilmaydi (CachedGetMixin._cached_or_build). |
 | `backend/tests/api/test_contract.py` | 6 | Shartnoma testi: ochiq API javoblari `frontend/docs/openapi.yaml` sxemalariga mos bo'lishi shart (4 til × barcha endpoint). |
 | `backend/tests/api/test_edge_refresh.py` | 7 | Kontent o'zgarganda Nuxt/nginx keshini yangilash (apps/api/edge.py). |
-| `backend/tests/api/test_flows.py` | 13 | Ochiq API oqimlari (demo ma'lumot bilan): sanoqlar, eski /api/site/* manzillari, API token, xodim kabineti, murojaat, statistika. |
+| `backend/tests/api/test_flows.py` | 14 | Ochiq API oqimlari (demo ma'lumot bilan): sanoqlar, eski /api/site/* manzillari, API token, xodim kabineti, murojaat, statistika. |
 | `backend/tests/api/test_maps.py` | 5 |  |
 | `backend/tests/api/test_post_neighbors.py` | 1 |  |
 | `backend/tests/api/test_search.py` | 9 | Sayt qidiruvi (GET /search): nima qidiriladi va yozuv farqlari (tutuq, yangi alifbo, kirill, qo'shimchalar). |
 | `backend/tests/api/test_swagger.py` | 13 | Swagger to'liqligi: kodda ishlaydigan har bir amal hujjatda bo'lishi shart (yangi endpoint/kolleksiya qo'shilganda |
+| `backend/tests/api/test_text_quality.py` | 3 |  |
 | `backend/tests/core/test_backup.py` | 41 | Zaxira va tiklash: yaratish, tekshirish, tiklash (SQLite va PostgreSQL — qaysi baza bilan ishlayotgan bo'lsa), ko'chma JSON, |
 | `backend/tests/core/test_docs.py` | 10 | Qo'llanma (docs/) eskirmasligi: avtomatik fayllar kodga mos, havolalar/anchorlar/yo'llar/buyruqlar mavjud. |
 | `backend/tests/core/test_page_cleanup.py` | 4 | «Toshkent haqida» / «Kontingent» sahifalarini o'chiruvchi migratsiya (0002_remove_toshkent_kontingent). |
@@ -558,7 +566,9 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `structure` | `AdmissionDate` | Muhim sana | `apps/structure/models.py` |
 | `structure` | `AdmissionFaq` | Ko‘p so‘raladigan savol | `apps/structure/models.py` |
 | `structure` | `Campus` | Bino / kampus | `apps/structure/models.py` |
+| `structure` | `PhoneEntry` | Telefon | `apps/structure/models.py` |
 | `structure` | `ContactEmail` | E-pochta (aloqa) | `apps/structure/models.py` |
+| `structure` | `RudeWord` | Haqoratli so‘z | `apps/structure/models.py` |
 | `structure` | `Appeal` | Murojaat | `apps/structure/models.py` |
 | `pages` | `Page` | Sahifa | `apps/pages/models.py` |
 | `pages` | `PageFact` | Raqam | `apps/pages/models.py` |
