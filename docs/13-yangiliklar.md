@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-20
 
+- **Sayt (bosh sahifa fonlari — «sokin premium»):** naqshlar, rangli dog‘lar, harflar buluti va fon suratlari olib tashlandi; bo‘limlar faqat ikki neytral rangda navbatlashadi — iliq qog‘oz (`#faf8f4`) va toza oq, orasida yumshoq to‘lqin. Rangli urg‘u faqat «Fakultetlar» (bino surati) va «Davlat ramzlari» (bayroq)da. `HomeBackdrop`: `white` / `paper` variantlari; «Yaqin tadbirlar» va «Biz bilan bog‘lanish» bezaksiz.
 - **Sayt (Binolar kartalari):** xarita balandroq (190 → 250 px); kursor kelganda karta ko‘tarilib biroz kattalashadi (3%), indigo soya va chegara, sarlavha rangi o‘zgaradi.
 - **Sayt (Binolar kartalari):** logo atrofida aylanuvchi yorqin nur (mint → indigo → oq, 4 s; mint yog‘du) — xarita bilan qo‘shilib ketmaydi; `prefers-reduced-motion` da to‘xtaydi.
 - **Sayt (Binolar kartalari):** har bir bino xaritasining yuqori chap burchagida bir xil o‘lchamdagi dumaloq logo — bosh bino: universitet logosi; Filologiya fakulteti: Ingliz filologiyasi, Xalqaro jurnalistika va Rus filologiyasi binolari: o‘sha fakultetlarning logosi (`GET /faculties` dan, `CampusCards.vue`).

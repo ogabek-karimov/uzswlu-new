@@ -9,15 +9,7 @@ const formatDate = useFormatDate()
 </script>
 
 <template>
-  <section class="section-wave relative isolate overflow-hidden bg-[#eef0ff]">
-    <!-- Fon: tadbir suratlari (sekin almashadi), taqvim katakchalari va katta xira taqvim belgisi; pastda chipta qirrasi -->
-    <div class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-      <span class="absolute inset-0 bg-[linear-gradient(150deg,#f5f6ff_0%,#e9ecfd_55%,#dfe4fb_100%)]" />
-      <span class="absolute -top-40 right-[-10%] size-[34rem] rounded-full bg-brand-200/50 blur-3xl" />
-      <span class="absolute -bottom-40 -left-24 size-[30rem] rounded-full bg-accent-100/70 blur-3xl" />
-      <span class="absolute inset-0 text-brand-600/[0.09] [mask-image:radial-gradient(90%_80%_at_50%_40%,#000_40%,transparent_95%)]"><HomeOrnament kind="ikat" /></span>
-      <Icon name="lucide:calendar-days" class="absolute -bottom-10 -left-8 size-72 -rotate-12 text-brand-600/[0.05]" />
-    </div>
+  <section class="section-wave relative isolate overflow-hidden bg-white">
     <div class="mx-auto max-w-7xl px-4 pt-14 pb-20 sm:px-6 lg:px-8 lg:pt-16 lg:pb-24">
     <SectionHeading
       :eyebrow="t('events.eyebrow')"

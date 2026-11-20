@@ -5,15 +5,15 @@ const { data } = await useHomeData()
 <template>
   <div>
     <HomeCarousel :slides="data?.slides ?? []" />
-    <HomeBackdrop variant="glyphs">
+    <HomeBackdrop variant="paper">
       <HomeAbout v-reveal class="pt-10 lg:pt-14" :stats="data?.stats ?? []" :video-tour="data?.videoTour ?? null" />
       <HomeQuickLinks v-reveal class="pb-2" />
     </HomeBackdrop>
     <HomeFaculties v-reveal class="mt-14 lg:mt-20" :faculties="data?.faculties ?? []" />
-    <HomeBackdrop v-reveal variant="ornament" class="section-wave pb-12 lg:pb-16">
+    <HomeBackdrop v-reveal variant="white" class="section-wave pb-12 lg:pb-16">
       <HomeNews show="news" :news="data?.news ?? []" :announcements="data?.announcements ?? []" />
     </HomeBackdrop>
-    <HomeBackdrop v-if="data?.announcements?.length" v-reveal variant="mint" class="section-wave">
+    <HomeBackdrop v-if="data?.announcements?.length" v-reveal variant="paper">
       <HomeNews show="announcements" :news="data?.news ?? []" :announcements="data?.announcements ?? []" />
     </HomeBackdrop>
     <HomeEvents v-reveal :events="data?.events ?? []" />
