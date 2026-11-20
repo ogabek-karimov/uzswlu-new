@@ -8,6 +8,7 @@
 .env: HEMIS_OAUTH_URL, HEMIS_OAUTH_CLIENT_ID, HEMIS_OAUTH_CLIENT_SECRET (universitet IT bo'limi beradi).
 """
 import hmac
+import html
 import json
 import secrets
 import urllib.parse
@@ -15,7 +16,7 @@ import urllib.request
 
 from django.conf import settings
 from django.contrib.auth import login
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.response import Response
@@ -71,6 +72,43 @@ class StatusView(APIView):
         })
 
 
+def dev_login_enabled() -> bool:
+    return bool(settings.DEBUG and getattr(settings, 'STAFF_DEV_LOGIN', False) and not settings.HEMIS_OAUTH_ENABLED)
+
+
+def dev_login(request):
+    """Lokal sinov: namunaviy xodimlardan rol tanlab kabinetga kirish (productionda o'chiq)."""
+    from apps.api.cabinet_roles import detect_role
+
+    staff = get_client().staff('uz')
+    chosen = str(request.query_params.get('as') or '')
+    if chosen:
+        if not any(str(p['id']) == chosen for p in staff):
+            return HttpResponse('Xodim topilmadi', status=404)
+        res = HttpResponseRedirect('/dashboard')
+        res.set_cookie(settings.STAFF_SESSION_COOKIE, StaffSession.issue(chosen), max_age=settings.STAFF_SESSION_TTL_HOURS * 3600,
+                       httponly=True, secure=False, samesite='Lax')
+        return res
+    names = {'dean': 'Dekan', 'chair_head': 'Kafedra mudiri', 'teacher': 'O‘qituvchi', 'staff': 'Boshqa xodim'}
+    by: dict[str, list] = {k: [] for k in names}
+    for p in staff:
+        role, emp = detect_role(p)
+        if role in by and len(by[role]) < 4:
+            by[role].append((p, emp))
+    rows = []
+    for role, label in names.items():
+        for p, emp in by[role]:
+            pos = ((emp or {}).get('position') or {}).get('name') or ''
+            dep = ((emp or {}).get('department') or {}).get('name') or ''
+            href = '?next=cabinet&as=' + urllib.parse.quote(str(p['id']))
+            rows.append(f'<li><a href="{html.escape(href)}"><b>{html.escape(label)}</b> — {html.escape(p["name"])}<br><small>{html.escape(pos)} · {html.escape(dep)} · ID {html.escape(str(p["id"]))}</small></a></li>')
+    page = ('<!doctype html><meta charset="utf-8"><title>Sinov kirishi</title>'
+            '<style>body{font:16px system-ui;max-width:640px;margin:40px auto;padding:0 16px}li{list-style:none;margin:8px 0}'
+            'a{display:block;padding:12px 16px;border:1px solid #ddd;border-radius:12px;color:#222;text-decoration:none}a:hover{background:#f3f0ff}</style>'
+            '<h1>Xodim kabineti — sinov kirishi</h1><p>Faqat lokal sinov (DEBUG). Rolni tanlang:</p><ul style="padding:0">' + ''.join(rows) + '</ul>')
+    return HttpResponse(page)
+
+
 class LoginView(APIView):
     authentication_classes: list = []
     permission_classes: list = []
@@ -79,6 +117,8 @@ class LoginView(APIView):
 
     @extend_schema(summary='HEMIS orqali kirish (yo‘naltiradi)', parameters=[OpenApiParameter('next', str, enum=['admin', 'cabinet'])])
     def get(self, request):
+        if request.query_params.get('next') == 'cabinet' and dev_login_enabled():
+            return dev_login(request)
         if not settings.HEMIS_OAUTH_ENABLED:
             return Response({'message': 'HEMIS orqali kirish hali ulanmagan (HEMIS_OAUTH_* sozlamalari yo‘q)'}, status=503)
         state = secrets.token_urlsafe(24)

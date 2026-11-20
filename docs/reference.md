@@ -109,6 +109,7 @@ Fayllar: `backend/.env` (namuna: `backend/.env.example`), `.env.docker` (namuna:
 | `HEMIS_CACHE_SECONDS` | `300` | HEMIS nusxasini bazadan qayta o'qish oralig'i (soniya) va sinxronlashda sahifalar orasidagi pauza |  |
 | `HEMIS_REQUEST_DELAY` | `0.2` |  |  |
 | `HEMIS_OAUTH_TIMEOUT` | `8` |  |  |
+| `STAFF_DEV_LOGIN` | `true` | Faqat lokal sinov: HEMIS ulanmaganda xodim kabinetiga rol tanlab kirish (/api/auth/hemis/login?next=cabinet). DEBUG=true bo'lsagina ishlaydi | ixtiyoriy (izohda) |
 | `ADMIN_MAX_LIMIT` | `5000` | Admin ro'yxatida bir so'rovda ko'pi bilan nechta yozuv |  |
 | `REDIS_URL` | *(bo‘sh)* | Bir nechta server/jarayon bo'lsa umumiy kesh (so'rov cheklovi hisobi uchun); bo'sh bo'lsa fayl keshi |  |
 | `WEB_CONCURRENCY` | `3` | Gunicorn: jarayonlar, oqimlar va so'rov vaqti chegarasi |  |
@@ -483,7 +484,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (349 ta test)
+### Backend testlari xaritasi (352 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -501,6 +502,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/core/test_backup.py` | 41 | Zaxira va tiklash: yaratish, tekshirish, tiklash (SQLite va PostgreSQL — qaysi baza bilan ishlayotgan bo'lsa), ko'chma JSON, |
 | `backend/tests/core/test_docs.py` | 10 | Qo'llanma (docs/) eskirmasligi: avtomatik fayllar kodga mos, havolalar/anchorlar/yo'llar/buyruqlar mavjud. |
 | `backend/tests/core/test_page_cleanup.py` | 4 | «Toshkent haqida» / «Kontingent» sahifalarini o'chiruvchi migratsiya (0002_remove_toshkent_kontingent). |
+| `backend/tests/hemis/test_dev_login.py` | 3 | Lokal sinov kirishi: faqat DEBUG + STAFF_DEV_LOGIN + HEMIS ulanmagan bo'lganda ishlaydi. |
 | `backend/tests/hemis/test_load_control.py` | 25 | HEMIS'ga va serverga bosim: tinch oyna, qulf, so'rov byudjeti, ketma-ket xatoda to'xtash, kechki jadval. |
 | `backend/tests/panel/test_collections.py` | 13 | Admin panel API (`/api/cms/*`): har bir kolleksiya uchun o'qish → o'zini PATCH → nusxa yaratish → o'chirish aylanishi, · `slow` |
 | `backend/tests/panel/test_pagination.py` | 5 | Sahifalash: har bir kolleksiyada barcha sahifalarni aylanib chiqqanda yozuvlar yo'qolmaydi va takrorlanmaydi; · `slow` |
