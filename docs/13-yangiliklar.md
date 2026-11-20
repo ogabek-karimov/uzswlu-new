@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-21
 
-- **Backend (lokal sinov):** HEMIS ulanmagan bo‘lsa, xodim kabinetini sinash uchun «rol tanlab kirish» sahifasi: `/api/auth/hemis/login?next=cabinet` — dekan, kafedra mudiri, o‘qituvchi, xodim ro‘yxati, bosilsa shu xodim sifatida `/dashboard` ga kiradi. Faqat `DEBUG=true` **va** `STAFF_DEV_LOGIN=true` bo‘lib, HEMIS OAuth sozlanmagan bo‘lsa ishlaydi, productionda 503. Test: `tests/hemis/test_dev_login.py`. — COMMIT
+- **Backend (lokal sinov):** HEMIS ulanmagan bo‘lsa, xodim kabinetini sinash uchun «rol tanlab kirish» sahifasi: `/api/auth/hemis/login?next=cabinet` — dekan, kafedra mudiri, o‘qituvchi, xodim ro‘yxati, bosilsa shu xodim sifatida `/dashboard` ga kiradi. Faqat `DEBUG=true` **va** `STAFF_DEV_LOGIN=true` bo‘lib, HEMIS OAuth sozlanmagan bo‘lsa ishlaydi, productionda 503. Test: `tests/hemis/test_dev_login.py`. — `1ebc9df`
 - **Admin + backend + sayt (binolar):** «Sozlamalar → Binolar va xarita» da har bir binoga **fakultet** tanlanadi — binolar kartasidagi logo shu fakultetdan olinadi (avval frontendda qattiq yozilgan edi; mavjud 3 bino migratsiyada avtomatik bog‘landi, bosh binoda universitet logosi). `Campus.faculty` (`structure.0005`), API `campuses[].logo`, panel `facultyId`. Qo‘shimcha `/api/faculties` so‘rovi olib tashlandi. Chap paneldagi ikonkalar past ekranda (balandlik ≤ 680 px) kichrayadi, sig‘masa aylantiriladi; bino kartasi hover'da endi kattalashmaydi (qo‘shni kartani yopmasdi), faqat ko‘tariladi. — `2f85dc2`
 
 ## 2026-11-20
