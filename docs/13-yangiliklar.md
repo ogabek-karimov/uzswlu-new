@@ -4,6 +4,8 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-20
 
+- **Sayt (kartalar paydo bo‘lishi — ichki sahifalar):** bosh sahifadagidek kartalar aylantirilganda birin-ketin chiqadi: Universitet hayoti (yangilik/tadbir/e’lon ro‘yxati), Tadbirlar, Fakultetlar va kafedralar, Xodimlar, Video darsliklar, Qidiruv natijalari, BRM (yo‘nalishlar va 17 maqsad), Qabul (4 qadam va yo‘nalishlar), Bakalavriat/Magistratura (`ProgramsView`), fakultet sahifasidagi kafedralar. Matnli sahifalar, jadvallar, formalar, savol-javob va kabinetga qo‘llanmadi.
+- **Sayt (Qabul sahifasi):** kartalardagi nur sekinroq va yumshoqroq (3,2 s; hover’da 2 s, shaffofligi kamroq).
 - **Sayt (Qabul 2026/2027 sahifasi — yangi dizayn):** hero — asosiy bino surati ustida chuqur indigo → binafsha gradient va yog‘dular, sanalar kartasi shisha; «To‘rt qadamda talaba bo‘ling» — lavanda → mint gradient tasmada shaffof shisha kartalar, gradient raqamlar (01–04), qadamlarni bog‘lovchi yorug‘ chiziq, o‘tuvchi nur (ochilganda navbat bilan bir marta, keyin hover’da); yo‘nalish, narx va grant kartalari hover’da ko‘tariladi, tepasida gradient chiziq/ikonka; savol-javobda ochilgani ajralib turadi; qabul komissiyasi bloki gradient, yog‘du va nur bilan. Umumiy `.shine` (`main.css`).
 - **Sayt (menyu):** mega-menyudagi «Diqqat markazida» kartasi (Abituriyentlar → Qabul 2026/2027) olib tashlandi; ajratilgan havola ro‘yxatda qalin yozuv bilan qoladi.
 - **Sayt (til almashtirish):** til tanlagich sahifani to‘liq qayta yuklasa ham turgan joy saqlanadi — bosishdan oldin `scrollY` saqlanadi (`LangSwitcher`), yangi tildagi sahifada `page:finish` dan keyin tiklanadi (`plugins/locale-scroll.client.ts`); foydalanuvchi o‘zi aylantirsa to‘xtaydi.

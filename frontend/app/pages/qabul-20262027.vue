@@ -76,10 +76,10 @@ useSeo({ title: () => t('admission.title'), description: () => t('admissionPage.
       </div>
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading :eyebrow="t('admissionPage.how')" :title="t('admissionPage.stepsTitle')" />
-        <ol class="relative mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <ol v-reveal class="relative mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           <!-- 1 → 4 yo'lini ko'rsatuvchi yorug' chiziq -->
           <span class="pointer-events-none absolute top-[3.25rem] right-[12%] left-[12%] hidden h-px bg-[linear-gradient(90deg,transparent,rgb(255_255_255/0.9),rgb(0_252_180/0.8),rgb(255_255_255/0.9),transparent)] lg:block" aria-hidden="true" />
-          <li
+          <li data-reveal-item
             v-for="n in 4"
             :key="n"
             class="shine group relative rounded-[28px] border border-white/70 bg-white/45 p-7 shadow-[0_24px_50px_-30px_rgb(56_43_133/0.55)] backdrop-blur-xl transition duration-300 hover:-translate-y-1.5 hover:bg-white/60 hover:shadow-[0_34px_70px_-30px_rgb(56_43_133/0.6)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
@@ -119,8 +119,8 @@ useSeo({ title: () => t('admission.title'), description: () => t('admissionPage.
           <input v-model="search" type="search" autocomplete="off" :placeholder="t('admissionPage.searchPlaceholder')" class="h-full min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted">
         </label>
       </div>
-      <ul v-if="programs.length" class="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        <li v-for="p in programs" :key="p.id" class="group relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-line bg-white p-[26px] transition duration-300 before:absolute before:inset-x-0 before:top-0 before:h-1 before:origin-left before:scale-x-0 before:bg-[linear-gradient(90deg,var(--color-brand-600),var(--color-accent-500))] before:transition-transform before:duration-500 hover:-translate-y-1 hover:border-brand-200 hover:shadow-[0_28px_56px_-32px_rgb(56_43_133/0.55)] hover:before:scale-x-100 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+      <ul v-reveal v-if="programs.length" class="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <li data-reveal-item v-for="p in programs" :key="p.id" class="group relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-line bg-white p-[26px] transition duration-300 before:absolute before:inset-x-0 before:top-0 before:h-1 before:origin-left before:scale-x-0 before:bg-[linear-gradient(90deg,var(--color-brand-600),var(--color-accent-500))] before:transition-transform before:duration-500 hover:-translate-y-1 hover:border-brand-200 hover:shadow-[0_28px_56px_-32px_rgb(56_43_133/0.55)] hover:before:scale-x-100 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
           <div class="flex items-start justify-between gap-3">
             <span class="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-800">{{ t(`faculty.levels.${p.level}`) }}</span>
             <span class="text-[13px] text-muted">{{ p.code }}</span>

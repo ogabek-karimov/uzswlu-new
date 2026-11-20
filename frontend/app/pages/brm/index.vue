@@ -54,8 +54,8 @@ useSeo({ title: () => t('sdg.eyebrow'), description: () => t('sdg.lead') })
     <!-- GreenMetric yo'nalishlari -->
     <section class="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
       <SectionHeading eyebrow="UI GreenMetric" :title="t('sdg.categoriesTitle')" />
-      <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <li v-for="c in data.categories" :key="c.code">
+      <ul v-reveal class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <li data-reveal-item v-for="c in data.categories" :key="c.code">
           <NuxtLink
             :to="localePath(c.url)"
             class="flex h-full items-center gap-4 rounded-[22px] border p-[22px] transition"
@@ -78,8 +78,8 @@ useSeo({ title: () => t('sdg.eyebrow'), description: () => t('sdg.lead') })
         <SectionHeading :eyebrow="`THE Impact Rankings ${data.impactYear}`" :title="t('sdg.goalsTitle')" />
         <p class="max-w-md text-[15px] leading-relaxed text-muted">{{ t('sdg.goalsText') }}</p>
       </div>
-      <ul data-a11y-keep class="mt-8 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
-        <li v-for="g in data.goals" :key="g.n">
+      <ul v-reveal data-a11y-keep class="mt-8 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+        <li data-reveal-item v-for="g in data.goals" :key="g.n">
           <NuxtLink :to="localePath(g.url)" class="group flex h-full flex-col overflow-hidden rounded-[22px] border border-line bg-white text-ink transition hover:shadow-[0_18px_40px_-24px_rgba(19,17,47,0.5)]">
             <span class="flex min-h-[104px] items-start justify-between gap-3 px-5 py-[18px]" :style="{ background: sdgColor(g.n), color: sdgInk(g.n) }">
               <span class="font-display text-5xl leading-none font-semibold">{{ g.n }}</span>

@@ -63,8 +63,8 @@ useSeo({ title: () => t(`programs.${props.level}.title`), description: () => t(`
         <span class="text-sm text-muted" aria-live="polite">{{ t('programs.shown', { n: items.length }) }}</span>
       </div>
 
-      <ul class="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <li v-for="p in items" :key="p.id" class="flex flex-col gap-3.5 rounded-[22px] border border-line bg-white p-6">
+      <ul v-reveal class="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <li data-reveal-item v-for="p in items" :key="p.id" class="flex flex-col gap-3.5 rounded-[22px] border border-line bg-white p-6">
           <span class="flex items-center justify-between gap-3">
             <span class="text-[13px] font-semibold tracking-[0.06em] text-brand-600">{{ p.code }}</span>
             <span

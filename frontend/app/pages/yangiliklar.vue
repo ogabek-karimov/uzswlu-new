@@ -136,8 +136,8 @@ useSeo({ title: () => t('posts.title'), description: () => t('posts.lead') })
         {{ t('posts.calendar') }}
       </NuxtLink>
 
-      <ul v-if="items.length" class="grid gap-x-6 gap-y-10 transition-opacity sm:grid-cols-2 lg:grid-cols-3" :class="status === 'pending' && 'opacity-60'">
-        <li v-for="(item, i) in items" :key="item.id">
+      <ul v-reveal v-if="items.length" class="grid gap-x-6 gap-y-10 transition-opacity sm:grid-cols-2 lg:grid-cols-3" :class="status === 'pending' && 'opacity-60'">
+        <li data-reveal-item v-for="(item, i) in items" :key="item.id">
           <PostCard :item="item" :tone="i" />
         </li>
       </ul>

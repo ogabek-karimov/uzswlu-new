@@ -91,8 +91,8 @@ useSeo({ title: () => (q.value ? `${q.value} — ${t('search.title')}` : t('sear
           <span class="font-semibold text-accent-400">{{ t('search.open') }} →</span>
         </NuxtLink>
 
-        <ol v-if="data.items.length" class="mt-7">
-          <li v-for="item in data.items" :key="item.url + item.title" class="border-b border-line py-[22px] last:border-0">
+        <ol v-reveal v-if="data.items.length" class="mt-7">
+          <li data-reveal-item v-for="item in data.items" :key="item.url + item.title" class="border-b border-line py-[22px] last:border-0">
             <p class="text-[13px] text-muted">
               {{ t(`search.kinds.${item.kind}`) }} · {{ item.meta }}<template v-if="item.date"> · {{ formatDate(item.date) }}</template>
             </p>

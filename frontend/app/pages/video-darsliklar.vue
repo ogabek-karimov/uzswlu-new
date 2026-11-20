@@ -79,8 +79,8 @@ useSeo({ title: () => t('video.title'), description: () => t('video.lead') })
           {{ c.title }}
         </button>
       </div>
-      <ul class="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <li v-for="v in items" :key="v.id">
+      <ul v-reveal class="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <li data-reveal-item v-for="v in items" :key="v.id">
           <a :href="v.url" target="_blank" rel="noopener" class="group block text-ink">
             <span class="relative block aspect-video overflow-hidden rounded-[22px]" :class="tone.bg">
               <img v-if="v.thumbnail" :src="v.thumbnail" alt="" loading="lazy" decoding="async" class="size-full object-cover">

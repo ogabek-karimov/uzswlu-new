@@ -26,8 +26,8 @@ useSeo({ title: () => t('facultyList.title'), description: () => t('faculties.te
     </PageIntro>
 
     <section class="mx-auto max-w-7xl px-4 pt-10 pb-24 sm:px-6 lg:px-8">
-      <ul class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-        <li v-for="(f, i) in data?.items ?? []" :key="f.id">
+      <ul v-reveal class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <li data-reveal-item v-for="(f, i) in data?.items ?? []" :key="f.id">
           <NuxtLink :to="localePath(`/faculty/${f.slug}`)" class="group flex h-full items-center gap-4 rounded-[26px] sm:gap-5 border border-line bg-white p-5 text-ink transition hover:border-accent-500 hover:shadow-[0_18px_40px_-24px_rgba(19,17,47,0.45)] sm:p-6">
             <span class="grid size-20 shrink-0 place-items-center rounded-full bg-brand-50 sm:size-[104px]">
               <img v-if="f.logo" :src="f.logo" alt="" width="88" height="88" loading="lazy" decoding="async" class="size-16 rounded-full bg-white object-cover sm:size-[88px] shadow-[0_6px_18px_-8px_rgba(19,17,47,0.4)]">

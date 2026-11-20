@@ -120,8 +120,8 @@ useSeo({ title: () => faculty.value?.name ?? '', description: () => faculty.valu
     <!-- Kafedralar -->
     <section id="departments" class="mx-auto max-w-7xl scroll-mt-40 px-4 pt-20 sm:px-6 lg:px-8">
       <SectionHeading :eyebrow="t('faculty.structure')" :title="t('faculty.tabs.departments')" />
-      <ul class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        <li v-for="(d, i) in faculty.departments" :id="`dept-${d.id}`" :key="d.id" class="scroll-mt-40">
+      <ul v-reveal class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <li data-reveal-item v-for="(d, i) in faculty.departments" :id="`dept-${d.id}`" :key="d.id" class="scroll-mt-40">
           <NuxtLink :to="{ path: localePath('/staff'), query: { q: d.name } }" class="group flex h-full items-start gap-[18px] rounded-[22px] border border-line bg-white p-6 text-ink transition-colors hover:border-accent-500">
             <span class="grid size-12 shrink-0 place-items-center rounded-[14px] bg-brand-50 font-display text-xl font-semibold text-brand-700">{{ String(i + 1).padStart(2, '0') }}</span>
             <span class="min-w-0 flex-1">

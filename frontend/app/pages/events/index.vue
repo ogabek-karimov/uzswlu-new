@@ -180,8 +180,8 @@ useSeo({ title: () => t('calendar.title'), description: () => t('calendar.lead')
           </button>
         </div>
       </div>
-      <div class="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        <article v-for="e in shown" :key="e.id" class="group relative rounded-3xl border border-line bg-white p-[26px] transition-colors hover:border-accent-500">
+      <div v-reveal class="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <article v-for="e in shown" data-reveal-item :key="e.id" class="group relative rounded-3xl border border-line bg-white p-[26px] transition-colors hover:border-accent-500">
           <div class="flex items-end gap-3">
             <span class="font-display text-[56px] leading-[0.85] font-semibold text-brand-200">{{ formatDate(e.startsAt, 'day') }}</span>
             <span class="text-sm text-muted">{{ formatDate(e.startsAt, 'month') }}, {{ formatDate(e.startsAt, 'weekday') }}</span>

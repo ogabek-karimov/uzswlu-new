@@ -142,12 +142,12 @@ useSeo({
         <template v-if="data">{{ t('staff.results', { n: data.total }) }}</template>
       </p>
 
-      <ul
+      <ul v-reveal
         v-if="data?.items.length"
         class="mt-5 grid gap-4 transition-opacity sm:grid-cols-2 lg:grid-cols-3"
         :class="status === 'pending' && 'opacity-60'"
       >
-        <li v-for="person in data.items" :key="person.id">
+        <li data-reveal-item v-for="person in data.items" :key="person.id">
           <StaffCard :person="person" />
         </li>
       </ul>
