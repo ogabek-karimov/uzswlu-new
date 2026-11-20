@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-20
 
+- **Sayt (footer):** yuqori chegarasi yana tekis (to‘lqin olib tashlandi).
 - **Sayt (Universitet hayoti):** tablar qatori yonidagi ortiqcha aylantirish polosasi olib tashlandi (`overflow-y-hidden`, polosa yashirin; telefonda gorizontal surish ishlaydi).
 - **Sayt (menyu):** «Yangiliklar» — ochiluvchi ro‘yxat: tepada «Yangiliklar →» (barchasi, `/yangiliklar`), ostida Yangiliklar, Tadbirlar, E’lonlar — har biri «Universitet hayoti» sahifasining o‘z tabini ochadi (`?type=`). `pages-seed.json`, `mock-menu.ts`; seed so‘rovli maxsus manzillarni ham taniydi. Mavjud bazada — admin → Sahifalar.
 - **Sayt (bosh sahifa fonlari — «sokin premium»):** naqshlar, rangli dog‘lar, harflar buluti va fon suratlari olib tashlandi; bo‘limlar faqat ikki neytral rangda navbatlashadi — iliq qog‘oz (`#faf8f4`) va toza oq, orasida yumshoq to‘lqin. Rangli urg‘u faqat «Fakultetlar» (bino surati) va «Davlat ramzlari» (bayroq)da. `HomeBackdrop`: `white` / `paper` variantlari; «Yaqin tadbirlar» va «Biz bilan bog‘lanish» bezaksiz.
