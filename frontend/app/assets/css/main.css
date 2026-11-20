@@ -493,3 +493,83 @@ html[data-scheme] [data-speaking] {
 @media (prefers-reduced-motion: reduce) {
   .shine::after { animation: none; transition: none; display: none; }
 }
+
+/* ── Chap menyu (bo'lim sahifalari, BRM maqsadlari) ──
+   Karta ichida; hover — ingichka indigo ramka, biroz kattalashish va o'ngga siljish, nuqta chiziqqa aylanadi, strelka chiqadi;
+   faol — indigo→oq gradient, chapda indigo→mint chiziq */
+.side-nav {
+  border: 1px solid var(--color-line);
+  border-radius: 1.5rem;
+  background: rgb(255 255 255 / 0.85);
+  padding: 0.75rem;
+  box-shadow: 0 24px 48px -36px rgb(56 43 133 / 0.45);
+  backdrop-filter: blur(8px);
+}
+.side-nav-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.25rem 0.5rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-brand-600);
+}
+.side-nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.875rem;
+  padding: 0.625rem 0.875rem;
+  color: rgb(19 17 47 / 0.72);
+  box-shadow: inset 0 0 0 1px transparent;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.side-nav-item:hover,
+.side-nav-item:focus-visible {
+  color: var(--color-ink);
+  background: var(--color-brand-50);
+  box-shadow: inset 0 0 0 1px var(--color-brand-200), 0 10px 24px -18px rgb(56 43 133 / 0.6);
+  transform: translateX(4px) scale(1.02);
+}
+.side-nav-dot {
+  height: 6px;
+  width: 6px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: var(--color-brand-200);
+  transition: width 0.25s, background-color 0.25s;
+}
+.side-nav-item:hover .side-nav-dot { width: 14px; background: var(--color-brand-600); }
+.side-nav-arrow {
+  flex-shrink: 0;
+  font-size: 15px;
+  color: var(--color-brand-600);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.side-nav-item:hover .side-nav-arrow { opacity: 1; transform: none; }
+.side-nav-active {
+  font-weight: 600;
+  color: var(--color-brand-800);
+  background: linear-gradient(90deg, var(--color-brand-50), #fff);
+  box-shadow: inset 0 0 0 1px var(--color-brand-200);
+}
+.side-nav-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--color-brand-600), var(--color-accent-500));
+}
+.side-nav-active .side-nav-dot { width: 14px; background: var(--color-accent-500); }
+@media (prefers-reduced-motion: reduce) {
+  .side-nav-item, .side-nav-dot, .side-nav-arrow { transition: none; }
+  .side-nav-item:hover, .side-nav-item:focus-visible { transform: none; }
+}

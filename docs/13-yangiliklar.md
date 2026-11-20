@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-20
 
+- **Sayt (chap menyu):** «Bo‘lim sahifalari» (barcha matnli sahifalar) va BRM «Maqsadlar»/«Hisobotlar» menyulari yangi dizaynda — oq karta ichida, sarlavha ikonka bilan; kursor kelganda ingichka indigo ramka, biroz kattalashib o‘ngga siljiydi, nuqta chiziqqa aylanadi, strelka chiqadi; faol sahifa — indigo→oq gradient, chapda indigo→mint chiziq. Umumiy `.side-nav*` (`main.css`).
 - **Sayt (Aloqa):** yuqoridagi aloqa kartalari (ishonch telefoni, e-pochtalar, Telegram) va pastdagi bloklar (rahbariyat jadvali, murojaat formasi — har biri butunligicha) ham birin-ketin paydo bo‘ladi.
 - **Sayt (Aloqa, Binolar):** xaritali bino kartalari ham birin-ketin paydo bo‘ladi (`CampusCards` — Aloqa va O‘quv binolari sahifalari).
 - **Sayt (kartalar paydo bo‘lishi, tuzatish):** menyudan sahifaga o‘tilganda (SPA) ham ishlaydi — yangi sahifa eski aylantirish joyida chizilib, keyin tepaga chiqqani uchun kartalar «ko‘rinib turibdi» deb animatsiyasiz qolardi; endi o‘tishda hammasi yashiriladi va sahifa joylashgach (`page:loading:end` + 2 kadr, zaxira 1,5 s) navbat bilan chiqadi, birinchi ekrandagilar ham. To‘liq yangilanganda avvalgidek.

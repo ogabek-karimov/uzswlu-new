@@ -81,16 +81,24 @@ useSeo({
     <div class="mx-auto flex max-w-7xl flex-col gap-14 px-4 pt-12 pb-24 sm:px-6 lg:flex-row lg:items-start lg:px-8">
       <!-- Bo'lim sahifalari: telefonda matndan keyin -->
       <aside v-if="siblings.length" class="order-2 min-w-0 lg:sticky lg:top-36 lg:order-1 lg:w-[280px] lg:shrink-0">
-        <p class="mb-3 text-xs font-semibold tracking-[0.16em] text-muted uppercase">{{ t('page.sectionPages') }}</p>
-        <ul class="border-l-2 border-line text-[15px]">
-          <li v-for="link in siblings" :key="link.url">
-            <span v-if="link.url === path" aria-current="page" class="-ml-0.5 block rounded-r-[10px] border-l-2 border-brand-800 bg-brand-50 px-4 py-2.5 font-semibold text-brand-800">{{ link.title }}</span>
-            <NavMenuLink v-else :link="link" class="flex justify-between gap-2 px-4 py-2.5 text-muted transition-colors hover:text-ink">
-              <span>{{ link.title }}</span>
-              <span v-if="link.file" class="self-center text-[10px] font-bold text-red-700 uppercase">{{ link.file }}</span>
-            </NavMenuLink>
-          </li>
-        </ul>
+        <!-- Bo'lim sahifalari: oq karta; hover — ramka, biroz kattalashish va o'ngga siljish; faol — gradient va chap chiziq -->
+        <nav class="side-nav" :aria-label="t('page.sectionPages')">
+          <p class="side-nav-title"><Icon name="lucide:layers" class="text-[15px]" />{{ t('page.sectionPages') }}</p>
+          <ul class="flex flex-col gap-1 text-[15px]">
+            <li v-for="link in siblings" :key="link.url">
+              <span v-if="link.url === path" aria-current="page" class="side-nav-item side-nav-active">
+                <span class="side-nav-dot" aria-hidden="true" />
+                <span class="min-w-0 flex-1">{{ link.title }}</span>
+              </span>
+              <NavMenuLink v-else :link="link" class="side-nav-item group">
+                <span class="side-nav-dot" aria-hidden="true" />
+                <span class="min-w-0 flex-1">{{ link.title }}</span>
+                <span v-if="link.file" class="self-center rounded bg-red-50 px-1.5 py-0.5 text-[10px] font-bold text-red-700 uppercase">{{ link.file }}</span>
+                <Icon v-else name="lucide:arrow-right" class="side-nav-arrow" />
+              </NavMenuLink>
+            </li>
+          </ul>
+        </nav>
       </aside>
 
       <article class="order-1 max-w-[820px] min-w-0 flex-1 lg:order-2">

@@ -90,26 +90,35 @@ useSeo({
     <div class="mx-auto flex max-w-7xl flex-col gap-12 px-4 pt-12 pb-24 sm:px-6 lg:flex-row lg:items-start lg:px-8">
       <!-- BRM 1–17 menyusi -->
       <aside class="order-2 lg:sticky lg:top-36 lg:order-1 lg:w-[280px] lg:shrink-0">
-        <p class="mb-2.5 text-xs font-semibold tracking-[0.16em] text-muted uppercase">{{ t('sdg.goal.goals') }}</p>
-        <ul class="grid gap-0.5 sm:grid-cols-2 lg:grid-cols-1">
-          <li v-for="g in goals" :key="g.n">
-            <NuxtLink
-              :to="localePath(g.url)"
-              :aria-current="g.n === goal.n ? 'page' : undefined"
-              class="flex items-center gap-2.5 rounded-xl px-2.5 py-[7px] text-sm transition-colors"
-              :class="g.n === goal.n ? 'bg-white font-bold text-ink shadow-[0_6px_18px_-10px_rgba(19,17,47,0.35)]' : 'text-muted hover:bg-white hover:text-ink'"
-            >
-              <span class="grid size-7 shrink-0 place-items-center rounded-lg text-[13px] font-extrabold" :style="{ background: sdgColor(g.n), color: sdgInk(g.n) }">{{ g.n }}</span>
-              <span class="min-w-0 truncate">{{ g.title }}</span>
-            </NuxtLink>
-          </li>
-        </ul>
-        <template v-if="reportLinks.length">
-          <p class="mt-[22px] mb-2.5 text-xs font-semibold tracking-[0.16em] text-muted uppercase">{{ t('sdg.reports') }}</p>
-          <ul class="flex flex-col gap-0.5 text-sm">
-            <li v-for="r in reportLinks" :key="r.url"><NuxtLink :to="localePath(r.url)" class="block rounded-xl px-2.5 py-2 text-ink hover:bg-white">{{ r.title }}</NuxtLink></li>
+        <nav class="side-nav" :aria-label="t('sdg.goal.goals')">
+          <p class="side-nav-title"><Icon name="lucide:target" class="text-[15px]" />{{ t('sdg.goal.goals') }}</p>
+          <ul class="grid gap-1 sm:grid-cols-2 lg:grid-cols-1">
+            <li v-for="g in goals" :key="g.n">
+              <NuxtLink
+                :to="localePath(g.url)"
+                :aria-current="g.n === goal.n ? 'page' : undefined"
+                class="side-nav-item group text-sm"
+                :class="g.n === goal.n && 'side-nav-active'"
+              >
+                <span class="grid size-7 shrink-0 place-items-center rounded-lg text-[13px] font-extrabold transition-transform duration-200 group-hover:scale-110" :style="{ background: sdgColor(g.n), color: sdgInk(g.n) }">{{ g.n }}</span>
+                <span class="min-w-0 flex-1 truncate">{{ g.title }}</span>
+                <Icon v-if="g.n !== goal.n" name="lucide:arrow-right" class="side-nav-arrow" />
+              </NuxtLink>
+            </li>
           </ul>
-        </template>
+          <template v-if="reportLinks.length">
+            <p class="side-nav-title mt-5"><Icon name="lucide:file-text" class="text-[15px]" />{{ t('sdg.reports') }}</p>
+            <ul class="flex flex-col gap-1 text-sm">
+              <li v-for="r in reportLinks" :key="r.url">
+                <NuxtLink :to="localePath(r.url)" class="side-nav-item group">
+                  <span class="side-nav-dot" aria-hidden="true" />
+                  <span class="min-w-0 flex-1">{{ r.title }}</span>
+                  <Icon name="lucide:arrow-right" class="side-nav-arrow" />
+                </NuxtLink>
+              </li>
+            </ul>
+          </template>
+        </nav>
       </aside>
 
       <div class="order-1 min-w-0 flex-1 lg:order-2">
