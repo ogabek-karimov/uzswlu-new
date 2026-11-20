@@ -91,7 +91,7 @@ useSeo({ title: () => t('posts.title'), description: () => t('posts.lead') })
         </div>
       </div>
 
-      <div role="tablist" :aria-label="t('posts.typeLabel')" class="mt-7 flex gap-1 overflow-x-auto border-b border-line">
+      <div role="tablist" :aria-label="t('posts.typeLabel')" class="mt-7 flex gap-1 overflow-x-auto overflow-y-hidden border-b border-line [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <button
           v-for="tab in TYPES"
           :key="tab"
