@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-20
 
+- **Sayt (chap panel):** belgilar kattaroq (tugma 48 → 56 px, ikonka 24 → 30 px), bino tasviri to‘liqroq ko‘rinadi (52×25 px, 128 px manba).
 - **Sayt (chap panel):** «O‘quv binolari» belgisi — umumiy ikonka o‘rniga asosiy bino tasviri (`public/images/icon-building.webp`, 100×48, 3,4 KB; foydalanuvchi bergan rasmdan, fon olib tashlangan).
 - **Admin panel + backend (rol asosida menyu, dinamik rollar):** superadmin endi o‘zi rol yaratadi (admin → «Rollar va ruxsatlar»): har bir bo‘lim (Yangiliklar, E’lonlar, Tadbirlar, Sahifalar, Hujjatlar, Fakultetlar, BRM va h.k.) uchun «Yo‘q / Ko‘rish / Yozish» tanlanadi, rol «o‘z fakulteti/kafedrasi bilan cheklangan» bo‘lishi mumkin. Foydalanuvchi kirganda yon menyu va sahifalar faqat shu rolning bo‘limlaridan quriladi, boshlang‘ich sahifa — ruxsat etilgan birinchi bo‘lim; backend ham xuddi shu qoidani majburlaydi (ruxsatsiz bo‘limga 403). Tayyor namunalar: Rektor, Dekan, Kafedra mudiri, O‘qituvchi (o‘zgartirish/o‘chirish mumkin). Tizim rollari (superadmin, editor, faculty, pages, sdg) avvalgidek qat’iy. Custom rol faqat o‘z postlarini tahrirlaydi. Backend: `accounts.Role` modeli, `User.role` endi erkin kalit (`accounts.0006`), `apps/accounts/roles.py`, `panel` da `roles` kolleksiyasi, `/users/me` va login javobida `roleName`, `permissions`, `scoped`. Sayt tomonidagi HEMIS kabineti bu bosqichda o‘zgarmadi. Testlar: `tests/panel/test_roles.py`. — `8388a31`
 
