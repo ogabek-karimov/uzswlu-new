@@ -985,13 +985,22 @@ class Roles(Collection):
             return not obj.system and not User.objects.filter(role=obj.slug).exists()
         return True
 
+    def queryset(self, request):
+        from django.db.models import Count, IntegerField, OuterRef, Subquery, Value
+        from django.db.models.functions import Coalesce
+        n = User.objects.filter(role=OuterRef('slug')).order_by().values('role').annotate(c=Count('pk')).values('c')
+        return super().queryset(request).annotate(users_n=Coalesce(Subquery(n, output_field=IntegerField()), Value(0)))
+
     def label(self, obj):
         return obj.name
 
     def out(self, r, depth):
+        users = getattr(r, 'users_n', None)
+        if users is None:
+            users = User.objects.filter(role=r.slug).count()
         return {
             'id': r.pk, 'slug': r.slug, 'name': r.name, 'description': r.description or None, 'system': r.system, 'scoped': r.scoped,
-            'permissions': rl.permissions_of_role(r), 'users': User.objects.filter(role=r.slug).count(),
+            'permissions': rl.permissions_of_role(r), 'users': users,
             'createdAt': dt(r.created_at), 'updatedAt': dt(r.updated_at), 'collection': 'roles',
         }
 
