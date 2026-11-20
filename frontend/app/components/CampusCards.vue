@@ -29,8 +29,12 @@ const tel = (phone: string) => `tel:${phone.startsWith('+') ? '' : '+998'}${phon
       <div class="relative h-[190px] overflow-hidden bg-brand-100">
         <MapFrame v-if="c.mapEmbed" :src="c.mapEmbed" :title="`${c.name} — ${t('contact.route')}`" />
         <!-- Bino logosi: hamma kartada bir xil o'lcham va joy (xaritaning yuqori chap burchagi) -->
-        <span v-if="logoOf(c.id)" class="pointer-events-none absolute top-3 left-3 z-10 grid size-14 place-items-center overflow-hidden rounded-full bg-white shadow-[0_8px_20px_-8px_rgb(17_12_46/0.5)] ring-2 ring-white" aria-hidden="true">
-          <img :src="logoOf(c.id)!" alt="" width="56" height="56" loading="lazy" class="size-full object-cover" :class="c.id === 'main' && 'scale-90 object-contain'">
+        <span v-if="logoOf(c.id)" class="pointer-events-none absolute top-3 left-3 z-10 size-[62px] rounded-full shadow-[0_0_22px_-2px_rgb(0_252_180/0.65)]" aria-hidden="true">
+          <!-- Aylanuvchi yorqin nur (mint → indigo) -->
+          <span class="absolute inset-0 animate-spin rounded-full bg-[conic-gradient(from_0deg,#00fcb4,#7f70d3,#ffffff,#00fcb4)] [animation-duration:4s] motion-reduce:animate-none" />
+          <span class="absolute inset-[3px] grid place-items-center overflow-hidden rounded-full bg-white">
+            <img :src="logoOf(c.id)!" alt="" width="56" height="56" loading="lazy" class="size-full object-cover" :class="c.id === 'main' && 'scale-90 object-contain'">
+          </span>
         </span>
         <span v-else class="absolute top-1/2 left-1/2 size-10 -translate-x-1/2 -translate-y-1/2 -rotate-45 rounded-[999px_999px_999px_0] bg-brand-800" aria-hidden="true" />
       </div>
