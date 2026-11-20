@@ -40,6 +40,29 @@ export default defineNuxtPlugin((nuxtApp) => {
     }, { rootMargin: '0px 0px -6% 0px', threshold: 0.12 }))
   }
 
+  // Sahifalararo o'tish holati: router o'tishni boshlaganda — true; Nuxt sahifani joylab, aylantirishni tugatgach — false
+  let navigating = false
+  const pending: (() => void)[] = []
+  const router = useRouter()
+  let fallback: ReturnType<typeof setTimeout> | undefined
+  const flush = () => {
+    clearTimeout(fallback)
+    navigating = false
+    pending.splice(0).forEach(fn => fn())
+  }
+  router.beforeEach((to, from) => {
+    if (!from.matched.length || to.path === from.path) return
+    navigating = true
+    clearTimeout(fallback)
+    fallback = setTimeout(flush, 1500) // zaxira: hook kelmasa ham kartalar yashirin qolib ketmaydi
+  })
+  nuxtApp.hook('page:loading:end', () => {
+    if (!navigating) return
+    // Nuxt'ning scrollBehavior'i ham shu hook'dan keyin requestAnimationFrame'da ishlaydi — ikki kadr kutamiz
+    requestAnimationFrame(() => requestAnimationFrame(flush))
+  })
+  const afterNavigation = (fn: () => void) => (navigating ? pending.push(fn) : fn())
+
   nuxtApp.vueApp.directive('reveal', {
     // SSR: hech narsa qo'shilmaydi — kontent ko'rinib turadi
     getSSRProps: () => ({}),
@@ -47,9 +70,20 @@ export default defineNuxtPlugin((nuxtApp) => {
       if (!import.meta.client || !(el instanceof HTMLElement)) return // v-if bo'lsa ildiz izoh (comment) bo'lishi mumkin
       if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return
       const items = Array.from(el.querySelectorAll<HTMLElement>('[data-reveal-item]'))
-      // Ekranda turgan narsa animatsiyasiz qoladi (yonib-o'chib qolmasin)
+      const all = items.length ? items : [el]
+      // Sahifadan sahifaga o'tishda (SPA): yangi sahifa avval eski aylantirish joyida chiziladi, keyin tepaga chiqadi —
+      // shuning uchun hammasi darhol yashiriladi va sahifa joylashgach kuzatiladi (birinchi ekrandagilar ham navbat bilan chiqadi)
+      if (navigating) {
+        for (const h of all) h.classList.add('reveal')
+        watched.set(el, all)
+        afterNavigation(() => {
+          for (const h of all) if (h.isConnected) observer().observe(h)
+        })
+        return
+      }
+      // Birinchi yuklanish: ekranda turgan narsa animatsiyasiz qoladi (server HTML'i yonib-o'chib qolmasin)
       const below = (n: HTMLElement) => n.getBoundingClientRect().top > window.innerHeight * 0.92
-      const hidden = (items.length ? items : [el]).filter(below)
+      const hidden = all.filter(below)
       for (const h of hidden) {
         h.classList.add('reveal')
         observer().observe(h)
