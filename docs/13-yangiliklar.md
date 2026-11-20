@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-20
 
+- **Sayt (Aloqa, Binolar):** xaritali bino kartalari ham birin-ketin paydo bo‘ladi (`CampusCards` — Aloqa va O‘quv binolari sahifalari).
 - **Sayt (kartalar paydo bo‘lishi, tuzatish):** menyudan sahifaga o‘tilganda (SPA) ham ishlaydi — yangi sahifa eski aylantirish joyida chizilib, keyin tepaga chiqqani uchun kartalar «ko‘rinib turibdi» deb animatsiyasiz qolardi; endi o‘tishda hammasi yashiriladi va sahifa joylashgach (`page:loading:end` + 2 kadr, zaxira 1,5 s) navbat bilan chiqadi, birinchi ekrandagilar ham. To‘liq yangilanganda avvalgidek.
 - **Sayt (kartalar paydo bo‘lishi — ichki sahifalar):** bosh sahifadagidek kartalar aylantirilganda birin-ketin chiqadi: Universitet hayoti (yangilik/tadbir/e’lon ro‘yxati), Tadbirlar, Fakultetlar va kafedralar, Xodimlar, Video darsliklar, Qidiruv natijalari, BRM (yo‘nalishlar va 17 maqsad), Qabul (4 qadam va yo‘nalishlar), Bakalavriat/Magistratura (`ProgramsView`), fakultet sahifasidagi kafedralar. Matnli sahifalar, jadvallar, formalar, savol-javob va kabinetga qo‘llanmadi.
 - **Sayt (Qabul sahifasi):** kartalardagi nur sekinroq va yumshoqroq (3,2 s; hover’da 2 s, shaffofligi kamroq).

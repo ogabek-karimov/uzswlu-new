@@ -23,8 +23,8 @@ const tel = (phone: string) => `tel:${phone.startsWith('+') ? '' : '+998'}${phon
 </script>
 
 <template>
-  <ul class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-    <li v-for="c in campuses" :key="c.id" class="group/campus overflow-hidden rounded-3xl border border-line bg-white shadow-[0_1px_0_rgb(19_17_47/0.04)] transition duration-300 ease-out hover:z-10 hover:-translate-y-1.5 hover:scale-[1.03] hover:border-brand-300 hover:shadow-[0_30px_60px_-28px_rgb(56_43_133/0.55)] motion-reduce:transition-none motion-reduce:hover:transform-none">
+  <ul v-reveal class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <li v-for="c in campuses" :key="c.id" data-reveal-item class="group/campus overflow-hidden rounded-3xl border border-line bg-white shadow-[0_1px_0_rgb(19_17_47/0.04)] transition duration-300 ease-out hover:z-10 hover:-translate-y-1.5 hover:scale-[1.03] hover:border-brand-300 hover:shadow-[0_30px_60px_-28px_rgb(56_43_133/0.55)] motion-reduce:transition-none motion-reduce:hover:transform-none">
       <!-- Yandex xaritasi (bosh sahifadagi bilan bir xil); xarita bo'lmasa — belgi -->
       <div class="relative h-[250px] overflow-hidden bg-brand-100">
         <MapFrame v-if="c.mapEmbed" :src="c.mapEmbed" :title="`${c.name} — ${t('contact.route')}`" />
