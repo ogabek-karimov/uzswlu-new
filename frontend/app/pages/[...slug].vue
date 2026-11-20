@@ -80,7 +80,7 @@ useSeo({
 
     <div class="mx-auto flex max-w-7xl flex-col gap-14 px-4 pt-12 pb-24 sm:px-6 lg:flex-row lg:items-start lg:px-8">
       <!-- Bo'lim sahifalari: telefonda matndan keyin -->
-      <aside v-if="siblings.length" class="order-2 min-w-0 lg:sticky lg:top-36 lg:order-1 lg:w-[280px] lg:shrink-0">
+      <aside v-if="siblings.length" class="order-2 min-w-0 lg:sticky lg:top-36 lg:order-1 lg:w-[320px] lg:shrink-0">
         <!-- Bo'lim sahifalari: oq karta; hover — ramka, biroz kattalashish va o'ngga siljish; faol — gradient va chap chiziq -->
         <nav class="side-nav" :aria-label="t('page.sectionPages')">
           <p class="side-nav-title"><Icon name="lucide:layers" class="text-[15px]" />{{ t('page.sectionPages') }}</p>

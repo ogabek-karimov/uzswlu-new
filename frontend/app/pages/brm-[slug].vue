@@ -89,7 +89,7 @@ useSeo({
 
     <div class="mx-auto flex max-w-7xl flex-col gap-12 px-4 pt-12 pb-24 sm:px-6 lg:flex-row lg:items-start lg:px-8">
       <!-- BRM 1–17 menyusi -->
-      <aside class="order-2 lg:sticky lg:top-36 lg:order-1 lg:w-[280px] lg:shrink-0">
+      <aside class="order-2 lg:sticky lg:top-36 lg:order-1 lg:w-[320px] lg:shrink-0">
         <nav class="side-nav" :aria-label="t('sdg.goal.goals')">
           <p class="side-nav-title"><Icon name="lucide:target" class="text-[15px]" />{{ t('sdg.goal.goals') }}</p>
           <ul class="grid gap-1 sm:grid-cols-2 lg:grid-cols-1">
