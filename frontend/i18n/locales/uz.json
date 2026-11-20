@@ -312,7 +312,8 @@
     "ext": "içki raqam",
     "qr": {
       "alt": "QR kod",
-      "caption": "Telefon kamerasi bilan skanerlang"
+      "caption": "Telefon kamerasi bilan skanerlang",
+      "pending": "Sayt tö‘liq işga tuşganda QR kod yangilanadi."
     }
   },
   "placeholder": {

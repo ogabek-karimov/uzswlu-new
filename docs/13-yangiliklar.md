@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-20
 
+- **Sayt (footer, QR kod):** QR ostida vaqtinchalik qizil eslatma (`footer.qr.pending`, 4 tilda): «Sayt to‘liq ishga tushganda QR kod yangilanadi». Hozirgi QR eski saytdagidek me-qr.com havolasiga olib boradi (reklama sahifasi) — sayt serverga joylanib domen berilganda o‘zimizning QR (to‘g‘ridan-to‘g‘ri havola) qo‘yiladi va eslatma olib tashlanadi.
 - **Sayt (footer):** yuqori chegarasi yana tekis (to‘lqin olib tashlandi).
 - **Sayt (Universitet hayoti):** tablar qatori yonidagi ortiqcha aylantirish polosasi olib tashlandi (`overflow-y-hidden`, polosa yashirin; telefonda gorizontal surish ishlaydi).
 - **Sayt (menyu):** «Yangiliklar» — ochiluvchi ro‘yxat: tepada «Yangiliklar →» (barchasi, `/yangiliklar`), ostida Yangiliklar, Tadbirlar, E’lonlar — har biri «Universitet hayoti» sahifasining o‘z tabini ochadi (`?type=`). `pages-seed.json`, `mock-menu.ts`; seed so‘rovli maxsus manzillarni ham taniydi. Mavjud bazada — admin → Sahifalar.

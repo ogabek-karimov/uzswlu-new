@@ -312,7 +312,8 @@
     "ext": "ext.",
     "qr": {
       "alt": "QR code",
-      "caption": "Scan with your phone camera"
+      "caption": "Scan with your phone camera",
+      "pending": "The QR code will be updated once the site fully launches."
     }
   },
   "placeholder": {

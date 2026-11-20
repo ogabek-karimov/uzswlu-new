@@ -312,7 +312,8 @@
     "ext": "分机",
     "qr": {
       "alt": "二维码",
-      "caption": "用手机相机扫描"
+      "caption": "用手机相机扫描",
+      "pending": "网站正式上线后将更新二维码。"
     }
   },
   "placeholder": {

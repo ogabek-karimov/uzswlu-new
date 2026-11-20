@@ -63,6 +63,8 @@ const usefulLinks = [
         <figure class="flex flex-col items-start gap-3">
           <img src="/images/footer-qr.png" :alt="t('footer.qr.alt')" width="132" height="132" loading="lazy" class="size-[132px] rounded-2xl bg-white p-1.5 [image-rendering:pixelated]">
           <figcaption class="max-w-[132px] text-xs leading-snug text-white/55">{{ t('footer.qr.caption') }}</figcaption>
+          <!-- Vaqtinchalik: QR kod hozircha eski (me-qr) havolaga olib boradi — sayt serverga joylanib domen berilganda yangisi qo'yiladi -->
+          <p class="max-w-[132px] text-xs leading-snug font-semibold text-[#ff6b6b]">{{ t('footer.qr.pending') }}</p>
         </figure>
       </div>
     </div>
