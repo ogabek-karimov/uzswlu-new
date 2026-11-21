@@ -133,7 +133,7 @@ class AdminHandoffView(APIView):
     throttle_classes = [ScopedThrottle]
     throttle_scope = 'hemis-auth'
 
-    @extend_schema(exclude=True)
+    @extend_schema(summary='Kabinetdan admin panelga o‘tish (bir martalik havola, yo‘naltiradi)', parameters=[OpenApiParameter('t', str)], responses={302: None})
     def get(self, request):
         fail = f'{settings.ADMIN_PANEL_URL}/kirish?hemis='
         try:
