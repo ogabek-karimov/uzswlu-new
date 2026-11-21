@@ -2,6 +2,10 @@
 
 Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `CLAUDE.md`). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.
 
+## 2026-11-22
+
+- **Sayt (kabinet bo‘limlari):** xodim kabineti bir sahifaga tiqilib qolmasligi uchun menyu bo‘limlarga ajratildi: «Boshqaruv paneli» (rolga mos panel + HEMIS kartasi), «Vazifalar» (ochiq vazifalar soni belgisi bilan), «Profil ma’lumotlari», «Hujjatlar». Har bir bo‘lim alohida ko‘rinadi (`/dashboard?bolim=tasks|profile|documents`); 4 tilda tarjima. — COMMIT
+
 ## 2026-11-21
 
 - **Sayt + backend (kabinet vazifalari):** xodim kabinetida «Vazifalar» kartasi: dekan dekanat xodimlari va kafedra mudirlariga, kafedra mudiri o‘z xodimlariga topshiriq beradi, hamma o‘ziga ham vazifa yozadi; ijrochi «bajarildi» deb belgilaydi, bergan odam o‘chiradi; muddati o‘tganlari ajratiladi. Kimga bera olishi HEMIS lavozimidan serverda aniqlanadi. `accounts.StaffTask` (`accounts.0007`), `/api/me/tasks`, 4 tilda tarjima, namunaviy ma’lumot: `python manage.py seed_demo_tasks`. Testlar: `tests/api/test_cabinet_tasks.py`. — `0f0aceb`

@@ -403,6 +403,9 @@
   "cabinet": {
     "title": "Dashboard",
     "menu": {
+      "tasks": "Vazifalar",
+      "profile": "Profil ma’lumotlari",
+      "documents": "Hujjatlar",
       "label": "Dashboard",
       "dashboard": "Dashboard (UzSWLU)",
       "staffPage": "Staff sahifam",

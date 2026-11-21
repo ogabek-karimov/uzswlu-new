@@ -403,6 +403,9 @@
   "cabinet": {
     "title": "Личный кабинет",
     "menu": {
+      "tasks": "Задачи",
+      "profile": "Данные профиля",
+      "documents": "Документы",
       "label": "Кабинет",
       "dashboard": "Кабинет (UzSWLU)",
       "staffPage": "Моя страница",

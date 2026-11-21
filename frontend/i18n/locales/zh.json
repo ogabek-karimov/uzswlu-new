@@ -403,6 +403,9 @@
   "cabinet": {
     "title": "个人后台",
     "menu": {
+      "tasks": "任务",
+      "profile": "个人资料",
+      "documents": "文档",
       "label": "个人后台",
       "dashboard": "个人后台 (UzSWLU)",
       "staffPage": "我的主页",

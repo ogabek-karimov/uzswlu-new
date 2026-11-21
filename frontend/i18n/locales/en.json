@@ -403,6 +403,9 @@
   "cabinet": {
     "title": "Dashboard",
     "menu": {
+      "tasks": "Tasks",
+      "profile": "Profile details",
+      "documents": "Documents",
       "label": "Dashboard",
       "dashboard": "Dashboard (UzSWLU)",
       "staffPage": "My staff page",
