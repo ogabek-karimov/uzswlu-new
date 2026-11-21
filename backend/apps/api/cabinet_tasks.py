@@ -1,4 +1,4 @@
-"""Xodim kabinetidagi vazifalar: dekan kafedra mudirlariga, kafedra mudiri o'z xodimlariga topshiriq beradi;
+"""Xodim kabinetidagi vazifalar: dekan dekanat xodimlari va kafedra mudirlariga, kafedra mudiri o'z xodimlariga topshiriq beradi;
 hamma o'ziga ham vazifa yozishi va o'ziga berilganini «bajarildi» deb belgilashi mumkin.
 
 Kimga topshiriq berish mumkinligi HEMIS lavozimidan (cabinet_roles) aniqlanadi — frontend yuborgan ID ga ishonilmaydi."""
@@ -32,6 +32,8 @@ def assignees(hemis_id: str) -> list[dict]:
         dept = (emp or {}).get('department') or {}
         out = [{'id': m['id'], 'name': m['name'], 'position': m['position']} for m in _members(dept, hemis_id)]
     elif role == 'dean':
+        # dekanat xodimlari (dekan ishlaydigan bo'lim) + fakultet kafedralari mudirlari
+        out = [{'id': m['id'], 'name': m['name'], 'position': m['position']} for m in _members((emp or {}).get('department') or {}, hemis_id)]
         f = _faculty_for(emp)
         for c in (f or {}).get('departments') or []:
             dept = {'id': c.get('id'), 'name': tr(c.get('name'), 'uz')}

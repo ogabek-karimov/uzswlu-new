@@ -12,7 +12,7 @@ const busy = ref(false)
 const failed = ref(false)
 const form = reactive({ title: '', note: '', due: '', assigneeId: '' })
 
-const canGive = computed(() => (data.value?.assignees.length ?? 0) > 0)
+const canGive = computed(() => (data.value?.assignees.length ?? 0) > 0 || (data.value?.given.length ?? 0) > 0)
 const list = computed(() => data.value?.[tab.value] ?? [])
 const openCount = computed(() => (data.value?.mine ?? []).filter(x => x.status === 'open').length)
 

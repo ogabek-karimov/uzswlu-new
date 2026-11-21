@@ -6,18 +6,19 @@ from django.core.management.base import BaseCommand
 from apps.accounts.models import StaffTask
 from apps.api.builders_staff import find_person
 
-DEAN, CHAIR, TEACHER, STAFF = '8654', '7768', '7792', '7909'
+DEAN, DEANERY, DEANERY2, CHAIR, TEACHER, TEACHER2 = '8654', '8041', '7765', '7768', '7792', '7790'
 
+# Dekan 8654 → dekanat xodimlari; kafedra mudiri 7768 → kafedra xodimlari (namunaviy HEMIS ma'lumoti)
 # (kim beradi, kimga, nomi, izoh, necha kundan keyin, bajarilganmi)
 DEMO = [
-    (DEAN, CHAIR, 'Kafedra yillik hisobotini topshirish', 'Ilmiy ish va nashrlar bo‘yicha jadval bilan.', 5, False),
-    (DEAN, CHAIR, 'Yangi o‘quv yili dars jadvalini tasdiqlash', '', -2, False),
-    (DEAN, CHAIR, 'Bitiruv ishlari mavzulari ro‘yxati', 'Hamma o‘qituvchi bo‘yicha.', -6, True),
+    (DEAN, DEANERY, 'Fakultet yillik hisobotini tayyorlash', 'Ilmiy ish va nashrlar bo‘yicha jadval bilan.', 5, False),
+    (DEAN, DEANERY, 'Yangi o‘quv yili dars jadvalini tasdiqlash', '', -2, False),
+    (DEAN, DEANERY2, 'Bitiruv ishlari mavzulari ro‘yxati', 'Hamma yo‘nalish bo‘yicha.', -6, True),
     (CHAIR, TEACHER, 'Ish dasturini yangilash', 'Yangi standart bo‘yicha, PDF ko‘rinishida.', 3, False),
     (CHAIR, TEACHER, 'Ochiq dars o‘tkazish', 'Mavzu va vaqtni kelishib oling.', 10, False),
-    (CHAIR, STAFF, 'Kafedra yig‘ilishi bayonnomasi', '', 1, False),
+    (CHAIR, TEACHER2, 'Kafedra yig‘ilishi bayonnomasi', '', 1, False),
     (TEACHER, TEACHER, 'Maqolani jurnalga yuborish', '', 14, False),
-    (STAFF, STAFF, 'Hujjatlarni arxivga topshirish', '', 7, False),
+    (DEANERY, DEANERY, 'Hujjatlarni arxivga topshirish', '', 7, False),
 ]
 
 

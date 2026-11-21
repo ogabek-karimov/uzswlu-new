@@ -433,7 +433,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/api/builders_site.py` | Ochiq sayt API'si javoblarini yig'ish (frontend/docs/openapi.yaml shartnomasi). |
 | `backend/apps/api/builders_staff.py` | Xodimlar: ommaviy ro'yxat/profil (HEMIS + saytdagi qo'shimcha ma'lumot) va xodim kabineti. |
 | `backend/apps/api/cabinet_roles.py` | Kabinetdagi rol (rolga asoslangan panel): HEMIS lavozimidan avtomatik aniqlanadi. |
-| `backend/apps/api/cabinet_tasks.py` | Xodim kabinetidagi vazifalar: dekan kafedra mudirlariga, kafedra mudiri o'z xodimlariga topshiriq beradi; |
+| `backend/apps/api/cabinet_tasks.py` | Xodim kabinetidagi vazifalar: dekan dekanat xodimlari va kafedra mudirlariga, kafedra mudiri o'z xodimlariga topshiriq beradi; |
 | `backend/apps/api/common.py` | Ochiq API uchun umumiy yordamchilar: til, rasm/fayl manzillari, biriktirmalar, token tekshiruvi. |
 | `backend/apps/api/edge.py` | Kontent o'zgarganda sayt qatlamlari keshini darrov yangilash (Nuxt + nginx). |
 | `backend/apps/api/hits.py` | Sayt statistikasi — cookie'siz va shaxsiy ma'lumotsiz (Umami usulida). |
@@ -493,14 +493,14 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (356 ta test)
+### Backend testlari xaritasi (357 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
 | Fayl | Testlar | Nimani tekshiradi |
 |---|---|---|
 | `backend/tests/api/test_cabinet_roles.py` | 10 |  |
-| `backend/tests/api/test_cabinet_tasks.py` | 4 | Kabinet vazifalari: dekan → kafedra mudiri → o'qituvchi (namunaviy HEMIS ma'lumoti). |
+| `backend/tests/api/test_cabinet_tasks.py` | 5 | Kabinet vazifalari: dekan → kafedra mudiri → o'qituvchi (namunaviy HEMIS ma'lumoti). |
 | `backend/tests/api/test_cache_stampede.py` | 8 | Ochiq javoblar keshi: to'dan himoya — bir xil so'rovlar bazaga bir vaqtda urilmaydi (CachedGetMixin._cached_or_build). |
 | `backend/tests/api/test_contract.py` | 6 | Shartnoma testi: ochiq API javoblari `frontend/docs/openapi.yaml` sxemalariga mos bo'lishi shart (4 til × barcha endpoint). |
 | `backend/tests/api/test_edge_refresh.py` | 7 | Kontent o'zgarganda Nuxt/nginx keshini yangilash (apps/api/edge.py). |

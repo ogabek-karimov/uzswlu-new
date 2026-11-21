@@ -161,7 +161,7 @@ paths:
       summary: Vazifalarim va berganlarim
       description: |
         mine — menga berilgan (va o'zim yozgan) vazifalar; given — men boshqalarga bergan; assignees — kimga topshiriq bera olaman
-        (dekan — kafedra mudirlariga, kafedra mudiri — kafedra xodimlariga; HEMIS lavozimidan aniqlanadi). O'ziga hamma yoza oladi.
+        (dekan — dekanat xodimlariga va kafedra mudirlariga, kafedra mudiri — kafedra xodimlariga; HEMIS lavozimidan aniqlanadi). O'ziga hamma yoza oladi.
       security: [{ userSession: [] }]
       responses:
         '200':

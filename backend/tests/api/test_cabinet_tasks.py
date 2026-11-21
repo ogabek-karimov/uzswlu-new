@@ -3,7 +3,7 @@ from django.test import TestCase
 
 from apps.accounts.models import StaffSession, StaffTask
 
-DEAN, CHAIR, TEACHER = '8654', '7768', '7792'
+DEAN, DEANERY, CHAIR, TEACHER = '8654', '8041', '7768', '7792'
 
 
 def auth(hemis_id):
@@ -14,24 +14,32 @@ class CabinetTasksTests(TestCase):
     def test_requires_login(self):
         self.assertEqual(self.client.get('/api/me/tasks').status_code, 401)
 
-    def test_dean_assigns_to_chair_head_who_completes_it(self):
+    def test_dean_assigns_to_deanery_staff_who_completes_it(self):
         res = self.client.get('/api/me/tasks', **auth(DEAN))
         self.assertEqual(res.status_code, 200)
-        self.assertIn(CHAIR, {a['id'] for a in res.json()['assignees']})
-        res = self.client.post('/api/me/tasks', {'title': 'Hisobot', 'assigneeId': CHAIR, 'due': '2030-01-01'}, content_type='application/json', **auth(DEAN))
+        self.assertIn(DEANERY, {a['id'] for a in res.json()['assignees']})
+        self.assertNotIn(CHAIR, {a['id'] for a in res.json()['assignees']})  # boshqa fakultet kafedrasi — bermaydi
+        res = self.client.post('/api/me/tasks', {'title': 'Hisobot', 'assigneeId': CHAIR}, content_type='application/json', **auth(DEAN))
+        self.assertEqual(res.status_code, 403)
+        res = self.client.post('/api/me/tasks', {'title': 'Hisobot', 'assigneeId': DEANERY, 'due': '2030-01-01'}, content_type='application/json', **auth(DEAN))
         self.assertEqual(res.status_code, 201)
         tid = res.json()['id']
         self.assertEqual(len(self.client.get('/api/me/tasks', **auth(DEAN)).json()['given']), 1)
-        mine = self.client.get('/api/me/tasks', **auth(CHAIR)).json()['mine']
+        mine = self.client.get('/api/me/tasks', **auth(DEANERY)).json()['mine']
         self.assertEqual([t['title'] for t in mine], ['Hisobot'])
         # beruvchi holatni o'zgartira olmaydi, ijrochi o'zgartiradi
         self.assertEqual(self.client.patch(f'/api/me/tasks/{tid}', {'status': 'done'}, content_type='application/json', **auth(DEAN)).status_code, 403)
-        res = self.client.patch(f'/api/me/tasks/{tid}', {'status': 'done'}, content_type='application/json', **auth(CHAIR))
+        res = self.client.patch(f'/api/me/tasks/{tid}', {'status': 'done'}, content_type='application/json', **auth(DEANERY))
         self.assertEqual(res.json()['status'], 'done')
         # ijrochi o'chira olmaydi, bergan odam o'chiradi
-        self.assertEqual(self.client.delete(f'/api/me/tasks/{tid}', **auth(CHAIR)).status_code, 403)
+        self.assertEqual(self.client.delete(f'/api/me/tasks/{tid}', **auth(DEANERY)).status_code, 403)
         self.assertEqual(self.client.delete(f'/api/me/tasks/{tid}', **auth(DEAN)).status_code, 200)
         self.assertEqual(StaffTask.objects.count(), 0)
+
+    def test_chair_head_assigns_to_own_department(self):
+        res = self.client.post('/api/me/tasks', {'title': 'Ish dasturi', 'assigneeId': TEACHER}, content_type='application/json', **auth(CHAIR))
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual([t['title'] for t in self.client.get('/api/me/tasks', **auth(TEACHER)).json()['mine']], ['Ish dasturi'])
 
     def test_teacher_cannot_assign_to_others_only_self(self):
         body = {'title': 'Boshqaga', 'assigneeId': CHAIR}
