@@ -28,6 +28,8 @@ Admin paneldagi rollardan **alohida**: saytdagi kabinetda (`/dashboard`) har xod
 
 Bir necha lavozimda ishlasa, eng yuqorisi olinadi: `dean` > `chair_head` > `teacher` > `staff`. Rol **faqat ko‘rsatish uchun** — kabinetning ruxsati o‘zgarmaydi: har xodim faqat o‘z HEMIS ID'sini ko‘radi va o‘zgartiradi (`/api/me*`, IDOR yo‘q). Testlar: `tests/api/test_cabinet_roles.py`.
 
+**Kabinetdagi vazifalar** (`GET/POST /api/me/tasks`, `PATCH/DELETE /api/me/tasks/<id>`): dekan o‘z fakultetidagi **kafedra mudirlariga**, kafedra mudiri o‘z kafedrasi **xodimlariga** topshiriq beradi (ro‘yxat HEMIS lavozimidan serverda yig‘iladi, yuborilgan ID ga ishonilmaydi); o‘qituvchi va boshqa xodim faqat **o‘ziga** yoza oladi. Holatni («bajarildi») faqat **ijrochi** o‘zgartiradi, o‘chirishni faqat **bergan odam** qiladi; begona vazifa 404. Namunaviy ma’lumot: `python manage.py seed_demo_tasks`. Testlar: `tests/api/test_cabinet_tasks.py`.
+
 ## Obyekt darajasidagi qoidalar (rol jadvalidan tashqari)
 
 - **Fakultet admini** (`faculty`) faqat `User.scope` dagi fakultet va uning kafedralarini o‘zgartiradi; boshqasi `403`; kafedrani boshqa fakultetga ko‘chira olmaydi. **`scope` bo‘sh fakultet admini hech narsani o‘zgartira olmaydi** (xavfsiz sukut) — yangi `faculty` foydalanuvchi yaratganda `scope` ni to‘ldirishni unutmang.

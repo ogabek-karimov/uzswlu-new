@@ -268,6 +268,28 @@ export interface CabinetDocument {
  * kirmagan bo'lsa 401. Ism, sharif, tug'ilgan kun, telefon, e-pochta, ish joylari — HEMIS'dan (faqat o'qish).
  */
 /** Kabinet roli: HEMIS lavozimidan avtomatik (dekan > kafedra mudiri > o'qituvchi > xodim); talaba — HEMIS talaba kirishi ulanganda */
+export interface CabinetTask {
+  id: number
+  title: string
+  note: string
+  status: 'open' | 'done'
+  due: string | null
+  overdue: boolean
+  assigneeId: string
+  assigneeName: string
+  authorId: string
+  authorName: string
+  self: boolean
+  createdAt: string
+  doneAt: string | null
+}
+
+export interface CabinetTasks {
+  mine: CabinetTask[]
+  given: CabinetTask[]
+  assignees: { id: string, name: string, position: string }[]
+}
+
 export type CabinetRole = 'dean' | 'chair_head' | 'teacher' | 'staff' | 'student'
 
 export interface CabinetPanel {

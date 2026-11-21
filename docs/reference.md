@@ -60,6 +60,7 @@ Docker'da: `docker compose exec backend python manage.py <buyruq>`. Parametrlar:
 | `python manage.py restore` | Zaxira nusxadan bazani va fayllarni tiklash | `apps/core/management/commands/restore.py` |
 | `python manage.py run_nightly` | Kechki vazifalar: HEMIS sinxronlash, eski sessiya va yozuvlarni tozalash | `apps/core/management/commands/run_nightly.py` |
 | `python manage.py seed_demo` | Boshlang‘ich ma’lumotlarni yuklaydi (bo‘sh bo‘limlarga) | `apps/core/management/commands/seed_demo.py` |
+| `python manage.py seed_demo_tasks` | Namunaviy kabinet vazifalarini yaratadi (faqat sinov uchun; mavjudlarini o‘chirmaydi) | `apps/core/management/commands/seed_demo_tasks.py` |
 | `python manage.py sync_hemis` | HEMIS’dan xodimlar, bo‘limlar va sonlarni olib bazaga yozadi (kechki oynada) | `apps/hemis/management/commands/sync_hemis.py` |
 
 ### Sozlamalar (.env)
@@ -221,6 +222,8 @@ Batafsil parametr va javoblar — Swagger: `http://localhost:8000/api/docs/`. Pa
 | `/api/me/avatar` | `MeAvatarView` | `apps/api/views_staff.py` | `cabinet-upload` |
 | `/api/me/documents/<str:section>/<str:pk>` | `MeDocumentDetailView` | `apps/api/views_staff.py` | `cabinet` |
 | `/api/me/documents/<str:section>` | `MeDocumentsView` | `apps/api/views_staff.py` | `cabinet` |
+| `/api/me/tasks/<int:pk>` | `MeTaskDetailView` | `apps/api/views_staff.py` | `cabinet` |
+| `/api/me/tasks` | `MeTasksView` | `apps/api/views_staff.py` | `cabinet` |
 | `/api/me` | `MeView` | `apps/api/views_staff.py` | `cabinet` |
 | `/api/pages/<slug:slug>` | `PageView` | `apps/api/views.py` | `public` |
 | `/api/posts/<str:type>/<str:slug>` | `PostDetailView` | `apps/api/views.py` | `public` |
@@ -400,6 +403,10 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `POST /api/me/documents/:section` | `frontend/server/api/me/documents/[section].post.ts` |
 | `GET /api/me` | `frontend/server/api/me/index.get.ts` |
 | `PATCH /api/me` | `frontend/server/api/me/index.patch.ts` |
+| `DELETE /api/me/tasks/:id` | `frontend/server/api/me/tasks/[id].delete.ts` |
+| `PATCH /api/me/tasks/:id` | `frontend/server/api/me/tasks/[id].patch.ts` |
+| `GET /api/me/tasks` | `frontend/server/api/me/tasks/index.get.ts` |
+| `POST /api/me/tasks` | `frontend/server/api/me/tasks/index.post.ts` |
 | `GET /api/pages/:slug` | `frontend/server/api/pages/[slug].get.ts` |
 | `GET /api/posts/:type/:slug` | `frontend/server/api/posts/[type]/[slug].get.ts` |
 | `GET /api/posts` | `frontend/server/api/posts/index.get.ts` |
@@ -426,6 +433,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/api/builders_site.py` | Ochiq sayt API'si javoblarini yig'ish (frontend/docs/openapi.yaml shartnomasi). |
 | `backend/apps/api/builders_staff.py` | Xodimlar: ommaviy ro'yxat/profil (HEMIS + saytdagi qo'shimcha ma'lumot) va xodim kabineti. |
 | `backend/apps/api/cabinet_roles.py` | Kabinetdagi rol (rolga asoslangan panel): HEMIS lavozimidan avtomatik aniqlanadi. |
+| `backend/apps/api/cabinet_tasks.py` | Xodim kabinetidagi vazifalar: dekan kafedra mudirlariga, kafedra mudiri o'z xodimlariga topshiriq beradi; |
 | `backend/apps/api/common.py` | Ochiq API uchun umumiy yordamchilar: til, rasm/fayl manzillari, biriktirmalar, token tekshiruvi. |
 | `backend/apps/api/edge.py` | Kontent o'zgarganda sayt qatlamlari keshini darrov yangilash (Nuxt + nginx). |
 | `backend/apps/api/hits.py` | Sayt statistikasi — cookie'siz va shaxsiy ma'lumotsiz (Umami usulida). |
@@ -485,13 +493,14 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (352 ta test)
+### Backend testlari xaritasi (356 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
 | Fayl | Testlar | Nimani tekshiradi |
 |---|---|---|
 | `backend/tests/api/test_cabinet_roles.py` | 10 |  |
+| `backend/tests/api/test_cabinet_tasks.py` | 4 | Kabinet vazifalari: dekan → kafedra mudiri → o'qituvchi (namunaviy HEMIS ma'lumoti). |
 | `backend/tests/api/test_cache_stampede.py` | 8 | Ochiq javoblar keshi: to'dan himoya — bir xil so'rovlar bazaga bir vaqtda urilmaydi (CachedGetMixin._cached_or_build). |
 | `backend/tests/api/test_contract.py` | 6 | Shartnoma testi: ochiq API javoblari `frontend/docs/openapi.yaml` sxemalariga mos bo'lishi shart (4 til × barcha endpoint). |
 | `backend/tests/api/test_edge_refresh.py` | 7 | Kontent o'zgarganda Nuxt/nginx keshini yangilash (apps/api/edge.py). |
@@ -534,6 +543,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `accounts` | `User` | Foydalanuvchi | `apps/accounts/models.py` |
 | `accounts` | `Role` | Rol | `apps/accounts/models.py` |
 | `accounts` | `StaffSession` | Xodim sessiyasi | `apps/accounts/models.py` |
+| `accounts` | `StaffTask` | Xodim vazifasi | `apps/accounts/models.py` |
 | `content` | `Category` | Kategoriya | `apps/content/models.py` |
 | `content` | `Post` | Post | `apps/content/models.py` |
 | `content` | `PostAttachment` | Fayl (PDF) | `apps/content/models.py` |

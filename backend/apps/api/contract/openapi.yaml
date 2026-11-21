@@ -156,6 +156,69 @@ paths:
       security: [{ userSession: [] }]
       responses:
         '200': { description: OK }
+  /me/tasks:
+    get:
+      summary: Vazifalarim va berganlarim
+      description: |
+        mine — menga berilgan (va o'zim yozgan) vazifalar; given — men boshqalarga bergan; assignees — kimga topshiriq bera olaman
+        (dekan — kafedra mudirlariga, kafedra mudiri — kafedra xodimlariga; HEMIS lavozimidan aniqlanadi). O'ziga hamma yoza oladi.
+      security: [{ userSession: [] }]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mine: { type: array, items: { $ref: '#/components/schemas/CabinetTask' } }
+                  given: { type: array, items: { $ref: '#/components/schemas/CabinetTask' } }
+                  assignees:
+                    type: array
+                    items:
+                      type: object
+                      properties: { id: { type: string }, name: { type: string }, position: { type: string } }
+    post:
+      summary: Vazifa yaratish (o'ziga yoki huquqi bor xodimga)
+      security: [{ userSession: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title]
+              properties:
+                title: { type: string, maxLength: 200 }
+                note: { type: string, maxLength: 2000 }
+                due: { type: string, format: date }
+                assigneeId: { type: string, description: Bo'sh bo'lsa — o'ziga }
+      responses:
+        '201': { description: Yaratildi, content: { application/json: { schema: { $ref: '#/components/schemas/CabinetTask' } } } }
+        '400': { description: Nom/muddat noto'g'ri }
+        '403': { description: Bu xodimga topshiriq berish huquqi yo'q }
+  /me/tasks/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: integer } }
+    patch:
+      summary: Holatni o'zgartirish (faqat ijrochi)
+      security: [{ userSession: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, required: [status], properties: { status: { type: string, enum: [open, done] } } }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/CabinetTask' } } } }
+        '403': { description: Ijrochi emas }
+        '404': { description: Topilmadi yoki o'zinikimas }
+    delete:
+      summary: Vazifani o'chirish (faqat bergan odam)
+      security: [{ userSession: [] }]
+      responses:
+        '200': { description: OK }
+        '403': { description: Bergan odam emas }
+        '404': { description: Topilmadi yoki o'zinikimas }
   /me/documents/{section}:
     parameters:
       - { name: section, in: path, required: true, schema: { $ref: '#/components/schemas/CabinetDocSection' } }
@@ -846,6 +909,23 @@ components:
                     title: { type: string, description: So'ralgan tildagi nom (uz/ru/en/zh; bo'lmasa o'zbekchasi) }
                     url: { type: string, format: uri }
         cardImage: { type: [string, 'null'], format: uri, description: 'Server yaratgan vizitka rasmi (PNG), ixtiyoriy — bo''lmasa frontend o''zi chizadi' }
+
+    CabinetTask:
+      type: object
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        note: { type: string }
+        status: { type: string, enum: [open, done] }
+        due: { type: [string, 'null'], format: date }
+        overdue: { type: boolean }
+        assigneeId: { type: string }
+        assigneeName: { type: string }
+        authorId: { type: string }
+        authorName: { type: string }
+        self: { type: boolean, description: O'ziga yozilgan vazifa }
+        createdAt: { type: string, format: date-time }
+        doneAt: { type: [string, 'null'], format: date-time }
 
     CabinetDocSection:
       type: string

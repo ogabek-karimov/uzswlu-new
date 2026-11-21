@@ -9,6 +9,7 @@ from apps.core.throttles import ScopedThrottle
 from apps.structure.models import StaffProfile
 
 from . import builders_staff as bst
+from . import cabinet_tasks as ct
 from .common import PublicView, lang_of
 from .staff_auth import IsStaff, StaffSessionAuthentication
 
@@ -111,4 +112,21 @@ class MeDocumentsView(CabinetView):
 class MeDocumentDetailView(CabinetView):
     def delete(self, request, section, pk):
         bst.delete_document(self.hemis_id, _section(section), pk)
+        return Response({'ok': True})
+
+
+class MeTasksView(CabinetView):
+    def get(self, request):
+        return Response(ct.tasks_out(self.hemis_id))
+
+    def post(self, request):
+        return Response(ct.create_task(self.hemis_id, request.data), status=201)
+
+
+class MeTaskDetailView(CabinetView):
+    def patch(self, request, pk):
+        return Response(ct.set_status(self.hemis_id, pk, str(request.data.get('status') or '')))
+
+    def delete(self, request, pk):
+        ct.delete_task(self.hemis_id, pk)
         return Response({'ok': True})
