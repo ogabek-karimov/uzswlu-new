@@ -45,7 +45,7 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 - `posts` · **delete**: `faculty` va `pages` faqat **o‘zi yozgan** postni o‘chiradi; `superadmin` va `editor` — hammasini.
 - `quick-links` · **create**: `icon` — `lucide:*` ro‘yxatidan; `url` — `/yo‘l` yoki `https://…`; `title.uz` majburiy.
 - `roles` · **delete**: Tizim roli yoki foydalanuvchisi bor rol o‘chirilmaydi.
-- `roles` · **update**: Tizim rollarining (superadmin, editor, faculty, pages, sdg) bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi.
+- `roles` · **update**: Tizim rollarining (superadmin, editor, faculty, pages, sdg) bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi. «HEMIS roli» — shu lavozimdagi xodim HEMIS orqali kirganda hisob va shu rol avtomatik beriladi (tizim rollariga berilmaydi).
 
 ### `manage.py` buyruqlari (loyihaniki)
 
