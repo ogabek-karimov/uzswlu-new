@@ -385,6 +385,7 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `GET /api/admission` | `frontend/server/api/admission.get.ts` |
 | `POST /api/appeals` | `frontend/server/api/appeals.post.ts` |
 | `GET /api/contact` | `frontend/server/api/contact.get.ts` |
+| `GET /api/dev-login` | `frontend/server/api/dev-login.get.ts` |
 | `GET /api/documents` | `frontend/server/api/documents.get.ts` |
 | `GET /api/events` | `frontend/server/api/events.get.ts` |
 | `GET /api/faculties/:slug` | `frontend/server/api/faculties/[slug].get.ts` |
