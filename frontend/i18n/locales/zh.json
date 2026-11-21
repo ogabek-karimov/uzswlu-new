@@ -403,6 +403,7 @@
   "cabinet": {
     "title": "个人后台",
     "menu": {
+      "admin": "打开管理后台",
       "tasks": "任务",
       "profile": "个人资料",
       "documents": "文档",

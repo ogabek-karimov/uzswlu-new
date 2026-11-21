@@ -16,6 +16,8 @@ import urllib.request
 
 from django.conf import settings
 from django.contrib.auth import login
+from django.core import signing
+from django.core.cache import cache
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from drf_spectacular.utils import OpenApiParameter, extend_schema
@@ -24,6 +26,7 @@ from rest_framework.views import APIView
 
 from apps.accounts.models import StaffSession, User
 from apps.core.throttles import ScopedThrottle
+from apps.hemis import access
 
 from . import get_client
 from .guard import call as guarded
@@ -34,6 +37,9 @@ ID_FIELDS = ('employee_id_number', 'employee_id', 'id')
 def redirect_uri(request) -> str:
     return settings.PUBLIC_SERVER_URL + '/api/auth/hemis/callback'
 
+
+HANDOFF_SALT = 'hemis-admin-handoff'
+HANDOFF_TTL = 60  # soniya
 
 MAX_BODY = 1024 * 1024  # HEMIS javobi 1 MB dan oshmasin (xotirani to'ldirib yubormasin)
 
@@ -107,6 +113,38 @@ def dev_login(request):
     return HttpResponse(page)
 
 
+def admin_login(request, hemis_id: str, label: str, name: str, fail: str):
+    """HEMIS ID bo'yicha admin panelga kiritadi (OAuth callback ham, kabinetdan o'tish ham shu yerdan)."""
+    from apps.panel.auth import record
+
+    user = access.provision(hemis_id, name)
+    if not user:
+        record(request, User.objects.filter(hemis_id=hemis_id).first(), label, 'denied', method='hemis')
+        return HttpResponseRedirect(fail + 'ruxsat-yoq')
+    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+    record(request, user, label, 'success', method='hemis')
+    return HttpResponseRedirect(settings.ADMIN_PANEL_URL + '/')
+
+
+class AdminHandoffView(APIView):
+    """Kabinetdagi «Admin panel» tugmasi: qisqa muddatli bir martalik havola bilan HEMIS'dan qayta kirmasdan o'tkazadi."""
+    authentication_classes: list = []
+    permission_classes: list = []
+    throttle_classes = [ScopedThrottle]
+    throttle_scope = 'hemis-auth'
+
+    @extend_schema(exclude=True)
+    def get(self, request):
+        fail = f'{settings.ADMIN_PANEL_URL}/kirish?hemis='
+        try:
+            data = signing.loads(str(request.query_params.get('t') or ''), salt=HANDOFF_SALT, max_age=HANDOFF_TTL)
+        except signing.BadSignature:
+            return HttpResponseRedirect(fail + 'xato')
+        if not cache.delete(f'hemis-handoff:{data.get("n")}'):  # bir martalik
+            return HttpResponseRedirect(fail + 'xato')
+        return admin_login(request, str(data['h']), f'hemis:{data["h"]}', '', fail)
+
+
 class LoginView(APIView):
     authentication_classes: list = []
     permission_classes: list = []
@@ -135,8 +173,6 @@ class CallbackView(APIView):
 
     @extend_schema(summary='HEMIS qaytaradigan manzil (OAuth2 code → sessiya)')
     def get(self, request):
-        from apps.panel.auth import record
-
         saved = request.session.pop('hemis_oauth', None) or {}
         target = saved.get('next', 'admin')
         fail = f'{settings.ADMIN_PANEL_URL}/kirish?hemis=' if target == 'admin' else f'{settings.SITE_URL}/?hemis='
@@ -163,19 +199,6 @@ class CallbackView(APIView):
                            httponly=True, secure=not settings.DEBUG, samesite='Lax')
             return res
 
-        # Admin panel: faqat superadmin tayinlagan (HEMIS ID biriktirilgan) xodim kiradi
-        user = User.objects.filter(hemis_id=hemis_id).first()
-        if not user or user.status == 'disabled':
-            record(request, user, info.get('login') or hemis_id, 'denied', method='hemis')
-            return HttpResponseRedirect(fail + 'ruxsat-yoq')
-        # Profil HEMIS'dan yangilanadi: F.I.Sh., lavozim, bo'lim
-        person = next((s for s in get_client().staff('uz') if s['id'] == hemis_id), None)
-        user.name = info.get('name') or (person or {}).get('name') or user.name
-        if person and person['employments']:
-            user.position = person['employments'][0]['position']['name'][:200]
-            user.department = person['employments'][0]['department']['name'][:200]
-        user.status, user.last_login = 'active', timezone.now()
-        user.save()
-        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-        record(request, user, info.get('login') or hemis_id, 'success', method='hemis')
-        return HttpResponseRedirect(settings.ADMIN_PANEL_URL + '/')
+        # Admin panel: HEMIS ID biriktirilgan xodim yoki lavozimi «HEMIS roli» ga bog'langan xodim (hisob avtomatik yaratiladi)
+        return admin_login(request, hemis_id, info.get('login') or hemis_id, info.get('name') or '', fail)
+

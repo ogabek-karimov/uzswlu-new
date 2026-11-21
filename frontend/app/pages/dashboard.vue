@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CabinetTasks, CabinetDocSection, CabinetPatch, StaffCabinet, StaffContactType, StaffDocSection, StaffNetwork, StaffScienceNetwork } from '#shared/types/api'
+import type { CabinetAdminLink, CabinetTasks, CabinetDocSection, CabinetPatch, StaffCabinet, StaffContactType, StaffDocSection, StaffNetwork, StaffScienceNetwork } from '#shared/types/api'
 
 // Xodim kabineti (oldingi saytdagi /site/dashboard ning yakuniy holati asosida).
 // HEMIS (my.gov) orqali kirgan xodim o'z Staff sahifasidagi ma'lumotlarni shu yerda qo'shadi va o'zgartiradi;
@@ -31,6 +31,20 @@ const route = useRoute()
 const view = computed<SectionKey>(() => SECTIONS.find(s => s.key === route.query.bolim)?.key ?? 'overview')
 const { data: tasks } = await useFetch<CabinetTasks>('/api/me/tasks', { key: 'cabinet-tasks', default: () => ({ mine: [], given: [], assignees: [] }) })
 const openTasks = computed(() => tasks.value.mine.filter(x => x.status === 'open').length)
+
+// «Admin panel»: xodimning admin hisobi bo'lsa (yoki lavozimi rolga bog'langan bo'lsa) tugma chiqadi; havola 60 soniyalik, bir martalik
+const { data: adminLink } = await useFetch<CabinetAdminLink>('/api/me/admin-link', { key: 'cabinet-admin-link', default: () => ({ available: false, url: null }) })
+const openingAdmin = ref(false)
+async function openAdmin() {
+  openingAdmin.value = true
+  try {
+    const link = await $fetch<CabinetAdminLink>('/api/me/admin-link')
+    if (link.url) window.location.assign(link.url)
+  }
+  finally {
+    openingAdmin.value = false
+  }
+}
 
 const bannerOpen = ref(true)
 const qrOpen = ref(false)
@@ -162,6 +176,10 @@ const menuClass = 'flex items-center gap-3 rounded-[14px] px-3.5 py-3 font-mediu
             {{ t(`cabinet.menu.${s.label}`) }}
             <span v-if="s.key === 'tasks' && openTasks" class="ml-auto rounded-full bg-accent-400 px-2 py-0.5 text-xs font-bold text-ink">{{ openTasks }}</span>
           </NuxtLink>
+          <button v-if="adminLink.available" type="button" :disabled="openingAdmin" :class="[menuClass, 'mt-1 w-full text-left']" @click="openAdmin">
+            <Icon name="lucide:shield-check" class="size-5" />
+            {{ t('cabinet.menu.admin') }}
+          </button>
           <NuxtLink :to="localePath(`/teacher/${person.id}`)" :class="[menuClass, 'mt-1']">
             <Icon name="lucide:id-card" class="size-5" />
             {{ t('cabinet.menu.staffPage') }}

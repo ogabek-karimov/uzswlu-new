@@ -130,3 +130,25 @@ class MeTaskDetailView(CabinetView):
     def delete(self, request, pk):
         ct.delete_task(self.hemis_id, pk)
         return Response({'ok': True})
+
+
+class MeAdminLinkView(CabinetView):
+    """Kabinetdagi «Admin panel» tugmasi: xodimning admin hisobi bo'lsa (yoki lavozimi «HEMIS roli» ga bog'langan bo'lsa)
+    60 soniyalik bir martalik havola qaytaradi; bo'lmasa available=false."""
+
+    def get(self, request):
+        from secrets import token_urlsafe
+
+        from django.conf import settings
+        from django.core import signing
+        from django.core.cache import cache
+
+        from apps.hemis import access
+        from apps.hemis.views import HANDOFF_SALT, HANDOFF_TTL
+
+        if not access.eligible(self.hemis_id):
+            return Response({'available': False, 'url': None})
+        nonce = token_urlsafe(12)
+        cache.set(f'hemis-handoff:{nonce}', 1, HANDOFF_TTL + 5)
+        token = signing.dumps({'h': self.hemis_id, 'n': nonce}, salt=HANDOFF_SALT)
+        return Response({'available': True, 'url': f'{settings.PUBLIC_SERVER_URL}/api/auth/hemis/handoff?t={token}'})

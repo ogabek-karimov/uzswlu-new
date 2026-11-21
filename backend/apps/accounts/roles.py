@@ -110,6 +110,10 @@ def post_types_allowed(user, action: str) -> list[str]:
     return [t for t in POST_SECTIONS if allows(user, t, action)]
 
 
+# Saytdagi kabinet rollari (HEMIS lavozimidan aniqlanadi) — admin rolga bog'lash mumkin bo'lganlari
+HEMIS_ROLES = {'dean': 'Dekan', 'chair_head': 'Kafedra mudiri', 'teacher': 'O‘qituvchi', 'staff': 'Boshqa xodim'}
+
+
 def is_scoped(user) -> bool:
     """Faqat o'z fakulteti doirasida ishlaydigan rol (User.scope)."""
     if user.role == 'faculty':

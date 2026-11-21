@@ -976,7 +976,7 @@ class Roles(Collection):
     access = {'read': SUPER, 'create': SUPER, 'update': SUPER, 'delete': SUPER}
     fields = {'createdAt': 'created_at', 'updatedAt': 'updated_at'}
     rules = {'delete': 'Tizim roli yoki foydalanuvchisi bor rol o‘chirilmaydi.',
-             'update': 'Tizim rollarining (superadmin, editor, faculty, pages, sdg) bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi.'}
+             'update': 'Tizim rollarining (superadmin, editor, faculty, pages, sdg) bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi. «HEMIS roli» — shu lavozimdagi xodim HEMIS orqali kirganda hisob va shu rol avtomatik beriladi (tizim rollariga berilmaydi).'}
 
     def can(self, user, action, obj=None):
         if not super().can(user, action, obj):
@@ -1000,7 +1000,7 @@ class Roles(Collection):
             users = User.objects.filter(role=r.slug).count()
         return {
             'id': r.pk, 'slug': r.slug, 'name': r.name, 'description': r.description or None, 'system': r.system, 'scoped': r.scoped,
-            'permissions': rl.permissions_of_role(r), 'users': users,
+            'permissions': rl.permissions_of_role(r), 'users': users, 'hemisRole': r.hemis_role or None,
             'createdAt': dt(r.created_at), 'updatedAt': dt(r.updated_at), 'collection': 'roles',
         }
 
@@ -1019,6 +1019,13 @@ class Roles(Collection):
                 r.permissions = rl.clean_permissions(data['permissions'])
             if 'scoped' in data:
                 r.scoped = flag(data['scoped'])
+            if 'hemisRole' in data:
+                hr = str(data['hemisRole'] or '')
+                if hr and hr not in rl.HEMIS_ROLES:
+                    raise ValidationError('HEMIS roli noto‘g‘ri')
+                if hr and Role.objects.filter(hemis_role=hr).exclude(pk=r.pk).exists():
+                    raise ValidationError('Bu HEMIS roli boshqa rolga bog‘langan — avval uni bo‘shating')
+                r.hemis_role = hr
 
 
 REGISTRY: dict[str, Collection] = {c.slug: c for c in (

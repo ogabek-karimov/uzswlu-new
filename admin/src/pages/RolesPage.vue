@@ -2,7 +2,7 @@
 import { computed, onMounted, reactive, ref } from 'vue'
 import Icon from '@/components/Icon.vue'
 import { api, ApiError, type Paginated } from '@/lib/api'
-import { SECTIONS, type RoleDoc } from '@/lib/roles'
+import { HEMIS_ROLES, SECTIONS, type RoleDoc } from '@/lib/roles'
 
 // Superadmin rol yaratadi: har bir bo'lim uchun «yöq / körish / yozish» tanlanadi
 const roles = ref<RoleDoc[]>([])
@@ -10,7 +10,7 @@ const editing = ref<number | 'new' | null>(null)
 const error = ref('')
 const message = ref('')
 const saving = ref(false)
-const form = reactive({ name: '', description: '', scoped: false, permissions: {} as Record<string, string> })
+const form = reactive({ name: '', description: '', scoped: false, hemisRole: '', permissions: {} as Record<string, string> })
 const current = computed(() => roles.value.find(r => r.id === editing.value))
 const locked = computed(() => !!current.value?.system)
 const groups = [...new Set(SECTIONS.map(s => s.group))]
@@ -23,7 +23,7 @@ onMounted(load)
 function pick(r: RoleDoc | null) {
   error.value = ''
   editing.value = r ? r.id : 'new'
-  Object.assign(form, { name: r?.name ?? '', description: r?.description ?? '', scoped: r?.scoped ?? false, permissions: { ...(r?.permissions ?? { dashboard: 'read' }) } })
+  Object.assign(form, { name: r?.name ?? '', description: r?.description ?? '', scoped: r?.scoped ?? false, hemisRole: r?.hemisRole ?? '', permissions: { ...(r?.permissions ?? { dashboard: 'read' }) } })
 }
 
 function setLevel(key: string, level: string) {
@@ -37,7 +37,7 @@ async function save() {
   if (!form.name.trim()) { error.value = 'Rol nomi majburiy'; return }
   saving.value = true
   try {
-    const body = { name: form.name.trim(), description: form.description.trim(), scoped: form.scoped, permissions: form.permissions }
+    const body = { name: form.name.trim(), description: form.description.trim(), scoped: form.scoped, hemisRole: form.hemisRole, permissions: form.permissions }
     if (editing.value === 'new') await api.post('/roles', body)
     else await api.patch(`/roles/${editing.value}`, body)
     flash('Rol saqlandi')
@@ -106,6 +106,14 @@ const count = (r: RoleDoc) => Object.keys(r.permissions).length
             </div>
           </div>
         </div>
+        <div v-if="!locked" class="rounded-xl border border-field px-3.5 py-3">
+          <label for="r-hemis" class="label">HEMIS lavozimi bo‘yicha avtomatik berish</label>
+          <select id="r-hemis" v-model="form.hemisRole" class="field">
+            <option value="">O‘chiq — hisobni qo‘lda yarataman</option>
+            <option v-for="h in HEMIS_ROLES" :key="h.key" :value="h.key">{{ h.label }} — HEMIS orqali kirganda shu rol beriladi</option>
+          </select>
+          <p class="mt-1.5 text-xs leading-snug text-muted">Yoqilsa, shu lavozimdagi xodim HEMIS orqali kirganda hisob parolsiz o‘zi yaratiladi, rol va fakultet doirasi HEMIS bo‘yicha yangilanadi. Lavozim bog‘lanishi o‘chirilsa, avtomatik hisoblar yopiladi. Bir HEMIS lavozimi faqat bitta rolga bog‘lanadi.</p>
+        </div>
         <label v-if="!locked" class="flex items-center gap-2.5 text-sm"><input v-model="form.scoped" type="checkbox" class="size-4">Faqat öz fakulteti/kafedrasi bilan çegaralansin (foydalanuvçida «qamrov» belgilanadi)</label>
         <p v-if="error" class="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-800">{{ error }}</p>
         <div class="flex justify-end gap-2.5">
@@ -120,6 +128,7 @@ const count = (r: RoleDoc) => Object.keys(r.permissions).length
         <div class="flex items-start justify-between gap-2">
           <b class="text-base">{{ r.name }}</b>
           <span v-if="r.system" class="rounded-full bg-[#F1F0F5] px-2 py-0.5 text-[11px] font-semibold text-muted">tizim</span>
+          <span v-else-if="r.hemisRole" class="rounded-full bg-mint/20 px-2 py-0.5 text-[11px] font-semibold">HEMIS: {{ HEMIS_ROLES.find(h => h.key === r.hemisRole)?.label }}</span>
         </div>
         <p class="text-[13px] leading-snug text-muted">{{ r.description || '—' }}</p>
         <p class="text-xs text-muted">{{ count(r) }} ta bölim · {{ r.users }} foydalanuvçi<span v-if="r.scoped"> · çegaralangan</span></p>

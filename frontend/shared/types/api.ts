@@ -284,6 +284,11 @@ export interface CabinetTask {
   doneAt: string | null
 }
 
+export interface CabinetAdminLink {
+  available: boolean
+  url: string | null
+}
+
 export interface CabinetTasks {
   mine: CabinetTask[]
   given: CabinetTask[]

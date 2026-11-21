@@ -403,6 +403,7 @@
   "cabinet": {
     "title": "Dashboard",
     "menu": {
+      "admin": "Open admin panel",
       "tasks": "Tasks",
       "profile": "Profile details",
       "documents": "Documents",

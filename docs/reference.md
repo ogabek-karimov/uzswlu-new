@@ -219,6 +219,7 @@ Batafsil parametr va javoblar — Swagger: `http://localhost:8000/api/docs/`. Pa
 | `/api/hit` | `HitView` | `apps/api/views.py` | `hit` |
 | `/api/home` | `HomeView` | `apps/api/views.py` | `public` |
 | `/api/leadership` | `LeadershipView` | `apps/api/views.py` | `public` |
+| `/api/me/admin-link` | `MeAdminLinkView` | `apps/api/views_staff.py` | `cabinet` |
 | `/api/me/avatar` | `MeAvatarView` | `apps/api/views_staff.py` | `cabinet-upload` |
 | `/api/me/documents/<str:section>/<str:pk>` | `MeDocumentDetailView` | `apps/api/views_staff.py` | `cabinet` |
 | `/api/me/documents/<str:section>` | `MeDocumentsView` | `apps/api/views_staff.py` | `cabinet` |
@@ -301,6 +302,7 @@ Batafsil parametr va javoblar — Swagger: `http://localhost:8000/api/docs/`. Pa
 | Manzil | View | Fayl | Cheklov |
 |---|---|---|---|
 | `/api/auth/hemis/callback` | `CallbackView` | `apps/hemis/views.py` | `hemis-auth` |
+| `/api/auth/hemis/handoff` | `AdminHandoffView` | `apps/hemis/views.py` | `hemis-auth` |
 | `/api/auth/hemis/login` | `LoginView` | `apps/hemis/views.py` | `hemis-auth` |
 | `/api/auth/hemis/status` | `StatusView` | `apps/hemis/views.py` | `open` |
 
@@ -396,6 +398,7 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `POST /api/hit` | `frontend/server/api/hit.post.ts` |
 | `GET /api/home` | `frontend/server/api/home.get.ts` |
 | `GET /api/leadership` | `frontend/server/api/leadership.get.ts` |
+| `GET /api/me/admin-link` | `frontend/server/api/me/admin-link.get.ts` |
 | `DELETE /api/me/avatar` | `frontend/server/api/me/avatar.delete.ts` |
 | `POST /api/me/avatar` | `frontend/server/api/me/avatar.post.ts` |
 | `DELETE /api/me/documents/:section/:id` | `frontend/server/api/me/documents/[section]/[id].delete.ts` |
@@ -464,6 +467,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/core/throttles.py` | So'rov cheklovlari (rate limit) — tizimga yuklama tushmasligi va parol terib ko'rishdan himoya. |
 | `backend/apps/core/uploads.py` | Foydalanuvchi yuklagan fayllar: umumiy kirish nuqtalari. Chuqur tekshiruv — `filesafe.py` da (faqat Python). |
 | `backend/apps/core/utils.py` | — |
+| `backend/apps/hemis/access.py` | HEMIS lavozimi → admin panel hisobi. |
 | `backend/apps/hemis/api.py` | HEMIS REST API (v1) bilan ishlash: universitetning o'z HEMIS serveri, token bilan, faqat o'qish. |
 | `backend/apps/hemis/base.py` | HEMIS (faqat o'qish) klienti interfeysi. |
 | `backend/apps/hemis/cache.py` | HEMIS klienti: bazadagi oxirgi nusxadan o'qiydi (HemisSnapshot). Nusxa hali bo'lmasa — namunaga qaytadi. |
@@ -493,7 +497,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (357 ta test)
+### Backend testlari xaritasi (363 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -512,12 +516,13 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/core/test_backup.py` | 41 | Zaxira va tiklash: yaratish, tekshirish, tiklash (SQLite va PostgreSQL — qaysi baza bilan ishlayotgan bo'lsa), ko'chma JSON, |
 | `backend/tests/core/test_docs.py` | 10 | Qo'llanma (docs/) eskirmasligi: avtomatik fayllar kodga mos, havolalar/anchorlar/yo'llar/buyruqlar mavjud. |
 | `backend/tests/core/test_page_cleanup.py` | 4 | «Toshkent haqida» / «Kontingent» sahifalarini o'chiruvchi migratsiya (0002_remove_toshkent_kontingent). |
+| `backend/tests/hemis/test_admin_access.py` | 5 | HEMIS lavozimi → admin hisobi: avtomatik yaratish, doira, yopish va kabinetdan o'tish havolasi. |
 | `backend/tests/hemis/test_dev_login.py` | 3 | Lokal sinov kirishi: faqat DEBUG + STAFF_DEV_LOGIN + HEMIS ulanmagan bo'lganda ishlaydi. |
 | `backend/tests/hemis/test_load_control.py` | 25 | HEMIS'ga va serverga bosim: tinch oyna, qulf, so'rov byudjeti, ketma-ket xatoda to'xtash, kechki jadval. |
 | `backend/tests/panel/test_collections.py` | 13 | Admin panel API (`/api/cms/*`): har bir kolleksiya uchun o'qish → o'zini PATCH → nusxa yaratish → o'chirish aylanishi, · `slow` |
 | `backend/tests/panel/test_pagination.py` | 5 | Sahifalash: har bir kolleksiyada barcha sahifalarni aylanib chiqqanda yozuvlar yo'qolmaydi va takrorlanmaydi; · `slow` |
 | `backend/tests/panel/test_quick_links.py` | 7 |  |
-| `backend/tests/panel/test_roles.py` | 7 | Rollar: superadmin rol yaratadi, bo'limlar bo'yicha ruxsat beradi; foydalanuvchi faqat o'z bo'limlarini ko'radi va yozadi. |
+| `backend/tests/panel/test_roles.py` | 8 | Rollar: superadmin rol yaratadi, bo'limlar bo'yicha ruxsat beradi; foydalanuvchi faqat o'z bo'limlarini ko'radi va yozadi. |
 | `backend/tests/panel/test_spa_queries.py` | 4 | Admin SPA yuboradigan murakkab so'rovlar (`where[and][0][...]`, `like`, `not_in`, `exists`, `trash` ...): |
 | `backend/tests/panel/test_video_tour.py` | 6 |  |
 | `backend/tests/security/test_access_control.py` | 22 | Ob‘ekt darajasidagi ruxsat: id almashtirib begona ma’lumot olish (IDOR), kabinet izolyatsiyasi, post egaligi. |

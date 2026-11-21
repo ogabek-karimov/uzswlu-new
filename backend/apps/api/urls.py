@@ -15,6 +15,7 @@ urlpatterns = [
     path('staff/<str:pk>', s.StaffDetailView.as_view()),
     path('me', s.MeView.as_view()),
     path('me/avatar', s.MeAvatarView.as_view()),
+    path('me/admin-link', s.MeAdminLinkView.as_view()),
     path('me/tasks', s.MeTasksView.as_view()),
     path('me/tasks/<int:pk>', s.MeTaskDetailView.as_view()),
     path('me/documents/<str:section>', s.MeDocumentsView.as_view()),

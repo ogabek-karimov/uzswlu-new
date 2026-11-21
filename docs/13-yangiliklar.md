@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-22
 
+- **Admin + backend + sayt (HEMIS lavozimi → admin rol):** «Rollar va ruxsatlar» da rolga «HEMIS roli» (dekan, kafedra mudiri, o‘qituvchi, boshqa xodim) biriktirilsa (standart — o‘chiq), shu lavozimdagi xodim HEMIS orqali admin panelga kirganda hisob parolsiz o‘zi yaratiladi, rol va fakultet doirasi HEMIS’dan olinadi va har kirishda yangilanadi; bog‘lanish olib tashlansa avtomatik hisoblar yopiladi. Kabinetda (hisobi bor xodimga) «Admin panelga oçiş» tugmasi: 60 soniyalik bir martalik havola (`GET /api/me/admin-link` → `/api/auth/hemis/handoff`). `Role.hemis_role`, `User.hemis_auto` (`accounts.0008`), `apps/hemis/access.py`. Testlar: `tests/hemis/test_admin_access.py`, `tests/panel/test_roles.py`. — COMMIT
 - **Sayt (kabinet bo‘limlari):** xodim kabineti bir sahifaga tiqilib qolmasligi uchun menyu bo‘limlarga ajratildi: «Boshqaruv paneli» (rolga mos panel + HEMIS kartasi), «Vazifalar» (ochiq vazifalar soni belgisi bilan), «Profil ma’lumotlari», «Hujjatlar». Har bir bo‘lim alohida ko‘rinadi (`/dashboard?bolim=tasks|profile|documents`); 4 tilda tarjima. — `debe637`
 
 ## 2026-11-21

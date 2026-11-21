@@ -40,6 +40,8 @@ class User(AbstractUser):
     recovery_hashes = models.JSONField(default=list, blank=True, editable=False)  # zaxira kodlarning sha256 xeshlari
     # Payload CMS'dan ko'chirilgan parol (birinchi kirishda Django usuliga o'tkaziladi va o'chiriladi)
     legacy_password = models.TextField(blank=True, editable=False)
+    # HEMIS lavozimidan avtomatik yaratilgan hisob: har kirishda rol/doira HEMIS bo'yicha yangilanadi, lavozim bog'lanishi o'chsa yopiladi
+    hemis_auto = models.BooleanField('HEMIS bo‘yicha avtomatik', default=False, editable=False)
 
     REQUIRED_FIELDS = ['name']
 
@@ -69,6 +71,8 @@ class Role(models.Model):
     permissions = models.JSONField('Bo‘limlar bo‘yicha ruxsat', default=dict, blank=True)
     scoped = models.BooleanField('Faqat o‘z fakulteti doirasida (User.scope)', default=False)
     system = models.BooleanField('Tizim roli', default=False, editable=False)
+    # HEMIS lavozimi shu rolga avtomatik bog'lanadi: HEMIS orqali kirgan dekan/mudir/o'qituvchiga hisob o'zi yaratiladi (bo'sh — o'chiq)
+    hemis_role = models.CharField('HEMIS roli', max_length=12, blank=True, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

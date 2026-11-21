@@ -403,6 +403,7 @@
   "cabinet": {
     "title": "Dashboard",
     "menu": {
+      "admin": "Admin panelga oçiş",
       "tasks": "Vazifalar",
       "profile": "Profil ma’lumotlari",
       "documents": "Hujjatlar",
