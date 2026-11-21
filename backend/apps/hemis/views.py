@@ -85,10 +85,8 @@ def dev_login(request):
     if chosen:
         if not any(str(p['id']) == chosen for p in staff):
             return HttpResponse('Xodim topilmadi', status=404)
-        res = HttpResponseRedirect('/dashboard')
-        res.set_cookie(settings.STAFF_SESSION_COOKIE, StaffSession.issue(chosen), max_age=settings.STAFF_SESSION_TTL_HOURS * 3600,
-                       httponly=True, secure=False, samesite='Lax')
-        return res
+        # Cookie sayt manzilida bo'lishi kerak (API boshqa domenda bo'lishi mumkin) — token saytning /api/dev-login iga uzatiladi
+        return HttpResponseRedirect(f'{settings.SITE_URL}/api/dev-login?token={urllib.parse.quote(StaffSession.issue(chosen))}')
     names = {'dean': 'Dekan', 'chair_head': 'Kafedra mudiri', 'teacher': 'O‘qituvchi', 'staff': 'Boshqa xodim'}
     by: dict[str, list] = {k: [] for k in names}
     for p in staff:

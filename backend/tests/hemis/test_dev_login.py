@@ -1,4 +1,5 @@
 """Lokal sinov kirishi: faqat DEBUG + STAFF_DEV_LOGIN + HEMIS ulanmagan bo'lganda ishlaydi."""
+from django.conf import settings
 from django.test import TestCase, override_settings
 
 from apps.accounts.models import StaffSession
@@ -22,6 +23,6 @@ class DevLoginTests(TestCase):
         self.assertIn('Dekan', res.content.decode())
         res = self.client.get(URL + '&as=8654')
         self.assertEqual(res.status_code, 302)
-        self.assertEqual(res['Location'], '/dashboard')
+        self.assertTrue(res['Location'].startswith(settings.SITE_URL + '/api/dev-login?token='))
         self.assertEqual(StaffSession.objects.filter(hemis_id='8654').count(), 1)
         self.assertEqual(self.client.get(URL + '&as=0000').status_code, 404)
