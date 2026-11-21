@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-22
 
-- **Sayt (kabinet bo‘limlari):** xodim kabineti bir sahifaga tiqilib qolmasligi uchun menyu bo‘limlarga ajratildi: «Boshqaruv paneli» (rolga mos panel + HEMIS kartasi), «Vazifalar» (ochiq vazifalar soni belgisi bilan), «Profil ma’lumotlari», «Hujjatlar». Har bir bo‘lim alohida ko‘rinadi (`/dashboard?bolim=tasks|profile|documents`); 4 tilda tarjima. — COMMIT
+- **Sayt (kabinet bo‘limlari):** xodim kabineti bir sahifaga tiqilib qolmasligi uchun menyu bo‘limlarga ajratildi: «Boshqaruv paneli» (rolga mos panel + HEMIS kartasi), «Vazifalar» (ochiq vazifalar soni belgisi bilan), «Profil ma’lumotlari», «Hujjatlar». Har bir bo‘lim alohida ko‘rinadi (`/dashboard?bolim=tasks|profile|documents`); 4 tilda tarjima. — `debe637`
 
 ## 2026-11-21
 
