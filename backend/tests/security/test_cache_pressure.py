@@ -40,6 +40,7 @@ class CacheKeyTests(Base):
             src = f.read_text(encoding='utf-8')
             used |= set(re.findall(r"""(?:\bp|\bparams|query_params)(?:\.get|\.getlist)?[\(\[]\s*['"]([A-Za-z_]+)['"]""", src))
         used -= {'id', 'name', 'employments'}   # bular so'rov parametri emas (lug'at kalitlari)
+        used -= {'list', 'next'}   # faqat /api/me/admin-link (shaxsiy, kirgan xodimga — keshlanmaydi)
         self.assertLessEqual(used, set(CACHE_PARAMS), f'kesh kalitida yo‘q parametrlar: {sorted(used - set(CACHE_PARAMS))}')
 
     def test_cached_responses_differ_by_param_values(self):
