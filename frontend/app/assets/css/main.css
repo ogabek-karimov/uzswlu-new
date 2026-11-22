@@ -649,3 +649,22 @@ html[data-scheme] [data-speaking] {
     scrollbar-color: rgb(80 65 180 / 0.45) transparent;
   }
 }
+
+/* Och kartada nur ko'rinishi uchun: oq va yengil iliq (oltin) yaltirash */
+.shine-tint::after {
+  background: linear-gradient(100deg, transparent 0%, rgb(255 255 255 / 0.8) 45%, rgb(255 222 170 / 0.35) 55%, transparent 100%);
+}
+/* Davriy yaltirash: faqat ekranda ko'rinib turganda (.is-in-view — IntersectionObserver), har ~7 s; hover'da odatdagi nur */
+.shine-loop.is-in-view::after {
+  animation: shine-loop 7s cubic-bezier(0.45, 0, 0.25, 1) 0.8s infinite;
+}
+.shine-loop.is-in-view:hover::after {
+  animation: none;
+}
+@keyframes shine-loop {
+  0%, 62% { transform: translateX(-160%) skewX(-18deg); }
+  88%, 100% { transform: translateX(330%) skewX(-18deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shine-loop.is-in-view::after { animation: none; }
+}

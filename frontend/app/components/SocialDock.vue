@@ -69,7 +69,10 @@ onBeforeUnmount(() => {
 watch(() => route.fullPath, () => nextTick(schedule))
 // Tilcha: ko'rinib turgan bo'lsa — yopadi (hover/peek ham), aks holda ochib qo'yadi
 function toggle() {
-  if (shown.value) { open.value = false; hover.value = false; peek.value = false }
+  if (shown.value) {
+    open.value = false; hover.value = false; peek.value = false
+    ;(document.activeElement as HTMLElement | null)?.blur()   // fokus qolsa :has(:focus-visible) ochiq ushlab turmasin
+  }
   else open.value = true
 }
 
@@ -134,7 +137,8 @@ const tip = 'pointer-events-none absolute top-full left-0 z-20 mt-1 -translate-y
   transform: translate(calc(-100% + 1.5rem), -50%);   /* tilcha kengligi (w-6) */
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.social-dock:focus-within,
+/* Ochiq: tilcha/hover/tanishtiruv yoki klaviatura fokusi (sichqoncha bosgan tugmaning fokusi panelni ochiq qoldirmasin) */
+.social-dock:has(:focus-visible),
 .social-dock.is-open {
   transform: translateY(-50%);
 }

@@ -24,25 +24,51 @@ function logoFor(key: string) {
 }
 // Tanlangan bino (xarita faqat shu bino uchun yuklanadi)
 const current = ref(0)
+
+// Bino tanlanganda xarita yuklanguncha o'sha binoning logosi (yuklanish ekrani); xarita yuklanishi bilan yo'qoladi (zaxira — 6 s)
+const mapLoading = ref(true)
+let loadTimer: ReturnType<typeof setTimeout> | undefined
+function startLoading() {
+  mapLoading.value = true
+  clearTimeout(loadTimer)
+  loadTimer = setTimeout(() => (mapLoading.value = false), 6000)
+}
+function mapLoaded() {
+  clearTimeout(loadTimer)
+  setTimeout(() => (mapLoading.value = false), 350)
+}
+function select(i: number) {
+  if (i !== current.value) startLoading()
+  current.value = i
+}
+onMounted(startLoading)
+onBeforeUnmount(() => clearTimeout(loadTimer))
 const active = computed(() => campuses.value[current.value] ?? campuses.value[0])
+// Bino tanlanganda bo'lim foni o'sha binoning surati bilan almashadi (yo'q bo'lsa — asosiy bino)
+const CAMPUS_BG: Record<string, string> = { philology: '/images/campus-filologiya.webp', journalism: '/images/campus-jurnalistika.webp', russian: '/images/campus-rus.webp' }
+const campusBg = computed(() => CAMPUS_BG[active.value?.id ?? ''] ?? null)
+// Surat markazi (object-position) — masalan, kirish eshigi o'rtada ko'rinsin
+const CAMPUS_BG_POS: Record<string, string> = { russian: '27% 50%' }
+const campusBgPos = computed(() => CAMPUS_BG_POS[active.value?.id ?? ''] ?? '50% 50%')
 const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
 </script>
 
 <template>
-  <!-- Pastdagi rasmli urg'u (Fakultetlar bilan bir uslubda): kampus surati (sekin yaqinlashadi) + indigo qatlam, tepa/pastda to'lqin; kartalar — shisha -->
-  <section v-if="campuses.length" class="section-wave relative isolate overflow-hidden bg-brand-700 pt-20 pb-24 lg:pt-24 lg:pb-32" :aria-label="t('homeContact.title')">
+  <!-- Pastdagi rasmli urg'u (Fakultetlar bilan bir uslubda): asosiy bino surati (sekin yaqinlashadi) + indigo qatlam, yumaloq burchakli panel (Fakultetlar bilan bir xil); kartalar — shisha -->
+  <section v-if="campuses.length" class="relative isolate mt-4 overflow-hidden bg-brand-700 pt-12 pb-14 lg:pt-14 lg:pb-16 mx-3 rounded-[40px] sm:mx-5 lg:mx-8" :aria-label="t('homeContact.title')">
     <img
-      src="/images/campus-aerial.webp"
+      src="/images/main-building-2.webp"
       alt=""
-      width="1920"
-      height="1080"
+      width="2400"
+      height="1340"
       loading="lazy"
       decoding="async"
       class="decor bg-kb absolute -inset-6 -z-20 h-[calc(100%+3rem)] w-[calc(100%+3rem)] max-w-none object-cover saturate-[1.1]"
     >
+    <Transition enter-active-class="transition-opacity duration-700" enter-from-class="opacity-0" leave-active-class="transition-opacity duration-700" leave-to-class="opacity-0">
+      <img v-if="campusBg" :key="campusBg" :src="campusBg" alt="" loading="lazy" decoding="async" class="decor absolute inset-0 -z-20 size-full object-cover saturate-[1.1]" :style="{ objectPosition: campusBgPos }">
+    </Transition>
     <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[linear-gradient(200deg,rgb(40_30_110/0.62)_0%,rgb(70_55_163/0.4)_50%,rgb(28_21_72/0.72)_100%)]" />
-    <HomeWave flip class="text-paper" />
-    <HomeWave class="text-paper" />
 
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading
@@ -64,9 +90,9 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
                 :aria-pressed="i === current"
                 class="group flex w-full items-center gap-4 rounded-[22px] border p-3 pr-4 text-left transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 motion-reduce:transition-none"
                 :class="i === current
-                  ? 'border-accent-400/70 bg-brand-900/85 text-white shadow-[0_22px_40px_-22px_rgb(0_0_0/0.7)] backdrop-blur'
-                  : 'border-white bg-white/85 text-ink shadow-[0_1px_0_rgba(19,17,47,0.04)] backdrop-blur hover:border-brand-200 hover:shadow-[0_18px_36px_-24px_rgb(17_12_46/0.45)]'"
-                @click="current = i"
+                  ? 'border-accent-400/70 bg-brand-900/70 text-white shadow-[0_22px_40px_-22px_rgb(0_0_0/0.7)] backdrop-blur'
+                  : 'border-white/70 bg-white/60 text-ink shadow-[0_1px_0_rgba(19,17,47,0.04)] backdrop-blur hover:border-brand-200 hover:shadow-[0_18px_36px_-24px_rgb(17_12_46/0.45)]'"
+                @click="select(i)"
               >
                 <span
                   class="grid size-14 shrink-0 place-items-center overflow-hidden rounded-full bg-white ring-[3px] transition-transform duration-300 group-hover:scale-105"
@@ -96,7 +122,7 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
           </ul>
 
           <!-- Tanlangan bino: manzil, telefon, e-pochta (bosiladi) -->
-          <div v-if="active" class="rounded-[28px] border border-white bg-white/90 p-3 shadow-[0_24px_50px_-34px_rgb(17_12_46/0.55)] backdrop-blur">
+          <div v-if="active" class="rounded-[28px] border border-white/70 bg-white/65 p-3 shadow-[0_24px_50px_-34px_rgb(17_12_46/0.55)] backdrop-blur">
             <ul class="flex flex-col text-sm">
               <li>
                 <a :href="active.mapUrl" target="_blank" rel="noopener" class="flex items-start gap-3 rounded-2xl px-3 py-2.5 transition-colors hover:bg-brand-50">
@@ -121,8 +147,22 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
         </div>
 
         <!-- O'ng: tanlangan binoning Yandex xaritasi (katta) -->
-        <div v-if="active" class="relative min-h-[360px] overflow-hidden rounded-[32px] border-4 border-white bg-brand-50 shadow-[0_34px_70px_-40px_rgb(17_12_46/0.6)] lg:col-span-7 lg:min-h-[560px]">
-          <MapFrame v-if="active.mapEmbed" :key="active.id" :src="active.mapEmbed" :title="`${active.name} — ${t('homeContact.map')}`" />
+        <!-- Xarita: bino tugmalari ro'yxati bilan bir xil balandlikda (358 px, tepasi «Binoni tanlang» ostida), orada bir ustun bo'shliq — fon ko'rinadi. Xarita yuklanguncha — bino logosi (yuklanish ekrani) -->
+        <div v-if="active" class="relative min-h-[360px] overflow-hidden rounded-[32px] border-4 border-white bg-brand-50 shadow-[0_34px_70px_-40px_rgb(17_12_46/0.6)] lg:col-span-6 lg:col-start-7 lg:h-[358px] lg:min-h-0 lg:self-start lg:mt-8">
+          <MapFrame v-if="active.mapEmbed" :key="active.id" :src="active.mapEmbed" :title="`${active.name} — ${t('homeContact.map')}`" @loaded="mapLoaded" />
+          <!-- Yuklanish ekrani: bino logosi — yumshoq gradient fonda, atrofida «nafas oluvchi» halqalar -->
+          <Transition leave-active-class="transition-opacity duration-500" leave-to-class="opacity-0">
+            <div v-if="active.mapEmbed && mapLoading" class="pointer-events-none absolute inset-0 z-10 grid place-items-center bg-[radial-gradient(circle_at_50%_45%,#ffffff_0%,#f6f3ff_45%,#e9f8f2_100%)]" aria-hidden="true">
+              <span class="relative grid place-items-center">
+                <span class="map-load-ring absolute size-40 rounded-full border-2 border-brand-200" />
+                <span class="map-load-ring absolute size-40 rounded-full border-2 border-accent-300 [animation-delay:0.6s]" />
+                <span class="relative grid size-36 place-items-center overflow-hidden rounded-full bg-white shadow-[0_18px_40px_-16px_rgb(19_17_47/0.45)] ring-4 ring-white">
+                  <img :src="logoFor(active.id)" alt="" width="144" height="144" loading="lazy" :class="logoFor(active.id) === '/logos/uzswlu.png' ? 'size-[78%] object-contain' : 'size-full object-cover'">
+                </span>
+                <span class="absolute top-full mt-6 text-base font-semibold whitespace-nowrap text-ink/75">{{ active.name }}</span>
+              </span>
+            </div>
+          </Transition>
           <!-- Yandex iframe'ning o'z «Открыть в Яндекс Картах» havolasi bor — ustma-ust tushmasligi uchun bizning tugma faqat xarita yo'q bo'lganda -->
           <a
             v-if="!active.mapEmbed"
@@ -140,3 +180,14 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
     </div>
   </section>
 </template>
+
+<style scoped>
+.map-load-ring { animation: map-load-ring 1.8s ease-out infinite; }
+@keyframes map-load-ring {
+  0% { transform: scale(0.85); opacity: 0.9; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-load-ring { animation: none; opacity: 0; }
+}
+</style>

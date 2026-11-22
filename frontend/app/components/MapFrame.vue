@@ -5,6 +5,8 @@ defineProps<{ src: string; title: string }>()
 
 const { t } = useI18n()
 const active = ref(false)
+// Xarita yuklanganda — ota komponent yuklanish ekranini yopishi uchun
+const emit = defineEmits<{ loaded: [] }>()
 </script>
 
 <template>
@@ -16,6 +18,7 @@ const active = ref(false)
       :title="title"
       class="absolute inset-0 size-full border-0"
       :class="!active && 'pointer-events-none'"
+      @load="emit('loaded')"
     />
     <button
       v-if="!active"

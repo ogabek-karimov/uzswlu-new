@@ -36,10 +36,9 @@ useSeo({ title: () => t('admission.title'), description: () => t('admissionPage.
       <span class="decor pointer-events-none absolute -top-52 -right-40 size-[620px] rounded-full border-[60px] border-white/[0.05]" aria-hidden="true" />
       <div class="relative mx-auto max-w-7xl px-4 pt-8 pb-20 sm:px-6 lg:px-8 lg:pb-22">
         <PageBreadcrumbs dark :items="[{ label: t('menu.applicants.title') }, { label: t('admission.title') }]" />
-        <div class="mt-12 grid items-end gap-12 lg:grid-cols-[1.4fr_1fr]">
+        <div class="mt-6 grid items-end gap-12 lg:grid-cols-[1.4fr_1fr]">
           <div class="min-w-0">
-            <p class="flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-accent-400 uppercase"><span class="h-px w-8 bg-accent-400" />{{ t('admissionPage.eyebrow') }}</p>
-            <h1 class="mt-[18px] font-display text-5xl leading-none font-semibold sm:text-[76px]">{{ t('admissionPage.title') }} <span class="text-accent-400 italic">{{ data.year }}</span></h1>
+            <h1 class="font-display text-5xl leading-none font-semibold sm:text-[76px]">{{ t('admissionPage.title') }} <span class="text-accent-400 italic">{{ data.year }}</span></h1>
             <p class="mt-6 max-w-xl text-[19px] leading-relaxed text-white/72">{{ t('admissionPage.lead') }}</p>
             <div class="mt-8 flex flex-wrap gap-3">
               <a :href="data.applyUrl" target="_blank" rel="noopener" @click="trackEvent('“Ariza topşiriş” bosildi')" class="inline-flex h-14 items-center gap-2 rounded-full bg-accent-400 px-7 font-semibold text-ink transition-colors hover:bg-accent-300">
@@ -193,18 +192,20 @@ useSeo({ title: () => t('admission.title'), description: () => t('admissionPage.
 
     <!-- Qabul komissiyasi -->
     <section id="contact" class="mx-auto max-w-7xl scroll-mt-32 px-4 py-24 sm:px-6 lg:px-8">
-      <div class="shine relative isolate flex flex-wrap items-center justify-between gap-8 overflow-hidden rounded-[32px] bg-[linear-gradient(120deg,#241c5e_0%,#382b85_50%,#5b4bbe_100%)] p-7 text-white shadow-[0_34px_70px_-34px_rgb(56_43_133/0.7)] sm:p-12">
-        <span class="decor pointer-events-none absolute -top-24 -right-16 -z-10 size-80 rounded-full bg-accent-400/25 blur-3xl" aria-hidden="true" />
-        <div class="max-w-xl">
+      <!-- Fon: asosiy bino surati; universitet yozuvi matn va tugmalar orasidagi bo'shliq markazida (o'sha joyda qatlam ochiq), chapda matn, o'ngda tugmalar uchun to'q ko'k -->
+      <div class="shine relative isolate flex flex-wrap items-center justify-between gap-8 overflow-hidden rounded-[32px] bg-[#16264f] p-7 text-white shadow-[0_34px_70px_-34px_rgb(15_35_80/0.7)] sm:p-12">
+        <img src="/images/admission-building.webp" alt="" width="1727" height="521" loading="lazy" decoding="async" class="decor pointer-events-none absolute inset-y-0 left-[-5%] -z-20 h-full w-[116%] max-w-none object-cover object-[center_35%]">
+        <span class="decor pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(14_26_62/0.94)_0%,rgb(18_36_84/0.86)_36%,rgb(24_52_110/0.2)_44%,rgb(24_52_110/0.15)_62%,rgb(20_44_98/0.55)_72%,rgb(18_38_88/0.7)_100%)]" aria-hidden="true" />
+        <div class="max-w-md">
           <h2 class="font-display text-4xl leading-tight font-semibold sm:text-[40px]">{{ t('admissionPage.commission') }}</h2>
-          <p class="mt-3 leading-relaxed text-white/68">{{ data.contact.address }} · {{ data.contact.hours }}</p>
+          <p class="mt-3 leading-relaxed text-white/80">{{ data.contact.address }} · {{ data.contact.hours }}</p>
         </div>
         <div class="flex flex-wrap gap-3">
           <a :href="tel(data.contact.phone)" class="inline-flex h-14 items-center gap-2.5 rounded-full bg-accent-400 px-6 font-semibold text-ink transition-colors hover:bg-accent-300">
             <Icon name="lucide:phone" class="size-[18px]" />
             {{ data.contact.phone }}
           </a>
-          <a :href="data.contact.telegram" target="_blank" rel="noopener" class="inline-flex h-14 items-center gap-2.5 rounded-full border border-white/25 px-6 font-semibold transition-colors hover:bg-white hover:text-ink">
+          <a :href="data.contact.telegram" target="_blank" rel="noopener" class="inline-flex h-14 items-center gap-2.5 rounded-full border border-white/40 bg-white/15 px-6 font-semibold backdrop-blur-md transition-colors hover:bg-white hover:text-ink">
             <Icon name="simple-icons:telegram" class="size-[18px]" />
             Telegram
           </a>

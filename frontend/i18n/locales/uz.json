@@ -1015,5 +1015,8 @@
   },
   "map": {
     "activate": "Xaritani boşqariş uçun bosing"
+  },
+  "callPop": {
+    "label": "Biz bilan boğlaniş"
   }
 }

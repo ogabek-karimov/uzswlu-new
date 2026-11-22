@@ -169,7 +169,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
           :href="JOURNAL.url"
           target="_blank"
           rel="noopener"
-          class="group relative mr-1 hidden h-11 shrink-0 items-center rounded-xl px-1.5 transition-colors hover:bg-brand-50 focus-visible:bg-brand-50 md:inline-flex"
+          class="group relative mr-1 hidden h-11 shrink-0 items-center rounded-xl px-1.5 md:inline-flex"
           :aria-label="t('journal.name')"
         >
           <img :src="JOURNAL.logo" alt="" width="150" height="91" loading="eager" class="h-9 w-auto transition-transform duration-200 group-hover:scale-105">

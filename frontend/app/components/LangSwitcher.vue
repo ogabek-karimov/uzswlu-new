@@ -22,14 +22,14 @@ const current = computed(() => locales.value.find(l => l.code === locale.value))
       class="flex items-center gap-1.5 font-semibold transition-colors"
       :class="props.variant === 'dark'
         ? ['rounded-md px-2 py-1 text-[13px] text-white/85 hover:bg-white/10 hover:text-white', open && 'bg-white/10 text-white']
-        : ['h-10 rounded-full px-3 text-sm text-ink/85 hover:bg-brand-50 hover:text-ink', open && 'bg-brand-50 text-ink']"
+        : ['h-11 rounded-full px-3.5 text-[16px] text-ink/85 hover:bg-brand-50 hover:text-ink', open && 'bg-brand-50 text-ink']"
       :aria-expanded="open"
       aria-haspopup="true"
       aria-controls="lang-menu"
       :aria-label="`${t('topbar.language')}: ${current?.name}`"
       @click="open = !open"
     >
-      <LangFlag :code="locale" class="size-[18px]" />
+      <LangFlag :code="locale" :class="props.variant === 'dark' ? 'size-[18px]' : 'size-[22px]'" />
       {{ labels[locale] }}
       <Icon name="lucide:chevron-down" class="size-3.5 opacity-70 transition-transform duration-200" :class="open && 'rotate-180'" />
     </button>

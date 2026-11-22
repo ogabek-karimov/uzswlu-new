@@ -9,6 +9,17 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const playing = ref(false)
 
+// «Universitet haqida» kartasi ekranda ko'rinib turganda — davriy yaltirash (main.css: .shine-loop.is-in-view); ekrandan chiqsa to'xtaydi
+const aboutCard = ref<HTMLElement>()
+const aboutInView = ref(false)
+let aboutObserver: IntersectionObserver | undefined
+onMounted(() => {
+  if (!aboutCard.value || !('IntersectionObserver' in window)) return
+  aboutObserver = new IntersectionObserver(([e]) => (aboutInView.value = !!e?.isIntersecting), { threshold: 0.5 })
+  aboutObserver.observe(aboutCard.value)
+})
+onBeforeUnmount(() => aboutObserver?.disconnect())
+
 // Tartib: fakultet → akademik xodim → kafedra → talaba. Ikonkalar ma'nosi original saytdagidek (qalam, kurs, sertifikat, bitiruvchi).
 const FACTS = [
   { key: 'faculties', icon: 'lucide:pencil-ruler', tile: 'bg-accent-400 text-brand-950', glow: 'bg-accent-400/25' },
@@ -45,12 +56,13 @@ const facts = computed(() => FACTS.flatMap((fact) => {
     </dl>
 
     <div class="mt-8 grid gap-6 lg:auto-rows-[minmax(25rem,auto)] lg:grid-cols-12">
-      <!-- Universitet haqida -->
-      <article data-reveal-item class="group/about relative flex flex-col overflow-hidden rounded-[28px] border border-line bg-white p-8 transition duration-300 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_var(--color-brand-700)] sm:p-9 lg:col-span-5 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
-        <span class="pointer-events-none absolute -top-16 -right-16 size-48 rounded-full bg-brand-100 opacity-0 blur-2xl transition-opacity duration-500 group-hover/about:opacity-100" aria-hidden="true" />
-        <h2 class="section-title section-title-plain font-display text-4xl leading-[1.1] font-semibold sm:text-[2.6rem]">{{ t('about.title') }}</h2>
-        <p class="mt-4 text-[17px] leading-relaxed text-muted">{{ t('about.text') }}</p>
-        <NuxtLink :to="localePath('/universitet-haqida')" class="group mt-6 inline-flex items-center gap-1.5 self-start font-semibold text-brand-600 hover:text-brand-800">
+      <!-- Universitet haqida: shisha karta — hover'da ko'tariladi, ustidan yaltiroq nur o'tadi, ortidagi iliq (oltin) va osmon rang yog'du kuchayadi, binafsha yo'q (matn ortida, yopmaydi) -->
+      <article ref="aboutCard" data-reveal-item :class="aboutInView && 'is-in-view'" class="shine shine-tint shine-loop group/about relative isolate flex flex-col overflow-hidden rounded-[28px] border border-white/80 bg-[linear-gradient(150deg,rgb(255_255_255/0.96),rgb(250_248_244/0.9)_60%,rgb(246_241_232/0.85))] p-8 shadow-[0_20px_44px_-34px_rgb(19_17_47/0.4),inset_0_1px_0_rgb(255_255_255/0.9)] backdrop-blur-md transition duration-500 hover:-translate-y-1 hover:border-[#e7ddc8] hover:shadow-[0_36px_70px_-38px_rgb(19_17_47/0.5),inset_0_1px_0_rgb(255_255_255/0.9)] sm:p-9 lg:col-span-5 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+        <span class="pointer-events-none absolute -top-20 -right-16 -z-10 size-56 rounded-full bg-[rgb(255_196_110/0.28)] blur-3xl transition duration-700 group-hover/about:scale-125 group-hover/about:bg-[rgb(255_196_110/0.42)]" aria-hidden="true" />
+        <span class="pointer-events-none absolute -bottom-24 -left-20 -z-10 size-56 rounded-full bg-[rgb(125_190_255/0.18)] blur-3xl transition duration-700 group-hover/about:scale-125 group-hover/about:bg-[rgb(125_190_255/0.3)]" aria-hidden="true" />
+        <h2 class="section-title section-title-plain relative font-display text-4xl leading-[1.1] font-semibold sm:text-[2.6rem]">{{ t('about.title') }}</h2>
+        <p class="relative mt-4 text-[17px] leading-relaxed text-muted">{{ t('about.text') }}</p>
+        <NuxtLink :to="localePath('/universitet-haqida')" class="group relative mt-6 inline-flex items-center gap-1.5 self-start rounded-full border border-ink/15 bg-white/70 px-4 py-2 font-semibold text-ink backdrop-blur transition hover:border-ink/40 hover:bg-white">
           {{ t('about.link') }}
           <Icon name="lucide:arrow-right" class="size-4 transition-transform group-hover:translate-x-1" />
         </NuxtLink>

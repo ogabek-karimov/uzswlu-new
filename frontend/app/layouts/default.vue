@@ -17,6 +17,8 @@ const { t } = useI18n()
     </main>
     <TheFooter />
     <SocialDock />
+    <!-- Sayt ochilganda/yangilanganda bir marta: «Biz bilan boğlaniş» qo'ng'iroq tugmasi -->
+    <ClientOnly><CallPop /></ClientOnly>
     <A11ySpeechBar />
   </div>
 </template>

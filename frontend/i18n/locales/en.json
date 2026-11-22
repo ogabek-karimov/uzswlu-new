@@ -1015,5 +1015,8 @@
   },
   "map": {
     "activate": "Click to use the map"
+  },
+  "callPop": {
+    "label": "Contact us"
   }
 }

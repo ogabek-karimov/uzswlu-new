@@ -11,8 +11,8 @@ const localePath = useLocalePath()
 </script>
 
 <template>
-  <!-- Fon: kampus surati (sekin yaqinlashadi, Ken Burns) + indigo qatlam; tepa va pastda to'lqin; kartalar — shisha -->
-  <section class="section-wave relative isolate overflow-hidden bg-brand-600">
+  <!-- Fon: kampus surati (sekin yaqinlashadi, Ken Burns) + indigo qatlam; yumaloq burchakli panel (ekran chetidan ichkarida); kartalar — shisha -->
+  <section class="relative isolate overflow-hidden bg-brand-600 mx-3 rounded-[40px] sm:mx-5 lg:mx-8">
     <img
       src="/images/main-building.webp"
       alt=""
@@ -24,10 +24,8 @@ const localePath = useLocalePath()
     >
     <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[linear-gradient(160deg,rgb(70_55_163/0.6)_0%,rgb(91_75_190/0.3)_50%,rgb(106_91_208/0.6)_100%)]" />
 
-    <HomeWave flip class="text-paper" />
-    <HomeWave class="text-paper" />
 
-    <div class="mx-auto max-w-7xl px-4 pt-16 pb-16 sm:px-6 lg:px-8 lg:pt-24 lg:pb-20">
+    <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
       <SectionHeading
         :eyebrow="t('faculties.eyebrow')"
         :title="t('faculties.title')"
