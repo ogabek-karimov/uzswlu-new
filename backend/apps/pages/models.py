@@ -31,6 +31,22 @@ class Page(models.Model):
     in_menu = models.BooleanField('Menyuda ko‘rsatish', default=True)
     published = models.BooleanField('Nashr qilingan', default=True, db_index=True)
     highlight = models.BooleanField('Ajratib ko‘rsatish', default=False)
+    show_units = models.BooleanField('Matndan keyin bo‘limlar kartalari', default=False, help_text='admin → Bo‘limlar ro‘yxati (surat, F.I.Sh., lavozim, telefon)')
+    staff_department = models.CharField('Matndan oldin bo‘lim xodimlari (HEMIS bo‘limi)', max_length=64, blank=True,
+                                        help_text='HEMIS bo‘limi ID — xodimlari saytga HEMIS orqali kirgach sahifada avtomatik chiqadi (Staff kabi)')
+    staff_extra = models.JSONField('Qo‘shimcha xodimlar (HEMIS ID)', default=list, blank=True,
+                                   help_text='Zaxira: admin HEMIS ro‘yxatidan qo‘lda qo‘shgan xodimlar — bo‘lim xodimlaridan keyin chiqadi')
+    staff_contacts = models.JSONField('Xodimlar telefoni / e-pochtasi', default=dict, blank=True,
+                                      help_text='{HEMIS ID: {"phone": "…", "email": "…"}} — kartada ko‘rinadi')
+    staff_hours = I18nField('Qabul kunlari (xodimlar kartasida)')
+    cta_title = I18nField('Chaqiruv bloki: sarlavha')
+    cta_text = I18nField('Chaqiruv bloki: matn', multiline=True)
+    cta_label = I18nField('Chaqiruv bloki: tugma yozuvi')
+    cta_url = models.CharField('Chaqiruv bloki: havola', max_length=500, blank=True,
+                               help_text='Matndan keyin animatsiyali blok; havola va tugma yozuvi bo‘lsa ko‘rinadi')
+    doc_style = models.BooleanField('Hujjat uslubi', default=False, help_text='Matn Times New Roman shriftida, sarlavhalar markazda (rasmiy hujjat ko‘rinishi)')
+    show_rector = models.BooleanField('Matndan keyin rektor kartasi', default=False,
+                                      help_text='Rektor surati va ma’lumoti — admin → Rahbariyat’dan avtomatik (rektor almashsa sahifa o‘zi yangilanadi)')
     lead = I18nField('Kirish matni', multiline=True)
     body = I18nField('Matn (HTML)', multiline=True, help_text='Vaqt chizig‘i joyi: <!-- timeline -->')
     order = models.PositiveIntegerField('Tartib', default=0, db_index=True)

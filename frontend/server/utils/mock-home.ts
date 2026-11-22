@@ -13,11 +13,11 @@ const faculties: { slug: string; name: L }[] = [
   { slug: 'english-3', name: { uz: 'Ingliz tili №3 fakulteti', ru: 'Факультет английского языка №3', en: 'Faculty of English Language No. 3', zh: '第三英语学院' } },
   { slug: 'russian-philology', name: { uz: 'Rus filologiyasi fakulteti', ru: 'Факультет русской филологии', en: 'Faculty of Russian Philology', zh: '俄语语文学院' } },
   { slug: 'romance-germanic', name: { uz: 'Roman-german filologiyasi fakulteti', ru: 'Факультет романо-германской филологии', en: 'Faculty of Romance and Germanic Philology', zh: '罗曼-日耳曼语文学院' } },
-  { slug: 'oriental-philology', name: { uz: 'Sharq filologiyasi fakulteti', ru: 'Факультет восточной филологии', en: 'Faculty of Oriental Philology', zh: '东方语文学院' } },
+  { slug: 'oriental-philology', name: { uz: 'Şarq filologiyasi fakulteti', ru: 'Факультет восточной филологии', en: 'Faculty of Oriental Philology', zh: '东方语文学院' } },
   { slug: 'international-journalism', name: { uz: 'Xalqaro jurnalistika fakulteti', ru: 'Факультет международной журналистики', en: 'Faculty of International Journalism', zh: '国际新闻学院' } },
   { slug: 'translation', name: { uz: 'Tarjimonlik fakulteti', ru: 'Переводческий факультет', en: 'Faculty of Translation', zh: '翻译学院' } },
-  { slug: 'distance-evening', name: { uz: 'Sirtqi va kechki ta’lim fakulteti', ru: 'Факультет заочного и вечернего обучения', en: 'Faculty of Distance and Evening Education', zh: '函授与夜间教育学院' } },
-  { slug: 'joint-programs', name: { uz: 'Qo‘shma ta’lim dasturlarini muvofiqlashtirish bo‘limi', ru: 'Отдел координации совместных образовательных программ', en: 'Joint Programmes Coordination Office', zh: '合作办学项目协调处' } },
+  { slug: 'distance-evening', name: { uz: 'Sirtqi va keçki ta’lim fakulteti', ru: 'Факультет заочного и вечернего обучения', en: 'Faculty of Distance and Evening Education', zh: '函授与夜间教育学院' } },
+  { slug: 'joint-programs', name: { uz: 'Qöşma ta’lim dasturlarini muvofiqlaştiriş bölimi', ru: 'Отдел координации совместных образовательных программ', en: 'Joint Programmes Coordination Office', zh: '合作办学项目协调处' } },
 ]
 
 // Karusel bannerlari uzswlu.uz'dan olingan (1920px WebP'ga siqilgan): public/slides/
@@ -69,23 +69,23 @@ const partners: { logo: string; name: L }[] = [
 const campuses: { id: string; name: L; address: L }[] = [
   {
     id: 'main',
-    name: { uz: 'Bosh bino', ru: 'Главный корпус', en: 'Main building', zh: '主楼' },
-    address: { uz: 'Toshkent sh., Kichik halqa yo‘li ko‘chasi, G9-A, 21-uy', ru: 'г. Ташкент, ул. Кичик халка йули, G9-A, д. 21', en: '21 Kichik Halqa Yo‘li St, G9-A, Tashkent', zh: '塔什干市 Kichik Halqa Yo‘li 街 G9-A 21号' },
+    name: { uz: 'Boş bino', ru: 'Главный корпус', en: 'Main building', zh: '主楼' },
+    address: { uz: 'Toşkent ş., Kiçik halqa yöli köçasi, G9-A, 21-uy', ru: 'г. Ташкент, ул. Кичик халка йули, G9-A, д. 21', en: '21 Kichik Halqa Yo‘li St, G9-A, Tashkent', zh: '塔什干市 Kichik Halqa Yo‘li 街 G9-A 21号' },
   },
   {
     id: 'philology',
     name: { uz: 'Filologiya fakulteti', ru: 'Факультет филологии', en: 'Philology building', zh: '语文学院楼' },
-    address: { uz: 'Toshkent sh., Uchtepa tumani, Zakovat ko‘chasi, 4', ru: 'г. Ташкент, Учтепинский р-н, ул. Заковат, 4', en: '4 Zakovat St, Uchtepa district, Tashkent', zh: '塔什干市 Uchtepa 区 Zakovat 街4号' },
+    address: { uz: 'Toşkent ş., Uçtepa tumani, Zakovat köçasi, 4', ru: 'г. Ташкент, Учтепинский р-н, ул. Заковат, 4', en: '4 Zakovat St, Uchtepa district, Tashkent', zh: '塔什干市 Uchtepa 区 Zakovat 街4号' },
   },
   {
     id: 'journalism',
     name: { uz: 'Xalqaro jurnalistika', ru: 'Международная журналистика', en: 'International Journalism', zh: '国际新闻学院楼' },
-    address: { uz: 'Toshkent sh., Chilonzor tumani, Lutfiy ko‘chasi, 8', ru: 'г. Ташкент, Чиланзарский р-н, ул. Лутфий, 8', en: '8 Lutfiy St, Chilanzar district, Tashkent', zh: '塔什干市 Chilonzor 区 Lutfiy 街8号' },
+    address: { uz: 'Toşkent ş., Çilonzor tumani, Lutfiy köçasi, 8', ru: 'г. Ташкент, Чиланзарский р-н, ул. Лутфий, 8', en: '8 Lutfiy St, Chilanzar district, Tashkent', zh: '塔什干市 Chilonzor 区 Lutfiy 街8号' },
   },
   {
     id: 'russian',
     name: { uz: 'Rus filologiyasi', ru: 'Русская филология', en: 'Russian Philology', zh: '俄语语文学院楼' },
-    address: { uz: 'Toshkent sh., Chilonzor tumani, Muqimiy ko‘chasi, 104', ru: 'г. Ташкент, Чиланзарский р-н, ул. Мукими, 104', en: '104 Muqimiy St, Chilanzar district, Tashkent', zh: '塔什干市 Chilonzor 区 Muqimiy 街104号' },
+    address: { uz: 'Toşkent ş., Çilonzor tumani, Muqimiy köçasi, 104', ru: 'г. Ташкент, Чиланзарский р-н, ул. Мукими, 104', en: '104 Muqimiy St, Chilanzar district, Tashkent', zh: '塔什干市 Chilonzor 区 Muqimiy 街104号' },
   },
 ]
 

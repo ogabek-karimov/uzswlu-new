@@ -3,9 +3,11 @@ import { computed, onMounted, reactive, ref } from 'vue'
 import { api, type I18n, type MediaDoc, type Paginated, uploadMedia } from '@/lib/api'
 import { LANGS, type Lang, PDF_MODES, SITE_URL } from '@/lib/constants'
 import { fileSize } from '@/lib/format'
+import AlphabetButton from '@/components/AlphabetButton.vue'
 import Icon from '@/components/Icon.vue'
 import I18nFields from '@/components/I18nFields.vue'
 import MediaPicker from '@/components/MediaPicker.vue'
+import PageStaffField from '@/components/PageStaffField.vue'
 import PdfSlot from '@/components/PdfSlot.vue'
 import RichEditor from '@/components/RichEditor.vue'
 import VideoTourCard from '@/components/VideoTourCard.vue'
@@ -16,7 +18,7 @@ type Template = 'group' | 'text' | 'special' | 'link'
 type Att = { file?: MediaDoc | number | null; url?: string | null; title: I18n; meta?: I18n; display: 'embed' | 'open' | 'download' | 'link'; height?: number | null }
 type Page = {
   id: number; title: I18n; template: Template; parent?: number | { id: number } | null; slug?: string | null; url?: string | null; file?: MediaDoc | number | null
-  groupKey?: string | null; description?: I18n; overview?: string | null; sdg?: number | null; inMenu?: boolean; published?: boolean; highlight?: boolean
+  groupKey?: string | null; description?: I18n; overview?: string | null; sdg?: number | null; inMenu?: boolean; published?: boolean; highlight?: boolean; showRector?: boolean; showUnits?: boolean; staffDepartment?: string; staffExtra?: string[]; staffContacts?: Record<string, { phone?: string; email?: string }>; staffHours?: I18n; ctaTitle?: I18n; ctaText?: I18n; ctaLabel?: I18n; ctaUrl?: string; docStyle?: boolean
   lead?: I18n; body?: I18n; facts?: { value: string; label: I18n }[]; timeline?: { label: I18n; text: I18n; highlight?: boolean }[]; attachments?: Att[]; order?: number | null
 }
 
@@ -87,7 +89,7 @@ function toggle(id: number) {
 // Tahrirlash formasi
 const blank = () => ({
   title: {} as I18n, template: 'text' as Template, parent: null as number | null, slug: '', url: '', file: null as MediaDoc | null, groupKey: '',
-  description: {} as I18n, overview: '', sdg: 0, inMenu: true, published: true, highlight: false,
+  description: {} as I18n, overview: '', sdg: 0, inMenu: true, published: true, highlight: false, showRector: false, showUnits: false, staffDepartment: '', staffExtra: [] as string[], staffContacts: {} as Record<string, { phone?: string; email?: string }>, staffHours: {} as I18n, ctaTitle: {} as I18n, ctaText: {} as I18n, ctaLabel: {} as I18n, ctaUrl: '', docStyle: false,
   lead: {} as I18n, body: {} as I18n, facts: [] as { value: string; label: I18n }[], timeline: [] as { label: I18n; text: I18n; highlight: boolean }[], attachments: [] as Att[],
 })
 const form = reactive(blank())
@@ -104,7 +106,7 @@ function pick(id: number) {
   for (let x = pid(p); x; x = pid(byId(x)!)) open.value.add(x)
   Object.assign(form, blank(), {
     title: { ...p.title }, template: p.template, parent: pid(p), slug: p.slug ?? '', url: p.url ?? '', file: obj(p.file), groupKey: p.groupKey ?? '',
-    description: { ...(p.description ?? {}) }, overview: p.overview ?? '', sdg: p.sdg ?? 0, inMenu: p.inMenu !== false, published: p.published !== false, highlight: !!p.highlight,
+    description: { ...(p.description ?? {}) }, overview: p.overview ?? '', sdg: p.sdg ?? 0, inMenu: p.inMenu !== false, published: p.published !== false, highlight: !!p.highlight, showRector: !!p.showRector, showUnits: !!p.showUnits, staffDepartment: p.staffDepartment ?? '', staffExtra: [...(p.staffExtra ?? [])], staffContacts: { ...(p.staffContacts ?? {}) }, staffHours: { ...(p.staffHours ?? {}) }, ctaTitle: { ...(p.ctaTitle ?? {}) }, ctaText: { ...(p.ctaText ?? {}) }, ctaLabel: { ...(p.ctaLabel ?? {}) }, ctaUrl: p.ctaUrl ?? '', docStyle: !!p.docStyle,
     lead: { ...(p.lead ?? {}) }, body: { ...(p.body ?? {}) },
     facts: (p.facts ?? []).map(f => ({ value: f.value, label: { ...f.label } })),
     timeline: (p.timeline ?? []).map(t => ({ label: { ...t.label }, text: { ...t.text }, highlight: !!t.highlight })),
@@ -147,7 +149,7 @@ async function save() {
   const data = {
     title: form.title, template: form.template, parent: form.parent, slug: form.slug.trim() || null, url: form.url.trim() || null, file: form.file?.id ?? null,
     groupKey: form.groupKey.trim() || null, description: form.description, overview: form.overview.trim() || null, sdg: form.sdg || null,
-    inMenu: form.inMenu, published: form.published, highlight: form.highlight,
+    inMenu: form.inMenu, published: form.published, highlight: form.highlight, showRector: form.showRector, showUnits: form.showUnits, staffDepartment: form.staffDepartment.trim(), staffExtra: form.staffExtra, staffContacts: form.staffContacts, staffHours: form.staffHours, ctaTitle: form.ctaTitle, ctaText: form.ctaText, ctaLabel: form.ctaLabel, ctaUrl: form.ctaUrl.trim(), docStyle: form.docStyle,
     lead: form.lead, body: form.body, facts: form.facts.filter(f => f.value.trim()), timeline: form.timeline,
     attachments: form.attachments.map(a => ({ file: obj(a.file)?.id ?? (typeof a.file === 'number' ? a.file : null), url: a.url?.trim() || null, title: a.title, meta: a.meta, display: a.display, height: a.height })),
   }
@@ -274,6 +276,8 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
             </div>
           </div>
           <div class="mt-[18px]"><I18nFields v-model="form.title" label="Nomi" required :placeholders="{ zh: '中文名称' }" /></div>
+          <!-- Nomi, tavsif, kiriş matni va sahifa matnining özbekçasi — bir bosişda yangi alifboga -->
+          <AlphabetButton class="mt-3.5" :target="form" />
           <div class="mt-3 grid gap-3 sm:grid-cols-3">
             <div v-if="form.template === 'text' || form.template === 'group'">
               <label for="pg-slug" class="label">Manzil</label>
@@ -296,7 +300,25 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
             <label class="flex items-center gap-2.5"><ToggleSwitch v-model="form.inMenu" label="Menyuda körsatiş" />Menyuda körsatiş</label>
             <label class="flex items-center gap-2.5"><ToggleSwitch v-model="form.published" label="Naşr qilingan" />Naşr qilingan</label>
             <label v-if="form.template !== 'group'" class="flex items-center gap-2.5"><ToggleSwitch v-model="form.highlight" label="Menyuda ajratib körsatiş" />Ajratib körsatiş</label>
+            <label v-if="form.template === 'text'" class="flex items-center gap-2.5" title="Rektor surati va ma’lumoti «Rahbariyat» bölimidan avtomatik olinadi — rektor almashsa sahifa özi yangilanadi"><ToggleSwitch v-model="form.showRector" label="Matndan keyin rektor kartasi" />Matndan keyin rektor kartasi</label>
+            <label v-if="form.template === 'text'" class="flex items-center gap-2.5" title="Kartalar «Bölimlar» bölimidan (surat, F.I.Sh., lavozim, telefon)"><ToggleSwitch v-model="form.showUnits" label="Matndan keyin bölimlar kartalari" />Bölimlar kartalari</label>
+            <label v-if="form.template === 'text'" class="flex items-center gap-2.5" title="Times New Roman shrifti, sarlavhalar markazda — rasmiy hujjat (tarix, nizom) uçun"><ToggleSwitch v-model="form.docStyle" label="Hujjat uslubi" />Hujjat uslubi (Times New Roman)</label>
           </div>
+          <PageStaffField v-if="form.template === 'text'" v-model:department="form.staffDepartment" v-model:extra="form.staffExtra" v-model:contacts="form.staffContacts" v-model:hours="form.staffHours" class="mt-4" />
+          <!-- Matndan keyin animatsiyali chaqiruv bloki (masalan, ARM → uzlib.uz) -->
+          <fieldset v-if="form.template === 'text'" class="mt-4 rounded-2xl border border-line bg-[#FAF9FD] px-4 py-3.5">
+            <legend class="px-1 text-sm font-bold">Chaqiruv bloki <span class="font-normal text-muted">(matndan keyin, animatsiyali tugma)</span></legend>
+            <div>
+              <label for="pg-cta-url" class="label">Havola</label>
+              <input id="pg-cta-url" v-model="form.ctaUrl" class="field" placeholder="https://uzlib.uz/ yoki /sahifa-manzili">
+              <p class="mt-1 text-xs text-muted">Havola va tugma yozuvi kiritilsa — blok saytda çiqadi; böş qolsa körinmaydi. Taşqi sayt yangi oynada oçiladi.</p>
+            </div>
+            <div class="mt-3.5 grid gap-3.5">
+              <I18nFields v-model="form.ctaTitle" label="Sarlavha" layout="rows" />
+              <I18nFields v-model="form.ctaText" label="Matn" textarea :rows="2" />
+              <I18nFields v-model="form.ctaLabel" label="Tugma yozuvi" layout="rows" />
+            </div>
+          </fieldset>
           <p v-if="error" class="mt-3 rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-800">{{ error }}</p>
           <p v-else-if="saved" class="mt-3 rounded-xl bg-[#DDFBF0] px-3.5 py-2.5 text-sm text-[#0B5A43]">Saqlandi — sayt menyusi va sahifa yangilandi.</p>
         </section>

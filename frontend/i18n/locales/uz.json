@@ -14,7 +14,7 @@
     "news": "Yangiliklar",
     "contact": "Aloqa",
     "search": "Qidiruv",
-    "admission": "Qabul 2026",
+    "admission": "Qabul {year}",
     "menu": "Menyu",
     "close": "Yopiş",
     "more": "Yana",
@@ -70,7 +70,7 @@
       "title": "Abituriyentlarga",
       "desc": "Qabul, yönalişlar, kontrakt va grantlar haqida kerakli hamma narsa.",
       "items": {
-        "admission": "Qabul 2026/2027",
+        "admission": "Qabul {year}",
         "bachelor": "Bakalavriat yönalişlari",
         "master": "Magistratura",
         "phd": "Doktorantura (PhD)",
@@ -95,7 +95,7 @@
       }
     },
     "promo": {
-      "title": "Qabul 2026/2027",
+      "title": "Qabul {year}",
       "text": "Bakalavriat, magistratura va qöşma dasturlarga hujjatlar qabuli.",
       "cta": "Batafsil"
     }
@@ -113,7 +113,7 @@
     "title1": "Tillar —",
     "title2": "dunyoga oçilgan eşik",
     "text": "Xorijiy tillar, filologiya, tarjimonlik va xalqaro jurnalistika böyiça mutaxassislar tayyorlaydigan universitet.",
-    "ctaPrimary": "Qabul 2026/2027",
+    "ctaPrimary": "Qabul {year}",
     "ctaSecondary": "Ta’lim yönalişlari",
     "searchLabel": "Sayt böyiça qidiriş",
     "searchPlaceholder": "Masalan: kontrakt narxi, dars jadvali…",
@@ -131,7 +131,7 @@
   "reception": {
     "title": "Virtual qabulxona",
     "lead": "Rektor va universitet rahbariyatiga masofadan murojaat yuborişning rasmiy usuli.",
-    "stepsTitle": "Murojaat qanday ko‘rib çiqiladi",
+    "stepsTitle": "Murojaat qanday körib çiqiladi",
     "rulesTitle": "Yuborişdan oldin",
     "phone": "Qabulxona telefoni",
     "hotline": "Işonç telefoni",
@@ -143,15 +143,15 @@
       },
       {
         "title": "Raqam oling",
-        "text": "Yuborilgandan so‘ng murojaatingizga raqam beriladi — uni saqlab qo‘ying."
+        "text": "Yuborilgandan söng murojaatingizga raqam beriladi — uni saqlab qöying."
       },
       {
-        "title": "Ko‘rib çiqiş",
-        "text": "Murojaat tegişli bo‘limga yo‘naltiriladi va qonunçilikda belgilangan muddatda (odatda 15 kun içida) ko‘rib çiqiladi."
+        "title": "Körib çiqiş",
+        "text": "Murojaat tegişli bölimga yönaltiriladi va qonunçilikda belgilangan muddatda (odatda 15 kun içida) körib çiqiladi."
       },
       {
         "title": "Javob oling",
-        "text": "Javob siz ko‘rsatgan e-poçta yoki telefon orqali yetkaziladi."
+        "text": "Javob siz körsatgan e-poçta yoki telefon orqali yetkaziladi."
       }
     ],
     "rules": [
@@ -165,24 +165,24 @@
     "title": "Korporativ poçta",
     "lead": "Universitet xodimlari uçun rasmiy elektron poçta xizmati.",
     "open": "Poçtaga kiriş",
-    "openHint": "Yangi oynada webmail.uzswlu.uz ochiladi",
+    "openHint": "Yangi oynada webmail.uzswlu.uz oçiladi",
     "accessTitle": "Kirişning tartibi",
-    "rulesTitle": "Foydalanish qoidalari",
+    "rulesTitle": "Foydalaniş qoidalari",
     "helpTitle": "Yordam kerakmi?",
-    "helpText": "Kiriş yoki parol bilan muammo bo‘lsa, AKT markaziga murojaat qiling.",
+    "helpText": "Kiriş yoki parol bilan muammo bölsa, AKT markaziga murojaat qiling.",
     "helpCta": "Aloqa sahifasi",
     "access": [
       {
         "title": "Login",
-        "text": "To‘liq manzilingizni yozing: ismingiz{'@'}uzswlu.uz."
+        "text": "Töliq manzilingizni yozing: ismingiz{'@'}uzswlu.uz."
       },
       {
         "title": "Parol",
-        "text": "Birinçi kirişda berilgan vaqtinçalik parolni almaştiring. Parol kamida 8 ta belgi bo‘lsin: harf, raqam va belgi aralaş."
+        "text": "Birinçi kirişda berilgan vaqtinçalik parolni almaştiring. Parol kamida 8 ta belgi bölsin: harf, raqam va belgi aralaş."
       },
       {
         "title": "Qurilmalar",
-        "text": "Poçtaga brauzer orqali yoki telefon/kompyuterdagi poçta dasturi (IMAP/SMTP) orqali ulanish mumkin; sozlamalarni AKT markazidan so‘rang."
+        "text": "Poçtaga brauzer orqali yoki telefon/kompyuterdagi poçta dasturi (IMAP/SMTP) orqali ulaniş mumkin; sozlamalarni AKT markazidan sörang."
       }
     ],
     "rules": [
@@ -211,7 +211,7 @@
     },
     "videoLabel": "Video tur",
     "videoTitle": "Universitet böylab 3 daqiqalik sayohat",
-    "videoSoon": "Video tez orada qo‘shiladi"
+    "videoSoon": "Video tez orada qöşiladi"
   },
   "stats": {
     "faculties": "Fakultetlar",
@@ -270,7 +270,7 @@
   },
   "admission": {
     "eyebrow": "Abituriyentlarga",
-    "title": "Qabul 2026/2027",
+    "title": "Qabul {year}",
     "text": "Bakalavriat, magistratura va doktoranturaga hujjat topşiriş bosqiçlari.",
     "steps": {
       "s1": {
@@ -291,7 +291,10 @@
       }
     },
     "cta": "Ariza topşiriş",
-    "ctaSecondary": "Kontrakt narxlari"
+    "ctaSecondary": "Kontrakt narxlari",
+    "archiveNote": "{year} öquv yili qabul ma’lumotlari — arxiv. Joriy qabul haqida ma’lumot uçun bosing.",
+    "current": "Joriy qabul",
+    "previousYears": "Oldingi yillar"
   },
   "footer": {
     "about": "Xorijiy tillar, filologiya, tarjimonlik va xalqaro jurnalistika böyiça oliy ta’lim muassasasi.",
@@ -518,15 +521,15 @@
     "role": {
       "dean": "Dekan",
       "chair_head": "Kafedra mudiri",
-      "teacher": "Öqituvchi",
+      "teacher": "Öqituvçi",
       "staff": "Xodim",
       "student": "Talaba"
     },
     "roleDesc": {
-      "dean": "Fakultetingiz ko‘rsatkichlari va kafedralaringiz bir joyda.",
+      "dean": "Fakultetingiz körsatkiçlari va kafedralaringiz bir joyda.",
       "chair_head": "Kafedrangiz xodimlari va ularning sahifalari.",
-      "teacher": "Shaxsiy sahifangiz, hujjatlaringiz va ilmiy havolalaringiz.",
-      "staff": "Shaxsiy sahifangiz va aloqa ma’lumotlaringiz.",
+      "teacher": "Şaxsiy sahifangiz, hujjatlaringiz va ilmiy havolalaringiz.",
+      "staff": "Şaxsiy sahifangiz va aloqa ma’lumotlaringiz.",
       "student": "Talaba kabineti."
     },
     "tasks": {
@@ -534,7 +537,7 @@
       "desc": "Sizga berilgan vazifalar va siz bergan topşiriqlar.",
       "mine": "Menga berilgan",
       "given": "Men bergan",
-      "empty": "Hozircha vazifa yöq.",
+      "empty": "Hozirça vazifa yöq.",
       "emptyGiven": "Hali heç kimga topşiriq bermagansiz.",
       "add": "Vazifa qöşiş",
       "who": "Kimga",
@@ -558,7 +561,7 @@
       "title": "Sizning panelingiz",
       "openFaculty": "Fakultet sahifasi",
       "students": "Talabalar",
-      "teachers": "Öqituvchilar",
+      "teachers": "Öqituvçilar",
       "departments": "Kafedralar",
       "programs": "Yönalişlar",
       "chairs": "Kafedralar",
@@ -566,7 +569,7 @@
       "team": "Kafedra xodimlari",
       "empty": "Ma’lumot topilmadi",
       "myPage": "Mening sahifam",
-      "studentSoon": "Talaba kabineti tez orada ishga tüşadi: buning uçun HEMIS talaba kirişi ulanadi."
+      "studentSoon": "Talaba kabineti tez orada işga tuşadi: buning uçun HEMIS talaba kirişi ulanadi."
     }
   },
   "page": {
@@ -584,7 +587,14 @@
     "next": "Keyingi sahifa",
     "first": "Bölimning birinçi sahifasi",
     "last": "Bölimning oxirgi sahifasi",
-    "download": "Yuklab oliş"
+    "download": "Yuklab oliş",
+    "rectorNow": "Universitet rektori",
+    "rectorMore": "Rektorat sahifasi",
+    "staffPhone": "Telefon",
+    "staffHours": "Qabul kunlari",
+    "ctaNewTab": "yangi oynada oçiladi",
+    "staffTitle": "Xodimlar",
+    "unitStaff": "{n} ta xodim"
   },
   "posts": {
     "title": "Universitet hayoti",
@@ -617,7 +627,7 @@
     "allNews": "Barça yangiliklar",
     "related": "Öxşaş yangiliklar",
     "zoom": "Kattalaştiriş",
-    "viewer": "Suratni körish",
+    "viewer": "Suratni köriş",
     "prevImage": "Oldingi surat",
     "nextImage": "Keyingi surat",
     "closeViewer": "Yopiş",
@@ -911,7 +921,7 @@
       "error": "Murojaat yuborilmadi. Maydonlarni tekşirib, qayta urinib köring.",
       "lastName": "Familiya",
       "firstName": "Ism",
-      "middleName": "Otasining ismi (sharif)",
+      "middleName": "Otasining ismi (şarif)",
       "letters": "Yangi alifbo harflari",
       "insertLetter": "«{ch}» harfini qöşiş",
       "passport": "Pasport (ID-karta) seriyasi va raqami",
@@ -925,7 +935,7 @@
       }
     },
     "phones": "Rahbariyat va bölinmalar bilan aloqa",
-    "phonesSearch": "F.I.Sh., lavozim yoki raqam böyiça qidiriş",
+    "phonesSearch": "F.I.Ş., lavozim yoki raqam böyiça qidiriş",
     "phonesEmpty": "Heç narsa topilmadi",
     "prev": "Oldingi",
     "next": "Keyingi"
@@ -1001,8 +1011,8 @@
     "all": "Barça aloqa ma’lumotlari"
   },
   "buildings": {
-    "lead": "Universitetning öquv binolari: manzillari, telefon raqamlari va xaritadagi joylashuvi.",
-    "empty": "Hozircha binolar kiritilmagan."
+    "lead": "Universitetning öquv binolari: manzillari, telefon raqamlari va xaritadagi joylaşuvi.",
+    "empty": "Hozirça binolar kiritilmagan."
   },
   "social": {
     "title": "Ijtimoiy tarmoqlar",

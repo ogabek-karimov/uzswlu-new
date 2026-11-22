@@ -55,7 +55,7 @@
     },
     {
      "t": {
-      "uz": "Bo‘limlar",
+      "uz": "Bölimlar",
       "ru": "Отделы",
       "en": "Offices",
       "zh": "职能部门"
@@ -109,7 +109,7 @@
     },
     {
      "t": {
-      "uz": "Yoshlar ittifoqi boshlang‘ich tashkiloti",
+      "uz": "Yoşlar ittifoqi boşlanğiç taşkiloti",
       "ru": "Первичная организация Союза молодёжи",
       "en": "Youth Union",
       "zh": "青年联盟基层组织"
@@ -118,7 +118,7 @@
     },
     {
      "t": {
-      "uz": "O‘quv binolari",
+      "uz": "Öquv binolari",
       "ru": "Учебные корпуса",
       "en": "Academic Buildings",
       "zh": "教学楼"
@@ -136,7 +136,7 @@
     },
     {
      "t": {
-      "uz": "Innovatsion yechimlar",
+      "uz": "Innovatsion yeçimlar",
       "ru": "Инновационные решения",
       "en": "Innovative Solutions",
       "zh": "创新方案"
@@ -145,7 +145,7 @@
     },
     {
      "t": {
-      "uz": "O‘zbekiston–Xitoy II ta’lim forumi dasturi",
+      "uz": "Özbekiston–Xitoy II ta’lim forumi dasturi",
       "ru": "II Узбекско-китайский образовательный форум",
       "en": "2nd Uzbekistan–China Education Forum",
       "zh": "第二届乌中教育论坛"
@@ -154,7 +154,7 @@
     },
     {
      "t": {
-      "uz": "Ochiq eshiklar kunlari",
+      "uz": "Oçiq eşiklar kunlari",
       "ru": "Дни открытых дверей",
       "en": "Open Days",
       "zh": "开放日"
@@ -171,7 +171,7 @@
     "en": "Admissions",
     "zh": "招生"
    },
-   "overview": "/qabul-20262027",
+   "overview": "/qabul",
    "d": {
     "uz": "Qabul, yönalişlar, kontrakt va grantlar — kerakli hamma narsa.",
     "ru": "Приём, направления, стоимость и гранты — всё необходимое.",
@@ -181,7 +181,7 @@
    "links": [
     {
      "t": {
-      "uz": "Qo‘shma ta’lim dasturlari",
+      "uz": "Qöşma ta’lim dasturlari",
       "ru": "Совместные образовательные программы",
       "en": "Joint Programmes",
       "zh": "合作办学项目"
@@ -190,7 +190,7 @@
     },
     {
      "t": {
-      "uz": "Nima uchun bu universitet",
+      "uz": "Nima uçun bu universitet",
       "ru": "Почему наш университет",
       "en": "Why UzSWLU",
       "zh": "为什么选择我们"
@@ -199,7 +199,7 @@
     },
     {
      "t": {
-      "uz": "To‘lov-kontrakt shartnomalari",
+      "uz": "Tölov-kontrakt şartnomalari",
       "ru": "Договоры на платное обучение",
       "en": "Tuition Contracts",
       "zh": "学费合同"
@@ -217,16 +217,7 @@
     },
     {
      "t": {
-      "uz": "Bitiruvchilar klubi",
-      "ru": "Клуб выпускников",
-      "en": "Alumni Club",
-      "zh": "校友会"
-     },
-     "url": "/bitiruvchilar-klubi"
-    },
-    {
-     "t": {
-      "uz": "To‘lov-kontrakt miqdori",
+      "uz": "Tölov-kontrakt miqdori",
       "ru": "Стоимость обучения",
       "en": "Tuition Fees",
       "zh": "学费标准"
@@ -244,7 +235,7 @@
     },
     {
      "t": {
-      "uz": "Xalqaro talabalar va o‘qituvchilar uchun",
+      "uz": "Xalqaro talabalar va öqituvçilar uçun",
       "ru": "Иностранным студентам и преподавателям",
       "en": "International Students and Faculty",
       "zh": "国际学生与教师"
@@ -276,7 +267,7 @@
       "en": "Admission 2026/2027",
       "zh": "2026/2027招生"
      },
-     "url": "/qabul-20262027",
+     "url": "/qabul",
      "highlight": true
     },
     {
@@ -299,7 +290,7 @@
     },
     {
      "t": {
-      "uz": "Sharoitlar",
+      "uz": "Şaroitlar",
       "ru": "Условия",
       "en": "Conditions",
       "zh": "办学条件"
@@ -345,7 +336,7 @@
    "links": [
     {
      "t": {
-      "uz": "Korrupsiyaga qarshi kurashish",
+      "uz": "Korrupsiyaga qarşi kuraşiş",
       "ru": "Противодействие коррупции",
       "en": "Anti-Corruption",
       "zh": "反腐败"
@@ -354,7 +345,7 @@
     },
     {
      "t": {
-      "uz": "Yashil universitet",
+      "uz": "Yaşil universitet",
       "ru": "Зелёный университет",
       "en": "Green University",
       "zh": "绿色大学"
@@ -372,7 +363,7 @@
     },
     {
      "t": {
-      "uz": "Universitet bitiruvchilari haqida",
+      "uz": "Universitet bitiruvçilari haqida",
       "ru": "О выпускниках университета",
       "en": "About Our Graduates",
       "zh": "毕业生情况"
@@ -408,7 +399,7 @@
     },
     {
      "t": {
-      "uz": "O‘quv-uslubiy hujjatlar",
+      "uz": "Öquv-uslubiy hujjatlar",
       "ru": "Учебно-методические документы",
       "en": "Teaching Materials",
       "zh": "教学文件"
@@ -503,7 +494,7 @@
      "sdg": 1,
      "url": "/brm-1-ota-qashshoqlikka-barham-berish",
      "t": {
-      "uz": "O‘ta qashshoqlikka barham berish",
+      "uz": "Öta qaşşoqlikka barham beriş",
       "ru": "Ликвидация нищеты",
       "en": "No Poverty",
       "zh": "无贫穷"
@@ -513,7 +504,7 @@
      "sdg": 2,
      "url": "/brm-2-ochlikka-barham-berish",
      "t": {
-      "uz": "Ochlikka barham berish",
+      "uz": "Oçlikka barham beriş",
       "ru": "Ликвидация голода",
       "en": "Zero Hunger",
       "zh": "零饥饿"
@@ -523,7 +514,7 @@
      "sdg": 3,
      "url": "/brm-3-soglik-va-farovonlik",
      "t": {
-      "uz": "Sog‘lik va farovonlik",
+      "uz": "Soğlik va farovonlik",
       "ru": "Здоровье и благополучие",
       "en": "Good Health and Well-being",
       "zh": "良好健康与福祉"
@@ -573,7 +564,7 @@
      "sdg": 8,
      "url": "/brm-8-munosib-ish-orinlari-va-iqtisodiy-osish",
      "t": {
-      "uz": "Munosib ish o‘rinlari va iqtisodiy o‘sish",
+      "uz": "Munosib iş örinlari va iqtisodiy ösiş",
       "ru": "Достойная работа и экономический рост",
       "en": "Decent Work and Economic Growth",
       "zh": "体面工作和经济增长"
@@ -593,7 +584,7 @@
      "sdg": 10,
      "url": "/brm-10-tengsizlikni-kamaytirish",
      "t": {
-      "uz": "Tengsizlikni kamaytirish",
+      "uz": "Tengsizlikni kamaytiriş",
       "ru": "Уменьшение неравенства",
       "en": "Reduced Inequalities",
       "zh": "减少不平等"
@@ -603,7 +594,7 @@
      "sdg": 11,
      "url": "/brm-11-barqaror-shahrlar-va-aholi-yahash-joylari",
      "t": {
-      "uz": "Barqaror shaharlar va aholi yashash joylari",
+      "uz": "Barqaror şaharlar va aholi yaşaş joylari",
       "ru": "Устойчивые города и населённые пункты",
       "en": "Sustainable Cities and Communities",
       "zh": "可持续城市和社区"
@@ -613,7 +604,7 @@
      "sdg": 12,
      "url": "/brm-12-masuliyatli-istemol-va-ishlab-chiqarish",
      "t": {
-      "uz": "Mas’uliyatli iste’mol va ishlab chiqarish",
+      "uz": "Mas’uliyatli iste’mol va işlab çiqariş",
       "ru": "Ответственное потребление и производство",
       "en": "Responsible Consumption and Production",
       "zh": "负责任消费和生产"
@@ -623,7 +614,7 @@
      "sdg": 13,
      "url": "/brm-13-iqlim-ozgarishga-qarshi-kurashish",
      "t": {
-      "uz": "Iqlim o‘zgarishiga qarshi kurashish",
+      "uz": "Iqlim özgarişiga qarşi kuraşiş",
       "ru": "Борьба с изменением климата",
       "en": "Climate Action",
       "zh": "气候行动"
@@ -633,7 +624,7 @@
      "sdg": 14,
      "url": "/brm-14-dengiz-ekotizimlarini-asrash",
      "t": {
-      "uz": "Dengiz ekotizimlarini asrash",
+      "uz": "Dengiz ekotizimlarini asraş",
       "ru": "Сохранение морских экосистем",
       "en": "Life Below Water",
       "zh": "水下生物"
@@ -643,7 +634,7 @@
      "sdg": 15,
      "url": "/brm-15-quruqlikdagi-ekotizimlarni-asrash",
      "t": {
-      "uz": "Quruqlikdagi ekotizimlarni asrash",
+      "uz": "Quruqlikdagi ekotizimlarni asraş",
       "ru": "Сохранение экосистем суши",
       "en": "Life on Land",
       "zh": "陆地生物"
@@ -653,7 +644,7 @@
      "sdg": 16,
      "url": "/brm-16-tinchlik-adolat-va-samarali-boshqaruv",
      "t": {
-      "uz": "Tinchlik, adolat va samarali boshqaruv",
+      "uz": "Tinçlik, adolat va samarali boşqaruv",
       "ru": "Мир, правосудие и эффективные институты",
       "en": "Peace, Justice and Strong Institutions",
       "zh": "和平、正义与强大机构"
@@ -663,7 +654,7 @@
      "sdg": 17,
      "url": "/brm-17-barqaror-rivojlanish-yolida-hamkorlik",
      "t": {
-      "uz": "Barqaror rivojlanish yo‘lida hamkorlik",
+      "uz": "Barqaror rivojlaniş yölida hamkorlik",
       "ru": "Партнёрство во имя устойчивого развития",
       "en": "Partnerships for the Goals",
       "zh": "促进目标实现的伙伴关系"
@@ -710,7 +701,7 @@
   {
    "id": "programs",
    "t": {
-    "uz": "Ta’lim yo‘nalishlari",
+    "uz": "Ta’lim yönalişlari",
     "ru": "Направления обучения",
     "en": "Programmes",
     "zh": "专业设置"
@@ -794,13 +785,13 @@
  "pages": {
   "universitet-haqida": {
    "lead": {
-    "uz": "1949-yildan buyon xorijiy tillar, tarjimonlik va xalqaro jurnalistika bo‘yicha mutaxassislar tayyorlab kelayotgan universitet.",
+    "uz": "1949-yildan buyon xorijiy tillar, tarjimonlik va xalqaro jurnalistika böyiça mutaxassislar tayyorlab kelayotgan universitet.",
     "ru": "С 1949 года университет готовит специалистов в области иностранных языков, перевода и международной журналистики.",
     "en": "Since 1949 the university has trained specialists in foreign languages, translation and international journalism.",
     "zh": "自1949年起，学校致力于培养外语、翻译和国际新闻领域的专业人才。"
    },
    "body": {
-    "uz": "<h2>Tarix</h2>\n<p>O‘zbekiston davlat jahon tillari universiteti (O‘zDJTU) 1949-yilda Toshkent chet tillari pedagogika instituti nomi bilan faoliyatini boshlagan.</p>\n<p>1992-yil 12-maydagi O‘zbekiston Respublikasi Prezidentining PF-401-sonli Farmoni bilan Toshkent chet tillari pedagogika instituti hamda Respublika Rus tili va adabiyoti instituti birlashib, O‘zbekiston davlat jahon tillari universiteti maqomiga ega bo‘ldi.</p>\n<!-- timeline -->\n<h2>Bugungi kun</h2>\n<p>Bugungi kunda universitetda 23 168 nafar talaba 20 ga yaqin xorijiy tilni jahon ta’lim standartlari asosida o‘rganmoqda. Har yili universitetda 27 ta ta’lim yo‘nalishida bakalavr, 19 ta ta’lim yo‘nalishida magistrlik darajasiga ega mutaxassislar tayyorlanadi.</p>\n<blockquote>Oliy ta’lim muassasasida til va madaniyat o‘rtasidagi aloqa ta’lim tizimining asosiy tamoyili hisoblanadi.</blockquote>\n<p>Universitet talabalari chuqur bilim va ko‘nikmalar asosida til o‘rganish, o‘qitish, tarjima va talqin qilish malakalariga ega bo‘lmoqda. Kun sayin rivojlanib borayotgan tezkor zamonda ta’lim tizimi ham o‘zgarmoqda.</p>\n<figure><img src=\"/images/campus-aerial.webp\" alt=\"O‘zDJTU kampusi yuqoridan\"><figcaption>O‘zDJTU kampusi</figcaption></figure>\n<h2>Fakultetlar</h2>\n<p>Ingliz tili birinchi, ikkinchi va uchinchi fakultetlari, Roman-german filologiyasi, Rus filologiyasi, Ingliz filologiyasi, Sharq filologiyasi fakultetlarida bo‘lajak pedagoglar til o‘qitishning sir-asrorlarini o‘rganmoqdalar. Tarjimonlik fakultetida esa ingliz, nemis, koreys, yapon, xitoy tili yo‘nalishlarida tarjima mahoratidan tahsil olmoqdalar. Xalqaro jurnalistika fakultetida esa mahoratli jurnalistlar yetishib chiqmoqda.</p>\n<p><a href=\"/fakultetlar-va-kafedralar\">Barcha fakultetlar →</a></p>",
+    "uz": "<h2>Tarix</h2>\n<p>Özbekiston davlat jahon tillari universiteti (ÖzDJTU) 1949-yilda Toşkent çet tillari pedagogika instituti nomi bilan faoliyatini boşlagan.</p>\n<p>1992-yil 12-maydagi Özbekiston Respublikasi Prezidentining PF-401-sonli Farmoni bilan Toşkent çet tillari pedagogika instituti hamda Respublika Rus tili va adabiyoti instituti birlaşib, Özbekiston davlat jahon tillari universiteti maqomiga ega böldi.</p>\n<!-- timeline -->\n<h2>Bugungi kun</h2>\n<p>Bugungi kunda universitetda 23 168 nafar talaba 20 ga yaqin xorijiy tilni jahon ta’lim standartlari asosida örganmoqda. Har yili universitetda 27 ta ta’lim yönalişida bakalavr, 19 ta ta’lim yönalişida magistrlik darajasiga ega mutaxassislar tayyorlanadi.</p>\n<blockquote>Oliy ta’lim muassasasida til va madaniyat örtasidagi aloqa ta’lim tizimining asosiy tamoyili hisoblanadi.</blockquote>\n<p>Universitet talabalari çuqur bilim va könikmalar asosida til örganiş, öqitiş, tarjima va talqin qiliş malakalariga ega bölmoqda. Kun sayin rivojlanib borayotgan tezkor zamonda ta’lim tizimi ham özgarmoqda.</p>\n<figure><img src=\"/images/campus-aerial.webp\" alt=\"O‘zDJTU kampusi yuqoridan\"><figcaption>ÖzDJTU kampusi</figcaption></figure>\n<h2>Fakultetlar</h2>\n<p>Ingliz tili birinçi, ikkinçi va uçinçi fakultetlari, Roman-german filologiyasi, Rus filologiyasi, Ingliz filologiyasi, Şarq filologiyasi fakultetlarida bölajak pedagoglar til öqitişning sir-asrorlarini örganmoqdalar. Tarjimonlik fakultetida esa ingliz, nemis, koreys, yapon, xitoy tili yönalişlarida tarjima mahoratidan tahsil olmoqdalar. Xalqaro jurnalistika fakultetida esa mahoratli jurnalistlar yetişib çiqmoqda.</p>\n<p><a href=\"/fakultetlar-va-kafedralar\">Barça fakultetlar →</a></p>",
     "ru": "<h2>История</h2>\n<p>Узбекский государственный университет мировых языков (УзГУМЯ) начал свою деятельность в 1949 году как Ташкентский педагогический институт иностранных языков.</p>\n<p>Указом Президента Республики Узбекистан № УП-401 от 12 мая 1992 года Ташкентский педагогический институт иностранных языков и Республиканский институт русского языка и литературы были объединены и получили статус Узбекского государственного университета мировых языков.</p>\n<!-- timeline -->\n<h2>Сегодня</h2>\n<p>Сегодня 23 168 студентов университета изучают около 20 иностранных языков в соответствии с мировыми образовательными стандартами. Ежегодно университет готовит бакалавров по 27 и магистров по 19 направлениям.</p>\n<blockquote>Связь языка и культуры — основной принцип образовательной системы вуза.</blockquote>\n<p>Опираясь на глубокие знания и навыки, студенты университета овладевают умениями изучать, преподавать, переводить и интерпретировать языки. В стремительно меняющемся мире меняется и система образования.</p>\n<figure><img src=\"/images/campus-aerial.webp\" alt=\"Кампус УзГУМЯ с высоты\"><figcaption>Кампус УзГУМЯ</figcaption></figure>\n<h2>Факультеты</h2>\n<p>На трёх факультетах английского языка, факультетах романо-германской, русской, английской и восточной филологии будущие педагоги постигают секреты преподавания языков. На переводческом факультете студенты осваивают мастерство перевода с английского, немецкого, корейского, японского и китайского языков, а факультет международной журналистики готовит профессиональных журналистов.</p>\n<p><a href=\"/fakultetlar-va-kafedralar\">Все факультеты →</a></p>",
     "en": "<h2>History</h2>\n<p>Uzbekistan State University of World Languages (UzSWLU) was founded in 1949 as the Tashkent Pedagogical Institute of Foreign Languages.</p>\n<p>By Presidential Decree No. UP-401 of 12 May 1992, the Tashkent Pedagogical Institute of Foreign Languages and the Republican Institute of Russian Language and Literature were merged and granted the status of Uzbekistan State University of World Languages.</p>\n<!-- timeline -->\n<h2>Today</h2>\n<p>Today 23,168 students study nearly 20 foreign languages at the university in line with international educational standards. Every year the university trains bachelor’s graduates in 27 programmes and master’s graduates in 19.</p>\n<blockquote>The link between language and culture is the core principle of the university’s education system.</blockquote>\n<p>Building on deep knowledge and skills, our students learn to study, teach, translate and interpret languages. In a fast-changing world, education is changing too.</p>\n<figure><img src=\"/images/campus-aerial.webp\" alt=\"Aerial view of the UzSWLU campus\"><figcaption>UzSWLU campus</figcaption></figure>\n<h2>Faculties</h2>\n<p>At the three Faculties of English Language and the Faculties of Romance and Germanic, Russian, English and Oriental Philology, future teachers master the art of language teaching. The Faculty of Translation trains translators of English, German, Korean, Japanese and Chinese, and the Faculty of International Journalism prepares skilled journalists.</p>\n<p><a href=\"/fakultetlar-va-kafedralar\">All faculties →</a></p>",
     "zh": "<h2>历史</h2>\n<p>乌兹别克斯坦国立世界语言大学创建于1949年，前身为塔什干外国语师范学院。</p>\n<p>根据1992年5月12日乌兹别克斯坦共和国总统第УП-401号令，塔什干外国语师范学院与共和国俄语语言文学学院合并，组建为乌兹别克斯坦国立世界语言大学。</p>\n<!-- timeline -->\n<h2>今天</h2>\n<p>目前，学校共有23168名学生按照国际教育标准学习近20种外语。学校每年在27个本科专业和19个硕士专业培养人才。</p>\n<blockquote>语言与文化的联系是学校教育体系的基本原则。</blockquote>\n<p>学生在扎实的知识与技能基础上，掌握语言学习、教学、翻译与阐释的能力。在飞速发展的时代，教育体系也在不断变革。</p>\n<figure><img src=\"/images/campus-aerial.webp\" alt=\"校园鸟瞰\"><figcaption>校园鸟瞰</figcaption></figure>\n<h2>学院</h2>\n<p>在三个英语学院以及罗曼-日耳曼语文、俄语语文、英语语文和东方语文学院，未来的教师们学习语言教学的奥秘；翻译学院培养英语、德语、韩语、日语和汉语翻译人才；国际新闻学院培养优秀的新闻工作者。</p>\n<p><a href=\"/fakultetlar-va-kafedralar\">全部学院 →</a></p>"
@@ -827,7 +818,7 @@
     [
      "27",
      {
-      "uz": "bakalavriat yo‘nalishi",
+      "uz": "bakalavriat yönalişi",
       "ru": "направлений бакалавриата",
       "en": "bachelor’s programmes",
       "zh": "个本科专业"
@@ -836,7 +827,7 @@
     [
      "19",
      {
-      "uz": "magistratura yo‘nalishi",
+      "uz": "magistratura yönalişi",
       "ru": "направлений магистратуры",
       "en": "master’s programmes",
       "zh": "个硕士专业"
@@ -852,7 +843,7 @@
       "zh": "1949"
      },
      {
-      "uz": "Toshkent chet tillari pedagogika instituti",
+      "uz": "Toşkent çet tillari pedagogika instituti",
       "ru": "Ташкентский педагогический институт иностранных языков",
       "en": "Tashkent Pedagogical Institute of Foreign Languages",
       "zh": "塔什干外国语师范学院"

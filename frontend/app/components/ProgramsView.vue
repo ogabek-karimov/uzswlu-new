@@ -4,6 +4,7 @@ import type { ProgramList } from '#shared/types/api'
 // Ta'lim yo'nalishlari (canvas: "Ta'lim yo'nalishlari — Bakalavriat"); /bakalavriat va /magistratura
 const props = defineProps<{ level: 'bachelor' | 'master' }>()
 
+const { data: site } = await useSiteData()
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
@@ -88,8 +89,8 @@ useSeo({ title: () => t(`programs.${props.level}.title`), description: () => t(`
           <Icon name="lucide:arrow-right" class="size-4" />
         </NuxtLink>
       </div>
-      <NuxtLink :to="localePath('/qabul-20262027')" class="group flex flex-col gap-2 rounded-3xl bg-brand-900 p-7 text-white">
-        <span class="font-display text-[26px] font-semibold">{{ t('admission.title') }}</span>
+      <NuxtLink :to="localePath(ADMISSION_PATH)" class="group flex flex-col gap-2 rounded-3xl bg-brand-900 p-7 text-white">
+        <span class="font-display text-[26px] font-semibold">{{ t('admission.title', { year: admissionYear(site).full }) }}</span>
         <span class="text-[15px] text-white/70">{{ t('programs.admission') }}</span>
         <span class="mt-2 inline-flex items-center gap-1.5 font-semibold text-accent-400">
           {{ t('programs.admissionCta') }}

@@ -7,6 +7,8 @@ export const SECTIONS: { key: string; label: string; group: string }[] = [
   { key: 'pages', label: 'Sahifalar', group: 'Kontent' },
   { key: 'quick-links', label: 'Tezkor xizmatlar', group: 'Kontent' },
   { key: 'phones', label: 'Telefonlar ma’lumotnomasi', group: 'Kontent' },
+  { key: 'admission', label: 'Qabul yillari', group: 'Kontent' },
+  { key: 'units', label: 'Bölimlar', group: 'Kontent' },
   { key: 'rude-words', label: 'Haqoratli sözlar', group: 'Kontent' },
   { key: 'media', label: 'Media kutubxona', group: 'Kontent' },
   { key: 'documents', label: 'Hujjatlar', group: 'Kontent' },

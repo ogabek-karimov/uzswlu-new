@@ -175,8 +175,16 @@ class FacultyDetailView(PublicView):
 
 
 class AdmissionView(PublicView):
+    """?year=2025-2026 — saytda ko'rinadigan arxiv yili; berilmasa — faol yil."""
+
     def get(self, request):
-        return Response(bs.admission_out(lang_of(request)))
+        year = str(request.query_params.get('year') or '').strip()
+        if year and not re.fullmatch(r'\d{4}-\d{4}', year):
+            raise NotFound('Admission year not found')
+        data = bs.admission_out(lang_of(request), year or None)
+        if data is None:
+            raise NotFound('Admission year not found')
+        return Response(data)
 
 
 class SdgOverviewView(PublicView):

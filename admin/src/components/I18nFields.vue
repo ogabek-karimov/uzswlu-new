@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { I18n } from '@/lib/api'
 import { LANGS } from '@/lib/constants'
+import { hasOldLetters, toNewAlphabet } from '@/lib/alphabet'
 
 // Bitta maydon 4 tilda (UZ · RU · EN · ZH). layout="grid" — "Nomi · Özbekça" yorliqli 2×2,
 // "rows" — chapda til kodi, kiritish maydonlari ustma-ust.
@@ -11,12 +12,16 @@ const id = props.idPrefix ?? `i18n-${Math.random().toString(36).slice(2, 8)}`
 function set(code: keyof I18n, value: string) {
   emit('update:modelValue', { ...(props.modelValue ?? {}), [code]: value })
 }
+// Özbekça qiymatda eski alifbo harflari bölsa — yonida «Ö» tugmasi (Oʻ→Ö, Gʻ→Ğ, Sh→Ş, Ch→Ç)
+const ALPHABET_TITLE = 'Yangi alifboga ögiriş (Oʻ→Ö, Gʻ→Ğ, Sh→Ş, Ch→Ç)'
 </script>
 
 <template>
   <div v-if="layout === 'grid'" class="grid gap-3 sm:grid-cols-2">
     <div v-for="l in LANGS" :key="l.code">
-      <label :for="`${id}-${l.code}`" class="label">{{ label }} · {{ l.label }}<template v-if="required && l.code === 'uz'"> *</template></label>
+      <label :for="`${id}-${l.code}`" class="label flex items-center gap-1.5">{{ label }} · {{ l.label }}<template v-if="required && l.code === 'uz'"> *</template>
+        <button v-if="l.code === 'uz' && hasOldLetters(modelValue?.uz)" type="button" class="ml-auto rounded-md border border-brand-700 px-1.5 text-[11px] font-bold text-brand-700 hover:bg-brand-700 hover:text-white" :title="ALPHABET_TITLE" :aria-label="ALPHABET_TITLE" @click.prevent="set('uz', toNewAlphabet(modelValue!.uz!))">Ö</button>
+      </label>
       <textarea
         v-if="textarea" :id="`${id}-${l.code}`" :rows="rows" class="field h-auto! py-2.5 leading-normal" :required="required && l.code === 'uz'"
         :value="modelValue?.[l.code] ?? ''" :placeholder="placeholders?.[l.code]" @input="set(l.code, ($event.target as HTMLTextAreaElement).value)"
@@ -33,6 +38,7 @@ function set(code: keyof I18n, value: string) {
       <label v-for="l in LANGS" :key="l.code" class="flex items-center gap-2">
         <span class="w-[30px] shrink-0 text-xs font-bold text-subtle">{{ l.short }}</span>
         <input class="field" :aria-label="`${label} · ${l.label}`" :value="modelValue?.[l.code] ?? ''" :placeholder="placeholders?.[l.code] ?? (l.code === 'zh' ? 'xitoyça' : '')" @input="set(l.code, ($event.target as HTMLInputElement).value)">
+        <button v-if="l.code === 'uz' && hasOldLetters(modelValue?.uz)" type="button" class="h-[46px] shrink-0 rounded-[10px] border border-brand-700 px-2.5 text-[13px] font-bold text-brand-700 hover:bg-brand-700 hover:text-white" :title="ALPHABET_TITLE" :aria-label="ALPHABET_TITLE" @click.prevent="set('uz', toNewAlphabet(modelValue!.uz!))">Ö</button>
       </label>
     </div>
   </fieldset>

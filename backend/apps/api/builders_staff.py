@@ -46,8 +46,13 @@ class Unprocessable(APIException):
 
 
 def fold(value: str) -> str:
-    """Qidiruvda tutuq belgilari va katta-kichik harf farqi hisobga olinmaydi: "yo'ldoshev" = "Yo‘ldoshev"."""
-    return re.sub(r"[‘’ʻʼ`']", '', (value or '').lower())
+    """Qidiruvda tutuq belgilari, katta-kichik harf va alifbo farqi hisobga olinmaydi:
+    "yo'ldoshev" = "Yo‘ldoshev" = "Yöldoşev" (HEMIS eski alifboda, sayt matnlari yangi alifboda)."""
+    value = re.sub(r"[‘’ʻʼ`']", '', (value or '').lower())
+    return value.translate(_FOLD_ABC)
+
+
+_FOLD_ABC = str.maketrans({'ö': 'o', 'ğ': 'g', 'ş': 'sh', 'ç': 'ch'})
 
 
 # ─── Ommaviy ro'yxat va profil ───────────────────────────────────────────────
@@ -347,3 +352,138 @@ def delete_document(hemis_id: str, section: str, pk: str) -> None:
     if doc.file:
         doc.file.delete(save=False)
     doc.delete()
+
+
+# ─── Bo'limlar sahifasi (/bolimlar) ──────────────────────────────────────────
+# Kartalar HEMIS'dan avtomatik (Staff kabi): har bir bo'lim/markaz (group=unit) — rahbari (lavozimi boshlig'i/direktori/mudiri/raisi…),
+# surati, xodimlar soni; bosilsa Staff'da shu bo'lim xodimlari. Admin → «Bo'limlar» (UnitHead) HEMIS'da yo'q narsani to'ldiradi:
+# telefon, ichki raqam, bo'lim sahifasi havolasi, yashirish (rahbar F.I.Sh. bo'yicha moslanadi); HEMIS'da yo'q bo'lim — alohida karta.
+HEAD_RE = re.compile(r"boshli|direktor|mudir|rais|rahbar|начальник|директор|заведующ|председател|руковод|head|director|chair", re.I)
+
+
+def _same_person(hemis_name: str, admin_name: str) -> bool:
+    """F.I.Sh. so'zlar tartibidan qat'i nazar: HEMIS'dagi ism va familiya admin yozuvidagi so'zlar ichida bo'lsa."""
+    h, a = set(fold(hemis_name).split()), set(fold(admin_name).split())
+    return len(h) >= 2 and len(h & a) >= 2
+
+
+def units_out(lang: str) -> list[dict]:
+    from apps.api.common import img
+    from apps.content.models import UnitHead
+    client = get_client()
+    profiles = _profiles()
+    manual = list(UnitHead.objects.select_related('photo'))
+    used: set[int] = set()
+    out = []
+    staff = [p for p in client.staff(lang) if not (profiles.get(str(p['id'])) and profiles[str(p['id'])].hidden)]
+    for d in client.staff_departments(lang):
+        if d.get('group') != 'unit':
+            continue
+        members = [(p, e) for p in staff for e in p['employments'] if e['department']['id'] == d['id']]
+        head = next(((p, e) for p, e in members if HEAD_RE.search(e['position']['name'] or '')), None)
+        # 1) shu odam (F.I.Sh.) — surat ham; 2) bo'lim nomi admin lavozim matnida — faqat telefon/havola/yashirish
+        extra = next((u for u in manual if u.pk not in used and head and _same_person(head[0]['name'], u.name)), None)
+        same_person = extra is not None
+        if not extra:
+            extra = next((u for u in manual if u.pk not in used and fold(d['name']) in fold(pick(u.position, 'uz'))), None)
+        if extra:
+            used.add(extra.pk)
+            if not extra.visible:
+                continue
+        photo = None
+        if head:
+            photo, fallback = _photos(head[0], profiles.get(str(head[0]['id'])))
+            photo = photo or fallback
+        if extra and same_person and extra.photo_id:
+            photo = img(extra.photo, 'card')
+        out.append({
+            'unit': d['name'], 'count': d.get('count') or len(members),
+            'name': head[0]['name'] if head else None,
+            'position': head[1]['position']['name'] if head else None,
+            'photo': photo,
+            'phone': (extra.phone if extra else '') or None, 'ext': (extra.ext if extra else '') or None,
+            'email': (extra.email if extra else '') or None,
+            'url': (extra.url if extra and extra.url else f"/staff?department={d['id']}"),
+            'source': 'hemis',
+        })
+    # Admin qo'shgan, HEMIS'da topilmagan bo'limlar
+    for u in manual:
+        if u.pk in used or not u.visible:
+            continue
+        out.append({
+            'unit': None, 'count': None, 'name': u.name, 'position': pick(u.position, lang) or None,
+            'photo': img(u.photo, 'card') if u.photo_id else None,
+            'phone': u.phone or None, 'ext': u.ext or None, 'email': u.email or None, 'url': u.url or None, 'source': 'admin',
+        })
+    return out
+
+
+# ─── Sahifadagi bo'lim xodimlari (masalan, /axborot-resurs-markazi) ─────────────
+# Admin → Sahifalar → «Bo'lim xodimlari» da HEMIS bo'limi tanlanadi; xodimlar HEMIS'dan avtomatik (Staff kabi, yashirilganlar chiqmaydi).
+# Tartib: rahbar (direktor, boshliq) → o'rinbosar → bo'lim mudirlari → qolganlar (alifbo bo'yicha).
+DEPUTY_RE = re.compile(r"o.?rinbosar|заместител|deputy|vice", re.I)
+SUBHEAD_RE = re.compile(r"mudir|заведующ|head of|rais|председател", re.I)
+CHIEF_RE = re.compile(r"direktor|boshli|rahbar|директор|начальник|руковод|director|chief", re.I)
+
+
+def _rank(position: str) -> int:
+    if DEPUTY_RE.search(position):
+        return 1
+    if CHIEF_RE.search(position):
+        return 0
+    return 2 if SUBHEAD_RE.search(position) else 3
+
+
+def _resolve_department(client, department: str) -> str | None:
+    """ID yoki o'zbekcha nom («Axborot-resurs markazi») — nom bo'lsa HEMIS ID'siga aylantiriladi (alifbodan mustaqil)."""
+    if not department:
+        return None
+    deps = client.staff_departments('uz')
+    if str(department) in {str(d['id']) for d in deps}:
+        return str(department)
+    key = fold(department)
+    return next((str(d['id']) for d in deps if fold(d['name']) == key), None)
+
+
+def department_staff_out(department: str, lang: str, extra: list | None = None, contacts: dict | None = None, hours: str = '') -> list[dict]:
+    """Bo'lim xodimlari (HEMIS, avtomatik; rahbar birinchi) + admin qo'shgan HEMIS xodimlari (zaxira, tanlangan tartibda).
+    Takrorlanmaydi; yashirilgan xodimlar chiqmaydi. Karta (eski saytdagidek): surat, F.I.Sh., lavozim, telefon, qabul kunlari,
+    e-pochta — telefon/e-pochta: admin shu sahifada kiritgani, bo'lmasa xodim o'z kabinetida kiritgani."""
+    extra_ids = [str(x) for x in (extra or []) if x]
+    client = get_client()
+    dep = _resolve_department(client, department)
+    if not dep and not extra_ids:
+        return []
+    profiles = _profiles()
+    rows, by_id = [], {}
+    for person in client.staff(lang):
+        profile = profiles.get(str(person['id']))
+        if profile and profile.hidden:
+            continue
+        by_id[str(person['id'])] = (person, profile)
+        jobs = [e for e in person['employments'] if dep and str(e['department']['id']) == dep]
+        if jobs:
+            job = min(jobs, key=lambda e: _rank(e['position']['name'] or ''))
+            rows.append((_rank(job['position']['name'] or ''), fold(person['name']), _page_card(person, profile, job, contacts, hours)))
+    out = [r[2] for r in sorted(rows, key=lambda r: (r[0], r[1]))]
+    seen = {p['id'] for p in out}
+    for hid in extra_ids:
+        if hid in by_id and hid not in seen:
+            seen.add(hid)
+            person, profile = by_id[hid]
+            out.append(_page_card(person, profile, (person['employments'] or [None])[0], contacts, hours))
+    return out
+
+
+def _page_card(person: dict, profile, job: dict | None, contacts: dict | None, hours: str) -> dict:
+    own = (contacts or {}).get(str(person['id'])) or {}
+    mine = {c.get('type'): c.get('value') for c in (profile.contacts if profile else []) if c.get('value')}
+    return {
+        **staff_summary(person, profile),
+        'position': (job or {}).get('position', {}).get('name') or None,
+        # Faqat universitetdagi ichki (ish) telefoni: admin kiritgani yoki xodim kabinetidagi «Ichki telefon» (phone).
+        # Shaxsiy «Mobil telefon» (mobile) kartada HECH QACHON ko'rinmaydi.
+        'phone': (own.get('phone') or '').strip() or mine.get('phone') or None,
+        'email': (own.get('email') or '').strip() or mine.get('email') or None,
+        'hours': hours or None,
+    }

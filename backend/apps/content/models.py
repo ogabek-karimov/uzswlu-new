@@ -201,6 +201,28 @@ class Leader(models.Model):
         return self.name
 
 
+class UnitHead(models.Model):
+    """Bo'limlar sahifasi (/bolimlar): bo'lim/markaz rahbari kartasi — surat, F.I.Sh., lavozim, telefon; bosilsa bo'lim sahifasi (ixtiyoriy)."""
+
+    name = models.CharField('F.I.Sh.', max_length=200)
+    position = I18nField('Lavozimi (bo‘lim nomi bilan)', multiline=True, required_uz=True)
+    photo = models.ForeignKey('core.Media', null=True, blank=True, on_delete=models.PROTECT, related_name='+', verbose_name='Rasm')
+    phone = models.CharField('Telefon', max_length=40, blank=True)
+    ext = models.CharField('Ichki raqam', max_length=20, blank=True)
+    email = models.EmailField('E-pochta', blank=True)
+    url = models.CharField('Bo‘lim sahifasi', max_length=500, blank=True, help_text='Sayt ichida: /xalqaro-aloqalar-bolimi — tashqi: https://…')
+    order = models.PositiveIntegerField('Tartib', default=0, db_index=True)
+    visible = models.BooleanField('Saytda ko‘rinadi', default=True)
+
+    class Meta:
+        verbose_name = 'Bo‘lim rahbari'
+        verbose_name_plural = 'Bo‘limlar'
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return self.name
+
+
 class DocCategory(models.Model):
     title = I18nField('Nomi', required_uz=True)
     order = models.PositiveIntegerField('Tartib', default=0)

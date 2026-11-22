@@ -47,9 +47,9 @@ const OVERVIEW: L = { uz: 'Umumiy ma’lumot', ru: 'Общие сведения'
 
 // BRM 6 ichki bo'limlari — saytdagi bilan bir xil
 const water: [string, L][] = [
-  ['measurement', { uz: 'Suvni o‘lchash', ru: 'Измерение воды', en: 'Water measurement', zh: '水量计量' }],
-  ['treatment', { uz: 'Suvni tozalash', ru: 'Очистка воды', en: 'Water treatment', zh: '水处理' }],
-  ['pollution', { uz: 'Suv ifloslanishi', ru: 'Загрязнение воды', en: 'Water pollution', zh: '水污染' }],
+  ['measurement', { uz: 'Suvni ölçaş', ru: 'Измерение воды', en: 'Water measurement', zh: '水量计量' }],
+  ['treatment', { uz: 'Suvni tozalaş', ru: 'Очистка воды', en: 'Water treatment', zh: '水处理' }],
+  ['pollution', { uz: 'Suv ifloslanişi', ru: 'Загрязнение воды', en: 'Water pollution', zh: '水污染' }],
   ['standard', { uz: 'Suv standarti', ru: 'Стандарт воды', en: 'Water standards', zh: '水质标准' }],
   ['protocol', { uz: 'Suv bayonnomasi', ru: 'Водный протокол', en: 'Water protocol', zh: '用水规程' }],
   ['groundwater', { uz: 'Yer osti suvlari', ru: 'Подземные воды', en: 'Groundwater', zh: '地下水' }],
@@ -98,9 +98,9 @@ export function getMockSdgOverview(lang: Locale): SdgOverview {
       page('Greenmetrics 2025', '/greenmetrics-2025'),
     ],
     education: {
-      title: T({ uz: 'Barqarorlik savodxonligini baholash vositasi', ru: 'Инструмент оценки грамотности в области устойчивого развития', en: 'Sustainability Literacy Assessment Tool', zh: '可持续发展素养评估工具' }, lang),
+      title: T({ uz: 'Barqarorlik savodxonligini baholaş vositasi', ru: 'Инструмент оценки грамотности в области устойчивого развития', en: 'Sustainability Literacy Assessment Tool', zh: '可持续发展素养评估工具' }, lang),
       text: T({
-        uz: 'O‘zDJTU talabalar, professor-o‘qituvchilar va xodimlar orasida barqarorlik savodxonligi va bilimlarini oshirish orqali barqarorlik madaniyatini shakllantiradi. Vosita iqlim o‘zgarishi, biologik xilma-xillik, ijtimoiy adolat va BRM mavzularini qamrab oladi.',
+        uz: 'ÖzDJTU talabalar, professor-öqituvçilar va xodimlar orasida barqarorlik savodxonligi va bilimlarini oşiriş orqali barqarorlik madaniyatini şakllantiradi. Vosita iqlim özgarişi, biologik xilma-xillik, ijtimoiy adolat va BRM mavzularini qamrab oladi.',
         ru: 'УзГУМЯ формирует культуру устойчивого развития, повышая грамотность студентов, преподавателей и сотрудников в этой области. Инструмент охватывает темы изменения климата, биоразнообразия, социальной справедливости и ЦУР.',
         en: 'UzSWLU builds a culture of sustainability by raising sustainability literacy among students, faculty and staff. The tool covers climate change, biodiversity, social justice and the SDGs.',
         zh: '我校通过提升学生、教师和员工的可持续发展素养来培育可持续发展文化。该工具涵盖气候变化、生物多样性、社会公正和可持续发展目标等主题。',

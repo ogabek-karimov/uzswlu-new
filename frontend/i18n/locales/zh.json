@@ -14,7 +14,7 @@
     "news": "新闻",
     "contact": "联系我们",
     "search": "搜索",
-    "admission": "2026招生",
+    "admission": "{year}招生",
     "menu": "菜单",
     "close": "关闭",
     "more": "更多",
@@ -70,7 +70,7 @@
       "title": "招生",
       "desc": "关于招生、专业、学费和奖学金的全部信息。",
       "items": {
-        "admission": "2026/2027招生",
+        "admission": "{year}招生",
         "bachelor": "本科专业",
         "master": "硕士研究生",
         "phd": "博士研究生（PhD）",
@@ -95,7 +95,7 @@
       }
     },
     "promo": {
-      "title": "2026/2027招生",
+      "title": "{year}招生",
       "text": "本科、硕士及合作办学项目开始接受申请。",
       "cta": "了解详情"
     }
@@ -113,7 +113,7 @@
     "title1": "语言，",
     "title2": "通往世界之门",
     "text": "培养外语、语文学、翻译与国际新闻专业人才的大学。",
-    "ctaPrimary": "2026/2027招生",
+    "ctaPrimary": "{year}招生",
     "ctaSecondary": "专业设置",
     "searchLabel": "站内搜索",
     "searchPlaceholder": "例如：学费、课程表……",
@@ -270,7 +270,7 @@
   },
   "admission": {
     "eyebrow": "招生",
-    "title": "2026/2027招生",
+    "title": "{year}招生",
     "text": "本科、硕士及博士研究生申请流程。",
     "steps": {
       "s1": {
@@ -291,7 +291,10 @@
       }
     },
     "cta": "立即申请",
-    "ctaSecondary": "学费"
+    "ctaSecondary": "学费",
+    "archiveNote": "存档：{year}学年招生信息。点击查看当前招生。",
+    "current": "当前招生",
+    "previousYears": "往年"
   },
   "footer": {
     "about": "外语、语文学、翻译与国际新闻领域的高等院校。",
@@ -584,7 +587,14 @@
     "next": "下一页",
     "first": "本栏目第一页",
     "last": "本栏目最后一页",
-    "download": "下载"
+    "download": "下载",
+    "rectorNow": "大学校长",
+    "rectorMore": "校长办公室页面",
+    "staffPhone": "电话",
+    "staffHours": "接待时间",
+    "ctaNewTab": "在新窗口打开",
+    "staffTitle": "工作人员",
+    "unitStaff": "{n} 名员工"
   },
   "posts": {
     "title": "校园生活",

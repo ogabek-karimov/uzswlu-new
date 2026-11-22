@@ -17,13 +17,13 @@ from django.utils.dateparse import parse_datetime
 from apps.accounts import roles as rl
 from apps.accounts.models import Role, User
 from apps.content.models import (
-    Category, DocCategory, Document, Leader, Post, PostAttachment, PostGalleryImage, QuickLink, Slide, Video, VideoCategory,
+    Category, DocCategory, Document, Leader, Post, UnitHead, PostAttachment, PostGalleryImage, QuickLink, Slide, Video, VideoCategory,
 )
 from apps.content.quick_links import ICON_NAMES, valid_url
 from apps.core.fields import LANGS
 from apps.core.models import Activity, Media
 from apps.pages.models import Page, PageAttachment, PageFact, PageTimeline, SdgGoal, SdgGoalReport, SdgSection
-from apps.structure.models import Department, Faculty, PhoneEntry, RudeWord, StaffProfile
+from apps.structure.models import AdmissionDate, AdmissionFaq, AdmissionYear, Department, Faculty, PhoneEntry, Program, RudeWord, StaffProfile
 
 from .models import LoginEvent
 
@@ -169,6 +169,32 @@ def num(v, default=0):
         return int(v)
     except (TypeError, ValueError):
         raise ValidationError(f'Raqam noto‘g‘ri: {v}') from None
+
+
+def staff_ids(v):
+    """HEMIS xodim ID'lari ro'yxati (takrorsiz, tartib saqlanadi, ko'pi bilan 200 ta)."""
+    if not isinstance(v, list):
+        raise ValidationError('Xodimlar ro‘yxati kutilgan')
+    out: list[str] = []
+    for x in v:
+        s = str(x).strip()[:64]
+        if s and s not in out:
+            out.append(s)
+    return out[:200]
+
+
+def staff_contacts(v):
+    """{HEMIS ID: {phone, email}} — bo'sh qiymatlar tashlanadi."""
+    if not isinstance(v, dict):
+        raise ValidationError('Xodimlar kontaktlari kutilgan')
+    out = {}
+    for k, c in list(v.items())[:300]:
+        if not isinstance(c, dict):
+            continue
+        row = {f: str(c.get(f) or '').strip()[:120] for f in ('phone', 'email')}
+        if any(row.values()):
+            out[str(k)[:64]] = row
+    return out
 
 
 def flag(v):
@@ -726,6 +752,117 @@ class Phones(Collection):
             raise ValidationError('Lavozimi / sarlavha (o‘zbekcha) majburiy')
 
 
+class AdmissionYears(Collection):
+    """Qabul yillari: qoralama → faol (bittasi, saytning hamma joyida) → arxiv (saytda ko'rsatish/yashirish).
+    Faol qilish: `PATCH {status: 'active'}` — oldingi faol yil arxivga o'tadi va o'sha paytdagi yo'nalishlar/narxlar saqlanadi.
+    Yangi yil: `POST {year, copyFrom: <id>}` — sozlamalar, sanalar va savol-javob nusxalanadi (qoralama)."""
+    section = 'admission'
+    slug = 'admission-years'
+    model = AdmissionYear
+    tags = ('admission', 'home')
+    default_sort = ['-year']
+    access = {'read': ALL, 'create': PAGES, 'update': PAGES, 'delete': PAGES}
+    rules = {'create': '`year` — 2027/2028 ko‘rinishida, takrorlanmas; `copyFrom` — nusxa olinadigan yil id si.',
+             'update': '`status: active` — faol qilish (oldingi faol yil arxivga o‘tadi); `public` — arxiv yili saytda ko‘rinadimi.',
+             'delete': 'Faol yil o‘chirilmaydi.'}
+
+    def can(self, user, action, obj=None):
+        if not super().can(user, action, obj):
+            return False
+        return not (action == 'delete' and obj is not None and obj.status == 'active')
+
+    def label(self, obj):
+        return f'Qabul {obj.year}'
+
+    def out(self, e, depth):
+        return {
+            'id': e.pk, 'year': e.year, 'slug': e.slug, 'status': e.status, 'public': e.public,
+            'applyUrl': e.apply_url, 'documents': i18n_out(e.documents), 'documentsUrl': e.documents_url,
+            'address': i18n_out(e.address), 'hours': i18n_out(e.hours), 'phone': e.phone, 'telegram': e.telegram,
+            'dates': [{'title': i18n_out(d.title), 'period': i18n_out(d.period), 'current': d.current} for d in e.dates.all()],
+            'faq': [{'question': i18n_out(x.question), 'answer': i18n_out(x.answer)} for x in e.faq.all()],
+            'programsCount': len(e.programs_snapshot or []) if e.status == 'archive' else Program.objects.filter(in_admission=True).count(),
+        }
+
+    def write(self, e, data, request, creating):
+        put(e, data, {'year': ('year', text), 'applyUrl': ('apply_url', text), 'documents': ('documents', i18n_in),
+                      'documentsUrl': ('documents_url', text), 'address': ('address', i18n_in), 'hours': ('hours', i18n_in),
+                      'phone': ('phone', text), 'telegram': ('telegram', text), 'public': ('public', flag)})
+        m = re.fullmatch(r'(\d{4})/(\d{4})', e.year or '')
+        if not m or int(m.group(2)) != int(m.group(1)) + 1:
+            raise ValidationError('O‘quv yili 2027/2028 ko‘rinishida bo‘lsin (ikkinchi yil birinchisidan bitta katta)')
+        if AdmissionYear.objects.filter(year=e.year).exclude(pk=e.pk).exists():
+            raise ValidationError('Bu o‘quv yili allaqachon bor')
+        if creating:
+            e.status = 'draft'
+            src = AdmissionYear.objects.filter(pk=data.get('copyFrom')).first() if data.get('copyFrom') else None
+            if src:
+                for f in ('apply_url', 'documents', 'documents_url', 'address', 'hours', 'phone', 'telegram'):
+                    if not data.get({'apply_url': 'applyUrl', 'documents_url': 'documentsUrl'}.get(f, f)):
+                        setattr(e, f, getattr(src, f))
+        elif data.get('status') == 'draft' and e.status != 'draft':
+            raise ValidationError('Faol yoki arxiv yilni qoralamaga qaytarib bo‘lmaydi')
+
+    def after(self, e, data, request, creating):
+        from apps.api.builders_site import admission_programs_snapshot
+        if creating and data.get('copyFrom') and 'dates' not in data and 'faq' not in data:
+            src = AdmissionYear.objects.filter(pk=data.get('copyFrom')).first()
+            if src:
+                for d in src.dates.all():
+                    AdmissionDate.objects.create(admission=e, title=d.title, period=d.period, current=False, order=d.order)
+                for x in src.faq.all():
+                    AdmissionFaq.objects.create(admission=e, question=x.question, answer=x.answer, order=x.order)
+        if isinstance(data.get('dates'), list):
+            e.dates.all().delete()
+            for i, d in enumerate(data['dates'], start=1):
+                if not (d.get('title') or {}).get('uz'):
+                    raise ValidationError(f'{i}-bosqich nomi (o‘zbekcha) majburiy')
+                AdmissionDate.objects.create(admission=e, title=i18n_in(d.get('title')), period=i18n_in(d.get('period')), current=bool(d.get('current')), order=i)
+        if isinstance(data.get('faq'), list):
+            e.faq.all().delete()
+            for i, x in enumerate(data['faq'], start=1):
+                if not (x.get('question') or {}).get('uz'):
+                    raise ValidationError(f'{i}-savol (o‘zbekcha) majburiy')
+                AdmissionFaq.objects.create(admission=e, question=i18n_in(x.get('question')), answer=i18n_in(x.get('answer')), order=i)
+        if data.get('status') == 'active' and e.status != 'active':
+            # Oldingi faol yil → arxiv: o'sha paytdagi yo'nalishlar va narxlar saqlanadi
+            for prev in AdmissionYear.objects.filter(status='active').exclude(pk=e.pk):
+                prev.programs_snapshot = admission_programs_snapshot()
+                prev.status = 'archive'
+                prev.save(update_fields=['programs_snapshot', 'status'])
+            e.status = 'active'
+            e.save(update_fields=['status'])
+
+
+class UnitHeads(Collection):
+    """Bo'limlar sahifasi (/bolimlar) kartalari: bo'lim/markaz rahbarlari."""
+    section = 'units'
+    slug = 'unit-heads'
+    model = UnitHead
+    tags = ('pages',)
+    default_sort = ['order', 'id']
+    select_related = ('photo',)
+    access = {'read': ALL, 'create': PAGES, 'update': PAGES, 'delete': PAGES}
+    rules = {'create': '`name` va `position.uz` majburiy; `url` — /yo‘l yoki https://…'}
+
+    def label(self, obj):
+        return obj.name
+
+    def out(self, x, depth):
+        return {'id': x.pk, 'name': x.name, 'position': i18n_out(x.position), 'photo': media_out(x.photo, depth) if x.photo_id else None,
+                'phone': x.phone, 'ext': x.ext, 'email': x.email, 'url': x.url, 'order': x.order, 'visible': x.visible}
+
+    def write(self, x, data, request, creating):
+        put(x, data, {'name': ('name', text), 'position': ('position', i18n_in), 'phone': ('phone', text), 'ext': ('ext', text),
+                      'email': ('email', text), 'url': ('url', text), 'order': ('order', num), 'visible': ('visible', flag)})
+        if 'photo' in data:
+            x.photo = media_ref(data['photo'])
+        if not (x.name or '').strip() or not (x.position or {}).get('uz'):
+            raise ValidationError('F.I.Sh. va lavozim (o‘zbekcha) majburiy')
+        if x.url and not re.fullmatch(r'/[\w\-/]*|https?://\S+', x.url):
+            raise ValidationError('Havola /yo‘l yoki https://… ko‘rinishida bo‘lsin')
+
+
 class RudeWords(Collection):
     """Murojaatlarda taqiqlangan (haqoratli) so'zlar — virtual qabulxona shakli va backend tekshiruvi shu ro'yxatdan."""
     section = 'rude-words'
@@ -934,7 +1071,7 @@ class Pages(Collection):
             'id': p.pk, 'title': i18n_out(p.title), 'template': p.template, 'parent': p.parent_id, 'slug': p.slug or None,
             'url': p.url or None, 'file': media_out(p.file, depth) if p.file_id else None, 'groupKey': p.group_key or None,
             'description': i18n_out(p.description), 'overview': p.overview or None, 'sdg': p.sdg, 'inMenu': p.in_menu,
-            'published': p.published, 'highlight': p.highlight, 'lead': i18n_out(p.lead),
+            'published': p.published, 'highlight': p.highlight, 'showRector': p.show_rector, 'showUnits': p.show_units, 'staffDepartment': p.staff_department, 'staffExtra': p.staff_extra or [], 'staffContacts': p.staff_contacts or {}, 'staffHours': i18n_out(p.staff_hours), 'ctaTitle': i18n_out(p.cta_title), 'ctaText': i18n_out(p.cta_text), 'ctaLabel': i18n_out(p.cta_label), 'ctaUrl': p.cta_url, 'docStyle': p.doc_style, 'lead': i18n_out(p.lead),
             'body': {k: (v.replace('<!-- timeline -->', '<p>[[timeline]]</p>') if v else v) for k, v in i18n_out(p.body).items()},
             'facts': [{'id': str(f.pk), 'value': f.value, 'label': i18n_out(f.label)} for f in p.facts.all()],
             'timeline': [{'id': str(t.pk), 'label': i18n_out(t.label), 'text': i18n_out(t.text), 'highlight': t.highlight} for t in p.timeline.all()],
@@ -946,7 +1083,7 @@ class Pages(Collection):
         put(p, data, {'title': ('title', i18n_in), 'template': ('template', text), 'slug': ('slug', lambda v: text(v) or None),
                       'url': ('url', text), 'groupKey': ('group_key', text), 'description': ('description', i18n_in),
                       'overview': ('overview', text), 'inMenu': ('in_menu', flag), 'published': ('published', flag),
-                      'highlight': ('highlight', flag), 'lead': ('lead', i18n_in), 'body': ('body', i18n_in), 'order': ('order', num)})
+                      'highlight': ('highlight', flag), 'showRector': ('show_rector', flag), 'showUnits': ('show_units', flag), 'staffDepartment': ('staff_department', text), 'staffExtra': ('staff_extra', staff_ids), 'staffContacts': ('staff_contacts', staff_contacts), 'staffHours': ('staff_hours', i18n_in), 'ctaTitle': ('cta_title', i18n_in), 'ctaText': ('cta_text', i18n_in), 'ctaLabel': ('cta_label', i18n_in), 'ctaUrl': ('cta_url', text), 'docStyle': ('doc_style', flag), 'lead': ('lead', i18n_in), 'body': ('body', i18n_in), 'order': ('order', num)})
         if 'sdg' in data:
             p.sdg = num(data['sdg'], None) or None
         if 'parent' in data:
@@ -1074,6 +1211,6 @@ class Roles(Collection):
 
 
 REGISTRY: dict[str, Collection] = {c.slug: c for c in (
-    Users(), Medias(), Categories(), Posts(), Slides(), Leaders(), DocCategories(), Documents(), VideoCategories(), Videos(), QuickLinks(), Phones(), RudeWords(),
+    Users(), Medias(), Categories(), Posts(), Slides(), Leaders(), DocCategories(), Documents(), VideoCategories(), Videos(), QuickLinks(), Phones(), RudeWords(), AdmissionYears(), UnitHeads(),
     Faculties(), Departments(), StaffProfiles(), SdgGoals(), Pages(), LoginEvents(), Activities(), Roles(),
 )}

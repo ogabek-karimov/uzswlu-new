@@ -6,7 +6,6 @@ from django.db import models
 from django.utils import timezone
 
 from apps.core.fields import I18nField
-from apps.core.models import SingletonModel
 from apps.core.storage import private_storage
 
 FORMS = [('day', 'Kunduzgi'), ('evening', 'Kechki'), ('distance', 'Sirtqi')]
@@ -162,10 +161,16 @@ class Program(models.Model):
         return f"{self.code} — {self.title.get('uz', '')}"
 
 
-class AdmissionSettings(SingletonModel):
-    """Qabul sahifasi (/qabul-20262027)."""
+class AdmissionYear(models.Model):
+    """Qabul yili (/qabul): har o'quv yili alohida yozuv — qoralama → faol (bittasi) → arxiv.
+    Faol yil saytning hamma joyida (header, menyu, sahifa) ko'rinadi; uni faqat yuqori tashkilotlar tasdiqlagach almashtirish kerak.
+    Arxivga o'tganda o'sha paytdagi yo'nalishlar va narxlar `programs_snapshot` ga saqlanadi (keyingi o'zgarishlar eski yilga ta'sir qilmaydi)."""
 
-    year = models.CharField('O‘quv yili', max_length=9, default='2026/2027')
+    STATUSES = [('draft', 'Qoralama'), ('active', 'Faol'), ('archive', 'Arxiv')]
+    year = models.CharField('O‘quv yili', max_length=9, unique=True, default='2026/2027', help_text='Masalan 2027/2028')
+    status = models.CharField('Holati', max_length=8, choices=STATUSES, default='draft', db_index=True)
+    public = models.BooleanField('Arxivda saytda ko‘rinadi', default=True)
+    programs_snapshot = models.JSONField('Yo‘nalishlar (arxiv nusxasi)', default=list, blank=True)
     apply_url = models.URLField('Ariza topshirish havolasi', default='https://my.uzbmb.uz')
     documents = I18nField('Kerakli hujjatlar (har qatorda bittadan)', multiline=True)
     documents_url = models.URLField('Hujjatlar ro‘yxati havolasi', blank=True)
@@ -175,15 +180,31 @@ class AdmissionSettings(SingletonModel):
     telegram = models.URLField('Telegram', default='https://t.me/UzSWLU')
 
     class Meta:
-        verbose_name = 'Qabul sozlamalari'
-        verbose_name_plural = 'Qabul sozlamalari'
+        verbose_name = 'Qabul yili'
+        verbose_name_plural = 'Qabul yillari'
+        ordering = ['-year']
 
     def __str__(self):
         return f'Qabul {self.year}'
 
+    @property
+    def slug(self):
+        return self.year.replace('/', '-')
+
+    @classmethod
+    def active(cls):
+        """Faol qabul yili (bo'lmasa — eng so'nggisi faol qilinadi yoki standart yaratiladi)."""
+        a = cls.objects.filter(status='active').first()
+        if a:
+            return a
+        a = cls.objects.order_by('-year').first() or cls(year='2026/2027')
+        a.status = 'active'
+        a.save()
+        return a
+
 
 class AdmissionDate(models.Model):
-    admission = models.ForeignKey(AdmissionSettings, on_delete=models.CASCADE, related_name='dates')
+    admission = models.ForeignKey(AdmissionYear, on_delete=models.CASCADE, related_name='dates')
     title = I18nField('Bosqich', required_uz=True)
     period = I18nField('Muddat')
     current = models.BooleanField('Hozirgi bosqich', default=False)
@@ -196,7 +217,7 @@ class AdmissionDate(models.Model):
 
 
 class AdmissionFaq(models.Model):
-    admission = models.ForeignKey(AdmissionSettings, on_delete=models.CASCADE, related_name='faq')
+    admission = models.ForeignKey(AdmissionYear, on_delete=models.CASCADE, related_name='faq')
     question = I18nField('Savol', required_uz=True)
     answer = I18nField('Javob', multiline=True)
     order = models.PositiveIntegerField('Tartib', default=0)

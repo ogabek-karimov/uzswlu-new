@@ -182,6 +182,22 @@ export interface HemisEmployment {
 }
 
 /** Ro'yxat kartasi uchun qisqa ma'lumot — HEMIS'dan */
+/** Sahifa chaqiruv bloki: sarlavha, matn, tugma yozuvi va havola (tashqi bo'lsa yangi oynada) */
+export interface PageCta {
+  title: string | null
+  text: string | null
+  label: string
+  url: string
+}
+
+/** Sahifadagi bo'lim xodimi kartasi: telefon / e-pochta / qabul kunlari kiritilmagan bo'lsa null */
+export interface PageStaff extends StaffSummary {
+  position: string | null
+  phone: string | null
+  email: string | null
+  hours: string | null
+}
+
 export interface StaffSummary {
   /** Saytdagi xodim ID'si (uzswlu.uz/teacher/7731 dagi kabi) */
   id: string
@@ -378,6 +394,8 @@ export interface SiteData {
   socials: SocialLink[]
   /** Chap panelda «O'quv binolari» belgisi (admin panelda yoqiladi/o'chiriladi); berilmasa — ko'rsatiladi */
   showBuildings?: boolean
+  /** Faol qabul yili (admin → Qabul yillari), masalan "2026/2027" */
+  admissionYear?: string
   /** Davlat ramzlari (bosh sahifa bloki va footer) — admin panelda boshqariladi; berilmasa saytdagi standart havolalar */
   symbols?: StateSymbol[] | null
   /** «Davlat ramzlari» orqa foni (bayroq va gerb) — admin panelda yoqiladi/yashiriladi; berilmasa ko'rsatiladi */
@@ -441,6 +459,16 @@ export interface ContentPage {
    */
   timeline: { label: string; text: string; highlight?: boolean }[]
   attachments: Attachment[]
+  /** Hujjat uslubi: Times New Roman, sarlavhalar markazda */
+  docStyle?: boolean
+  /** Bo'limlar kartalari (admin → Bo'limlar), sahifada yoqilgan bo'lsa */
+  /** Bo'lim xodimlari — HEMIS'dan avtomatik (admin → Sahifalar'da bo'lim tanlanadi); rahbar birinchi */
+  staff?: PageStaff[]
+  /** Matndan keyin chaqiruv bloki (admin → Sahifalar); havola va tugma yozuvi bo'lmasa null */
+  cta?: PageCta | null
+  units?: { unit?: string | null; count?: number | null; name?: string | null; position?: string | null; photo?: string | null; phone?: string | null; ext?: string | null; email?: string | null; url?: string | null; source?: 'hemis' | 'admin' }[]
+  /** Matndan keyin rektor kartasi (admin: «Matndan keyin rektor kartasi»; ma'lumot — Rahbariyat'dan) */
+  rector?: { name: string; role: string; photo?: string | null; hours?: string | null; phone?: string | null; ext?: string | null; email?: string | null } | null
   /** ISO sana-vaqt */
   updatedAt: string
 }
@@ -637,6 +665,10 @@ export interface FacultyDetail extends Faculty {
 export interface Admission {
   /** "2026/2027" */
   year: string
+  /** true — arxiv yili (/qabul/2025-2026) */
+  archived?: boolean
+  /** Saytda ko'rinadigan arxiv yillari (yangidan eskiga) */
+  archive?: { year: string; slug: string }[]
   /** Onlayn ariza havolasi */
   applyUrl: string
   /** Muhim sanalar; current — hozirgi bosqich */

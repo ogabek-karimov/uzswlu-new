@@ -187,10 +187,10 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
           <Icon name="lucide:search" class="size-5" />
         </NuxtLink>
         <NuxtLink
-          :to="localePath('/qabul-20262027')"
+          :to="localePath(ADMISSION_PATH)"
           class="hidden items-center gap-1.5 rounded-full bg-accent-400 px-5 py-2.5 text-sm font-semibold whitespace-nowrap text-ink transition-colors hover:bg-accent-300 sm:inline-flex"
         >
-          {{ t('nav.admission') }}
+          {{ t('nav.admission', { year: admissionYear(site).short }) }}
           <Icon name="lucide:arrow-up-right" class="size-4" />
         </NuxtLink>
         <LoginMenu />
@@ -391,10 +391,10 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
           </template>
 
           <NuxtLink
-            :to="localePath('/qabul-20262027')"
+            :to="localePath(ADMISSION_PATH)"
             class="mt-6 flex items-center justify-center gap-2 rounded-full bg-accent-400 px-5 py-3.5 font-semibold text-ink"
           >
-            {{ t('nav.admission') }}
+            {{ t('nav.admission', { year: admissionYear(site).short }) }}
             <Icon name="lucide:arrow-up-right" class="size-4" />
           </NuxtLink>
 

@@ -20,7 +20,7 @@ export const auth = {
 
   /** Kirgandan keyin tushadigan sahifa */
   homePath() {
-    const order: [string, string][] = [['dashboard', '/'], ['news', '/postlar/news'], ['announcements', '/postlar/announcements'], ['events', '/postlar/events'], ['pages', '/sahifalar'], ['faculties', '/fakultetlar'], ['departments', '/kafedralar'], ['sdg', '/brm'], ['documents', '/hujjatlar'], ['videos', '/video'], ['quick-links', '/tezkor-xizmatlar'], ['phones', '/telefonlar'], ['rude-words', '/haqoratli-sozlar'], ['leaders', '/rahbariyat'], ['staff', '/xodimlar'], ['media', '/media']]
+    const order: [string, string][] = [['dashboard', '/'], ['news', '/postlar/news'], ['announcements', '/postlar/announcements'], ['events', '/postlar/events'], ['pages', '/sahifalar'], ['faculties', '/fakultetlar'], ['departments', '/kafedralar'], ['sdg', '/brm'], ['documents', '/hujjatlar'], ['videos', '/video'], ['quick-links', '/tezkor-xizmatlar'], ['phones', '/telefonlar'], ['admission', '/qabul-yillari'], ['units', '/bolimlar'], ['rude-words', '/haqoratli-sozlar'], ['leaders', '/rahbariyat'], ['staff', '/xodimlar'], ['media', '/media']]
     return order.find(([k]) => this.can(k))?.[1] ?? '/profil'
   },
 

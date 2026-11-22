@@ -41,7 +41,7 @@ class ApiToken(BasePermission):
 # Views o'qiydigan so'rov parametrlari. Kesh kalitiga FAQAT shular kiradi: begona parametr (`?x=tasodifiy`) yangi kesh yozuvi
 # yaratib, keshni to'ldirib haqiqiy yozuvlarni siqib chiqarmasin (cache-busting). Yangi parametr qo'shilsa — shu yerga ham
 # (tests/security/test_cache_pressure.py kod bo'ylab tekshiradi).
-CACHE_PARAMS = frozenset({'lang', 'type', 'q', 'month', 'sdg', 'page', 'perPage', 'level', 'group', 'department'})
+CACHE_PARAMS = frozenset({'lang', 'type', 'q', 'month', 'sdg', 'page', 'perPage', 'level', 'group', 'department', 'year'})
 
 
 def _cache_key(request, lang_scope: str) -> str:

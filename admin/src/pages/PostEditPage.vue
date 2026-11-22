@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
+import AlphabetButton from '@/components/AlphabetButton.vue'
 import Icon from '@/components/Icon.vue'
 import ImageField from '@/components/ImageField.vue'
 import LangTabs from '@/components/LangTabs.vue'
@@ -233,6 +234,7 @@ const siteLink = computed(() => (form.slug ? `${SITE_URL}${lang.value === 'uz' ?
           <div class="border-b border-line bg-[#FAF9FD] px-3.5 pt-2.5"><LangTabs v-model="lang" :fill="fill" /></div>
           <div class="flex flex-col gap-[18px] p-[22px]">
             <p class="rounded-xl px-3.5 py-2.5 text-[13px] leading-relaxed" :class="note[1]">{{ note[0] }}</p>
+            <AlphabetButton v-if="lang === 'uz'" :target="form" />
             <div>
               <label for="p-title" class="label text-[13px]! text-ink!">Sarlavha · {{ langLabel }} <span v-if="lang === 'uz'" class="text-red-700">*</span></label>
               <input id="p-title" v-model="form.title[lang]" class="field h-12! text-[17px]! font-semibold" :placeholder="lang === 'zh' ? '中文标题' : lang === 'ru' ? 'Заголовок на русском' : lang === 'en' ? 'Title in English' : 'Masalan: ÖzDJTUda xalqaro anjuman bölib ötdi'">

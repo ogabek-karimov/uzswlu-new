@@ -10,7 +10,7 @@ const symbolHref = (key: string, fallback: string) => {
 }
 
 const usefulLinks = [
-  { label: 'menu.applicants.items.admission', to: '/qabul-20262027' },
+  { label: 'menu.applicants.items.admission', to: ADMISSION_PATH },
   { label: 'menu.applicants.items.bachelor', to: '/bakalavriat' },
   { label: 'menu.university.items.library', to: '/axborot-resurs-markazi' },
   { label: 'menu.activity.items.documents', to: '/meyoriy-hujjatlar' },
@@ -55,7 +55,7 @@ const usefulLinks = [
           <p class="text-sm font-semibold text-white">{{ t('footer.links') }}</p>
           <ul class="mt-5 space-y-2.5 text-sm">
             <li v-for="link in usefulLinks" :key="link.to">
-              <NuxtLink :to="localePath(link.to)" class="transition-colors hover:text-accent-400">{{ t(link.label) }}</NuxtLink>
+              <NuxtLink :to="localePath(link.to)" class="transition-colors hover:text-accent-400">{{ t(link.label, { year: admissionYear(site).full }) }}</NuxtLink>
             </li>
           </ul>
         </div>

@@ -26,7 +26,7 @@ from apps.pages.models import (
     Page, PageAttachment, PageFact, PageTimeline, SdgCategory, SdgGoal, SdgGoalReport, SdgOverviewReport, SdgPage, SdgSection,
 )
 from apps.structure.models import (
-    FORM_LABELS, AdmissionDate, AdmissionFaq, AdmissionSettings, Campus, ContactEmail, Faculty, Program, ProgramGroup,
+    FORM_LABELS, AdmissionDate, AdmissionFaq, AdmissionYear, Campus, ContactEmail, Faculty, Program, ProgramGroup,
     StaffProfile,
 )
 
@@ -35,7 +35,7 @@ FILES = DATA / 'files'
 
 # Saytda o'z sahifasi (Nuxt) bor bo'limlar — mazmuni admin panelning boshqa bo'limida
 SPECIAL = re.compile(
-    r'^/(aloqa|bakalavriat|brm|brm-[\w-]+|fakultetlar-va-kafedralar|magistratura|meyoriy-hujjatlar|qabul-20262027|'
+    r'^/(aloqa|bakalavriat|brm|brm-[\w-]+|fakultetlar-va-kafedralar|magistratura|meyoriy-hujjatlar|qabul|qabul-20262027|'
     r'rektorat|staff|video-darsliklar|yangiliklar|news|announcements|events)$'
 )
 UZ_FORM = {v['uz']: k for k, v in FORM_LABELS.items()}
@@ -298,7 +298,7 @@ class Command(BaseCommand):
                 found.save()
             self.say('Ta’lim yo‘nalishlari yuklandi')
 
-        adm = AdmissionSettings.load()
+        adm = AdmissionYear.active()
         if not adm.dates.exists():
             a = mock['admission']
             adm.year, adm.apply_url = a['year'], a['applyUrl']

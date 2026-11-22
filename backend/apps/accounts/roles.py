@@ -16,6 +16,8 @@ SECTIONS: dict[str, tuple[str, str]] = {
     'quick-links': ('Tezkor xizmatlar', 'Kontent'),
     'phones': ('Telefonlar ma’lumotnomasi', 'Kontent'),
     'rude-words': ('Haqoratli so‘zlar', 'Kontent'),
+    'admission': ('Qabul yillari', 'Kontent'),
+    'units': ('Bo‘limlar', 'Kontent'),
     'media': ('Media kutubxona', 'Kontent'),
     'documents': ('Hujjatlar', 'Kontent'),
     'videos': ('Video darsliklar', 'Kontent'),
@@ -37,7 +39,7 @@ SYSTEM_ROLES = {
     'superadmin': ('Superadmin', 'Hamma narsa', {k: W for k in SECTIONS}, False),
     'editor': ('Kontent muharriri', 'Yangiliklar, e’lonlar, tadbirlar', {'dashboard': W, 'news': W, 'announcements': W, 'events': W, 'media': W}, False),
     'faculty': ('Fakultet admini', 'O‘z fakulteti va kafedralari', {'dashboard': W, 'news': W, 'announcements': W, 'events': W, 'media': W, 'faculties': W, 'departments': W}, True),
-    'pages': ('Sahifalar muharriri', 'Sahifalar, hujjatlar, video', {'dashboard': W, 'news': W, 'announcements': W, 'events': W, 'media': W, 'pages': W, 'quick-links': W, 'phones': W, 'rude-words': W, 'documents': W, 'videos': W}, False),
+    'pages': ('Sahifalar muharriri', 'Sahifalar, hujjatlar, video', {'dashboard': W, 'news': W, 'announcements': W, 'events': W, 'media': W, 'pages': W, 'quick-links': W, 'phones': W, 'rude-words': W, 'admission': W, 'units': W, 'documents': W, 'videos': W}, False),
     'sdg': ('BRM menejeri', 'Faqat BRM bo‘limi', {'sdg': W, 'media': W}, False),
 }
 # Tayyor namunalar (superadmin o'zgartira yoki o'chira oladi)

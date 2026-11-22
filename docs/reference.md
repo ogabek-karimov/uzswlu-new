@@ -11,6 +11,7 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 | Kolleksiya | `superadmin` | `editor` | `faculty` | `pages` | `sdg` |
 |---|---|---|---|---|---|
 | `activity` | R | — | — | — | — |
+| `admission-years` | RCUD | R | R | RCUD | R |
 | `categories` | RCUD | R | R | R | R |
 | `departments` | RCUD | R | RCU | R | R |
 | `doc-categories` | RCUD | R | R | RCU | R |
@@ -28,6 +29,7 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 | `sdg-goals` | RCUD | R | R | R | RU |
 | `slides` | RCUD | R | R | R | R |
 | `staff-profiles` | RCUD | R | R | R | R |
+| `unit-heads` | RCUD | R | R | RCUD | R |
 | `users` | RCUD | RU | RU | RU | RU |
 | `video-categories` | RCUD | R | R | RCU | R |
 | `videos` | RCUD | R | R | RCUD | R |
@@ -40,6 +42,9 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 
 **Obyekt darajasidagi qoidalar** (rol jadvalidan tashqari):
 
+- `admission-years` · **create**: `year` — 2027/2028 ko‘rinishida, takrorlanmas; `copyFrom` — nusxa olinadigan yil id si.
+- `admission-years` · **update**: `status: active` — faol qilish (oldingi faol yil arxivga o‘tadi); `public` — arxiv yili saytda ko‘rinadimi.
+- `admission-years` · **delete**: Faol yil o‘chirilmaydi.
 - `departments` · **create**: `faculty` faqat **o‘z fakultetiga** kafedra qo‘sha oladi.
 - `departments` · **update**: `faculty` faqat **o‘z fakultetidagi** kafedrani o‘zgartiradi.
 - `faculties` · **update**: `faculty` faqat **o‘z fakultetini** (`User.scope`) o‘zgartiradi; doirasi belgilanmagan bo‘lsa — hech narsani.
@@ -50,6 +55,7 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 - `roles` · **delete**: Tizim roli yoki foydalanuvchisi bor rol o‘chirilmaydi.
 - `roles` · **update**: Tizim rollarining (superadmin, editor, faculty, pages, sdg) bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi. «HEMIS roli» — shu lavozimdagi xodim HEMIS orqali kirganda hisob va shu rol avtomatik beriladi (tizim rollariga berilmaydi).
 - `rude-words` · **create**: `word` majburiy, takrorlanmas (kichik harf); oxirida `*` — shu bilan boshlanuvchi barcha so‘zlar; `lang`: uz/ru/en/zh.
+- `unit-heads` · **create**: `name` va `position.uz` majburiy; `url` — /yo‘l yoki https://…
 
 ### `manage.py` buyruqlari (loyihaniki)
 
@@ -341,6 +347,8 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `/profil` | `admin/src/pages/ProfilePage.vue` | hamma kirgan xodim |
 | `/tezkor-xizmatlar` | `admin/src/pages/QuickLinksPage.vue` | hamma kirgan xodim |
 | `/telefonlar` | `admin/src/pages/PhonesPage.vue` | hamma kirgan xodim |
+| `/qabul-yillari` | `admin/src/pages/AdmissionYearsPage.vue` | hamma kirgan xodim |
+| `/bolimlar` | `admin/src/pages/UnitHeadsPage.vue` | hamma kirgan xodim |
 | `/haqoratli-sozlar` | `admin/src/pages/RudeWordsPage.vue` | hamma kirgan xodim |
 | `/karusel` | `admin/src/pages/CarouselPage.vue` | faqat `superadmin` |
 | `/media` | `admin/src/pages/MediaPage.vue` | hamma kirgan xodim |
@@ -379,6 +387,7 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `/meyoriy-hujjatlar` | `frontend/app/pages/meyoriy-hujjatlar.vue` |
 | `/news/:slug` | `frontend/app/pages/news/[slug].vue` |
 | `/oquv-binolari` | `frontend/app/pages/oquv-binolari.vue` |
+| `/qabul/:[year]` | `frontend/app/pages/qabul/[[year]].vue` |
 | `/qabul-20262027` | `frontend/app/pages/qabul-20262027.vue` |
 | `/rektorat` | `frontend/app/pages/rektorat.vue` |
 | `/search` | `frontend/app/pages/search.vue` |
@@ -459,6 +468,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/content/quick_links.py` | «Tezkor xizmatlar» kartalari: ruxsat etilgan ikonkalar va havolani tekshirish. |
 | `backend/apps/content/video_tour.py` | Video tur havolasini tekshirish: faqat YouTube, Vimeo yoki to'g'ridan-to'g'ri https video fayl (mp4/webm/ogg). |
 | `backend/apps/core/activity.py` | Faollik jurnali va sayt keshini yangilash. |
+| `backend/apps/core/alphabet.py` | O'zbek lotin yozuvini yangi alifboga o'girish (qonun bo'yicha): Oʻ→Ö, Gʻ→Ğ, Sh→Ş, Ch→Ç. |
 | `backend/apps/core/backup.py` | Zaxira nusxa (backup) va tiklash — faqat Python, cron/tashqi dastur shart emas (PostgreSQL uchun `pg_dump` bo'lsa u ishlatiladi). |
 | `backend/apps/core/checks.py` | Ishga tushganda xavfsizlik sozlamalarini tekshiradi (`manage.py check`, gunicorn/Docker ishga tushishida chiqadi). |
 | `backend/apps/core/docsgen.py` | Loyiha qo'llanmasi (docs/) generatori — faqat Python. |
@@ -504,12 +514,13 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (367 ta test)
+### Backend testlari xaritasi (384 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
 | Fayl | Testlar | Nimani tekshiradi |
 |---|---|---|
+| `backend/tests/api/test_admission_years.py` | 4 | Qabul yillari: faol yil saytda, yangi yil nusxa bilan (qoralama), faol qilish → oldingisi arxiv (narxlar saqlanadi), |
 | `backend/tests/api/test_cabinet_roles.py` | 10 |  |
 | `backend/tests/api/test_cabinet_tasks.py` | 5 | Kabinet vazifalari: dekan → kafedra mudiri → o'qituvchi (namunaviy HEMIS ma'lumoti). |
 | `backend/tests/api/test_cache_stampede.py` | 8 | Ochiq javoblar keshi: to'dan himoya — bir xil so'rovlar bazaga bir vaqtda urilmaydi (CachedGetMixin._cached_or_build). |
@@ -517,10 +528,12 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/api/test_edge_refresh.py` | 7 | Kontent o'zgarganda Nuxt/nginx keshini yangilash (apps/api/edge.py). |
 | `backend/tests/api/test_flows.py` | 14 | Ochiq API oqimlari (demo ma'lumot bilan): sanoqlar, eski /api/site/* manzillari, API token, xodim kabineti, murojaat, statistika. |
 | `backend/tests/api/test_maps.py` | 5 |  |
+| `backend/tests/api/test_page_staff.py` | 6 | Sahifadagi bo'lim xodimlari (masalan, «Axborot-resurs markazi»): HEMIS'dan avtomatik, admin zaxirasi, karta kontaktlari. |
 | `backend/tests/api/test_post_neighbors.py` | 1 |  |
 | `backend/tests/api/test_search.py` | 9 | Sayt qidiruvi (GET /search): nima qidiriladi va yozuv farqlari (tutuq, yangi alifbo, kirill, qo'shimchalar). |
 | `backend/tests/api/test_swagger.py` | 13 | Swagger to'liqligi: kodda ishlaydigan har bir amal hujjatda bo'lishi shart (yangi endpoint/kolleksiya qo'shilganda |
 | `backend/tests/api/test_text_quality.py` | 3 |  |
+| `backend/tests/core/test_alphabet.py` | 7 | Yangi alifboga o'girish (apps.core.alphabet) va alifbodan mustaqil qidiruv (fold). |
 | `backend/tests/core/test_backup.py` | 41 | Zaxira va tiklash: yaratish, tekshirish, tiklash (SQLite va PostgreSQL — qaysi baza bilan ishlayotgan bo'lsa), ko'chma JSON, |
 | `backend/tests/core/test_docs.py` | 10 | Qo'llanma (docs/) eskirmasligi: avtomatik fayllar kodga mos, havolalar/anchorlar/yo'llar/buyruqlar mavjud. |
 | `backend/tests/core/test_page_cleanup.py` | 4 | «Toshkent haqida» / «Kontingent» sahifalarini o'chiruvchi migratsiya (0002_remove_toshkent_kontingent). |
@@ -563,6 +576,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `content` | `PostGalleryImage` | Galereya rasmi | `apps/content/models.py` |
 | `content` | `Slide` | Slayd | `apps/content/models.py` |
 | `content` | `Leader` | Rahbar | `apps/content/models.py` |
+| `content` | `UnitHead` | Bo‘lim rahbari | `apps/content/models.py` |
 | `content` | `DocCategory` | Hujjat toifasi | `apps/content/models.py` |
 | `content` | `Document` | Hujjat | `apps/content/models.py` |
 | `content` | `VideoCategory` | Video toifasi | `apps/content/models.py` |
@@ -580,7 +594,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `structure` | `StaffDocument` | Xodim hujjati | `apps/structure/models.py` |
 | `structure` | `ProgramGroup` | Yo‘nalishlar guruhi | `apps/structure/models.py` |
 | `structure` | `Program` | Ta’lim yo‘nalishi | `apps/structure/models.py` |
-| `structure` | `AdmissionSettings` | Qabul sozlamalari | `apps/structure/models.py` |
+| `structure` | `AdmissionYear` | Qabul yili | `apps/structure/models.py` |
 | `structure` | `AdmissionDate` | Muhim sana | `apps/structure/models.py` |
 | `structure` | `AdmissionFaq` | Ko‘p so‘raladigan savol | `apps/structure/models.py` |
 | `structure` | `Campus` | Bino / kampus | `apps/structure/models.py` |

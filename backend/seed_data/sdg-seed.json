@@ -5,7 +5,7 @@
    "n": 1,
    "url": "/brm-1-ota-qashshoqlikka-barham-berish",
    "title": {
-    "uz": "O‘ta qashshoqlikka barham berish",
+    "uz": "Öta qaşşoqlikka barham beriş",
     "ru": "Ликвидация нищеты",
     "en": "No Poverty",
     "zh": "无贫穷"
@@ -53,7 +53,7 @@
    "n": 2,
    "url": "/brm-2-ochlikka-barham-berish",
    "title": {
-    "uz": "Ochlikka barham berish",
+    "uz": "Oçlikka barham beriş",
     "ru": "Ликвидация голода",
     "en": "Zero Hunger",
     "zh": "零饥饿"
@@ -101,7 +101,7 @@
    "n": 3,
    "url": "/brm-3-soglik-va-farovonlik",
    "title": {
-    "uz": "Sog‘lik va farovonlik",
+    "uz": "Soğlik va farovonlik",
     "ru": "Здоровье и благополучие",
     "en": "Good Health and Well-being",
     "zh": "良好健康与福祉"
@@ -271,7 +271,7 @@
     {
      "key": "measurement",
      "title": {
-      "uz": "Suvni o‘lchash",
+      "uz": "Suvni ölçaş",
       "ru": "Измерение воды",
       "en": "Water measurement",
       "zh": "水量计量"
@@ -286,7 +286,7 @@
     {
      "key": "treatment",
      "title": {
-      "uz": "Suvni tozalash",
+      "uz": "Suvni tozalaş",
       "ru": "Очистка воды",
       "en": "Water treatment",
       "zh": "水处理"
@@ -301,7 +301,7 @@
     {
      "key": "pollution",
      "title": {
-      "uz": "Suv ifloslanishi",
+      "uz": "Suv ifloslanişi",
       "ru": "Загрязнение воды",
       "en": "Water pollution",
       "zh": "水污染"
@@ -479,7 +479,7 @@
    "n": 8,
    "url": "/brm-8-munosib-ish-orinlari-va-iqtisodiy-osish",
    "title": {
-    "uz": "Munosib ish o‘rinlari va iqtisodiy o‘sish",
+    "uz": "Munosib iş örinlari va iqtisodiy ösiş",
     "ru": "Достойная работа и экономический рост",
     "en": "Decent Work and Economic Growth",
     "zh": "体面工作和经济增长"
@@ -575,7 +575,7 @@
    "n": 10,
    "url": "/brm-10-tengsizlikni-kamaytirish",
    "title": {
-    "uz": "Tengsizlikni kamaytirish",
+    "uz": "Tengsizlikni kamaytiriş",
     "ru": "Уменьшение неравенства",
     "en": "Reduced Inequalities",
     "zh": "减少不平等"
@@ -623,7 +623,7 @@
    "n": 11,
    "url": "/brm-11-barqaror-shahrlar-va-aholi-yahash-joylari",
    "title": {
-    "uz": "Barqaror shaharlar va aholi yashash joylari",
+    "uz": "Barqaror şaharlar va aholi yaşaş joylari",
     "ru": "Устойчивые города и населённые пункты",
     "en": "Sustainable Cities and Communities",
     "zh": "可持续城市和社区"
@@ -671,7 +671,7 @@
    "n": 12,
    "url": "/brm-12-masuliyatli-istemol-va-ishlab-chiqarish",
    "title": {
-    "uz": "Mas’uliyatli iste’mol va ishlab chiqarish",
+    "uz": "Mas’uliyatli iste’mol va işlab çiqariş",
     "ru": "Ответственное потребление и производство",
     "en": "Responsible Consumption and Production",
     "zh": "负责任消费和生产"
@@ -719,7 +719,7 @@
    "n": 13,
    "url": "/brm-13-iqlim-ozgarishga-qarshi-kurashish",
    "title": {
-    "uz": "Iqlim o‘zgarishiga qarshi kurashish",
+    "uz": "Iqlim özgarişiga qarşi kuraşiş",
     "ru": "Борьба с изменением климата",
     "en": "Climate Action",
     "zh": "气候行动"
@@ -767,7 +767,7 @@
    "n": 14,
    "url": "/brm-14-dengiz-ekotizimlarini-asrash",
    "title": {
-    "uz": "Dengiz ekotizimlarini asrash",
+    "uz": "Dengiz ekotizimlarini asraş",
     "ru": "Сохранение морских экосистем",
     "en": "Life Below Water",
     "zh": "水下生物"
@@ -815,7 +815,7 @@
    "n": 15,
    "url": "/brm-15-quruqlikdagi-ekotizimlarni-asrash",
    "title": {
-    "uz": "Quruqlikdagi ekotizimlarni asrash",
+    "uz": "Quruqlikdagi ekotizimlarni asraş",
     "ru": "Сохранение экосистем суши",
     "en": "Life on Land",
     "zh": "陆地生物"
@@ -863,7 +863,7 @@
    "n": 16,
    "url": "/brm-16-tinchlik-adolat-va-samarali-boshqaruv",
    "title": {
-    "uz": "Tinchlik, adolat va samarali boshqaruv",
+    "uz": "Tinçlik, adolat va samarali boşqaruv",
     "ru": "Мир, правосудие и эффективные институты",
     "en": "Peace, Justice and Strong Institutions",
     "zh": "和平、正义与强大机构"
@@ -911,7 +911,7 @@
    "n": 17,
    "url": "/brm-17-barqaror-rivojlanish-yolida-hamkorlik",
    "title": {
-    "uz": "Barqaror rivojlanish yo‘lida hamkorlik",
+    "uz": "Barqaror rivojlaniş yölida hamkorlik",
     "ru": "Партнёрство во имя устойчивого развития",
     "en": "Partnerships for the Goals",
     "zh": "促进目标实现的伙伴关系"

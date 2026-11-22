@@ -9,8 +9,9 @@ from django.db.models import Count
 from django.db.models.functions import TruncMonth
 from django.utils import timezone
 
+from apps.api.builders_staff import department_staff_out, units_out
 from apps.content.models import (
-    Document, DocCategory, HomeBanner, HomeVideoTour, Leader, Partner, QuickLink, Post, Slide, StateSymbol, TaughtLanguage, Video, VideoCategory, VideoPage,
+    Document, DocCategory, HomeBanner, HomeVideoTour, Leader, Partner, UnitHead, QuickLink, Post, Slide, StateSymbol, TaughtLanguage, Video, VideoCategory, VideoPage,
 )
 from apps.content.video_tour import parse_video
 from apps.core.fields import pick, tr
@@ -21,7 +22,7 @@ from apps.hemis import get_client
 from apps.pages.models import Page, SdgGoal, SdgPage
 from apps.structure.maps import map_embed, map_link
 from apps.structure.models import (
-    FORM_LABELS, AdmissionSettings, Campus, ContactEmail, Faculty, PhoneEntry, Program, ProgramGroup, RudeWord,
+    FORM_LABELS, AdmissionYear, Campus, ContactEmail, Faculty, PhoneEntry, Program, ProgramGroup, RudeWord,
 )
 
 from .builders import (
@@ -160,6 +161,9 @@ def menu_out(lang: str) -> list[dict]:
             out.extend(flatten(p.pk))
         return out
 
+    # Qabul sahifasi bandi nomidagi yil (masalan «Qabul – 2026/2027») — doim faol qabul yili (admin → Qabul yillari)
+    adm_year = AdmissionYear.active().year
+
     menu = []
     for g in children.get(None, []):
         if g.template != 'group':
@@ -169,8 +173,11 @@ def menu_out(lang: str) -> list[dict]:
             if p.template == 'group':
                 continue
             url = p.site_url
+            title = tr(p.title, lang)
+            if url == '/qabul':
+                title = re.sub(r'\d{4}\s*/\s*\d{4}', adm_year, title)
             links.append({
-                'title': tr(p.title, lang),
+                'title': title,
                 'url': url,
                 'file': 'pdf' if p.template == 'link' and (p.file_id or re.search(r'\.pdf($|\?)', url, re.I)) else None,
                 'highlight': p.highlight,
@@ -219,6 +226,8 @@ def site_out(lang: str) -> dict:
         'campuses': [{'id': c.key, 'name': tr(c.name, lang), 'address': tr(c.address, lang)} for c in Campus.objects.all()],
         'socials': socials,
         'showBuildings': s.show_buildings_link,
+        # Faol qabul yili (admin → Qabul yillari): header tugmasi, menyu, sahifa sarlavhalari shundan
+        'admissionYear': AdmissionYear.active().year,
         'symbols': symbols_out(lang) or None,
         'symbolsBackground': s.symbols_background,
     }
@@ -250,8 +259,25 @@ def page_out(p: Page, lang: str) -> dict:
         'body': restore_timeline(tr(p.body, lang)),
         'timeline': [{'label': tr(t.label, lang), 'text': tr(t.text, lang), 'highlight': t.highlight} for t in p.timeline.all()],
         'attachments': attachments_out(p.attachments.select_related('file'), lang),
+        # Matndan keyin rektor kartasi (admin → Rahbariyat; rektor almashsa sahifa o'zi yangilanadi)
+        'rector': rector_card(lang) if p.show_rector else None,
+        # Hujjat uslubi: Times New Roman, sarlavhalar markazda
+        'docStyle': p.doc_style,
+        # Bo'limlar kartalari: HEMIS'dan avtomatik (rahbar, surat, xodimlar soni) + admin → «Bo'limlar» qo'shimchalari
+        'units': units_out(lang) if p.show_units else [],
+        # Bo'lim xodimlari (HEMIS'dan avtomatik; admin → Sahifalar'da bo'lim tanlanadi)
+        # Matndan keyin chaqiruv bloki (masalan, uzlib.uz) — havola va tugma yozuvi bo'lsa
+        'cta': ({'title': tr(p.cta_title, lang) or None, 'text': tr(p.cta_text, lang) or None, 'label': tr(p.cta_label, lang), 'url': p.cta_url}
+                if p.cta_url and tr(p.cta_label, lang) else None),
+        'staff': department_staff_out(p.staff_department, lang, p.staff_extra, p.staff_contacts, tr(p.staff_hours, lang)),
         'updatedAt': iso(p.updated_at),
     }
+
+
+def rector_card(lang: str) -> dict | None:
+    """Rektor (admin → Rahbariyat) — surat bo'lmasa ham; saytda rasm o'rnida belgi. Rektor kiritilmagan bo'lsa — karta yo'q."""
+    r = Leader.objects.filter(kind='rector').select_related('photo').first()
+    return {**leader_out(r, lang), 'photo': img(r.photo, 'card') if r.photo_id else None} if r else None
 
 
 # ─── Postlar ─────────────────────────────────────────────────────────────────
@@ -490,16 +516,30 @@ def faculty_out(f: Faculty, lang: str) -> dict:
     }
 
 
-def admission_out(lang: str) -> dict:
-    a = AdmissionSettings.load()
-    return {
-        'year': a.year,
-        'applyUrl': a.apply_url,
-        'dates': [
-            {'title': tr(d.title, lang), 'period': tr(d.period, lang), 'current': d.current}
-            for d in a.dates.all()
-        ],
-        'programs': [
+def admission_programs_snapshot() -> list:
+    """Qabuldagi yo'nalishlar va narxlar (4 tilda) — yil arxivga o'tganda saqlanadi."""
+    return [
+        {'id': str(p.pk), 'code': p.code, 'title': p.title, 'faculty': p.faculty.name if p.faculty else {},
+         'level': p.level, 'form': p.form, 'years': p.years, 'price': p.price}
+        for p in Program.objects.filter(in_admission=True).select_related('faculty')
+    ]
+
+
+def admission_out(lang: str, year: str | None = None) -> dict | None:
+    """Qabul sahifasi: year berilmasa — faol yil (jonli yo'nalishlar); berilsa (masalan 2025-2026) — saytda ko'rinadigan arxiv yili (saqlangan nusxa)."""
+    if year:
+        a = AdmissionYear.objects.filter(year=year.replace('-', '/'), status='archive', public=True).first()
+        if not a:
+            return None
+        programs = [
+            {'id': x.get('id') or x.get('code'), 'code': x.get('code', ''), 'title': tr(x.get('title') or {}, lang),
+             'faculty': tr(x.get('faculty') or {}, lang), 'level': x.get('level', ''), 'form': form_label(x.get('form', ''), lang),
+             'years': x.get('years'), 'price': tr(x.get('price') or {}, lang) or None}
+            for x in (a.programs_snapshot or [])
+        ]
+    else:
+        a = AdmissionYear.active()
+        programs = [
             {
                 'id': str(p.pk), 'code': p.code, 'title': tr(p.title, lang),
                 'faculty': tr(p.faculty.name, lang) if p.faculty else '',
@@ -507,7 +547,18 @@ def admission_out(lang: str) -> dict:
                 'price': tr(p.price, lang) or None,
             }
             for p in Program.objects.filter(in_admission=True).select_related('faculty')
+        ]
+    return {
+        'year': a.year,
+        'archived': a.status == 'archive',
+        # Saytda ko'rinadigan arxiv yillari (yangidan eskiga) — sahifa pastida «Oldingi yillar»
+        'archive': [{'year': x.year, 'slug': x.slug} for x in AdmissionYear.objects.filter(status='archive', public=True)],
+        'applyUrl': a.apply_url,
+        'dates': [
+            {'title': tr(d.title, lang), 'period': tr(d.period, lang), 'current': d.current and a.status == 'active'}
+            for d in a.dates.all()
         ],
+        'programs': programs,
         'documents': lines(a.documents, lang),
         'documentsUrl': a.documents_url or None,
         'faq': [{'q': tr(x.question, lang), 'a': tr(x.answer, lang)} for x in a.faq.all()],

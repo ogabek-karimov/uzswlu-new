@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ContentPage } from '#shared/types/api'
+const NuxtLink = resolveComponent('NuxtLink')
 
 // Matnli sahifa (canvas: "Matnli sahifa — Universitet haqida"). Menyudagi har bir oddiy sahifa shu shablonda.
 // Yon menyu va "Oldingi/Keyingi" — sayt menyusidan; menyuda yo'q manzil — 404.
@@ -54,10 +55,6 @@ useSeo({
       <PageBreadcrumbs :items="[...(group ? [{ label: group.title }] : []), { label: page.title }]" />
       <div class="mt-7 flex flex-wrap items-end justify-between gap-6 border-b border-line pb-9">
         <div class="max-w-[820px] min-w-0">
-          <p v-if="group" class="flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-accent-600 uppercase">
-            <span class="h-px w-8 bg-accent-500" />
-            {{ group.title }}
-          </p>
           <h1 class="mt-3.5 font-display text-[2.75rem] leading-[1.04] font-semibold tracking-tight text-ink sm:text-6xl lg:text-[64px]">{{ page.title }}</h1>
           <p v-if="page.lead" class="mt-5 text-lg leading-relaxed text-muted sm:text-xl">{{ page.lead }}</p>
         </div>
@@ -109,7 +106,15 @@ useSeo({
           </div>
         </dl>
 
-        <ProseHtml :html="parts.before" />
+        <!-- Bo'lim xodimlari: HEMIS'dan avtomatik (admin → Sahifalar → «Bo'lim xodimlari»); rahbar birinchi -->
+        <section v-if="page.staff?.length" class="mb-12" aria-labelledby="page-staff">
+          <h2 id="page-staff" class="mb-5 font-display text-2xl font-semibold text-ink">{{ t('page.staffTitle') }}</h2>
+          <ul class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+            <li v-for="person in page.staff" :key="person.id"><StaffPageCard :person="person" /></li>
+          </ul>
+        </section>
+
+        <ProseHtml :html="parts.before" :class="page.docStyle && 'doc-style'" />
 
         <ol v-if="page.timeline.length" class="mt-7 grid gap-4 sm:grid-cols-3">
           <li
@@ -123,7 +128,53 @@ useSeo({
           </li>
         </ol>
 
-        <ProseHtml v-if="parts.after" :html="parts.after" class="mt-12" />
+        <ProseHtml v-if="parts.after" :html="parts.after" class="mt-12" :class="page.docStyle && 'doc-style'" />
+
+        <!-- Chaqiruv bloki (admin → Sahifalar → «Chaqiruv bloki»): matndan keyin, animatsiyali tugma -->
+        <PageCta v-if="page.cta" :cta="page.cta" />
+
+        <!-- Bo'limlar kartalari (admin → Bo'limlar): surat yoki belgi, F.I.Sh., lavozim, telefon; havolasi bo'lsa bosiladi -->
+        <ul v-if="page.units?.length" class="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <li v-for="(u, i) in page.units" :key="i">
+            <component
+              :is="u.url ? (u.url.startsWith('http') ? 'a' : NuxtLink) : 'div'"
+              v-bind="u.url ? (u.url.startsWith('http') ? { href: u.url, target: '_blank', rel: 'noopener' } : { to: localePath(u.url) }) : {}"
+              class="group flex h-full flex-col items-center rounded-3xl border border-line bg-white p-6 text-center transition duration-300"
+              :class="u.url && 'hover:-translate-y-1 hover:border-brand-200 hover:shadow-[0_24px_44px_-30px_rgb(19_17_47/0.45)]'"
+            >
+              <span class="size-28 shrink-0 overflow-hidden rounded-full bg-paper ring-4 ring-white shadow-[0_10px_24px_-14px_rgb(19_17_47/0.45)]">
+                <img v-if="u.photo" :src="u.photo" :alt="u.name || u.unit || ''" width="112" height="112" loading="lazy" class="size-full object-cover object-top transition-transform duration-500 group-hover:scale-105">
+                <span v-else class="grid size-full place-items-center text-muted"><Icon name="lucide:user-round" class="text-5xl" /></span>
+              </span>
+              <span v-if="u.unit && u.name" class="mt-4 text-xs font-semibold tracking-wide text-brand-700 uppercase">{{ u.unit }}</span>
+              <span class="font-semibold leading-snug text-ink" :class="u.unit && u.name ? 'mt-1.5' : 'mt-4'">{{ u.name || u.unit }}</span>
+              <span v-if="u.position" class="mt-1.5 text-sm leading-snug text-muted">{{ u.position }}</span>
+              <span v-if="u.count" class="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-muted"><Icon name="lucide:users" class="text-sm" />{{ t('page.unitStaff', { n: u.count }) }}</span>
+              <span v-if="u.phone || u.ext" class="mt-3 inline-flex items-center gap-1.5 text-sm text-ink/80 tabular-nums">
+                <Icon name="lucide:phone" class="text-base text-muted" />{{ u.phone }}<template v-if="u.ext"> · {{ t('contact.ext', { ext: u.ext }) }}</template>
+              </span>
+            </component>
+          </li>
+        </ul>
+
+        <!-- Rektor kartasi (admin → Rahbariyat'dan; rektor almashsa o'zi yangilanadi) -->
+        <NuxtLink v-if="page.rector" :to="localePath('/rektorat')" class="group mt-12 flex flex-col gap-6 overflow-hidden rounded-[28px] border border-line bg-[linear-gradient(150deg,#fff,#faf8f4)] p-6 shadow-[0_24px_50px_-36px_rgb(19_17_47/0.45)] transition duration-300 hover:-translate-y-1 hover:border-[#e7ddc8] hover:shadow-[0_34px_64px_-36px_rgb(19_17_47/0.5)] sm:flex-row sm:items-center sm:p-8">
+          <span class="relative mx-auto size-40 shrink-0 overflow-hidden rounded-3xl bg-paper ring-1 ring-line sm:mx-0 sm:size-44">
+            <img v-if="page.rector.photo" :src="page.rector.photo" :alt="page.rector.name" width="176" height="176" loading="lazy" class="size-full object-cover object-top transition-transform duration-500 group-hover:scale-105">
+            <span v-else class="grid size-full place-items-center text-muted"><Icon name="lucide:user-round" class="text-6xl" /></span>
+          </span>
+          <span class="min-w-0 flex-1 text-center sm:text-left">
+            <span class="text-xs font-semibold tracking-[0.18em] text-muted uppercase">{{ t('page.rectorNow') }}</span>
+            <span class="mt-1.5 block font-display text-[26px] leading-tight font-semibold sm:text-3xl">{{ page.rector.name }}</span>
+            <span class="mt-1 block text-[15px] text-muted">{{ page.rector.role }}</span>
+            <span class="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-1.5 text-sm text-ink/80 sm:justify-start">
+              <span v-if="page.rector.hours" class="inline-flex items-center gap-1.5"><Icon name="lucide:calendar-clock" class="text-base text-muted" />{{ page.rector.hours }}</span>
+              <span v-if="page.rector.phone" class="inline-flex items-center gap-1.5"><Icon name="lucide:phone" class="text-base text-muted" />{{ page.rector.phone }}</span>
+              <span v-if="page.rector.email" class="inline-flex items-center gap-1.5"><Icon name="lucide:mail" class="text-base text-muted" />{{ page.rector.email }}</span>
+            </span>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink">{{ t('page.rectorMore') }}<Icon name="lucide:arrow-right" class="transition-transform group-hover:translate-x-1" /></span>
+          </span>
+        </NuxtLink>
 
         <!-- Biriktirilgan hujjatlar -->
         <ul v-if="page.attachments.length" class="mt-12 flex flex-col gap-3">

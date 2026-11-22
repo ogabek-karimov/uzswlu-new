@@ -14,7 +14,7 @@
     "news": "News",
     "contact": "Contact",
     "search": "Search",
-    "admission": "Admission 2026",
+    "admission": "Admission {year}",
     "menu": "Menu",
     "close": "Close",
     "more": "More",
@@ -70,7 +70,7 @@
       "title": "Admissions",
       "desc": "Everything about admission, programmes, tuition and grants.",
       "items": {
-        "admission": "Admission 2026/2027",
+        "admission": "Admission {year}",
         "bachelor": "Bachelor's programmes",
         "master": "Master's programmes",
         "phd": "Doctoral studies (PhD)",
@@ -95,7 +95,7 @@
       }
     },
     "promo": {
-      "title": "Admission 2026/2027",
+      "title": "Admission {year}",
       "text": "Applications open for bachelor's, master's and joint programmes.",
       "cta": "Learn more"
     }
@@ -113,7 +113,7 @@
     "title1": "Languages —",
     "title2": "a door to the world",
     "text": "A university preparing specialists in foreign languages, philology, translation and international journalism.",
-    "ctaPrimary": "Admission 2026/2027",
+    "ctaPrimary": "Admission {year}",
     "ctaSecondary": "Study programmes",
     "searchLabel": "Search the site",
     "searchPlaceholder": "E.g. tuition fees, class schedule…",
@@ -270,7 +270,7 @@
   },
   "admission": {
     "eyebrow": "Admissions",
-    "title": "Admission 2026/2027",
+    "title": "Admission {year}",
     "text": "Steps to apply for bachelor's, master's and doctoral programmes.",
     "steps": {
       "s1": {
@@ -291,7 +291,10 @@
       }
     },
     "cta": "Apply now",
-    "ctaSecondary": "Tuition fees"
+    "ctaSecondary": "Tuition fees",
+    "archiveNote": "Archive: admission for the {year} academic year. Click to see the current admission.",
+    "current": "Current admission",
+    "previousYears": "Previous years"
   },
   "footer": {
     "about": "A higher education institution for foreign languages, philology, translation and international journalism.",
@@ -584,7 +587,14 @@
     "next": "Next page",
     "first": "First page of the section",
     "last": "Last page of the section",
-    "download": "Download"
+    "download": "Download",
+    "rectorNow": "University Rector",
+    "rectorMore": "Rectorate page",
+    "staffPhone": "Phone",
+    "staffHours": "Office hours",
+    "ctaNewTab": "opens in a new tab",
+    "staffTitle": "Staff",
+    "unitStaff": "{n} staff"
   },
   "posts": {
     "title": "University life",

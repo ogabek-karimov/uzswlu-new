@@ -668,3 +668,20 @@ html[data-scheme] [data-speaking] {
 @media (prefers-reduced-motion: reduce) {
   .shine-loop.is-in-view::after { animation: none; }
 }
+
+/* Hujjat uslubi (admin → Sahifalar → «Hujjat uslubi»): rasmiy hujjat ko'rinishi — Times New Roman, sarlavhalar markazda, matn eniga tekislangan */
+.doc-style,
+.doc-style :is(p, li, h2, h3, h4, strong, em) {
+  /* Xitoycha belgilar Times'da yo'q — rasmiy hujjatlardagi Song (宋体) shriftiga o'tadi */
+  font-family: 'Times New Roman', Times, SimSun, 'Songti SC', 'Noto Serif SC', 'Noto Serif CJK SC', serif;
+}
+.doc-style :is(p, li) {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  text-align: justify;
+  hyphens: auto;
+}
+.doc-style :is(h2, h3) {
+  text-align: center;
+  font-weight: 700;
+}

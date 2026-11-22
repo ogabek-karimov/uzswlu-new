@@ -27,17 +27,17 @@ const languages: Record<string, { code: string; native: string }> = {
 }
 
 const titles: Record<string, L> = {
-  '60110700': { uz: 'O‘zbek tili va adabiyoti', ru: 'Узбекский язык и литература', en: 'Uzbek Language and Literature', zh: '乌兹别克语言文学' },
+  '60110700': { uz: 'Özbek tili va adabiyoti', ru: 'Узбекский язык и литература', en: 'Uzbek Language and Literature', zh: '乌兹别克语言文学' },
   '60110800': { uz: 'Ona tili va adabiyoti (rus tili va adabiyoti)', ru: 'Родной язык и литература (русский язык и литература)', en: 'Native Language and Literature (Russian)', zh: '母语与文学（俄语语言文学）' },
   '60110900': { uz: 'Xorijiy til va adabiyoti', ru: 'Иностранный язык и литература', en: 'Foreign Language and Literature', zh: '外国语言文学' },
-  '60230100': { uz: 'Filologiya va tillarni o‘qitish', ru: 'Филология и преподавание языков', en: 'Philology and Language Teaching', zh: '语文学与语言教学' },
+  '60230100': { uz: 'Filologiya va tillarni öqitiş', ru: 'Филология и преподавание языков', en: 'Philology and Language Teaching', zh: '语文学与语言教学' },
   '60230200': { uz: 'Tarjima nazariyasi va amaliyoti', ru: 'Теория и практика перевода', en: 'Translation Theory and Practice', zh: '翻译理论与实践' },
   '60230400': { uz: 'Kompyuter lingvistikasi', ru: 'Компьютерная лингвистика', en: 'Computational Linguistics', zh: '计算语言学' },
-  '60310100': { uz: 'Siyosatshunoslik', ru: 'Политология', en: 'Political Science', zh: '政治学' },
+  '60310100': { uz: 'Siyosatşunoslik', ru: 'Политология', en: 'Political Science', zh: '政治学' },
   '60310400': { uz: 'Sotsiologiya', ru: 'Социология', en: 'Sociology', zh: '社会学' },
   '60310200': { uz: 'Xalqaro munosabatlar', ru: 'Международные отношения', en: 'International Relations', zh: '国际关系' },
   '60320100': { uz: 'Jurnalistika (xalqaro jurnalistika)', ru: 'Журналистика (международная журналистика)', en: 'Journalism (International Journalism)', zh: '新闻学（国际新闻）' },
-  '60320200': { uz: 'Axborot xizmati va jamoatchilik bilan aloqalar', ru: 'Информационная служба и связи с общественностью', en: 'Information Services and Public Relations', zh: '信息服务与公共关系' },
+  '60320200': { uz: 'Axborot xizmati va jamoatçilik bilan aloqalar', ru: 'Информационная служба и связи с общественностью', en: 'Information Services and Public Relations', zh: '信息服务与公共关系' },
 }
 
 const bachelorGroups: Record<string, L> = {

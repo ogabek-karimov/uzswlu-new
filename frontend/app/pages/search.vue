@@ -2,6 +2,7 @@
 import type { SearchKind, SearchResults } from '#shared/types/api'
 
 // Qidiruv natijalari (canvas: "Qidiruv natijalari"). So'rov URL'da: /search?q=&type=&page=
+const { data: site } = await useSiteData()
 const { t, locale } = useI18n()
 const route = useRoute()
 const router = useRouter()
@@ -121,7 +122,7 @@ useSeo({ title: () => (q.value ? `${q.value} — ${t('search.title')}` : t('sear
         <p class="font-semibold">{{ t('search.notFound') }}</p>
         <p class="mt-1.5 text-[15px] text-muted">
           {{ t('search.popular') }}
-          <NuxtLink :to="localePath('/qabul-20262027')" class="font-semibold text-brand-700 hover:underline">{{ t('admission.title') }}</NuxtLink> ·
+          <NuxtLink :to="localePath(ADMISSION_PATH)" class="font-semibold text-brand-700 hover:underline">{{ t('admission.title', { year: admissionYear(site).full }) }}</NuxtLink> ·
           <NuxtLink :to="localePath('/bakalavriat')" class="font-semibold text-brand-700 hover:underline">{{ t('programs.bachelor.name') }}</NuxtLink> ·
           <NuxtLink :to="localePath('/stipendiyalar')" class="font-semibold text-brand-700 hover:underline">{{ t('search.scholarships') }}</NuxtLink> ·
           <NuxtLink :to="localePath('/aloqa') + '#appeal'" class="font-semibold text-brand-700 hover:underline">{{ t('contact.form.title') }}</NuxtLink>
