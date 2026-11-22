@@ -30,7 +30,7 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
 
 <template>
   <!-- Pastdagi rasmli urg'u (Fakultetlar bilan bir uslubda): kampus surati (sekin yaqinlashadi) + indigo qatlam, tepa/pastda to'lqin; kartalar — shisha -->
-  <section v-if="campuses.length" class="section-wave relative isolate overflow-hidden bg-brand-700 py-24 lg:py-32" :aria-label="t('homeContact.title')">
+  <section v-if="campuses.length" class="section-wave relative isolate overflow-hidden bg-brand-700 pt-20 pb-24 lg:pt-24 lg:pb-32" :aria-label="t('homeContact.title')">
     <img
       src="/images/campus-aerial.webp"
       alt=""

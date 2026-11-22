@@ -18,6 +18,7 @@ const ICONS = [
   { value: 'lucide:briefcase-business', label: 'Karyera (portfel)' },
   { value: 'lucide:sprout', label: 'Maysa' },
   { value: 'lucide:book-a', label: 'Luğat (kitob)' },
+  { value: 'app:akt-lugat', label: 'AKT luğati logosi (rasm)' },
   { value: 'lucide:smartphone', label: 'Mobil ilova' },
   { value: 'lucide:globe', label: 'Veb-sayt' },
   { value: 'lucide:calendar-days', label: 'Taqvim' },

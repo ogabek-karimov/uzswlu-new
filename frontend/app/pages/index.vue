@@ -7,9 +7,9 @@ const { data } = await useHomeData()
     <HomeCarousel :slides="data?.slides ?? []" />
     <HomeBackdrop variant="paper">
       <HomeAbout v-reveal class="pt-10 lg:pt-14" :stats="data?.stats ?? []" :video-tour="data?.videoTour ?? null" />
-      <HomeQuickLinks v-reveal class="pb-2" />
+      <HomeQuickLinks v-reveal class="pb-10" />
     </HomeBackdrop>
-    <HomeFaculties v-reveal class="mt-14 lg:mt-20" :faculties="data?.faculties ?? []" />
+    <HomeFaculties v-reveal :faculties="data?.faculties ?? []" />
     <HomeBackdrop v-reveal variant="white" class="section-wave pb-12 lg:pb-16">
       <HomeNews show="news" :news="data?.news ?? []" :announcements="data?.announcements ?? []" />
     </HomeBackdrop>

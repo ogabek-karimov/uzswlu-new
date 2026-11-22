@@ -20,7 +20,7 @@ class QuickLinkValidationTests(PanelBase):
         """Admin sahifasi va sayt komponentidagi ikonkalar backend ro'yxati bilan bir xil (aks holda ikonka ko'rinmay qoladi)."""
         for rel in ('admin/src/pages/QuickLinksPage.vue', 'frontend/app/components/home/QuickLinks.vue'):
             src = (ROOT / rel).read_text(encoding='utf-8')
-            self.assertEqual(set(re.findall(r"'(lucide:[\w-]+)'", src)) - {'lucide:arrow-up-right'}, set(ICON_NAMES), rel)
+            self.assertEqual(set(re.findall(r"'((?:lucide|app):[\w-]+)'", src)) - {'lucide:arrow-up-right', 'lucide:arrow-right'}, set(ICON_NAMES), rel)
 
 
 class QuickLinkPanelTests(PanelBase):

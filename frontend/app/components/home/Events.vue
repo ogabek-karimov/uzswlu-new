@@ -10,7 +10,7 @@ const formatDate = useFormatDate()
 
 <template>
   <section class="section-wave relative isolate overflow-hidden bg-white">
-    <div class="mx-auto max-w-7xl px-4 pt-14 pb-20 sm:px-6 lg:px-8 lg:pt-16 lg:pb-24">
+    <div class="mx-auto max-w-7xl px-4 pt-14 pb-14 sm:px-6 lg:px-8 lg:pt-16 lg:pb-16">
     <SectionHeading
       :eyebrow="t('events.eyebrow')"
       :title="t('events.title')"

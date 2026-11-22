@@ -14,6 +14,7 @@ const ALLOWED = [
   'lucide:briefcase-business',
   'lucide:sprout',
   'lucide:book-a',
+  'app:akt-lugat',
   'lucide:smartphone',
   'lucide:globe',
   'lucide:calendar-days',
@@ -26,6 +27,10 @@ const ALLOWED = [
   'lucide:award',
   'lucide:life-buoy',
 ]
+// Rasm-belgilar (ilova logolari): kalit → rasm
+const IMAGE_ICONS: Record<string, string> = { 'app:akt-lugat': '/images/quick/akt-lugat.webp' }
+// Katta ekranda barcha nomlar bir qatorga sig'sa (≤ 18 belgi) — nom ostidagi bo'sh qator olib tashlanadi; uzunroq (ruscha) — kartalar tekis turishi uchun 2 qator joy qoladi
+const shortTitles = computed(() => links.value.every(l => (l.title ?? '').length <= 18))
 const links = computed(() => (home.value?.quickLinks ?? []).map(q => ({ ...q, icon: ALLOWED.includes(q.icon) ? q.icon : 'lucide:globe' })))
 
 // Telefonda kartalar yonga suriladi (karusel): strelkalar bir karta kengligiga suradi
@@ -60,21 +65,30 @@ watch(links, () => nextTick(measure))
           <component
             :is="link.external ? 'a' : NuxtLink"
             v-bind="link.external ? { href: link.url, target: '_blank', rel: 'noopener' } : { to: localePath(link.url) }"
-            data-spot class="group relative flex h-full flex-col gap-3 overflow-hidden rounded-3xl border border-line bg-white px-4 py-5 shadow-[0_1px_0_rgba(19,17,47,0.04)] transition duration-300 group-hover/li:-translate-y-1 hover:border-brand-200 hover:bg-brand-50 hover:shadow-[0_26px_50px_-30px_var(--color-brand-700)] focus-visible:-translate-y-1 focus-visible:bg-brand-50 lg:px-5 motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0"
+            class="group relative flex h-full flex-col items-center gap-3 overflow-hidden rounded-3xl border border-line bg-white px-4 pt-6 pb-5 text-center shadow-[0_1px_0_rgba(19,17,47,0.04)] transition duration-300 group-hover/li:-translate-y-1 hover:border-brand-200 hover:shadow-[0_24px_44px_-30px_rgb(19_17_47/0.4)] focus-visible:-translate-y-1 lg:px-2.5 motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0"
           >
-            <span class="decor pointer-events-none absolute -top-8 -right-8 size-24 rounded-full bg-brand-100/60 transition-transform duration-500 group-hover:scale-150 group-hover:bg-accent-100 motion-reduce:transition-none" aria-hidden="true" />
-            <span class="relative grid size-11 place-items-center rounded-xl bg-brand-50 text-brand-700 transition duration-300 group-group-hover/li:-translate-y-1 group-hover:-rotate-6 group-hover:bg-brand-800 group-hover:text-accent-400 group-hover:shadow-[0_12px_24px_-12px_var(--color-brand-800)] motion-reduce:transition-none motion-reduce:group-hover:transform-none">
-              <Icon :name="link.icon" class="size-5" />
+            <!-- O'ng yuqori burchakdagi strelka — faqat sichqoncha/fokusda chiqadi: tashqi havola ↗, sayt ichida → -->
+            <Icon
+              :name="link.external ? 'lucide:arrow-up-right' : 'lucide:arrow-right'"
+              class="absolute top-4 right-4 size-4 text-brand-700 opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+              :class="link.external ? 'translate-y-1 -translate-x-1 group-hover:translate-y-0' : '-translate-x-1'"
+            />
+            <!-- Belgi: markazda, katta. Ilova logosi — rasm; BRM — 17 rangli halqa (menyudagidek); qolganlari — ikonka -->
+            <span v-if="IMAGE_ICONS[link.icon]" class="relative block size-14 overflow-hidden rounded-2xl shadow-[0_8px_18px_-10px_rgb(19_17_47/0.5)] ring-1 ring-line origin-bottom transition duration-300 group-hover:scale-110 group-hover:shadow-[0_12px_24px_-14px_rgb(19_17_47/0.35)] motion-reduce:transition-none motion-reduce:group-hover:transform-none">
+              <img :src="IMAGE_ICONS[link.icon]" alt="" width="56" height="56" loading="lazy" class="size-full object-cover">
+            </span>
+            <span v-else-if="link.icon === 'lucide:sprout'" class="relative grid size-14 place-items-center rounded-2xl bg-white shadow-[0_8px_18px_-10px_rgb(19_17_47/0.5)] ring-1 ring-line origin-bottom transition duration-300 group-hover:scale-110 group-hover:shadow-[0_12px_24px_-14px_rgb(19_17_47/0.35)] motion-reduce:transition-none motion-reduce:group-hover:transform-none">
+              <NavGroupIcon id="sdg" class="size-10" />
+            </span>
+            <span v-else class="relative grid size-14 place-items-center rounded-2xl bg-brand-50 text-brand-700 origin-bottom transition duration-300 group-hover:scale-110 group-hover:bg-brand-100 group-hover:shadow-[0_12px_24px_-14px_rgb(56_43_133/0.35)] motion-reduce:transition-none motion-reduce:group-hover:transform-none">
+              <Icon :name="link.icon" class="text-[34px]" />
             </span>
             <span>
-              <span class="flex min-h-[2lh] items-start gap-1 text-[15px] font-semibold text-ink">
-                {{ link.title }}
-                <Icon v-if="link.external" name="lucide:arrow-up-right" class="size-3.5 text-muted" />
-              </span>
+              <span class="block min-h-[2lh] text-[15px] font-semibold text-ink" :class="shortTitles && 'lg:min-h-0'">{{ link.title }}</span>
               <span v-if="link.text" class="mt-0.5 line-clamp-3 min-h-[3lh] text-[13px] leading-snug text-muted">{{ link.text }}</span>
             </span>
-            <!-- ustiga olib borilganda chapdan o'ngga o'sadigan mint chiziq -->
-            <span class="pointer-events-none absolute inset-x-4 bottom-0 h-0.5 origin-left scale-x-0 rounded-full bg-accent-400 transition-transform duration-300 group-hover:scale-x-100 group-focus-visible:scale-x-100 motion-reduce:transition-none lg:inset-x-5" aria-hidden="true" />
+            <!-- ustiga olib borilganda chapdan o'ngga o'sadigan indigo chiziq -->
+            <span class="pointer-events-none absolute inset-x-4 bottom-0 h-0.5 origin-left scale-x-0 rounded-full bg-brand-200 transition-transform duration-300 group-hover:scale-x-100 group-focus-visible:scale-x-100 motion-reduce:transition-none lg:inset-x-5" aria-hidden="true" />
           </component>
         </li>
       </ul>

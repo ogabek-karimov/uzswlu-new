@@ -27,7 +27,7 @@ const localePath = useLocalePath()
     <HomeWave flip class="text-paper" />
     <HomeWave class="text-paper" />
 
-    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+    <div class="mx-auto max-w-7xl px-4 pt-16 pb-16 sm:px-6 lg:px-8 lg:pt-24 lg:pb-20">
       <SectionHeading
         :eyebrow="t('faculties.eyebrow')"
         :title="t('faculties.title')"

@@ -14,6 +14,7 @@ ICONS = (
     ('lucide:briefcase-business', 'Karyera (portfel)'),
     ('lucide:sprout', 'Maysa'),
     ('lucide:book-a', 'Luğat (kitob)'),
+    ('app:akt-lugat', 'AKT luğati logosi (rasm)'),   # rasm-belgi: frontend public/images/quick/akt-lugat.webp
     ('lucide:smartphone', 'Mobil ilova'),
     ('lucide:globe', 'Veb-sayt'),
     ('lucide:calendar-days', 'Taqvim'),
