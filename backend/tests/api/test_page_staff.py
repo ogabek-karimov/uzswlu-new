@@ -111,3 +111,24 @@ class PageShowcaseTests(TestCase):
         from apps.api.builders_site import showcase_out
         old = {'intro': {'uz': 'X'}, 'columns': [{'title': {'uz': 'K'}, 'icon': '', 'items': {'uz': 'a'}}]}
         self.assertEqual(showcase_out(old, 'uz')[0]['n'], 1)
+
+
+class ShowcasePhotosTests(TestCase):
+    def test_photos_only_block_and_admin_ids(self):
+        from io import BytesIO
+
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        from PIL import Image
+
+        from apps.api.builders_site import showcase_out
+        from apps.core.models import Media
+        from apps.panel.collections import showcase as clean_showcase
+        buf = BytesIO()
+        Image.new('RGB', (40, 30), 'red').save(buf, 'JPEG')
+        m = Media(folder='posts', alt={'uz': 'Xona'}, file=SimpleUploadedFile('x.jpg', buf.getvalue(), content_type='image/jpeg'))
+        m.save()
+        data = clean_showcase({'blocks': [{'photos': [{'id': m.pk}, m.pk]}]})
+        self.assertEqual(data['blocks'][0]['photos'], [m.pk])  # takror olib tashlandi
+        out = showcase_out({'blocks': [{'photos': [m.pk, 99999]}]}, 'uz')
+        self.assertEqual(len(out), 1)
+        self.assertEqual([p['alt'] for p in out[0]['photos']], ['Xona'])  # yo'q fayl tashlab yuboriladi

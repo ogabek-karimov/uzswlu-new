@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import I18nFields from '@/components/I18nFields.vue'
 import Icon from '@/components/Icon.vue'
-import type { I18n } from '@/lib/api'
+import ImageField from '@/components/ImageField.vue'
+import type { I18n, MediaDoc } from '@/lib/api'
+import { mediaUrl } from '@/lib/posts'
 
 // Kartali bloklar (saytda matndagi [[kartalar-N]] joyida). Blok: kirish gapi, raqamlar («7 | nomi»),
 // ustunlar (bandlar har qatorda; «Nom — izoh»; uslub: raqamli yoki ✓ belgili), xulosa gapi.
 export type ShowcaseColumn = { title: I18n; icon: string; style: 'numbers' | 'checks'; items: I18n }
-export type ShowcaseBlock = { intro: I18n; stats: I18n; columns: ShowcaseColumn[]; outro: I18n }
+export type ShowcaseBlock = { intro: I18n; stats: I18n; columns: ShowcaseColumn[]; outro: I18n; photos?: MediaDoc[] }
 export type Showcase = { blocks?: ShowcaseBlock[]; intro?: I18n; columns?: ShowcaseColumn[] }
 const model = defineModel<Showcase>({ required: true })
 
 const ICONS = ['target', 'users-round', 'rocket', 'party-popper', 'trophy', 'star', 'heart-handshake', 'lightbulb', 'book-open-text', 'globe', 'palette', 'music', 'circle-check']
-const emptyBlock = (): ShowcaseBlock => ({ intro: {}, stats: {}, columns: [], outro: {} })
+const emptyBlock = (): ShowcaseBlock => ({ intro: {}, stats: {}, columns: [], outro: {}, photos: [] })
 // Eski shakl ({intro, columns}) — bitta blok
 const blocks = (): ShowcaseBlock[] => model.value.blocks
   ?? (model.value.columns?.length ? [{ ...emptyBlock(), intro: model.value.intro ?? {}, columns: model.value.columns }] : [])
@@ -33,6 +35,22 @@ function removeColumn(bi: number, ci: number) {
   if (!confirm('Ustun öçirilsinmi?')) return
   setBlock(bi, { columns: blocks()[bi]!.columns.filter((_, n) => n !== ci) })
 }
+// Suratlar: birinçisi saytda katta, qolganlari to'rda; bosilsa kattalaşadi
+function addPhoto(bi: number, m: MediaDoc | null) {
+  if (!m) return
+  const list = blocks()[bi]!.photos ?? []
+  if (!list.some(x => x.id === m.id)) setBlock(bi, { photos: [...list, m] })
+}
+function removePhoto(bi: number, pi: number) {
+  setBlock(bi, { photos: (blocks()[bi]!.photos ?? []).filter((_, n) => n !== pi) })
+}
+function movePhoto(bi: number, pi: number, d: -1 | 1) {
+  const list = [...(blocks()[bi]!.photos ?? [])]
+  const j = pi + d
+  if (j < 0 || j >= list.length) return
+  ;[list[pi], list[j]] = [list[j]!, list[pi]!]
+  setBlock(bi, { photos: list })
+}
 async function copyMark(i: number) {
   try { await navigator.clipboard.writeText(`[[kartalar-${i + 1}]]`) } catch { /* nusxalab bo'lmasa — qo'lda yoziladi */ }
 }
@@ -52,6 +70,21 @@ async function copyMark(i: number) {
         <button type="button" class="inline-flex h-8 items-center gap-1 rounded-full px-3 text-xs font-semibold text-[#C5192D] hover:bg-red-50" @click="removeBlock(bi)"><Icon name="x" :size="14" /> Blokni öçiriş</button>
       </div>
       <div class="grid gap-3.5">
+        <div>
+          <span class="label">Suratlar <span class="font-normal">(birinçisi katta; bosilsa kattalaşadi; ko‘pi bilan 12 ta)</span></span>
+          <ul class="flex flex-wrap gap-2">
+            <li v-for="(ph, pi) in block.photos ?? []" :key="ph.id" class="group relative size-[96px] overflow-hidden rounded-xl border border-[#ECEAF4] bg-[#F1F0F5]">
+              <img v-if="mediaUrl(ph)" :src="mediaUrl(ph)!" alt="" class="size-full object-cover">
+              <span v-if="pi === 0" class="absolute top-1 left-1 rounded bg-brand-700 px-1 text-[10px] font-bold text-white">Asosiy</span>
+              <span class="absolute inset-x-1 bottom-1 flex justify-between opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+                <button type="button" class="grid size-6 place-items-center rounded bg-night/70 text-xs text-white disabled:opacity-40" :disabled="pi === 0" aria-label="Çapga" @click="movePhoto(bi, pi, -1)">←</button>
+                <button type="button" class="grid size-6 place-items-center rounded bg-[#C5192D] text-white" aria-label="Suratni olib taşlaş" @click="removePhoto(bi, pi)"><Icon name="x" :size="12" /></button>
+                <button type="button" class="grid size-6 place-items-center rounded bg-night/70 text-xs text-white disabled:opacity-40" :disabled="pi === (block.photos ?? []).length - 1" aria-label="Öngga" @click="movePhoto(bi, pi, 1)">→</button>
+              </span>
+            </li>
+            <li v-if="(block.photos ?? []).length < 12" class="w-[96px]"><ImageField :model-value="null" compact folder="posts" label="Surat" @update:model-value="m => addPhoto(bi, m)" /></li>
+          </ul>
+        </div>
         <I18nFields :model-value="block.intro" label="Kirish gapi (yuqorida)" textarea :rows="2" @update:model-value="v => setBlock(bi, { intro: v })" />
         <I18nFields :model-value="block.stats" label="Raqamlar (har qatorda «son | nomi»)" textarea :rows="3" :placeholders="{ uz: '7 | Yönaliş koordinatorlari' }" @update:model-value="v => setBlock(bi, { stats: v })" />
 

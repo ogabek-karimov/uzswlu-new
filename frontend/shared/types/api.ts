@@ -191,6 +191,8 @@ export interface PageShowcase {
   stats: { value: string; label: string }[]
   columns: { title: string; icon: string | null; style: 'numbers' | 'checks'; items: { name: string; note: string | null }[] }[]
   outro: string | null
+  /** Blok suratlari: url — katta, thumb — kichik nusxa */
+  photos: { url: string; thumb: string; alt: string }[]
 }
 
 export interface PageChild {

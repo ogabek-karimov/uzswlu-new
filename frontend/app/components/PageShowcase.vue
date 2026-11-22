@@ -13,28 +13,48 @@ const TONES = [
   { head: 'bg-[#0369a1] text-white', num: 'border-sky-200 text-[#0369a1] group-hover:bg-[#0369a1] group-hover:text-white', bar: 'bg-[#0369a1]', check: 'bg-sky-50 text-[#0369a1]' },
 ]
 const pad = (n: number) => String(n).padStart(2, '0')
+// Suratlar: bosilsa to'liq ekranda (ImageViewer); 2 ta bo'lsa — yonma-yon, ko'p bo'lsa — birinçisi katta, qolganlari to'rda
+const viewer = ref<number | null>(null)
+const photoUrls = computed(() => props.data.photos.map(ph => ph.url))
 // Bitta ustun bölsa — bandlar ikki ustunli to'r bölib çiqadi
 const single = computed(() => props.data.columns.length === 1)
 const tone = (ci: number) => TONES[(ci + (props.data.n - 1)) % TONES.length]!
 </script>
 
 <template>
-  <section class="showcase my-10 rounded-[28px] border border-line bg-white p-3 sm:p-4">
+  <!-- Bölaklar orasidagi oraliq bir joyda (flex gap) -->
+  <section class="showcase my-10 flex flex-col gap-3 rounded-[28px] border border-line bg-white p-3 sm:gap-4 sm:p-4">
+    <!-- Suratlar -->
+    <div v-if="data.photos.length" class="grid gap-2 sm:gap-3" :class="data.photos.length === 2 ? 'grid-cols-2' : 'grid-cols-3'">
+      <button
+        v-for="(ph, i) in data.photos" :key="ph.url" type="button"
+        class="group/ph relative overflow-hidden rounded-[18px] bg-paper focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+        :class="data.photos.length !== 2 && i === 0 ? 'col-span-3 aspect-[2/1]' : 'aspect-[4/3]'"
+        :aria-label="ph.alt || `${i + 1}`"
+        @click="viewer = i"
+      >
+        <img :src="i === 0 || data.photos.length === 2 ? ph.url : ph.thumb" :alt="ph.alt" loading="lazy" decoding="async" class="size-full object-cover transition-transform duration-700 group-hover/ph:scale-105">
+        <span aria-hidden="true" class="absolute right-2.5 bottom-2.5 grid size-8 place-items-center rounded-full bg-black/45 text-white opacity-0 backdrop-blur-sm transition-opacity group-hover/ph:opacity-100"><Icon name="lucide:maximize-2" class="text-sm" /></span>
+      </button>
+    </div>
+    <ImageViewer v-if="data.photos.length" v-model:index="viewer" :images="photoUrls" :caption="viewer !== null ? data.photos[viewer]?.alt : ''" />
+
     <p v-if="data.intro" class="flex gap-3 rounded-[20px] bg-gradient-to-br from-brand-50 to-[#f3f0ff] px-5 py-4 text-[17px] leading-relaxed font-semibold text-ink sm:px-6 sm:py-5">
       <Icon name="lucide:sparkles" class="mt-1 shrink-0 text-xl text-brand-600" aria-hidden="true" />
       <span>{{ data.intro }}</span>
     </p>
 
     <!-- Raqamlar -->
-    <dl v-if="data.stats.length" class="mt-3 grid gap-3 sm:mt-4 sm:gap-4" :class="data.stats.length >= 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'">
+    <dl v-if="data.stats.length" class="grid gap-3 sm:gap-4" :class="data.stats.length >= 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'">
       <div v-for="(s, i) in data.stats" :key="i" class="showcase-item group relative overflow-hidden rounded-[20px] bg-brand-950 px-5 py-5 text-white" :style="{ '--i': i }">
         <span aria-hidden="true" class="absolute -top-10 -right-10 size-28 rounded-full bg-accent-400/25 blur-2xl transition-transform duration-500 group-hover:scale-150" />
-        <dd class="relative font-display text-[44px] leading-none font-semibold text-accent-400 tabular-nums">{{ s.value }}</dd>
+        <!-- Uzun qiymat («20 000 – 50 000») kichikroq — tor kartada ham bir qatorda -->
+        <dd class="relative font-display leading-none font-semibold text-accent-400 tabular-nums" :class="s.value.length > 9 ? 'text-[28px]' : s.value.length > 6 ? 'text-[36px]' : 'text-[44px]'">{{ s.value }}</dd>
         <dt class="relative mt-2 text-[15px] leading-snug font-semibold text-white/85">{{ s.label }}</dt>
       </div>
     </dl>
 
-    <div v-if="data.columns.length" class="mt-3 grid gap-3 sm:mt-4 sm:gap-4" :class="!single ? 'md:grid-cols-2' : ''">
+    <div v-if="data.columns.length" class="grid gap-3 sm:gap-4" :class="!single ? 'md:grid-cols-2' : ''">
       <div v-for="(col, ci) in data.columns" :key="ci" class="rounded-[20px] bg-paper p-3 sm:p-4">
         <h3 class="flex items-center gap-2.5 rounded-2xl px-4 py-3 font-bold" :class="tone(ci).head">
           <Icon :name="`lucide:${col.icon || 'circle-check'}`" class="shrink-0 text-xl" aria-hidden="true" />
@@ -61,7 +81,7 @@ const tone = (ci: number) => TONES[(ci + (props.data.n - 1)) % TONES.length]!
       </div>
     </div>
 
-    <p v-if="data.outro" class="mt-3 flex gap-3 rounded-[20px] border border-accent-300/60 bg-accent-100/50 px-5 py-4 leading-relaxed text-ink sm:mt-4 sm:px-6">
+    <p v-if="data.outro" class="flex gap-3 rounded-[20px] border border-accent-300/60 bg-accent-100/50 px-5 py-4 leading-relaxed text-ink sm:px-6">
       <Icon name="lucide:award" class="mt-0.5 shrink-0 text-xl text-accent-700" aria-hidden="true" />
       <span>{{ data.outro }}</span>
     </p>

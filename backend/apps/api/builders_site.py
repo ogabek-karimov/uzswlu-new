@@ -287,12 +287,16 @@ def _lines(value, lang: str) -> list[str]:
 
 
 def showcase_out(data, lang: str) -> list[dict]:
-    """Kartali bloklar (matndagi [[kartalar-N]] joyida). Blok: kirish gapi, raqamlar («7 | nomi»), ustunlar
+    """Kartali bloklar (matndagi [[kartalar-N]] joyida). Blok: suratlar, kirish gapi, raqamlar («7 | nomi»), ustunlar
     (bandlar har qatorda; «Nom — izoh»; uslub: numbers — raqamli, checks — belgili), xulosa gapi.
     Eski shakl ({intro, columns}) — bitta blok sifatida."""
     if not isinstance(data, dict):
         return []
     blocks = data.get('blocks') if 'blocks' in data else ([data] if data.get('columns') else [])
+    # Bloklardagi suratlar (media ID) — bitta so'rov bilan
+    from apps.core.models import Media
+    ids = {int(x) for b in blocks or [] if isinstance(b, dict) for x in (b.get('photos') or []) if str(x).isdigit()}
+    media = {m.pk: m for m in Media.objects.filter(pk__in=ids, kind='image')} if ids else {}
     out = []
     for n, block in enumerate(blocks or [], start=1):
         if not isinstance(block, dict):
@@ -312,8 +316,10 @@ def showcase_out(data, lang: str) -> list[dict]:
                 columns.append({'title': tr(col.get('title'), lang) or '', 'icon': col.get('icon') or None,
                                 'style': 'checks' if col.get('style') == 'checks' else 'numbers', 'items': items})
         intro, outro = tr(block.get('intro'), lang) or None, tr(block.get('outro'), lang) or None
-        if stats or columns or intro:
-            out.append({'n': n, 'intro': intro, 'stats': stats, 'columns': columns, 'outro': outro})
+        photos = [{'url': m.size_url('hero') or m.url, 'thumb': m.size_url('card') or m.url, 'alt': tr(m.alt, lang) or ''}
+                  for m in (media.get(int(x)) for x in (block.get('photos') or []) if str(x).isdigit()) if m]
+        if stats or columns or intro or photos:
+            out.append({'n': n, 'intro': intro, 'stats': stats, 'columns': columns, 'outro': outro, 'photos': photos})
     return out
 
 

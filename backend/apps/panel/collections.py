@@ -215,9 +215,24 @@ def showcase(v):
         columns = [{'title': lang(c.get('title'), 120), 'icon': str(c.get('icon') or '').strip()[:40],
                     'style': 'checks' if c.get('style') == 'checks' else 'numbers', 'items': lang(c.get('items'), 6000)}
                    for c in (b.get('columns') or [])[:4] if isinstance(c, dict)]
+        photos = []
+        for x in (b.get('photos') or [])[:12]:
+            m = media_ref(x)  # yo'q fayl — xato
+            if m and m.pk not in photos:
+                photos.append(m.pk)
         out.append({'intro': lang(b.get('intro'), 2000), 'stats': lang(b.get('stats'), 1000), 'columns': columns,
-                    'outro': lang(b.get('outro'), 2000)})
+                    'outro': lang(b.get('outro'), 2000), 'photos': photos})
     return {'blocks': out}
+
+
+def showcase_admin_out(v):
+    """Admin uchun: bloklardagi surat ID'lari → media hujjatlari (ko'rinishi, almashtirish)."""
+    if not isinstance(v, dict) or not isinstance(v.get('blocks'), list):
+        return v or {}
+    ids = {x for b in v['blocks'] if isinstance(b, dict) for x in (b.get('photos') or []) if isinstance(x, int)}
+    media = {m.pk: m for m in Media.objects.filter(pk__in=ids)} if ids else {}
+    return {'blocks': [{**b, 'photos': [media_out(media[x]) for x in (b.get('photos') or []) if x in media]}
+                       for b in v['blocks'] if isinstance(b, dict)]}
 
 
 def flag(v):
@@ -1094,7 +1109,7 @@ class Pages(Collection):
             'id': p.pk, 'title': i18n_out(p.title), 'template': p.template, 'parent': p.parent_id, 'slug': p.slug or None,
             'url': p.url or None, 'file': media_out(p.file, depth) if p.file_id else None, 'groupKey': p.group_key or None,
             'description': i18n_out(p.description), 'overview': p.overview or None, 'sdg': p.sdg, 'inMenu': p.in_menu,
-            'published': p.published, 'highlight': p.highlight, 'showRector': p.show_rector, 'showUnits': p.show_units, 'staffDepartment': p.staff_department, 'staffExtra': p.staff_extra or [], 'staffContacts': p.staff_contacts or {}, 'staffHours': i18n_out(p.staff_hours), 'ctaTitle': i18n_out(p.cta_title), 'ctaText': i18n_out(p.cta_text), 'ctaLabel': i18n_out(p.cta_label), 'ctaUrl': p.cta_url, 'icon': p.icon, 'showChildren': p.show_children, 'showcase': p.showcase or {}, 'docStyle': p.doc_style, 'lead': i18n_out(p.lead),
+            'published': p.published, 'highlight': p.highlight, 'showRector': p.show_rector, 'showUnits': p.show_units, 'staffDepartment': p.staff_department, 'staffExtra': p.staff_extra or [], 'staffContacts': p.staff_contacts or {}, 'staffHours': i18n_out(p.staff_hours), 'ctaTitle': i18n_out(p.cta_title), 'ctaText': i18n_out(p.cta_text), 'ctaLabel': i18n_out(p.cta_label), 'ctaUrl': p.cta_url, 'icon': p.icon, 'showChildren': p.show_children, 'showcase': showcase_admin_out(p.showcase), 'docStyle': p.doc_style, 'lead': i18n_out(p.lead),
             'body': {k: (v.replace('<!-- timeline -->', '<p>[[timeline]]</p>') if v else v) for k, v in i18n_out(p.body).items()},
             'facts': [{'id': str(f.pk), 'value': f.value, 'label': i18n_out(f.label)} for f in p.facts.all()],
             'timeline': [{'id': str(t.pk), 'label': i18n_out(t.label), 'text': i18n_out(t.text), 'highlight': t.highlight} for t in p.timeline.all()],
