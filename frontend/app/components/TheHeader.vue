@@ -77,12 +77,14 @@ const seasonWrap = ref<HTMLElement>()
 const seasonPlace = ref<'auto' | 'out' | 'in'>('auto')
 const SEASON_EDGE = 24 // left-6
 const SEASON_GAP = 16 // menyudan kamida şunça uzoq
+// CSS bilan bir xil çegara (min-[1680px]): server bergan joy bilan ölçov natijasi mos — yuklanganda menyu siljimaydi
+const SEASON_OUT_MIN = 1680
 
 function placeSeason() {
   const row = seasonRow.value
   const btn = seasonWrap.value?.firstElementChild as HTMLElement | null | undefined
   if (!row || !btn) return
-  if (window.innerWidth < 1536) { seasonPlace.value = 'in'; return }
+  if (window.innerWidth < SEASON_OUT_MIN) { seasonPlace.value = 'in'; return }
   const contentLeft = row.getBoundingClientRect().left + Number.parseFloat(getComputedStyle(row).paddingLeft)
   seasonPlace.value = contentLeft >= SEASON_EDGE + btn.offsetWidth + SEASON_GAP ? 'out' : 'in'
 }
@@ -247,13 +249,13 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
     <div class="relative hidden border-t border-line/70 md:block">
       <div ref="seasonRow" class="mx-auto flex h-14 max-w-7xl items-center overflow-x-clip px-4 sm:px-6 lg:px-8">
         <!-- Joriy fasl belgisi: menyuning eng boshida -->
-        <!-- Keng ekranda (≥1536px) sahifaning eng chetida, menyudan ajralgan; torroqda menyu oldida, ajratuvchi chiziq bilan -->
+        <!-- Keng ekranda (≥1680px) sahifaning eng chetida, menyudan ajralgan; torroqda menyu oldida, ajratuvchi chiziq bilan -->
         <!-- Sig'maganda (masalan, şrift 110%+) — menyu oldiga qaytadi: ustiga çiqib ketmaydi -->
         <div
           ref="seasonWrap"
           class="shrink-0"
           :class="{
-            'mr-5 border-r border-line pr-5 2xl:absolute 2xl:top-1/2 2xl:left-6 2xl:mr-0 2xl:-translate-y-1/2 2xl:border-0 2xl:pr-0': seasonPlace === 'auto',
+            'mr-5 border-r border-line pr-5 min-[1680px]:absolute min-[1680px]:top-1/2 min-[1680px]:left-6 min-[1680px]:mr-0 min-[1680px]:-translate-y-1/2 min-[1680px]:border-0 min-[1680px]:pr-0': seasonPlace === 'auto',
             'absolute top-1/2 left-6 -translate-y-1/2': seasonPlace === 'out',
             'mr-5 border-r border-line pr-5': seasonPlace === 'in',
           }"

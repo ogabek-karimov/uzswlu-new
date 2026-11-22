@@ -842,6 +842,9 @@ Batafsil: <a href="#doc-06-testlar">06-testlar</a>.
 <p>Eng yangisi tepada. <strong>Har bir o‘zgarishdan keyin shu yerga yozing</strong> (qoida: <code>CLAUDE.md</code>). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.</p>
 <h2 id="doc-13-yangiliklar--2026-11-22">2026-11-22<a class="anchor" href="#doc-13-yangiliklar--2026-11-22" aria-label="Havola">#</a></h2>
 <ul><li>
+<strong>Sayt (fasl belgisi — yuklanganda menyu siljimaydi):</strong> server bergan joy (CSS) va o‘lchov natijasi farq qilgani uchun ~1540–1680px ekranda sahifa yuklanganda belgi chetdan menyu oldiga ko‘chib, menyuni surardi (avval esa bu kenglikda belgi 100% shriftda ham menyu ustiga tushardi — <code>2xl</code> chegarasi past edi). Endi chetga chiqish chegarasi CSS’da ham, o‘lchovda ham bir xil — <strong>≥1680px</strong> (<code>min-[1680px]</code>, <code>SEASON_OUT_MIN</code>): undan torroqda belgi boshidanoq menyu oldida; kengroqda chetda (4 tilda sig‘ishi tekshirildi), shrift kattalashsa — menyu oldiga.
+</li></ul>
+<ul><li>
 <strong>Sayt (fasl belgisi menyuni buzmaydi):</strong> keng ekranda (≥1536px) «KUZ FASLI» kabi fasl belgisi menyu konteyneridan tashqarida, chap chetda turardi; «Ko‘rinish»da shrift kattalashtirilganda (110%+) konteyner kengayib chap chetdagi bo‘sh joy torayadi va belgi «Universitet» bandining ustiga chiqib qolardi (ekran kengligi o‘zgarmagani uchun CSS breakpoint buni sezmaydi). Endi joyi o‘lchab tanlanadi (<code>TheHeader.vue</code>, <code>placeSeason</code>): chetda sig‘sa — chetda, sig‘masa — menyu oldida, ajratuvchi chiziq bilan; shrift qadami (<code>useA11y</code>), oyna o‘lchami va <code>ResizeObserver</code> bo‘yicha qayta hisoblanadi, menyu (sig‘maganlari «⋯») ham qayta o‘lchanadi. SSR/ilk holat — avvalgi CSS qoidalari (sakrash yo‘q). Tekshirildi: 1600 va 1872px, shrift 100–150%.
 </li></ul>
 <ul><li>
