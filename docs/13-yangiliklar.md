@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-22
 
+- **Sayt (Davlat ramzlari — madhiya):** madhiya kartasida nota belgisi o‘rniga rasm — hilpirayotgan bayroq va uning ustida gerb, to‘liq ko‘rinadi (`public/symbols/anthem.webp`, 480×268, 37 KB, shaffof fon; foydalanuvchi bergan rasmdan), bayroq/gerb kartalaridagidek tile’ning 86% i. Admin «Ramzlar»da madhiyaga rasm yuklansa — o‘sha ko‘rsatiladi.
 - **Sayt (bosh sahifa):** bayram banneri va «Davlat ramzlari» orasidagi bo‘shliq qisqardi (64 → 32 px, `home/Banner.vue`).
 - **Sayt (bosh sahifa — Hamkorlarimiz):** sarlavha ostidagi izoh matni va «Barcha hamkorlar» tugmasi olib tashlandi (`/hamkorlarimiz` sahifasi yo‘q edi); bo‘lim ixcham — to‘lqin 22 px, sarlavha tepasi va kartalar ostidagi bo‘shliq teng (40 px), logo kartasi kursor kelganda biroz kattalashadi (7%, karusel to‘xtaydi). «Biz bilan bog‘lanish» rasmli bo‘limi chetidagi 1 px chiziq tuzatildi (`section-wave` niqobi, Fakultetlardagidek).
 - **Sayt (bosh sahifa — pastdagi rasmli urg‘u):** «Biz bilan bog‘lanish» bo‘limi «Fakultetlar» uslubida — havodan olingan kampus surati (`campus-aerial.webp`, sekin yaqinlashadi) ustida indigo qatlam, tepa/pastda to‘lqin, oq sarlavha; bino tanlash va ma’lumot kartalari shisha, tanlangani mint ramkali. Sahifa ritmi: hero (rasm) → neytral → Fakultetlar (rasm) → neytral → Bog‘lanish (rasm) → Davlat ramzlari.

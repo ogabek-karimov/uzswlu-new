@@ -13,7 +13,8 @@ const symbols = computed(() => stateSymbols.map((base) => {
   return {
     key: base.key,
     title: cms?.title || t(`symbols.${base.key}`),
-    image: cms ? cms.image ?? null : base.image,
+    // Madhiya: admin rasm yuklamagan bo'lsa — standart rasm (gerb bayroq fonida); bayroq/gerb — avvalgidek admin qiymati
+    image: cms ? cms.image ?? (base.key === 'anthem' ? base.image : null) : base.image,
     href: cms?.href || cms?.audio || base.href,
     source: cms ? cms.source ?? '' : base.source,
   }
