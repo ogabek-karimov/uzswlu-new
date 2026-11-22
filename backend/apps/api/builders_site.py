@@ -316,7 +316,8 @@ def showcase_out(data, lang: str) -> list[dict]:
                 columns.append({'title': tr(col.get('title'), lang) or '', 'icon': col.get('icon') or None,
                                 'style': 'checks' if col.get('style') == 'checks' else 'numbers', 'items': items})
         intro, outro = tr(block.get('intro'), lang) or None, tr(block.get('outro'), lang) or None
-        photos = [{'url': m.size_url('hero') or m.url, 'thumb': m.size_url('card') or m.url, 'alt': tr(m.alt, lang) or ''}
+        photos = [{'url': m.size_url('hero') or m.url, 'thumb': m.size_url('card') or m.url, 'alt': tr(m.alt, lang) or '',
+                   'width': m.width, 'height': m.height}
                   for m in (media.get(int(x)) for x in (block.get('photos') or []) if str(x).isdigit()) if m]
         if stats or columns or intro or photos:
             out.append({'n': n, 'intro': intro, 'stats': stats, 'columns': columns, 'outro': outro, 'photos': photos})

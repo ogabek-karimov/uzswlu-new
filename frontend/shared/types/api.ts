@@ -192,7 +192,7 @@ export interface PageShowcase {
   columns: { title: string; icon: string | null; style: 'numbers' | 'checks'; items: { name: string; note: string | null }[] }[]
   outro: string | null
   /** Blok suratlari: url — katta, thumb — kichik nusxa */
-  photos: { url: string; thumb: string; alt: string }[]
+  photos: { url: string; thumb: string; alt: string; width?: number | null; height?: number | null }[]
 }
 
 export interface PageChild {

@@ -16,6 +16,28 @@ const pad = (n: number) => String(n).padStart(2, '0')
 // Suratlar: bosilsa to'liq ekranda (ImageViewer); 2 ta bo'lsa — yonma-yon, ko'p bo'lsa — birinçisi katta, qolganlari to'rda
 const viewer = ref<number | null>(null)
 const photoUrls = computed(() => props.data.photos.map(ph => ph.url))
+// Birinçi surat keng (≥ 4:3) bölsagina katta 2:1 kartada; kvadrat/tik bölsa (masalan, dumaloq rasmdan kesilgan) —
+// hammasi bir xil kvadrat to'rda: kenglikka çözilib yuzlar kesilmaydi va xiralaşmaydi
+const heroWide = computed(() => {
+  const ph = props.data.photos[0]
+  return props.data.photos.length > 2 && !!ph && (!ph.width || !ph.height || ph.width / ph.height >= 1.3)
+})
+// Yagona surat (masalan, logotiplar) — öz nisbatida, kesilmaydi
+const singlePhoto = computed(() => props.data.photos.length === 1)
+const singleRatio = computed(() => {
+  const ph = props.data.photos[0]
+  return ph?.width && ph.height ? `${ph.width} / ${ph.height}` : '16 / 9'
+})
+// Hammasi kvadratga yaqin bo'lsa (masalan, infografikadagi dumaloq rasmlar) — dumaloq ko'rinişda
+const roundPhotos = computed(() => !heroWide.value && !singlePhoto.value && props.data.photos.length > 2
+  && props.data.photos.every(ph => !!ph.width && !!ph.height && ph.width / ph.height > 0.9 && ph.width / ph.height < 1.1))
+const gridCols = computed(() => {
+  const n = props.data.photos.length
+  if (n === 1) return 'grid-cols-1'
+  if (n === 2) return 'grid-cols-2'
+  if (heroWide.value) return 'grid-cols-3'
+  return n === 4 ? 'grid-cols-2 sm:grid-cols-4' : 'grid-cols-2 sm:grid-cols-3'
+})
 // Bitta ustun bölsa — bandlar ikki ustunli to'r bölib çiqadi
 const single = computed(() => props.data.columns.length === 1)
 const tone = (ci: number) => TONES[(ci + (props.data.n - 1)) % TONES.length]!
@@ -25,16 +47,20 @@ const tone = (ci: number) => TONES[(ci + (props.data.n - 1)) % TONES.length]!
   <!-- Bölaklar orasidagi oraliq bir joyda (flex gap) -->
   <section class="showcase my-10 flex flex-col gap-3 rounded-[28px] border border-line bg-white p-3 sm:gap-4 sm:p-4">
     <!-- Suratlar -->
-    <div v-if="data.photos.length" class="grid gap-2 sm:gap-3" :class="data.photos.length === 2 ? 'grid-cols-2' : 'grid-cols-3'">
+    <div v-if="data.photos.length" class="grid gap-2 sm:gap-3" :class="gridCols">
       <button
         v-for="(ph, i) in data.photos" :key="ph.url" type="button"
-        class="group/ph relative overflow-hidden rounded-[18px] bg-paper focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
-        :class="data.photos.length !== 2 && i === 0 ? 'col-span-3 aspect-[2/1]' : 'aspect-[4/3]'"
+        class="group/ph relative overflow-hidden bg-paper focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+        :class="[
+          roundPhotos ? 'mx-auto w-full max-w-[220px] rounded-full shadow-[0_14px_30px_-16px_rgb(28_21_72/0.5)] ring-4 ring-white transition-transform duration-500 hover:scale-[1.04]' : 'rounded-[18px]',
+          singlePhoto ? '' : heroWide && i === 0 ? 'col-span-3 aspect-[2/1]' : heroWide || data.photos.length === 2 ? 'aspect-[4/3]' : 'aspect-square',
+        ]"
+        :style="singlePhoto ? { aspectRatio: singleRatio } : undefined"
         :aria-label="ph.alt || `${i + 1}`"
         @click="viewer = i"
       >
-        <img :src="i === 0 || data.photos.length === 2 ? ph.url : ph.thumb" :alt="ph.alt" loading="lazy" decoding="async" class="size-full object-cover transition-transform duration-700 group-hover/ph:scale-105">
-        <span aria-hidden="true" class="absolute right-2.5 bottom-2.5 grid size-8 place-items-center rounded-full bg-black/45 text-white opacity-0 backdrop-blur-sm transition-opacity group-hover/ph:opacity-100"><Icon name="lucide:maximize-2" class="text-sm" /></span>
+        <img :src="singlePhoto || (heroWide && i === 0) || data.photos.length === 2 ? ph.url : ph.thumb" :alt="ph.alt" loading="lazy" decoding="async" class="size-full object-cover object-[center_30%] transition-transform duration-700 group-hover/ph:scale-105">
+        <span v-if="!roundPhotos" aria-hidden="true" class="absolute right-2.5 bottom-2.5 grid size-8 place-items-center rounded-full bg-black/45 text-white opacity-0 backdrop-blur-sm transition-opacity group-hover/ph:opacity-100"><Icon name="lucide:maximize-2" class="text-sm" /></span>
       </button>
     </div>
     <ImageViewer v-if="data.photos.length" v-model:index="viewer" :images="photoUrls" :caption="viewer !== null ? data.photos[viewer]?.alt : ''" />
@@ -45,7 +71,7 @@ const tone = (ci: number) => TONES[(ci + (props.data.n - 1)) % TONES.length]!
     </p>
 
     <!-- Raqamlar -->
-    <dl v-if="data.stats.length" class="grid gap-3 sm:gap-4" :class="data.stats.length >= 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'">
+    <dl v-if="data.stats.length" class="grid gap-3 sm:gap-4" :class="data.stats.length === 4 ? 'grid-cols-2 lg:grid-cols-4' : data.stats.length >= 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'">
       <div v-for="(s, i) in data.stats" :key="i" class="showcase-item group relative overflow-hidden rounded-[20px] bg-brand-950 px-5 py-5 text-white" :style="{ '--i': i }">
         <span aria-hidden="true" class="absolute -top-10 -right-10 size-28 rounded-full bg-accent-400/25 blur-2xl transition-transform duration-500 group-hover:scale-150" />
         <!-- Uzun qiymat («20 000 – 50 000») kichikroq — tor kartada ham bir qatorda -->

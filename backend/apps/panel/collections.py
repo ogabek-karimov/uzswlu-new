@@ -199,7 +199,7 @@ def staff_contacts(v):
 
 def showcase(v):
     """Kartali bloklar: {blocks: [{intro, stats, columns: [{title, icon, style, items}], outro}]} — matnlar 4 tilda;
-    ko'pi bilan 10 blok, blokda 4 ustun."""
+    ko'pi bilan 10 blok, blokda 20 ustun (masalan, davlatlar bo'yicha kartalar)."""
     if not v:
         return {}
     if not isinstance(v, dict):
@@ -214,7 +214,7 @@ def showcase(v):
             continue
         columns = [{'title': lang(c.get('title'), 120), 'icon': str(c.get('icon') or '').strip()[:40],
                     'style': 'checks' if c.get('style') == 'checks' else 'numbers', 'items': lang(c.get('items'), 6000)}
-                   for c in (b.get('columns') or [])[:4] if isinstance(c, dict)]
+                   for c in (b.get('columns') or [])[:20] if isinstance(c, dict)]
         photos = []
         for x in (b.get('photos') or [])[:12]:
             m = media_ref(x)  # yo'q fayl — xato

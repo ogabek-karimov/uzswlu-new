@@ -1,0 +1,417 @@
+{
+ "body": {
+  "uz": "<h2>Xalqaro hamkor universitetlar</h2><p>Özbekiston davlat jahon tillari universiteti 30 ta davlatdagi 152 ta universitet va 22 ta xalqaro taşkilot bilan hamkorlik qiladi (2024-yil yanvar holatiga).</p><p>[[kartalar-1]]</p><h3>Mintaqalar va davlatlar böyiça</h3><p>[[kartalar-2]]</p><h2>Hamkor taşkilotlar</h2><p>Universitet quyidagi xalqaro taşkilotlar bilan faol hamkorlik qiladi:</p><p>[[kartalar-3]]</p><p>Bundan taşqari, universitet boşqa xalqaro taşkilotlar va mamlakatimizdagi elçixonalar bilan ham hamkorlik qilib, global aloqalarni mustahkamlamoqda hamda talabalar va professor-öqituvçilar uçun ta’lim, fan va madaniyat sohalarida yangi imkoniyatlar yaratmoqda.</p><h2>100 dan ortiq hamkor universitet</h2><p>Universitet dunyoning 100 dan ortiq oliy ta’lim muassasasi bilan muvaffaqiyatli hamkorlik qiladi. Ulardan ayrimlari:</p><p>[[kartalar-4]]</p>",
+  "ru": "<h2>Международные университеты-партнёры</h2><p>Узбекский государственный университет мировых языков сотрудничает со 152 университетами и 22 международными организациями из 30 стран (по состоянию на январь 2024 года).</p><p>[[kartalar-1]]</p><h3>По регионам и странам</h3><p>[[kartalar-2]]</p><h2>Организации-партнёры</h2><p>Университет активно сотрудничает со следующими международными организациями:</p><p>[[kartalar-3]]</p><p>Кроме того, университет сотрудничает с другими международными организациями и посольствами в нашей стране, укрепляя глобальные связи и расширяя возможности студентов и преподавателей в сфере образования, науки и культуры.</p><h2>Более 100 университетов-партнёров</h2><p>Университет успешно сотрудничает более чем со 100 высшими учебными заведениями мира. Некоторые из них:</p><p>[[kartalar-4]]</p>",
+  "en": "<h2>International partner universities</h2><p>Uzbekistan State World Languages University partners with 152 universities and 22 international organizations in 30 countries (as of January 2024).</p><p>[[kartalar-1]]</p><h3>By region and country</h3><p>[[kartalar-2]]</p><h2>Partner organizations</h2><p>The university actively collaborates with international organizations such as:</p><p>[[kartalar-3]]</p><p>Additionally, UzSWLU works with other international organizations and embassies in our country, strengthening global connections and expanding opportunities for students and faculty in education, science and culture.</p><h2>More than 100 partner universities</h2><p>The university successfully collaborates with more than 100 universities around the world. Some of them:</p><p>[[kartalar-4]]</p>",
+  "zh": "<h2>国际合作大学</h2><p>乌兹别克斯坦国立世界语言大学与30个国家的152所大学和22个国际组织开展合作（截至2024年1月）。</p><p>[[kartalar-1]]</p><h3>按地区和国家</h3><p>[[kartalar-2]]</p><h2>合作组织</h2><p>大学与以下国际组织积极合作：</p><p>[[kartalar-3]]</p><p>此外，大学还与其他国际组织及驻我国使馆开展合作，加强全球联系，为师生在教育、科学和文化领域拓展更多机会。</p><h2>逾百所合作大学</h2><p>大学与世界上100多所高等院校成功开展合作，部分合作院校如下：</p><p>[[kartalar-4]]</p>"
+ },
+ "showcase": {
+  "blocks": [
+   {
+    "intro": {},
+    "columns": [],
+    "outro": {},
+    "stats": {
+     "uz": "152 | hamkor universitet\n22 | xalqaro taşkilot\n30 | davlat",
+     "ru": "152 | университета-партнёра\n22 | международные организации\n30 | стран",
+     "en": "152 | partner universities\n22 | international organizations\n30 | countries",
+     "zh": "152 | 所合作大学\n22 | 个国际组织\n30 | 个国家"
+    },
+    "photos": [
+     "hamkorlik-2",
+     "hamkorlik-1",
+     "hamkorlik-3",
+     "hamkorlik-4"
+    ]
+   },
+   {
+    "intro": {},
+    "outro": {},
+    "stats": {
+     "uz": "77 | Yevropa\n59 | Osiyo\n10 | Afrika\n6 | Şimoliy va Janubiy Amerika",
+     "ru": "77 | Европа\n59 | Азия\n10 | Африка\n6 | Северная и Южная Америка",
+     "en": "77 | Europe\n59 | Asia\n10 | Africa\n6 | North and South America",
+     "zh": "77 | 欧洲\n59 | 亚洲\n10 | 非洲\n6 | 南北美洲"
+    },
+    "columns": [
+     {
+      "title": {
+       "uz": "Yevropa",
+       "ru": "Европа",
+       "en": "Europe",
+       "zh": "欧洲"
+      },
+      "icon": "landmark",
+      "style": "numbers",
+      "items": {
+       "uz": "Ispaniya — 16 ta\nRossiya — 15 ta\nTurkiya — 13 ta\nGermaniya — 5 ta\nFinlyandiya — 5 ta\nFransiya — 4 ta\nItaliya — 4 ta\nBelarus — 3 ta\nBuyuk Britaniya — 3 ta\nBelgiya — 2 ta\nPolşa — 2 ta\nRuminiya — 2 ta\nSlovakiya — 2 ta\nŞvetsiya — 1 ta",
+       "ru": "Испания — 16 вуз.\nРоссия — 15 вуз.\nТурция — 13 вуз.\nГермания — 5 вуз.\nФинляндия — 5 вуз.\nФранция — 4 вуз.\nИталия — 4 вуз.\nБеларусь — 3 вуз.\nВеликобритания — 3 вуз.\nБельгия — 2 вуз.\nПольша — 2 вуз.\nРумыния — 2 вуз.\nСловакия — 2 вуз.\nШвеция — 1 вуз.",
+       "en": "Spain — 16 univ.\nRussia — 15 univ.\nTürkiye — 13 univ.\nGermany — 5 univ.\nFinland — 5 univ.\nFrance — 4 univ.\nItaly — 4 univ.\nBelarus — 3 univ.\nUnited Kingdom — 3 univ.\nBelgium — 2 univ.\nPoland — 2 univ.\nRomania — 2 univ.\nSlovakia — 2 univ.\nSweden — 1 univ.",
+       "zh": "西班牙 — 16所\n俄罗斯 — 15所\n土耳其 — 13所\n德国 — 5所\n芬兰 — 5所\n法国 — 4所\n意大利 — 4所\n白俄罗斯 — 3所\n英国 — 3所\n比利时 — 2所\n波兰 — 2所\n罗马尼亚 — 2所\n斯洛伐克 — 2所\n瑞典 — 1所"
+      }
+     },
+     {
+      "title": {
+       "uz": "Osiyo",
+       "ru": "Азия",
+       "en": "Asia",
+       "zh": "亚洲"
+      },
+      "icon": "mountain",
+      "style": "numbers",
+      "items": {
+       "uz": "Janubiy Koreya — 12 ta\nXitoy — 8 ta\nYaponiya — 8 ta\nIndoneziya — 7 ta\nQozoğiston — 7 ta\nTojikiston — 6 ta\nHindiston — 4 ta\nQirğiziston — 3 ta\nMalayziya — 1 ta\nOzarbayjon — 1 ta\nTurkmaniston — 1 ta\nSingapur — 1 ta",
+       "ru": "Южная Корея — 12 вуз.\nКитай — 8 вуз.\nЯпония — 8 вуз.\nИндонезия — 7 вуз.\nКазахстан — 7 вуз.\nТаджикистан — 6 вуз.\nИндия — 4 вуз.\nКыргызстан — 3 вуз.\nМалайзия — 1 вуз.\nАзербайджан — 1 вуз.\nТуркменистан — 1 вуз.\nСингапур — 1 вуз.",
+       "en": "South Korea — 12 univ.\nChina — 8 univ.\nJapan — 8 univ.\nIndonesia — 7 univ.\nKazakhstan — 7 univ.\nTajikistan — 6 univ.\nIndia — 4 univ.\nKyrgyzstan — 3 univ.\nMalaysia — 1 univ.\nAzerbaijan — 1 univ.\nTurkmenistan — 1 univ.\nSingapore — 1 univ.",
+       "zh": "韩国 — 12所\n中国 — 8所\n日本 — 8所\n印度尼西亚 — 7所\n哈萨克斯坦 — 7所\n塔吉克斯坦 — 6所\n印度 — 4所\n吉尔吉斯斯坦 — 3所\n马来西亚 — 1所\n阿塞拜疆 — 1所\n土库曼斯坦 — 1所\n新加坡 — 1所"
+      }
+     },
+     {
+      "title": {
+       "uz": "Afrika",
+       "ru": "Африка",
+       "en": "Africa",
+       "zh": "非洲"
+      },
+      "icon": "sun",
+      "style": "numbers",
+      "items": {
+       "uz": "Jazoir — 5 ta\nMisr — 5 ta",
+       "ru": "Алжир — 5 вуз.\nЕгипет — 5 вуз.",
+       "en": "Algeria — 5 univ.\nEgypt — 5 univ.",
+       "zh": "阿尔及利亚 — 5所\n埃及 — 5所"
+      }
+     },
+     {
+      "title": {
+       "uz": "Şimoliy va Janubiy Amerika",
+       "ru": "Северная и Южная Америка",
+       "en": "North and South America",
+       "zh": "南北美洲"
+      },
+      "icon": "globe",
+      "style": "numbers",
+      "items": {
+       "uz": "AQŞ — 3 ta\nKanada — 1 ta\nKolumbiya — 1 ta\nMeksika — 1 ta",
+       "ru": "США — 3 вуз.\nКанада — 1 вуз.\nКолумбия — 1 вуз.\nМексика — 1 вуз.",
+       "en": "USA — 3 univ.\nCanada — 1 univ.\nColombia — 1 univ.\nMexico — 1 univ.",
+       "zh": "美国 — 3所\n加拿大 — 1所\n哥伦比亚 — 1所\n墨西哥 — 1所"
+      }
+     }
+    ],
+    "photos": []
+   },
+   {
+    "intro": {},
+    "stats": {},
+    "outro": {},
+    "columns": [
+     {
+      "title": {
+       "uz": "Hamkor taşkilotlar",
+       "ru": "Организации-партнёры",
+       "en": "Partner organizations",
+       "zh": "合作组织"
+      },
+      "icon": "handshake",
+      "style": "checks",
+      "items": {
+       "uz": "British Council — Buyuk Britaniya\nDAAD — Germaniya akademik almaşinuv xizmati\nAlliance Française — Fransiya\nAECID — Ispaniya xalqaro taraqqiyot hamkorligi agentligi\nKOICA — Koreya xalqaro hamkorlik agentligi\nJICA — Yaponiya xalqaro hamkorlik agentligi\nTIKA — Turkiya xalqaro hamkorlik agentligi\nMTCP — Malayziya texnik hamkorlik dasturi\nFulbright — xorijiy talabalar dasturi\nGoethe-Institut — Germaniya\nLAMDIK — Ta’lim akkreditatsiya kengaşi (ACE)\nErasmus+ — Yevropa Ittifoqining ta’lim, yoşlar va sport dasturi",
+       "ru": "British Council — Великобритания\nDAAD — Германская служба академических обменов\nAlliance Française — Франция\nAECID — Испанское агентство международного сотрудничества в целях развития\nKOICA — Корейское агентство международного сотрудничества\nJICA — Японское агентство международного сотрудничества\nTIKA — Турецкое агентство международного сотрудничества\nMTCP — Малайзийская программа технического сотрудничества\nFulbright — программа для иностранных студентов\nGoethe-Institut — Германия\nLAMDIK — Совет по аккредитации в образовании (ACE)\nErasmus+ — программа ЕС в сфере образования, молодёжи и спорта",
+       "en": "The British Council — United Kingdom\nDAAD — German Academic Exchange Service\nAlliance Française — France\nAECID — Spanish Agency for International Development Cooperation\nKOICA — Korea International Cooperation Agency\nJICA — Japan International Cooperation Agency\nTIKA — Turkish International Cooperation Agency\nMTCP — Malaysian Technical Cooperation Programme\nFulbright — Foreign Student Program\nGoethe-Institut — Germany\nLAMDIK — The Accreditation Council for Education (ACE)\nErasmus+ — the EU’s programme for education, training, youth and sport",
+       "zh": "British Council — 英国文化协会\nDAAD — 德国学术交流中心\nAlliance Française — 法语联盟\nAECID — 西班牙国际发展合作署\nKOICA — 韩国国际协力团\nJICA — 日本国际协力机构\nTIKA — 土耳其国际合作与协调署\nMTCP — 马来西亚技术合作计划\nFulbright — 富布赖特外国学生项目\nGoethe-Institut — 歌德学院\nLAMDIK — 教育认证委员会（ACE）\nErasmus+ — 欧盟教育、培训、青年和体育计划"
+      }
+     }
+    ],
+    "photos": [
+     "tashkilotlar-logolar"
+    ]
+   },
+   {
+    "intro": {},
+    "stats": {},
+    "columns": [
+     {
+      "title": {
+       "uz": "Ispaniya",
+       "ru": "Испания",
+       "en": "Spain",
+       "zh": "西班牙"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "University of Cadiz\nUniversity of Jaén\nUniversity of Granada\nUniversity of Castilla-La Mancha\nUniversity of Málaga\nComplutense University of Madrid\nUniversity of La Rioja\nUniversity of Córdoba\nUniversity of Salamanca\nUniversity of Seville\nUniversity of Valladolid\nUniversity of Lleida\nUniversity of Murcia",
+       "ru": "University of Cadiz\nUniversity of Jaén\nUniversity of Granada\nUniversity of Castilla-La Mancha\nUniversity of Málaga\nComplutense University of Madrid\nUniversity of La Rioja\nUniversity of Córdoba\nUniversity of Salamanca\nUniversity of Seville\nUniversity of Valladolid\nUniversity of Lleida\nUniversity of Murcia",
+       "en": "University of Cadiz\nUniversity of Jaén\nUniversity of Granada\nUniversity of Castilla-La Mancha\nUniversity of Málaga\nComplutense University of Madrid\nUniversity of La Rioja\nUniversity of Córdoba\nUniversity of Salamanca\nUniversity of Seville\nUniversity of Valladolid\nUniversity of Lleida\nUniversity of Murcia",
+       "zh": "University of Cadiz\nUniversity of Jaén\nUniversity of Granada\nUniversity of Castilla-La Mancha\nUniversity of Málaga\nComplutense University of Madrid\nUniversity of La Rioja\nUniversity of Córdoba\nUniversity of Salamanca\nUniversity of Seville\nUniversity of Valladolid\nUniversity of Lleida\nUniversity of Murcia"
+      }
+     },
+     {
+      "title": {
+       "uz": "Buyuk Britaniya",
+       "ru": "Великобритания",
+       "en": "United Kingdom",
+       "zh": "英国"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "University of Central Lancashire\nUniversity of Portsmouth\nAston University\nLondon Metropolitan University\nNorwich Institute for Language Education",
+       "ru": "University of Central Lancashire\nUniversity of Portsmouth\nAston University\nLondon Metropolitan University\nNorwich Institute for Language Education",
+       "en": "University of Central Lancashire\nUniversity of Portsmouth\nAston University\nLondon Metropolitan University\nNorwich Institute for Language Education",
+       "zh": "University of Central Lancashire\nUniversity of Portsmouth\nAston University\nLondon Metropolitan University\nNorwich Institute for Language Education"
+      }
+     },
+     {
+      "title": {
+       "uz": "AQŞ",
+       "ru": "США",
+       "en": "USA",
+       "zh": "美国"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "Arizona State University\nWebster University\nPurdue University",
+       "ru": "Arizona State University\nWebster University\nPurdue University",
+       "en": "Arizona State University\nWebster University\nPurdue University",
+       "zh": "Arizona State University\nWebster University\nPurdue University"
+      }
+     },
+     {
+      "title": {
+       "uz": "Fransiya",
+       "ru": "Франция",
+       "en": "France",
+       "zh": "法国"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "Versailles Academy\nCergy-Pontoise University",
+       "ru": "Versailles Academy\nCergy-Pontoise University",
+       "en": "Versailles Academy\nCergy-Pontoise University",
+       "zh": "Versailles Academy\nCergy-Pontoise University"
+      }
+     },
+     {
+      "title": {
+       "uz": "Italiya",
+       "ru": "Италия",
+       "en": "Italy",
+       "zh": "意大利"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "Ca’ Foscari University of Venice\nUniversity of Milan\nUniversity for Foreigners of Perugia",
+       "ru": "Ca’ Foscari University of Venice\nUniversity of Milan\nUniversity for Foreigners of Perugia",
+       "en": "Ca’ Foscari University of Venice\nUniversity of Milan\nUniversity for Foreigners of Perugia",
+       "zh": "Ca’ Foscari University of Venice\nUniversity of Milan\nUniversity for Foreigners of Perugia"
+      }
+     },
+     {
+      "title": {
+       "uz": "Germaniya",
+       "ru": "Германия",
+       "en": "Germany",
+       "zh": "德国"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "Ruhr University Bochum\nHeidelberg University\nUniversity of Freiburg\nUniversity of Mannheim",
+       "ru": "Ruhr University Bochum\nHeidelberg University\nUniversity of Freiburg\nUniversity of Mannheim",
+       "en": "Ruhr University Bochum\nHeidelberg University\nUniversity of Freiburg\nUniversity of Mannheim",
+       "zh": "Ruhr University Bochum\nHeidelberg University\nUniversity of Freiburg\nUniversity of Mannheim"
+      }
+     },
+     {
+      "title": {
+       "uz": "Malayziya",
+       "ru": "Малайзия",
+       "en": "Malaysia",
+       "zh": "马来西亚"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "Sultan Idris Education University",
+       "ru": "Sultan Idris Education University",
+       "en": "Sultan Idris Education University",
+       "zh": "Sultan Idris Education University"
+      }
+     },
+     {
+      "title": {
+       "uz": "Indoneziya",
+       "ru": "Индонезия",
+       "en": "Indonesia",
+       "zh": "印度尼西亚"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "Indonesia University of Education\nYogyakarta State University",
+       "ru": "Indonesia University of Education\nYogyakarta State University",
+       "en": "Indonesia University of Education\nYogyakarta State University",
+       "zh": "Indonesia University of Education\nYogyakarta State University"
+      }
+     },
+     {
+      "title": {
+       "uz": "Turkiya",
+       "ru": "Турция",
+       "en": "Türkiye",
+       "zh": "土耳其"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "Kastamonu University\nIğdır University\nÇankırı Karatekin University\nMarmara University\nAksaray University\nAnkara University\nMersin University\nKoç University\nYıldız Technical University",
+       "ru": "Kastamonu University\nIğdır University\nÇankırı Karatekin University\nMarmara University\nAksaray University\nAnkara University\nMersin University\nKoç University\nYıldız Technical University",
+       "en": "Kastamonu University\nIğdır University\nÇankırı Karatekin University\nMarmara University\nAksaray University\nAnkara University\nMersin University\nKoç University\nYıldız Technical University",
+       "zh": "Kastamonu University\nIğdır University\nÇankırı Karatekin University\nMarmara University\nAksaray University\nAnkara University\nMersin University\nKoç University\nYıldız Technical University"
+      }
+     },
+     {
+      "title": {
+       "uz": "Finlyandiya",
+       "ru": "Финляндия",
+       "en": "Finland",
+       "zh": "芬兰"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "Nordic International University",
+       "ru": "Nordic International University",
+       "en": "Nordic International University",
+       "zh": "Nordic International University"
+      }
+     },
+     {
+      "title": {
+       "uz": "Şvetsiya",
+       "ru": "Швеция",
+       "en": "Sweden",
+       "zh": "瑞典"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "Lund University",
+       "ru": "Lund University",
+       "en": "Lund University",
+       "zh": "Lund University"
+      }
+     },
+     {
+      "title": {
+       "uz": "Rossiya",
+       "ru": "Россия",
+       "en": "Russia",
+       "zh": "俄罗斯"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "Moscow State Linguistic University\nSouthern Federal University\nKazan Federal University\nSaint Petersburg State University",
+       "ru": "Moscow State Linguistic University\nSouthern Federal University\nKazan Federal University\nSaint Petersburg State University",
+       "en": "Moscow State Linguistic University\nSouthern Federal University\nKazan Federal University\nSaint Petersburg State University",
+       "zh": "Moscow State Linguistic University\nSouthern Federal University\nKazan Federal University\nSaint Petersburg State University"
+      }
+     },
+     {
+      "title": {
+       "uz": "Belarus",
+       "ru": "Беларусь",
+       "en": "Belarus",
+       "zh": "白俄罗斯"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "Minsk State Linguistic University",
+       "ru": "Minsk State Linguistic University",
+       "en": "Minsk State Linguistic University",
+       "zh": "Minsk State Linguistic University"
+      }
+     },
+     {
+      "title": {
+       "uz": "Ruminiya",
+       "ru": "Румыния",
+       "en": "Romania",
+       "zh": "罗马尼亚"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "University of Alba Iulia",
+       "ru": "University of Alba Iulia",
+       "en": "University of Alba Iulia",
+       "zh": "University of Alba Iulia"
+      }
+     },
+     {
+      "title": {
+       "uz": "Yaponiya",
+       "ru": "Япония",
+       "en": "Japan",
+       "zh": "日本"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "Bunkyo Gakuin University\nToyo University\nWakayama University\nSoka University\nOtemae University\nTokyo Online University\nUniversity of Tsukuba\nJapan Digital University",
+       "ru": "Bunkyo Gakuin University\nToyo University\nWakayama University\nSoka University\nOtemae University\nTokyo Online University\nUniversity of Tsukuba\nJapan Digital University",
+       "en": "Bunkyo Gakuin University\nToyo University\nWakayama University\nSoka University\nOtemae University\nTokyo Online University\nUniversity of Tsukuba\nJapan Digital University",
+       "zh": "Bunkyo Gakuin University\nToyo University\nWakayama University\nSoka University\nOtemae University\nTokyo Online University\nUniversity of Tsukuba\nJapan Digital University"
+      }
+     },
+     {
+      "title": {
+       "uz": "Xitoy",
+       "ru": "Китай",
+       "en": "China",
+       "zh": "中国"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "Shanghai Foreign Language School\nBeijing Foreign Studies University\nEastern Liaoning University",
+       "ru": "Shanghai Foreign Language School\nBeijing Foreign Studies University\nEastern Liaoning University",
+       "en": "Shanghai Foreign Language School\nBeijing Foreign Studies University\nEastern Liaoning University",
+       "zh": "Shanghai Foreign Language School\nBeijing Foreign Studies University\nEastern Liaoning University"
+      }
+     },
+     {
+      "title": {
+       "uz": "Janubiy Koreya",
+       "ru": "Южная Корея",
+       "en": "South Korea",
+       "zh": "韩国"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "Seoul National University\nPusan University of Foreign Studies\nChung-Ang University\nSunchon National University\nTongmyong University\nDuksung Women’s University",
+       "ru": "Seoul National University\nPusan University of Foreign Studies\nChung-Ang University\nSunchon National University\nTongmyong University\nDuksung Women’s University",
+       "en": "Seoul National University\nPusan University of Foreign Studies\nChung-Ang University\nSunchon National University\nTongmyong University\nDuksung Women’s University",
+       "zh": "Seoul National University\nPusan University of Foreign Studies\nChung-Ang University\nSunchon National University\nTongmyong University\nDuksung Women’s University"
+      }
+     }
+    ],
+    "outro": {
+     "uz": "…va boşqa universitetlar.",
+     "ru": "…и другие университеты.",
+     "en": "…and other universities.",
+     "zh": "……以及其他大学。"
+    },
+    "photos": []
+   }
+  ]
+ }
+}

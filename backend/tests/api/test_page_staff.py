@@ -132,3 +132,8 @@ class ShowcasePhotosTests(TestCase):
         out = showcase_out({'blocks': [{'photos': [m.pk, 99999]}]}, 'uz')
         self.assertEqual(len(out), 1)
         self.assertEqual([p['alt'] for p in out[0]['photos']], ['Xona'])  # yo'q fayl tashlab yuboriladi
+
+    def test_many_columns_kept(self):
+        from apps.panel.collections import showcase as clean_showcase
+        cols = [{'title': {'uz': f'Davlat {i}'}, 'icon': 'globe', 'items': {'uz': 'X University'}} for i in range(17)]
+        self.assertEqual(len(clean_showcase({'blocks': [{'columns': cols}]})['blocks'][0]['columns']), 17)
