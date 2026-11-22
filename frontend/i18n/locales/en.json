@@ -593,6 +593,8 @@
     "staffPhone": "Phone",
     "staffHours": "Office hours",
     "ctaNewTab": "opens in a new tab",
+    "view": "View",
+    "noDocs": "Documents coming soon",
     "staffTitle": "Staff",
     "unitStaff": "{n} staff"
   },

@@ -269,9 +269,52 @@ def page_out(p: Page, lang: str) -> dict:
         # Matndan keyin chaqiruv bloki (masalan, uzlib.uz) — havola va tugma yozuvi bo'lsa
         'cta': ({'title': tr(p.cta_title, lang) or None, 'text': tr(p.cta_text, lang) or None, 'label': tr(p.cta_label, lang), 'url': p.cta_url}
                 if p.cta_url and tr(p.cta_label, lang) else None),
+        # Ichki sahifalar kartalari (masalan, Yoshlar ittifoqi → Zakovat, Futbol…): belgi, nom, hujjatlar
+        'children': [
+            {'slug': c.slug, 'title': tr(c.title, lang), 'icon': c.icon or None, 'url': f'/{c.slug}',
+             'attachments': attachments_out(c.attachments.select_related('file'), lang)}
+            for c in p.children.filter(published=True, template='text').exclude(slug=None).prefetch_related('attachments__file').order_by('order', 'id')
+        ] if p.show_children else [],
+        # Kartali bloklar (matndagi [[kartalar-N]] joyida): raqamlar, ustunlar (klublar / loyihalar…), xulosa
+        'showcase': showcase_out(p.showcase, lang),
         'staff': department_staff_out(p.staff_department, lang, p.staff_extra, p.staff_contacts, tr(p.staff_hours, lang)),
         'updatedAt': iso(p.updated_at),
     }
+
+
+def _lines(value, lang: str) -> list[str]:
+    return [x.strip() for x in (tr(value, lang) or '').splitlines() if x.strip()]
+
+
+def showcase_out(data, lang: str) -> list[dict]:
+    """Kartali bloklar (matndagi [[kartalar-N]] joyida). Blok: kirish gapi, raqamlar («7 | nomi»), ustunlar
+    (bandlar har qatorda; «Nom — izoh»; uslub: numbers — raqamli, checks — belgili), xulosa gapi.
+    Eski shakl ({intro, columns}) — bitta blok sifatida."""
+    if not isinstance(data, dict):
+        return []
+    blocks = data.get('blocks') if 'blocks' in data else ([data] if data.get('columns') else [])
+    out = []
+    for n, block in enumerate(blocks or [], start=1):
+        if not isinstance(block, dict):
+            continue
+        stats = []
+        for line in _lines(block.get('stats'), lang):
+            value, _, label = line.partition('|')
+            if value.strip() and label.strip():
+                stats.append({'value': value.strip(), 'label': label.strip()})
+        columns = []
+        for col in block.get('columns') or []:
+            items = []
+            for line in _lines(col.get('items'), lang):
+                name, _, note = line.partition(' — ')
+                items.append({'name': name.strip(), 'note': note.strip() or None})
+            if items:
+                columns.append({'title': tr(col.get('title'), lang) or '', 'icon': col.get('icon') or None,
+                                'style': 'checks' if col.get('style') == 'checks' else 'numbers', 'items': items})
+        intro, outro = tr(block.get('intro'), lang) or None, tr(block.get('outro'), lang) or None
+        if stats or columns or intro:
+            out.append({'n': n, 'intro': intro, 'stats': stats, 'columns': columns, 'outro': outro})
+    return out
 
 
 def rector_card(lang: str) -> dict | None:

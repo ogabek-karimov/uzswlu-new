@@ -14,6 +14,22 @@ const host = computed(() => {
   try { return external.value ? new URL(props.cta.url).host.replace(/^www\./, '') : '' }
   catch { return '' }
 })
+// Suzuvçi ikonkalar havolaga mos: Telegram/Instagram, kutubxona (lib), qolganlari — umumiy
+const icons = computed<[string, string, string]>(() => {
+  const h = host.value
+  if (/(^|\.)t\.me$|telegram/.test(h)) return ['lucide:send', 'lucide:sparkles', 'lucide:users-round']
+  if (/instagram/.test(h)) return ['lucide:instagram', 'lucide:heart', 'lucide:camera']
+  if (/lib/.test(h)) return ['lucide:book-open', 'lucide:sparkles', 'lucide:library-big']
+  return ['lucide:rocket', 'lucide:sparkles', 'lucide:star']
+})
+// Telegram — chip'da @kanal nomi (t.me/yoshlarittifoqi_uzdjtu → @yoshlarittifoqi_uzdjtu)
+const chip = computed(() => {
+  if (/(^|\.)t\.me$/.test(host.value)) {
+    const name = props.cta.url.split('/').filter(Boolean).pop()
+    if (name && !/t\.me$/.test(name)) return `@${name}`
+  }
+  return host.value
+})
 
 const root = ref<HTMLElement>()
 // Sukut böyiça körinadi (SSR, JS yöq); kuzatuvçi ulangandagina yaşirilib, ekranga kelganda çiqadi
@@ -39,13 +55,13 @@ onBeforeUnmount(() => io?.disconnect())
       <span aria-hidden="true" class="cta-glow cta-glow-b" />
       <span aria-hidden="true" class="cta-grid" />
       <!-- suzuvçi ikonkalar -->
-      <Icon aria-hidden="true" name="lucide:book-open" class="cta-float right-[8%] top-[14%] text-4xl text-accent-400/80" style="--d: 0s" />
-      <Icon aria-hidden="true" name="lucide:sparkles" class="cta-float right-[24%] bottom-[16%] text-2xl text-accent-300/70" style="--d: -2.2s" />
-      <Icon aria-hidden="true" name="lucide:library-big" class="cta-float right-[3%] bottom-[22%] hidden text-5xl text-white/15 sm:block" style="--d: -4.1s" />
+      <Icon aria-hidden="true" :name="icons[0]" class="cta-float right-[8%] top-[14%] text-4xl text-accent-400/80" style="--d: 0s" />
+      <Icon aria-hidden="true" :name="icons[1]" class="cta-float right-[24%] bottom-[16%] text-2xl text-accent-300/70" style="--d: -2.2s" />
+      <Icon aria-hidden="true" :name="icons[2]" class="cta-float right-[3%] bottom-[22%] hidden text-5xl text-white/15 sm:block" style="--d: -4.1s" />
 
       <div class="relative max-w-[560px]">
         <p v-if="host" class="cta-step inline-flex items-center gap-2 rounded-full border border-accent-400/40 bg-accent-400/10 px-3 py-1 text-xs font-bold tracking-wide text-accent-300" style="--i: 0">
-          <span class="cta-dot" aria-hidden="true" />{{ host }}
+          <span class="cta-dot" aria-hidden="true" />{{ chip }}
         </p>
         <h2 v-if="cta.title" class="cta-step mt-4 font-display text-[28px] leading-tight font-semibold sm:text-[34px]" style="--i: 1">{{ cta.title }}</h2>
         <p v-if="cta.text" class="cta-step mt-3 text-[15px] leading-relaxed text-white/80 sm:text-base" style="--i: 2">{{ cta.text }}</p>

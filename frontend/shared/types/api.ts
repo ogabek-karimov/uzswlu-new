@@ -183,6 +183,24 @@ export interface HemisEmployment {
 
 /** Ro'yxat kartasi uchun qisqa ma'lumot — HEMIS'dan */
 /** Sahifa chaqiruv bloki: sarlavha, matn, tugma yozuvi va havola (tashqi bo'lsa yangi oynada) */
+/** Ichki sahifa kartasi: lucide belgi nomi, nom, manzil, hujjatlar */
+/** Kartali blok: kirish gapi, raqamlar, ustunlar (raqamli yoki ✓ belgili bandlar: nom + ixtiyoriy izoh), xulosa gapi */
+export interface PageShowcase {
+  n: number
+  intro: string | null
+  stats: { value: string; label: string }[]
+  columns: { title: string; icon: string | null; style: 'numbers' | 'checks'; items: { name: string; note: string | null }[] }[]
+  outro: string | null
+}
+
+export interface PageChild {
+  slug: string
+  title: string
+  icon: string | null
+  url: string
+  attachments: Attachment[]
+}
+
 export interface PageCta {
   title: string | null
   text: string | null
@@ -466,6 +484,10 @@ export interface ContentPage {
   staff?: PageStaff[]
   /** Matndan keyin chaqiruv bloki (admin → Sahifalar); havola va tugma yozuvi bo'lmasa null */
   cta?: PageCta | null
+  /** Ichki sahifalar kartalari (admin'da yoqilgan bo'lsa): belgi, nom, hujjatlar */
+  children?: PageChild[]
+  /** Kartali bloklar — matndagi <!-- showcase:N --> joyida (N — blok raqami) */
+  showcase?: PageShowcase[]
   units?: { unit?: string | null; count?: number | null; name?: string | null; position?: string | null; photo?: string | null; phone?: string | null; ext?: string | null; email?: string | null; url?: string | null; source?: 'hemis' | 'admin' }[]
   /** Matndan keyin rektor kartasi (admin: «Matndan keyin rektor kartasi»; ma'lumot — Rahbariyat'dan) */
   rector?: { name: string; role: string; photo?: string | null; hours?: string | null; phone?: string | null; ext?: string | null; email?: string | null } | null

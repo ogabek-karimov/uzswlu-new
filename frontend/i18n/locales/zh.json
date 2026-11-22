@@ -593,6 +593,8 @@
     "staffPhone": "电话",
     "staffHours": "接待时间",
     "ctaNewTab": "在新窗口打开",
+    "view": "查看",
+    "noDocs": "文件即将上传",
     "staffTitle": "工作人员",
     "unitStaff": "{n} 名员工"
   },

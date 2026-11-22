@@ -593,6 +593,8 @@
     "staffPhone": "Telefon",
     "staffHours": "Qabul kunlari",
     "ctaNewTab": "yangi oynada oçiladi",
+    "noDocs": "Hujjatlar tez orada qöşiladi",
+    "view": "Köriş",
     "staffTitle": "Xodimlar",
     "unitStaff": "{n} ta xodim"
   },

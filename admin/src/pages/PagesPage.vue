@@ -7,6 +7,7 @@ import AlphabetButton from '@/components/AlphabetButton.vue'
 import Icon from '@/components/Icon.vue'
 import I18nFields from '@/components/I18nFields.vue'
 import MediaPicker from '@/components/MediaPicker.vue'
+import PageShowcaseField, { type Showcase } from '@/components/PageShowcaseField.vue'
 import PageStaffField from '@/components/PageStaffField.vue'
 import PdfSlot from '@/components/PdfSlot.vue'
 import RichEditor from '@/components/RichEditor.vue'
@@ -18,7 +19,7 @@ type Template = 'group' | 'text' | 'special' | 'link'
 type Att = { file?: MediaDoc | number | null; url?: string | null; title: I18n; meta?: I18n; display: 'embed' | 'open' | 'download' | 'link'; height?: number | null }
 type Page = {
   id: number; title: I18n; template: Template; parent?: number | { id: number } | null; slug?: string | null; url?: string | null; file?: MediaDoc | number | null
-  groupKey?: string | null; description?: I18n; overview?: string | null; sdg?: number | null; inMenu?: boolean; published?: boolean; highlight?: boolean; showRector?: boolean; showUnits?: boolean; staffDepartment?: string; staffExtra?: string[]; staffContacts?: Record<string, { phone?: string; email?: string }>; staffHours?: I18n; ctaTitle?: I18n; ctaText?: I18n; ctaLabel?: I18n; ctaUrl?: string; docStyle?: boolean
+  groupKey?: string | null; description?: I18n; overview?: string | null; sdg?: number | null; inMenu?: boolean; published?: boolean; highlight?: boolean; showRector?: boolean; showUnits?: boolean; staffDepartment?: string; staffExtra?: string[]; staffContacts?: Record<string, { phone?: string; email?: string }>; staffHours?: I18n; ctaTitle?: I18n; ctaText?: I18n; ctaLabel?: I18n; ctaUrl?: string; icon?: string; showChildren?: boolean; showcase?: Showcase; docStyle?: boolean
   lead?: I18n; body?: I18n; facts?: { value: string; label: I18n }[]; timeline?: { label: I18n; text: I18n; highlight?: boolean }[]; attachments?: Att[]; order?: number | null
 }
 
@@ -89,7 +90,7 @@ function toggle(id: number) {
 // Tahrirlash formasi
 const blank = () => ({
   title: {} as I18n, template: 'text' as Template, parent: null as number | null, slug: '', url: '', file: null as MediaDoc | null, groupKey: '',
-  description: {} as I18n, overview: '', sdg: 0, inMenu: true, published: true, highlight: false, showRector: false, showUnits: false, staffDepartment: '', staffExtra: [] as string[], staffContacts: {} as Record<string, { phone?: string; email?: string }>, staffHours: {} as I18n, ctaTitle: {} as I18n, ctaText: {} as I18n, ctaLabel: {} as I18n, ctaUrl: '', docStyle: false,
+  description: {} as I18n, overview: '', sdg: 0, inMenu: true, published: true, highlight: false, showRector: false, showUnits: false, staffDepartment: '', staffExtra: [] as string[], staffContacts: {} as Record<string, { phone?: string; email?: string }>, staffHours: {} as I18n, ctaTitle: {} as I18n, ctaText: {} as I18n, ctaLabel: {} as I18n, ctaUrl: '', icon: '', showChildren: false, showcase: {} as Showcase, docStyle: false,
   lead: {} as I18n, body: {} as I18n, facts: [] as { value: string; label: I18n }[], timeline: [] as { label: I18n; text: I18n; highlight: boolean }[], attachments: [] as Att[],
 })
 const form = reactive(blank())
@@ -106,7 +107,7 @@ function pick(id: number) {
   for (let x = pid(p); x; x = pid(byId(x)!)) open.value.add(x)
   Object.assign(form, blank(), {
     title: { ...p.title }, template: p.template, parent: pid(p), slug: p.slug ?? '', url: p.url ?? '', file: obj(p.file), groupKey: p.groupKey ?? '',
-    description: { ...(p.description ?? {}) }, overview: p.overview ?? '', sdg: p.sdg ?? 0, inMenu: p.inMenu !== false, published: p.published !== false, highlight: !!p.highlight, showRector: !!p.showRector, showUnits: !!p.showUnits, staffDepartment: p.staffDepartment ?? '', staffExtra: [...(p.staffExtra ?? [])], staffContacts: { ...(p.staffContacts ?? {}) }, staffHours: { ...(p.staffHours ?? {}) }, ctaTitle: { ...(p.ctaTitle ?? {}) }, ctaText: { ...(p.ctaText ?? {}) }, ctaLabel: { ...(p.ctaLabel ?? {}) }, ctaUrl: p.ctaUrl ?? '', docStyle: !!p.docStyle,
+    description: { ...(p.description ?? {}) }, overview: p.overview ?? '', sdg: p.sdg ?? 0, inMenu: p.inMenu !== false, published: p.published !== false, highlight: !!p.highlight, showRector: !!p.showRector, showUnits: !!p.showUnits, staffDepartment: p.staffDepartment ?? '', staffExtra: [...(p.staffExtra ?? [])], staffContacts: { ...(p.staffContacts ?? {}) }, staffHours: { ...(p.staffHours ?? {}) }, ctaTitle: { ...(p.ctaTitle ?? {}) }, ctaText: { ...(p.ctaText ?? {}) }, ctaLabel: { ...(p.ctaLabel ?? {}) }, ctaUrl: p.ctaUrl ?? '', icon: p.icon ?? '', showChildren: !!p.showChildren, showcase: JSON.parse(JSON.stringify(p.showcase ?? {})) as Showcase, docStyle: !!p.docStyle,
     lead: { ...(p.lead ?? {}) }, body: { ...(p.body ?? {}) },
     facts: (p.facts ?? []).map(f => ({ value: f.value, label: { ...f.label } })),
     timeline: (p.timeline ?? []).map(t => ({ label: { ...t.label }, text: { ...t.text }, highlight: !!t.highlight })),
@@ -149,7 +150,7 @@ async function save() {
   const data = {
     title: form.title, template: form.template, parent: form.parent, slug: form.slug.trim() || null, url: form.url.trim() || null, file: form.file?.id ?? null,
     groupKey: form.groupKey.trim() || null, description: form.description, overview: form.overview.trim() || null, sdg: form.sdg || null,
-    inMenu: form.inMenu, published: form.published, highlight: form.highlight, showRector: form.showRector, showUnits: form.showUnits, staffDepartment: form.staffDepartment.trim(), staffExtra: form.staffExtra, staffContacts: form.staffContacts, staffHours: form.staffHours, ctaTitle: form.ctaTitle, ctaText: form.ctaText, ctaLabel: form.ctaLabel, ctaUrl: form.ctaUrl.trim(), docStyle: form.docStyle,
+    inMenu: form.inMenu, published: form.published, highlight: form.highlight, showRector: form.showRector, showUnits: form.showUnits, staffDepartment: form.staffDepartment.trim(), staffExtra: form.staffExtra, staffContacts: form.staffContacts, staffHours: form.staffHours, ctaTitle: form.ctaTitle, ctaText: form.ctaText, ctaLabel: form.ctaLabel, ctaUrl: form.ctaUrl.trim(), icon: form.icon.trim(), showChildren: form.showChildren, showcase: form.showcase, docStyle: form.docStyle,
     lead: form.lead, body: form.body, facts: form.facts.filter(f => f.value.trim()), timeline: form.timeline,
     attachments: form.attachments.map(a => ({ file: obj(a.file)?.id ?? (typeof a.file === 'number' ? a.file : null), url: a.url?.trim() || null, title: a.title, meta: a.meta, display: a.display, height: a.height })),
   }
@@ -219,6 +220,8 @@ async function onAttach(e: Event) {
   form.attachments.push({ file: m, title: { uz: file.name.replace(/\.pdf$/i, '') }, meta: {}, display: 'open', height: 680 })
   ;(e.target as HTMLInputElement).value = ''
 }
+// Karta belgilari uçun tez tanlov (istalgan Lucide nomi ham bölaveradi)
+const ICONS = ['brain', 'chess-knight', 'puzzle', 'goal', 'target', 'volleyball', 'book-open-text', 'lightbulb', 'trophy', 'medal', 'music', 'palette', 'mic', 'camera', 'globe', 'heart-handshake', 'users-round', 'sparkles']
 const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
 </script>
 
@@ -303,8 +306,16 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
             <label v-if="form.template === 'text'" class="flex items-center gap-2.5" title="Rektor surati va ma’lumoti «Rahbariyat» bölimidan avtomatik olinadi — rektor almashsa sahifa özi yangilanadi"><ToggleSwitch v-model="form.showRector" label="Matndan keyin rektor kartasi" />Matndan keyin rektor kartasi</label>
             <label v-if="form.template === 'text'" class="flex items-center gap-2.5" title="Kartalar «Bölimlar» bölimidan (surat, F.I.Sh., lavozim, telefon)"><ToggleSwitch v-model="form.showUnits" label="Matndan keyin bölimlar kartalari" />Bölimlar kartalari</label>
             <label v-if="form.template === 'text'" class="flex items-center gap-2.5" title="Times New Roman shrifti, sarlavhalar markazda — rasmiy hujjat (tarix, nizom) uçun"><ToggleSwitch v-model="form.docStyle" label="Hujjat uslubi" />Hujjat uslubi (Times New Roman)</label>
+            <label v-if="form.template === 'text'" class="flex items-center gap-2.5" title="Shu sahifa ichidagi sahifalar (masalan, Yoshlar ittifoqi → Zakovat, Futbol) — belgi, nom va hujjatlari bilan kartalar"><ToggleSwitch v-model="form.showChildren" label="Ichki sahifalar kartalari" />Ichki sahifalar kartalari</label>
+          </div>
+          <div v-if="form.template === 'text'" class="mt-3.5 max-w-[360px]">
+            <label for="pg-icon" class="label">Belgi <span class="font-normal">(ota sahifadagi karta uçun)</span></label>
+            <input id="pg-icon" v-model="form.icon" class="field" placeholder="masalan: brain, chess-knight, volleyball" list="pg-icon-list">
+            <datalist id="pg-icon-list"><option v-for="i in ICONS" :key="i" :value="i" /></datalist>
+            <p class="mt-1 text-xs text-muted">Lucide belgisi nomi — <a href="https://lucide.dev/icons" target="_blank" rel="noopener" class="font-semibold text-brand-700 underline">lucide.dev/icons</a></p>
           </div>
           <PageStaffField v-if="form.template === 'text'" v-model:department="form.staffDepartment" v-model:extra="form.staffExtra" v-model:contacts="form.staffContacts" v-model:hours="form.staffHours" class="mt-4" />
+          <PageShowcaseField v-if="form.template === 'text'" v-model="form.showcase" class="mt-4" />
           <!-- Matndan keyin animatsiyali chaqiruv bloki (masalan, ARM → uzlib.uz) -->
           <fieldset v-if="form.template === 'text'" class="mt-4 rounded-2xl border border-line bg-[#FAF9FD] px-4 py-3.5">
             <legend class="px-1 text-sm font-bold">Chaqiruv bloki <span class="font-normal text-muted">(matndan keyin, animatsiyali tugma)</span></legend>
@@ -362,7 +373,7 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
             </div>
             <div><label for="pg-lead" class="label">Kirish matni · {{ LANG_LABEL }} <span class="font-normal">(sarlavha ostida)</span></label><textarea id="pg-lead" v-model="form.lead[lang]" rows="2" class="field h-auto! py-2.5 leading-relaxed" /></div>
             <div>
-              <span class="label">Matn · {{ LANG_LABEL }} <span class="font-normal">— rasm, jadval, video ham şu yerda; vaqt çiziği joyini [[timeline]] deb belgilang</span></span>
+              <span class="label">Matn · {{ LANG_LABEL }} <span class="font-normal">— rasm, jadval, video ham şu yerda; vaqt çiziği joyini [[timeline]], kartali bloklar joyini [[kartalar-1]], [[kartalar-2]]… deb belgilang</span></span>
               <div class="overflow-hidden rounded-xl border border-field"><RichEditor :key="`${sel}-${lang}`" :model-value="form.body[lang] ?? ''" placeholder="Sahifa matni…" @update:model-value="v => (form.body[lang] = v)" /></div>
             </div>
           </section>

@@ -96,8 +96,14 @@ def clean_page_html(html: str | None) -> str:
     return clean_html(re.sub(r'<!--\s*timeline\s*-->', TIMELINE_SAFE, html))
 
 
+SHOWCASE_MARK = '<!-- showcase:{n} -->'
+
+
 def restore_timeline(html: str) -> str:
-    return re.sub(r'<p>\s*\[\[timeline\]\]\s*</p>', TIMELINE_MARK, html)
+    """Admin muharriridagi belgilar → sayt belgilari: [[timeline]] (vaqt chizig'i), [[kartalar]] (kartali ro'yxat bloki)."""
+    html = re.sub(r'<p>\s*\[\[timeline\]\]\s*</p>', TIMELINE_MARK, html)
+    # [[kartalar]] — 1-blok, [[kartalar-N]] — N-blok
+    return re.sub(r'<p>\s*\[\[kartalar(?:-(\d+))?\]\]\s*</p>', lambda m: f'<!-- showcase:{m.group(1) or 1} -->', html)
 
 
 def slugify(value: str) -> str:

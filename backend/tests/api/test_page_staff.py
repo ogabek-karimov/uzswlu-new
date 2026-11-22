@@ -62,3 +62,52 @@ class PageCtaTests(TestCase):
         p.cta_label = {}
         p.save()
         self.assertIsNone(page_out(p, 'uz')['cta'])
+
+
+class PageChildrenTests(TestCase):
+    def test_children_cards_only_when_enabled(self):
+        from apps.api.builders_site import page_out
+        parent = Page.objects.create(slug='ota-test', title={'uz': 'Ota'}, template='text')
+        Page.objects.create(slug='bola-1', title={'uz': 'Futbol'}, template='text', parent=parent, icon='goal', in_menu=False, order=2)
+        Page.objects.create(slug='bola-0', title={'uz': 'Zakovat'}, template='text', parent=parent, icon='lightbulb', in_menu=False, order=1)
+        Page.objects.create(slug='bola-yopiq', title={'uz': 'Yopiq'}, template='text', parent=parent, published=False)
+        self.assertEqual(page_out(parent, 'uz')['children'], [])
+        parent.show_children = True
+        parent.save()
+        kids = page_out(Page.objects.get(pk=parent.pk), 'uz')['children']
+        self.assertEqual([(c['slug'], c['icon'], c['url']) for c in kids], [('bola-0', 'lightbulb', '/bola-0'), ('bola-1', 'goal', '/bola-1')])
+        self.assertEqual(kids[0]['attachments'], [])
+
+    def test_youth_club_seed_files_exist(self):
+        import json
+        from pathlib import Path
+        from django.conf import settings
+        data = Path(settings.BASE_DIR) / 'seed_data'
+        seed = json.loads((data / 'youth_clubs.json').read_text(encoding='utf-8'))
+        self.assertEqual(len(seed['clubs']), 8)
+        for name in [d['file'] for c in seed['clubs'] for d in c['docs']] + [seed['yi']['file']]:
+            self.assertTrue((data / 'files' / 'youth' / name).exists(), name)
+
+
+class PageShowcaseTests(TestCase):
+    def test_blocks_markers_and_parsing(self):
+        from apps.api.builders_site import page_out
+        from apps.core.html import restore_timeline
+        self.assertEqual(restore_timeline('<p>[[kartalar]]</p><p>[[kartalar-3]]</p>'), '<!-- showcase:1 --><!-- showcase:3 -->')
+        p = Page.objects.create(slug='sc-test', title={'uz': 'S'}, template='text', body={'uz': '<p>a</p><p>[[kartalar-2]]</p>'}, showcase={'blocks': [
+            {'intro': {'uz': 'Tarkib'}, 'stats': {'uz': '7 | Koordinator\nnoto‘g‘ri qator'}, 'columns': [], 'outro': {}},
+            {'intro': {}, 'stats': {}, 'columns': [{'title': {'uz': 'Klublar'}, 'icon': 'users-round', 'style': 'checks',
+                                                   'items': {'uz': 'Zakovat — intellektual klub\n\nShaxmat'}}], 'outro': {'uz': 'Xulosa'}},
+        ]})
+        out = page_out(p, 'uz')
+        self.assertIn('<!-- showcase:2 -->', out['body'])
+        b1, b2 = out['showcase']
+        self.assertEqual((b1['n'], b1['stats']), (1, [{'value': '7', 'label': 'Koordinator'}]))
+        self.assertEqual(b2['columns'][0]['style'], 'checks')
+        self.assertEqual(b2['columns'][0]['items'], [{'name': 'Zakovat', 'note': 'intellektual klub'}, {'name': 'Shaxmat', 'note': None}])
+        self.assertEqual(b2['outro'], 'Xulosa')
+
+    def test_old_single_shape_is_block_one(self):
+        from apps.api.builders_site import showcase_out
+        old = {'intro': {'uz': 'X'}, 'columns': [{'title': {'uz': 'K'}, 'icon': '', 'items': {'uz': 'a'}}]}
+        self.assertEqual(showcase_out(old, 'uz')[0]['n'], 1)

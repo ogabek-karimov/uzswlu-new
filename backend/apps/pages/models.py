@@ -44,6 +44,12 @@ class Page(models.Model):
     cta_label = I18nField('Chaqiruv bloki: tugma yozuvi')
     cta_url = models.CharField('Chaqiruv bloki: havola', max_length=500, blank=True,
                                help_text='Matndan keyin animatsiyali blok; havola va tugma yozuvi bo‘lsa ko‘rinadi')
+    icon = models.CharField('Belgi (karta uchun)', max_length=40, blank=True,
+                            help_text='Lucide belgisi nomi, masalan: brain, chess-knight, volleyball (lucide.dev/icons)')
+    show_children = models.BooleanField('Matndan keyin ichki sahifalar kartalari', default=False,
+                                        help_text='Shu sahifa ichidagi sahifalar — belgi, nom va hujjatlari bilan kartalar')
+    showcase = models.JSONField('Kartali ro‘yxat bloki', default=dict, blank=True,
+                                help_text='{intro: {uz…}, columns: [{title: {uz…}, icon, items: {uz: "qator\nqator"}}]} — matndagi [[kartalar]] joyida')
     doc_style = models.BooleanField('Hujjat uslubi', default=False, help_text='Matn Times New Roman shriftida, sarlavhalar markazda (rasmiy hujjat ko‘rinishi)')
     show_rector = models.BooleanField('Matndan keyin rektor kartasi', default=False,
                                       help_text='Rektor surati va ma’lumoti — admin → Rahbariyat’dan avtomatik (rektor almashsa sahifa o‘zi yangilanadi)')

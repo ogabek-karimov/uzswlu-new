@@ -114,7 +114,7 @@ useSeo({
           </ul>
         </section>
 
-        <ProseHtml :html="parts.before" :class="page.docStyle && 'doc-style'" />
+        <PageBodyHtml :html="parts.before" :doc-style="page.docStyle" :showcase="page.showcase" />
 
         <ol v-if="page.timeline.length" class="mt-7 grid gap-4 sm:grid-cols-3">
           <li
@@ -128,7 +128,10 @@ useSeo({
           </li>
         </ol>
 
-        <ProseHtml v-if="parts.after" :html="parts.after" class="mt-12" :class="page.docStyle && 'doc-style'" />
+        <div v-if="parts.after" class="mt-12"><PageBodyHtml :html="parts.after" :doc-style="page.docStyle" :showcase="page.showcase" /></div>
+
+        <!-- Ichki sahifalar kartalari (admin → Sahifalar → «Ichki sahifalar kartalari»), masalan Yoshlar ittifoqi tadbirlari -->
+        <PageChildCards v-if="page.children?.length" :items="page.children" />
 
         <!-- Chaqiruv bloki (admin → Sahifalar → «Chaqiruv bloki»): matndan keyin, animatsiyali tugma -->
         <PageCta v-if="page.cta" :cta="page.cta" />
@@ -177,16 +180,25 @@ useSeo({
         </NuxtLink>
 
         <!-- Biriktirilgan hujjatlar -->
+        <!-- Hujjat: belgi, nomi, hajmi; «Köriş» (yangi oynada) va «Yuklab oliş» -->
         <ul v-if="page.attachments.length" class="mt-12 flex flex-col gap-3">
-          <li v-for="file in page.attachments" :key="file.url">
-            <a :href="file.url" target="_blank" rel="noopener" class="group flex items-center gap-4 rounded-[20px] border border-line bg-white px-5 py-[18px] text-ink transition-colors hover:border-accent-500">
-              <span class="grid h-14 w-12 shrink-0 place-items-center rounded-[10px] bg-red-50 text-[11px] font-bold text-red-700">{{ file.kind === 'pdf' ? 'PDF' : 'URL' }}</span>
-              <span class="min-w-0 flex-1">
-                <span class="block font-semibold">{{ file.title }}</span>
-                <span v-if="file.meta" class="mt-0.5 block text-[13px] text-muted">{{ file.meta }}</span>
-              </span>
-              <span class="hidden shrink-0 text-sm font-semibold text-brand-700 sm:inline">{{ t('page.download') }} ↓</span>
-            </a>
+          <li v-for="file in page.attachments" :key="file.url" class="group flex flex-col gap-4 rounded-3xl border border-line bg-white p-4 transition duration-300 hover:border-accent-500 hover:shadow-[0_20px_44px_-32px_rgb(28_21_72/0.5)] sm:flex-row sm:items-center sm:p-5">
+            <span aria-hidden="true" class="relative grid size-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-red-50 to-red-100 text-red-600 transition-transform duration-300 group-hover:-rotate-6">
+              <Icon :name="file.kind === 'pdf' ? 'lucide:file-text' : 'lucide:link'" class="size-7" />
+              <span v-if="file.kind === 'pdf'" class="absolute -right-1.5 -bottom-1.5 rounded-md bg-red-600 px-1.5 py-0.5 text-[9px] font-extrabold tracking-wide text-white">PDF</span>
+            </span>
+            <span class="min-w-0 flex-1">
+              <a :href="file.url" target="_blank" rel="noopener" class="block leading-snug font-semibold text-ink hover:text-brand-700">{{ file.title }}</a>
+              <span v-if="file.meta" class="mt-1 block text-[13px] text-muted">{{ file.meta }}</span>
+            </span>
+            <span class="flex shrink-0 gap-2">
+              <a :href="file.url" target="_blank" rel="noopener" class="inline-flex h-11 items-center gap-2 rounded-full border border-line bg-paper px-4 text-sm font-semibold text-ink transition-colors hover:border-brand-700">
+                <Icon name="lucide:eye" class="size-4" />{{ t('page.view') }}
+              </a>
+              <a v-if="file.kind === 'pdf'" :href="file.url" download class="inline-flex h-11 items-center gap-2 rounded-full bg-brand-800 px-4 text-sm font-semibold text-white transition-colors hover:bg-brand-700">
+                <Icon name="lucide:download" class="size-4 transition-transform group-hover:translate-y-0.5" />{{ t('page.download') }}
+              </a>
+            </span>
           </li>
         </ul>
 

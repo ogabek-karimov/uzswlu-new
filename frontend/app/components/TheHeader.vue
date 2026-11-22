@@ -69,6 +69,33 @@ function measure() {
 
 let resizeObserver: ResizeObserver | undefined
 
+// ── Fasl belgisi: keng ekranda menyu konteyneridan taşqarida (çap çetda), lekin faqat haqiqatan sig'sa ───────
+// «Köriniş»da şrift kattalaşsa (A+) konteyner kengayadi va çap çetdagi bo'ş joy torayadi — ekran kengligi
+// özgarmagani uçun CSS breakpoint buni sezmaydi; şuning uçun ölçab tanlanadi. 'auto' — SSR/ilk holat (CSS 2xl qoidalari).
+const seasonRow = ref<HTMLElement>()
+const seasonWrap = ref<HTMLElement>()
+const seasonPlace = ref<'auto' | 'out' | 'in'>('auto')
+const SEASON_EDGE = 24 // left-6
+const SEASON_GAP = 16 // menyudan kamida şunça uzoq
+
+function placeSeason() {
+  const row = seasonRow.value
+  const btn = seasonWrap.value?.firstElementChild as HTMLElement | null | undefined
+  if (!row || !btn) return
+  if (window.innerWidth < 1536) { seasonPlace.value = 'in'; return }
+  const contentLeft = row.getBoundingClientRect().left + Number.parseFloat(getComputedStyle(row).paddingLeft)
+  seasonPlace.value = contentLeft >= SEASON_EDGE + btn.offsetWidth + SEASON_GAP ? 'out' : 'in'
+}
+// «Köriniş»da şrift qadami özgarsa — darhol qayta tanlanadi (ResizeObserver'ga bog'liq emas), so'ng menyu ham qayta ölçanadi
+const a11y = useA11y()
+watch(() => a11y.step.value, () => nextTick(() => {
+  placeSeason()
+  nextTick(measure)
+}))
+function onResize() {
+  placeSeason()
+}
+
 function onScroll() {
   scrolled.value = window.scrollY > 8
 }
@@ -82,9 +109,17 @@ function onKeydown(e: KeyboardEvent) {
 onMounted(() => {
   onScroll()
   window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('resize', onResize, { passive: true })
   window.addEventListener('keydown', onKeydown)
-  resizeObserver = new ResizeObserver(() => measure())
+  resizeObserver = new ResizeObserver(() => {
+    placeSeason()
+    measure()
+  })
   if (navEl.value) resizeObserver.observe(navEl.value)
+  // Fasl belgisi: konteyner (şrift / oyna) va tugmaning öz kengligi özgarsa — joyi qayta tanlanadi
+  if (seasonRow.value) resizeObserver.observe(seasonRow.value)
+  if (seasonWrap.value?.firstElementChild) resizeObserver.observe(seasonWrap.value.firstElementChild)
+  placeSeason()
   // Shrift kattalashtirilganda (A+) o'lchamlar o'zgaradi — o'lchagich ham kuzatiladi
   if (measureEl.value) resizeObserver.observe(measureEl.value)
   measure()
@@ -93,6 +128,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', onScroll)
+  window.removeEventListener('resize', onResize)
   window.removeEventListener('keydown', onKeydown)
   resizeObserver?.disconnect()
   document.documentElement.style.overflow = ''
@@ -209,10 +245,19 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
 
     <!-- 2-qator: asosiy menyu (planshet va kompyuter) -->
     <div class="relative hidden border-t border-line/70 md:block">
-      <div class="mx-auto flex h-14 max-w-7xl items-center overflow-x-clip px-4 sm:px-6 lg:px-8">
+      <div ref="seasonRow" class="mx-auto flex h-14 max-w-7xl items-center overflow-x-clip px-4 sm:px-6 lg:px-8">
         <!-- Joriy fasl belgisi: menyuning eng boshida -->
         <!-- Keng ekranda (≥1536px) sahifaning eng chetida, menyudan ajralgan; torroqda menyu oldida, ajratuvchi chiziq bilan -->
-        <div class="mr-5 shrink-0 border-r border-line pr-5 2xl:absolute 2xl:top-1/2 2xl:left-6 2xl:mr-0 2xl:-translate-y-1/2 2xl:border-0 2xl:pr-0">
+        <!-- Sig'maganda (masalan, şrift 110%+) — menyu oldiga qaytadi: ustiga çiqib ketmaydi -->
+        <div
+          ref="seasonWrap"
+          class="shrink-0"
+          :class="{
+            'mr-5 border-r border-line pr-5 2xl:absolute 2xl:top-1/2 2xl:left-6 2xl:mr-0 2xl:-translate-y-1/2 2xl:border-0 2xl:pr-0': seasonPlace === 'auto',
+            'absolute top-1/2 left-6 -translate-y-1/2': seasonPlace === 'out',
+            'mr-5 border-r border-line pr-5': seasonPlace === 'in',
+          }"
+        >
           <SeasonButton />
         </div>
         <nav ref="navEl" class="relative min-w-0 flex-1" :aria-label="t('nav.menu')">

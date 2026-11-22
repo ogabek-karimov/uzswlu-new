@@ -1,0 +1,262 @@
+{
+ "clubs": [
+  {
+   "slug": "breyn-ring",
+   "icon": "brain",
+   "title": {
+    "uz": "Breyn ring",
+    "ru": "Брейн-ринг",
+    "en": "Brain Ring",
+    "zh": "脑力擂台"
+   },
+   "docs": [
+    {
+     "file": "breyn-ring-1.pdf",
+     "title": {
+      "uz": "Özbekça",
+      "ru": "Узбекский",
+      "en": "Uzbek",
+      "zh": "乌兹别克语"
+     }
+    },
+    {
+     "file": "breyn-ring-2.pdf",
+     "title": {
+      "uz": "Inglizça",
+      "ru": "Английский",
+      "en": "English",
+      "zh": "英语"
+     }
+    }
+   ]
+  },
+  {
+   "slug": "shaxmat",
+   "icon": "chess-knight",
+   "title": {
+    "uz": "Şaxmat",
+    "ru": "Шахматы",
+    "en": "Chess",
+    "zh": "国际象棋"
+   },
+   "docs": [
+    {
+     "file": "shaxmat-1.pdf",
+     "title": {
+      "uz": "Özbekça",
+      "ru": "Узбекский",
+      "en": "Uzbek",
+      "zh": "乌兹别克语"
+     }
+    },
+    {
+     "file": "shaxmat-2.pdf",
+     "title": {
+      "uz": "Inglizça",
+      "ru": "Английский",
+      "en": "English",
+      "zh": "英语"
+     }
+    }
+   ]
+  },
+  {
+   "slug": "erudit-kvartet",
+   "icon": "puzzle",
+   "title": {
+    "uz": "Erudit-kvartet",
+    "ru": "Эрудит-квартет",
+    "en": "Erudite Quartet",
+    "zh": "博学四人赛"
+   },
+   "docs": [
+    {
+     "file": "erudit-kvartet-1.pdf",
+     "title": {
+      "uz": "Özbekça",
+      "ru": "Узбекский",
+      "en": "Uzbek",
+      "zh": "乌兹别克语"
+     }
+    },
+    {
+     "file": "erudit-kvartet-2.pdf",
+     "title": {
+      "uz": "Inglizça",
+      "ru": "Английский",
+      "en": "English",
+      "zh": "英语"
+     }
+    }
+   ]
+  },
+  {
+   "slug": "futbol",
+   "icon": "goal",
+   "title": {
+    "uz": "Futbol",
+    "ru": "Футбол",
+    "en": "Football",
+    "zh": "足球"
+   },
+   "docs": [
+    {
+     "file": "futbol-1.pdf",
+     "title": {
+      "uz": "Özbekça",
+      "ru": "Узбекский",
+      "en": "Uzbek",
+      "zh": "乌兹别克语"
+     }
+    },
+    {
+     "file": "futbol-2.pdf",
+     "title": {
+      "uz": "Inglizça",
+      "ru": "Английский",
+      "en": "English",
+      "zh": "英语"
+     }
+    }
+   ]
+  },
+  {
+   "slug": "shaxsiy-oyin",
+   "icon": "target",
+   "title": {
+    "uz": "Şaxsiy öyin",
+    "ru": "Индивидуальная игра",
+    "en": "Individual Game",
+    "zh": "个人赛"
+   },
+   "docs": [
+    {
+     "file": "shaxsiy-oyin-1.pdf",
+     "title": {
+      "uz": "Özbekça",
+      "ru": "Узбекский",
+      "en": "Uzbek",
+      "zh": "乌兹别克语"
+     }
+    },
+    {
+     "file": "shaxsiy-oyin-2.pdf",
+     "title": {
+      "uz": "Inglizça",
+      "ru": "Английский",
+      "en": "English",
+      "zh": "英语"
+     }
+    }
+   ]
+  },
+  {
+   "slug": "voleybol",
+   "icon": "volleyball",
+   "title": {
+    "uz": "Voleybol",
+    "ru": "Волейбол",
+    "en": "Volleyball",
+    "zh": "排球"
+   },
+   "docs": [
+    {
+     "file": "voleybol-1.pdf",
+     "title": {
+      "uz": "Özbekça",
+      "ru": "Узбекский",
+      "en": "Uzbek",
+      "zh": "乌兹别克语"
+     }
+    },
+    {
+     "file": "voleybol-2.pdf",
+     "title": {
+      "uz": "Inglizça",
+      "ru": "Английский",
+      "en": "English",
+      "zh": "英语"
+     }
+    }
+   ]
+  },
+  {
+   "slug": "yosh-kitobxon",
+   "icon": "book-open-text",
+   "title": {
+    "uz": "Yoş kitobxon",
+    "ru": "Юный читатель",
+    "en": "Young Reader",
+    "zh": "青年读者"
+   },
+   "docs": [
+    {
+     "file": "yosh-kitobxon-1.pdf",
+     "title": {
+      "uz": "Inglizça",
+      "ru": "Английский",
+      "en": "English",
+      "zh": "英语"
+     }
+    }
+   ]
+  },
+  {
+   "slug": "zakovat",
+   "icon": "lightbulb",
+   "title": {
+    "uz": "Zakovat",
+    "ru": "Заковат",
+    "en": "Zakovat (Quiz)",
+    "zh": "“Zakovat”智力竞赛"
+   },
+   "docs": [
+    {
+     "file": "zakovat-1.pdf",
+     "title": {
+      "uz": "Bayonnoma · Özbekça",
+      "ru": "Положение · Узбекский",
+      "en": "Rules · Uzbek",
+      "zh": "规程 · 乌兹别克语"
+     }
+    },
+    {
+     "file": "zakovat-2.pdf",
+     "title": {
+      "uz": "Bayonnoma · Inglizça",
+      "ru": "Положение · Английский",
+      "en": "Rules · English",
+      "zh": "规程 · 英语"
+     }
+    },
+    {
+     "file": "zakovat-3.pdf",
+     "title": {
+      "uz": "Quiz · Özbekça",
+      "ru": "Квиз · Узбекский",
+      "en": "Quiz · Uzbek",
+      "zh": "知识竞赛 · 乌兹别克语"
+     }
+    },
+    {
+     "file": "zakovat-4.pdf",
+     "title": {
+      "uz": "Quiz · Inglizça",
+      "ru": "Квиз · Английский",
+      "en": "Quiz · English",
+      "zh": "知识竞赛 · 英语"
+     }
+    }
+   ]
+  }
+ ],
+ "yi": {
+  "file": "yoshlar-ittifoqi-chora-tadbirlar.pdf",
+  "title": {
+   "uz": "Özbekiston yoşlar ittifoqining oliy ta’lim muassasalaridagi boşlanğiç taşkilotlari faoliyatini takomillaştiriş çora-tadbirlari töğrisida",
+   "ru": "О мерах по совершенствованию деятельности первичных организаций Союза молодёжи Узбекистана в высших учебных заведениях",
+   "en": "On measures to improve the activities of the primary organizations of the Youth Union of Uzbekistan in higher education institutions",
+   "zh": "关于完善乌兹别克斯坦青年联盟高等院校基层组织工作的措施"
+  }
+ }
+}

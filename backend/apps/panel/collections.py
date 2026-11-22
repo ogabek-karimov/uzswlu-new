@@ -197,6 +197,29 @@ def staff_contacts(v):
     return out
 
 
+def showcase(v):
+    """Kartali bloklar: {blocks: [{intro, stats, columns: [{title, icon, style, items}], outro}]} — matnlar 4 tilda;
+    ko'pi bilan 10 blok, blokda 4 ustun."""
+    if not v:
+        return {}
+    if not isinstance(v, dict):
+        raise ValidationError('Kartali bloklar noto‘g‘ri')
+    def lang(x, limit):
+        x = x if isinstance(x, dict) else {}
+        return {k: str(x.get(k) or '').strip()[:limit] for k in ('uz', 'ru', 'en', 'zh') if str(x.get(k) or '').strip()}
+    blocks = v.get('blocks') if 'blocks' in v else [v]
+    out = []
+    for b in (blocks or [])[:10]:
+        if not isinstance(b, dict):
+            continue
+        columns = [{'title': lang(c.get('title'), 120), 'icon': str(c.get('icon') or '').strip()[:40],
+                    'style': 'checks' if c.get('style') == 'checks' else 'numbers', 'items': lang(c.get('items'), 6000)}
+                   for c in (b.get('columns') or [])[:4] if isinstance(c, dict)]
+        out.append({'intro': lang(b.get('intro'), 2000), 'stats': lang(b.get('stats'), 1000), 'columns': columns,
+                    'outro': lang(b.get('outro'), 2000)})
+    return {'blocks': out}
+
+
 def flag(v):
     return v in (True, 'true', '1', 1, 'on')
 
@@ -1071,7 +1094,7 @@ class Pages(Collection):
             'id': p.pk, 'title': i18n_out(p.title), 'template': p.template, 'parent': p.parent_id, 'slug': p.slug or None,
             'url': p.url or None, 'file': media_out(p.file, depth) if p.file_id else None, 'groupKey': p.group_key or None,
             'description': i18n_out(p.description), 'overview': p.overview or None, 'sdg': p.sdg, 'inMenu': p.in_menu,
-            'published': p.published, 'highlight': p.highlight, 'showRector': p.show_rector, 'showUnits': p.show_units, 'staffDepartment': p.staff_department, 'staffExtra': p.staff_extra or [], 'staffContacts': p.staff_contacts or {}, 'staffHours': i18n_out(p.staff_hours), 'ctaTitle': i18n_out(p.cta_title), 'ctaText': i18n_out(p.cta_text), 'ctaLabel': i18n_out(p.cta_label), 'ctaUrl': p.cta_url, 'docStyle': p.doc_style, 'lead': i18n_out(p.lead),
+            'published': p.published, 'highlight': p.highlight, 'showRector': p.show_rector, 'showUnits': p.show_units, 'staffDepartment': p.staff_department, 'staffExtra': p.staff_extra or [], 'staffContacts': p.staff_contacts or {}, 'staffHours': i18n_out(p.staff_hours), 'ctaTitle': i18n_out(p.cta_title), 'ctaText': i18n_out(p.cta_text), 'ctaLabel': i18n_out(p.cta_label), 'ctaUrl': p.cta_url, 'icon': p.icon, 'showChildren': p.show_children, 'showcase': p.showcase or {}, 'docStyle': p.doc_style, 'lead': i18n_out(p.lead),
             'body': {k: (v.replace('<!-- timeline -->', '<p>[[timeline]]</p>') if v else v) for k, v in i18n_out(p.body).items()},
             'facts': [{'id': str(f.pk), 'value': f.value, 'label': i18n_out(f.label)} for f in p.facts.all()],
             'timeline': [{'id': str(t.pk), 'label': i18n_out(t.label), 'text': i18n_out(t.text), 'highlight': t.highlight} for t in p.timeline.all()],
@@ -1083,7 +1106,7 @@ class Pages(Collection):
         put(p, data, {'title': ('title', i18n_in), 'template': ('template', text), 'slug': ('slug', lambda v: text(v) or None),
                       'url': ('url', text), 'groupKey': ('group_key', text), 'description': ('description', i18n_in),
                       'overview': ('overview', text), 'inMenu': ('in_menu', flag), 'published': ('published', flag),
-                      'highlight': ('highlight', flag), 'showRector': ('show_rector', flag), 'showUnits': ('show_units', flag), 'staffDepartment': ('staff_department', text), 'staffExtra': ('staff_extra', staff_ids), 'staffContacts': ('staff_contacts', staff_contacts), 'staffHours': ('staff_hours', i18n_in), 'ctaTitle': ('cta_title', i18n_in), 'ctaText': ('cta_text', i18n_in), 'ctaLabel': ('cta_label', i18n_in), 'ctaUrl': ('cta_url', text), 'docStyle': ('doc_style', flag), 'lead': ('lead', i18n_in), 'body': ('body', i18n_in), 'order': ('order', num)})
+                      'highlight': ('highlight', flag), 'showRector': ('show_rector', flag), 'showUnits': ('show_units', flag), 'staffDepartment': ('staff_department', text), 'staffExtra': ('staff_extra', staff_ids), 'staffContacts': ('staff_contacts', staff_contacts), 'staffHours': ('staff_hours', i18n_in), 'ctaTitle': ('cta_title', i18n_in), 'ctaText': ('cta_text', i18n_in), 'ctaLabel': ('cta_label', i18n_in), 'ctaUrl': ('cta_url', text), 'icon': ('icon', text), 'showChildren': ('show_children', flag), 'showcase': ('showcase', showcase), 'docStyle': ('doc_style', flag), 'lead': ('lead', i18n_in), 'body': ('body', i18n_in), 'order': ('order', num)})
         if 'sdg' in data:
             p.sdg = num(data['sdg'], None) or None
         if 'parent' in data:
