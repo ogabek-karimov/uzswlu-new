@@ -4,7 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-23
 
-- **Sayt + backend (profil menyusida «Mening bölimlarim»):** saytdagi yuqori profil tugmasi menyusida kirgan xodimga (admin hisobi yoki HEMIS lavozimi rolga bog‘langan) rol nomi va uning bo‘limlari chiqadi; bo‘limga bosilsa admin panelning o‘sha sahifasi parolsiz ochiladi (`GET /api/me/admin-link?list=1` / `?next=<bo‘lim>`; havola faqat ma’lum sahifalarga). `roles.SECTION_PATHS`, `access.panel_access`. Testlar: `tests/hemis/test_admin_access.py`. — COMMIT
+- **Sayt + backend (profil menyusida «Mening bölimlarim»):** saytdagi yuqori profil tugmasi menyusida kirgan xodimga (admin hisobi yoki HEMIS lavozimi rolga bog‘langan) rol nomi va uning bo‘limlari chiqadi; bo‘limga bosilsa admin panelning o‘sha sahifasi parolsiz ochiladi (`GET /api/me/admin-link?list=1` / `?next=<bo‘lim>`; havola faqat ma’lum sahifalarga). `roles.SECTION_PATHS`, `access.panel_access`. Testlar: `tests/hemis/test_admin_access.py`. — `a86b0f0`
 
 ## 2026-11-22
 
