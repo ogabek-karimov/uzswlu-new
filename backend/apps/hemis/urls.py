@@ -6,4 +6,5 @@ urlpatterns = [
     path('status', views.StatusView.as_view()),
     path('login', views.LoginView.as_view()),
     path('callback', views.CallbackView.as_view()),
+    path('handoff', views.AdminHandoffView.as_view()),
 ]

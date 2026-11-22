@@ -8,6 +8,7 @@
 .env: HEMIS_OAUTH_URL, HEMIS_OAUTH_CLIENT_ID, HEMIS_OAUTH_CLIENT_SECRET (universitet IT bo'limi beradi).
 """
 import hmac
+import html
 import json
 import secrets
 import urllib.parse
@@ -15,7 +16,9 @@ import urllib.request
 
 from django.conf import settings
 from django.contrib.auth import login
-from django.http import HttpResponseRedirect
+from django.core import signing
+from django.core.cache import cache
+from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.response import Response
@@ -23,6 +26,7 @@ from rest_framework.views import APIView
 
 from apps.accounts.models import StaffSession, User
 from apps.core.throttles import ScopedThrottle
+from apps.hemis import access
 
 from . import get_client
 from .guard import call as guarded
@@ -33,6 +37,9 @@ ID_FIELDS = ('employee_id_number', 'employee_id', 'id')
 def redirect_uri(request) -> str:
     return settings.PUBLIC_SERVER_URL + '/api/auth/hemis/callback'
 
+
+HANDOFF_SALT = 'hemis-admin-handoff'
+HANDOFF_TTL = 60  # soniya
 
 MAX_BODY = 1024 * 1024  # HEMIS javobi 1 MB dan oshmasin (xotirani to'ldirib yubormasin)
 
@@ -71,6 +78,73 @@ class StatusView(APIView):
         })
 
 
+def dev_login_enabled() -> bool:
+    return bool(settings.DEBUG and getattr(settings, 'STAFF_DEV_LOGIN', False) and not settings.HEMIS_OAUTH_ENABLED)
+
+
+def dev_login(request):
+    """Lokal sinov: namunaviy xodimlardan rol tanlab kabinetga kirish (productionda o'chiq)."""
+    from apps.api.cabinet_roles import detect_role
+
+    staff = get_client().staff('uz')
+    chosen = str(request.query_params.get('as') or '')
+    if chosen:
+        if not any(str(p['id']) == chosen for p in staff):
+            return HttpResponse('Xodim topilmadi', status=404)
+        # Cookie sayt manzilida bo'lishi kerak (API boshqa domenda bo'lishi mumkin) — token saytning /api/dev-login iga uzatiladi
+        return HttpResponseRedirect(f'{settings.SITE_URL}/api/dev-login?token={urllib.parse.quote(StaffSession.issue(chosen))}')
+    names = {'dean': 'Dekan', 'chair_head': 'Kafedra mudiri', 'teacher': 'O‘qituvchi', 'staff': 'Boshqa xodim'}
+    by: dict[str, list] = {k: [] for k in names}
+    for p in staff:
+        role, emp = detect_role(p)
+        if role in by and len(by[role]) < 4:
+            by[role].append((p, emp))
+    rows = []
+    for role, label in names.items():
+        for p, emp in by[role]:
+            pos = ((emp or {}).get('position') or {}).get('name') or ''
+            dep = ((emp or {}).get('department') or {}).get('name') or ''
+            href = '?next=cabinet&as=' + urllib.parse.quote(str(p['id']))
+            rows.append(f'<li><a href="{html.escape(href)}"><b>{html.escape(label)}</b> — {html.escape(p["name"])}<br><small>{html.escape(pos)} · {html.escape(dep)} · ID {html.escape(str(p["id"]))}</small></a></li>')
+    page = ('<!doctype html><meta charset="utf-8"><title>Sinov kirishi</title>'
+            '<style>body{font:16px system-ui;max-width:640px;margin:40px auto;padding:0 16px}li{list-style:none;margin:8px 0}'
+            'a{display:block;padding:12px 16px;border:1px solid #ddd;border-radius:12px;color:#222;text-decoration:none}a:hover{background:#f3f0ff}</style>'
+            '<h1>Xodim kabineti — sinov kirishi</h1><p>Faqat lokal sinov (DEBUG). Rolni tanlang:</p><ul style="padding:0">' + ''.join(rows) + '</ul>')
+    return HttpResponse(page)
+
+
+def admin_login(request, hemis_id: str, label: str, name: str, fail: str):
+    """HEMIS ID bo'yicha admin panelga kiritadi (OAuth callback ham, kabinetdan o'tish ham shu yerdan)."""
+    from apps.panel.auth import record
+
+    user = access.provision(hemis_id, name)
+    if not user:
+        record(request, User.objects.filter(hemis_id=hemis_id).first(), label, 'denied', method='hemis')
+        return HttpResponseRedirect(fail + 'ruxsat-yoq')
+    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+    record(request, user, label, 'success', method='hemis')
+    return HttpResponseRedirect(settings.ADMIN_PANEL_URL + '/')
+
+
+class AdminHandoffView(APIView):
+    """Kabinetdagi «Admin panel» tugmasi: qisqa muddatli bir martalik havola bilan HEMIS'dan qayta kirmasdan o'tkazadi."""
+    authentication_classes: list = []
+    permission_classes: list = []
+    throttle_classes = [ScopedThrottle]
+    throttle_scope = 'hemis-auth'
+
+    @extend_schema(summary='Kabinetdan admin panelga o‘tish (bir martalik havola, yo‘naltiradi)', parameters=[OpenApiParameter('t', str)], responses={302: None})
+    def get(self, request):
+        fail = f'{settings.ADMIN_PANEL_URL}/kirish?hemis='
+        try:
+            data = signing.loads(str(request.query_params.get('t') or ''), salt=HANDOFF_SALT, max_age=HANDOFF_TTL)
+        except signing.BadSignature:
+            return HttpResponseRedirect(fail + 'xato')
+        if not cache.delete(f'hemis-handoff:{data.get("n")}'):  # bir martalik
+            return HttpResponseRedirect(fail + 'xato')
+        return admin_login(request, str(data['h']), f'hemis:{data["h"]}', '', fail)
+
+
 class LoginView(APIView):
     authentication_classes: list = []
     permission_classes: list = []
@@ -79,6 +153,8 @@ class LoginView(APIView):
 
     @extend_schema(summary='HEMIS orqali kirish (yo‘naltiradi)', parameters=[OpenApiParameter('next', str, enum=['admin', 'cabinet'])])
     def get(self, request):
+        if request.query_params.get('next') == 'cabinet' and dev_login_enabled():
+            return dev_login(request)
         if not settings.HEMIS_OAUTH_ENABLED:
             return Response({'message': 'HEMIS orqali kirish hali ulanmagan (HEMIS_OAUTH_* sozlamalari yo‘q)'}, status=503)
         state = secrets.token_urlsafe(24)
@@ -97,8 +173,6 @@ class CallbackView(APIView):
 
     @extend_schema(summary='HEMIS qaytaradigan manzil (OAuth2 code → sessiya)')
     def get(self, request):
-        from apps.panel.auth import record
-
         saved = request.session.pop('hemis_oauth', None) or {}
         target = saved.get('next', 'admin')
         fail = f'{settings.ADMIN_PANEL_URL}/kirish?hemis=' if target == 'admin' else f'{settings.SITE_URL}/?hemis='
@@ -125,19 +199,6 @@ class CallbackView(APIView):
                            httponly=True, secure=not settings.DEBUG, samesite='Lax')
             return res
 
-        # Admin panel: faqat superadmin tayinlagan (HEMIS ID biriktirilgan) xodim kiradi
-        user = User.objects.filter(hemis_id=hemis_id).first()
-        if not user or user.status == 'disabled':
-            record(request, user, info.get('login') or hemis_id, 'denied', method='hemis')
-            return HttpResponseRedirect(fail + 'ruxsat-yoq')
-        # Profil HEMIS'dan yangilanadi: F.I.Sh., lavozim, bo'lim
-        person = next((s for s in get_client().staff('uz') if s['id'] == hemis_id), None)
-        user.name = info.get('name') or (person or {}).get('name') or user.name
-        if person and person['employments']:
-            user.position = person['employments'][0]['position']['name'][:200]
-            user.department = person['employments'][0]['department']['name'][:200]
-        user.status, user.last_login = 'active', timezone.now()
-        user.save()
-        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-        record(request, user, info.get('login') or hemis_id, 'success', method='hemis')
-        return HttpResponseRedirect(settings.ADMIN_PANEL_URL + '/')
+        # Admin panel: HEMIS ID biriktirilgan xodim yoki lavozimi «HEMIS roli» ga bog'langan xodim (hisob avtomatik yaratiladi)
+        return admin_login(request, hemis_id, info.get('login') or hemis_id, info.get('name') or '', fail)
+

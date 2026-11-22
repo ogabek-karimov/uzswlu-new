@@ -18,6 +18,8 @@ export default defineNuxtConfig({
     // Faqat serverda qoladi, brauzerga chiqmaydi. Bo'sh bo'lsa — mock ma'lumot.
     apiBase: '',
     apiToken: '',
+    // Faqat lokal sinov: backend «rol tanlab kirish» sahifasidan keladigan tokenni cookie'ga yozadi (.env: NUXT_DEV_LOGIN=true)
+    devLogin: false,
     // O'zimizning CMS (Payload) — yangiliklar, e'lonlar, tadbirlar (.env: NUXT_CMS_BASE=http://localhost:3001/api/site).
     // Berilsa postlar shu yerdan olinadi; qolgan bo'limlar hozircha apiBase/mock'dan.
     cmsBase: '',

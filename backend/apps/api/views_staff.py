@@ -9,6 +9,7 @@ from apps.core.throttles import ScopedThrottle
 from apps.structure.models import StaffProfile
 
 from . import builders_staff as bst
+from . import cabinet_tasks as ct
 from .common import PublicView, lang_of
 from .staff_auth import IsStaff, StaffSessionAuthentication
 
@@ -112,3 +113,42 @@ class MeDocumentDetailView(CabinetView):
     def delete(self, request, section, pk):
         bst.delete_document(self.hemis_id, _section(section), pk)
         return Response({'ok': True})
+
+
+class MeTasksView(CabinetView):
+    def get(self, request):
+        return Response(ct.tasks_out(self.hemis_id))
+
+    def post(self, request):
+        return Response(ct.create_task(self.hemis_id, request.data), status=201)
+
+
+class MeTaskDetailView(CabinetView):
+    def patch(self, request, pk):
+        return Response(ct.set_status(self.hemis_id, pk, str(request.data.get('status') or '')))
+
+    def delete(self, request, pk):
+        ct.delete_task(self.hemis_id, pk)
+        return Response({'ok': True})
+
+
+class MeAdminLinkView(CabinetView):
+    """Kabinetdagi «Admin panel» tugmasi: xodimning admin hisobi bo'lsa (yoki lavozimi «HEMIS roli» ga bog'langan bo'lsa)
+    60 soniyalik bir martalik havola qaytaradi; bo'lmasa available=false."""
+
+    def get(self, request):
+        from secrets import token_urlsafe
+
+        from django.conf import settings
+        from django.core import signing
+        from django.core.cache import cache
+
+        from apps.hemis import access
+        from apps.hemis.views import HANDOFF_SALT, HANDOFF_TTL
+
+        if not access.eligible(self.hemis_id):
+            return Response({'available': False, 'url': None})
+        nonce = token_urlsafe(12)
+        cache.set(f'hemis-handoff:{nonce}', 1, HANDOFF_TTL + 5)
+        token = signing.dumps({'h': self.hemis_id, 'n': nonce}, salt=HANDOFF_SALT)
+        return Response({'available': True, 'url': f'{settings.PUBLIC_SERVER_URL}/api/auth/hemis/handoff?t={token}'})

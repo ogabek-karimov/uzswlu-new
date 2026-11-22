@@ -268,6 +268,33 @@ export interface CabinetDocument {
  * kirmagan bo'lsa 401. Ism, sharif, tug'ilgan kun, telefon, e-pochta, ish joylari — HEMIS'dan (faqat o'qish).
  */
 /** Kabinet roli: HEMIS lavozimidan avtomatik (dekan > kafedra mudiri > o'qituvchi > xodim); talaba — HEMIS talaba kirishi ulanganda */
+export interface CabinetTask {
+  id: number
+  title: string
+  note: string
+  status: 'open' | 'done'
+  due: string | null
+  overdue: boolean
+  assigneeId: string
+  assigneeName: string
+  authorId: string
+  authorName: string
+  self: boolean
+  createdAt: string
+  doneAt: string | null
+}
+
+export interface CabinetAdminLink {
+  available: boolean
+  url: string | null
+}
+
+export interface CabinetTasks {
+  mine: CabinetTask[]
+  given: CabinetTask[]
+  assignees: { id: string, name: string, position: string }[]
+}
+
 export type CabinetRole = 'dean' | 'chair_head' | 'teacher' | 'staff' | 'student'
 
 export interface CabinetPanel {
@@ -688,7 +715,7 @@ export interface ContactPage {
   emails: { title: string; value: string; extra: string[] }[]
   /** Binolar (bosh sahifadagi «Biz bilan bog'lanish» kartalari ham) — admin panel: Sozlamalar → Binolar va xarita.
    * mapEmbed — sahifadagi kichik xarita (iframe), mapUrl — «Xaritada ochish» */
-  campuses: (Campus & { phone: string; email?: string | null; mapUrl: string; mapEmbed?: string | null })[]
+  campuses: (Campus & { phone: string; email?: string | null; mapUrl: string; mapEmbed?: string | null; logo?: string | null })[]
   leaders: { name: string; role: string; ext: string; phone: string }[]
   /** Telefonlar ma'lumotnomasi (admin → Telefonlar): section=true — bo'lim sarlavhasi (position matni) */
   phones?: { section: boolean; name?: string | null; position: string; ext?: string | null; phone?: string | null }[]

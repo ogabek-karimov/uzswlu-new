@@ -404,6 +404,10 @@
   "cabinet": {
     "title": "Dashboard",
     "menu": {
+      "admin": "Open admin panel",
+      "tasks": "Tasks",
+      "profile": "Profile details",
+      "documents": "Documents",
       "label": "Dashboard",
       "dashboard": "Dashboard (UzSWLU)",
       "staffPage": "My staff page",
@@ -524,6 +528,31 @@
       "teacher": "Your personal page, documents and research links.",
       "staff": "Your personal page and contact details.",
       "student": "Student cabinet."
+    },
+    "tasks": {
+      "title": "Tasks",
+      "desc": "Tasks assigned to you and tasks you have given to others.",
+      "mine": "Assigned to me",
+      "given": "Assigned by me",
+      "empty": "No tasks yet.",
+      "emptyGiven": "You have not assigned any tasks yet.",
+      "add": "Add a task",
+      "who": "Assign to",
+      "me": "Myself",
+      "name": "Task title",
+      "note": "Note (optional)",
+      "due": "Due date",
+      "save": "Save",
+      "cancel": "Cancel",
+      "done": "Done",
+      "reopen": "Reopen",
+      "remove": "Delete",
+      "overdue": "Overdue",
+      "from": "Assigned by",
+      "to": "Assignee",
+      "until": "Due",
+      "error": "Could not save the task, please try again.",
+      "confirm": "Delete this task?"
     },
     "rolePanel": {
       "title": "Your panel",

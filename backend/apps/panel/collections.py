@@ -1021,7 +1021,7 @@ class Roles(Collection):
     access = {'read': SUPER, 'create': SUPER, 'update': SUPER, 'delete': SUPER}
     fields = {'createdAt': 'created_at', 'updatedAt': 'updated_at'}
     rules = {'delete': 'Tizim roli yoki foydalanuvchisi bor rol o‘chirilmaydi.',
-             'update': 'Tizim rollarining (superadmin, editor, faculty, pages, sdg) bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi.'}
+             'update': 'Tizim rollarining (superadmin, editor, faculty, pages, sdg) bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi. «HEMIS roli» — shu lavozimdagi xodim HEMIS orqali kirganda hisob va shu rol avtomatik beriladi (tizim rollariga berilmaydi).'}
 
     def can(self, user, action, obj=None):
         if not super().can(user, action, obj):
@@ -1030,20 +1030,22 @@ class Roles(Collection):
             return not obj.system and not User.objects.filter(role=obj.slug).exists()
         return True
 
+    def queryset(self, request):
+        from django.db.models import Count, IntegerField, OuterRef, Subquery, Value
+        from django.db.models.functions import Coalesce
+        n = User.objects.filter(role=OuterRef('slug')).order_by().values('role').annotate(c=Count('pk')).values('c')
+        return super().queryset(request).annotate(users_n=Coalesce(Subquery(n, output_field=IntegerField()), Value(0)))
+
     def label(self, obj):
         return obj.name
 
-    def queryset(self, request):
-        # Foydalanuvchilar soni bitta so'rovda (har rol uchun alohida COUNT — N+1 bo'lardi)
-        from django.db.models import Count, IntegerField, OuterRef, Subquery
-        users = User.objects.filter(role=OuterRef('slug')).order_by().values('role').annotate(c=Count('pk')).values('c')
-        return super().queryset(request).annotate(users_count=Subquery(users, output_field=IntegerField()))
-
     def out(self, r, depth):
-        users = getattr(r, 'users_count', None)
+        users = getattr(r, 'users_n', None)
+        if users is None:
+            users = User.objects.filter(role=r.slug).count()
         return {
             'id': r.pk, 'slug': r.slug, 'name': r.name, 'description': r.description or None, 'system': r.system, 'scoped': r.scoped,
-            'permissions': rl.permissions_of_role(r), 'users': (users or 0) if hasattr(r, 'users_count') else User.objects.filter(role=r.slug).count(),
+            'permissions': rl.permissions_of_role(r), 'users': users, 'hemisRole': r.hemis_role or None,
             'createdAt': dt(r.created_at), 'updatedAt': dt(r.updated_at), 'collection': 'roles',
         }
 
@@ -1062,6 +1064,13 @@ class Roles(Collection):
                 r.permissions = rl.clean_permissions(data['permissions'])
             if 'scoped' in data:
                 r.scoped = flag(data['scoped'])
+            if 'hemisRole' in data:
+                hr = str(data['hemisRole'] or '')
+                if hr and hr not in rl.HEMIS_ROLES:
+                    raise ValidationError('HEMIS roli noto‘g‘ri')
+                if hr and Role.objects.filter(hemis_role=hr).exclude(pk=r.pk).exists():
+                    raise ValidationError('Bu HEMIS roli boshqa rolga bog‘langan — avval uni bo‘shating')
+                r.hemis_role = hr
 
 
 REGISTRY: dict[str, Collection] = {c.slug: c for c in (

@@ -9,7 +9,7 @@ from apps.content.video_tour import parse_video
 from apps.core.models import SiteSettings
 from apps.pages.models import SdgPage
 from apps.structure.maps import parse_coords
-from apps.structure.models import Campus
+from apps.structure.models import Campus, Faculty
 
 from .collections import ALL, PAGES, SDG, SUPER, dt, flag, i18n_in, i18n_out, media_out, media_ref, num, parse_dt, text
 
@@ -17,7 +17,7 @@ from .collections import ALL, PAGES, SDG, SUPER, dt, flag, i18n_in, i18n_out, me
 def campus_out(c: Campus) -> dict:
     return {
         'key': c.key, 'name': i18n_out(c.name), 'address': i18n_out(c.address), 'phone': c.phone or None,
-        'email': c.email or None, 'coords': c.coords or None, 'mapUrl': c.map_url or None,
+        'email': c.email or None, 'coords': c.coords or None, 'mapUrl': c.map_url or None, 'facultyId': c.faculty_id,
     }
 
 
@@ -49,9 +49,16 @@ def save_campuses(items) -> None:
             raise ValidationError(f'{i}-bino: {exc.messages[0]}') from exc
         if map_url and not map_url.startswith(('https://', 'http://')):
             raise ValidationError(f'{i}-bino: xarita havolasi https:// bilan boshlanishi kerak')
+        faculty_id = item.get('facultyId')
+        if faculty_id in ('', None):
+            faculty = None
+        else:
+            faculty = Faculty.objects.filter(pk=faculty_id).first() if str(faculty_id).isdigit() else None
+            if faculty is None:
+                raise ValidationError(f'{i}-bino: fakultet topilmadi')
         Campus.objects.update_or_create(key=key, defaults={
             'name': name, 'address': address, 'phone': text(item.get('phone'))[:40], 'email': email,
-            'coords': coords, 'map_url': map_url[:600], 'order': i,
+            'coords': coords, 'map_url': map_url[:600], 'faculty': faculty, 'order': i,
         })
         keep.append(key)
     Campus.objects.exclude(key__in=keep).delete()

@@ -66,7 +66,7 @@ export const staffNetworks: Record<StaffNetwork, { label: string; icon: string; 
   threads: { label: 'Threads', icon: 'simple-icons:threads', tile: 'bg-black', hover: 'hover:bg-black' },
   facebook: { label: 'Facebook', icon: 'simple-icons:facebook', tile: 'bg-[#1877f2]', hover: 'hover:bg-[#1877f2]' },
   linkedin: { label: 'LinkedIn', icon: 'simple-icons:linkedin', tile: 'bg-[#0a66c2]', hover: 'hover:bg-[#0a66c2]' },
-  x: { label: 'X', icon: 'simple-icons:x', tile: 'bg-black', hover: 'hover:bg-black' },
+  x: { label: 'X (Twitter)', icon: 'simple-icons:x', tile: 'bg-black', hover: 'hover:bg-black' },
   youtube: { label: 'YouTube', icon: 'simple-icons:youtube', tile: 'bg-[#ff0000]', hover: 'hover:bg-[#ff0000]' },
 }
 

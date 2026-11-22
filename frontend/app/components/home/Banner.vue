@@ -11,7 +11,7 @@ const to = computed(() => (props.banner?.link && !external.value ? localePath(pr
 </script>
 
 <template>
-  <section v-if="banner" class="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16">
+  <section v-if="banner" class="mx-auto max-w-7xl px-4 pb-6 sm:px-6 lg:px-8 lg:pb-8">
     <component
       :is="banner.link ? (external ? 'a' : resolveComponent('NuxtLink')) : 'div'"
       :href="external ? banner.link : undefined"

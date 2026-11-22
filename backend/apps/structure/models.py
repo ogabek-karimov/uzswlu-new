@@ -216,6 +216,8 @@ class Campus(models.Model):
     # "41.286038, 69.194908" — bosh sahifa va Aloqa sahifasidagi xarita shu nuqtada (bo'sh bo'lsa — manzil bo'yicha)
     coords = models.CharField('Xaritadagi joy (koordinata)', max_length=40, blank=True)
     map_url = models.URLField('Xarita havolasi', blank=True, max_length=600)
+    # Binoda joylashgan fakultet: kartada shu fakultet logosi chiqadi (bo'sh bo'lsa — bosh bino uchun universitet logosi)
+    faculty = models.ForeignKey('structure.Faculty', null=True, blank=True, on_delete=models.SET_NULL, related_name='+', verbose_name='Fakultet (logo uchun)')
     order = models.PositiveIntegerField('Tartib', default=0)
 
     class Meta:

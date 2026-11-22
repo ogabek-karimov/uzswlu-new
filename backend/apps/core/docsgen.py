@@ -412,7 +412,12 @@ def write_all(check: bool = False) -> list[str]:
     new_ref = build_reference()
     if not ref.exists() or ref.read_text(encoding='utf-8') != new_ref:
         stale.append('docs/reference.md')
-        if not check:
+        if check:
+            import difflib
+            import sys
+            old = ref.read_text(encoding='utf-8').splitlines() if ref.exists() else []
+            print('\n'.join(list(difflib.unified_diff(old, new_ref.splitlines(), 'reference.md (repoda)', 'reference.md (koddan)', lineterm='', n=0))[:40]), file=sys.stderr)
+        else:
             ref.write_text(new_ref, encoding='utf-8', newline='\n')
     idx = DOCS / 'index.html'
     new_idx = build_index()

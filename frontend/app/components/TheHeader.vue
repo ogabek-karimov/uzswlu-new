@@ -123,6 +123,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
 
 <template>
   <header
+    data-site-header
     class="sticky top-0 z-50 border-b transition-[background-color,box-shadow,border-color] duration-300"
     :class="scrolled || open || mobileOpen
       ? 'border-line bg-paper/95 shadow-[0_10px_30px_-18px_rgba(19,17,47,0.35)] backdrop-blur-md'

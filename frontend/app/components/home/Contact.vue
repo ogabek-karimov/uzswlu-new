@@ -29,19 +29,33 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
 </script>
 
 <template>
-  <section v-if="campuses.length" class="relative overflow-hidden py-16 lg:py-24" :aria-label="t('homeContact.title')">
+  <!-- Pastdagi rasmli urg'u (Fakultetlar bilan bir uslubda): kampus surati (sekin yaqinlashadi) + indigo qatlam, tepa/pastda to'lqin; kartalar — shisha -->
+  <section v-if="campuses.length" class="section-wave relative isolate overflow-hidden bg-brand-700 py-24 lg:py-32" :aria-label="t('homeContact.title')">
+    <img
+      src="/images/campus-aerial.webp"
+      alt=""
+      width="1920"
+      height="1080"
+      loading="lazy"
+      decoding="async"
+      class="decor bg-kb absolute -inset-6 -z-20 h-[calc(100%+3rem)] w-[calc(100%+3rem)] max-w-none object-cover saturate-[1.1]"
+    >
+    <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[linear-gradient(200deg,rgb(40_30_110/0.62)_0%,rgb(70_55_163/0.4)_50%,rgb(28_21_72/0.72)_100%)]" />
+    <HomeWave flip class="text-paper" />
+    <HomeWave class="text-paper" />
 
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading
         :eyebrow="t('homeContact.eyebrow')"
         :title="t('homeContact.title')"
         :link="{ to: localePath('/aloqa'), label: t('homeContact.all') }"
+        dark
       />
 
       <div class="mt-10 grid gap-5 lg:grid-cols-12 lg:gap-6">
         <!-- Chap: binoni tanlash + tanlangan bino ma'lumoti -->
         <div class="flex flex-col gap-4 lg:col-span-5">
-          <p class="text-xs font-semibold tracking-[0.18em] text-muted uppercase">{{ t('homeContact.choose') }}</p>
+          <p class="text-xs font-semibold tracking-[0.18em] text-white/70 uppercase">{{ t('homeContact.choose') }}</p>
           <ul class="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-1">
             <li v-for="(c, i) in campuses" :key="c.id" data-reveal-item>
               <button
@@ -50,7 +64,7 @@ const tel = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
                 :aria-pressed="i === current"
                 class="group flex w-full items-center gap-4 rounded-[22px] border p-3 pr-4 text-left transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 motion-reduce:transition-none"
                 :class="i === current
-                  ? 'border-brand-900 bg-brand-900 text-white shadow-[0_22px_40px_-22px_rgb(17_12_46/0.7)]'
+                  ? 'border-accent-400/70 bg-brand-900/85 text-white shadow-[0_22px_40px_-22px_rgb(0_0_0/0.7)] backdrop-blur'
                   : 'border-white bg-white/85 text-ink shadow-[0_1px_0_rgba(19,17,47,0.04)] backdrop-blur hover:border-brand-200 hover:shadow-[0_18px_36px_-24px_rgb(17_12_46/0.45)]'"
                 @click="current = i"
               >

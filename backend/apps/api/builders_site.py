@@ -589,8 +589,9 @@ def contact_out(lang: str) -> dict:
                 # Admin qo'lda boshqa (Google emas) havola kiritgan bo'lsa — o'sha; aks holda Yandex (xarita bilan bir xil xizmat)
                 'mapUrl': c.map_url if c.map_url and 'google.' not in c.map_url else map_link(c.coords, tr(c.address, 'uz')),
                 'mapEmbed': map_embed(c.coords, tr(c.address, 'uz'), lang),
+                'logo': img(c.faculty.logo, 'thumb') if c.faculty_id else None,
             }
-            for c in Campus.objects.all()
+            for c in Campus.objects.select_related('faculty__logo')
         ],
         'leaders': [
             {'name': d.name, 'role': tr(d.role, lang), 'ext': d.ext, 'phone': d.phone}

@@ -11,7 +11,7 @@ import { dateTime } from '@/lib/format'
 import { loadSiteSettings } from '@/lib/settings'
 
 /** Bino: bosh sahifadagi «Biz bilan bog'lanish» kartasi va Aloqa sahifasi. coords — koordinata yoki Yandex/Google Maps havolasi (backend koordinataga aylantiradi) */
-type Campus = { key?: string; name: I18n; address: I18n; phone?: string | null; email?: string | null; coords?: string | null; mapUrl?: string | null }
+type Campus = { key?: string; name: I18n; address: I18n; phone?: string | null; email?: string | null; coords?: string | null; mapUrl?: string | null; facultyId?: number | null }
 type SettingsDoc = {
   site: { name: I18n; abbr: I18n; description: I18n }
   contact: { phone?: string; email?: string; address: I18n; telegram?: string; instagram?: string; facebook?: string; youtube?: string; x?: string; showBuildings: boolean; campuses: Campus[] }
@@ -42,7 +42,11 @@ async function load() {
   for (const key of ['site', 'contact', 'support', 'numbers'] as const) Object.assign(form[key], s[key] ?? {})
   versions.value = (await api.get<Paginated<Version>>('/globals/settings/versions', { sort: '-updatedAt', limit: 30 })).docs
 }
-onMounted(load)
+const faculties = ref<{ id: number; name: I18n }[]>([])
+async function loadFaculties() {
+  faculties.value = (await api.get<Paginated<{ id: number; name: I18n }>>('/faculties', { limit: 100, depth: 0 })).docs
+}
+onMounted(() => { load(); loadFaculties().catch(() => {}) })
 
 async function save(text = 'Saqlandi') {
   saving.value = true
@@ -82,7 +86,7 @@ function togglePage(p: string) {
 }
 
 function addCampus() {
-  form.contact.campuses.push({ name: {}, address: {}, phone: form.contact.phone ?? '', email: form.contact.email ?? '', coords: '' })
+  form.contact.campuses.push({ name: {}, address: {}, phone: form.contact.phone ?? '', email: form.contact.email ?? '', coords: '', facultyId: null })
 }
 function moveCampus(i: number, step: -1 | 1) {
   const list = form.contact.campuses
@@ -199,6 +203,13 @@ function flash(text: string) {
           <div class="grid gap-3.5 sm:grid-cols-2">
             <div><label :for="`cp-phone-${i}`" class="label">Telefon</label><input :id="`cp-phone-${i}`" v-model="c.phone" class="field" placeholder="+998 71 230 13 73"></div>
             <div><label :for="`cp-mail-${i}`" class="label">E-poçta</label><input :id="`cp-mail-${i}`" v-model="c.email" type="email" class="field" placeholder="uzdjtu@uzswlu.uz"></div>
+          </div>
+          <div>
+            <label :for="`cp-fac-${i}`" class="label">Fakultet (kartadagi logo)</label>
+            <select :id="`cp-fac-${i}`" v-model="c.facultyId" class="field">
+              <option :value="null">Yöq (bosh binoda universitet logosi)</option>
+              <option v-for="f in faculties" :key="f.id" :value="f.id">{{ f.name.uz }}</option>
+            </select>
           </div>
           <div>
             <label :for="`cp-geo-${i}`" class="label">Xaritadagi joy</label>

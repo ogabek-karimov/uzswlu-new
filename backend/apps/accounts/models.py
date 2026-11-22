@@ -40,6 +40,8 @@ class User(AbstractUser):
     recovery_hashes = models.JSONField(default=list, blank=True, editable=False)  # zaxira kodlarning sha256 xeshlari
     # Payload CMS'dan ko'chirilgan parol (birinchi kirishda Django usuliga o'tkaziladi va o'chiriladi)
     legacy_password = models.TextField(blank=True, editable=False)
+    # HEMIS lavozimidan avtomatik yaratilgan hisob: har kirishda rol/doira HEMIS bo'yicha yangilanadi, lavozim bog'lanishi o'chsa yopiladi
+    hemis_auto = models.BooleanField('HEMIS bo‘yicha avtomatik', default=False, editable=False)
 
     REQUIRED_FIELDS = ['name']
 
@@ -69,6 +71,8 @@ class Role(models.Model):
     permissions = models.JSONField('Bo‘limlar bo‘yicha ruxsat', default=dict, blank=True)
     scoped = models.BooleanField('Faqat o‘z fakulteti doirasida (User.scope)', default=False)
     system = models.BooleanField('Tizim roli', default=False, editable=False)
+    # HEMIS lavozimi shu rolga avtomatik bog'lanadi: HEMIS orqali kirgan dekan/mudir/o'qituvchiga hisob o'zi yaratiladi (bo'sh — o'chiq)
+    hemis_role = models.CharField('HEMIS roli', max_length=12, blank=True, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -107,6 +111,30 @@ class StaffSession(models.Model):
             expires_at=timezone.now() + timedelta(hours=hours or settings.STAFF_SESSION_TTL_HOURS),
         )
         return token
+
+
+class StaffTask(models.Model):
+    """Xodim kabinetidagi vazifa: dekan/kafedra mudiri o'z qo'l ostidagilarga beradi, hamma o'ziga ham yozishi mumkin."""
+    STATUSES = [('open', 'Bajarilmoqda'), ('done', 'Bajarildi')]
+
+    title = models.CharField('Vazifa', max_length=200)
+    note = models.TextField('Izoh', blank=True, max_length=2000)
+    assignee_id = models.CharField('Ijrochi (HEMIS ID)', max_length=40, db_index=True)
+    assignee_name = models.CharField('Ijrochi', max_length=200, blank=True)
+    author_id = models.CharField('Bergan (HEMIS ID)', max_length=40, db_index=True)
+    author_name = models.CharField('Bergan', max_length=200, blank=True)
+    due = models.DateField('Muddat', null=True, blank=True)
+    status = models.CharField('Holat', max_length=8, choices=STATUSES, default='open')
+    created_at = models.DateTimeField(auto_now_add=True)
+    done_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['status', 'due', '-created_at']
+        verbose_name = 'Xodim vazifasi'
+        verbose_name_plural = 'Xodim vazifalari'
+
+    def __str__(self):
+        return f'{self.title} → {self.assignee_id}'
 
 
 def check_any_password(user, raw: str) -> bool:

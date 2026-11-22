@@ -331,3 +331,6 @@ LOGGING = {
     'handlers': {'console': {'class': 'logging.StreamHandler'}},
     'root': {'handlers': ['console'], 'level': env('LOG_LEVEL', 'INFO')},
 }
+
+# Faqat lokal sinov: HEMIS ulanmaganda xodim kabinetiga rol tanlab kirish sahifasi (DEBUG ham yoqilgan bo'lishi shart)
+STAFF_DEV_LOGIN = env_bool('STAFF_DEV_LOGIN', False)
