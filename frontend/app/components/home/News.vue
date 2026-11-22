@@ -15,7 +15,8 @@ const announcements = computed(() => props.announcements.slice(0, 4))
 </script>
 
 <template>
-  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+  <!-- Yangiliklar va E'lonlar ketma-ket: oradagi bo'shliq qisqa (yangiliklar pasti va e'lonlar tepasi ixcham), tashqi chetlar avvalgidek -->
+  <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" :class="show === 'news' ? 'pt-16 pb-6 lg:pt-20 lg:pb-8' : show === 'announcements' ? 'pt-6 pb-16 lg:pt-8 lg:pb-20' : 'py-16 lg:py-20'">
     <!-- Yangiliklar -->
     <template v-if="show !== 'announcements'">
     <SectionHeading

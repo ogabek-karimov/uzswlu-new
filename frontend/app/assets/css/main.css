@@ -607,3 +607,45 @@ html[data-scheme] [data-speaking] {
     linear-gradient(#fff, #fff) padding-box,
     linear-gradient(140deg, var(--color-brand-600), var(--color-accent-500) 60%, var(--color-brand-300)) border-box;
 }
+
+/* ── Aylantirish polosasi (scrollbar): shaffof shisha uslubi ──
+   Yo'lak deyarli ko'rinmas; tutqich — yarim shaffof indigo, ichida yorug' chiziq (shisha yaltirashi), chetida bo'shliq (ingichka ko'rinadi);
+   hover'da to'yinadi va kengayganday bo'ladi. Chrome/Edge/Safari — ::-webkit-scrollbar; Firefox — scrollbar-color
+   (Chrome 121+ scrollbar-color'ni ham tushunadi va u bo'lsa webkit uslublarini e'tiborsiz qoldiradi — shuning uchun faqat Firefox'ga). */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  border: 4px solid transparent;   /* odatda ingichka (6 px) */
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgb(255 255 255 / 0.55), rgb(255 255 255 / 0) 60%) padding-box,
+    linear-gradient(180deg, rgb(91 76 200 / 0.38), rgb(56 43 133 / 0.42)) padding-box;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.35);
+}
+/* Kursor kelganda kattalashadi (6 → 12 px) — ushlab sudrashga qulay */
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+  border-width: 1px;
+  background:
+    linear-gradient(90deg, rgb(255 255 255 / 0.6), rgb(255 255 255 / 0) 60%) padding-box,
+    linear-gradient(180deg, rgb(91 76 230 / 0.7), rgb(56 43 133 / 0.75)) padding-box;
+}
+::-webkit-scrollbar-thumb:active {
+  border-width: 1px;
+  background:
+    linear-gradient(90deg, rgb(255 255 255 / 0.5), rgb(255 255 255 / 0) 60%) padding-box,
+    linear-gradient(180deg, rgb(70 55 200 / 0.85), rgb(40 30 110 / 0.9)) padding-box;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-color: rgb(80 65 180 / 0.45) transparent;
+  }
+}

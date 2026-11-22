@@ -842,6 +842,14 @@ Batafsil: <a href="#doc-06-testlar">06-testlar</a>.
 <p>Eng yangisi tepada. <strong>Har bir o‘zgarishdan keyin shu yerga yozing</strong> (qoida: <code>CLAUDE.md</code>). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.</p>
 <h2 id="doc-13-yangiliklar--2026-11-22">2026-11-22<a class="anchor" href="#doc-13-yangiliklar--2026-11-22" aria-label="Havola">#</a></h2>
 <ul><li>
+<strong>Sayt (menyu — BRM belgisi):</strong> BRM bo‘limi belgisi nihol ikonkasi o‘rniga 17 rangli BMT halqasi (rasmiy ranglar, BRM g‘ildiragi bilan bir xil; <code>nav/GroupIcon.vue</code>) — katta menyuda 64 px oq tile ichida, o‘rtasida «17» (hover’da faqat segmentlar biroz aylanadi), «…» menyusi, kichik ro‘yxat va mobil menyuda ham.
+</li><li>
+<strong>Sayt (menyu — mega-panel):</strong> ochiluvchi menyular (katta panel va kichik ro‘yxatlar — Yangiliklar, Ta’lim yo‘nalishlari, Video) foni «muzli shisha» — 60% to‘qlikda, xiralashtirish (<code>backdrop-blur-xl</code>, to‘yinganlik 180%), yuqorida yorug‘ chiziq; orqadagi sahifa rangli dog‘ bo‘lib ko‘rinadi, yozuvlar o‘qilishi saqlanadi. Menyu ochiq bo‘lganda header’ning o‘z blur’i o‘chadi (ichma-ich backdrop-filter ishlamaydi), header to‘q fon bilan qoladi.
+</li><li>
+<strong>Sayt (aylantirish polosasi):</strong> o‘ng tomondagi scrollbar shaffof shisha uslubida — yo‘lak ko‘rinmas, tutqich yarim shaffof indigo, ichida yorug‘ yaltirash chizig‘i, chetida bo‘shliq — odatda ingichka (6 px), kursor kelganda 12 px gacha kattalashadi va to‘yinadi (ushlab sudrashga qulay), bosilganda to‘qroq. Chrome/Edge/Safari — <code>::-webkit-scrollbar</code>, Firefox — <code>scrollbar-color</code>. Yashirilgan polosalar (tablar qatori) yashirinligicha qoladi.
+</li><li>
+<strong>Sayt (bosh sahifa):</strong> «Yangiliklar» va «E’lonlar» orasidagi bo‘shliq qisqardi (224 → 128 px; yangiliklar pasti va e’lonlar tepasi 80 → 32 px, oradagi to‘lqin saqlandi; <code>home/News.vue</code>).
+</li><li>
 <strong>Sayt (Davlat ramzlari — madhiya):</strong> madhiya kartasida nota belgisi o‘rniga rasm — hilpirayotgan bayroq va uning ustida gerb, to‘liq ko‘rinadi (<code>public/symbols/anthem.webp</code>, 480×268, 37 KB, shaffof fon; foydalanuvchi bergan rasmdan), bayroq/gerb kartalaridagidek tile’ning 86% i. Admin «Ramzlar»da madhiyaga rasm yuklansa — o‘sha ko‘rsatiladi.
 </li><li>
 <strong>Sayt (bosh sahifa):</strong> bayram banneri va «Davlat ramzlari» orasidagi bo‘shliq qisqardi (64 → 32 px, <code>home/Banner.vue</code>).

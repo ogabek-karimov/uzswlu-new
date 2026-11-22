@@ -21,7 +21,7 @@ const gridCols = computed(() => ['grid-cols-1', 'grid-cols-2', 'grid-cols-3'][pr
       <section v-for="group in groups" :key="group.id" class="flex min-w-0 flex-col rounded-3xl border border-line bg-white p-5">
         <div class="flex items-center gap-3">
           <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-700">
-            <Icon :name="groupIcon(group.id)" class="size-5" />
+            <NavGroupIcon :id="group.id" class="size-5" />
           </span>
           <p class="text-lg font-semibold text-ink">{{ group.title }}</p>
         </div>

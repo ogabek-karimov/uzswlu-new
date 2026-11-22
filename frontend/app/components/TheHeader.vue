@@ -122,12 +122,15 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
 </script>
 
 <template>
+  <!-- Mega-menyu ochiq bo'lsa header'da backdrop-blur yo'q: ichma-ich blur ishlamaydi, menyuning shisha foni sahifani xiralashtirishi uchun -->
   <header
     data-site-header
     class="sticky top-0 z-50 border-b transition-[background-color,box-shadow,border-color] duration-300"
-    :class="scrolled || open || mobileOpen
-      ? 'border-line bg-paper/95 shadow-[0_10px_30px_-18px_rgba(19,17,47,0.35)] backdrop-blur-md'
-      : 'border-transparent bg-paper'"
+    :class="open
+      ? 'border-line bg-paper shadow-[0_10px_30px_-18px_rgba(19,17,47,0.35)]'
+      : scrolled || mobileOpen
+        ? 'border-line bg-paper/95 shadow-[0_10px_30px_-18px_rgba(19,17,47,0.35)] backdrop-blur-md'
+        : 'border-transparent bg-paper'"
     @mouseleave="scheduleClose"
   >
     <!-- 1-qator: logo, qidiruv, amallar -->
@@ -249,7 +252,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
               >
                 <div
                   v-if="open === group.id && !group.url && isSmall(group)"
-                  class="absolute top-full z-10 mt-2 w-80 rounded-2xl border border-line bg-white p-2 shadow-[0_24px_48px_-20px_rgba(19,17,47,0.4)]"
+                  class="absolute top-full z-10 mt-2 w-80 rounded-2xl border border-white/70 bg-paper/60 p-2 shadow-[0_24px_48px_-20px_rgba(19,17,47,0.4)] backdrop-blur-xl backdrop-saturate-[1.8]"
                   :class="i > visibleGroups.length / 2 ? 'right-0' : 'left-0'"
                 >
                   <NuxtLink
@@ -269,7 +272,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
                     class="group/link flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-medium text-ink transition-colors hover:bg-brand-50"
                   >
                     <span class="grid size-9 place-items-center rounded-lg bg-brand-50 text-brand-700 transition-colors group-hover/link:bg-brand-800 group-hover/link:text-accent-400">
-                      <Icon :name="groupIcon(group.id)" class="size-[18px]" />
+                      <NavGroupIcon :id="group.id" class="size-[18px]" />
                     </span>
                     <span class="flex-1">{{ link.title }}</span>
                     <Icon name="lucide:arrow-right" class="size-4 text-brand-600 opacity-0 transition-opacity group-hover/link:opacity-100" />
@@ -310,7 +313,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
     >
       <div
         v-if="activeMega"
-        class="absolute inset-x-0 top-full hidden max-h-[calc(100dvh-10rem)] overflow-y-auto border-t border-line bg-paper shadow-[0_30px_60px_-30px_rgba(19,17,47,0.35)] md:block"
+        class="absolute inset-x-0 top-full hidden max-h-[calc(100dvh-10rem)] overflow-y-auto border-t border-white/60 bg-paper/60 shadow-[0_30px_60px_-30px_rgba(19,17,47,0.35)] backdrop-blur-xl backdrop-saturate-[1.8] md:block"
         @mouseenter="activeMega && show(activeMega.id)"
       >
         <NavMegaPanel :group="activeMega" />
@@ -326,7 +329,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
     >
       <div
         v-if="open === 'more' && hiddenGroups.length"
-        class="absolute inset-x-0 top-full hidden max-h-[calc(100dvh-10rem)] overflow-y-auto border-t border-line bg-paper shadow-[0_30px_60px_-30px_rgba(19,17,47,0.35)] md:block"
+        class="absolute inset-x-0 top-full hidden max-h-[calc(100dvh-10rem)] overflow-y-auto border-t border-white/60 bg-paper/60 shadow-[0_30px_60px_-30px_rgba(19,17,47,0.35)] backdrop-blur-xl backdrop-saturate-[1.8] md:block"
         @mouseenter="show('more')"
       >
         <NavMorePanel :groups="hiddenGroups" />
@@ -352,12 +355,12 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
               :to="localePath(group.url)"
               class="flex items-center gap-3 border-b border-line py-4 text-lg font-semibold text-ink"
             >
-              <Icon :name="groupIcon(group.id)" class="size-5 text-brand-600" />
+              <NavGroupIcon :id="group.id" class="size-5 text-brand-600" />
               {{ group.title }}
             </NuxtLink>
             <details v-else class="group border-b border-line">
               <summary class="flex cursor-pointer list-none items-center gap-3 py-4 text-lg font-semibold text-ink [&::-webkit-details-marker]:hidden">
-                <Icon :name="groupIcon(group.id)" class="size-5 text-brand-600" />
+                <NavGroupIcon :id="group.id" class="size-5 text-brand-600" />
                 <span class="flex-1">{{ group.title }}</span>
                 <span class="text-xs font-medium text-muted">{{ group.links.length }}</span>
                 <Icon name="lucide:chevron-down" class="size-5 text-muted transition-transform group-open:rotate-180" />
