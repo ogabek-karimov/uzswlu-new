@@ -49,7 +49,11 @@
     "students": "学生",
     "hemisStaff": "HEMIS — 教职工账户",
     "hemisStudent": "HEMIS — 学生账户",
-    "kpi": "KPI系统"
+    "kpi": "KPI系统",
+    "mySections": "我的栏目",
+    "adminPanel": "管理后台",
+    "levelWrite": "可编辑",
+    "levelRead": "只读"
   },
   "menu": {
     "university": {

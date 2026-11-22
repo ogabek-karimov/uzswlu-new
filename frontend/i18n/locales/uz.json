@@ -49,7 +49,11 @@
     "students": "Talabalar uçun",
     "hemisStaff": "HEMIS — xodim kabineti",
     "hemisStudent": "HEMIS — talaba kabineti",
-    "kpi": "KPI tizimi"
+    "kpi": "KPI tizimi",
+    "mySections": "Mening bölimlarim",
+    "adminPanel": "Admin panel",
+    "levelWrite": "tahrirlaş",
+    "levelRead": "köriş"
   },
   "menu": {
     "university": {

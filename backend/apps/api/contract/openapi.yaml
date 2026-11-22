@@ -158,11 +158,16 @@ paths:
         '200': { description: OK }
   /me/admin-link:
     get:
-      summary: «Admin panel» tugmasi uchun havola
+      summary: «Admin panel» tugmasi va profil menyusidagi «Mening bo'limlarim»
       description: |
-        Xodimning admin hisobi bo'lsa (yoki HEMIS lavozimi admin paneldagi rolga bog'langan bo'lsa) `available: true` va 60 soniyalik
-        bir martalik `url` qaytaradi; brauzer shu manzilga o'tadi va admin panelga HEMIS'dan qayta kirmasdan tushadi.
+        Xodimning admin hisobi bo'lsa (yoki HEMIS lavozimi admin paneldagi rolga bog'langan bo'lsa) `available: true`, rol nomi,
+        rolga ruxsat etilgan bo'limlar (`sections`) va 60 soniyalik bir martalik `url` qaytaradi; brauzer shu manzilga o'tadi va
+        admin panelga HEMIS'dan qayta kirmasdan tushadi. `list=1` — havolasiz (faqat ro'yxat); `next=<bo'lim kaliti>` — havola shu bo'limga
+        olib boradi (rolda yo'q bo'lim — 404).
       security: [{ userSession: [] }]
+      parameters:
+        - { name: list, in: query, required: false, schema: { type: string, enum: ['1'] } }
+        - { name: next, in: query, required: false, schema: { type: string }, description: "Bo'lim kaliti, masalan news, pages" }
       responses:
         '200':
           description: OK
@@ -173,6 +178,18 @@ paths:
                 properties:
                   available: { type: boolean }
                   url: { type: [string, 'null'], format: uri }
+                  role: { type: [string, 'null'], description: Admin paneldagi rol nomi }
+                  sections:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        key: { type: string }
+                        label: { type: string }
+                        group: { type: string }
+                        level: { type: string, enum: [read, write] }
+        '404':
+          description: Bu bo'lim rolda yo'q
   /me/tasks:
     get:
       summary: Vazifalarim va berganlarim

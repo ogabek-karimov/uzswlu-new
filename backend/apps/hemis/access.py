@@ -9,6 +9,7 @@ hisob hech narsani o'zgartira olmaydi (`in_scope`); lavozim bog'lanishi o'chsa h
 from django.utils import timezone
 
 from apps.accounts.models import Role, User
+from apps.accounts.roles import permissions_of, permissions_of_role, role_obj
 
 
 def _context(hemis_id: str):
@@ -43,15 +44,25 @@ def mapped_role(hemis_role: str) -> Role | None:
     return Role.objects.filter(hemis_role=hemis_role, system=False).first() if hemis_role else None
 
 
-def eligible(hemis_id: str) -> bool:
-    """Shu xodim admin panelga kira oladimi (kabinetda «Admin panel» tugmasi uchun) — hech narsa yozmaydi."""
+def panel_access(hemis_id: str):
+    """Shu xodim admin panelga kira oladimi va nimalarga: (rol nomi, {bo'lim: daraja}) yoki None. Hech narsa yozmaydi.
+    Saytdagi kabinet tugmasi va profil menyusi («Mening bo'limlarim») shundan foydalanadi."""
     existing = User.objects.filter(hemis_id=str(hemis_id)).first()
     if existing and not existing.hemis_auto:
-        return existing.status != 'disabled'
+        if existing.status == 'disabled':
+            return None
+        r = role_obj(existing)
+        return (r.name if r else existing.role), permissions_of(existing)
     ctx = _context(hemis_id)
-    if not ctx or not mapped_role(ctx[1]):
-        return False
-    return not (existing and existing.status == 'disabled')
+    role = mapped_role(ctx[1]) if ctx else None
+    if not role or (existing and existing.status == 'disabled'):
+        return None
+    return role.name, permissions_of_role(role)
+
+
+def eligible(hemis_id: str) -> bool:
+    """Shu xodim admin panelga kira oladimi (kabinetda «Admin panel» tugmasi uchun) — hech narsa yozmaydi."""
+    return panel_access(hemis_id) is not None
 
 
 def provision(hemis_id: str, name: str = '') -> User | None:

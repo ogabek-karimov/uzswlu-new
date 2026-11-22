@@ -49,7 +49,11 @@
     "students": "Для студентов",
     "hemisStaff": "HEMIS — кабинет сотрудника",
     "hemisStudent": "HEMIS — кабинет студента",
-    "kpi": "Система KPI"
+    "kpi": "Система KPI",
+    "mySections": "Мои разделы",
+    "adminPanel": "Админ-панель",
+    "levelWrite": "правка",
+    "levelRead": "просмотр"
   },
   "menu": {
     "university": {

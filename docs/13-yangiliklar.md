@@ -2,6 +2,10 @@
 
 Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `CLAUDE.md`). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.
 
+## 2026-11-23
+
+- **Sayt + backend (profil menyusida «Mening bölimlarim»):** saytdagi yuqori profil tugmasi menyusida kirgan xodimga (admin hisobi yoki HEMIS lavozimi rolga bog‘langan) rol nomi va uning bo‘limlari chiqadi; bo‘limga bosilsa admin panelning o‘sha sahifasi parolsiz ochiladi (`GET /api/me/admin-link?list=1` / `?next=<bo‘lim>`; havola faqat ma’lum sahifalarga). `roles.SECTION_PATHS`, `access.panel_access`. Testlar: `tests/hemis/test_admin_access.py`. — COMMIT
+
 ## 2026-11-22
 
 - **Sayt (kartali blok suratlari — yuzlar kesilmaydi):** birinchi surat har doim 2:1 keng kartada chiqardi — kvadrat surat (masalan, dumaloq rasmdan kesilgan) kenglikka cho‘zilib, odamlar yuzi kesilib, xiralashardi. Endi joylashuv surat nisbatiga qarab: birinchisi keng (≥ 1,3) bo‘lsa — katta + to‘r; kvadrat/tik bo‘lsa — hammasi bir xil kvadrat to‘rda (4 ta — bitta qatorda); yagona surat (logotiplar) — o‘z nisbatida, kesilmaydi; kesish nuqtasi yuqoriroq (`object-[center_30%]`). API `photos[].width/height`. **Dumaloq suratlar:** bir nechta surat hammasi kvadratga yaqin bo‘lsa — dumaloq (oq halqa, soya, hover’da kattalashadi). Innovatsion yechimlardagi 4 ta surat asl infografikadagidek dumaloq: doiralar chegarasi aniqlanib, to‘liq doira hududi qayta kesildi (`seed_data/files/innovation/hamkorlik-*.jpg`).

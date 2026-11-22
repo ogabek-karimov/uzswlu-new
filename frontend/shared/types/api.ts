@@ -320,9 +320,20 @@ export interface CabinetTask {
   doneAt: string | null
 }
 
+export interface CabinetAdminSection {
+  key: string
+  label: string
+  group: string
+  level: 'read' | 'write'
+}
+
 export interface CabinetAdminLink {
   available: boolean
   url: string | null
+  /** Admin paneldagi rol nomi */
+  role: string | null
+  /** Rolga ruxsat etilgan bo'limlar (admin yon menyusidagi tartibda) */
+  sections: CabinetAdminSection[]
 }
 
 export interface CabinetTasks {

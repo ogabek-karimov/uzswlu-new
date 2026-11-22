@@ -25,6 +25,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.accounts.models import StaffSession, User
+from apps.accounts.roles import SECTION_PATHS
 from apps.core.throttles import ScopedThrottle
 from apps.hemis import access
 
@@ -113,7 +114,7 @@ def dev_login(request):
     return HttpResponse(page)
 
 
-def admin_login(request, hemis_id: str, label: str, name: str, fail: str):
+def admin_login(request, hemis_id: str, label: str, name: str, fail: str, to: str = '/'):
     """HEMIS ID bo'yicha admin panelga kiritadi (OAuth callback ham, kabinetdan o'tish ham shu yerdan)."""
     from apps.panel.auth import record
 
@@ -123,7 +124,7 @@ def admin_login(request, hemis_id: str, label: str, name: str, fail: str):
         return HttpResponseRedirect(fail + 'ruxsat-yoq')
     login(request, user, backend='django.contrib.auth.backends.ModelBackend')
     record(request, user, label, 'success', method='hemis')
-    return HttpResponseRedirect(settings.ADMIN_PANEL_URL + '/')
+    return HttpResponseRedirect(settings.ADMIN_PANEL_URL + to)
 
 
 class AdminHandoffView(APIView):
@@ -142,7 +143,8 @@ class AdminHandoffView(APIView):
             return HttpResponseRedirect(fail + 'xato')
         if not cache.delete(f'hemis-handoff:{data.get("n")}'):  # bir martalik
             return HttpResponseRedirect(fail + 'xato')
-        return admin_login(request, str(data['h']), f'hemis:{data["h"]}', '', fail)
+        to = data.get('p') if data.get('p') in SECTION_PATHS.values() else '/'  # faqat admin panelning ma'lum sahifalari (ochiq yo'naltirish yo'q)
+        return admin_login(request, str(data['h']), f'hemis:{data["h"]}', '', fail, to)
 
 
 class LoginView(APIView):

@@ -33,7 +33,7 @@ const { data: tasks } = await useFetch<CabinetTasks>('/api/me/tasks', { key: 'ca
 const openTasks = computed(() => tasks.value.mine.filter(x => x.status === 'open').length)
 
 // «Admin panel»: xodimning admin hisobi bo'lsa (yoki lavozimi rolga bog'langan bo'lsa) tugma chiqadi; havola 60 soniyalik, bir martalik
-const { data: adminLink } = await useFetch<CabinetAdminLink>('/api/me/admin-link', { key: 'cabinet-admin-link', default: () => ({ available: false, url: null }) })
+const { data: adminLink } = await useFetch<CabinetAdminLink>('/api/me/admin-link', { key: 'cabinet-admin-link', default: () => ({ available: false, url: null, role: null, sections: [] }) })
 const openingAdmin = ref(false)
 async function openAdmin() {
   openingAdmin.value = true

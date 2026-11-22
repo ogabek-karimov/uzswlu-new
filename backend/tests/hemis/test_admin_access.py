@@ -53,7 +53,7 @@ class AdminAccessTests(TestCase):
         self.assertEqual(access.provision(TEACHER).role, 'editor')  # qo'lda tayinlangan rolga tegilmaydi
 
     def test_cabinet_link_and_one_time_handoff(self):
-        self.assertEqual(self.client.get('/api/me/admin-link', **bearer(DEAN)).json(), {'available': False, 'url': None})
+        self.assertEqual(self.client.get('/api/me/admin-link', **bearer(DEAN)).json(), {'available': False, 'url': None, 'role': None, 'sections': []})
         self.dekan.hemis_role = 'dean'
         self.dekan.save()
         res = self.client.get('/api/me/admin-link', **bearer(DEAN)).json()
@@ -66,3 +66,32 @@ class AdminAccessTests(TestCase):
         # ikkinchi marta ishlamaydi (bir martalik) va soxta token rad etiladi
         self.assertIn('kirish?hemis=xato', self.client.get(path)['Location'])
         self.assertIn('kirish?hemis=xato', self.client.get('/api/auth/hemis/handoff?t=soxta')['Location'])
+
+    def test_profile_menu_lists_own_sections_and_deep_links(self):
+        self.dekan.hemis_role = 'dean'
+        self.dekan.save()
+        res = self.client.get('/api/me/admin-link?list=1', **bearer(DEAN)).json()
+        self.assertEqual((res['available'], res['url'], res['role']), (True, None, 'Dekan'))  # ro'yxat — havolasiz
+        keys = [s['key'] for s in res['sections']]
+        self.assertIn('news', keys)
+        self.assertNotIn('dashboard', keys)
+        self.assertNotIn('leaders', keys)  # rolda yo'q bo'lim ko'rinmaydi
+        self.assertEqual({s['level'] for s in res['sections']} - {'read', 'write'}, set())
+        # bo'limga to'g'ridan-to'g'ri o'tish: havola shu sahifaga olib boradi
+        link = self.client.get('/api/me/admin-link?next=news', **bearer(DEAN)).json()['url']
+        res = self.client.get(link[link.index('/api/auth/hemis/handoff'):])
+        self.assertEqual(res.status_code, 302)
+        self.assertTrue(res['Location'].endswith('/postlar/news'), res['Location'])
+        # rolda yo'q bo'lim uchun havola berilmaydi
+        self.assertEqual(self.client.get('/api/me/admin-link?next=leaders', **bearer(DEAN)).status_code, 404)
+
+    def test_handoff_ignores_foreign_path(self):
+        from django.core import signing
+        from django.core.cache import cache
+        self.dekan.hemis_role = 'dean'
+        self.dekan.save()
+        cache.set('hemis-handoff:zz', 1, 30)
+        token = signing.dumps({'h': DEAN, 'n': 'zz', 'p': 'https://evil.example/'}, salt='hemis-admin-handoff')
+        res = self.client.get(f'/api/auth/hemis/handoff?t={token}')
+        self.assertEqual(res.status_code, 302)
+        self.assertNotIn('evil.example', res['Location'])

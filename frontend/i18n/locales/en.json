@@ -49,7 +49,11 @@
     "students": "For students",
     "hemisStaff": "HEMIS — staff account",
     "hemisStudent": "HEMIS — student account",
-    "kpi": "KPI system"
+    "kpi": "KPI system",
+    "mySections": "My sections",
+    "adminPanel": "Admin panel",
+    "levelWrite": "edit",
+    "levelRead": "view"
   },
   "menu": {
     "university": {

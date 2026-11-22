@@ -133,8 +133,9 @@ class MeTaskDetailView(CabinetView):
 
 
 class MeAdminLinkView(CabinetView):
-    """Kabinetdagi «Admin panel» tugmasi: xodimning admin hisobi bo'lsa (yoki lavozimi «HEMIS roli» ga bog'langan bo'lsa)
-    60 soniyalik bir martalik havola qaytaradi; bo'lmasa available=false."""
+    """Kabinetdagi «Admin panel» tugmasi va saytdagi profil menyusi («Mening bo'limlarim»): xodimning admin hisobi bo'lsa
+    (yoki lavozimi «HEMIS roli» ga bog'langan bo'lsa) rol nomi, bo'limlari va 60 soniyalik bir martalik havola qaytaradi;
+    bo'lmasa available=false. `?list=1` — havolasiz (faqat ro'yxat); `?next=<bo'lim kaliti>` — havola shu bo'limga olib boradi."""
 
     def get(self, request):
         from secrets import token_urlsafe
@@ -146,9 +147,21 @@ class MeAdminLinkView(CabinetView):
         from apps.hemis import access
         from apps.hemis.views import HANDOFF_SALT, HANDOFF_TTL
 
-        if not access.eligible(self.hemis_id):
-            return Response({'available': False, 'url': None})
+        from apps.accounts.roles import SECTION_PATHS, sections_of
+
+        acc = access.panel_access(self.hemis_id)
+        if not acc:
+            return Response({'available': False, 'url': None, 'role': None, 'sections': []})
+        role_name, perms = acc
+        sections = sections_of(perms)
+        out = {'available': True, 'url': None, 'role': role_name, 'sections': sections}
+        if request.query_params.get('list'):
+            return Response(out)
+        key = str(request.query_params.get('next') or '')
+        if key and key not in {s['key'] for s in sections}:
+            raise NotFound('Bo‘lim topilmadi')  # rolda yo'q bo'lim uchun havola berilmaydi
         nonce = token_urlsafe(12)
         cache.set(f'hemis-handoff:{nonce}', 1, HANDOFF_TTL + 5)
-        token = signing.dumps({'h': self.hemis_id, 'n': nonce}, salt=HANDOFF_SALT)
-        return Response({'available': True, 'url': f'{settings.PUBLIC_SERVER_URL}/api/auth/hemis/handoff?t={token}'})
+        token = signing.dumps({'h': self.hemis_id, 'n': nonce, 'p': SECTION_PATHS.get(key, '/')}, salt=HANDOFF_SALT)
+        out['url'] = f'{settings.PUBLIC_SERVER_URL}/api/auth/hemis/handoff?t={token}'
+        return Response(out)

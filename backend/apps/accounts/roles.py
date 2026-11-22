@@ -28,6 +28,13 @@ SECTIONS: dict[str, tuple[str, str]] = {
     'sdg': ('BRM', 'Tuzilma'),
 }
 LEVELS = ('read', 'write')
+# Bo'lim -> admin panel sahifasi (admin/src/components/AppSidebar.vue bilan bir xil). Saytdagi «Mening bo'limlarim» menyusi shu yerdan oladi
+SECTION_PATHS: dict[str, str] = {
+    'dashboard': '/', 'news': '/postlar/news', 'announcements': '/postlar/announcements', 'events': '/postlar/events', 'pages': '/sahifalar',
+    'quick-links': '/tezkor-xizmatlar', 'phones': '/telefonlar', 'rude-words': '/haqoratli-sozlar', 'admission': '/qabul-yillari', 'units': '/bolimlar',
+    'media': '/media', 'documents': '/hujjatlar', 'videos': '/video', 'faculties': '/fakultetlar', 'departments': '/kafedralar',
+    'leaders': '/rahbariyat', 'staff': '/xodimlar', 'sdg': '/brm',
+}
 POST_SECTIONS = ('news', 'announcements', 'events')
 
 # Faqat superadmin: bu kolleksiyalarni o'qish ham yopiq
@@ -124,3 +131,9 @@ def is_scoped(user) -> bool:
         return True
     r = role_obj(user) if is_custom(user) else None
     return bool(r and r.scoped)
+
+
+def sections_of(perms: dict) -> list[dict]:
+    """Rol bo'limlari ro'yxati (menyudagi tartibda; «Boshqaruv paneli» alohida tugma — bu yerga kirmaydi): kalit, nom, guruh, daraja."""
+    return [{'key': k, 'label': SECTIONS[k][0], 'group': SECTIONS[k][1], 'level': perms[k]}
+            for k in SECTIONS if k != 'dashboard' and perms.get(k) in LEVELS]
