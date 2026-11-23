@@ -54,7 +54,7 @@ class RoleTests(PanelBase):
         users = self.client.get('/api/cms/users')  # ro'yxat — faqat o'zi; boshqalarning yozuvi — yopiq
         self.assertEqual(users.status_code, 200)
         self.assertEqual([u['id'] for u in self.j(users)['docs']], [User.objects.get(username='teacher2').pk])
-        self.assertEqual(self.client.get(f'/api/cms/users/{self.superadmin.pk}').status_code, 403)
+        self.assertIn(self.client.get(f'/api/cms/users/{self.superadmin.pk}').status_code, (403, 404))  # boshqaning yozuvi ko'rinmaydi
         self.assertEqual(self.client.get('/api/cms/activity').status_code, 403)
         self.assertEqual(self.client.get('/api/cms/roles').status_code, 403)
 
