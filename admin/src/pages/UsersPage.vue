@@ -51,6 +51,18 @@ async function create() {
   }
 }
 
+async function remove(u: User) {
+  if (!confirm(`«${u.name || u.username}» hisobi butunlay öçirilsinmi? Bu amalni qaytarib bölmaydi (yozgan postlari saqlanadi). Vaqtincha öçirish uçun «Yopiş» dan foydalaning.`)) return
+  try {
+    await api.del(`/users/${u.id}`)
+    flash('Hisob öçirildi')
+    await load()
+  }
+  catch (e) {
+    flash(e instanceof ApiError ? e.message : 'Xato')
+  }
+}
+
 async function update(u: User, data: Partial<User> & { password?: string }, done: string) {
   try {
     await api.patch(`/users/${u.id}`, data)
@@ -171,6 +183,7 @@ const locked = (u: User) => !!u.lockUntil && new Date(u.lockUntil).getTime() > D
                   v-if="u.id !== auth.user.value?.id" type="button" class="ml-1 h-8! px-3! text-xs!" :class="u.status === 'disabled' ? 'btn-ghost' : 'btn-danger'"
                   @click="update(u, { status: u.status === 'disabled' ? 'active' : 'disabled' }, u.status === 'disabled' ? 'Hisob oçildi' : 'Hisob yopildi')"
                 >{{ u.status === 'disabled' ? 'Oçiş' : 'Yopiş' }}</button>
+                <button v-if="u.id !== auth.user.value?.id" type="button" class="btn-danger ml-1 h-8! px-3! text-xs!" @click="remove(u)">Öçirish</button>
               </td>
             </tr>
           </tbody>

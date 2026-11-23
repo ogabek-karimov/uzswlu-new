@@ -355,6 +355,8 @@ class Users(Collection):
             return False
         if action == 'update' and user.role != 'superadmin':
             return False
+        if action == 'delete' and obj is not None and obj.pk == user.pk:
+            return False  # o'zini o'chira olmaydi
         return True
 
     def scope(self, request, qs):

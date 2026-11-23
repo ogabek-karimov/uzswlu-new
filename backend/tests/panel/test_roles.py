@@ -77,6 +77,12 @@ class RoleTests(PanelBase):
         self.assertEqual(User.objects.get(username='rektor1').role, 'rektor')
         self.assertEqual(self.client.delete(f"/api/cms/roles/{rid['kafedra-mudiri']}").status_code, 200)
 
+    def test_superadmin_deletes_users_but_not_self(self):
+        u = self.make_user('editor', 'ketadi1')
+        self.assertEqual(self.client.delete(f'/api/cms/users/{self.superadmin.pk}').status_code, 403)
+        self.assertEqual(self.client.delete(f'/api/cms/users/{u.pk}').status_code, 200)
+        self.assertFalse(User.objects.filter(pk=u.pk).exists())
+
     def test_superadmin_role_permissions_locked(self):
         rid = {r['slug']: r['id'] for r in self.j(self.client.get('/api/cms/roles?limit=50'))['docs']}['superadmin']
         self.send('patch', f'/api/cms/roles/{rid}', {'permissions': {'news': 'read'}, 'name': 'Bosh admin'})
