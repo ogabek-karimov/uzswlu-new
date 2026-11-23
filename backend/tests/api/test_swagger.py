@@ -36,7 +36,8 @@ def code_routes():
         if not pattern.startswith('api/') or cls is None:
             continue
         path = norm('/' + re.sub(r'<(?:\w+:)?(\w+)>', '{}', pattern))
-        yield path, cls, {m for m in METHODS if hasattr(cls, m)}
+        # `http_method_names` da yo'q metod (masalan kabinet ko'prigidagi ommaviy PATCH/DELETE) View'da bo'lsa ham xizmat qilinmaydi
+        yield path, cls, {m for m in METHODS if hasattr(cls, m) and m in getattr(cls, 'http_method_names', METHODS)}
 
 
 class SwaggerCompletenessTests(TestCase):
