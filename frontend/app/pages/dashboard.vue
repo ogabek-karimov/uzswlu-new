@@ -20,20 +20,25 @@ const person = computed(() => cabinet.value?.profile)
 const staffUrl = computed(() => (person.value ? `${requestUrl.origin}${localePath(`/teacher/${person.value.id}`)}` : ''))
 
 // Kabinet bo'limlari: har biri alohida ko'rinadi (hammasi bir sahifaga tiqilib qolmasligi uchun). Manzilda `?bolim=...`
-const SECTIONS = [
+// «Yangiliklar» bo'limi faqat admin paneldagi roli yangilik/e'lon/tadbirga YOZISH ruxsati bergan xodimda chiqadi (backend rolni HEMIS lavozimidan biladi)
+const POST_TYPES = ['news', 'announcements', 'events'] as const
+const BASE_SECTIONS = [
   { key: 'overview', icon: 'lucide:layout-grid', label: 'dashboard' },
   { key: 'tasks', icon: 'lucide:list-checks', label: 'tasks' },
   { key: 'profile', icon: 'lucide:user-pen', label: 'profile' },
   { key: 'documents', icon: 'lucide:folder-open', label: 'documents' },
 ] as const
-type SectionKey = typeof SECTIONS[number]['key']
+const NEWS_SECTION = { key: 'news', icon: 'lucide:newspaper', label: 'news' } as const
+type SectionKey = typeof BASE_SECTIONS[number]['key'] | typeof NEWS_SECTION['key']
 const route = useRoute()
-const view = computed<SectionKey>(() => SECTIONS.find(s => s.key === route.query.bolim)?.key ?? 'overview')
 const { data: tasks } = await useFetch<CabinetTasks>('/api/me/tasks', { key: 'cabinet-tasks', default: () => ({ mine: [], given: [], assignees: [] }) })
 const openTasks = computed(() => tasks.value.mine.filter(x => x.status === 'open').length)
 
-// «Admin panel»: xodimning admin hisobi bo'lsa (yoki lavozimi rolga bog'langan bo'lsa) tugma chiqadi; havola 60 soniyalik, bir martalik
-const { data: adminLink } = await useFetch<CabinetAdminLink>('/api/me/admin-link', { key: 'cabinet-admin-link', default: () => ({ available: false, url: null, role: null, sections: [] }) })
+// «Admin panel»: xodimning admin hisobi bo'lsa (yoki lavozimi rolga bog'langan bo'lsa) tugma chiqadi; havola 60 soniyalik, bir martalik (bosilganda olinadi)
+const { data: adminLink } = await useFetch<CabinetAdminLink>('/api/me/admin-link', { query: { list: 1 }, key: 'cabinet-admin-link', default: () => ({ available: false, url: null, role: null, sections: [] }) })
+const postTypes = computed(() => POST_TYPES.filter(k => adminLink.value.sections.some(s => s.key === k && s.level === 'write')))
+const SECTIONS = computed(() => (postTypes.value.length ? [...BASE_SECTIONS, NEWS_SECTION] : [...BASE_SECTIONS]))
+const view = computed<SectionKey>(() => SECTIONS.value.find(s => s.key === route.query.bolim)?.key ?? 'overview')
 const openingAdmin = ref(false)
 async function openAdmin() {
   openingAdmin.value = true
@@ -221,6 +226,7 @@ const menuClass = 'flex items-center gap-3 rounded-[14px] px-3.5 py-3 font-mediu
           <CabinetHemisCard :cabinet="cabinet" />
         </template>
         <CabinetTasks v-else-if="view === 'tasks'" />
+        <CabinetPosts v-else-if="view === 'news'" :types="[...postTypes]" />
         <template v-else-if="view === 'profile'">
         <CabinetAboutCard :about="cabinet.about" :text="person.about" :saving="saving" @save="about => patch({ about })" />
         <CabinetLinksCard kind="contacts" :title="t('staff.profile.contact')" :person="person" @save="e => saveLinks('contacts', e)" />

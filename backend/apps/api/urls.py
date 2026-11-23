@@ -5,6 +5,8 @@ to'g'ri javob olsin (token talab qilinmaydi, `/hit` shu yerda ham bor).
 """
 from django.urls import path
 
+from apps.panel import cabinet
+
 from . import views as v
 from . import views_staff as s
 
@@ -16,6 +18,8 @@ urlpatterns = [
     path('me', s.MeView.as_view()),
     path('me/avatar', s.MeAvatarView.as_view()),
     path('me/admin-link', s.MeAdminLinkView.as_view()),
+    path('me/cms/<slug:slug>', cabinet.CabinetCollectionView.as_view()),
+    path('me/cms/<slug:slug>/<int:pk>', cabinet.CabinetDocView.as_view()),
     path('me/tasks', s.MeTasksView.as_view()),
     path('me/tasks/<int:pk>', s.MeTaskDetailView.as_view()),
     path('me/documents/<str:section>', s.MeDocumentsView.as_view()),

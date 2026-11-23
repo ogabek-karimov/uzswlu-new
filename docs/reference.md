@@ -231,6 +231,8 @@ Batafsil parametr va javoblar — Swagger: `http://localhost:8000/api/docs/`. Pa
 | `/api/leadership` | `LeadershipView` | `apps/api/views.py` | `public` |
 | `/api/me/admin-link` | `MeAdminLinkView` | `apps/api/views_staff.py` | `cabinet` |
 | `/api/me/avatar` | `MeAvatarView` | `apps/api/views_staff.py` | `cabinet-upload` |
+| `/api/me/cms/<slug:slug>/<int:pk>` | `CabinetDocView` | `apps/panel/cabinet.py` |  |
+| `/api/me/cms/<slug:slug>` | `CabinetCollectionView` | `apps/panel/cabinet.py` |  |
 | `/api/me/documents/<str:section>/<str:pk>` | `MeDocumentDetailView` | `apps/api/views_staff.py` | `cabinet` |
 | `/api/me/documents/<str:section>` | `MeDocumentsView` | `apps/api/views_staff.py` | `cabinet` |
 | `/api/me/tasks/<int:pk>` | `MeTaskDetailView` | `apps/api/views_staff.py` | `cabinet` |
@@ -416,6 +418,7 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `GET /api/me/admin-link` | `frontend/server/api/me/admin-link.get.ts` |
 | `DELETE /api/me/avatar` | `frontend/server/api/me/avatar.delete.ts` |
 | `POST /api/me/avatar` | `frontend/server/api/me/avatar.post.ts` |
+| `ANY /api/me/cms/:...path` | `frontend/server/api/me/cms/[...path].ts` |
 | `DELETE /api/me/documents/:section/:id` | `frontend/server/api/me/documents/[section]/[id].delete.ts` |
 | `GET /api/me/documents/:section` | `frontend/server/api/me/documents/[section].get.ts` |
 | `POST /api/me/documents/:section` | `frontend/server/api/me/documents/[section].post.ts` |
@@ -497,6 +500,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/hemis/views.py` | HEMIS orqali kirish (OAuth2): xodim universitet login-paroli bilan kiradi. |
 | `backend/apps/pages/models.py` | — |
 | `backend/apps/panel/auth.py` | Vue admin panel kirishi: Django sessiyasi + Payload'dagi kabi Origin tekshiruvi, bloklash va kirish tarixi. |
+| `backend/apps/panel/cabinet.py` | Xodim kabineti → admin panel ko'prigi: sayt ichidagi kabinetdan turib rolga ruxsat etilgan ma'lumotlar bilan ishlash. |
 | `backend/apps/panel/collections.py` | Vue admin panel kolleksiyalari: Django modeli ↔ Payload shaklidagi JSON. |
 | `backend/apps/panel/dashboard.py` | Admin panel yig'ma ma'lumotlari (/api/cms/panel/*): bosh sahifa, statistika, media, YouTube, HEMIS, BRM. |
 | `backend/apps/panel/globals_.py` | Vue admin panel global sozlamalari (bitta yozuvli): sayt sozlamalari, video sahifasi, ramzlar, BRM sahifasi. |
@@ -514,7 +518,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (392 ta test)
+### Backend testlari xaritasi (397 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -540,6 +544,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/hemis/test_admin_access.py` | 7 | HEMIS lavozimi → admin hisobi: avtomatik yaratish, doira, yopish va kabinetdan o'tish havolasi. |
 | `backend/tests/hemis/test_dev_login.py` | 3 | Lokal sinov kirishi: faqat DEBUG + STAFF_DEV_LOGIN + HEMIS ulanmagan bo'lganda ishlaydi. |
 | `backend/tests/hemis/test_load_control.py` | 25 | HEMIS'ga va serverga bosim: tinch oyna, qulf, so'rov byudjeti, ketma-ket xatoda to'xtash, kechki jadval. |
+| `backend/tests/panel/test_cabinet_cms.py` | 5 | Kabinet → panel ko'prigi: sayt ichidagi kabinetdan yangilik/e'lon/tadbir yozish (rol ruxsatlari admin paneldagi bilan bir xil). |
 | `backend/tests/panel/test_collections.py` | 13 | Admin panel API (`/api/cms/*`): har bir kolleksiya uchun o'qish → o'zini PATCH → nusxa yaratish → o'chirish aylanishi, · `slow` |
 | `backend/tests/panel/test_pagination.py` | 5 | Sahifalash: har bir kolleksiyada barcha sahifalarni aylanib chiqqanda yozuvlar yo'qolmaydi va takrorlanmaydi; · `slow` |
 | `backend/tests/panel/test_quick_links.py` | 7 |  |

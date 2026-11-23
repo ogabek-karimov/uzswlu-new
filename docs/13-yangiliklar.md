@@ -4,6 +4,8 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-23
 
+- **Sayt + backend (kabinetdan «Yangiliklar» menyusi ma’lumotlarini kiritish):** rolga bog‘langan xodim (dekan, kafedra mudiri…) saytdagi kabinetda yangilik, e’lon va tadbirni o‘zi qo‘shadi, tahrirlaydi, o‘chiradi va muqova surati yuklaydi — admin panelga o‘tmasdan. Ruxsatlar admin paneldagi bilan bir xil (`/api/me/cms/*` panel kodini ishlatadi). Profil menyusidagi «Mening bölimlarim» bo‘limlari saytdagi shu bo‘limga olib boradi (qolganlari — admin panelga). `apps/panel/cabinet.py`, `cabinet/Posts.vue`. Testlar: `tests/panel/test_cabinet_cms.py`. — COMMIT
+
 - **Sayt (Abituriyentlar → «Bo‘lim sahifasi»):** mega-menyudagi tugma (va bo‘lim nomi) Qabul sahifasiga (`/qabul`) olib borardi — boshidan (`e9c76c0`) shunday qo‘yilgan edi. Endi Universitet bo‘limidagi kabi matnli sahifa — «Nima uchun bu universitet» (chapda bo‘limning 15 ta sahifasi ro‘yxati). `pages.0026` (faqat havola hali Qabul bo‘lsa); admin → Sahifalar → «Abituriyentlar» guruhi → «Bo‘limning umumiy sahifasi»da o‘zgartiriladi.
 
 - **Sayt (Ochiq eshiklar kunlari):** eski saytdagi matn (uz/ru/en; uz — yangi alifboda) va xitoycha tarjima — sarlavha markazda, «“OCHIQ ESHIKLAR KUNLARI”» alohida qatorda (4 tilda), 6 ta paragraf (qalin joylari saqlangan); tadbir **kollaji** (eski saytdagi rasm, foydalanuvchi so‘rovi bilan yuklab olindi; 3840×2160 PNG → 2400px JPG, saytda WebP) bitta butun rasm — o‘z nisbatida, kesilmaydi, bosilsa kattalashadi; «qachon va kimga murojaat» bloki (har oyning oxirgi haftasi, telefonlar) va bosib qo‘ng‘iroq qilinadigan telefon havolalari (`tel:`). `pages.0025`, `seed_data/open_days_page.json`, `seed_data/files/open-days/`.

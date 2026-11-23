@@ -19,6 +19,12 @@ watch(open, async (isOpen) => {
     asked = false // tarmoq xatosi — keyingi ochilishda yana urinadi
   }
 })
+// Saytning o'zida (kabinetda) ishlaydigan bo'limlar: yangilik/e'lon/tadbirga YOZISH ruxsati bo'lsa kabinetdagi «Yangiliklar» menyusi ochiladi.
+// Qolganlari (hozircha) admin panelning o'sha sahifasiga o'tadi.
+const POST_KEYS = ['news', 'announcements', 'events']
+const inSite = (s: { key: string, level: string }) => POST_KEYS.includes(s.key) && s.level === 'write'
+const localePath = useLocalePath()
+const siteLink = (key: string) => localePath({ path: '/dashboard', query: { bolim: 'news', tur: key } })
 async function goPanel(key = '') {
   opening.value = key || '/'
   try {
@@ -79,36 +85,41 @@ const host = (url: string) => new URL(url).host
       >
         <div v-if="mine?.available" class="mb-1 border-b border-line pb-2">
           <p class="px-3 pt-2 text-[11px] font-semibold tracking-[0.14em] text-muted uppercase">{{ t('auth.mySections') }}</p>
-          <button
-            type="button"
-            class="mt-1 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors hover:bg-brand-50 disabled:opacity-60"
-            :disabled="!!opening"
-            @click="goPanel()"
-          >
-            <span class="grid size-9 shrink-0 place-items-center rounded-lg bg-brand-800 text-accent-400">
-              <Icon name="lucide:layout-dashboard" class="size-[18px]" />
-            </span>
-            <span class="min-w-0 flex-1">
-              <span class="block text-sm font-semibold text-ink">{{ t('auth.adminPanel') }}</span>
-              <span class="block truncate text-xs text-muted">{{ mine.role }}</span>
-            </span>
-            <Icon name="lucide:arrow-up-right" class="size-4 shrink-0 text-muted" />
-          </button>
+          <p class="truncate px-3 pt-1 text-sm font-semibold text-ink">{{ mine.role }}</p>
           <ul class="max-h-56 overflow-y-auto">
             <li v-for="s in mine.sections" :key="s.key">
+              <NuxtLink
+                v-if="inSite(s)"
+                :to="siteLink(s.key)"
+                class="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-left text-sm text-ink transition-colors hover:bg-brand-50"
+                @click="open = false"
+              >
+                <span class="min-w-0 flex-1 truncate">{{ s.label }}</span>
+                <span class="shrink-0 rounded-full bg-brand-50 px-2 py-0.5 text-[10px] font-semibold text-brand-700">{{ t('auth.levelWrite') }}</span>
+              </NuxtLink>
               <button
+                v-else
                 type="button"
                 class="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-left text-sm text-ink transition-colors hover:bg-brand-50 disabled:opacity-60"
                 :disabled="!!opening"
+                :title="t('auth.inPanel')"
                 @click="goPanel(s.key)"
               >
                 <span class="min-w-0 flex-1 truncate">{{ s.label }}</span>
-                <span class="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold" :class="s.level === 'write' ? 'bg-brand-50 text-brand-700' : 'bg-line/60 text-muted'">
-                  {{ t(s.level === 'write' ? 'auth.levelWrite' : 'auth.levelRead') }}
-                </span>
+                <span class="shrink-0 rounded-full bg-line/60 px-2 py-0.5 text-[10px] font-semibold text-muted">{{ t(s.level === 'write' ? 'auth.levelWrite' : 'auth.levelRead') }}</span>
+                <Icon name="lucide:arrow-up-right" class="size-3.5 shrink-0 text-muted" />
               </button>
             </li>
           </ul>
+          <button
+            type="button"
+            class="mt-1 flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-left text-xs text-muted transition-colors hover:bg-brand-50 disabled:opacity-60"
+            :disabled="!!opening"
+            @click="goPanel()"
+          >
+            <Icon name="lucide:layout-dashboard" class="size-3.5" />{{ t('auth.adminPanel') }}
+            <Icon name="lucide:arrow-up-right" class="ml-auto size-3.5" />
+          </button>
         </div>
         <p class="flex items-center gap-2 px-3 pt-2 pb-1 text-sm font-semibold text-ink">
           <Icon name="lucide:log-in" class="size-4 text-brand-600" />

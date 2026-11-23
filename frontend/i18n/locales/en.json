@@ -53,7 +53,8 @@
     "mySections": "My sections",
     "adminPanel": "Admin panel",
     "levelWrite": "edit",
-    "levelRead": "view"
+    "levelRead": "view",
+    "inPanel": "Opens in the admin panel"
   },
   "menu": {
     "university": {
@@ -418,7 +419,8 @@
       "label": "Dashboard",
       "dashboard": "Dashboard (UzSWLU)",
       "staffPage": "My staff page",
-      "logout": "Log out"
+      "logout": "Log out",
+      "news": "News menu"
     },
     "myPage": "My page",
     "support": {
@@ -574,6 +576,46 @@
       "empty": "No data found",
       "myPage": "My page",
       "studentSoon": "The student cabinet is coming soon: it needs HEMIS student sign-in to be connected."
+    },
+    "posts": {
+      "title": "News menu",
+      "desc": "Add and edit the news, announcements and events shown in the site’s News menu.",
+      "add": {
+        "news": "New news item",
+        "announcements": "New announcement",
+        "events": "New event"
+      },
+      "types": {
+        "news": "News",
+        "announcements": "Announcements",
+        "events": "Events"
+      },
+      "name": "Title",
+      "excerpt": "Short summary",
+      "text": "Text",
+      "textHint": "A blank line starts a new paragraph. Rich text with tables and images is edited in the admin panel.",
+      "rich": "This text has rich formatting (table, image or list): it is kept as long as you do not change the text.",
+      "starts": "Starts",
+      "ends": "Ends",
+      "place": "Place",
+      "cover": "Cover image",
+      "pick": "Choose image",
+      "uploading": "Uploading…",
+      "removeCover": "Remove",
+      "status": "Status",
+      "published": "Published",
+      "draft": "Draft",
+      "cancel": "Cancel",
+      "save": "Save",
+      "edit": "Edit",
+      "remove": "Delete",
+      "confirm": "Delete this? (it goes to the trash)",
+      "empty": "Nothing here yet.",
+      "foreign": "Another author",
+      "prev": "Previous",
+      "next": "Next",
+      "needTitle": "The Uzbek title is required.",
+      "error": "Could not save. Try again or check your role’s permissions."
     }
   },
   "page": {

@@ -53,7 +53,8 @@
     "mySections": "我的栏目",
     "adminPanel": "管理后台",
     "levelWrite": "可编辑",
-    "levelRead": "只读"
+    "levelRead": "只读",
+    "inPanel": "在管理后台中打开"
   },
   "menu": {
     "university": {
@@ -418,7 +419,8 @@
       "label": "个人后台",
       "dashboard": "个人后台 (UzSWLU)",
       "staffPage": "我的主页",
-      "logout": "退出"
+      "logout": "退出",
+      "news": "新闻菜单"
     },
     "myPage": "我的主页",
     "support": {
@@ -574,6 +576,46 @@
       "empty": "未找到数据",
       "myPage": "我的页面",
       "studentSoon": "学生中心即将上线：需要接入 HEMIS 学生登录。"
+    },
+    "posts": {
+      "title": "新闻菜单",
+      "desc": "在此添加和编辑网站“新闻”菜单中的新闻、公告和活动。",
+      "add": {
+        "news": "新建新闻",
+        "announcements": "新建公告",
+        "events": "新建活动"
+      },
+      "types": {
+        "news": "新闻",
+        "announcements": "公告",
+        "events": "活动"
+      },
+      "name": "标题",
+      "excerpt": "简介",
+      "text": "正文",
+      "textHint": "空行表示新段落。含表格和图片的复杂文本请在管理后台编辑。",
+      "rich": "此文本含复杂格式（表格、图片或列表）：只要不修改文本，格式会保留。",
+      "starts": "开始",
+      "ends": "结束",
+      "place": "地点",
+      "cover": "封面图",
+      "pick": "选择图片",
+      "uploading": "上传中…",
+      "removeCover": "移除",
+      "status": "状态",
+      "published": "已发布",
+      "draft": "草稿",
+      "cancel": "取消",
+      "save": "保存",
+      "edit": "编辑",
+      "remove": "删除",
+      "confirm": "确定删除？（将移入回收站）",
+      "empty": "暂无内容。",
+      "foreign": "其他作者",
+      "prev": "上一页",
+      "next": "下一页",
+      "needTitle": "必须填写乌兹别克语标题。",
+      "error": "保存失败。请重试或检查您角色的权限。"
     }
   },
   "page": {

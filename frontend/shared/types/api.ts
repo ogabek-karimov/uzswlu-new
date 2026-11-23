@@ -818,3 +818,28 @@ export interface SearchResults {
   page: number
   perPage: number
 }
+
+/** Kabinetdan boshqariladigan post (yangilik / e'lon / tadbir) — panel javobining kerakli qismi */
+export interface CabinetPostDoc {
+  id: number
+  type: 'news' | 'announcements' | 'events'
+  title: Partial<Record<'uz' | 'ru' | 'en' | 'zh', string>>
+  excerpt: Partial<Record<'uz' | 'ru' | 'en' | 'zh', string>>
+  body: Partial<Record<'uz' | 'ru' | 'en' | 'zh', string>>
+  location: Partial<Record<'uz' | 'ru' | 'en' | 'zh', string>>
+  status: 'draft' | 'published'
+  slug: string | null
+  cover: { id: number, url: string } | null
+  publishedAt: string | null
+  startsAt: string | null
+  endsAt: string | null
+  /** Shu xodim tahrirlay/o'chira oladimi */
+  own: boolean
+}
+
+export interface CabinetPostList {
+  docs: CabinetPostDoc[]
+  totalDocs: number
+  totalPages: number
+  page: number
+}

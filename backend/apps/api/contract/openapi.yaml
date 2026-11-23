@@ -190,6 +190,56 @@ paths:
                         level: { type: string, enum: [read, write] }
         '404':
           description: Bu bo'lim rolda yo'q
+  /me/cms/{collection}:
+    get:
+      summary: Kabinetdan ro'yxat (yangilik, e'lon, tadbir)
+      description: |
+        Xodim kabinetidan turib rolga ruxsat etilgan ma'lumotlar bilan ishlash. Admin panelning `/api/cms/*` kodi shu yerda ham ishlaydi:
+        ruxsatlar (bo'lim × o'qish/yozish), fakultet doirasi va «faqat o'zi yozgan postni tahrirlaydi» qoidalari bir xil. Hozircha faqat `posts`
+        (ro'yxat, yaratish) va `media` (faqat yuklash); ommaviy amallar yo'q. Javobdagi `own` — shu xodim tahrirlay/o'chira oladimi.
+      security: [{ userSession: [] }]
+      parameters:
+        - { name: collection, in: path, required: true, schema: { type: string, enum: [posts, media] } }
+      responses:
+        '200': { description: OK }
+        '401': { description: Kirilmagan }
+        '403': { description: Rolda bu bo'lim yoki admin paneldagi rol yo'q }
+    post:
+      summary: Kabinetdan yangi yozuv (post) yoki rasm yuklash (media)
+      security: [{ userSession: [] }]
+      parameters:
+        - { name: collection, in: path, required: true, schema: { type: string, enum: [posts, media] } }
+      responses:
+        '201': { description: Yaratildi }
+        '403': { description: Ruxsat yo'q }
+  /me/cms/{collection}/{id}:
+    get:
+      summary: Kabinetdan bitta yozuv
+      security: [{ userSession: [] }]
+      parameters:
+        - { name: collection, in: path, required: true, schema: { type: string, enum: [posts] } }
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        '200': { description: OK }
+        '404': { description: Topilmadi }
+    patch:
+      summary: Kabinetdan tahrirlash
+      security: [{ userSession: [] }]
+      parameters:
+        - { name: collection, in: path, required: true, schema: { type: string, enum: [posts] } }
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        '200': { description: OK }
+        '403': { description: Begona post yoki ruxsat yo'q }
+    delete:
+      summary: Kabinetdan o'chirish (savatga tushadi)
+      security: [{ userSession: [] }]
+      parameters:
+        - { name: collection, in: path, required: true, schema: { type: string, enum: [posts] } }
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        '200': { description: OK }
+        '403': { description: Begona post yoki ruxsat yo'q }
   /me/tasks:
     get:
       summary: Vazifalarim va berganlarim

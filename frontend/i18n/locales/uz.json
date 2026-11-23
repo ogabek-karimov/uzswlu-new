@@ -53,7 +53,8 @@
     "mySections": "Mening bölimlarim",
     "adminPanel": "Admin panel",
     "levelWrite": "tahrirlaş",
-    "levelRead": "köriş"
+    "levelRead": "köriş",
+    "inPanel": "Admin panelda oçiladi"
   },
   "menu": {
     "university": {
@@ -418,7 +419,8 @@
       "label": "Dashboard",
       "dashboard": "Dashboard (UzSWLU)",
       "staffPage": "Staff sahifam",
-      "logout": "Çiqiş"
+      "logout": "Çiqiş",
+      "news": "Yangiliklar menyusi"
     },
     "myPage": "Mening sahifam",
     "support": {
@@ -574,6 +576,46 @@
       "empty": "Ma’lumot topilmadi",
       "myPage": "Mening sahifam",
       "studentSoon": "Talaba kabineti tez orada işga tuşadi: buning uçun HEMIS talaba kirişi ulanadi."
+    },
+    "posts": {
+      "title": "Yangiliklar menyusi",
+      "desc": "Saytning «Yangiliklar» menyusidagi yangilik, e’lon va tadbirlarni shu yerdan qo‘şasiz va tahrirlaysiz.",
+      "add": {
+        "news": "Yangi yangilik",
+        "announcements": "Yangi e’lon",
+        "events": "Yangi tadbir"
+      },
+      "types": {
+        "news": "Yangiliklar",
+        "announcements": "E’lonlar",
+        "events": "Tadbirlar"
+      },
+      "name": "Sarlavha",
+      "excerpt": "Qisqa tavsif",
+      "text": "Matn",
+      "textHint": "Bo‘ş qator — yangi abzats. Jadval va rasmli murakkab matn admin panelda tahrirlanadi.",
+      "rich": "Bu matnda murakkab formatlash bor (jadval, rasm yoki ro‘yxat): matnni o‘zgartirmasangiz, u saqlanib qoladi.",
+      "starts": "Boşlanişi",
+      "ends": "Tugaşi",
+      "place": "Joyi",
+      "cover": "Muqova surati",
+      "pick": "Surat tanlaş",
+      "uploading": "Yuklanmoqda…",
+      "removeCover": "Olib taşlaş",
+      "status": "Holati",
+      "published": "Naşr qilingan",
+      "draft": "Qoralama",
+      "cancel": "Bekor qiliş",
+      "save": "Saqlaş",
+      "edit": "Tahrirlaş",
+      "remove": "O‘çiriş",
+      "confirm": "Rostdan o‘çirasizmi? (savatga tuşadi)",
+      "empty": "Hozircha yozuv yo‘q.",
+      "foreign": "Boşqa muallif",
+      "prev": "Oldingi",
+      "next": "Keyingi",
+      "needTitle": "O‘zbekça sarlavha majburiy.",
+      "error": "Saqlab bo‘lmadi. Qayta urinib ko‘ring yoki rolingizda ruxsat yo‘qligini tekşiring."
     }
   },
   "page": {
