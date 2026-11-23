@@ -73,7 +73,8 @@ class RoleTests(PanelBase):
         rid = {r['slug']: r['id'] for r in self.j(self.client.get('/api/cms/roles?limit=50'))['docs']}
         self.assertEqual(self.client.delete(f"/api/cms/roles/{rid['superadmin']}").status_code, 403)
         self.make_user('rektor', 'rektor1')
-        self.assertEqual(self.client.delete(f"/api/cms/roles/{rid['rektor']}").status_code, 403)  # foydalanuvchisi bor
+        self.assertEqual(self.client.delete(f"/api/cms/roles/{rid['rektor']}").status_code, 200)  # foydalanuvchisi bor rol ham o'chadi; u ruxsatsiz qoladi
+        self.assertEqual(User.objects.get(username='rektor1').role, 'rektor')
         self.assertEqual(self.client.delete(f"/api/cms/roles/{rid['kafedra-mudiri']}").status_code, 200)
 
     def test_superadmin_role_permissions_locked(self):

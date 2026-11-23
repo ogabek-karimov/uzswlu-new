@@ -52,7 +52,7 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 - `posts` · **update**: Rolda «boshqalarning postlarini ham tahrirlaydi» belgisi bo‘lmasa — faqat **o‘zi yozgan** postni o‘zgartiradi; `superadmin` va shu belgili rollar (tayyor holatda `editor`) — hammasini.
 - `posts` · **delete**: Rolda «boshqalarning postlarini ham tahrirlaydi» belgisi bo‘lmasa — faqat **o‘zi yozgan** postni o‘chiradi; `superadmin` va shu belgili rollar (tayyor holatda `editor`) — hammasini.
 - `quick-links` · **create**: `icon` — `lucide:*` ro‘yxatidan; `url` — `/yo‘l` yoki `https://…`; `title.uz` majburiy.
-- `roles` · **delete**: Superadmin roli yoki foydalanuvchisi bor rol o‘chirilmaydi (qolgan rollar, jumladan editor, pages, sdg — o‘chiriladi).
+- `roles` · **delete**: Superadmin roli o‘chirilmaydi; qolgan rollar (editor, pages, sdg ham) o‘chiriladi. Foydalanuvchisi bor rol o‘chsa, ular hisobini saqlaydi, lekin ruxsatsiz qoladi — superadmin yangi rol beradi.
 - `roles` · **update**: Superadmin rolining bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi; qolgan rollarning bo‘limlari, doirasi va «boshqalarning postlarini ham tahrirlaydi» belgisi o‘zgartiriladi. «HEMIS roli» — shu lavozimdagi xodim HEMIS orqali kirganda hisob va shu rol avtomatik beriladi (superadmin roliga berilmaydi).
 - `rude-words` · **create**: `word` majburiy, takrorlanmas (kichik harf); oxirida `*` — shu bilan boshlanuvchi barcha so‘zlar; `lang`: uz/ru/en/zh.
 - `unit-heads` · **create**: `name` va `position.uz` majburiy; `url` — /yo‘l yoki https://…

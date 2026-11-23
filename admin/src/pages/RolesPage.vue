@@ -51,7 +51,7 @@ async function save() {
 }
 
 async function remove(r: RoleDoc) {
-  if (!confirm(`«${r.name}» roli öçirilsinmi?`)) return
+  if (!confirm(`«${r.name}» roli öçirilsinmi?` + (r.users ? ` ${r.users} ta foydalanuvçi ruxsatsiz qoladi (hisobi saqlanadi) — keyin ularga yangi rol bering.` : ''))) return
   try {
     await api.del(`/roles/${r.id}`)
     flash('Rol öçirildi')
@@ -138,7 +138,7 @@ const count = (r: RoleDoc) => Object.keys(r.permissions).length
         <p class="text-[13px] leading-snug text-muted">{{ r.description || '—' }}</p>
         <p class="text-xs text-muted">{{ count(r) }} ta bölim · {{ r.users }} foydalanuvçi<span v-if="r.scoped"> · çegaralangan</span></p>
         <div class="mt-auto flex gap-2 pt-2">
-          <button v-if="!r.system" type="button" class="btn-ghost h-9" :disabled="r.users > 0" :title="r.users ? 'Foydalanuvçisi bor rolni öçirib bölmaydi' : ''" @click="remove(r)">Öçirish</button>
+          <button v-if="!r.system" type="button" class="btn-ghost h-9" @click="remove(r)">Öçirish</button>
         </div>
       </article>
     </div>

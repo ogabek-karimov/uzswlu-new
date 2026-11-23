@@ -1200,14 +1200,14 @@ class Roles(Collection):
     default_sort = ['-system', 'name']
     access = {'read': SUPER, 'create': SUPER, 'update': SUPER, 'delete': SUPER}
     fields = {'createdAt': 'created_at', 'updatedAt': 'updated_at'}
-    rules = {'delete': 'Superadmin roli yoki foydalanuvchisi bor rol o‘chirilmaydi (qolgan rollar, jumladan editor, pages, sdg — o‘chiriladi).',
+    rules = {'delete': 'Superadmin roli o‘chirilmaydi; qolgan rollar (editor, pages, sdg ham) o‘chiriladi. Foydalanuvchisi bor rol o‘chsa, ular hisobini saqlaydi, lekin ruxsatsiz qoladi — superadmin yangi rol beradi.',
              'update': 'Superadmin rolining bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi; qolgan rollarning bo‘limlari, doirasi va «boshqalarning postlarini ham tahrirlaydi» belgisi o‘zgartiriladi. «HEMIS roli» — shu lavozimdagi xodim HEMIS orqali kirganda hisob va shu rol avtomatik beriladi (superadmin roliga berilmaydi).'}
 
     def can(self, user, action, obj=None):
         if not super().can(user, action, obj):
             return False
         if action == 'delete' and obj is not None:
-            return not obj.system and not User.objects.filter(role=obj.slug).exists()
+            return not obj.system  # foydalanuvchisi bor rol ham o'chadi: ular hisobini saqlaydi, lekin ruxsatsiz qoladi (boshqa rol berilguncha)
         return True
 
     def queryset(self, request):
