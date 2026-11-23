@@ -159,4 +159,4 @@ class DefaultRolesEditableTests(PanelBase):
     def test_default_role_can_be_deleted_when_unused(self):
         self.assertEqual(self.client.delete(f"/api/cms/roles/{self.rid('sdg')}").status_code, 200)
         self.make_user('pages', 'pg_used')
-        self.assertEqual(self.client.delete(f"/api/cms/roles/{self.rid('pages')}").status_code, 403)  # foydalanuvchisi bor
+        self.assertEqual(self.client.delete(f"/api/cms/roles/{self.rid('pages')}").status_code, 200)  # foydalanuvchisi bor rol ham o'chadi (ogohlantirishdan so'ng)
