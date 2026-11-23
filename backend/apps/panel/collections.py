@@ -31,6 +31,8 @@ SUPER = frozenset({'superadmin'})
 # Tayyor rollar (hujjat va tezkor tekshiruv uchun). Haqiqiy ruxsat — rolning bo'limlari (`Role.permissions`); faqat superadmin kodda qat'iy
 EDITORS = frozenset({'superadmin', 'editor', 'pages'})
 PAGES = frozenset({'superadmin', 'pages'})
+# Tayyor rollarda yo'q amal: faqat bo'limiga yozish ruxsati berilgan rol qila oladi (superadmin doim). Faqat `SUPER` — superadmin, boshqa hech kim
+FACULTY = frozenset({'superadmin', '@section'})
 SDG = frozenset({'superadmin', 'sdg'})
 MEDIA_ROLES = EDITORS | {'sdg'}
 ALL = EDITORS | {'sdg'}
@@ -345,6 +347,9 @@ class Users(Collection):
     def can(self, user, action, obj=None):
         # Har bir faol foydalanuvchi o'z profilini ko'radi va tahrirlaydi (ism, rasm, parol); qolganini faqat superadmin
         if obj is not None and user and user.is_authenticated and user.status != 'disabled' and obj.pk == user.pk and action in ('read', 'update'):
+            return True
+        # Ro'yxat/son: scope() boshqa rollar uchun faqat o'zini qoldiradi, shuning uchun o'qishga ruxsat
+        if obj is None and action == 'read' and user and user.is_authenticated and user.status != 'disabled' and rl.has_any(user):
             return True
         if not super().can(user, action, obj):
             return False
@@ -935,7 +940,7 @@ class Faculties(Collection):
     default_sort = ['order', 'id']
     select_related = ('logo', 'cover')
     fields = {'mapUrl': 'map_url'}
-    access = {'read': ALL, 'create': SUPER, 'update': SUPER, 'delete': SUPER}
+    access = {'read': ALL, 'create': SUPER, 'update': FACULTY, 'delete': SUPER}
     rules = {'update': '`faculty` faqat **o‘z fakultetini** (`User.scope`) o‘zgartiradi; doirasi belgilanmagan bo‘lsa — hech narsani.'}
 
     def can(self, user, action, obj=None):
@@ -968,7 +973,7 @@ class Departments(Collection):
     default_sort = ['hemis_id']
     select_related = ('image',)
     fields = {'hemisId': 'hemis_id', 'faculty': 'faculty_slug'}
-    access = {'read': ALL, 'create': SUPER, 'update': SUPER, 'delete': SUPER}
+    access = {'read': ALL, 'create': FACULTY, 'update': FACULTY, 'delete': SUPER}
     rules = {
         'create': '`faculty` faqat **o‘z fakultetiga** kafedra qo‘sha oladi.',
         'update': '`faculty` faqat **o‘z fakultetidagi** kafedrani o‘zgartiradi.',

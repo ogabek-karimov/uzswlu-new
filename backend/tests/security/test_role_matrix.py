@@ -3,7 +3,7 @@
 Hujjat (Swagger) va kod (`Collection.access`, ko'rinishlardagi rol tekshiruvlari) ajralib ketsa — shu test yiqiladi.
 Yozuvsiz (`where[id][equals]=0`) so'rovlar ishlatiladi, shuning uchun ma'lumot o'zgarmaydi.
 """
-from apps.accounts.models import User
+from apps.accounts.models import Role, User
 from apps.api.swagger import ALL_ROLES
 from apps.panel.collections import REGISTRY
 from apps.panel.globals_ import GLOBALS
@@ -22,11 +22,13 @@ class RoleMatrixTests(Base):
     def setUp(self):
         super().setUp()
         self.h = {}
-        for role in ALL_ROLES:
+        Role.objects.get_or_create(slug='m_none', defaults={'name': 'Hech narsasiz', 'permissions': {}, 'system': False})
+        self.roles = [*ALL_ROLES, 'm_none']
+        for role in self.roles:
             User.objects.filter(username=f'm_{role}').delete()
-            User.objects.create_user(f'm_{role}', password=PASSWORD, role=role, name=role, scope='fa' if role == 'faculty' else '')
+            User.objects.create_user(f'm_{role}', password=PASSWORD, role=role, name=role)
         with loose():
-            for role in ALL_ROLES:
+            for role in self.roles:
                 self.h[role] = jwt_for(f'm_{role}')
 
     def roles_of(self, path, method):
@@ -34,10 +36,15 @@ class RoleMatrixTests(Base):
 
     def check(self, method, path, url, body=None):
         allowed = self.roles_of(path, method)
-        for role in sorted(ALL_ROLES):
+        anonymous = bool(self.paths[path][method].get('x-anonymous'))
+        for role in sorted(self.roles):
+            if role == 'm_none' and anonymous:
+                continue
             with self.subTest(op=f'{method.upper()} {path}', role=role):
                 res = api(method, url, self.h[role], body)
                 if role in allowed:
+                    if role != 'superadmin':
+                        continue  # tayyor rollarning ruxsati bazada (bo'limlar bo'yicha) o'zgaradi: `x-roles` — standart; ruxsat berilmagan bo'lishi mumkin
                     # Rol darvozasi: «Ruxsat yo‘q». Boshqa 403 (masalan «bu fakultet doirangizda emas») — ob'ekt darajasidagi qoida, `x-rules` da yoziladi
                     gate = res.status_code == 401 or (res.status_code == 403 and b'Ruxsat yo\xe2\x80\x98q' in res.content.replace(b'\\u2018', '\u2018'.encode()))
                     self.assertFalse(gate, f'{role} ruxsat etilgan, lekin {res.status_code}: {res.content[:200]}')
