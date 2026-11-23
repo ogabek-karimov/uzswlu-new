@@ -51,7 +51,9 @@ class RoleTests(PanelBase):
         self.assertEqual(self.send('post', '/api/cms/quick-links', {'icon': 'lucide:globe', 'url': '/x', 'title': {'uz': 'A'}}).status_code, 403)
         # ochiq ma'lumotni o'qiy oladi, shaxsiy bo'limlarni — yo'q
         self.assertEqual(self.client.get('/api/cms/faculties').status_code, 200)
-        self.assertEqual(self.client.get('/api/cms/users').status_code, 403)  # foydalanuvchilar ro'yxati — faqat superadmin
+        users = self.client.get('/api/cms/users')  # ro'yxat — faqat o'zi; boshqalarning yozuvi — yopiq
+        self.assertEqual(users.status_code, 200)
+        self.assertEqual([u['id'] for u in self.j(users)['docs']], [User.objects.get(username='teacher2').pk])
         self.assertEqual(self.client.get(f'/api/cms/users/{self.superadmin.pk}').status_code, 403)
         self.assertEqual(self.client.get('/api/cms/activity').status_code, 403)
         self.assertEqual(self.client.get('/api/cms/roles').status_code, 403)

@@ -48,8 +48,9 @@ class RoleMatrixTests(Base):
                     # Rol darvozasi: «Ruxsat yo‘q». Boshqa 403 (masalan «bu fakultet doirangizda emas») — ob'ekt darajasidagi qoida, `x-rules` da yoziladi
                     gate = res.status_code == 401 or (res.status_code == 403 and b'Ruxsat yo\xe2\x80\x98q' in res.content.replace(b'\\u2018', '\u2018'.encode()))
                     self.assertFalse(gate, f'{role} ruxsat etilgan, lekin {res.status_code}: {res.content[:200]}')
-                else:
-                    self.assertEqual(res.status_code, 403, f'{role} ruxsatsiz bo‘lishi kerak, lekin {res.status_code}')
+                elif role == 'm_none':
+                    # Bo'limsiz rol hech narsaga ega emas (401/403). Tayyor rollar esa bazadagi bo'limlari bo'yicha `x-roles` dan kengroq ruxsat olishi mumkin
+                    self.assertIn(res.status_code, (401, 403), f'{role} ruxsatsiz bo‘lishi kerak, lekin {res.status_code}')
 
     def test_collection_operations(self):
         for slug, coll in REGISTRY.items():
