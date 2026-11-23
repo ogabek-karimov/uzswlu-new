@@ -27,6 +27,14 @@ def seed_preset_roles():
         Role.objects.get_or_create(slug=slug, defaults={'name': name, 'description': desc, 'permissions': perms, 'scoped': scoped, 'system': False})
 
 
+def seed_faculty_role():
+    """«Fakultet admini» roli accounts.0010 da o'chirilgan; unga tayanadigan testlar (doirali rol) shu yordamchi bilan qayta yaratadi."""
+    from apps.accounts.models import Role
+    from apps.accounts.roles import BUILTIN
+    name, desc, perms, scoped = BUILTIN['faculty']
+    Role.objects.get_or_create(slug='faculty', defaults={'name': name, 'description': desc, 'permissions': perms, 'scoped': scoped, 'system': False})
+
+
 def jwt_for(username: str, password: str = PASSWORD) -> dict:
     res = Client(**HOST).post('/api/cms/users/login', data=json.dumps({'username': username, 'password': password}),
                               content_type='application/json')

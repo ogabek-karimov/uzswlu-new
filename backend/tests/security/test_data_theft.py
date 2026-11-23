@@ -13,7 +13,7 @@ from django.utils import timezone
 from apps.accounts.models import User
 from apps.content.models import Post
 from apps.panel.collections import REGISTRY
-from tests.support import HOST, PASSWORD, Base, api, jwt_for, loose
+from tests.support import HOST, PASSWORD, Base, api, jwt_for, loose, seed_faculty_role
 
 SECRET_KEYS = re.compile(r'(password|totp|recovery|token_hash|tokenhash|secret|session_key|legacy_password|is_superuser)', re.I)
 
@@ -33,6 +33,7 @@ def walk(node, path=''):
 class Panel(Base):
     def setUp(self):
         super().setUp()
+        seed_faculty_role()
         mk = User.objects.create_user
         mk('fac', password=PASSWORD, role='faculty', name='Fac', scope='fa')
         mk('pg', password=PASSWORD, role='pages', name='Pg')

@@ -80,8 +80,8 @@ class Global:
             return True
         if not (user and user.is_authenticated and user.status != 'disabled'):
             return False
-        if user.role in self.access.get(action, ()):
-            return True
+        if user.role == 'superadmin' and 'superadmin' in self.access.get(action, ()):
+            return True  # faqat superadmin kodda qat'iy; qolgan rollar — bazadagi bo'limlari bo'yicha
         if not rl.is_custom(user):
             return False
         if action == 'read':

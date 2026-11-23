@@ -15,7 +15,6 @@ class User(AbstractUser):
     ROLES = [
         ('superadmin', 'Superadmin'),
         ('editor', 'Kontent muharriri'),
-        ('faculty', 'Fakultet admini'),
         ('pages', 'Sahifalar muharriri'),
         ('sdg', 'BRM menejeri'),  # faqat BRM bo'limi: 17 maqsad matni, rasmlari va PDF hisobotlari
     ]
@@ -64,12 +63,13 @@ class User(AbstractUser):
 
 class Role(models.Model):
     """Admin panel roli: qaysi menyu bo'limlarida nima qila olishi (`permissions`: {bo'lim: 'read' | 'write'}).
-    Tizim rollari (superadmin, editor, faculty, pages, sdg) o'chirilmaydi; qolganlarini superadmin yaratadi (dekan, rektor, o'qituvchi...)."""
+    Faqat superadmin roli tizim roli (o'zgartirilmaydi va o'chirilmaydi); qolgan hamma rolni (editor, pages, sdg ham) superadmin tahrirlaydi yoki o'chiradi."""
     slug = models.SlugField('Kalit', max_length=40, unique=True)
     name = models.CharField('Nomi', max_length=120)
     description = models.CharField('Izoh', max_length=300, blank=True)
     permissions = models.JSONField('Bo‘limlar bo‘yicha ruxsat', default=dict, blank=True)
     scoped = models.BooleanField('Faqat o‘z fakulteti doirasida (User.scope)', default=False)
+    edit_all = models.BooleanField('Boshqalarning postlarini ham tahrirlaydi', default=False)
     system = models.BooleanField('Tizim roli', default=False, editable=False)
     # HEMIS lavozimi shu rolga avtomatik bog'lanadi: HEMIS orqali kirgan dekan/mudir/o'qituvchiga hisob o'zi yaratiladi (bo'sh — o'chiq)
     hemis_role = models.CharField('HEMIS roli', max_length=12, blank=True, db_index=True)

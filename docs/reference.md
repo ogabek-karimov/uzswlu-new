@@ -8,37 +8,37 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 
 `R` o‘qish · `C` yaratish · `U` tahrirlash · `D` o‘chirish · `—` ruxsat yo‘q. Obyekt darajasidagi qo‘shimcha cheklovlar jadval ostida.
 
-| Kolleksiya | `superadmin` | `editor` | `faculty` | `pages` | `sdg` |
-|---|---|---|---|---|---|
-| `activity` | R | — | — | — | — |
-| `admission-years` | RCUD | R | R | RCUD | R |
-| `categories` | RCUD | R | R | R | R |
-| `departments` | RCUD | R | RCU | R | R |
-| `doc-categories` | RCUD | R | R | RCU | R |
-| `documents` | RCUD | R | R | RCUD | R |
-| `faculties` | RCUD | R | RU | R | R |
-| `leaders` | RCUD | R | R | R | R |
-| `login-events` | R | — | — | — | — |
-| `media` | RCUD | RCU | RCU | RCU | RCU |
-| `pages` | RCUD | R | R | RCUD | R |
-| `phones` | RCUD | R | R | RCUD | R |
-| `posts` | RCUD | RCUD | RCUD | RCUD | R |
-| `quick-links` | RCUD | R | R | RCUD | R |
-| `roles` | RCUD | — | — | — | — |
-| `rude-words` | RCUD | R | R | RCUD | R |
-| `sdg-goals` | RCUD | R | R | R | RU |
-| `slides` | RCUD | R | R | R | R |
-| `staff-profiles` | RCUD | R | R | R | R |
-| `unit-heads` | RCUD | R | R | RCUD | R |
-| `users` | RCUD | RU | RU | RU | RU |
-| `video-categories` | RCUD | R | R | RCU | R |
-| `videos` | RCUD | R | R | RCUD | R |
-| `home-banner` (global) | RU | R | R | R | R |
-| `sdg-page` (global) | RU | R | R | R | RU |
-| `settings` (global) | RU | R | R | R | R |
-| `symbols` (global) | RU | R | R | R | R |
-| `video-page` (global) | RU | R | R | RU | R |
-| `video-tour` (global) | RU | — | — | RU | — |
+| Kolleksiya | `superadmin` | `editor` | `pages` | `sdg` |
+|---|---|---|---|---|
+| `activity` | R | — | — | — |
+| `admission-years` | RCUD | R | RCUD | R |
+| `categories` | RCUD | R | R | R |
+| `departments` | RCUD | R | R | R |
+| `doc-categories` | RCUD | R | RCU | R |
+| `documents` | RCUD | R | RCUD | R |
+| `faculties` | RCUD | R | R | R |
+| `leaders` | RCUD | R | R | R |
+| `login-events` | R | — | — | — |
+| `media` | RCUD | RCU | RCU | RCU |
+| `pages` | RCUD | R | RCUD | R |
+| `phones` | RCUD | R | RCUD | R |
+| `posts` | RCUD | RCUD | RCUD | R |
+| `quick-links` | RCUD | R | RCUD | R |
+| `roles` | RCUD | — | — | — |
+| `rude-words` | RCUD | R | RCUD | R |
+| `sdg-goals` | RCUD | R | R | RU |
+| `slides` | RCUD | R | R | R |
+| `staff-profiles` | RCUD | R | R | R |
+| `unit-heads` | RCUD | R | RCUD | R |
+| `users` | RCUD | RU | RU | RU |
+| `video-categories` | RCUD | R | RCU | R |
+| `videos` | RCUD | R | RCUD | R |
+| `home-banner` (global) | RU | R | R | R |
+| `sdg-page` (global) | RU | R | R | RU |
+| `settings` (global) | RU | R | R | R |
+| `symbols` (global) | RU | R | R | R |
+| `video-page` (global) | RU | R | RU | R |
+| `video-tour` (global) | RU | — | RU | — |
 
 **Obyekt darajasidagi qoidalar** (rol jadvalidan tashqari):
 
@@ -49,11 +49,11 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 - `departments` · **update**: `faculty` faqat **o‘z fakultetidagi** kafedrani o‘zgartiradi.
 - `faculties` · **update**: `faculty` faqat **o‘z fakultetini** (`User.scope`) o‘zgartiradi; doirasi belgilanmagan bo‘lsa — hech narsani.
 - `phones` · **create**: `position.uz` majburiy; `isSection` — butun qatorni egallagan bo‘lim sarlavhasi.
-- `posts` · **update**: `faculty` va `pages` faqat **o‘zi yozgan** postni o‘zgartiradi; `superadmin` va `editor` — hammasini.
-- `posts` · **delete**: `faculty` va `pages` faqat **o‘zi yozgan** postni o‘chiradi; `superadmin` va `editor` — hammasini.
+- `posts` · **update**: Rolda «boshqalarning postlarini ham tahrirlaydi» belgisi bo‘lmasa — faqat **o‘zi yozgan** postni o‘zgartiradi; `superadmin` va shu belgili rollar (tayyor holatda `editor`) — hammasini.
+- `posts` · **delete**: Rolda «boshqalarning postlarini ham tahrirlaydi» belgisi bo‘lmasa — faqat **o‘zi yozgan** postni o‘chiradi; `superadmin` va shu belgili rollar (tayyor holatda `editor`) — hammasini.
 - `quick-links` · **create**: `icon` — `lucide:*` ro‘yxatidan; `url` — `/yo‘l` yoki `https://…`; `title.uz` majburiy.
-- `roles` · **delete**: Tizim roli yoki foydalanuvchisi bor rol o‘chirilmaydi.
-- `roles` · **update**: Tizim rollarining (superadmin, editor, faculty, pages, sdg) bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi. «HEMIS roli» — shu lavozimdagi xodim HEMIS orqali kirganda hisob va shu rol avtomatik beriladi (tizim rollariga berilmaydi).
+- `roles` · **delete**: Superadmin roli yoki foydalanuvchisi bor rol o‘chirilmaydi (qolgan rollar, jumladan editor, pages, sdg — o‘chiriladi).
+- `roles` · **update**: Superadmin rolining bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi; qolgan rollarning bo‘limlari, doirasi va «boshqalarning postlarini ham tahrirlaydi» belgisi o‘zgartiriladi. «HEMIS roli» — shu lavozimdagi xodim HEMIS orqali kirganda hisob va shu rol avtomatik beriladi (superadmin roliga berilmaydi).
 - `rude-words` · **create**: `word` majburiy, takrorlanmas (kichik harf); oxirida `*` — shu bilan boshlanuvchi barcha so‘zlar; `lang`: uz/ru/en/zh.
 - `unit-heads` · **create**: `name` va `position.uz` majburiy; `url` — /yo‘l yoki https://…
 
@@ -518,7 +518,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (398 ta test)
+### Backend testlari xaritasi (402 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -548,7 +548,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/panel/test_collections.py` | 13 | Admin panel API (`/api/cms/*`): har bir kolleksiya uchun o'qish → o'zini PATCH → nusxa yaratish → o'chirish aylanishi, · `slow` |
 | `backend/tests/panel/test_pagination.py` | 5 | Sahifalash: har bir kolleksiyada barcha sahifalarni aylanib chiqqanda yozuvlar yo'qolmaydi va takrorlanmaydi; · `slow` |
 | `backend/tests/panel/test_quick_links.py` | 7 |  |
-| `backend/tests/panel/test_roles.py` | 9 | Rollar: superadmin rol yaratadi, bo'limlar bo'yicha ruxsat beradi; foydalanuvchi faqat o'z bo'limlarini ko'radi va yozadi. |
+| `backend/tests/panel/test_roles.py` | 13 | Rollar: superadmin rol yaratadi, bo'limlar bo'yicha ruxsat beradi; foydalanuvchi faqat o'z bo'limlarini ko'radi va yozadi. |
 | `backend/tests/panel/test_spa_queries.py` | 4 | Admin SPA yuboradigan murakkab so'rovlar (`where[and][0][...]`, `like`, `not_in`, `exists`, `trash` ...): |
 | `backend/tests/panel/test_video_tour.py` | 6 |  |
 | `backend/tests/security/test_access_control.py` | 22 | Ob‘ekt darajasidagi ruxsat: id almashtirib begona ma’lumot olish (IDOR), kabinet izolyatsiyasi, post egaligi. |

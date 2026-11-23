@@ -10,7 +10,7 @@ const editing = ref<number | 'new' | null>(null)
 const error = ref('')
 const message = ref('')
 const saving = ref(false)
-const form = reactive({ name: '', description: '', scoped: false, hemisRole: '', permissions: {} as Record<string, string> })
+const form = reactive({ name: '', description: '', scoped: false, editAll: false, hemisRole: '', permissions: {} as Record<string, string> })
 const current = computed(() => roles.value.find(r => r.id === editing.value))
 const locked = computed(() => !!current.value?.system)
 const groups = [...new Set(SECTIONS.map(s => s.group))]
@@ -23,7 +23,7 @@ onMounted(load)
 function pick(r: RoleDoc | null) {
   error.value = ''
   editing.value = r ? r.id : 'new'
-  Object.assign(form, { name: r?.name ?? '', description: r?.description ?? '', scoped: r?.scoped ?? false, hemisRole: r?.hemisRole ?? '', permissions: { ...(r?.permissions ?? { dashboard: 'read' }) } })
+  Object.assign(form, { name: r?.name ?? '', description: r?.description ?? '', scoped: r?.scoped ?? false, editAll: r?.editAll ?? false, hemisRole: r?.hemisRole ?? '', permissions: { ...(r?.permissions ?? { dashboard: 'read' }) } })
 }
 
 function setLevel(key: string, level: string) {
@@ -37,7 +37,7 @@ async function save() {
   if (!form.name.trim()) { error.value = 'Rol nomi majburiy'; return }
   saving.value = true
   try {
-    const body = { name: form.name.trim(), description: form.description.trim(), scoped: form.scoped, hemisRole: form.hemisRole, permissions: form.permissions }
+    const body = { name: form.name.trim(), description: form.description.trim(), scoped: form.scoped, editAll: form.editAll, hemisRole: form.hemisRole, permissions: form.permissions }
     if (editing.value === 'new') await api.post('/roles', body)
     else await api.patch(`/roles/${editing.value}`, body)
     flash('Rol saqlandi')
@@ -92,7 +92,7 @@ const count = (r: RoleDoc) => Object.keys(r.permissions).length
           <div><label for="r-name" class="label">Nomi *</label><input id="r-name" v-model="form.name" class="field" required placeholder="Masalan: Dekan"></div>
           <div><label for="r-desc" class="label">Izoh</label><input id="r-desc" v-model="form.description" class="field" placeholder="Bu rol nima qiladi"></div>
         </div>
-        <p v-if="locked" class="rounded-xl bg-[#FEF3DC] px-3.5 py-2.5 text-sm text-[#8A5A00]">Tizim rolining bölimlari qat’iy — faqat nomi va izohini özgartirsa böladi.</p>
+        <p v-if="locked" class="rounded-xl bg-[#FEF3DC] px-3.5 py-2.5 text-sm text-[#8A5A00]">Superadmin rolining bölimlari qat’iy (aks holda hech kim kira olmay qolishi mümkin) — faqat nomi va izohini özgartirsa böladi.</p>
         <div v-for="g in groups" :key="g">
           <p class="mb-1.5 text-[11px] font-bold tracking-[0.14em] text-muted uppercase">{{ g }}</p>
           <div class="grid gap-1.5 sm:grid-cols-2">
@@ -115,6 +115,7 @@ const count = (r: RoleDoc) => Object.keys(r.permissions).length
           <p class="mt-1.5 text-xs leading-snug text-muted">Yoqilsa, shu lavozimdagi xodim HEMIS orqali kirganda hisob parolsiz o‘zi yaratiladi, rol va fakultet doirasi HEMIS bo‘yicha yangilanadi. Lavozim bog‘lanishi o‘chirilsa, avtomatik hisoblar yopiladi. Bir HEMIS lavozimi faqat bitta rolga bog‘lanadi.</p>
         </div>
         <label v-if="!locked" class="flex items-center gap-2.5 text-sm"><input v-model="form.scoped" type="checkbox" class="size-4">Faqat öz fakulteti/kafedrasi bilan çegaralansin (foydalanuvçida «qamrov» belgilanadi)</label>
+        <label v-if="!locked" class="flex items-center gap-2.5 text-sm"><input v-model="form.editAll" type="checkbox" class="size-4">Boshqalarning yangilik, e’lon va tadbirlarini ham tahrirlay va öçira olsin (belgilanmasa — faqat özi yozganini)</label>
         <p v-if="error" class="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-800">{{ error }}</p>
         <div class="flex justify-end gap-2.5">
           <button type="button" class="btn-ghost" @click="editing = null">Bekor qiliş</button>

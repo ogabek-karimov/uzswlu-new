@@ -3,7 +3,7 @@
 from django.test import Client, override_settings
 from apps.accounts.models import StaffSession, User
 from apps.structure.models import Department, StaffDocument
-from tests.support import HOST, Base, api, jwt_for
+from tests.support import HOST, Base, api, jwt_for, seed_faculty_role
 
 
 class ObjectLevelAccessTests(Base):
@@ -11,6 +11,7 @@ class ObjectLevelAccessTests(Base):
 
     def setUp(self):
         super().setUp()
+        seed_faculty_role()
         User.objects.create_user('fac_a', password='Pw-12345678!', role='faculty', name='A admin', scope='fa')
         User.objects.create_user('fac_none', password='Pw-12345678!', role='faculty', name='Doirasiz')
 
@@ -133,6 +134,7 @@ class HiddenStaffTests(Base):
 class PostOwnershipTests(Base):
     def setUp(self):
         super().setUp()
+        seed_faculty_role()
         from apps.content.models import Post
         self.pages = User.objects.create_user('pg', password='Pw-12345678!', role='pages', name='Pages')
         self.fac = User.objects.create_user('fc', password='Pw-12345678!', role='faculty', name='Fac', scope='fa')

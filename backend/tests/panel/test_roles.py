@@ -21,7 +21,7 @@ class RoleTests(PanelBase):
 
     def test_system_roles_seeded(self):
         slugs = {r['slug'] for r in self.j(self.client.get('/api/cms/roles?limit=50'))['docs']}
-        self.assertTrue({'superadmin', 'editor', 'faculty', 'pages', 'sdg'} <= slugs)
+        self.assertTrue({'superadmin', 'editor', 'pages', 'sdg'} <= slugs)
 
     def test_create_role_clean_permissions_and_assign(self):
         r = self.send('post', '/api/cms/roles', {'name': 'Tutor', 'permissions': {'news': 'write', 'settings': 'write', 'events': 'zzz'}})
@@ -67,19 +67,19 @@ class RoleTests(PanelBase):
         self.as_user(teacher)
         self.assertEqual(self.send('patch', f'/api/cms/posts/{other}', {'title': {'uz': 'Hack'}}).status_code, 403)
 
-    def test_cannot_delete_system_or_used_role(self):
+    def test_cannot_delete_superadmin_or_used_role(self):
         rid = {r['slug']: r['id'] for r in self.j(self.client.get('/api/cms/roles?limit=50'))['docs']}
-        self.assertEqual(self.client.delete(f"/api/cms/roles/{rid['editor']}").status_code, 403)
+        self.assertEqual(self.client.delete(f"/api/cms/roles/{rid['superadmin']}").status_code, 403)
         self.make_user('rektor', 'rektor1')
         self.assertEqual(self.client.delete(f"/api/cms/roles/{rid['rektor']}").status_code, 403)  # foydalanuvchisi bor
         self.assertEqual(self.client.delete(f"/api/cms/roles/{rid['kafedra-mudiri']}").status_code, 200)
 
-    def test_system_role_permissions_locked(self):
-        rid = {r['slug']: r['id'] for r in self.j(self.client.get('/api/cms/roles?limit=50'))['docs']}['sdg']
-        self.send('patch', f'/api/cms/roles/{rid}', {'permissions': {'news': 'write'}, 'name': 'BRM'})
+    def test_superadmin_role_permissions_locked(self):
+        rid = {r['slug']: r['id'] for r in self.j(self.client.get('/api/cms/roles?limit=50'))['docs']}['superadmin']
+        self.send('patch', f'/api/cms/roles/{rid}', {'permissions': {'news': 'read'}, 'name': 'Bosh admin'})
         doc = self.j(self.client.get(f'/api/cms/roles/{rid}'))
-        self.assertEqual(doc['name'], 'BRM')
-        self.assertNotIn('news', doc['permissions'])
+        self.assertEqual(doc['name'], 'Bosh admin')
+        self.assertEqual(doc['permissions']['news'], 'write')  # superadmin hamma narsaga yozadi — o'zgartirib bo'lmaydi
 
     def test_hemis_role_link_rules(self):
         r = self.send('post', '/api/cms/roles', {'name': 'Dekan 2', 'hemisRole': 'dean', 'permissions': {'news': 'write'}})
@@ -98,4 +98,56 @@ class NoPresetRolesTests(PanelBase):
     def test_only_system_roles_exist_after_migrations(self):
         """accounts.0009 Rektor/Dekan/Kafedra mudiri/O'qituvchi rollarini o'chiradi: tayyor holatda faqat tizim rollari qoladi."""
         slugs = {r['slug'] for r in self.j(self.client.get('/api/cms/roles?limit=50'))['docs']}
-        self.assertEqual(slugs, {'superadmin', 'editor', 'faculty', 'pages', 'sdg'})
+        self.assertEqual(slugs, {'superadmin', 'editor', 'pages', 'sdg'})
+
+
+class DefaultRolesEditableTests(PanelBase):
+    """editor, pages, sdg ham oddiy rol: superadmin ularning ruxsatlarini o'zgartiradi, olib tashlaydi yoki butunlay o'chiradi."""
+
+    def make_user(self, role, username):
+        u = User(username=username, name='Test', role=role, status='active')
+        u.set_password('Parol-12345!')
+        u.save()
+        return u
+
+    def as_user(self, user):
+        self.client.logout()
+        self.client.force_login(user)
+
+    def rid(self, slug):
+        return {r['slug']: r['id'] for r in self.j(self.client.get('/api/cms/roles?limit=50'))['docs']}[slug]
+
+    def test_default_roles_start_with_expected_sections(self):
+        docs = {r['slug']: r for r in self.j(self.client.get('/api/cms/roles?limit=50'))['docs']}
+        self.assertEqual(docs['sdg']['permissions'], {'sdg': 'write', 'media': 'write'})
+        self.assertTrue(docs['editor']['editAll'])
+        self.assertFalse(docs['pages']['editAll'])
+        self.assertFalse(docs['sdg']['system'])
+
+    def test_changing_editor_permissions_takes_effect(self):
+        ed = self.make_user('editor', 'ed_role')
+        self.as_user(ed)
+        self.assertEqual(self.send('post', '/api/cms/posts', {'type': 'news', 'title': {'uz': 'A'}, 'status': 'draft'}).status_code, 201)
+        self.client.logout()
+        self.client.force_login(self.superadmin)
+        self.assertEqual(self.send('patch', f"/api/cms/roles/{self.rid('editor')}", {'permissions': {'events': 'write'}}).status_code, 200)
+        self.as_user(ed)
+        self.assertEqual(self.send('post', '/api/cms/posts', {'type': 'news', 'title': {'uz': 'B'}, 'status': 'draft'}).status_code, 403)
+        self.assertEqual(self.send('post', '/api/cms/posts', {'type': 'events', 'title': {'uz': 'C'}, 'status': 'draft'}).status_code, 201)
+
+    def test_edit_all_flag_controls_foreign_posts(self):
+        self.client.force_login(self.superadmin)
+        other = self.j(self.send('post', '/api/cms/posts', {'type': 'news', 'title': {'uz': 'Boshqa'}, 'status': 'draft'}))['doc']['id']
+        ed = self.make_user('editor', 'ed_all')
+        self.as_user(ed)
+        self.assertEqual(self.send('patch', f'/api/cms/posts/{other}', {'title': {'uz': 'E'}}).status_code, 200)  # editor — hammasini
+        self.client.logout()
+        self.client.force_login(self.superadmin)
+        self.send('patch', f"/api/cms/roles/{self.rid('editor')}", {'editAll': False})
+        self.as_user(ed)
+        self.assertEqual(self.send('patch', f'/api/cms/posts/{other}', {'title': {'uz': 'F'}}).status_code, 403)  # belgi olindi — faqat o'ziniki
+
+    def test_default_role_can_be_deleted_when_unused(self):
+        self.assertEqual(self.client.delete(f"/api/cms/roles/{self.rid('sdg')}").status_code, 200)
+        self.make_user('pages', 'pg_used')
+        self.assertEqual(self.client.delete(f"/api/cms/roles/{self.rid('pages')}").status_code, 403)  # foydalanuvchisi bor

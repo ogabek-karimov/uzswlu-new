@@ -34,9 +34,9 @@ def role_in(request, roles) -> bool:
     u = request.user
     if not (u and u.is_authenticated and u.status != 'disabled'):
         return False
-    if u.role in roles:
-        return True
-    # superadmin yaratgan rollar: «hamma panel foydalanuvchisi» uchun ochiq so'rovlarga kiradi (superadmin-only emas)
+    if u.role == 'superadmin':
+        return 'superadmin' in roles
+    # boshqa rollar (editor, pages, sdg ham): «hamma panel foydalanuvchisi» uchun ochiq so'rovlarga kiradi (superadmin-only emas)
     return rl.is_custom(u) and set(roles) >= EDITORS and rl.has_any(u)
 
 

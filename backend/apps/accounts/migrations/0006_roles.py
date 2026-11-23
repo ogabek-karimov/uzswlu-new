@@ -1,6 +1,7 @@
 from django.db import migrations, models
 
-from apps.accounts.roles import PRESET_ROLES, SYSTEM_ROLES
+from apps.accounts.roles import BUILTIN as SYSTEM_ROLES  # 0006 vaqtidagi tizim rollari (keyin 0010 ularni oddiy rolga aylantiradi)
+from apps.accounts.roles import PRESET_ROLES
 
 
 def seed(apps, schema_editor):

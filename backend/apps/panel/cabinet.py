@@ -9,6 +9,7 @@ from django.core.cache import cache
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import NotAuthenticated, NotFound, PermissionDenied
 
+from apps.accounts import roles as rl
 from apps.accounts.models import User
 from apps.api.staff_auth import StaffSessionAuthentication
 from apps.hemis import access
@@ -71,8 +72,8 @@ class CabinetCollectionView(_Bridge, v.CollectionView):
             raise NotFound()  # kutubxonani ko'rish yo'q — faqat yuklash
         res = super().get(request, slug)
         if slug == 'posts' and res.status_code == 200:
-            # `own` — shu hisob tahrirlay/o'chira oladimi (Posts.can bilan bir xil: superadmin/editor — hammasi, qolganlar — faqat o'zi yozgan)
-            everything = request.user.role in ('superadmin', 'editor')
+            # `own` — shu hisob tahrirlay/o'chira oladimi (Posts.can bilan bir xil: superadmin va «boshqalarning postlarini ham tahrirlaydi» belgili rollar — hammasi, qolganlar — faqat o'zi yozgan)
+            everything = rl.edits_all_posts(request.user)
             for d in res.data.get('docs', []):
                 author = d.get('author')
                 d['own'] = everything or (author.get('id') if isinstance(author, dict) else author) == request.user.pk

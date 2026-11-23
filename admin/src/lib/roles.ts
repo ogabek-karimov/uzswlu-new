@@ -35,6 +35,7 @@ export type RoleDoc = {
   description?: string | null
   system: boolean
   scoped: boolean
+  editAll?: boolean
   hemisRole?: string | null
   permissions: Record<string, 'read' | 'write'>
   users: number

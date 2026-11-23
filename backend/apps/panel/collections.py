@@ -28,9 +28,9 @@ from apps.structure.models import AdmissionDate, AdmissionFaq, AdmissionYear, De
 from .models import LoginEvent
 
 SUPER = frozenset({'superadmin'})
-EDITORS = frozenset({'superadmin', 'editor', 'faculty', 'pages'})
+# Tayyor rollar (hujjat va tezkor tekshiruv uchun). Haqiqiy ruxsat — rolning bo'limlari (`Role.permissions`); faqat superadmin kodda qat'iy
+EDITORS = frozenset({'superadmin', 'editor', 'pages'})
 PAGES = frozenset({'superadmin', 'pages'})
-FACULTY = frozenset({'superadmin', 'faculty'})
 SDG = frozenset({'superadmin', 'sdg'})
 MEDIA_ROLES = EDITORS | {'sdg'}
 ALL = EDITORS | {'sdg'}
@@ -299,8 +299,8 @@ class Collection:
     def can(self, user, action: str, obj=None) -> bool:
         if not (user and user.is_authenticated and user.status != 'disabled'):
             return False
-        if user.role in self.access.get(action, ()):
-            return True
+        if user.role == 'superadmin' and 'superadmin' in self.access.get(action, ()):
+            return True  # faqat superadmin kodda qat'iy; qolgan rollar — bazadagi bo'limlari bo'yicha
         if not rl.is_custom(user):
             return False
         if action == 'read':
@@ -480,16 +480,16 @@ class Posts(Collection):
     prefetch = ('attachments__file', 'gallery__image')
     access = {'read': ALL, 'create': EDITORS, 'update': EDITORS, 'delete': EDITORS}
     rules = {
-        'update': '`faculty` va `pages` faqat **o‘zi yozgan** postni o‘zgartiradi; `superadmin` va `editor` — hammasini.',
-        'delete': '`faculty` va `pages` faqat **o‘zi yozgan** postni o‘chiradi; `superadmin` va `editor` — hammasini.',
+        'update': 'Rolda «boshqalarning postlarini ham tahrirlaydi» belgisi bo‘lmasa — faqat **o‘zi yozgan** postni o‘zgartiradi; `superadmin` va shu belgili rollar (tayyor holatda `editor`) — hammasini.',
+        'delete': 'Rolda «boshqalarning postlarini ham tahrirlaydi» belgisi bo‘lmasa — faqat **o‘zi yozgan** postni o‘chiradi; `superadmin` va shu belgili rollar (tayyor holatda `editor`) — hammasini.',
     }
 
     def can(self, user, action, obj=None):
         if not super().can(user, action, obj):
             return False
-        # Fakultet admini, sahifalar muharriri va superadmin yaratgan rollar faqat o'zi yozgan postni tahrirlaydi/o'chiradi;
-        # superadmin va kontent muharriri (editor) hamma postni boshqaradi.
-        if action in ('update', 'delete') and obj is not None and user.role not in ('superadmin', 'editor'):
+        # Rolda «boshqalarning postlarini ham tahrirlaydi» (`Role.edit_all`, tayyor holatda faqat editor'da) bo'lmasa — faqat o'zi yozgan postni
+        # tahrirlaydi/o'chiradi; superadmin va shu belgili rollar hamma postni boshqaradi.
+        if action in ('update', 'delete') and obj is not None and not rl.edits_all_posts(user):
             return obj.author_id == user.pk
         return True
 
@@ -935,7 +935,7 @@ class Faculties(Collection):
     default_sort = ['order', 'id']
     select_related = ('logo', 'cover')
     fields = {'mapUrl': 'map_url'}
-    access = {'read': ALL, 'create': SUPER, 'update': FACULTY, 'delete': SUPER}
+    access = {'read': ALL, 'create': SUPER, 'update': SUPER, 'delete': SUPER}
     rules = {'update': '`faculty` faqat **o‘z fakultetini** (`User.scope`) o‘zgartiradi; doirasi belgilanmagan bo‘lsa — hech narsani.'}
 
     def can(self, user, action, obj=None):
@@ -968,7 +968,7 @@ class Departments(Collection):
     default_sort = ['hemis_id']
     select_related = ('image',)
     fields = {'hemisId': 'hemis_id', 'faculty': 'faculty_slug'}
-    access = {'read': ALL, 'create': FACULTY, 'update': FACULTY, 'delete': SUPER}
+    access = {'read': ALL, 'create': SUPER, 'update': SUPER, 'delete': SUPER}
     rules = {
         'create': '`faculty` faqat **o‘z fakultetiga** kafedra qo‘sha oladi.',
         'update': '`faculty` faqat **o‘z fakultetidagi** kafedrani o‘zgartiradi.',
@@ -1195,8 +1195,8 @@ class Roles(Collection):
     default_sort = ['-system', 'name']
     access = {'read': SUPER, 'create': SUPER, 'update': SUPER, 'delete': SUPER}
     fields = {'createdAt': 'created_at', 'updatedAt': 'updated_at'}
-    rules = {'delete': 'Tizim roli yoki foydalanuvchisi bor rol o‘chirilmaydi.',
-             'update': 'Tizim rollarining (superadmin, editor, faculty, pages, sdg) bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi. «HEMIS roli» — shu lavozimdagi xodim HEMIS orqali kirganda hisob va shu rol avtomatik beriladi (tizim rollariga berilmaydi).'}
+    rules = {'delete': 'Superadmin roli yoki foydalanuvchisi bor rol o‘chirilmaydi (qolgan rollar, jumladan editor, pages, sdg — o‘chiriladi).',
+             'update': 'Superadmin rolining bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi; qolgan rollarning bo‘limlari, doirasi va «boshqalarning postlarini ham tahrirlaydi» belgisi o‘zgartiriladi. «HEMIS roli» — shu lavozimdagi xodim HEMIS orqali kirganda hisob va shu rol avtomatik beriladi (superadmin roliga berilmaydi).'}
 
     def can(self, user, action, obj=None):
         if not super().can(user, action, obj):
@@ -1220,7 +1220,7 @@ class Roles(Collection):
             users = User.objects.filter(role=r.slug).count()
         return {
             'id': r.pk, 'slug': r.slug, 'name': r.name, 'description': r.description or None, 'system': r.system, 'scoped': r.scoped,
-            'permissions': rl.permissions_of_role(r), 'users': users, 'hemisRole': r.hemis_role or None,
+            'permissions': rl.permissions_of_role(r), 'users': users, 'hemisRole': r.hemis_role or None, 'editAll': r.edit_all,
             'createdAt': dt(r.created_at), 'updatedAt': dt(r.updated_at), 'collection': 'roles',
         }
 
@@ -1239,6 +1239,8 @@ class Roles(Collection):
                 r.permissions = rl.clean_permissions(data['permissions'])
             if 'scoped' in data:
                 r.scoped = flag(data['scoped'])
+            if 'editAll' in data:
+                r.edit_all = flag(data['editAll'])
             if 'hemisRole' in data:
                 hr = str(data['hemisRole'] or '')
                 if hr and hr not in rl.HEMIS_ROLES:

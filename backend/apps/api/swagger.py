@@ -141,7 +141,7 @@ Har bir amalning tavsifida unga ruxsat etilgan rollar yozilgan. Xato shakli: `{"
 """
 
 # Tizim rollari; superadmin yaratgan rollar (`Role`) — qo'shimcha, bo'limlar bo'yicha ruxsat bilan
-ALL_ROLES = {'superadmin', 'editor', 'faculty', 'pages', 'sdg'}
+ALL_ROLES = {'superadmin', 'editor', 'pages', 'sdg'}  # tayyor rollar; ularning haqiqiy ruxsati bazadagi bo'limlariga qarab hisoblanadi
 LABELS = {
     'users': 'Foydalanuvchilar', 'media': 'Media fayllar', 'categories': 'Kategoriyalar', 'posts': 'Postlar',
     'slides': 'Bosh sahifa slaydlari', 'leaders': 'Rahbariyat', 'doc-categories': 'Hujjat toifalari', 'documents': 'Hujjatlar',

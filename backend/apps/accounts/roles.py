@@ -1,7 +1,8 @@
 """Rollar va menyu bo'limlari bo'yicha ruxsat.
 
-Tizim rollari (superadmin/editor/faculty/pages/sdg) kolleksiyalardagi qat'iy `access` to'plamlari bilan ishlashda davom etadi;
-superadmin yaratgan rollar esa `Role.permissions` bo'yicha: bo'lim -> 'read' | 'write'.
+Faqat `superadmin` tizim roli (hamma narsa, o'zgartirilmaydi va o'chirilmaydi — aks holda hech kim kira olmay qolishi mumkin).
+Qolgan barcha rollar (editor, pages, sdg ham) oddiy: `Role.permissions` bo'yicha — bo'lim -> 'read' | 'write'; superadmin ularni
+admin panelda o'zgartiradi yoki o'chiradi.
 Ma'lumotlarni O'QISH (ochiq sayt ma'lumotlari) har qanday faol rolga ruxsat; foydalanuvchilar, kirish tarixi, faollik, rollar — faqat superadmin.
 """
 from __future__ import annotations
@@ -41,15 +42,17 @@ POST_SECTIONS = ('news', 'announcements', 'events')
 PRIVATE = frozenset({'users', 'login-events', 'activity', 'roles'})
 
 W, R = 'write', 'read'
-# Tizim rollari: nom va bo'limlari (menyu shu ma'lumotdan quriladi; kolleksiyalardagi `access` bilan mos)
-SYSTEM_ROLES = {
+# Tayyor rollarning boshlang'ich holati (migratsiya 0006 va testlar shundan oladi; keyin ular bazada o'zgartiriladi)
+BUILTIN = {
     'superadmin': ('Superadmin', 'Hamma narsa', {k: W for k in SECTIONS}, False),
     'editor': ('Kontent muharriri', 'Yangiliklar, e’lonlar, tadbirlar', {'dashboard': W, 'news': W, 'announcements': W, 'events': W, 'media': W}, False),
     'faculty': ('Fakultet admini', 'O‘z fakulteti va kafedralari', {'dashboard': W, 'news': W, 'announcements': W, 'events': W, 'media': W, 'faculties': W, 'departments': W}, True),
     'pages': ('Sahifalar muharriri', 'Sahifalar, hujjatlar, video', {'dashboard': W, 'news': W, 'announcements': W, 'events': W, 'media': W, 'pages': W, 'quick-links': W, 'phones': W, 'rude-words': W, 'admission': W, 'units': W, 'documents': W, 'videos': W}, False),
     'sdg': ('BRM menejeri', 'Faqat BRM bo‘limi', {'sdg': W, 'media': W}, False),
 }
-# Tayyor namunalar (superadmin o'zgartira yoki o'chira oladi)
+# Tizim roli — faqat superadmin: ruxsatlari kodda qat'iy, o'chirilmaydi
+SYSTEM_ROLES = {'superadmin': BUILTIN['superadmin']}
+# Tayyor namunalar (accounts.0009 bazadan o'chirgan; testlar qayta yaratadi)
 PRESET_ROLES = {
     'rektor': ('Rektor', 'Universitet rahbari: hamma tuzilmani ko‘radi, yangilik va e’lon yozadi', {'dashboard': R, 'news': W, 'announcements': W, 'events': W, 'media': W, 'faculties': R, 'departments': R, 'leaders': R, 'staff': R}, False),
     'dekan': ('Dekan', 'O‘z fakulteti: yangilik, tadbir, fakultet va kafedralar', {'dashboard': R, 'news': W, 'announcements': W, 'events': W, 'media': W, 'faculties': W, 'departments': W, 'staff': R}, True),
@@ -78,7 +81,7 @@ def role_obj(user):
 
 
 def permissions_of_role(r) -> dict:
-    """Rol bo'limlari; tizim rollari uchun — qat'iy ro'yxat (kodda)."""
+    """Rol bo'limlari: superadmin — hammasi (kodda), qolganlari — bazadan (`Role.permissions`)."""
     if r.slug in SYSTEM_ROLES:
         return dict(SYSTEM_ROLES[r.slug][2])
     return dict(r.permissions) if isinstance(r.permissions, dict) else {}
@@ -87,15 +90,21 @@ def permissions_of_role(r) -> dict:
 def permissions_of(user) -> dict:
     if user.role == 'superadmin':
         return {k: W for k in SECTIONS}
-    if user.role in SYSTEM_ROLES:
-        return dict(SYSTEM_ROLES[user.role][2])
     r = role_obj(user)
     return permissions_of_role(r) if r else {}
 
 
 def is_custom(user) -> bool:
-    """Tizim rollaridan tashqari (superadmin yaratgan) rol."""
+    """Superadmindan boshqa har qanday rol: ruxsati bazadagi bo'limlari bo'yicha."""
     return user.role not in SYSTEM_ROLES
+
+
+def edits_all_posts(user) -> bool:
+    """Boshqalarning post/e'lon/tadbirlarini ham tahrirlay va o'chira oladimi (aks holda — faqat o'zi yozganini)."""
+    if user.role == 'superadmin':
+        return True
+    r = role_obj(user)
+    return bool(r and r.edit_all)
 
 
 def allows(user, section: str | None, action: str) -> bool:
@@ -127,8 +136,6 @@ HEMIS_ROLES = {'dean': 'Dekan', 'chair_head': 'Kafedra mudiri', 'teacher': 'O‘
 
 def is_scoped(user) -> bool:
     """Faqat o'z fakulteti doirasida ishlaydigan rol (User.scope)."""
-    if user.role == 'faculty':
-        return True
     r = role_obj(user) if is_custom(user) else None
     return bool(r and r.scoped)
 
