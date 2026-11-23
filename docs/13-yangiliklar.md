@@ -4,6 +4,7 @@ Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `C
 
 ## 2026-11-23
 
+- **Admin + backend (rollar ro‘yxati tozalandi):** Rektor, Dekan, Kafedra mudiri va O‘qituvchi namunaviy rollari `accounts.0009` migratsiyasi bilan o‘chiriladi (foydalanuvchisi bor rol saqlanadi); «Yangi rol» tugmasi qoldi. Rollar sahifasida har bir rol kartasiga tahrirlash belgisi qo‘shildi (sahifa faqat superadmin uchun). Tizim rollarining bo‘limlari avvalgidek kodda qat’iy. Testlar: `tests/panel/test_roles.py`. — COMMIT
 - **Sayt + backend (kabinetdan «Yangiliklar» menyusi ma’lumotlarini kiritish):** rolga bog‘langan xodim (dekan, kafedra mudiri…) saytdagi kabinetda yangilik, e’lon va tadbirni o‘zi qo‘shadi, tahrirlaydi, o‘chiradi va muqova surati yuklaydi — admin panelga o‘tmasdan. Ruxsatlar admin paneldagi bilan bir xil (`/api/me/cms/*` panel kodini ishlatadi). Profil menyusidagi «Mening bölimlarim» bo‘limlari saytdagi shu bo‘limga olib boradi (qolganlari — admin panelga). `apps/panel/cabinet.py`, `cabinet/Posts.vue`. Testlar: `tests/panel/test_cabinet_cms.py`. — `79bd60d`
 
 - **Sayt (Abituriyentlar → «Bo‘lim sahifasi»):** mega-menyudagi tugma (va bo‘lim nomi) Qabul sahifasiga (`/qabul`) olib borardi — boshidan (`e9c76c0`) shunday qo‘yilgan edi. Endi Universitet bo‘limidagi kabi matnli sahifa — «Nima uchun bu universitet» (chapda bo‘limning 15 ta sahifasi ro‘yxati). `pages.0026` (faqat havola hali Qabul bo‘lsa); admin → Sahifalar → «Abituriyentlar» guruhi → «Bo‘limning umumiy sahifasi»da o‘zgartiriladi.

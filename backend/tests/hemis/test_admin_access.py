@@ -3,6 +3,7 @@ from django.test import TestCase
 
 from apps.accounts.models import Role, StaffSession, User
 from apps.hemis import access
+from tests.support import seed_preset_roles
 
 DEAN, CHAIR, TEACHER = '8654', '7768', '7792'
 
@@ -13,7 +14,7 @@ def bearer(hemis_id):
 
 class AdminAccessTests(TestCase):
     def setUp(self):
-        # Migratsiyadagi tayyor rollar: dekan (doirali), oqituvchi
+        seed_preset_roles()  # dekan (doirali), oqituvchi — migratsiya ularni o'chiradi, sinov uchun qayta yaratiladi
         self.dekan = Role.objects.get(slug='dekan')
         self.oqituvchi = Role.objects.get(slug='oqituvchi')
 

@@ -19,6 +19,14 @@ HOST = {'HTTP_HOST': 'localhost'}
 PASSWORD = 'Pw-12345678!'
 
 
+def seed_preset_roles():
+    """Migratsiya (accounts.0009) tayyor maxsus rollarni o'chiradi; ularga tayanadigan testlar shu yordamchi bilan qayta yaratadi."""
+    from apps.accounts.models import Role
+    from apps.accounts.roles import PRESET_ROLES
+    for slug, (name, desc, perms, scoped) in PRESET_ROLES.items():
+        Role.objects.get_or_create(slug=slug, defaults={'name': name, 'description': desc, 'permissions': perms, 'scoped': scoped, 'system': False})
+
+
 def jwt_for(username: str, password: str = PASSWORD) -> dict:
     res = Client(**HOST).post('/api/cms/users/login', data=json.dumps({'username': username, 'password': password}),
                               content_type='application/json')

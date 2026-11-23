@@ -127,13 +127,16 @@ const count = (r: RoleDoc) => Object.keys(r.permissions).length
       <article v-for="r in roles" :key="r.id" class="card flex flex-col gap-2 p-4">
         <div class="flex items-start justify-between gap-2">
           <b class="text-base">{{ r.name }}</b>
-          <span v-if="r.system" class="rounded-full bg-[#F1F0F5] px-2 py-0.5 text-[11px] font-semibold text-muted">tizim</span>
-          <span v-else-if="r.hemisRole" class="rounded-full bg-mint/20 px-2 py-0.5 text-[11px] font-semibold">HEMIS: {{ HEMIS_ROLES.find(h => h.key === r.hemisRole)?.label }}</span>
+          <div class="flex shrink-0 items-center gap-1.5">
+            <span v-if="r.system" class="rounded-full bg-[#F1F0F5] px-2 py-0.5 text-[11px] font-semibold text-muted">tizim</span>
+            <span v-else-if="r.hemisRole" class="rounded-full bg-mint/20 px-2 py-0.5 text-[11px] font-semibold">HEMIS: {{ HEMIS_ROLES.find(h => h.key === r.hemisRole)?.label }}</span>
+            <!-- Rollar sahifasi faqat superadmin uçun (rollar — PRIVATE kolleksiya): tahrirlaş belgisi barça rollarda -->
+            <button type="button" class="grid size-8 place-items-center rounded-lg border border-line text-muted hover:border-brand-700 hover:text-brand-700" :aria-label="`${r.name} — tahrirlaş`" :title="'Tahrirlaş'" @click="pick(r)"><Icon name="edit" :size="14" /></button>
+          </div>
         </div>
         <p class="text-[13px] leading-snug text-muted">{{ r.description || '—' }}</p>
         <p class="text-xs text-muted">{{ count(r) }} ta bölim · {{ r.users }} foydalanuvçi<span v-if="r.scoped"> · çegaralangan</span></p>
         <div class="mt-auto flex gap-2 pt-2">
-          <button type="button" class="btn-ghost h-9" @click="pick(r)">{{ r.system ? 'Körish' : 'Tahrirlaş' }}</button>
           <button v-if="!r.system" type="button" class="btn-ghost h-9" :disabled="r.users > 0" :title="r.users ? 'Foydalanuvçisi bor rolni öçirib bölmaydi' : ''" @click="remove(r)">Öçirish</button>
         </div>
       </article>

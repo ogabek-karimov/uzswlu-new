@@ -1,6 +1,7 @@
 """Rollar: superadmin rol yaratadi, bo'limlar bo'yicha ruxsat beradi; foydalanuvchi faqat o'z bo'limlarini ko'radi va yozadi."""
 from apps.accounts.models import User
 from tests.panel.test_collections import PanelBase
+from tests.support import seed_preset_roles
 
 
 class RoleTests(PanelBase):
@@ -14,9 +15,13 @@ class RoleTests(PanelBase):
         self.client.logout()
         self.client.force_login(user)
 
-    def test_system_and_preset_roles_seeded(self):
+    def setUp(self):
+        super().setUp()
+        seed_preset_roles()  # tayyor maxsus rollar migratsiyada o'chiriladi (0009); bu testlar ularga tayanadi
+
+    def test_system_roles_seeded(self):
         slugs = {r['slug'] for r in self.j(self.client.get('/api/cms/roles?limit=50'))['docs']}
-        self.assertTrue({'superadmin', 'editor', 'faculty', 'pages', 'sdg', 'rektor', 'dekan', 'oqituvchi'} <= slugs)
+        self.assertTrue({'superadmin', 'editor', 'faculty', 'pages', 'sdg'} <= slugs)
 
     def test_create_role_clean_permissions_and_assign(self):
         r = self.send('post', '/api/cms/roles', {'name': 'Tutor', 'permissions': {'news': 'write', 'settings': 'write', 'events': 'zzz'}})
@@ -87,3 +92,10 @@ class RoleTests(PanelBase):
         sa = next(x for x in self.j(self.client.get('/api/cms/roles?limit=50'))['docs'] if x['slug'] == 'superadmin')
         self.send('patch', f'/api/cms/roles/{sa["id"]}', {'hemisRole': 'staff'})
         self.assertIsNone(self.j(self.client.get(f'/api/cms/roles/{sa["id"]}'))['hemisRole'])
+
+
+class NoPresetRolesTests(PanelBase):
+    def test_only_system_roles_exist_after_migrations(self):
+        """accounts.0009 Rektor/Dekan/Kafedra mudiri/O'qituvchi rollarini o'chiradi: tayyor holatda faqat tizim rollari qoladi."""
+        slugs = {r['slug'] for r in self.j(self.client.get('/api/cms/roles?limit=50'))['docs']}
+        self.assertEqual(slugs, {'superadmin', 'editor', 'faculty', 'pages', 'sdg'})

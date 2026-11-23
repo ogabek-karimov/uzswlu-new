@@ -3,6 +3,7 @@ from django.test import TestCase
 
 from apps.accounts.models import Role, StaffSession, User
 from apps.content.models import Post
+from tests.support import seed_preset_roles
 
 DEAN, TEACHER = '8654', '7792'
 POSTS = '/api/me/cms/posts'
@@ -18,6 +19,7 @@ def new(title='Sinov', type_='news', **extra):
 
 class CabinetCmsTests(TestCase):
     def setUp(self):
+        seed_preset_roles()
         Role.objects.filter(slug='dekan').update(hemis_role='dean')
         Role.objects.filter(slug='oqituvchi').update(hemis_role='teacher')
 
