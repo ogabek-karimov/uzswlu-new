@@ -1003,7 +1003,13 @@
     "fullscreen": "Full screen",
     "scroll": "Scroll to read",
     "viewer": "PDF viewer: {title}",
-    "files": "Files"
+    "files": "Files",
+    "pageOf": "Page {n} of {total}",
+    "pages": "PDF pages",
+    "prev": "Previous page",
+    "next": "Next page",
+    "loading": "Loading PDF…",
+    "error": "The PDF could not be displayed."
   },
   "homeContact": {
     "eyebrow": "Contact",

@@ -220,6 +220,13 @@ async function onAttach(e: Event) {
   form.attachments.push({ file: m, title: { uz: file.name.replace(/\.pdf$/i, '') }, meta: {}, display: 'open', height: 680 })
   ;(e.target as HTMLInputElement).value = ''
 }
+// «Saytda qanday körinadi» izohi — sahifalarda «Içi körinadi» PDF ko'rgiçda (varaqlar 1 2 3 …) oçiladi
+const PAGE_PDF_NOTE: Record<string, string> = {
+  embed: 'PDF sahifada oçilib turadi: birinçi varaq körinadi, ostida 1 2 3 … — bosilganda faqat varaq almaşadi. Telefonda ham işlaydi.',
+  open: 'Karta körinişida; bosilganda PDF yangi oynada oçiladi.',
+  download: 'Karta körinişida; bosilganda fayl yuklab olinadi.',
+  link: 'Matn ostida faqat nomi (havola); bosilganda PDF oçiladi.',
+}
 // Karta belgilari uçun tez tanlov (istalgan Lucide nomi ham bölaveradi)
 const ICONS = ['brain', 'chess-knight', 'puzzle', 'goal', 'target', 'volleyball', 'book-open-text', 'lightbulb', 'trophy', 'medal', 'music', 'palette', 'mic', 'camera', 'globe', 'heart-handshake', 'users-round', 'sparkles']
 const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
@@ -405,7 +412,10 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
 
           <section class="card flex flex-col gap-3 px-[22px] py-5">
             <div class="flex flex-wrap items-center justify-between gap-2">
-              <h3 class="text-base font-bold">PDF hujjatlar</h3>
+              <div>
+                <h3 class="text-base font-bold">PDF hujjatlar</h3>
+                <p class="mt-0.5 text-xs text-muted">Matndan keyin çiqadi. Har bir PDF uçun saytda qanday körinişini tanlang.</p>
+              </div>
               <span class="flex gap-1.5">
                 <button type="button" class="btn-ghost h-9! text-xs!" @click="attInput?.click()">+ PDF yuklaş</button>
                 <button type="button" class="btn-ghost h-9! text-xs!" @click="picker = true">Serverdan tanlaş</button>
@@ -413,7 +423,7 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
             </div>
             <input ref="attInput" type="file" accept="application/pdf" class="hidden" @change="onAttach">
             <MediaPicker :open="picker" kind="pdf" @close="picker = false" @pick="m => { form.attachments.push({ file: m, title: { uz: (m.filename ?? '').replace(/\.pdf$/i, '') }, meta: {}, display: 'open', height: 680 }); picker = false }" />
-            <p v-if="!form.attachments.length" class="text-sm text-muted">PDF yöq.</p>
+            <p v-if="!form.attachments.length" class="rounded-xl bg-canvas px-3.5 py-3 text-sm text-muted">PDF yöq. «+ PDF yuklaş» bilan qöşing — keyin uning ostida <b>«Saytda qanday körinadi»</b> tanlanadi (masalan, «Içi körinadi» — PDF sahifada oçilib turadi va 1 2 3 … bilan varaqlanadi).</p>
             <div v-for="(a, i) in form.attachments" :key="i" class="rounded-[14px] border border-line p-3.5">
               <div class="flex items-start gap-3">
                 <span aria-hidden="true" class="grid h-11 w-9 shrink-0 place-items-center rounded-md bg-[#FDECEA] text-[10px] font-extrabold text-[#B42318]">PDF</span>
@@ -426,13 +436,12 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
                 <button type="button" class="grid size-8 shrink-0 place-items-center rounded-lg text-subtle hover:bg-red-50 hover:text-red-700" aria-label="PDF ni olib taşlaş" @click="form.attachments.splice(i, 1)"><Icon name="trash" :size="14" /></button>
               </div>
               <div v-if="obj(a.file)" class="mt-3">
-                <div role="radiogroup" aria-label="Saytda körinişi" class="grid grid-cols-2 gap-1 rounded-xl bg-canvas p-1 sm:grid-cols-4">
+                <p class="mb-1.5 text-[13px] font-semibold">Saytda qanday körinadi:</p>
+                <div role="radiogroup" aria-label="Saytda qanday körinadi" class="grid grid-cols-2 gap-1 rounded-xl bg-canvas p-1 sm:grid-cols-4">
                   <button v-for="m in PDF_MODES" :key="m.value" type="button" role="radio" :aria-checked="a.display === m.value" class="min-h-9 rounded-[9px] px-1.5 text-xs font-semibold" :class="a.display === m.value ? 'bg-white text-ink shadow-sm' : 'text-muted'" @click="a.display = m.value">{{ m.label }}</button>
                 </div>
-                <div v-if="a.display === 'embed'" class="mt-2 flex flex-wrap items-center gap-1.5 text-xs text-muted">
-                  Ramka balandligi:
-                  <button v-for="h in [480, 680, 880]" :key="h" type="button" class="h-7 rounded-full px-2.5 font-semibold" :class="a.height === h ? 'bg-ink text-white' : 'border border-field bg-white'" :aria-pressed="a.height === h" @click="a.height = h">{{ h }} px</button>
-                </div>
+                <!-- Tanlangan körinişning izohi (sahifalar uçun) -->
+                <p class="mt-1.5 text-xs text-muted">{{ PAGE_PDF_NOTE[a.display] }}</p>
               </div>
             </div>
           </section>

@@ -1003,7 +1003,13 @@
     "fullscreen": "全屏查看",
     "scroll": "滚动阅读",
     "viewer": "PDF 查看：{title}",
-    "files": "附件"
+    "files": "附件",
+    "pageOf": "第 {n} 页，共 {total} 页",
+    "pages": "PDF 页码",
+    "prev": "上一页",
+    "next": "下一页",
+    "loading": "正在加载 PDF…",
+    "error": "无法显示 PDF。"
   },
   "homeContact": {
     "eyebrow": "联系",

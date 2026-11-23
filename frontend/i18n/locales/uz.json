@@ -1003,7 +1003,13 @@
     "fullscreen": "Töliq ekranda",
     "scroll": "Aylantirib öqing",
     "viewer": "PDF körinişi: {title}",
-    "files": "Fayllar"
+    "files": "Fayllar",
+    "pageOf": "{n}-varaq, jami {total}",
+    "pages": "PDF varaqlari",
+    "prev": "Oldingi varaq",
+    "next": "Keyingi varaq",
+    "loading": "PDF yuklanmoqda…",
+    "error": "PDF körsatib bölmadi."
   },
   "homeContact": {
     "eyebrow": "Aloqa",

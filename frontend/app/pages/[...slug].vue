@@ -39,6 +39,10 @@ const parts = computed(() => {
   return { before, after: after.join('') }
 })
 
+// Hujjatlar: «ichi ko'rinadi» PDF — ko'rgiçda; qolganlari — karta ko'rinişida
+const embedDocs = computed(() => (page.value?.attachments ?? []).filter(f => f.kind === 'pdf' && f.display === 'embed'))
+const listDocs = computed(() => (page.value?.attachments ?? []).filter(f => !(f.kind === 'pdf' && f.display === 'embed')))
+
 const { copied, share } = useShare()
 const feedback = ref<'yes' | 'no' | null>(null)
 const printPage = () => window.print()
@@ -181,8 +185,12 @@ useSeo({
 
         <!-- Biriktirilgan hujjatlar -->
         <!-- Hujjat: belgi, nomi, hajmi; «Köriş» (yangi oynada) va «Yuklab oliş» -->
-        <ul v-if="page.attachments.length" class="mt-12 flex flex-col gap-3">
-          <li v-for="file in page.attachments" :key="file.url" class="group flex flex-col gap-4 rounded-3xl border border-line bg-white p-4 transition duration-300 hover:border-accent-500 hover:shadow-[0_20px_44px_-32px_rgb(28_21_72/0.5)] sm:flex-row sm:items-center sm:p-5">
+        <!-- «Ichi ko'rinadi» PDF — sahifada ochilib turadi, ostida varaqlar (1 2 3 …) -->
+        <div v-for="file in embedDocs" :key="file.url" class="mt-12">
+          <PdfPager :url="file.url" :title="file.title" />
+        </div>
+        <ul v-if="listDocs.length" class="mt-12 flex flex-col gap-3">
+          <li v-for="file in listDocs" :key="file.url" class="group flex flex-col gap-4 rounded-3xl border border-line bg-white p-4 transition duration-300 hover:border-accent-500 hover:shadow-[0_20px_44px_-32px_rgb(28_21_72/0.5)] sm:flex-row sm:items-center sm:p-5">
             <span aria-hidden="true" class="relative grid size-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-red-50 to-red-100 text-red-600 transition-transform duration-300 group-hover:-rotate-6">
               <Icon :name="file.kind === 'pdf' ? 'lucide:file-text' : 'lucide:link'" class="size-7" />
               <span v-if="file.kind === 'pdf'" class="absolute -right-1.5 -bottom-1.5 rounded-md bg-red-600 px-1.5 py-0.5 text-[9px] font-extrabold tracking-wide text-white">PDF</span>
