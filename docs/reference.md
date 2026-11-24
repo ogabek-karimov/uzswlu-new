@@ -523,7 +523,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (403 ta test)
+### Backend testlari xaritasi (409 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -555,6 +555,8 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/panel/test_quick_links.py` | 7 |  |
 | `backend/tests/panel/test_roles.py` | 14 | Rollar: superadmin rol yaratadi, bo'limlar bo'yicha ruxsat beradi; foydalanuvchi faqat o'z bo'limlarini ko'radi va yozadi. |
 | `backend/tests/panel/test_spa_queries.py` | 4 | Admin SPA yuboradigan murakkab so'rovlar (`where[and][0][...]`, `like`, `not_in`, `exists`, `trash` ...): |
+| `backend/tests/panel/test_superadmin.py` | 4 | Oxirgi faol superadmin himoyasi va rol ruxsatlari o'zgarishining faollik jurnalidagi (bo'lim-ma-bo'lim) yozuvi. |
+| `backend/tests/panel/test_trash.py` | 2 | Savat: birinchi o'chirish — savatga, savatdagini o'chirish — butunlay (versiyalari bilan); ommaviy tozalash; jurnalda «purge». |
 | `backend/tests/panel/test_video_tour.py` | 6 |  |
 | `backend/tests/security/test_access_control.py` | 22 | Ob‘ekt darajasidagi ruxsat: id almashtirib begona ma’lumot olish (IDOR), kabinet izolyatsiyasi, post egaligi. |
 | `backend/tests/security/test_auth.py` | 22 | Kirish: JWT, parol almashganda bekor qilish, 2FA (TOTP). |

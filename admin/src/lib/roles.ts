@@ -40,3 +40,11 @@ export type RoleDoc = {
   permissions: Record<string, 'read' | 'write'>
   users: number
 }
+
+// Bo'lim → admin sahifasi (backend `roles.SECTION_PATHS` va AppSidebar bilan bir xil) — profildagi ruxsatlar ro'yxati havolalari
+export const SECTION_PATHS: Record<string, string> = {
+  dashboard: '/', news: '/postlar/news', announcements: '/postlar/announcements', events: '/postlar/events', pages: '/sahifalar',
+  'quick-links': '/tezkor-xizmatlar', phones: '/telefonlar', 'rude-words': '/haqoratli-sozlar', admission: '/qabul-yillari', units: '/bolimlar',
+  media: '/media', documents: '/hujjatlar', videos: '/video', faculties: '/fakultetlar', departments: '/kafedralar',
+  leaders: '/rahbariyat', staff: '/xodimlar', sdg: '/brm',
+}

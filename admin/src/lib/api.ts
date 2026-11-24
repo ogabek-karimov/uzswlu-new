@@ -136,6 +136,7 @@ export type User = {
   email?: string | null
   role: string
   roleName?: string
+  roleDescription?: string | null
   permissions?: Record<string, 'read' | 'write'>
   scoped?: boolean
   status?: 'active' | 'invited' | 'disabled'
@@ -146,6 +147,7 @@ export type User = {
   lockUntil?: string | null
   loginAttempts?: number
   twoFactorEnabled?: boolean
+  lastLogin?: string | null
   createdAt?: string
   updatedAt?: string
 }

@@ -3,15 +3,18 @@ import { computed, onMounted, ref, watch } from 'vue'
 import Icon from '@/components/Icon.vue'
 import { api, type Paginated } from '@/lib/api'
 import { dateTime, relative } from '@/lib/format'
+import { SECTIONS } from '@/lib/roles'
 
 type Entry = { id: number; userName: string; action: string; entity: string; entityId?: string; label?: string; changes?: Record<string, { before: unknown; after: unknown }>; ip?: string; createdAt: string }
 type Version = { id: number; updatedAt: string; version: { title?: { uz?: string }; status?: string; hidden?: boolean } }
 
 const VERB: Record<string, [string, string]> = {
   create: ['yaratdi', 'bg-brand-100 text-brand-800'], edit: ['tahrirladi', 'bg-brand-100 text-brand-800'], publish: ['naşr qildi', 'bg-[#DDFBF0] text-[#0B5A43]'],
-  hide: ['yaşirdi', 'bg-[#EEF0F6] text-[#3D4466]'], show: ['qayta körsatdi', 'bg-[#DDFBF0] text-[#0B5A43]'], delete: ['savatga taşladi', 'bg-red-50 text-red-800'],
+  hide: ['yaşirdi', 'bg-[#EEF0F6] text-[#3D4466]'], show: ['qayta körsatdi', 'bg-[#DDFBF0] text-[#0B5A43]'], delete: ['savatga taşladi', 'bg-red-50 text-red-800'], purge: ['butunlay öçirdi', 'bg-red-100 text-red-900'],
   restore: ['qaytardi', 'bg-[#FEF3DC] text-[#8A5A00]'], role: ['rol berdi', 'bg-[#FEF3DC] text-[#8A5A00]'], settings: ['sozlamalarni saqladi', 'bg-brand-100 text-brand-800'],
 }
+// Rol ruxsati o'zgarishi bo'lim-ma-bo'lim: «Ruxsat: Yangiliklar — körish → yozish»
+const LEVEL: Record<string, string> = { read: 'körish', write: 'yozish', '—': 'yöq' }
 const FIELD: Record<string, string> = { status: 'Holati', hidden: 'Saytda yaşirilgan', publishedAt: 'Naşr vaqti', sdg: 'BRM', type: 'Turi', role: 'Rol' }
 
 const kind = ref('all')
@@ -45,9 +48,10 @@ function fmt(key: string, v: unknown) {
   if (key === 'hidden') return v ? 'ha' : 'yöq'
   if (key === 'status') return v === 'published' ? 'naşr qilingan' : 'qoralama'
   if (key === 'publishedAt' && typeof v === 'string') return dateTime(v)
+  if (key.startsWith('permissions.')) return LEVEL[String(v)] ?? String(v)
   return String(v)
 }
-const label = (key: string) => FIELD[key] ?? (key.startsWith('title.') ? `Sarlavha (${key.slice(6).toUpperCase()})` : key.startsWith('body.') ? `Matn (${key.slice(5).toUpperCase()})` : key)
+const label = (key: string) => FIELD[key] ?? (key.startsWith('permissions.') ? `Ruxsat: ${SECTIONS.find(s => s.key === key.slice(12))?.label ?? key.slice(12)}` : key.startsWith('title.') ? `Sarlavha (${key.slice(6).toUpperCase()})` : key.startsWith('body.') ? `Matn (${key.slice(5).toUpperCase()})` : key)
 
 async function toggle(e: Entry) {
   if (open.value === e.id) { open.value = null; return }

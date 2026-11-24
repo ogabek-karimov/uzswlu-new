@@ -616,6 +616,23 @@
       "next": "Next",
       "needTitle": "The Uzbek title is required.",
       "error": "Could not save. Try again or check your role’s permissions."
+    },
+    "overviewProfile": {
+      "title": "Your profile",
+      "text": "How complete your staff page is: fill in the remaining items so students and partners can find you more easily.",
+      "done": "Your profile is complete — your staff page shows everything.",
+      "complete": "Profile {n}% complete",
+      "viewPage": "See how my page looks",
+      "role": "Your admin panel role",
+      "sections": "{n} sections, write access in {w}",
+      "steps": {
+        "photo": "Photo",
+        "about": "About",
+        "contacts": "Contacts",
+        "socials": "Social networks",
+        "science": "Research profiles",
+        "docs": "Documents"
+      }
     }
   },
   "page": {

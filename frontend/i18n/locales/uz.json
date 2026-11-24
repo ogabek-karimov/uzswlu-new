@@ -616,6 +616,23 @@
       "next": "Keyingi",
       "needTitle": "O‘zbekça sarlavha majburiy.",
       "error": "Saqlab bo‘lmadi. Qayta urinib ko‘ring yoki rolingizda ruxsat yo‘qligini tekşiring."
+    },
+    "overviewProfile": {
+      "title": "Profilingiz",
+      "text": "Staff sahifangiz qançalik töliq: qolgan bandlarni töldiring — talabalar va hamkorlar sizni osonroq topadi.",
+      "done": "Profilingiz töliq — Staff sahifangizda hamma ma’lumot çiqadi.",
+      "complete": "Profil {n}% töliq",
+      "viewPage": "Sahifamda qanday körinadi",
+      "role": "Admin paneldagi rolingiz",
+      "sections": "{n} ta bölim, {w} tasida yozish",
+      "steps": {
+        "photo": "Rasm",
+        "about": "Xodim haqida",
+        "contacts": "Aloqa",
+        "socials": "Ijtimoiy tarmoqlar",
+        "science": "Ilmiy profillar",
+        "docs": "Hujjatlar"
+      }
     }
   },
   "page": {

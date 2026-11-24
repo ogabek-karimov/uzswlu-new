@@ -228,10 +228,13 @@ const menuClass = 'flex items-center gap-3 rounded-[14px] px-3.5 py-3 font-mediu
         <CabinetTasks v-else-if="view === 'tasks'" />
         <CabinetPosts v-else-if="view === 'news'" :types="[...postTypes]" />
         <template v-else-if="view === 'profile'">
-        <CabinetAboutCard :about="cabinet.about" :text="person.about" :saving="saving" @save="about => patch({ about })" />
-        <CabinetLinksCard kind="contacts" :title="t('staff.profile.contact')" :person="person" @save="e => saveLinks('contacts', e)" />
-        <CabinetLinksCard kind="socials" :title="t('staff.profile.socials')" :person="person" @save="e => saveLinks('socials', e)" />
-        <CabinetLinksCard kind="science" :title="t('staff.profile.science')" :person="person" @save="e => saveLinks('science', e)" />
+          <CabinetProfileOverview :cabinet="cabinet" :admin="adminLink" />
+          <div id="about" class="scroll-mt-24"><CabinetAboutCard :about="cabinet.about" :text="person.about" :saving="saving" @save="about => patch({ about })" /></div>
+          <div class="grid gap-5 2xl:grid-cols-2">
+            <div id="contacts" class="scroll-mt-24"><CabinetLinksCard kind="contacts" :title="t('staff.profile.contact')" :person="person" @save="e => saveLinks('contacts', e)" /></div>
+            <div id="socials" class="scroll-mt-24"><CabinetLinksCard kind="socials" :title="t('staff.profile.socials')" :person="person" @save="e => saveLinks('socials', e)" /></div>
+          </div>
+          <div id="science" class="scroll-mt-24"><CabinetLinksCard kind="science" :title="t('staff.profile.science')" :person="person" @save="e => saveLinks('science', e)" /></div>
         </template>
         <CabinetDocuments v-else :documents="cabinet.documents" @toggle="toggleDoc" @open="s => (uploadSection = s)" />
       </div>

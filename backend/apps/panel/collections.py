@@ -338,6 +338,9 @@ class Collection:
     def action_for(self, before: dict, after: dict, changes: dict) -> str:
         return 'hide' if after.get('hidden') and 'hidden' in changes else 'show' if 'hidden' in changes else 'edit'
 
+    def before_delete(self, obj, request) -> None:
+        """O'chirishdan oldingi tekshiruv (ValidationError — 400 va sababi)."""
+
 
 # ─── Foydalanuvchilar ───────────────────────────────────────────────────────
 
@@ -367,6 +370,17 @@ class Users(Collection):
     def scope(self, request, qs):
         return qs if request.user.role == 'superadmin' else qs.filter(pk=request.user.pk)
 
+    @staticmethod
+    def is_last_superadmin(u) -> bool:
+        """Bu hisob yagona faol superadminmi (uni rolsiz qoldirish/yopish/o'chirish — panel egasiz qoladi)."""
+        if u.pk is None or u.role != 'superadmin' or u.status == 'disabled':
+            return False
+        return not User.objects.filter(role='superadmin').exclude(status='disabled').exclude(pk=u.pk).exists()
+
+    def before_delete(self, obj, request):
+        if self.is_last_superadmin(obj):
+            raise ValidationError('Bu yagona faol superadmin — o‘chirib bo‘lmaydi. Avval boshqa foydalanuvchiga superadmin rolini bering.')
+
     def label(self, obj):
         return obj.name or obj.username
 
@@ -375,7 +389,7 @@ class Users(Collection):
             'id': u.pk, 'name': u.name, 'username': u.username, 'email': u.email or None, 'role': u.role, 'status': u.status,
             'position': u.position or None, 'department': u.department or None, 'scope': u.scope or None,
             'hemisId': u.hemis_id or None, 'avatar': media_out(u.avatar, depth) if u.avatar_id else None,
-            'loginAttempts': u.login_attempts, 'lockUntil': dt(u.lock_until), 'twoFactorEnabled': u.totp_enabled,
+            'loginAttempts': u.login_attempts, 'lockUntil': dt(u.lock_until), 'twoFactorEnabled': u.totp_enabled, 'lastLogin': dt(u.last_login),
             'createdAt': dt(u.date_joined), 'updatedAt': dt(u.date_joined), 'collection': 'users',
         }
 
@@ -399,6 +413,7 @@ class Users(Collection):
 
     def write(self, u, data, request, creating):
         is_super = request.user.role == 'superadmin'
+        was_last_super = not creating and self.is_last_superadmin(User.objects.get(pk=u.pk))
         put(u, data, {'name': ('name', text), 'position': ('position', text), 'department': ('department', text)})
         if is_super:
             put(u, data, {
@@ -414,6 +429,9 @@ class Users(Collection):
                 if data['status'] not in dict(User.STATUSES):
                     raise ValidationError('Holat noto‘g‘ri')
                 u.status = data['status']
+            if was_last_super and (u.role != 'superadmin' or u.status == 'disabled'):
+                raise ValidationError('Bu yagona faol superadmin — rolini o‘zgartirib yoki hisobini yopib bo‘lmaydi (panel egasiz qoladi). '
+                                      'Avval boshqa foydalanuvchiga superadmin rolini bering.')
         if 'avatar' in data:
             u.avatar = media_ref(data['avatar'])
         if creating and not u.username:

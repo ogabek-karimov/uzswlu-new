@@ -145,6 +145,7 @@ def me_out(user) -> dict:
     role = rl.role_obj(user)
     data = REGISTRY['users'].out(user, 1)
     data['roleName'] = role.name if role else user.role
+    data['roleDescription'] = (role.description or None) if role else None
     data['permissions'] = rl.permissions_of(user)
     data['scoped'] = rl.is_scoped(user)
     return data

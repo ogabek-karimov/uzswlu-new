@@ -61,6 +61,12 @@ def diff(before: dict, after: dict) -> dict:
                     long = key in LONG
                     out[f'{key}.{lang}'] = {'before': '…' if long else short(b.get(lang) or ''), 'after': '…' if long else short(a.get(lang) or '')}
             continue
+        if key == 'permissions' and isinstance(a, dict) and isinstance(b, dict):
+            # Rol ruxsatlari bo'lim-ma-bo'lim: «permissions.news: read → write» (yo'q bo'lim — '—')
+            for sec in sorted(set(a) | set(b)):
+                if a.get(sec) != b.get(sec):
+                    out[f'{key}.{sec}'] = {'before': b.get(sec) or '—', 'after': a.get(sec) or '—'}
+            continue
         long = key in LONG or isinstance(a, (list, dict))
         out[key] = {'before': '…' if long else short(b), 'after': '…' if long else short(a)}
     return out
@@ -254,7 +260,10 @@ class CollectionView(PanelView):
 
 
 def delete_doc(coll: Collection, obj, request):
+    coll.before_delete(obj, request)
     label = coll.label(obj)
+    pk = obj.pk
+    action = 'delete'
     if coll.slug == 'posts' and obj.deleted_at is None:
         # Postlar avval savatga tushadi (qayta tiklash mumkin)
         obj.deleted_at = timezone.now()
@@ -267,10 +276,16 @@ def delete_doc(coll: Collection, obj, request):
             obj.file.storage.delete(path)
         obj.file.delete(save=False)
         obj.delete()
+    elif coll.slug == 'posts':
+        # Savatdagi post — butunlay o'chadi (ilova/galereya bilan); saqlangan holatlari (versiyalar) ham tozalanadi
+        Version.objects.filter(entity=coll.slug, entity_id=str(pk)).delete()
+        obj.delete()
+        action = 'purge'
     else:
         obj.delete()
-    log_activity(request, action='delete', entity=coll.entity or coll.slug, entity_id=obj.pk, label=label)
+    log_activity(request, action=action, entity=coll.entity or coll.slug, entity_id=pk, label=label)
     purge_site_cache(coll.tags)
+    obj.pk = pk  # butunlay o'chganda Django pk ni None qiladi — javobdagi `id` saqlansin
     return obj
 
 

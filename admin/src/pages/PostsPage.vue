@@ -81,7 +81,7 @@ async function bulk(data: Record<string, unknown>, done: string) {
 
 async function bulkTrash() {
   const ids = [...picked.value]
-  if (!ids.length || !confirm(`${ids.length} ta post savatga taşlansinmi? 30 kun içida qaytariş mumkin.`)) return
+  if (!ids.length || !confirm(`${ids.length} ta post savatga taşlansinmi? Savatdan qaytariş mumkin.`)) return
   await api.del('/posts', { where: { id: { in: ids.join(',') } } })
   flash('Savatga taşlandi')
   await load()
@@ -90,6 +90,27 @@ async function bulkTrash() {
 async function restore(p: Post) {
   await api.patch(`/posts/${p.id}`, { deletedAt: null }, { trash: 'true' })
   flash('Savatdan qaytarildi')
+  await load()
+}
+
+// Savat: butunlay öçiriş (qaytarib bölmaydi) — bitta, tanlanganlar yoki şu turdagi hammasi
+async function purge(where: Record<string, unknown>, n: number, done: string) {
+  if (!n || !confirm(`${n} ta post butunlay öçirilsinmi? Bu amalni qaytarib bölmaydi (rasm va fayllar media kutubxonada qoladi).`)) return
+  try {
+    const res = await api.del<{ docs: { id: number }[]; errors: { message: string }[] }>('/posts', { where, trash: 'true' })
+    flash(res.errors?.length ? `${res.docs.length} ta öçirildi, ${res.errors.length} tasiga ruxsat yöq` : done)
+  }
+  catch (e) { flash(e instanceof Error ? e.message : 'Öçirib bölmadi') }
+  picked.value = new Set()
+  await load()
+}
+const purgeOne = (p: Post) => purge({ id: { equals: p.id } }, 1, 'Butunlay öçirildi')
+const purgePicked = () => purge({ id: { in: [...picked.value].join(',') } }, picked.value.size, 'Tanlanganlar butunlay öçirildi')
+const emptyTrash = () => purge({ and: [{ type: { equals: type.value } }, { deletedAt: { exists: true } }] }, result.value?.totalDocs ?? 0, 'Savat tozalandi')
+async function restorePicked() {
+  await api.patch('/posts', { deletedAt: null }, { where: { id: { in: [...picked.value].join(',') } }, trash: 'true' })
+  flash('Savatdan qaytarildi')
+  picked.value = new Set()
   await load()
 }
 
@@ -145,11 +166,21 @@ const authorName = (p: Post) => (p.author && typeof p.author === 'object' ? p.au
 
       <div v-if="picked.size" class="mx-4 mb-3 flex flex-wrap items-center gap-2.5 rounded-xl bg-night px-3.5 py-2.5 text-sm text-white">
         <b class="mr-auto">{{ picked.size }} ta tanlandi</b>
+        <template v-if="filters.trash">
+          <button type="button" class="h-[34px] rounded-[9px] bg-mint px-3 text-[13px] font-bold text-night" @click="restorePicked">Qaytariş</button>
+          <button type="button" class="h-[34px] rounded-[9px] bg-red-600 px-3 text-[13px] font-bold text-white" @click="purgePicked">Butunlay öçiriş</button>
+        </template>
+        <template v-else>
         <button type="button" class="h-[34px] rounded-[9px] bg-mint px-3 text-[13px] font-bold text-night" @click="bulk({ status: 'published' }, 'Naşr qilindi')">Naşr qiliş</button>
         <button type="button" class="h-[34px] rounded-[9px] border border-white/25 px-3 text-[13px] font-semibold" @click="bulk({ status: 'draft' }, 'Qoralamaga ötkazildi')">Qoralamaga</button>
         <button type="button" class="h-[34px] rounded-[9px] border border-white/25 px-3 text-[13px] font-semibold" @click="bulk({ hidden: true }, 'Saytdan yaşirildi')">Saytdan yaşiriş</button>
         <button type="button" class="h-[34px] rounded-[9px] border border-white/25 px-3 text-[13px] font-semibold" @click="bulk({ hidden: false }, 'Saytda yana körinadi')">Qayta körsatiş</button>
         <button type="button" class="h-[34px] rounded-[9px] border border-white/25 px-3 text-[13px] font-semibold" @click="bulkTrash">Savatga</button>
+        </template>
+      </div>
+      <div v-if="filters.trash && result?.totalDocs" class="mx-4 mb-3 flex flex-wrap items-center justify-between gap-2.5 rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-800">
+        <span>Savatda {{ result.totalDocs }} ta post. Butunlay öçirilganini qaytarib bölmaydi.</span>
+        <button type="button" class="h-[34px] rounded-[9px] border border-red-300 bg-white px-3 text-[13px] font-semibold text-red-700 hover:bg-red-100" @click="emptyTrash">Savatni tozalaş</button>
       </div>
 
       <div class="relative overflow-x-auto">
@@ -212,6 +243,7 @@ const authorName = (p: Post) => (p.author && typeof p.author === 'object' ? p.au
               <td class="py-3 pr-4 pl-3 text-right whitespace-nowrap">
                 <template v-if="filters.trash">
                   <button type="button" class="btn-ghost h-8! px-3! text-xs!" @click="restore(p)">Qaytariş</button>
+                  <button type="button" class="ml-1 inline-grid size-8 place-items-center rounded-[9px] border border-line text-muted hover:border-red-600 hover:text-red-700" aria-label="Butunlay öçiriş" title="Butunlay öçiriş" @click="purgeOne(p)"><Icon name="trash" :size="15" /></button>
                 </template>
                 <template v-else>
                   <RouterLink :to="`/postlar/${p.type}/${p.id}`" class="inline-grid size-[34px] place-items-center rounded-[9px] border border-line text-muted hover:border-brand-700 hover:text-brand-700" aria-label="Tahrirlaş"><Icon name="edit" :size="15" /></RouterLink>

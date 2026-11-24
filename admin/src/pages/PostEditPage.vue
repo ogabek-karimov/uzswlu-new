@@ -60,6 +60,9 @@ const dirty = ref(false)
 let ready = false
 
 const meta = computed(() => POST_TYPES.find(t => t.value === form.type)!)
+// Rolga yozish ruxsati bor turlar (masalan, faqat yangiliklar) — qolganini tanlab bo'lmaydi (aks holda server «ruxsat yo'q» deydi)
+const types = computed(() => POST_TYPES.filter(t => auth.can(t.value, 'write') || t.value === form.type))
+if (!id.value && !auth.can(form.type, 'write')) form.type = POST_TYPES.find(t => auth.can(t.value, 'write'))?.value ?? form.type
 const fill = computed(() => Object.fromEntries(LANGS.map(l => [l.code, langFill(form, l.code)])) as Record<Lang, 0 | 0.5 | 1>)
 const customAt = computed(() => fromInputs(pub.date, pub.time))
 const isFuture = computed(() => when.value === 'custom' && !!customAt.value && new Date(customAt.value).getTime() > Date.now())
@@ -215,11 +218,11 @@ const siteLink = computed(() => (form.slug ? `${SITE_URL}${lang.value === 'uz' ?
     <div v-else class="flex flex-wrap items-start gap-5">
       <!-- Chap ustun: mazmun -->
       <div class="flex min-w-0 flex-[999_1_560px] flex-col gap-5">
-        <section class="card p-[22px]">
+        <section v-if="types.length > 1" class="card p-[22px]">
           <h2 class="text-base font-bold">Turi</h2>
           <div role="radiogroup" aria-label="Post turi" class="mt-3.5 grid gap-2.5 sm:grid-cols-3">
             <button
-              v-for="t in POST_TYPES" :key="t.value" type="button" role="radio" :aria-checked="form.type === t.value"
+              v-for="t in types" :key="t.value" type="button" role="radio" :aria-checked="form.type === t.value"
               class="flex min-h-16 items-center gap-3 rounded-[14px] px-3.5 py-3 text-left"
               :class="form.type === t.value ? 'border-2 border-brand-700 bg-brand-50' : 'border border-field bg-white'"
               @click="form.type = t.value"

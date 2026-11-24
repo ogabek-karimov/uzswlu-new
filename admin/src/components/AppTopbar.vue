@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { auth, initials, roleLabel } from '@/lib/auth'
 import Icon from './Icon.vue'
@@ -7,6 +7,8 @@ import Icon from './Icon.vue'
 defineEmits<{ menu: [] }>()
 const router = useRouter()
 const userOpen = ref(false)
+// «Yangi qo'shish» — rolga yozish ruxsati bor birinchi post turi (yangilik → e'lon → tadbir)
+const newType = computed(() => (['news', 'announcements', 'events'] as const).find(t => auth.can(t, 'write')))
 
 async function logout() {
   await auth.logout()
@@ -21,7 +23,7 @@ async function logout() {
     </button>
 
     <div class="ml-auto flex items-center gap-2.5">
-      <RouterLink v-if="auth.can('news', 'write')" to="/postlar/news/yangi" class="btn-primary h-[42px]">
+      <RouterLink v-if="newType" :to="`/postlar/${newType}/yangi`" class="btn-primary h-[42px]">
         <Icon name="plus" :size="16" />
         <span class="hidden sm:inline">Yangi qöşiş</span>
       </RouterLink>

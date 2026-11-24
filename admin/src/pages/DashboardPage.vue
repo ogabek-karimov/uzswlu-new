@@ -11,13 +11,18 @@ type Overview = {
   posts: { month: { news: number; announcements: number; events: number }; drafts: number; scheduled: number; hidden: number; total: number }
   recent: { id: number; type: 'news' | 'announcements' | 'events'; title: string; sdg: number; status: 'draft' | 'published'; hidden: boolean; publishedAt: string | null; author: string | null }[]
   logins?: { today: number; failed24h: number }
+  /** Faol superadminlar soni (faqat superadmin ko'radi) */
+  superadmins?: number
   activity?: { id: number; who: string; action: string; label: string; at: string }[]
 }
 
 const data = ref<Overview | null>(null)
 const error = ref('')
 const typeLabel = (t: string) => POST_TYPES.find(p => p.value === t)?.label ?? t
-const ACTIONS: Record<string, string> = { create: 'yaratdi', edit: 'tahrirladi', publish: 'naşr qildi', hide: 'yaşirdi', show: 'qayta körsatdi', delete: 'savatga taşladi', restore: 'qaytardi', role: 'rol berdi', settings: 'sozlamalarni saqladi' }
+const ACTIONS: Record<string, string> = { create: 'yaratdi', edit: 'tahrirladi', publish: 'naşr qildi', hide: 'yaşirdi', show: 'qayta körsatdi', delete: 'savatga taşladi', purge: 'butunlay öçirdi', restore: 'qaytardi', role: 'rol berdi', settings: 'sozlamalarni saqladi' }
+
+// Tez qo'shish tugmalari — faqat rolga yozish ruxsati bor turlar
+const writable = POST_TYPES.filter(t => auth.can(t.value, 'write'))
 
 const hour = new Date().getHours()
 const greeting = hour < 11 ? 'Xayrli tong' : hour < 18 ? 'Xayrli kun' : 'Xayrli keç'
@@ -36,13 +41,17 @@ onMounted(async () => {
         <p class="mt-1.5 flex items-center gap-2 text-[15px] text-muted"><span class="size-2 rounded-full bg-[#12B76A] shadow-[0_0_0_4px_rgba(18,183,106,0.15)]" />Sayt barqaror işlayapti</p>
       </div>
       <div class="flex flex-wrap gap-2.5">
-        <RouterLink v-for="t in POST_TYPES" :key="t.value" :to="`/postlar/${t.value}/yangi`" class="btn-ghost h-11">
+        <RouterLink v-for="t in writable" :key="t.value" :to="`/postlar/${t.value}/yangi`" class="btn-ghost h-11">
           <span class="grid size-6 place-items-center rounded-lg bg-brand-100 font-bold text-brand-700">+</span>{{ t.label }}
         </RouterLink>
       </div>
     </div>
 
     <p v-if="error" class="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-800">{{ error }}</p>
+    <p v-if="data?.superadmins === 1" role="status" class="rounded-xl bg-[#FEF3DC] px-4 py-3 text-sm leading-relaxed text-[#6B4600]">
+      <b>Faqat bitta faol superadmin bor.</b> Uning paroli yöqolsa yoki hisobi bloklansa, panelni hech kim boşqara olmaydi — işonçli ikkinçi xodimga ham superadmin rolini bering.
+      <RouterLink to="/foydalanuvchilar" class="font-semibold underline">Foydalanuvçilar →</RouterLink>
+    </p>
 
     <div v-if="data" class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <div class="card border-night! bg-night! p-5 text-white">

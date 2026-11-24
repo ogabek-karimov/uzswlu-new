@@ -16,6 +16,7 @@ from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.response import Response
 
 from apps.accounts import roles as rl
+from apps.accounts.models import User
 from apps.content.models import Post
 from apps.core.models import Activity, Media
 from apps.hemis import get_client
@@ -67,6 +68,8 @@ class OverviewView(PanelView):
             } for p in recent],
         }
         if request.user.role == 'superadmin':
+            # Bitta faol superadmin — paroli yo'qolsa panel egasiz qoladi: bosh panelda ogohlantirish
+            result['superadmins'] = User.objects.filter(role='superadmin').exclude(status='disabled').count()
             result['logins'] = {
                 'today': LoginEvent.objects.filter(result='success', created_at__gte=day_start).count(),
                 'failed24h': LoginEvent.objects.exclude(result='success').filter(created_at__gte=now - timedelta(days=1)).count(),

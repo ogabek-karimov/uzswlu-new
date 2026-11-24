@@ -41,7 +41,8 @@ Bir necha lavozimda ishlasa, eng yuqorisi olinadi: `dean` > `chair_head` > `teac
 - **Fakultet admini** (`faculty`) faqat `User.scope` dagi fakultet va uning kafedralarini o‘zgartiradi; boshqasi `403`; kafedrani boshqa fakultetga ko‘chira olmaydi. **`scope` bo‘sh fakultet admini hech narsani o‘zgartira olmaydi** (xavfsiz sukut) — yangi `faculty` foydalanuvchi yaratganda `scope` ni to‘ldirishni unutmang.
 - **Postlar**: `faculty` va `pages` faqat o‘zi yozganini tahrirlaydi/o‘chiradi/tiklaydi; `editor` va `superadmin` — hammasini.
 - **Foydalanuvchilar**: `superadmin`dan boshqalar faqat o‘zini ko‘radi va o‘zgartiradi; rolini oshira olmaydi.
-- **Xodim kabineti** (`/api/me*`): faqat sessiyadagi xodimning o‘z HEMIS ID'si; id URL'dan olinmaydi (IDOR yo‘q).
+- **Oxirgi faol superadmin** rolini o‘zgartirib, hisobini yopib yoki o‘chirib bo‘lmaydi (`400`: «yagona faol superadmin») — panel egasiz qolmasin. Bosh panelda faol superadmin bitta bo‘lsa ogohlantirish chiqadi: ishonchli ikkinchi xodimga ham superadmin bering. Kod: `collections.py: Users.is_last_superadmin`.
+
 
 ## Kirish turlari (kim qanday kiradi)
 
