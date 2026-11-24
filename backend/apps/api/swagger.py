@@ -147,7 +147,7 @@ LABELS = {
     'slides': 'Bosh sahifa slaydlari', 'leaders': 'Rahbariyat', 'doc-categories': 'Hujjat toifalari', 'documents': 'Hujjatlar',
     'video-categories': 'Video toifalari', 'videos': 'Videolar', 'quick-links': 'Tezkor xizmatlar', 'phones': 'Telefonlar ma’lumotnomasi', 'rude-words': 'Haqoratli so‘zlar', 'admission-years': 'Qabul yillari', 'unit-heads': 'Bo‘limlar', 'faculties': 'Fakultetlar', 'departments': 'Kafedralar',
     'staff-profiles': 'Xodim profillari', 'sdg-goals': 'BRM maqsadlari', 'pages': 'Sahifalar',
-    'login-events': 'Kirish tarixi', 'activity': 'Faollik jurnali', 'roles': 'Rollar',
+    'login-events': 'Kirish tarixi', 'activity': 'Faollik jurnali', 'roles': 'Rollar', 'applications': 'Xorijiy abituriyentlar arizalari',
     'settings': 'Sayt sozlamalari', 'symbols': 'Davlat ramzlari', 'video-page': 'Video sahifasi', 'sdg-page': 'BRM bosh sahifasi',
     'home-banner': 'Bayram banneri',
     'video-tour': 'Video tur',
@@ -160,11 +160,11 @@ ADMIN_TAG = {
     'slides': 'Admin: Tuzilma va bosh sahifa', 'leaders': 'Admin: Tuzilma va bosh sahifa', 'faculties': 'Admin: Tuzilma va bosh sahifa',
     'departments': 'Admin: Tuzilma va bosh sahifa', 'staff-profiles': 'Admin: Tuzilma va bosh sahifa', 'home-banner': 'Admin: Tuzilma va bosh sahifa', 'video-tour': 'Admin: Tuzilma va bosh sahifa',
     'sdg-goals': 'Admin: BRM', 'sdg-page': 'Admin: BRM',
-    'users': 'Admin: Foydalanuvchilar va jurnal', 'login-events': 'Admin: Foydalanuvchilar va jurnal', 'activity': 'Admin: Foydalanuvchilar va jurnal', 'roles': 'Admin: Foydalanuvchilar va jurnal',
+    'users': 'Admin: Foydalanuvchilar va jurnal', 'login-events': 'Admin: Foydalanuvchilar va jurnal', 'activity': 'Admin: Foydalanuvchilar va jurnal', 'roles': 'Admin: Foydalanuvchilar va jurnal', 'applications': 'Admin: Foydalanuvchilar va jurnal',
     'settings': 'Admin: Sozlamalar', 'symbols': 'Admin: Sozlamalar',
 }
 PUBLIC_TAG = {
-    '/home': 'Sayt: Umumiy', '/site': 'Sayt: Umumiy', '/search': 'Sayt: Umumiy', '/contact': 'Sayt: Umumiy', '/appeals': 'Sayt: Umumiy',
+    '/home': 'Sayt: Umumiy', '/site': 'Sayt: Umumiy', '/search': 'Sayt: Umumiy', '/contact': 'Sayt: Umumiy', '/appeals': 'Sayt: Umumiy', '/applications': 'Sayt: Umumiy',
     '/posts': 'Sayt: Postlar', '/posts/{type}/{slug}': 'Sayt: Postlar', '/events': 'Sayt: Postlar',
     '/pages/{slug}': 'Sayt: Tuzilma', '/faculties': 'Sayt: Tuzilma', '/faculties/{slug}': 'Sayt: Tuzilma', '/programs': 'Sayt: Tuzilma',
     '/admission': 'Sayt: Tuzilma', '/leadership': 'Sayt: Tuzilma', '/staff': 'Sayt: Xodimlar', '/staff/{id}': 'Sayt: Xodimlar',
@@ -172,6 +172,7 @@ PUBLIC_TAG = {
     '/sdg': 'Sayt: BRM', '/sdg/{n}': 'Sayt: BRM', '/hit': 'Sayt: Statistika',
 }
 EXTRA_SUMMARY = {
+    '/applications': 'Xorijiy abituriyent arizasi (multipart: maydonlar + passportFile, diplomaFile, photoFile — PDF/JPG/PNG ≤ 5 MB)',
     '/documents/{id}/file': 'Hujjat faylini yuklab olish (PDF manziliga yo‘naltiradi, yuklab olishlar sonini oshiradi)',
     '/hit': 'Statistika yozuvi (sendBeacon; hech qachon xato qaytarmaydi, doim 204)',
 }
