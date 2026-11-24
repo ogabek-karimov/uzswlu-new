@@ -146,7 +146,7 @@ const locked = (u: User) => !!u.lockUntil && new Date(u.lockUntil).getTime() > D
 
     <section class="card overflow-hidden">
       <div class="px-5 py-4"><h2 class="text-base font-bold">Adminlar <span class="font-medium text-subtle">· {{ users.length }}</span></h2></div>
-      <div class="overflow-x-auto">
+      <div class="relative overflow-x-auto">
         <table class="w-full min-w-[960px] border-collapse text-sm">
           <thead>
             <tr class="bg-[#FAF9FD] text-left text-xs text-muted">

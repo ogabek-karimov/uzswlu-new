@@ -129,14 +129,14 @@ const authorName = (p: Post) => (p.author && typeof p.author === 'object' ? p.au
           <Icon name="search" :size="15" />
           <input v-model="filters.q" aria-label="Sarlavha böyiça qidiriş" placeholder="Sarlavha böyiça qidiriş (4 tilda)…" class="min-w-0 flex-1 bg-transparent text-[13px] outline-none">
         </label>
-        <select v-model="filters.state" aria-label="Holati" class="field h-10! w-auto!">
+        <select v-model="filters.state" aria-label="Holati" class="field h-10! w-auto! max-w-full">
           <option value="">Barça holatlar</option>
           <option value="published">Naşr qilingan</option>
           <option value="draft">Qoralama</option>
           <option value="scheduled">Rejalaştirilgan</option>
           <option value="hidden">Yaşirilgan</option>
         </select>
-        <select v-model="filters.sdg" aria-label="BRM" class="field h-10! w-auto!">
+        <select v-model="filters.sdg" aria-label="BRM" class="field h-10! w-auto! max-w-full">
           <option value="">BRM: hammasi</option>
           <option value="0">BRMga kirmaydi</option>
           <option v-for="(n, i) in SDG_NAMES" :key="i" :value="String(i + 1)">BRM {{ i + 1 }} — {{ n }}</option>
@@ -152,7 +152,7 @@ const authorName = (p: Post) => (p.author && typeof p.author === 'object' ? p.au
         <button type="button" class="h-[34px] rounded-[9px] border border-white/25 px-3 text-[13px] font-semibold" @click="bulkTrash">Savatga</button>
       </div>
 
-      <div class="overflow-x-auto">
+      <div class="relative overflow-x-auto">
         <table class="w-full min-w-[1120px] border-collapse text-sm">
           <thead>
             <tr class="bg-[#FAF9FD] text-left text-xs text-muted">

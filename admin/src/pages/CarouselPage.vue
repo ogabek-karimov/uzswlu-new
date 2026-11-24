@@ -190,14 +190,14 @@ const LINKS = ['/qabul-20262027', '/yangiliklar', '/fakultetlar-va-kafedralar', 
           <input id="cr-link" v-model="form.link" class="field" list="cr-links" placeholder="/qabul-20262027 yoki https://…">
           <datalist id="cr-links"><option v-for="l in LINKS" :key="l" :value="l" /></datalist>
         </div>
-        <div class="grid grid-cols-2 gap-2.5">
-          <fieldset>
+        <div class="flex flex-wrap gap-2.5">
+          <fieldset class="min-w-0 flex-[1_1_200px]">
             <legend class="label">Körsatiş boşlanadi</legend>
-            <div class="flex gap-1.5"><input v-model="form.fromDate" type="date" class="field px-2!" aria-label="Boşlaniş sanasi"><input v-model="form.fromTime" type="time" class="field w-[92px]! shrink-0 px-2!" aria-label="Boşlaniş vaqti"></div>
+            <div class="flex gap-1.5"><input v-model="form.fromDate" type="date" class="field min-w-0 px-2!" aria-label="Boşlaniş sanasi"><input v-model="form.fromTime" type="time" class="field w-[92px]! shrink-0 px-2!" aria-label="Boşlaniş vaqti"></div>
           </fieldset>
-          <fieldset>
+          <fieldset class="min-w-0 flex-[1_1_200px]">
             <legend class="label">Tugaydi <span class="font-normal">(böş — muddatsiz)</span></legend>
-            <div class="flex gap-1.5"><input v-model="form.toDate" type="date" class="field px-2!" aria-label="Tugaş sanasi"><input v-model="form.toTime" type="time" class="field w-[92px]! shrink-0 px-2!" aria-label="Tugaş vaqti"></div>
+            <div class="flex gap-1.5"><input v-model="form.toDate" type="date" class="field min-w-0 px-2!" aria-label="Tugaş sanasi"><input v-model="form.toTime" type="time" class="field w-[92px]! shrink-0 px-2!" aria-label="Tugaş vaqti"></div>
           </fieldset>
         </div>
         <p v-if="error" class="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-800">{{ error }}</p>

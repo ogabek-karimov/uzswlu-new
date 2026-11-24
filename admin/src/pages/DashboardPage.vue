@@ -76,7 +76,7 @@ onMounted(async () => {
         </div>
         <RouterLink to="/postlar/news" class="text-sm font-semibold text-brand-700">Hammasi →</RouterLink>
       </div>
-      <div class="overflow-x-auto">
+      <div class="relative overflow-x-auto">
         <table class="w-full min-w-[860px] border-collapse text-sm">
           <thead>
             <tr class="bg-[#FAF9FD] text-left text-xs text-muted">

@@ -104,7 +104,7 @@ async function save() {
             <button v-for="t in ([['all', 'Hammasi'], ['done', 'Töldirilgan'], ['todo', 'Töldiriş kerak']] as const)" :key="t[0]" type="button" role="tab" :aria-selected="tab === t[0]" class="h-9 rounded-full px-3 text-xs font-semibold" :class="tab === t[0] ? 'bg-ink text-white' : 'border border-field text-[#3D3958]'" @click="tab = t[0]">{{ t[1] }} <span class="opacity-70">{{ counts[t[0]] }}</span></button>
           </div>
         </div>
-        <div class="overflow-x-auto">
+        <div class="relative overflow-x-auto">
           <table class="w-full min-w-[760px] border-collapse text-sm">
             <thead>
               <tr class="bg-[#FAF9FD] text-left text-xs text-muted">

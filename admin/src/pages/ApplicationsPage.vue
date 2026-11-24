@@ -97,7 +97,7 @@ async function exportXlsx() {
           <button v-for="t in [['all', 'Hammasi'], ...Object.entries(STATUS).map(([k, v]) => [k, v[0]])]" :key="t[0]" type="button" role="tab" :aria-selected="filters.status === t[0]" class="h-[34px] rounded-lg px-3 text-[13px] font-semibold" :class="filters.status === t[0] ? 'bg-white shadow-sm' : 'text-muted'" @click="filters.status = t[0] as typeof filters.status; page = 1">{{ t[1] }}</button>
         </div>
       </div>
-      <div class="overflow-x-auto">
+      <div class="relative overflow-x-auto">
         <table class="w-full min-w-[900px] border-collapse text-[13px]">
           <thead>
             <tr class="bg-[#FAF9FD] text-left text-xs text-muted">

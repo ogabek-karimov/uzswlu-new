@@ -135,7 +135,7 @@ const color = (id: string) => COLORS[Number(id) % COLORS.length]
             <option value="hidden">Saytda yaşirilgan</option>
           </select>
         </div>
-        <div class="overflow-x-auto">
+        <div class="relative overflow-x-auto">
           <table class="w-full min-w-[860px] border-collapse text-sm">
             <thead>
               <tr class="bg-[#FAF9FD] text-left text-xs text-muted">

@@ -252,7 +252,7 @@ async function saveCat() {
               <input v-model="q" aria-label="Hujjat qidiriş" placeholder="Hujjat qidiriş…" class="w-[180px] bg-transparent text-[13px] outline-none">
             </label>
           </div>
-          <div class="overflow-x-auto">
+          <div class="relative overflow-x-auto">
             <table class="w-full min-w-[900px] border-collapse text-sm">
               <thead>
                 <tr class="bg-[#FAF9FD] text-left text-xs text-muted">

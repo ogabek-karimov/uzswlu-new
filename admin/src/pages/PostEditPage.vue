@@ -299,9 +299,10 @@ const siteLink = computed(() => (form.slug ? `${SITE_URL}${lang.value === 'uz' ?
           <div role="radiogroup" aria-label="Qaçon naşr qilinadi" class="mt-3.5 grid grid-cols-2 gap-1 rounded-xl bg-canvas p-1">
             <button v-for="w in [['now', 'Hozir'], ['custom', 'Boşqa sana va vaqt']] as const" :key="w[0]" type="button" role="radio" :aria-checked="when === w[0]" class="h-[38px] rounded-[9px] text-[13px] font-semibold" :class="when === w[0] ? 'bg-white text-ink shadow-sm' : 'text-muted'" @click="when = w[0]">{{ w[1] }}</button>
           </div>
-          <div v-if="when === 'custom'" class="mt-3.5 grid grid-cols-[1fr_auto] gap-2.5">
-            <div><label for="p-date" class="label">Sana</label><input id="p-date" v-model="pub.date" type="date" class="field"></div>
-            <div><label for="p-time" class="label">Vaqt (24 soat)</label><input id="p-time" v-model="pub.time" type="time" step="60" class="field w-32!"></div>
+          <!-- Tor ekranda (telefon) vaqt maydoni sana ostiga tushadi — sahifada gorizontal aylantirish paydo bo'lmasin -->
+          <div v-if="when === 'custom'" class="mt-3.5 flex flex-wrap gap-2.5">
+            <div class="min-w-0 flex-[1_1_150px]"><label for="p-date" class="label">Sana</label><input id="p-date" v-model="pub.date" type="date" class="field"></div>
+            <div class="shrink-0"><label for="p-time" class="label">Vaqt (24 soat)</label><input id="p-time" v-model="pub.time" type="time" step="60" class="field w-32!"></div>
           </div>
           <p class="mt-3 rounded-[10px] px-3 py-2.5 text-[13px] leading-relaxed" :class="when === 'now' ? 'bg-canvas text-muted' : isFuture ? 'bg-[#FEF3DC] text-[#6B4600]' : 'bg-brand-50 text-brand-800'">
             <template v-if="when === 'now'">Naşr tugmasi bosilgan vaqt yoziladi (24 soatlik).</template>
