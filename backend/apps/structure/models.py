@@ -90,6 +90,11 @@ def appeal_path(instance, filename: str) -> str:
     return f"appeals/{timezone.now():%Y/%m}/{uuid.uuid4().hex}{os.path.splitext(filename)[1].lower()}"
 
 
+def application_path(instance, filename: str) -> str:
+    """Xorijiy abituriyent arizasi fayllari: yopiq saqlash, tasodifiy nom."""
+    return f"applications/{timezone.now():%Y/%m}/{uuid.uuid4().hex}{os.path.splitext(filename)[1].lower()}"
+
+
 def staff_doc_path(instance, filename: str) -> str:
     return f"cabinet/{instance.hemis_id}/{timezone.now():%Y%m}/{uuid.uuid4().hex[:12]}{os.path.splitext(filename)[1].lower()}"
 
@@ -333,4 +338,49 @@ class Appeal(models.Model):
         super().save(*args, **kwargs)
         if not self.number:
             self.number = f'VQ-{timezone.now().year}-{self.pk:05d}'
+            super().save(update_fields=['number'])
+
+
+class Application(models.Model):
+    """Xorijiy abituriyent arizasi («Xalqaro talabalar» → «Ariza şakli»). Fayllar yopiq (faqat superadmin yuklab oladi)."""
+
+    STATUSES = [('new', 'Yangi'), ('in_progress', 'Ko‘rib chiqilmoqda'), ('accepted', 'Qabul qilindi'), ('rejected', 'Rad etildi')]
+    GENDERS = [('male', 'Erkak'), ('female', 'Ayol')]
+    FORMS = [('day', 'Kunduzgi'), ('distance', 'Sirtqi'), ('evening', 'Kechki')]
+    DEGREES = [('bachelor', 'Bakalavriat'), ('master', 'Magistratura'), ('doctorate', 'Doktorantura')]
+    number = models.CharField('Raqami', max_length=20, blank=True, db_index=True)
+    last_name = models.CharField('Familiya', max_length=70)
+    first_name = models.CharField('Ism', max_length=60)
+    middle_name = models.CharField('Sharif', max_length=60, blank=True)
+    passport = models.CharField('Pasport seriyasi va raqami', max_length=20)
+    country = models.CharField('Mamlakat', max_length=80)
+    address = models.CharField('Doimiy yashash manzili', max_length=300)
+    gender = models.CharField('Jinsi', max_length=6, choices=GENDERS)
+    faculty = models.CharField('Fakultet', max_length=200)
+    study_form = models.CharField('Ta’lim shakli', max_length=10, choices=FORMS)
+    degree = models.CharField('Ta’lim darajasi', max_length=10, choices=DEGREES)
+    program = models.CharField('Ta’lim yo‘nalishi', max_length=300)
+    phone = models.CharField('Telefon', max_length=30)
+    email = models.EmailField('E-pochta')
+    passport_file = models.FileField('Pasport fayli', upload_to=application_path, storage=private_storage, max_length=300)
+    diploma_file = models.FileField('Sertifikat yoki diplom', upload_to=application_path, storage=private_storage, max_length=300)
+    photo_file = models.FileField('3x4 surat', upload_to=application_path, storage=private_storage, max_length=300)
+    lang = models.CharField('Sayt tili', max_length=2, default='uz')
+    status = models.CharField('Holati', max_length=12, choices=STATUSES, default='new', db_index=True)
+    note = models.TextField('Izoh (admin)', blank=True)
+    ip = models.CharField(max_length=45, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        verbose_name = 'Ariza'
+        verbose_name_plural = 'Arizalar'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.number} — {self.last_name} {self.first_name}'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.number:
+            self.number = f'AR-{timezone.now().year}-{self.pk:05d}'
             super().save(update_fields=['number'])

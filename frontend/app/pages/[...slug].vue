@@ -26,10 +26,12 @@ if (error.value || !page.value) {
 const { data: site } = await useSiteData()
 
 const path = computed(() => `/${slug.value}`)
-const group = computed(() => site.value?.menu.find(g => g.links.some(l => l.url === path.value)))
+// Menyuda yöq ichki sahifa — yon menyu va yöl ota sahifaniki (u faol körinadi)
+const navPath = computed(() => page.value?.parent?.url ?? path.value)
+const group = computed(() => site.value?.menu.find(g => g.links.some(l => l.url === navPath.value)))
 const siblings = computed(() => group.value?.links ?? [])
 const internal = computed(() => siblings.value.filter(l => !isExternal(l)))
-const index = computed(() => internal.value.findIndex(l => l.url === path.value))
+const index = computed(() => page.value?.parent ? -2 : internal.value.findIndex(l => l.url === path.value))
 const prev = computed(() => internal.value[index.value - 1])
 const next = computed(() => internal.value[index.value + 1])
 
@@ -56,7 +58,7 @@ useSeo({
 <template>
   <div v-if="page">
     <section class="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-      <PageBreadcrumbs :items="[...(group ? [{ label: group.title }] : []), { label: page.title }]" />
+      <PageBreadcrumbs :items="[...(group ? [{ label: group.title }] : []), ...(page.parent ? [{ label: page.parent.title, to: page.parent.url }] : []), { label: page.title }]" />
       <div class="mt-7 flex flex-wrap items-end justify-between gap-6 border-b border-line pb-9">
         <div class="max-w-[820px] min-w-0">
           <h1 class="mt-3.5 font-display text-[2.75rem] leading-[1.04] font-semibold tracking-tight text-ink sm:text-6xl lg:text-[64px]">{{ page.title }}</h1>
@@ -91,7 +93,8 @@ useSeo({
                 <span class="side-nav-dot" aria-hidden="true" />
                 <span class="min-w-0 flex-1">{{ link.title }}</span>
               </span>
-              <NavMenuLink v-else :link="link" class="side-nav-item group">
+              <!-- Ichki sahifada ota sahifa faol körinadi, lekin bosilsa — ota sahifaga qaytadi -->
+              <NavMenuLink v-else :link="link" class="side-nav-item group" :class="link.url === navPath && 'side-nav-active'" :aria-current="link.url === navPath ? 'true' : undefined">
                 <span class="side-nav-dot" aria-hidden="true" />
                 <span class="min-w-0 flex-1">{{ link.title }}</span>
                 <span v-if="link.file" class="self-center rounded bg-red-50 px-1.5 py-0.5 text-[10px] font-bold text-red-700 uppercase">{{ link.file }}</span>
@@ -186,9 +189,11 @@ useSeo({
         <!-- Biriktirilgan hujjatlar -->
         <!-- Hujjat: belgi, nomi, hajmi; «Köriş» (yangi oynada) va «Yuklab oliş» -->
         <!-- «Ichi ko'rinadi» PDF — sahifada ochilib turadi, ostida varaqlar (1 2 3 …) -->
-        <div v-for="file in embedDocs" :key="file.url" class="mt-12">
-          <PdfPager :url="file.url" :title="file.title" />
+        <!-- Bitta PDF — to'g'ridan-to'g'ri ko'rgiçda; bir neçta — hujjat tanlagiç (röyxat + bitta ko'rgiç) -->
+        <div v-if="embedDocs.length === 1" class="mt-12">
+          <PdfPager :url="embedDocs[0]!.url" :title="embedDocs[0]!.title" />
         </div>
+        <PdfDocs v-else-if="embedDocs.length > 1" :docs="embedDocs" class="mt-12" />
         <ul v-if="listDocs.length" class="mt-12 flex flex-col gap-3">
           <li v-for="file in listDocs" :key="file.url" class="group flex flex-col gap-4 rounded-3xl border border-line bg-white p-4 transition duration-300 hover:border-accent-500 hover:shadow-[0_20px_44px_-32px_rgb(28_21_72/0.5)] sm:flex-row sm:items-center sm:p-5">
             <span aria-hidden="true" class="relative grid size-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-red-50 to-red-100 text-red-600 transition-transform duration-300 group-hover:-rotate-6">
@@ -209,6 +214,12 @@ useSeo({
             </span>
           </li>
         </ul>
+
+        <!-- Xorijiy abituriyent arizasi (Xalqaro talabalar → Ariza şakli): ariza admin panelga tuşadi -->
+        <ApplicationForm v-if="page.slug === 'ariza-shakli'" class="mt-10" />
+
+        <!-- Ota sahifaning boşqa kartalari (masalan, Magistrlik dasturlari → Qabul nizomi, Qabul kvotasi …) -->
+        <PageShowcase v-if="page.parent?.cards.length" class="no-print" :data="{ n: 1, intro: null, stats: [], columns: [], outro: null, photos: [], cards: page.parent.cards }" />
 
         <!-- Fikr bildirish -->
         <div class="no-print mt-10 flex flex-wrap items-center justify-between gap-4 rounded-[20px] border border-line bg-white px-6 py-[22px]">

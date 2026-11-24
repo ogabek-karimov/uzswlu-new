@@ -36,6 +36,7 @@ export const router = createRouter({
         { path: 'xodimlar', name: 'staff', component: () => import('./pages/StaffPage.vue'), meta: { title: 'Xodimlar', section: 'staff' } },
         { path: 'brm', name: 'sdg', component: () => import('./pages/BrmPage.vue'), meta: { title: 'BRM', section: 'sdg' } },
         { path: 'sahifalar', name: 'pages', component: () => import('./pages/PagesPage.vue'), meta: { title: 'Sahifalar', section: 'pages' } },
+        { path: 'arizalar', name: 'applications', component: () => import('./pages/ApplicationsPage.vue'), meta: { title: 'Arizalar', superOnly: true } },
         { path: 'statistika', name: 'stats', component: () => import('./pages/StatsPage.vue'), meta: { title: 'Statistika', superOnly: true } },
         { path: ':rest(.*)*', redirect: '/' },
       ],

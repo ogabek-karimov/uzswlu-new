@@ -1082,5 +1082,59 @@
   },
   "callPop": {
     "label": "Biz bilan boğlaniş"
+  },
+  "slider": {
+    "label": "{n}-rasm, jami {total}",
+    "pages": "Rasmlar",
+    "open": "Rasmni kattalaştiriş"
+  },
+  "application": {
+    "title": "Ariza beriş",
+    "text": "Xorijiy abituriyentlar uçun onlayn ariza. Ariza universitetning Xalqaro hamkorlik bölimiga yuboriladi.",
+    "personal": "Şaxsiy ma’lumotlar",
+    "study": "Ta’lim",
+    "files": "Hujjatlar",
+    "lastName": "Familiya",
+    "firstName": "Ism",
+    "middleName": "Şarif",
+    "passport": "Pasport seriyasi va raqami",
+    "country": "Mamlakat",
+    "gender": "Jinsi",
+    "male": "Erkak",
+    "female": "Ayol",
+    "address": "Doimiy yaşaş manzili",
+    "phone": "Telefon raqami",
+    "email": "E-poçta",
+    "degree": "Ta’lim darajasi",
+    "studyForm": "Ta’lim şakli",
+    "faculty": "Fakultet",
+    "program": "Ta’lim yönalişi",
+    "programHint": "Yönaliş yoki ixtisoslik nomi",
+    "degreeFirst": "Avval ta’lim darajasini tanlang",
+    "choose": "Tanlang…",
+    "passportFile": "Pasport nusxasi",
+    "diplomaFile": "Sertifikat yoki diplom",
+    "photoFile": "3×4 surat",
+    "pick": "Faylni tanlang",
+    "fileHint": "PDF, JPG yoki PNG, har biri 5 MB gaça. Uçala fayl ham majburiy.",
+    "fileTooBig": "Fayl 5 MB dan katta",
+    "filesRequired": "Pasport, diplom (sertifikat) va surat fayllarini yuklang",
+    "consent": "Şaxsiy ma’lumotlarim arizani köriş uçun işlatilişiga roziman",
+    "submit": "Arizani yuboriş",
+    "sending": "Yuborilmoqda…",
+    "success": "Arizangiz qabul qilindi!",
+    "number": "Ariza raqami: {number}. Siz bilan e-poçta yoki telefon orqali boğlanişadi.",
+    "another": "Yana ariza yuboriş",
+    "error": "Ariza yuborilmadi. Ma’lumotlarni tekşirib, qayta urinib köring.",
+    "degrees": {
+      "bachelor": "Bakalavriat",
+      "master": "Magistratura",
+      "doctorate": "Doktorantura"
+    },
+    "forms": {
+      "day": "Kunduzgi",
+      "distance": "Sirtqi",
+      "evening": "Keçki"
+    }
   }
 }

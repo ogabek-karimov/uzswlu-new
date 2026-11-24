@@ -40,6 +40,7 @@ urlpatterns = [
     path('videos', v.VideosView.as_view()),
     path('contact', v.ContactView.as_view()),
     path('appeals', v.AppealView.as_view()),
+    path('applications', v.ApplicationView.as_view()),
     path('search', v.SearchView.as_view()),
     path('hit', v.HitView.as_view()),
 ]

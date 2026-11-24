@@ -193,6 +193,10 @@ export interface PageShowcase {
   outro: string | null
   /** Blok suratlari: url — katta, thumb — kichik nusxa */
   photos: { url: string; thumb: string; alt: string; width?: number | null; height?: number | null }[]
+  /** Suratlar slayderda (bittadan, ← 1 2 3 →) */
+  slider?: boolean
+  /** Havolali kartalar: rasm + nom, bosilsa sahifaga */
+  cards?: { title: string; url: string; photo: string | null }[]
 }
 
 export interface PageChild {
@@ -477,6 +481,7 @@ export interface ContentPage {
   title: string
   /** Sarlavha ostidagi qisqa kirish matni */
   lead?: string | null
+  parent?: { title: string; url: string; cards: { title: string; url: string; photo: string | null }[] } | null
   /** Raqamlar qatori (ixtiyoriy): [{ value: "23 168", label: "talaba" }] */
   facts: { value: string; label: string }[]
   /**

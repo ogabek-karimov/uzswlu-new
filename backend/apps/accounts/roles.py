@@ -39,7 +39,7 @@ SECTION_PATHS: dict[str, str] = {
 POST_SECTIONS = ('news', 'announcements', 'events')
 
 # Faqat superadmin: bu kolleksiyalarni o'qish ham yopiq
-PRIVATE = frozenset({'users', 'login-events', 'activity', 'roles'})
+PRIVATE = frozenset({'users', 'login-events', 'activity', 'roles', 'applications'})
 
 W, R = 'write', 'read'
 # Tayyor rollarning boshlang'ich holati (migratsiya 0006 va testlar shundan oladi; keyin ular bazada o'zgartiriladi)

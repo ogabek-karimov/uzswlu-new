@@ -1,0 +1,235 @@
+{
+ "qoshma-talim-dasturlari": {
+  "body": {
+   "uz": "<h2 style=\"text-align: center\">QÖŞMA TA'LIM DASTURLARI</h2><p>Kelajak yetakçilari uçun möljallangan nufuzli Qöşma Ta’lim Dasturimiz bilan ikki xalqaro diplomga ega böling va global sahnaga çiqing.</p><h3>Xalqaro qöşma dasturlar va bitiruvçilar muvaffaqiyati</h3><p>Biz xalqaro qöşma dasturlar orqali bakalavriat, magistratura va doktorantura bosqiçlarida talabalarni global muhitda muvaffaqiyatga tayyorlaymiz. Bitiruvçilar zamonaviy bozor talablariga mos, raqobatbardoş va yetakçi mutaxassislar bölib yetişadi. Dasturimiz xalqaro talab asosida tajribali ustozlar, fidokor jamoa va ikki universitet örtasidagi samarali hamkorlikka asoslanib, sizga hayotingizni özgartiruvçi noyob ta’lim tajribasini taqdim etadi.</p><p>[[kartalar-1]]</p><h3>Hamkor universitetlar (2024–2025 öquv yili)</h3><p>[[kartalar-2]]</p><h3>Dastur qanday işlaydi?</h3><p>[[kartalar-3]]</p>",
+   "ru": "<h2 style=\"text-align: center\">Совместные образовательные программы в УзГУМЯ</h2><p>С нашей престижной Совместной образовательной программой, предназначенной для лидеров будущего, получите два международных диплома и выйдите на глобальную арену.</p><h3>Международные совместные программы и успех выпускников</h3><p>Мы готовим студентов бакалавриата, магистратуры и докторантуры к успеху в глобальной среде через международные совместные программы. Выпускники становятся современными, конкурентоспособными и ведущими специалистами. Наша программа основана на международных требованиях, опыте квалифицированных преподавателей, преданной команде и эффективном сотрудничестве двух университетов, предоставляя вам уникальный образовательный опыт, способный изменить жизнь.</p><p>[[kartalar-1]]</p><h3>Партнерские университеты (2024–2025 учебный год)</h3><p>[[kartalar-2]]</p><h3>Как работает программа?</h3><p>[[kartalar-3]]</p>",
+   "en": "<h2 style=\"text-align: center\">JOINT EDUCATION PROGRAMS</h2><p>Step onto the global stage with our prestigious Joint Education Program designed for future leaders and earn two international diplomas.</p><h3>International joint programs and graduate success</h3><p>Through our joint international programs at undergraduate, master's, and doctoral levels, we prepare students to thrive in a global environment. Graduates become competitive and leading specialists who meet modern market demands. Our program offers a transformative educational experience built on international standards, experienced faculty, a dedicated team, and effective collaboration between two universities.</p><p>[[kartalar-1]]</p><h3>Partner Universities (Academic Year 2024–2025)</h3><p>[[kartalar-2]]</p><h3>How does the program work?</h3><p>[[kartalar-3]]</p>",
+   "zh": "<h2 style=\"text-align: center\">合作办学项目</h2><p>参加我们为未来领袖打造的知名合作办学项目，获得两个国际文凭，走向世界舞台。</p><h3>国际合作项目与毕业生的成功</h3><p>我们通过本科、硕士和博士阶段的国际合作项目，帮助学生在全球环境中取得成功。毕业生将成为符合现代市场需求、具有竞争力的一流专业人才。我们的项目以国际要求为基础，依托经验丰富的导师、敬业的团队以及两校之间的高效合作，为您带来改变人生的独特教育经历。</p><p>[[kartalar-1]]</p><h3>合作大学（2024—2025学年）</h3><p>[[kartalar-2]]</p><h3>项目如何运作</h3><p>[[kartalar-3]]</p>"
+  },
+  "showcase": {
+   "blocks": [
+    {
+     "intro": {},
+     "stats": {},
+     "outro": {},
+     "photos": [],
+     "columns": [
+      {
+       "title": {
+        "uz": "Qöşma Ta’lim Dasturidagi imkoniyatlar",
+        "ru": "Возможности в Совместной Образовательной Программе",
+        "en": "Opportunities in the Joint Education Program",
+        "zh": "合作办学项目的机会"
+       },
+       "icon": "sparkles",
+       "style": "checks",
+       "items": {
+        "uz": "Ikki nufuzli universitet diplomi\nXalqaro darajadagi ta’lim va tajriba\nYetuk xorijiy professorlar bilan öqiş\nGlobal mehnat bozorida raqobatbardoşlik\nŞaxsiy rivoj va professional ösiş imkoniyati",
+        "ru": "• Дипломы двух престижных университетов\n• Образование и опыт международного уровня\n• Обучение с ведущими зарубежными профессорами\n• Конкурентоспособность на глобальном рынке труда\n• Возможности для личностного и профессионального роста",
+        "en": "Two prestigious university diplomas\nInternational-level education and experience\nStudy with top foreign professors\nCompetitiveness in the global job market\nOpportunities for personal and professional growth",
+        "zh": "两所知名大学的文凭\n国际水平的教育与经历\n跟随优秀外籍教授学习\n在全球就业市场中的竞争力\n个人成长与职业发展机会"
+       }
+      },
+      {
+       "title": {
+        "uz": "Dastur afzalliklari",
+        "ru": "Преимущества программы",
+        "en": "Program Advantages",
+        "zh": "项目优势"
+       },
+       "icon": "award",
+       "style": "checks",
+       "items": {
+        "uz": "Xalqaro akkreditatsiyalangan öquv rejalari\nTaniqli professorlar va xalqaro darajadagi öqituvçilar\nDiplomlar köplab mamlakatlarda tan olinadi\nGlobal tadqiqot va keng karyera istiqbollari\nKöp madaniyatli, köp tilli professional tajriba",
+        "ru": "Учебные планы с международной аккредитацией\nИзвестные профессора и преподаватели международного уровня\nДипломы признаются во многих странах\nГлобальные исследования и широкие карьерные перспективы\nМногоязычный и мультикультурный профессиональный опыт",
+        "en": "Internationally accredited curricula\nRenowned professors and international faculty\nDiplomas recognized in many countries\nGlobal research and broad career prospects\nMulticultural and multilingual professional experience",
+        "zh": "国际认证的教学计划\n知名教授和国际化师资\n文凭在众多国家获得认可\n全球科研与广阔的职业前景\n多元文化、多语种的职业经历"
+       }
+      }
+     ]
+    },
+    {
+     "intro": {},
+     "stats": {},
+     "outro": {},
+     "photos": [],
+     "columns": [
+      {
+       "title": {
+        "uz": "Bakalavriat yönalişlari",
+        "ru": "Направления бакалавриата",
+        "en": "Undergraduate Programs",
+        "zh": "本科专业"
+       },
+       "icon": "graduation-cap",
+       "style": "numbers",
+       "items": {
+        "uz": "Filologiya va tillarni öqitiş (ingliz tili) (3+1) — Moskva Davlat Lingvistika Universiteti (Rossiya)\nTarjima nazariyasi va amaliyoti (ingliz tili) (2+2) — Minsk Davlat Lingvistika Universiteti (Belarus)\nFilologiya va tillarni öqitiş (xitoy tili) (2+2) — Dalian Politexnika Universiteti (Xitoy)",
+        "ru": "Филология и преподавание языкам (английский язык) (3+1) — Московский государственный лингвистический университет (Россия)\nТеория и практика перевода (английский язык) (2+2) — Минский государственный лингвистический университет (Беларусь)\nФилология и преподавание языкам (китайский язык) (2+2) — Дальянский технологический университет (Китай)",
+        "en": "Philology and Language Teaching (English) (3+1) — Moscow State Linguistic University (Russia)\nTranslation Theory and Practice (English) (2+2) — Minsk State Linguistic University (Belarus)\nPhilology and Language Teaching (Chinese) (2+2) — Dalian Polytechnic University (China)",
+        "zh": "语文学与语言教学（英语）（3+1） — 莫斯科国立语言大学（俄罗斯）\n翻译理论与实践（英语）（2+2） — 明斯克国立语言大学（白俄罗斯）\n语文学与语言教学（汉语）（2+2） — 大连理工大学（中国）"
+       }
+      },
+      {
+       "title": {
+        "uz": "Magistratura yönalişlari",
+        "ru": "Направления магистратуры",
+        "en": "Graduate Programs",
+        "zh": "硕士专业"
+       },
+       "icon": "book-open-text",
+       "style": "numbers",
+       "items": {
+        "uz": "Qiyosiy tilşunoslik, lingvistik tarjimaşunoslik (ingliz va rus tillari) (1+1) — Minsk Davlat Lingvistika Universiteti (Belarus)",
+        "ru": "Сравнительное языкознание, лингвистическое переводоведение (английский и русский языки) (1+1) — Минский государственный лингвистический университет (Беларусь)",
+        "en": "Comparative Linguistics and Translation Studies (English and Russian) (1+1) — Minsk State Linguistic University (Belarus)",
+        "zh": "比较语言学、语言翻译学（英语和俄语）（1+1） — 明斯克国立语言大学（白俄罗斯）"
+       }
+      },
+      {
+       "title": {
+        "uz": "Kutilayotgan hamkorlar",
+        "ru": "Ожидаемые партнеры",
+        "en": "Expected Partners",
+        "zh": "拟合作伙伴"
+       },
+       "icon": "globe",
+       "style": "numbers",
+       "items": {
+        "uz": "Yevropa universitetlari (Buyuk Britaniya, Germaniya, Ispaniya, Italiya)\nOsiyo universitetlari (Singapur, Yaponiya, Janubiy Koreya)",
+        "ru": "Европейские университеты (Великобритания, Германия, Испания, Италия)\nАзиатские университеты (Сингапур, Япония, Южная Корея)",
+        "en": "European Universities (UK, Germany, Spain, Italy)\nAsian Universities (Singapore, Japan, South Korea)",
+        "zh": "欧洲大学（英国、德国、西班牙、意大利）\n亚洲大学（新加坡、日本、韩国）"
+       }
+      }
+     ]
+    },
+    {
+     "intro": {},
+     "stats": {},
+     "outro": {},
+     "photos": [],
+     "columns": [
+      {
+       "title": {
+        "uz": "Dastur qanday işlaydi?",
+        "ru": "Как работает программа?",
+        "en": "How does the program work?",
+        "zh": "项目如何运作"
+       },
+       "icon": "calendar-days",
+       "style": "checks",
+       "items": {
+        "uz": "Talabalar 4 yil davomida ikki mamlakatda öqiş (2+2, 3+1 yoki 1+1 formatlar)\nDarslar ikki universitetning akademik standartlari asosida olib boriladi",
+        "ru": "Обучение в течение 4-х лет (бакалавриат) / 2-х лет (магистратура) в двух странах (форматы 2+2, 3+1 или 1+1)\nЗанятия проводятся на основе академических стандартов двух университетов",
+        "en": "Students study in two countries over 4 years (2+2, 3+1, or 1+1 formats)\nCourses follow academic standards of both universities",
+        "zh": "学生在两个国家学习4年（2+2、3+1或1+1模式）\n课程按照两所大学的学术标准开展"
+       }
+      },
+      {
+       "title": {
+        "uz": "Bitiruvçilar quyidagilarga ega böladilar",
+        "ru": "Выпускники получают",
+        "en": "Graduates will receive",
+        "zh": "毕业生将获得"
+       },
+       "icon": "trophy",
+       "style": "checks",
+       "items": {
+        "uz": "Ikki mamlakatdan ikkita bakalavr diplomi\nMagistratura bosqiçida ikkita diplom (2 yil davomida)\nPhD bosqiçida esa ikkita ilmiy malaka",
+        "ru": "Два диплома бакалавра из двух стран\nДва диплома магистра (в течение 2 лет)\nДве научные квалификации на уровне PhD",
+        "en": "Two bachelor's diplomas from two countries\nTwo diplomas at the master's level (2 years)\nDual academic qualifications at the PhD level",
+        "zh": "两个国家的两个学士学位\n硕士阶段的两个文凭（2年）\n博士阶段的两个学术资格"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "docs": [
+   {
+    "file": "17484184228990.pdf",
+    "title": {
+     "uz": "Qöşma dasturlar (özbek tilida)",
+     "ru": "Совместные программы (на узбекском)",
+     "en": "Joint programmes (in Uzbek)",
+     "zh": "合作办学项目（乌兹别克语）"
+    },
+    "meta": {},
+    "display": "embed"
+   },
+   {
+    "file": "17484184756365.pdf",
+    "title": {
+     "uz": "Qöşma dasturlar (rus tilida)",
+     "ru": "Совместные программы (на русском)",
+     "en": "Joint programmes (in Russian)",
+     "zh": "合作办学项目（俄语）"
+    },
+    "meta": {},
+    "display": "embed"
+   },
+   {
+    "file": "17484183509322.pdf",
+    "title": {
+     "uz": "Qöşma dasturlar (ingliz tilida)",
+     "ru": "Совместные программы (на английском)",
+     "en": "Joint programmes (in English)",
+     "zh": "合作办学项目（英语）"
+    },
+    "meta": {},
+    "display": "embed"
+   },
+   {
+    "file": "17520609026736.pdf",
+    "title": {
+     "uz": "Qöşma ta’lim dasturlarining qabul şartlari",
+     "ru": "Условия приёма на совместные образовательные программы",
+     "en": "Admission requirements for joint educational programmes",
+     "zh": "合作办学项目招生条件"
+    },
+    "meta": {},
+    "display": "embed"
+   }
+  ],
+  "cta": {
+   "cta_title": {
+    "uz": "Ikki diplom — bitta qaror",
+    "ru": "Два диплома — одно решение",
+    "en": "Two diplomas — one decision",
+    "zh": "一个决定，两个文凭"
+   },
+   "cta_text": {
+    "uz": "Qöşma ta’lim dasturiga ariza topşiring — onlayn şaklni töldiriş bir neça daqiqa oladi.",
+    "ru": "Подайте заявку на совместную образовательную программу — заполнение онлайн-формы займёт несколько минут.",
+    "en": "Apply for the joint education programme — the online form takes just a few minutes.",
+    "zh": "申请合作办学项目——填写在线表格只需几分钟。"
+   },
+   "cta_label": {
+    "uz": "Ariza topşiriş",
+    "ru": "Подать заявку",
+    "en": "Apply now",
+    "zh": "立即申请"
+   },
+   "cta_url": "https://forms.gle/3QR1zCPjxtt2p2g66"
+  }
+ },
+ "rektor-tabrigi": {
+  "body": {
+   "uz": "<p><strong>Qadrli Özbekiston davlat jahon tillari universiteti talabalari!</strong></p><p>Barçangizni bugungi 17-noyabr – Xalqaro talabalar kuni munosabati bilan çin dildan tabriklayman.</p><p>Talabalik umrning beğubor fasli, katta hayot sari qadam qöyiş ostonasi, ulkan orzu-umidlar davri. Avvalo ana şunday ulkan baxtga erişganingiz bilan siz azizlarni çin qalbimdan tabriklayman.</p><p>Vatan ravnaqi va taraqqiyoti uçun asosiy tayanç bölgan siz yoşlar jamiyatning muhim qatlami hisoblanasiz. Yuqori salohiyatli, ziyoli va bilimli yoşlar har jabhada biz uçun kuç-qudrat manbai bölib xizmat qiladi.</p><p>Bugun bizning universitetimiz qanday yutuqlarga etişgan bölsa, bunda siz aziz talabalarning örningiz beqiyos. Universitetimizda amalga oşirilayotgan islohotlar, taqdim etilayotgan imtiyozlarning hammasi siz azizlar uçun.</p><p>Bizning yagona maqsadimiz xalqimiz uçun tom maʼnoda xizmat qila oladigan kadrlarni tayyorlab berişdir. Bunda bizga sizlarning orzu-intilişlaringiz, ilğor ğoya va taşabbuslaringiz, azm-u şijoatingiz, iqtidoringiz kömak böladi.</p><p>Bugun Özbekiston davlat jahon tillari universiteti talabalari erişayotgan yutuqlardan har qança faxrlansa, maqtansa arziydi. Sizlarning “Şuhrat” medali, Zulfiya nomidagi Davlat mukofoti, “Kelajak bunyodkori” medali kabi davlat mukofotlari loyiq körilayotganingiz, Prezident va nomdor davlat stipendiyalariga sazovor bölayotganiz bilan faxrlanamiz. Bu kabi yutuqlaringiz bardavom bölsin.</p><p>Barçangizni talabalar kuni bilan yana bir bor qutlab, sihat-salomatlik, yangi yutuq va muvaffaqiyatlar tilayman.</p><p style=\"text-align: right\"><strong>Ilxomjon Tuxtasinov,</strong><br>Özbekiston davlat jahon tillari universiteti rektori, professor</p>",
+   "ru": "<p><strong>Дорогие студенты Узбекского государственного университета мировых языков!</strong></p><p>Сердечно поздравляю всех вас с 17 ноября — Международным днём студентов.</p><p>Студенчество — светлая пора жизни, порог большой жизни, время больших надежд и мечтаний. Прежде всего от всей души поздравляю вас с тем, что вам выпало это большое счастье.</p><p>Вы, молодёжь, — главная опора процветания и развития Родины, важнейшая часть общества. Талантливая, образованная и знающая молодёжь во всех сферах служит для нас источником силы и могущества.</p><p>Какими бы достижениями ни гордился сегодня наш университет, ваш вклад, дорогие студенты, в них неоценим. Все проводимые в университете реформы и предоставляемые льготы — для вас.</p><p>Наша единственная цель — подготовить кадры, способные по-настоящему служить нашему народу. В этом нам помогут ваши мечты и стремления, передовые идеи и инициативы, решимость и таланты.</p><p>Сегодня успехами студентов Узбекского государственного университета мировых языков можно по праву гордиться. Мы гордимся тем, что вы удостаиваетесь государственных наград — медали «Шухрат», Государственной премии имени Зульфии, медали «Келажак бунёдкори», — а также президентской и именных государственных стипендий. Пусть ваши успехи будут неизменными.</p><p>Ещё раз поздравляю всех вас с Днём студентов, желаю крепкого здоровья, новых достижений и успехов.</p><p style=\"text-align: right\"><strong>Ильхомжон Тухтасинов,</strong><br>ректор Узбекского государственного университета мировых языков, профессор</p>",
+   "en": "<p><strong>Dear students of Uzbekistan State World Languages University!</strong></p><p>I sincerely congratulate all of you on 17 November — International Students’ Day.</p><p>Student years are the brightest season of life, the threshold of a great life and a time of great hopes and dreams. First of all, I wholeheartedly congratulate you on this great happiness.</p><p>You, the young people, are the main pillar of the prosperity and development of our Motherland and a vital part of society. Talented, educated and knowledgeable youth are a source of strength for us in every field.</p><p>Whatever achievements our university is proud of today, your contribution, dear students, is invaluable. All the reforms carried out at the university and all the benefits provided are for you.</p><p>Our only goal is to train specialists who can truly serve our people. Your dreams and aspirations, advanced ideas and initiatives, determination and talents help us in this.</p><p>Today the achievements of the students of Uzbekistan State World Languages University are a true source of pride. We are proud that you are awarded state honours such as the “Shuhrat” medal, the Zulfiya State Prize and the “Kelajak bunyodkori” medal, as well as Presidential and named state scholarships. May your successes continue.</p><p>Once again I congratulate you all on Students’ Day and wish you good health, new achievements and success.</p><p style=\"text-align: right\"><strong>Ilkhomjon Tukhtasinov,</strong><br>Rector of Uzbekistan State World Languages University, Professor</p>",
+   "zh": "<p><strong>亲爱的乌兹别克斯坦国立世界语言大学的同学们！</strong></p><p>值此11月17日国际大学生节之际，我向大家致以衷心的祝贺。</p><p>大学时代是人生最美好的时光，是迈向广阔人生的门槛，是充满憧憬与梦想的年华。首先，我衷心祝贺大家拥有这份莫大的幸福。</p><p>你们青年是祖国繁荣发展的主要支柱，是社会的重要力量。才华横溢、学识渊博的青年在各个领域都是我们的力量源泉。</p><p>今天我们大学取得的每一项成就，都离不开同学们的宝贵贡献。大学推行的各项改革和提供的各种优惠，都是为了你们。</p><p>我们唯一的目标是培养能够真正为人民服务的人才。在这方面，你们的梦想与追求、先进的理念与倡议、坚定的决心与才华将助我们一臂之力。</p><p>如今，乌兹别克斯坦国立世界语言大学学生取得的成就值得我们骄傲。你们荣获“Shuhrat”勋章、祖尔菲娅国家奖、“Kelajak bunyodkori”勋章等国家荣誉，并获得总统奖学金和国家冠名奖学金，我们为此深感自豪。愿你们再接再厉，不断取得新的成就。</p><p>再次祝贺大家节日快乐，祝愿大家身体健康，取得新的成绩和成功。</p><p style=\"text-align: right\"><strong>伊利霍姆容·图赫塔西诺夫</strong><br>乌兹别克斯坦国立世界语言大学校长、教授</p>"
+  },
+  "show_rector": true
+ },
+ "hamkorlarimiz": {
+  "photo": "hamkorlar.jpg",
+  "alt": {
+   "uz": "Universitetning xalqaro hamkorlari",
+   "ru": "Международные партнёры университета",
+   "en": "International partners of the university",
+   "zh": "大学国际合作伙伴"
+  }
+ }
+}

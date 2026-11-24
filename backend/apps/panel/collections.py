@@ -23,7 +23,7 @@ from apps.content.quick_links import ICON_NAMES, valid_url
 from apps.core.fields import LANGS
 from apps.core.models import Activity, Media
 from apps.pages.models import Page, PageAttachment, PageFact, PageTimeline, SdgGoal, SdgGoalReport, SdgSection
-from apps.structure.models import AdmissionDate, AdmissionFaq, AdmissionYear, Department, Faculty, PhoneEntry, Program, RudeWord, StaffProfile
+from apps.structure.models import Application, AdmissionDate, AdmissionFaq, AdmissionYear, Department, Faculty, PhoneEntry, Program, RudeWord, StaffProfile
 
 from .models import LoginEvent
 
@@ -218,12 +218,15 @@ def showcase(v):
                     'style': 'checks' if c.get('style') == 'checks' else 'numbers', 'items': lang(c.get('items'), 6000)}
                    for c in (b.get('columns') or [])[:20] if isinstance(c, dict)]
         photos = []
-        for x in (b.get('photos') or [])[:12]:
+        for x in (b.get('photos') or [])[:40]:
             m = media_ref(x)  # yo'q fayl — xato
             if m and m.pk not in photos:
                 photos.append(m.pk)
         out.append({'intro': lang(b.get('intro'), 2000), 'stats': lang(b.get('stats'), 1000), 'columns': columns,
-                    'outro': lang(b.get('outro'), 2000), 'photos': photos})
+                    'outro': lang(b.get('outro'), 2000), 'photos': photos, 'slider': bool(b.get('slider')),
+                    'cards': [{'title': lang(c.get('title'), 200), 'url': str(c.get('url') or '').strip()[:500],
+                               'photo': (media_ref(c.get('photo')).pk if ref_id(c.get('photo')) else None)}
+                              for c in (b.get('cards') or [])[:30] if isinstance(c, dict)]})
     return {'blocks': out}
 
 
@@ -232,8 +235,10 @@ def showcase_admin_out(v):
     if not isinstance(v, dict) or not isinstance(v.get('blocks'), list):
         return v or {}
     ids = {x for b in v['blocks'] if isinstance(b, dict) for x in (b.get('photos') or []) if isinstance(x, int)}
+    ids |= {c.get('photo') for b in v['blocks'] if isinstance(b, dict) for c in (b.get('cards') or []) if isinstance(c, dict) and isinstance(c.get('photo'), int)}
     media = {m.pk: m for m in Media.objects.filter(pk__in=ids)} if ids else {}
-    return {'blocks': [{**b, 'photos': [media_out(media[x]) for x in (b.get('photos') or []) if x in media]}
+    return {'blocks': [{**b, 'photos': [media_out(media[x]) for x in (b.get('photos') or []) if x in media],
+                        'cards': [{**c, 'photo': media_out(media[c['photo']]) if c.get('photo') in media else None} for c in (b.get('cards') or []) if isinstance(c, dict)]}
                        for b in v['blocks'] if isinstance(b, dict)]}
 
 
@@ -932,6 +937,37 @@ class RudeWords(Collection):
             raise ValidationError('Bu so‘z ro‘yxatda allaqachon bor')
 
 
+class Applications(Collection):
+    """Xorijiy abituriyentlar arizalari (saytdagi «Ariza şakli»). Pasport ma'lumotlari bor — faqat superadmin.
+    Fayllar: `GET /api/cms/private/<name>` (yopiq, faqat yuklab olinadi)."""
+    slug = 'applications'
+    model = Application
+    default_sort = ['-created_at']
+    access = {'read': SUPER, 'update': SUPER, 'delete': SUPER}
+    fields = {'createdAt': 'created_at', 'lastName': 'last_name', 'firstName': 'first_name', 'studyForm': 'study_form'}
+    rules = {'update': 'Faqat `status` (new / in_progress / accepted / rejected) va `note` o‘zgaradi.'}
+
+    def label(self, a):
+        return str(a)
+
+    def out(self, a, depth):
+        return {
+            'id': a.pk, 'number': a.number, 'lastName': a.last_name, 'firstName': a.first_name, 'middleName': a.middle_name or None,
+            'passport': a.passport, 'country': a.country, 'address': a.address, 'gender': a.gender, 'faculty': a.faculty,
+            'studyForm': a.study_form, 'degree': a.degree, 'program': a.program, 'phone': a.phone, 'email': a.email, 'lang': a.lang,
+            'files': {k: getattr(a, k).name or None for k in ('passport_file', 'diploma_file', 'photo_file')},
+            'status': a.status, 'note': a.note or '', 'ip': a.ip or None, 'createdAt': dt(a.created_at), 'updatedAt': dt(a.created_at),
+        }
+
+    def write(self, a, data, request, creating):
+        if creating:
+            raise ValidationError('Arizalar faqat saytdan keladi')
+        put(a, data, {'status': ('status', text), 'note': ('note', text)})
+        if a.status not in dict(Application.STATUSES):
+            raise ValidationError('Holat: new, in_progress, accepted yoki rejected')
+        a.note = (a.note or '')[:2000]
+
+
 # ─── Tuzilma ────────────────────────────────────────────────────────────────
 
 class Faculties(Collection):
@@ -1259,5 +1295,5 @@ class Roles(Collection):
 
 REGISTRY: dict[str, Collection] = {c.slug: c for c in (
     Users(), Medias(), Categories(), Posts(), Slides(), Leaders(), DocCategories(), Documents(), VideoCategories(), Videos(), QuickLinks(), Phones(), RudeWords(), AdmissionYears(), UnitHeads(),
-    Faculties(), Departments(), StaffProfiles(), SdgGoals(), Pages(), LoginEvents(), Activities(), Roles(),
+    Faculties(), Departments(), StaffProfiles(), SdgGoals(), Pages(), LoginEvents(), Activities(), Roles(), Applications(),
 )}

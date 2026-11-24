@@ -1082,5 +1082,59 @@
   },
   "callPop": {
     "label": "Contact us"
+  },
+  "slider": {
+    "label": "Image {n} of {total}",
+    "pages": "Images",
+    "open": "Enlarge image"
+  },
+  "application": {
+    "title": "Apply now",
+    "text": "Online application for international applicants. Your application is sent to the university’s International Cooperation Department.",
+    "personal": "Personal details",
+    "study": "Studies",
+    "files": "Documents",
+    "lastName": "Last name",
+    "firstName": "First name",
+    "middleName": "Middle name",
+    "passport": "Passport number",
+    "country": "Country",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "address": "Permanent address",
+    "phone": "Phone number",
+    "email": "E-mail",
+    "degree": "Degree level",
+    "studyForm": "Form of study",
+    "faculty": "Faculty",
+    "program": "Programme",
+    "programHint": "Programme or specialty name",
+    "degreeFirst": "Choose the degree level first",
+    "choose": "Choose…",
+    "passportFile": "Passport copy",
+    "diplomaFile": "Certificate or diploma",
+    "photoFile": "3×4 photo",
+    "pick": "Choose file",
+    "fileHint": "PDF, JPG or PNG, up to 5 MB each. All three files are required.",
+    "fileTooBig": "File is larger than 5 MB",
+    "filesRequired": "Please upload your passport, diploma (certificate) and photo",
+    "consent": "I agree to the use of my personal data to review my application",
+    "submit": "Submit application",
+    "sending": "Sending…",
+    "success": "Your application has been received!",
+    "number": "Application number: {number}. We will contact you by e-mail or phone.",
+    "another": "Submit another",
+    "error": "The application was not sent. Please check your details and try again.",
+    "degrees": {
+      "bachelor": "Bachelor’s",
+      "master": "Master’s",
+      "doctorate": "Doctorate"
+    },
+    "forms": {
+      "day": "Full-time",
+      "distance": "Distance",
+      "evening": "Evening"
+    }
   }
 }

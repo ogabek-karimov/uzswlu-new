@@ -1,0 +1,554 @@
+[
+ {
+  "slug": "xalqaro-bakalavriat",
+  "title": {
+   "uz": "Bakalavriat ta’lim yönalişlari",
+   "ru": "Направления бакалавриата",
+   "en": "Bachelor’s degree programmes",
+   "zh": "本科专业"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p>",
+   "ru": "<p>[[kartalar-1]]</p>",
+   "en": "<p>[[kartalar-1]]</p>",
+   "zh": "<p>[[kartalar-1]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {},
+    "stats": {},
+    "columns": [
+     {
+      "title": {
+       "uz": "Kunduzgi",
+       "ru": "Очная форма",
+       "en": "Full-time",
+       "zh": "全日制"
+      },
+      "icon": "sun",
+      "style": "numbers",
+      "items": {
+       "uz": "Ona tili va adabiyoti (rus tili va adabiyoti) — 60110800\nXorijiy til va adabiyoti (ingliz tili) — 60110900\nFilologiya va tillarni öqitiş (ingliz tili) — 60230100\nFilologiya va tillarni öqitiş (nemis tili) — 60230100\nFilologiya va tillarni öqitiş (fransuz tili) — 60230100\nFilologiya va tillarni öqitiş (ispan tili) — 60230100\nFilologiya va tillarni öqitiş (xitoy tili) — 60230100\nFilologiya va tillarni öqitiş (yapon tili) — 60230100\nFilologiya va tillarni öqitiş (koreys tili) — 60230100\nFilologiya va tillarni öqitiş (arab tili) — 60230100\nFilologiya va tillarni öqitiş (turk tili) — 60230100\nFilologiya va tillarni öqitiş (rus tili) — 60230100\nTarjima nazariyasi va amaliyoti (ingliz tili) — 60230200\nTarjima nazariyasi va amaliyoti (nemis tili) — 60230200\nTarjima nazariyasi va amaliyoti (fransuz tili) — 60230200\nTarjima nazariyasi va amaliyoti (italyan tili) — 60230200\nTarjima nazariyasi va amaliyoti (arab tili) — 60230200\nTarjima nazariyasi va amaliyoti (turk tili) — 60230200\nSiyosatşunoslik — 60310100\nSotsiologiya — 60310400\nXalqaro munosabatlar — 60310200\nJurnalistika (xalqaro jurnalistika) — 60320100\nAxborot xizmati va jamoatçilik bilan aloqalar — 60320200\nKompyuter lingvistikasi — 60230400",
+       "ru": "Родной язык и литература (русский язык и литература) — 60110800\nИностранный язык и литература (английский язык) — 60110900\nФилология и обучение языкам (английский язык) — 60230100\nФилология и обучение языкам (немецкий язык) — 60230100\nФилология и обучение языкам (французский язык) — 60230100\nФилология и обучение языкам (испанский язык) — 60230100\nФилология и обучение языкам (китайский язык) — 60230100\nФилология и обучение языкам (японский язык) — 60230100\nФилология и обучение языкам (корейский язык) — 60230100\nФилология и обучение языкам (арабский язык) — 60230100\nФилология и обучение языкам (турецкий язык) — 60230100\nФилология и обучение языкам (русский язык) — 60230100\nТеория и практика перевода (английский язык) — 60230200\nТеория и практика перевода (немецкий язык) — 60230200\nТеория и практика перевода (французский язык) — 60230200\nТеория и практика перевода (итальянский язык) — 60230200\nТеория и практика перевода (арабский язык) — 60230200\nТеория и практика перевода (турецкий язык) — 60230200\nПолитология — 60310100\nСоциология — 60310400\nМеждународные отношения — 60310200\nЖурналистика (международная журналистика) — 60320100\nИнформационная служба и связи с общественностью — 60320200\nКомпьютерная лингвистика — 60230400",
+       "en": "Native Language and Literature (Russian Language and Literature) — 60110800\nForeign Language and Literature (English) — 60110900\nPhilology and Language Teaching (English) — 60230100\nPhilology and Language Teaching (German) — 60230100\nPhilology and Language Teaching (French) — 60230100\nPhilology and Language Teaching (Spanish) — 60230100\nPhilology and Language Teaching (Chinese) — 60230100\nPhilology and Language Teaching (Japanese) — 60230100\nPhilology and Language Teaching (Korean) — 60230100\nPhilology and Language Teaching (Arabic) — 60230100\nPhilology and Language Teaching (Turkish) — 60230100\nPhilology and Language Teaching (Russian) — 60230100\nTranslation Theory and Practice (English) — 60230200\nTranslation Theory and Practice (German) — 60230200\nTranslation Theory and Practice (French) — 60230200\nTranslation Theory and Practice (Italian) — 60230200\nTranslation Theory and Practice (Arabic) — 60230200\nTranslation Theory and Practice (Turkish) — 60230200\nPolitical Science — 60310100\nSociology — 60310400\nInternational Relations — 60310200\nJournalism (International Journalism) — 60320100\nInformation Service and Public Relations — 60320200\nComputational Linguistics — 60230400",
+       "zh": "母语与文学（俄语语言文学） — 60110800\n外国语言文学（英语） — 60110900\n语文学与语言教学（英语） — 60230100\n语文学与语言教学（德语） — 60230100\n语文学与语言教学（法语） — 60230100\n语文学与语言教学（西班牙语） — 60230100\n语文学与语言教学（汉语） — 60230100\n语文学与语言教学（日语） — 60230100\n语文学与语言教学（韩语） — 60230100\n语文学与语言教学（阿拉伯语） — 60230100\n语文学与语言教学（土耳其语） — 60230100\n语文学与语言教学（俄语） — 60230100\n翻译理论与实践（英语） — 60230200\n翻译理论与实践（德语） — 60230200\n翻译理论与实践（法语） — 60230200\n翻译理论与实践（意大利语） — 60230200\n翻译理论与实践（阿拉伯语） — 60230200\n翻译理论与实践（土耳其语） — 60230200\n政治学 — 60310100\n社会学 — 60310400\n国际关系 — 60310200\n新闻学（国际新闻） — 60320100\n信息服务与公共关系 — 60320200\n计算语言学 — 60230400"
+      }
+     },
+     {
+      "title": {
+       "uz": "Keçki",
+       "ru": "Вечерняя форма",
+       "en": "Evening",
+       "zh": "夜校"
+      },
+      "icon": "moon",
+      "style": "numbers",
+      "items": {
+       "uz": "Xorijiy til va adabiyoti (ingliz tili) — 60210900\nFilologiya va tillarni öqitiş (ingliz tili) — 60230100\nFilologiya va tillarni öqitiş (nemis tili) — 60230100\nFilologiya va tillarni öqitiş (fransuz tili) — 60230100\nFilologiya va tillarni öqitiş (ispan tili) — 60230100\nFilologiya va tillarni öqitiş (xitoy tili) — 60230100\nFilologiya va tillarni öqitiş (yapon tili) — 60230100\nFilologiya va tillarni öqitiş (koreys tili) — 60230100\nFilologiya va tillarni öqitiş (rus tili) — 60230100\nTarjima nazariyasi va amaliyoti (ingliz tili) — 60230200",
+       "ru": "Иностранный язык и литература (английский язык) — 60210900\nФилология и обучение языкам (английский язык) — 60230100\nФилология и обучение языкам (немецкий язык) — 60230100\nФилология и обучение языкам (французский язык) — 60230100\nФилология и обучение языкам (испанский язык) — 60230100\nФилология и обучение языкам (китайский язык) — 60230100\nФилология и обучение языкам (японский язык) — 60230100\nФилология и обучение языкам (корейский язык) — 60230100\nФилология и обучение языкам (русский язык) — 60230100\nТеория и практика перевода (английский язык) — 60230200",
+       "en": "Foreign Language and Literature (English) — 60210900\nPhilology and Language Teaching (English) — 60230100\nPhilology and Language Teaching (German) — 60230100\nPhilology and Language Teaching (French) — 60230100\nPhilology and Language Teaching (Spanish) — 60230100\nPhilology and Language Teaching (Chinese) — 60230100\nPhilology and Language Teaching (Japanese) — 60230100\nPhilology and Language Teaching (Korean) — 60230100\nPhilology and Language Teaching (Russian) — 60230100\nTranslation Theory and Practice (English) — 60230200",
+       "zh": "外国语言文学（英语） — 60210900\n语文学与语言教学（英语） — 60230100\n语文学与语言教学（德语） — 60230100\n语文学与语言教学（法语） — 60230100\n语文学与语言教学（西班牙语） — 60230100\n语文学与语言教学（汉语） — 60230100\n语文学与语言教学（日语） — 60230100\n语文学与语言教学（韩语） — 60230100\n语文学与语言教学（俄语） — 60230100\n翻译理论与实践（英语） — 60230200"
+      }
+     }
+    ],
+    "outro": {},
+    "photos": []
+   }
+  ]
+ },
+ {
+  "slug": "xalqaro-magistratura",
+  "title": {
+   "uz": "Magistratura mutaxassisliklari",
+   "ru": "Специальности магистратуры",
+   "en": "Master’s degree programmes",
+   "zh": "硕士专业"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p>",
+   "ru": "<p>[[kartalar-1]]</p>",
+   "en": "<p>[[kartalar-1]]</p>",
+   "zh": "<p>[[kartalar-1]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {},
+    "stats": {},
+    "columns": [
+     {
+      "title": {
+       "uz": "Magistratura mutaxassisliklari",
+       "ru": "Специальности магистратуры",
+       "en": "Master’s specialties",
+       "zh": "硕士专业"
+      },
+      "icon": "book-open",
+      "style": "numbers",
+      "items": {
+       "uz": "Ona tili va adabiyoti (rus tili) — 70110801\nXorijiy til va adabiyoti (ingliz tili) — 70110901\nAdabiyotşunoslik (ingliz adabiyoti) — 70230104\nAdabiyotşunoslik (rus adabiyoti) — 70230104\nLingvistika (ingliz tili) — 70230101\nLingvistika (nemis tili) — 70230101\nLingvistika (fransuz tili) — 70230101\nLingvistika (ispan tili) — 70230101\nLingvistika (rus tili) — 70230101\nLingvistika (xitoy tili) — 70230101\nLingvistika (yapon tili) — 70230101\nLingvistika (koreys tili) — 70230101\nLingvistika (arab tili) — 70230101\nQiyosiy tilşunoslik, lingvistik tarjimaşunoslik (ingliz tili) — 70230201\nQiyosiy tilşunoslik, lingvistik tarjimaşunoslik (italyan tili) — 70230201\nSinxron tarjima (ingliz tili) — 70230202\nJurnalistika — 70320101\nAxborot xizmati va jamoatçilik bilan aloqalar — 70320201",
+       "ru": "Родной язык и литература (русский язык) — 70110801\nИностранный язык и литература (английский язык) — 70110901\nЛитературоведение (английская литература) — 70230104\nЛитературоведение (русская литература) — 70230104\nЛингвистика (английский язык) — 70230101\nЛингвистика (немецкий язык) — 70230101\nЛингвистика (французский язык) — 70230101\nЛингвистика (испанский язык) — 70230101\nЛингвистика (русский язык) — 70230101\nЛингвистика (китайский язык) — 70230101\nЛингвистика (японский язык) — 70230101\nЛингвистика (корейский язык) — 70230101\nЛингвистика (арабский язык) — 70230101\nСравнительное языкознание, лингвистическое переводоведение (английский язык) — 70230201\nСравнительное языкознание, лингвистическое переводоведение (итальянский язык) — 70230201\nСинхронный перевод (английский язык) — 70230202\nЖурналистика — 70320101\nИнформационная служба и связи с общественностью — 70320201",
+       "en": "Native Language and Literature (Russian) — 70110801\nForeign Language and Literature (English) — 70110901\nLiterary Studies (English Literature) — 70230104\nLiterary Studies (Russian Literature) — 70230104\nLinguistics (English) — 70230101\nLinguistics (German) — 70230101\nLinguistics (French) — 70230101\nLinguistics (Spanish) — 70230101\nLinguistics (Russian) — 70230101\nLinguistics (Chinese) — 70230101\nLinguistics (Japanese) — 70230101\nLinguistics (Korean) — 70230101\nLinguistics (Arabic) — 70230101\nComparative Linguistics and Linguistic Translation Studies (English) — 70230201\nComparative Linguistics and Linguistic Translation Studies (Italian) — 70230201\nSimultaneous Interpreting (English) — 70230202\nJournalism — 70320101\nInformation Service and Public Relations — 70320201",
+       "zh": "母语与文学（俄语） — 70110801\n外国语言文学（英语） — 70110901\n文学研究（英国文学） — 70230104\n文学研究（俄罗斯文学） — 70230104\n语言学（英语） — 70230101\n语言学（德语） — 70230101\n语言学（法语） — 70230101\n语言学（西班牙语） — 70230101\n语言学（俄语） — 70230101\n语言学（汉语） — 70230101\n语言学（日语） — 70230101\n语言学（韩语） — 70230101\n语言学（阿拉伯语） — 70230101\n比较语言学与语言翻译学（英语） — 70230201\n比较语言学与语言翻译学（意大利语） — 70230201\n同声传译（英语） — 70230202\n新闻学 — 70320101\n信息服务与公共关系 — 70320201"
+      }
+     }
+    ],
+    "outro": {},
+    "photos": []
+   }
+  ]
+ },
+ {
+  "slug": "xalqaro-doktorantura",
+  "title": {
+   "uz": "Doktorantura",
+   "ru": "Докторантура",
+   "en": "Doctoral programmes",
+   "zh": "博士项目"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p><p>[[kartalar-2]]</p><p>[[kartalar-3]]</p>",
+   "ru": "<p>[[kartalar-1]]</p><p>[[kartalar-2]]</p><p>[[kartalar-3]]</p>",
+   "en": "<p>[[kartalar-1]]</p><p>[[kartalar-2]]</p><p>[[kartalar-3]]</p>",
+   "zh": "<p>[[kartalar-1]]</p><p>[[kartalar-2]]</p><p>[[kartalar-3]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {
+     "uz": "Doktoranturaga (PhD) xorijiy abituriyentlar qabul qilinadigan dasturlar.",
+     "ru": "Программы докторантуры (PhD) для иностранных абитуриентов.",
+     "en": "Doctoral (PhD) programmes open to international applicants.",
+     "zh": "面向外国考生的博士（PhD）项目。"
+    },
+    "stats": {},
+    "columns": [
+     {
+      "title": {
+       "uz": "Filologiya fanlari",
+       "ru": "Филологические науки",
+       "en": "Philology",
+       "zh": "语文学"
+      },
+      "icon": "languages",
+      "style": "numbers",
+      "items": {
+       "uz": "Yevropa, Amerika va Avstraliya xalqlari tili va adabiyoti — 10.00.04\nQiyosiy adabiyotşunoslik, çoğiştirma tilşunoslik va tarjimaşunoslik — 10.00.06\nAdabiyot nazariyasi — 10.00.07\nJurnalistika — 10.00.09\nTil nazariyasi. Amaliy va kompyuter lingvistikasi — 10.00.11",
+       "ru": "Языки и литература народов Европы, Америки и Австралии — 10.00.04\nСравнительное литературоведение, сопоставительное языкознание и переводоведение — 10.00.06\nТеория литературы — 10.00.07\nЖурналистика — 10.00.09\nТеория языка. Прикладная и компьютерная лингвистика — 10.00.11",
+       "en": "Languages and Literature of the Peoples of Europe, America and Australia — 10.00.04\nComparative Literature, Comparative Linguistics and Translation Studies — 10.00.06\nTheory of Literature — 10.00.07\nJournalism — 10.00.09\nTheory of Language. Applied and Computational Linguistics — 10.00.11",
+       "zh": "欧洲、美洲和澳大利亚民族语言与文学 — 10.00.04\n比较文学、对比语言学与翻译学 — 10.00.06\n文学理论 — 10.00.07\n新闻学 — 10.00.09\n语言理论；应用语言学与计算语言学 — 10.00.11"
+      }
+     },
+     {
+      "title": {
+       "uz": "Pedagogika fanlari",
+       "ru": "Педагогические науки",
+       "en": "Pedagogy",
+       "zh": "教育学"
+      },
+      "icon": "graduation-cap",
+      "style": "numbers",
+      "items": {
+       "uz": "Pedagogika nazariyasi. Pedagogik ta’limotlar tarixi — 13.00.01\nTa’lim va tarbiya nazariyasi va metodikasi (sohalar böyiça) — 13.00.02",
+       "ru": "Теория педагогики. История педагогических учений — 13.00.01\nТеория и методика обучения и воспитания (по областям) — 13.00.02",
+       "en": "Theory of Pedagogy. History of Pedagogical Doctrines — 13.00.01\nTheory and Methodology of Education and Upbringing (by field) — 13.00.02",
+       "zh": "教育学理论；教育学说史 — 13.00.01\n教学与教育理论和方法（分领域） — 13.00.02"
+      }
+     },
+     {
+      "title": {
+       "uz": "Siyosatşunoslik",
+       "ru": "Политология",
+       "en": "Political Science",
+       "zh": "政治学"
+      },
+      "icon": "landmark",
+      "style": "numbers",
+      "items": {
+       "uz": "Siyosiy institutlar, jarayonlar va texnologiyalar — 23.00.02\nXalqaro munosabatlar, jahon va mintaqa taraqqiyotining siyosiy muammolari — 23.00.04",
+       "ru": "Политические институты, процессы и технологии — 23.00.02\nМеждународные отношения, политические проблемы мирового и регионального развития — 23.00.04",
+       "en": "Political Institutions, Processes and Technologies — 23.00.02\nInternational Relations, Political Problems of Global and Regional Development — 23.00.04",
+       "zh": "政治制度、进程与技术 — 23.00.02\n国际关系、全球与区域发展政治问题 — 23.00.04"
+      }
+     }
+    ],
+    "outro": {},
+    "photos": []
+   },
+   {
+    "intro": {
+     "uz": "Doktoranturaga hujjatlar yiliga 4 marta qabul qilinadi. Hujjatlar universitetning ilmiy tadqiqotlar, innovatsiyalar va ilmiy-pedagogik kadrlar tayyorlaş bölimiga topşiriladi.",
+     "ru": "Документы в докторантуру принимаются 4 раза в год. Документы подаются в отдел научных исследований, инноваций и подготовки научно-педагогических кадров университета.",
+     "en": "Applications to doctoral studies are accepted 4 times a year. Documents are submitted to the university’s Department of Research, Innovation and Training of Academic Staff.",
+     "zh": "博士申请每年受理4次。材料提交至学校科研、创新及科研教学人才培养处。"
+    },
+    "stats": {},
+    "columns": [
+     {
+      "title": {
+       "uz": "Hujjat topşiriş muddatlari",
+       "ru": "Сроки подачи документов",
+       "en": "Application deadlines",
+       "zh": "材料提交时间"
+      },
+      "icon": "calendar",
+      "style": "numbers",
+      "items": {
+       "uz": "1-bosqiç — 15-sentabrdan 15-oktabrgaça\n2-bosqiç — 15-yanvardan 15-fevralgaça\n3-bosqiç — 15-maydan 15-iyungaça\n4-bosqiç — 15-iyuldan 15-avgustgaça",
+       "ru": "1-й этап — с 15 сентября по 15 октября\n2-й этап — с 15 января по 15 февраля\n3-й этап — с 15 мая по 15 июня\n4-й этап — с 15 июля по 15 августа",
+       "en": "Stage 1 — 15 September to 15 October\nStage 2 — 15 January to 15 February\nStage 3 — 15 May to 15 June\nStage 4 — 15 July to 15 August",
+       "zh": "第一阶段 — 9月15日至10月15日\n第二阶段 — 1月15日至2月15日\n第三阶段 — 5月15日至6月15日\n第四阶段 — 7月15日至8月15日"
+      }
+     },
+     {
+      "title": {
+       "uz": "Talab qilinadigan hujjatlar",
+       "ru": "Необходимые документы",
+       "en": "Required documents",
+       "zh": "所需材料"
+      },
+      "icon": "file-check",
+      "style": "checks",
+      "items": {
+       "uz": "Ariza\nQisqaça biografik ma’lumotlar\nMagistratura diplomi nusxasi\nNaşr etilgan ilmiy işlar röyxati va nusxalari\nDissertatsiya mavzusi va batafsil reja loyihasi — namuna özbek tilida\nKamida 1 ta jurnal maqolasi va 2 ta konferensiya maqolasi\nPasport nusxasi\nFotosurat 3×4 — 4 dona\nPapka — 2 dona",
+       "ru": "Заявление\nКраткие биографические сведения\nКопия диплома магистратуры\nСписок и копии опубликованных научных работ\nТема диссертации и проект подробного плана — образец на узбекском языке\nНе менее 1 статьи в журнале и 2 статей в сборниках конференций\nКопия паспорта\nФотографии 3×4 — 4 шт.\nПапка — 2 шт.",
+       "en": "Application\nBrief biographical information\nCopy of the master’s diploma\nList and copies of published research papers\nDissertation topic and detailed plan draft — sample in Uzbek\nAt least 1 journal article and 2 conference papers\nCopy of passport\nPhotos 3×4 — 4 pcs\nFolder — 2 pcs",
+       "zh": "申请书\n简历\n硕士学位证书复印件\n已发表科研成果清单及复印件\n论文题目及详细计划草案 — 乌兹别克语范本\n至少1篇期刊论文和2篇会议论文\n护照复印件\n3×4照片 — 4张\n文件夹 — 2个"
+      }
+     }
+    ],
+    "outro": {},
+    "photos": []
+   },
+   {
+    "intro": {},
+    "stats": {
+     "uz": "15 000 000 so‘m|Amaliy doktorantura (PhD)\n15 000 000 so‘m|Doktorantura (DSc)\n10 000 000 so‘m|Mustaqil izlanuvçi",
+     "ru": "15 000 000 сум|Базовая докторантура (PhD)\n15 000 000 сум|Докторантура (DSc)\n10 000 000 сум|Самостоятельный соискатель",
+     "en": "15 000 000 UZS|Doctoral studies (PhD)\n15 000 000 UZS|Doctoral studies (DSc)\n10 000 000 UZS|Independent researcher",
+     "zh": "15 000 000 苏姆|博士（PhD）\n15 000 000 苏姆|博士后（DSc）\n10 000 000 苏姆|独立研究者"
+    },
+    "columns": [],
+    "outro": {
+     "uz": "Xorijiy fuqarolar tölovni Özbekiston milliy valyutasida (sömda) amalga oşiradi; tölov har semestr uçun alohida qilinişi mumkin. Narxlar xorijiy fuqarolar hamda Özbekistonda yaşaş guvohnomasi yoki ID-kartasi bor çet el fuqarolari uçun.",
+     "ru": "Иностранные граждане оплачивают обучение в национальной валюте Узбекистана (сумах); оплату можно вносить отдельно за каждый семестр. Стоимость — для иностранных граждан и иностранцев с видом на жительство или ID-картой Узбекистана.",
+     "en": "Foreign citizens pay tuition in the national currency of Uzbekistan (soum); payment may be made separately for each semester. Fees apply to foreign citizens and foreigners holding an Uzbek residence permit or ID card.",
+     "zh": "外国公民以乌兹别克斯坦本国货币（苏姆）支付学费，可按学期分别缴纳。以下费用适用于外国公民及持有乌兹别克斯坦居留证或身份证的外国人。"
+    },
+    "photos": []
+   }
+  ]
+ },
+ {
+  "slug": "xalqaro-mustaqil-izlanuvchi",
+  "title": {
+   "uz": "Mustaqil izlanuvçi",
+   "ru": "Самостоятельный соискатель",
+   "en": "Independent researcher",
+   "zh": "独立研究者"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p><p>[[kartalar-2]]</p>",
+   "ru": "<p>[[kartalar-1]]</p><p>[[kartalar-2]]</p>",
+   "en": "<p>[[kartalar-1]]</p><p>[[kartalar-2]]</p>",
+   "zh": "<p>[[kartalar-1]]</p><p>[[kartalar-2]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {
+     "uz": "Doktoranturaga hujjatlar yiliga 4 marta qabul qilinadi. Hujjatlar universitetning ilmiy tadqiqotlar, innovatsiyalar va ilmiy-pedagogik kadrlar tayyorlaş bölimiga topşiriladi.",
+     "ru": "Документы в докторантуру принимаются 4 раза в год. Документы подаются в отдел научных исследований, инноваций и подготовки научно-педагогических кадров университета.",
+     "en": "Applications to doctoral studies are accepted 4 times a year. Documents are submitted to the university’s Department of Research, Innovation and Training of Academic Staff.",
+     "zh": "博士申请每年受理4次。材料提交至学校科研、创新及科研教学人才培养处。"
+    },
+    "stats": {},
+    "columns": [
+     {
+      "title": {
+       "uz": "Hujjat topşiriş muddatlari",
+       "ru": "Сроки подачи документов",
+       "en": "Application deadlines",
+       "zh": "材料提交时间"
+      },
+      "icon": "calendar",
+      "style": "numbers",
+      "items": {
+       "uz": "1-bosqiç — 15-sentabrdan 15-oktabrgaça\n2-bosqiç — 15-yanvardan 15-fevralgaça\n3-bosqiç — 15-maydan 15-iyungaça\n4-bosqiç — 15-iyuldan 15-avgustgaça",
+       "ru": "1-й этап — с 15 сентября по 15 октября\n2-й этап — с 15 января по 15 февраля\n3-й этап — с 15 мая по 15 июня\n4-й этап — с 15 июля по 15 августа",
+       "en": "Stage 1 — 15 September to 15 October\nStage 2 — 15 January to 15 February\nStage 3 — 15 May to 15 June\nStage 4 — 15 July to 15 August",
+       "zh": "第一阶段 — 9月15日至10月15日\n第二阶段 — 1月15日至2月15日\n第三阶段 — 5月15日至6月15日\n第四阶段 — 7月15日至8月15日"
+      }
+     },
+     {
+      "title": {
+       "uz": "Talab qilinadigan hujjatlar",
+       "ru": "Необходимые документы",
+       "en": "Required documents",
+       "zh": "所需材料"
+      },
+      "icon": "file-check",
+      "style": "checks",
+      "items": {
+       "uz": "Ariza\nQisqaça biografik ma’lumotlar\nMagistratura diplomi nusxasi\nNaşr etilgan ilmiy işlar röyxati va nusxalari\nDissertatsiya mavzusi va batafsil reja loyihasi — namuna özbek tilida\nKamida 1 ta jurnal maqolasi va 2 ta konferensiya maqolasi\nPasport nusxasi\nFotosurat 3×4 — 4 dona\nPapka — 2 dona",
+       "ru": "Заявление\nКраткие биографические сведения\nКопия диплома магистратуры\nСписок и копии опубликованных научных работ\nТема диссертации и проект подробного плана — образец на узбекском языке\nНе менее 1 статьи в журнале и 2 статей в сборниках конференций\nКопия паспорта\nФотографии 3×4 — 4 шт.\nПапка — 2 шт.",
+       "en": "Application\nBrief biographical information\nCopy of the master’s diploma\nList and copies of published research papers\nDissertation topic and detailed plan draft — sample in Uzbek\nAt least 1 journal article and 2 conference papers\nCopy of passport\nPhotos 3×4 — 4 pcs\nFolder — 2 pcs",
+       "zh": "申请书\n简历\n硕士学位证书复印件\n已发表科研成果清单及复印件\n论文题目及详细计划草案 — 乌兹别克语范本\n至少1篇期刊论文和2篇会议论文\n护照复印件\n3×4照片 — 4张\n文件夹 — 2个"
+      }
+     }
+    ],
+    "outro": {},
+    "photos": []
+   },
+   {
+    "intro": {},
+    "stats": {
+     "uz": "10 000 000 so‘m|Mustaqil izlanuvçi",
+     "ru": "10 000 000 сум|Самостоятельный соискатель",
+     "en": "10 000 000 UZS|Independent researcher",
+     "zh": "10 000 000 苏姆|独立研究者"
+    },
+    "columns": [],
+    "outro": {
+     "uz": "Xorijiy fuqarolar tölovni Özbekiston milliy valyutasida (sömda) amalga oşiradi; tölov har semestr uçun alohida qilinişi mumkin. Narxlar xorijiy fuqarolar hamda Özbekistonda yaşaş guvohnomasi yoki ID-kartasi bor çet el fuqarolari uçun.",
+     "ru": "Иностранные граждане оплачивают обучение в национальной валюте Узбекистана (сумах); оплату можно вносить отдельно за каждый семестр. Стоимость — для иностранных граждан и иностранцев с видом на жительство или ID-картой Узбекистана.",
+     "en": "Foreign citizens pay tuition in the national currency of Uzbekistan (soum); payment may be made separately for each semester. Fees apply to foreign citizens and foreigners holding an Uzbek residence permit or ID card.",
+     "zh": "外国公民以乌兹别克斯坦本国货币（苏姆）支付学费，可按学期分别缴纳。以下费用适用于外国公民及持有乌兹别克斯坦居留证或身份证的外国人。"
+    },
+    "photos": []
+   }
+  ]
+ },
+ {
+  "slug": "xalqaro-qabul-shartlari",
+  "title": {
+   "uz": "Qabul şartlari",
+   "ru": "Условия приёма",
+   "en": "Admission requirements",
+   "zh": "招生条件"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p>",
+   "ru": "<p>[[kartalar-1]]</p>",
+   "en": "<p>[[kartalar-1]]</p>",
+   "zh": "<p>[[kartalar-1]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {
+     "uz": "Barça xorijiy talabalar, jumladan Erasmus+ International Dimension iştirokçilari, tanlagan dastur öqitiş tilini kamida B1 darajada (CEFR) bilişini tasdiqlovçi rasmiy sertifikatni PDF şaklida taqdim etadi. Quyidagi hujjatlar — majburiy.",
+     "ru": "Все иностранные студенты, включая участников Erasmus+ International Dimension, предоставляют официальный сертификат (PDF), подтверждающий знание языка обучения выбранной программы не ниже уровня B1 (CEFR). Документы ниже — обязательны.",
+     "en": "All international students, including Erasmus+ International Dimension participants, must submit an official certificate (PDF) confirming at least B1 (CEFR) proficiency in the language of instruction of the chosen programme. The documents below are mandatory.",
+     "zh": "所有外国学生（包括 Erasmus+ International Dimension 项目参与者）须提交PDF格式的官方证书，证明其所选专业的授课语言水平不低于B1（CEFR）。以下材料均为必交。"
+    },
+    "stats": {},
+    "columns": [
+     {
+      "title": {
+       "uz": "Bakalavriat",
+       "ru": "Бакалавриат",
+       "en": "Bachelor’s",
+       "zh": "本科"
+      },
+      "icon": "graduation-cap",
+      "style": "checks",
+      "items": {
+       "uz": "Xalqaro pasport nusxasi — butun öqiş davrida amal qilişi şart\nXorijiy tilni kamida B1 darajada biliş sertifikati\nMaktab attestati yoki kasb-hunar diplomi — notarial tarjima bilan\nRangli surat, oq fonda, 3.5×4.5",
+       "ru": "Копия загранпаспорта — действителен на весь период обучения\nСертификат о знании иностранного языка не ниже B1\nАттестат или диплом профтехобразования — с нотариальным переводом\nЦветное фото на белом фоне, 3.5×4.5",
+       "en": "Copy of international passport — valid for the whole study period\nCertificate of foreign language proficiency at least B1\nSchool certificate or vocational diploma — with notarized translation\nColour photo on white background, 3.5×4.5",
+       "zh": "国际护照复印件 — 须在整个学习期间有效\n外语水平证书（不低于B1）\n中学毕业证或职业教育文凭 — 附公证翻译\n白底彩色照片，3.5×4.5"
+      }
+     },
+     {
+      "title": {
+       "uz": "Magistratura",
+       "ru": "Магистратура",
+       "en": "Master’s",
+       "zh": "硕士"
+      },
+      "icon": "book-open",
+      "style": "checks",
+      "items": {
+       "uz": "Pasport nusxasi — butun öqiş davrida amal qilişi şart\nXorijiy tilni kamida B1 darajada biliş sertifikati\nBakalavriat diplomi (4 yillik dastur)\nRangli surat, oq fonda, 3.5×4.5",
+       "ru": "Копия паспорта — действителен на весь период обучения\nСертификат о знании иностранного языка не ниже B1\nДиплом бакалавра (4-летняя программа)\nЦветное фото на белом фоне, 3.5×4.5",
+       "en": "Copy of passport — valid for the whole study period\nCertificate of foreign language proficiency at least B1\nBachelor’s diploma (4-year programme)\nColour photo on white background, 3.5×4.5",
+       "zh": "护照复印件 — 须在整个学习期间有效\n外语水平证书（不低于B1）\n学士学位证书（四年制）\n白底彩色照片，3.5×4.5"
+      }
+     }
+    ],
+    "outro": {
+     "uz": "PhD nomzodlari — «Doktorantura» sahifasidagi muddatlar va hujjatlar röyxatiga qarang.",
+     "ru": "Кандидатам PhD — см. сроки и список документов на странице «Докторантура».",
+     "en": "PhD candidates — see the deadlines and documents on the “Doctoral programmes” page.",
+     "zh": "博士申请者 — 请参阅“博士项目”页面的时间安排与材料清单。"
+    },
+    "photos": []
+   }
+  ]
+ },
+ {
+  "slug": "viza-va-royxatga-olish",
+  "title": {
+   "uz": "Viza rasmiylaştiriş va vaqtinça röyxatga oliş",
+   "ru": "Оформление визы и временная регистрация",
+   "en": "Visa and temporary registration",
+   "zh": "签证办理与临时登记"
+  },
+  "body": {
+   "uz": "<h3>Viza rasmiylaştiriş tartibi (xorijiy mutaxassislar va talabalar uçun)</h3><p>Özbekiston qonunçiligiga köra çet el fuqarolari va fuqaroligi bölmagan şaxslar Özbekistonga faqat viza asosida kiradi.</p><p>Universitetga işga yoki öqişga qabul qilingan çet el fuqarosi xorijga çiqiş pasportining PDF nusxasini Xalqaro hamkorlik bölimi elektron poçtasiga yuboradi. Universitet mas’ul xodimlari 15 iş kunida Taşqi işlar vazirligiga yozma iltimosnoma (viza talabnomasi) asosida vizani rasmiylaştiradi.</p><ul><li>2019-yil 1-fevraldan 30 kunlik vizasiz rejim joriy etilgan mamlakatlar röyxati — <a href=\"https://lex.uz/docs/4143188\" target=\"_blank\" rel=\"noopener\">lex.uz</a></li><li>Elektron kiriş vizasini oliş mumkin bölgan mamlakatlar röyxati — <a href=\"https://lex.uz/docs/4143188\" target=\"_blank\" rel=\"noopener\">lex.uz</a></li></ul><p>Universitet 15 kundan 365 kungaça (1 yil) muddatga viza rasmiylaştira oladi. Vizani Özbekistonning xorijdagi diplomatik vakolatxonalari, konsullik idoralari yoki Toşkent xalqaro aeroportida oliş mumkin.</p><p><strong>Muhim:</strong> Özbekistonga kelgan kuni yoki ertasi kuni Xalqaro hamkorlik bölimiga kelib, kelganingizni ma’lum qiling — 72 soat içida röyxatdan ötmagan çet el fuqarosi qonunda belgilangan tartibda jarimaga tortiladi.</p><h3>Viza muddatini uzaytiriş</h3><p>Viza muddati Içki işlar vazirligining Migratsiya va fuqarolikni rasmiylaştiriş boş boşqarmasi va uning hududiy bölimlari orqali uzaytiriladi. Viza tugaşiga 15 kun qolganda pasportingizni Xalqaro hamkorlik bölimi mas’ul xodimiga topşiring — hujjatlar ariza asosida topşiriladi va 10 iş kunida körib çiqiladi. Viza olingaç, 72 soat (3 iş kuni) içida yaşaş joyingiz böyiça röyxatga qöyiladi.</p>",
+   "ru": "<h3>Порядок оформления визы (для иностранных специалистов и студентов)</h3><p>По законодательству Узбекистана иностранные граждане и лица без гражданства въезжают в страну только на основании визы.</p><p>Иностранец, принятый на работу или учёбу в университет, отправляет PDF-копию заграничного паспорта на электронную почту отдела международного сотрудничества. В течение 15 рабочих дней ответственные сотрудники оформляют визу на основании письменного ходатайства (визовой заявки) в Министерство иностранных дел.</p><ul><li>Список стран с 30-дневным безвизовым режимом с 1 февраля 2019 года — <a href=\"https://lex.uz/docs/4143188\" target=\"_blank\" rel=\"noopener\">lex.uz</a></li><li>Список стран, граждане которых могут получить электронную въездную визу, — <a href=\"https://lex.uz/docs/4143188\" target=\"_blank\" rel=\"noopener\">lex.uz</a></li></ul><p>Университет может оформить визу сроком от 15 до 365 дней (1 год). Визу можно получить в дипломатических представительствах и консульствах Узбекистана за рубежом или в Ташкентском международном аэропорту.</p><p><strong>Важно:</strong> в день прибытия или на следующий день сообщите о приезде в отдел международного сотрудничества — иностранец, не прошедший регистрацию в течение 72 часов, штрафуется в установленном законом порядке.</p><h3>Продление визы</h3><p>Виза продлевается через Главное управление миграции и оформления гражданства МВД и его территориальные подразделения. За 15 дней до окончания визы передайте паспорт ответственному сотруднику отдела международного сотрудничества — документы подаются по заявлению и рассматриваются в течение 10 рабочих дней. После получения визы в течение 72 часов (3 рабочих дней) выполняется регистрация по месту проживания.</p>",
+   "en": "<h3>Visa procedure (for international staff and students)</h3><p>Under the law of Uzbekistan, foreign citizens and stateless persons enter the country only on the basis of a visa.</p><p>A foreigner admitted to work or study at the university sends a PDF copy of their international passport to the International Cooperation Department’s e-mail. Within 15 working days the university arranges the visa through a written request (visa application) to the Ministry of Foreign Affairs.</p><ul><li>Countries with a 30-day visa-free regime since 1 February 2019 — <a href=\"https://lex.uz/docs/4143188\" target=\"_blank\" rel=\"noopener\">lex.uz</a></li><li>Countries whose citizens can obtain an electronic entry visa — <a href=\"https://lex.uz/docs/4143188\" target=\"_blank\" rel=\"noopener\">lex.uz</a></li></ul><p>The university can arrange a visa for 15 to 365 days (1 year). The visa is issued at Uzbekistan’s diplomatic missions and consulates abroad or at Tashkent International Airport.</p><p><strong>Important:</strong> report your arrival to the International Cooperation Department on the day of arrival or the next day — a foreigner not registered within 72 hours is fined as provided by law.</p><h3>Visa extension</h3><p>Visas are extended through the Main Department of Migration and Citizenship of the Ministry of Internal Affairs and its regional offices. 15 days before your visa expires, hand your passport to the International Cooperation Department — documents are submitted on application and reviewed within 10 working days. After the visa is issued, you are registered at your place of residence within 72 hours (3 working days).</p>",
+   "zh": "<h3>签证办理程序（外国专家和学生）</h3><p>根据乌兹别克斯坦法律，外国公民和无国籍人士只能凭签证入境。</p><p>被大学录用工作或录取学习的外国人，须将护照PDF复印件发送至国际合作处电子邮箱。学校负责人员将在15个工作日内向外交部提交书面申请（签证申请），办理签证。</p><ul><li>自2019年2月1日起实行30天免签的国家名单 — <a href=\"https://lex.uz/docs/4143188\" target=\"_blank\" rel=\"noopener\">lex.uz</a></li><li>可申请电子入境签证的国家名单 — <a href=\"https://lex.uz/docs/4143188\" target=\"_blank\" rel=\"noopener\">lex.uz</a></li></ul><p>学校可办理15天至365天（1年）的签证。签证可在乌兹别克斯坦驻外使领馆或塔什干国际机场领取。</p><p><strong>重要提示：</strong>请在抵达当天或次日到国际合作处报到——72小时内未登记的外国人将依法被处以罚款。</p><h3>签证延期</h3><p>签证延期通过内务部移民和国籍事务总局及其地方分支机构办理。请在签证到期前15天将护照交给国际合作处负责人员，材料凭申请提交，10个工作日内审核。签证办妥后，须在72小时（3个工作日）内办理居住地登记。</p>"
+  },
+  "showcase": []
+ },
+ {
+  "slug": "summer-camp",
+  "title": {
+   "uz": "Summer camp",
+   "ru": "Summer camp",
+   "en": "Summer camp",
+   "zh": "夏令营"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p>",
+   "ru": "<p>[[kartalar-1]]</p>",
+   "en": "<p>[[kartalar-1]]</p>",
+   "zh": "<p>[[kartalar-1]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {},
+    "stats": {},
+    "columns": [],
+    "outro": {},
+    "photos": [],
+    "cards": [
+     {
+      "title": {
+       "uz": "Ingliz tili birinçi fakulteti",
+       "ru": "Первый факультет английского языка",
+       "en": "First Faculty of English",
+       "zh": "英语第一系"
+      },
+      "url": "/faculty/english-1",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Ingliz tili ikkinçi fakulteti",
+       "ru": "Второй факультет английского языка",
+       "en": "Second Faculty of English",
+       "zh": "英语第二系"
+      },
+      "url": "/faculty/english-2",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Ingliz tili uçinçi fakulteti",
+       "ru": "Третий факультет английского языка",
+       "en": "Third Faculty of English",
+       "zh": "英语第三系"
+      },
+      "url": "/faculty/english-3",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Ingliz filologiyasi fakulteti",
+       "ru": "Факультет английской филологии",
+       "en": "Faculty of English Philology",
+       "zh": "英语语文学系"
+      },
+      "url": "/faculty/english-philology",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Xalqaro jurnalistika fakulteti",
+       "ru": "Факультет международной журналистики",
+       "en": "Faculty of International Journalism",
+       "zh": "国际新闻系"
+      },
+      "url": "/faculty/international-journalism",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Roman-german filologiyasi fakulteti",
+       "ru": "Факультет романо-германской филологии",
+       "en": "Faculty of Romance and Germanic Philology",
+       "zh": "罗曼-日耳曼语文学系"
+      },
+      "url": "/faculty/romance-germanic",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Rus filologiyasi fakulteti",
+       "ru": "Факультет русской филологии",
+       "en": "Faculty of Russian Philology",
+       "zh": "俄语语文学系"
+      },
+      "url": "/faculty/russian-philology",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Tarjimonlik fakulteti",
+       "ru": "Переводческий факультет",
+       "en": "Faculty of Translation",
+       "zh": "翻译系"
+      },
+      "url": "/faculty/translation",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Şarq filologiyasi fakulteti",
+       "ru": "Факультет восточной филологии",
+       "en": "Faculty of Oriental Philology",
+       "zh": "东方语文学系"
+      },
+      "url": "/faculty/oriental-philology",
+      "photo": null
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "slug": "til-oqitish-markazi",
+  "title": {
+   "uz": "Til öqitiş markazi",
+   "ru": "Центр языковой подготовки",
+   "en": "Language training centre",
+   "zh": "语言培训中心"
+  },
+  "body": {
+   "uz": "<p>Özbekiston davlat jahon tillari universitetida ta’lim asosan özbek va rus tillarida olib boriladi; abituriyent yönalişiga qarab ta’lim tilini tanlaydi. Vazirlar Mahkamasining 2008-yil 4-avgustdagi 169-son qaroriga köra özbek yoki rus tilini yetarli bilmaydigan xorijiy abituriyentlar tayyorlov til kurslarida öqiydi.</p><p>Universitet qoşida 1991-yilda taşkil etilgan Respublika til örgatiş markazi bilim darajasiga qarab 3, 5 yoki 10 oylik intensiv tayyorlov dasturlarini taklif etadi. Maqsad — bakalavriatga kiriş uçun zarur bölgan kamida B1 darajadagi özbek yoki rus tili.</p><p>Kursni muvaffaqiyatli tugatganlarga til darajasini tasdiqlovçi sertifikat beriladi. Özbekistondan taşqarida özbek yoki rus tilini örgangan abituriyentlar test sinovidan ötadi; muvaffaqiyatli ötganlarga töğridan-töğri öqişga kiriş huquqini beruvçi sertifikat beriladi.</p>",
+   "ru": "<p>В Узбекском государственном университете мировых языков обучение ведётся в основном на узбекском и русском языках; абитуриент выбирает язык обучения в зависимости от направления. Согласно постановлению Кабинета Министров № 169 от 4 августа 2008 года иностранные абитуриенты, недостаточно владеющие узбекским или русским языком, обучаются на подготовительных языковых курсах.</p><p>Созданный при университете в 1991 году Республиканский центр языковой подготовки предлагает интенсивные программы продолжительностью 3, 5 или 10 месяцев в зависимости от уровня знаний. Цель — владение узбекским или русским языком не ниже уровня B1, необходимое для поступления в бакалавриат.</p><p>Успешно окончившим курс выдаётся сертификат об уровне владения языком. Абитуриенты, изучавшие узбекский или русский язык за пределами Узбекистана, проходят тестирование; успешно сдавшим выдаётся сертификат, дающий право на прямое зачисление.</p>",
+   "en": "<p>At the Uzbekistan State University of World Languages, teaching is mainly in Uzbek and Russian; applicants choose the language of instruction depending on the programme. Under Cabinet of Ministers Resolution No. 169 of 4 August 2008, international applicants without sufficient Uzbek or Russian study at preparatory language courses.</p><p>The Republican Language Training Centre, founded at the university in 1991, offers intensive preparatory programmes of 3, 5 or 10 months depending on the student’s level. The aim is at least B1 in Uzbek or Russian — the minimum requirement for bachelor’s admission.</p><p>Students who complete the course receive a certificate confirming their language level. Applicants who learned Uzbek or Russian outside Uzbekistan take a placement test; those who pass receive a certificate granting direct admission.</p>",
+   "zh": "<p>乌兹别克斯坦国立世界语言大学主要以乌兹别克语和俄语授课，考生可根据所选专业选择授课语言。根据内阁2008年8月4日第169号决议，乌兹别克语或俄语水平不足的外国考生须参加预科语言课程。</p><p>学校于1991年设立的共和国语言培训中心，根据学生水平提供3个月、5个月或10个月的强化预科课程，目标是使学生的乌兹别克语或俄语达到本科入学所需的至少B1水平。</p><p>顺利结业者将获得语言水平证书。在乌兹别克斯坦境外学习过乌兹别克语或俄语的考生须参加水平测试，通过者将获得可直接入学的证书。</p>"
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17822380011781.pdf",
+    {
+     "uz": "Til öqitiş markazi nizomi",
+     "ru": "Положение о центре языковой подготовки",
+     "en": "Regulations of the Language Training Centre",
+     "zh": "语言培训中心条例"
+    }
+   ],
+   [
+    "17823796441544.pdf",
+    {
+     "uz": "Respublika til öqitiş markazi",
+     "ru": "Республиканский центр языковой подготовки",
+     "en": "Republican Language Training Centre",
+     "zh": "共和国语言培训中心"
+    }
+   ]
+  ]
+ }
+]

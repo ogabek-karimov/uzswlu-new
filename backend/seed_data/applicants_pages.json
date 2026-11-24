@@ -1,0 +1,405 @@
+{
+ "phd-dasturlari": {
+  "body": {
+   "uz": "<p>Tayanç doktorantura (PhD), doktorantura (DSc) va mustaqil izlanuvçilikka kiruvçilar uçun ixtisosliklar böyiça kiriş imtihoni dasturlari. Kerakli ixtisoslikni tanlang — dastur şu sahifaning özida oçiladi.</p>",
+   "ru": "<p>Программы вступительных экзаменов по специальностям для поступающих в базовую докторантуру (PhD), докторантуру (DSc) и на самостоятельное соискательство. Выберите специальность — программа откроется прямо на этой странице.</p>",
+   "en": "<p>Entrance examination programmes by specialty for applicants to basic doctoral studies (PhD), doctoral studies (DSc) and independent research. Choose a specialty — the programme opens right on this page.</p>",
+   "zh": "<p>报考基础博士（PhD）、博士（DSc）及独立研究者的各专业入学考试大纲。请选择专业，大纲将直接在本页打开。</p>"
+  },
+  "docs": [
+   {
+    "file": "17411582551640.pdf",
+    "title": {
+     "uz": "07.00.01 — Özbekiston tarixi",
+     "ru": "07.00.01 — История Узбекистана",
+     "en": "07.00.01 — History of Uzbekistan",
+     "zh": "07.00.01 — 乌兹别克斯坦历史"
+    },
+    "meta": {
+     "uz": "Kiriş imtihoni dasturi",
+     "ru": "Программа вступительного экзамена",
+     "en": "Entrance examination programme",
+     "zh": "入学考试大纲"
+    },
+    "display": "embed"
+   },
+   {
+    "file": "17411610740253.pdf",
+    "title": {
+     "uz": "10.00.07 — Adabiyot nazariyasi",
+     "ru": "10.00.07 — Теория литературы",
+     "en": "10.00.07 — Theory of Literature",
+     "zh": "10.00.07 — 文学理论"
+    },
+    "meta": {
+     "uz": "Kiriş imtihoni dasturi",
+     "ru": "Программа вступительного экзамена",
+     "en": "Entrance examination programme",
+     "zh": "入学考试大纲"
+    },
+    "display": "embed"
+   },
+   {
+    "file": "17411611365598.pdf",
+    "title": {
+     "uz": "10.00.09 — Jurnalistika",
+     "ru": "10.00.09 — Журналистика",
+     "en": "10.00.09 — Journalism",
+     "zh": "10.00.09 — 新闻学"
+    },
+    "meta": {
+     "uz": "Kiriş imtihoni dasturi",
+     "ru": "Программа вступительного экзамена",
+     "en": "Entrance examination programme",
+     "zh": "入学考试大纲"
+    },
+    "display": "embed"
+   },
+   {
+    "file": "17411612096825.pdf",
+    "title": {
+     "uz": "10.00.11 — Til nazariyasi. Amaliy va kompyuter lingvistikasi",
+     "ru": "10.00.11 — Теория языка. Прикладная и компьютерная лингвистика",
+     "en": "10.00.11 — Theory of Language. Applied and Computational Linguistics",
+     "zh": "10.00.11 — 语言理论；应用语言学与计算语言学"
+    },
+    "meta": {
+     "uz": "Kiriş imtihoni dasturi",
+     "ru": "Программа вступительного экзамена",
+     "en": "Entrance examination programme",
+     "zh": "入学考试大纲"
+    },
+    "display": "embed"
+   },
+   {
+    "file": "17411613124253.pdf",
+    "title": {
+     "uz": "10.00.04 — Yevropa, Amerika va Avstraliya xalqlari tili va adabiyoti",
+     "ru": "10.00.04 — Языки и литература народов Европы, Америки и Австралии",
+     "en": "10.00.04 — Languages and Literature of the Peoples of Europe, America and Australia",
+     "zh": "10.00.04 — 欧洲、美洲和澳大利亚民族语言与文学"
+    },
+    "meta": {
+     "uz": "Kiriş imtihoni dasturi",
+     "ru": "Программа вступительного экзамена",
+     "en": "Entrance examination programme",
+     "zh": "入学考试大纲"
+    },
+    "display": "embed"
+   },
+   {
+    "file": "17411614380378.pdf",
+    "title": {
+     "uz": "10.00.06 — Qiyosiy adabiyotşunoslik, çoğiştirma tilşunoslik va tarjimaşunoslik",
+     "ru": "10.00.06 — Сравнительное литературоведение, сопоставительное языкознание и переводоведение",
+     "en": "10.00.06 — Comparative Literature, Comparative Linguistics and Translation Studies",
+     "zh": "10.00.06 — 比较文学、对比语言学与翻译学"
+    },
+    "meta": {
+     "uz": "Kiriş imtihoni dasturi",
+     "ru": "Программа вступительного экзамена",
+     "en": "Entrance examination programme",
+     "zh": "入学考试大纲"
+    },
+    "display": "embed"
+   },
+   {
+    "file": "17411614871749.pdf",
+    "title": {
+     "uz": "13.00.01 — Pedagogika nazariyasi. Pedagogik ta’limotlar tarixi",
+     "ru": "13.00.01 — Теория педагогики. История педагогических учений",
+     "en": "13.00.01 — Theory of Pedagogy. History of Pedagogical Doctrines",
+     "zh": "13.00.01 — 教育学理论；教育学说史"
+    },
+    "meta": {
+     "uz": "Kiriş imtihoni dasturi",
+     "ru": "Программа вступительного экзамена",
+     "en": "Entrance examination programme",
+     "zh": "入学考试大纲"
+    },
+    "display": "embed"
+   },
+   {
+    "file": "17411615363079.pdf",
+    "title": {
+     "uz": "13.00.02 — Ta’lim va tarbiya nazariyasi va metodikasi (çet tillari)",
+     "ru": "13.00.02 — Теория и методика обучения и воспитания (иностранные языки)",
+     "en": "13.00.02 — Theory and Methodology of Education and Upbringing (Foreign Languages)",
+     "zh": "13.00.02 — 教学与教育理论和方法（外语）"
+    },
+    "meta": {
+     "uz": "Kiriş imtihoni dasturi",
+     "ru": "Программа вступительного экзамена",
+     "en": "Entrance examination programme",
+     "zh": "入学考试大纲"
+    },
+    "display": "embed"
+   },
+   {
+    "file": "17411615855000.pdf",
+    "title": {
+     "uz": "23.00.02 — Siyosiy institutlar, jarayonlar va texnologiyalar",
+     "ru": "23.00.02 — Политические институты, процессы и технологии",
+     "en": "23.00.02 — Political Institutions, Processes and Technologies",
+     "zh": "23.00.02 — 政治制度、进程与技术"
+    },
+    "meta": {
+     "uz": "Kiriş imtihoni dasturi",
+     "ru": "Программа вступительного экзамена",
+     "en": "Entrance examination programme",
+     "zh": "入学考试大纲"
+    },
+    "display": "embed"
+   },
+   {
+    "file": "17411616311819.pdf",
+    "title": {
+     "uz": "23.00.04 — Xalqaro munosabatlar, jahon va mintaqa taraqqiyotining siyosiy muammolari",
+     "ru": "23.00.04 — Международные отношения, политические проблемы мирового и регионального развития",
+     "en": "23.00.04 — International Relations, Political Problems of Global and Regional Development",
+     "zh": "23.00.04 — 国际关系、全球与区域发展政治问题"
+    },
+    "meta": {
+     "uz": "Kiriş imtihoni dasturi",
+     "ru": "Программа вступительного экзамена",
+     "en": "Entrance examination programme",
+     "zh": "入学考试大纲"
+    },
+    "display": "embed"
+   }
+  ]
+ },
+ "stipendiyalar": {
+  "body": {
+   "uz": "<p>Talabalarga tayinlanadigan stipendiyalar tartibi va şartlari bilan quyidagi hujjatlarda tanişişingiz mumkin.</p>",
+   "ru": "<p>С порядком и условиями назначения стипендий студентам можно ознакомиться в документах ниже.</p>",
+   "en": "<p>You can read about how scholarships are awarded to students and the conditions in the documents below.</p>",
+   "zh": "<p>有关学生奖学金的评定办法和条件，请参阅以下文件。</p>"
+  },
+  "docs": [
+   {
+    "file": "17411616424600.pdf",
+    "title": {
+     "uz": "Stipendiyalar töğrisidagi nizom",
+     "ru": "Положение о стипендиях",
+     "en": "Regulations on scholarships",
+     "zh": "奖学金条例"
+    },
+    "meta": {},
+    "display": "embed"
+   },
+   {
+    "file": "17411705661302.pdf",
+    "title": {
+     "uz": "Nomli stipendiyalar",
+     "ru": "Именные стипендии",
+     "en": "Named scholarships",
+     "zh": "冠名奖学金"
+    },
+    "meta": {},
+    "display": "embed"
+   },
+   {
+    "file": "17411706877444.pdf",
+    "title": {
+     "uz": "Rektor stipendiyasi nizomi",
+     "ru": "Положение о стипендии ректора",
+     "en": "Regulations on the Rector’s Scholarship",
+     "zh": "校长奖学金条例"
+    },
+    "meta": {},
+    "display": "embed"
+   }
+  ],
+  "cta": {
+   "cta_title": {
+    "uz": "Grant va stipendiyalar — birinçilardan bölib biling",
+    "ru": "Гранты и стипендии — узнавайте первыми",
+    "en": "Grants and scholarships — be the first to know",
+    "zh": "助学金与奖学金——第一时间获悉"
+   },
+   "cta_text": {
+    "uz": "Yangi grantlar, stipendiyalar va tanlovlar haqidagi e’lonlar «Grantlar» Telegram kanalida. Obuna böling va imkoniyatni boy bermang!",
+    "ru": "Объявления о новых грантах, стипендиях и конкурсах — в Telegram-канале «Гранты». Подпишитесь и не упустите возможность!",
+    "en": "Announcements about new grants, scholarships and competitions are posted on the “Grants” Telegram channel. Subscribe and don’t miss your chance!",
+    "zh": "新的助学金、奖学金和竞赛公告发布在“Grants”Telegram 频道。立即订阅，不错过任何机会！"
+   },
+   "cta_label": {
+    "uz": "Telegram kanalga obuna böliş",
+    "ru": "Подписаться в Telegram",
+    "en": "Join on Telegram",
+    "zh": "订阅 Telegram 频道"
+   },
+   "cta_url": "https://t.me/Grantlar_UzDJTU"
+  }
+ },
+ "tolov-kontrakt-miqdori": {
+  "body": {
+   "uz": "<p>Tölov-kontrakt asosida öqiş narxlari ta’lim yönalişlari va öqiş şakllari böyiça quyidagi hujjatlarda keltirilgan.</p>",
+   "ru": "<p>Стоимость обучения на платно-контрактной основе по направлениям и формам обучения приведена в документах ниже.</p>",
+   "en": "<p>Tuition fees on a fee-paying (contract) basis by programme and form of study are given in the documents below.</p>",
+   "zh": "<p>各专业及学习形式的自费（合同制）学费标准见以下文件。</p>"
+  },
+  "docs": [
+   {
+    "file": "17885305390382.pdf",
+    "title": {
+     "uz": "Tabaqalaştirilgan tölov-kontrakt miqdorlari (2026–2027)",
+     "ru": "Дифференцированная стоимость контрактного обучения (2026–2027)",
+     "en": "Differentiated tuition fees (2026–2027)",
+     "zh": "差异化合同学费标准（2026—2027）"
+    },
+    "meta": {},
+    "display": "embed"
+   },
+   {
+    "file": "17618105784576.pdf",
+    "title": {
+     "uz": "2025–2026 öquv yili uçun kontrakt narxlari",
+     "ru": "Стоимость контрактного обучения на 2025–2026 учебный год",
+     "en": "Tuition fees for the 2025–2026 academic year",
+     "zh": "2025—2026学年合同学费"
+    },
+    "meta": {},
+    "display": "embed"
+   }
+  ]
+ },
+ "talim-grantlar-soni": {
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "docs": [
+   {
+    "file": "17479193972056.pdf",
+    "title": {
+     "uz": "2025–2026 öquv yili qabuli: davlat granti örinlari",
+     "ru": "Приём на 2025–2026 учебный год: места по государственному гранту",
+     "en": "Admission for the 2025–2026 academic year: state grant places",
+     "zh": "2025—2026学年招生：国家助学金名额"
+    },
+    "meta": {},
+    "display": "embed"
+   }
+  ]
+ },
+ "hamkorlarimiz": {
+  "body": {
+   "uz": "<p>Universitetning xalqaro hamkor oliy ta’lim muassasalari va taşkilotlari röyxati.</p>",
+   "ru": "<p>Список зарубежных вузов и организаций — партнёров университета.</p>",
+   "en": "<p>List of the university’s international partner institutions and organizations.</p>",
+   "zh": "<p>大学国际合作院校和机构名单。</p>"
+  },
+  "docs": [
+   {
+    "file": "17422029105328.pdf",
+    "title": {
+     "uz": "Xalqaro hamkorlar",
+     "ru": "Международные партнёры",
+     "en": "International partners",
+     "zh": "国际合作伙伴"
+    },
+    "meta": {},
+    "display": "embed"
+   }
+  ]
+ },
+ "sharoitlar": {
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "docs": [
+   {
+    "file": "sharoitlar.pdf",
+    "title": {
+     "uz": "Şaroitlar",
+     "ru": "Условия",
+     "en": "Conditions",
+     "zh": "办学条件"
+    },
+    "meta": {},
+    "display": "embed"
+   }
+  ]
+ },
+ "vakansiya": {
+  "body": {
+   "uz": "<p>Işga joylaşiş böyiça foydali havolalar:</p>",
+   "ru": "<p>Полезные ссылки по трудоустройству:</p>",
+   "en": "<p>Useful links for employment:</p>",
+   "zh": "<p>就业实用链接：</p>"
+  },
+  "docs": [
+   {
+    "url": "https://t.me/UzSWLU",
+    "title": {
+     "uz": "Universitet rasmiy Telegram kanali",
+     "ru": "Официальный Telegram-канал университета",
+     "en": "Official Telegram channel of the university",
+     "zh": "大学官方 Telegram 频道"
+    },
+    "meta": {
+     "uz": "Telegram",
+     "ru": "Telegram",
+     "en": "Telegram",
+     "zh": "Telegram"
+    },
+    "display": "open"
+   },
+   {
+    "url": "https://t.me/karyera24",
+    "title": {
+     "uz": "Karyera markazining rasmiy Telegram kanali",
+     "ru": "Официальный Telegram-канал карьерного центра",
+     "en": "Official Telegram channel of the Career Center",
+     "zh": "职业发展中心官方 Telegram 频道"
+    },
+    "meta": {
+     "uz": "Telegram",
+     "ru": "Telegram",
+     "en": "Telegram",
+     "zh": "Telegram"
+    },
+    "display": "open"
+   },
+   {
+    "url": "https://vacancy.argos.uz/",
+    "title": {
+     "uz": "Talabalar uçun vakant iş örinlari",
+     "ru": "Вакансии для студентов",
+     "en": "Job vacancies for students",
+     "zh": "学生职位空缺"
+    },
+    "meta": {
+     "uz": "vacancy.argos.uz",
+     "ru": "vacancy.argos.uz",
+     "en": "vacancy.argos.uz",
+     "zh": "vacancy.argos.uz"
+    },
+    "display": "open"
+   },
+   {
+    "url": "https://ish3.mehnat.uz/",
+    "title": {
+     "uz": "Talabalar uçun vakant iş örinlari (xususiy sektor)",
+     "ru": "Вакансии для студентов (частный сектор)",
+     "en": "Job vacancies for students (private sector)",
+     "zh": "学生职位空缺（私营部门）"
+    },
+    "meta": {
+     "uz": "ish3.mehnat.uz",
+     "ru": "ish3.mehnat.uz",
+     "en": "ish3.mehnat.uz",
+     "zh": "ish3.mehnat.uz"
+    },
+    "display": "open"
+   }
+  ]
+ }
+}

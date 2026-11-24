@@ -162,6 +162,7 @@ PRIVATE_ROOT = Path(env('PRIVATE_ROOT', str(BASE_DIR / 'private')))
 # Yuklash so'rovining eng katta hajmi (bayt): fayl o'qilishidan OLDIN rad etiladi (prefiks → limit)
 UPLOAD_LIMITS = [
     ('/api/appeals', 12 * 1024 * 1024),
+    ('/api/applications', 16 * 1024 * 1024),
     ('/api/me/', 22 * 1024 * 1024),
     ('/api/cms/', 55 * 1024 * 1024),
 ]
@@ -170,6 +171,7 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 8 * 1024 * 1024  # fayl bo'lmagan tana (JSON) ko'p
 BODY_LIMITS = [
     ('/api/hit', 16 * 1024), ('/api/site/hit', 16 * 1024),
     ('/api/appeals', 64 * 1024),
+    ('/api/applications', 64 * 1024),
     ('/api/auth/', 16 * 1024), ('/api/cms/users/login', 16 * 1024), ('/api/cms/users/2fa', 16 * 1024),
     ('/api/me', 512 * 1024),
     ('/api/cms/', 8 * 1024 * 1024),

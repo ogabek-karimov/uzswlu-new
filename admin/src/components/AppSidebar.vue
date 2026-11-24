@@ -18,6 +18,7 @@ const groups: { label: string; items: Item[] }[] = [
   { label: 'Asosiy', items: [
     { to: '/', label: 'Boşqaruv paneli', icon: 'dashboard', section: 'dashboard' },
     { to: '/statistika', label: 'Statistika', icon: 'stats', superOnly: true },
+    { to: '/arizalar', label: 'Arizalar', icon: 'docs', superOnly: true },
   ] },
   { label: 'Kontent', items: [
     { to: '/postlar/news', label: 'Yangiliklar', icon: 'news', section: 'news' },

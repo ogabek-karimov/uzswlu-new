@@ -255,6 +255,11 @@ def page_out(p: Page, lang: str) -> dict:
         'slug': p.slug,
         'title': tr(p.title, lang),
         'lead': tr(p.lead, lang) or None,
+        # Menyuda yöq ichki sahifa (masalan, Magistrlik dasturlari → Qabul kvotasi): bölim va yon menyu ota sahifa orqali topiladi
+        # cards — ota sahifadagi boşqa havolali kartalar (sahifa ostida «tez ötiş» uçun)
+        'parent': {'title': tr(p.parent.title, lang), 'url': p.parent.site_url,
+                   'cards': [c for b in showcase_out(p.parent.showcase, lang) for c in b['cards'] if c['url'] != p.site_url]}
+        if not p.in_menu and p.parent_id and p.parent.template != 'group' else None,
         'facts': [{'value': f.value, 'label': tr(f.label, lang)} for f in p.facts.all()],
         'body': restore_timeline(tr(p.body, lang)),
         'timeline': [{'label': tr(t.label, lang), 'text': tr(t.text, lang), 'highlight': t.highlight} for t in p.timeline.all()],
@@ -296,6 +301,7 @@ def showcase_out(data, lang: str) -> list[dict]:
     # Bloklardagi suratlar (media ID) — bitta so'rov bilan
     from apps.core.models import Media
     ids = {int(x) for b in blocks or [] if isinstance(b, dict) for x in (b.get('photos') or []) if str(x).isdigit()}
+    ids |= {int(c['photo']) for b in blocks or [] if isinstance(b, dict) for c in (b.get('cards') or []) if isinstance(c, dict) and str(c.get('photo') or '').isdigit()}
     media = {m.pk: m for m in Media.objects.filter(pk__in=ids, kind='image')} if ids else {}
     out = []
     for n, block in enumerate(blocks or [], start=1):
@@ -319,8 +325,17 @@ def showcase_out(data, lang: str) -> list[dict]:
         photos = [{'url': m.size_url('hero') or m.url, 'thumb': m.size_url('card') or m.url, 'alt': tr(m.alt, lang) or '',
                    'width': m.width, 'height': m.height}
                   for m in (media.get(int(x)) for x in (block.get('photos') or []) if str(x).isdigit()) if m]
-        if stats or columns or intro or photos:
-            out.append({'n': n, 'intro': intro, 'stats': stats, 'columns': columns, 'outro': outro, 'photos': photos})
+        # Havolali kartalar: rasm + nom, bosilsa sahifaga (masalan, Xalqaro talabalar → Doktorantura, Viza …)
+        cards = []
+        for c in block.get('cards') or []:
+            if not isinstance(c, dict) or not c.get('url'):
+                continue
+            m = media.get(int(c['photo'])) if str(c.get('photo') or '').isdigit() else None
+            cards.append({'title': tr(c.get('title'), lang) or '', 'url': c['url'], 'photo': (m.size_url('card') or m.url) if m else None})
+        if stats or columns or intro or photos or cards:
+            # slider — suratlar slayderda (buklet sahifalari: bittadan, ← 1 2 3 → bilan)
+            out.append({'n': n, 'intro': intro, 'stats': stats, 'columns': columns, 'outro': outro, 'photos': photos, 'cards': cards,
+                        'slider': bool(block.get('slider'))})
     return out
 
 

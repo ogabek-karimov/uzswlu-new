@@ -1082,5 +1082,59 @@
   },
   "callPop": {
     "label": "联系我们"
+  },
+  "slider": {
+    "label": "第 {n} 张，共 {total} 张",
+    "pages": "图片",
+    "open": "放大图片"
+  },
+  "application": {
+    "title": "提交申请",
+    "text": "外国考生在线申请。申请将发送至学校国际合作处。",
+    "personal": "个人信息",
+    "study": "学习意向",
+    "files": "材料",
+    "lastName": "姓",
+    "firstName": "名",
+    "middleName": "父称",
+    "passport": "护照号码",
+    "country": "国家",
+    "gender": "性别",
+    "male": "男",
+    "female": "女",
+    "address": "常住地址",
+    "phone": "电话号码",
+    "email": "电子邮箱",
+    "degree": "学历层次",
+    "studyForm": "学习形式",
+    "faculty": "院系",
+    "program": "专业",
+    "programHint": "专业名称",
+    "degreeFirst": "请先选择学历层次",
+    "choose": "请选择…",
+    "passportFile": "护照复印件",
+    "diplomaFile": "证书或文凭",
+    "photoFile": "3×4照片",
+    "pick": "选择文件",
+    "fileHint": "PDF、JPG或PNG格式，每个不超过5 MB。三个文件均为必交。",
+    "fileTooBig": "文件超过5 MB",
+    "filesRequired": "请上传护照、文凭（证书）和照片",
+    "consent": "我同意将个人信息用于审核申请",
+    "submit": "提交申请",
+    "sending": "正在发送…",
+    "success": "您的申请已收到！",
+    "number": "申请编号：{number}。我们将通过电子邮件或电话与您联系。",
+    "another": "再提交一份",
+    "error": "申请未发送，请检查信息后重试。",
+    "degrees": {
+      "bachelor": "本科",
+      "master": "硕士",
+      "doctorate": "博士"
+    },
+    "forms": {
+      "day": "全日制",
+      "distance": "函授",
+      "evening": "夜校"
+    }
   }
 }

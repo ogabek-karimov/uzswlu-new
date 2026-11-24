@@ -13,6 +13,8 @@ const TONES = [
   { head: 'bg-[#0369a1] text-white', num: 'border-sky-200 text-[#0369a1] group-hover:bg-[#0369a1] group-hover:text-white', bar: 'bg-[#0369a1]', check: 'bg-sky-50 text-[#0369a1]' },
 ]
 const pad = (n: number) => String(n).padStart(2, '0')
+const localePath = useLocalePath()
+const NuxtLink = resolveComponent('NuxtLink')
 // Suratlar: bosilsa to'liq ekranda (ImageViewer); 2 ta bo'lsa — yonma-yon, ko'p bo'lsa — birinçisi katta, qolganlari to'rda
 const viewer = ref<number | null>(null)
 const photoUrls = computed(() => props.data.photos.map(ph => ph.url))
@@ -46,8 +48,28 @@ const tone = (ci: number) => TONES[(ci + (props.data.n - 1)) % TONES.length]!
 <template>
   <!-- Bölaklar orasidagi oraliq bir joyda (flex gap) -->
   <section class="showcase my-10 flex flex-col gap-3 rounded-[28px] border border-line bg-white p-3 sm:gap-4 sm:p-4">
-    <!-- Suratlar -->
-    <div v-if="data.photos.length" class="grid gap-2 sm:gap-3" :class="gridCols">
+    <!-- Havolali kartalar: rasm + nom, bosilsa sahifaga (taşqi — yangi oynada) -->
+    <ul v-if="data.cards?.length" class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+      <li v-for="(c, i) in data.cards" :key="i" class="showcase-item" :style="{ '--i': i }">
+        <component
+          :is="/^https?:/.test(c.url) ? 'a' : NuxtLink"
+          v-bind="/^https?:/.test(c.url) ? { href: c.url, target: '_blank', rel: 'noopener' } : { to: localePath(c.url) }"
+          class="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition duration-300 hover:-translate-y-1 hover:border-accent-500 hover:shadow-[0_20px_44px_-30px_var(--color-accent-600)]"
+        >
+          <span v-if="c.photo" class="block aspect-[4/3] overflow-hidden bg-white">
+            <img :src="c.photo" :alt="c.title" loading="lazy" class="size-full object-contain p-2 transition-transform duration-500 group-hover:scale-105">
+          </span>
+          <span class="flex flex-1 items-start gap-2 p-3.5 text-[15px] leading-snug font-semibold text-ink">
+            <span class="min-w-0 flex-1">{{ c.title }}</span>
+            <Icon :name="/^https?:/.test(c.url) ? 'lucide:arrow-up-right' : 'lucide:arrow-right'" class="mt-0.5 shrink-0 text-muted transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </component>
+      </li>
+    </ul>
+
+    <!-- Suratlar: slayder (buklet sahifalari) yoki to'r -->
+    <ImageSlider v-if="data.slider && data.photos.length" :photos="data.photos" />
+    <div v-else-if="data.photos.length" class="grid gap-2 sm:gap-3" :class="gridCols">
       <button
         v-for="(ph, i) in data.photos" :key="ph.url" type="button"
         class="group/ph relative overflow-hidden bg-paper focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
@@ -63,7 +85,7 @@ const tone = (ci: number) => TONES[(ci + (props.data.n - 1)) % TONES.length]!
         <span v-if="!roundPhotos" aria-hidden="true" class="absolute right-2.5 bottom-2.5 grid size-8 place-items-center rounded-full bg-black/45 text-white opacity-0 backdrop-blur-sm transition-opacity group-hover/ph:opacity-100"><Icon name="lucide:maximize-2" class="text-sm" /></span>
       </button>
     </div>
-    <ImageViewer v-if="data.photos.length" v-model:index="viewer" :images="photoUrls" :caption="viewer !== null ? data.photos[viewer]?.alt : ''" />
+    <ImageViewer v-if="data.photos.length && !data.slider" v-model:index="viewer" :images="photoUrls" :caption="viewer !== null ? data.photos[viewer]?.alt : ''" />
 
     <p v-if="data.intro" class="flex gap-3 rounded-[20px] bg-gradient-to-br from-brand-50 to-[#f3f0ff] px-5 py-4 text-[17px] leading-relaxed font-semibold text-ink sm:px-6 sm:py-5">
       <Icon name="lucide:sparkles" class="mt-1 shrink-0 text-xl text-brand-600" aria-hidden="true" />

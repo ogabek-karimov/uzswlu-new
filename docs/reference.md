@@ -12,6 +12,7 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 |---|---|---|---|---|
 | `activity` | R | — | — | — |
 | `admission-years` | RCUD | R | RCUD | R |
+| `applications` | RUD | — | — | — |
 | `categories` | RCUD | R | R | R |
 | `departments` | RCUD | R | R | R |
 | `doc-categories` | RCUD | R | RCU | R |
@@ -45,6 +46,7 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 - `admission-years` · **create**: `year` — 2027/2028 ko‘rinishida, takrorlanmas; `copyFrom` — nusxa olinadigan yil id si.
 - `admission-years` · **update**: `status: active` — faol qilish (oldingi faol yil arxivga o‘tadi); `public` — arxiv yili saytda ko‘rinadimi.
 - `admission-years` · **delete**: Faol yil o‘chirilmaydi.
+- `applications` · **update**: Faqat `status` (new / in_progress / accepted / rejected) va `note` o‘zgaradi.
 - `departments` · **create**: `faculty` faqat **o‘z fakultetiga** kafedra qo‘sha oladi.
 - `departments` · **update**: `faculty` faqat **o‘z fakultetidagi** kafedrani o‘zgartiradi.
 - `faculties` · **update**: `faculty` faqat **o‘z fakultetini** (`User.scope`) o‘zgartiradi; doirasi belgilanmagan bo‘lsa — hech narsani.
@@ -162,37 +164,37 @@ Standart qiymat bilan ishlaydi; kerak bo‘lsa `backend/.env` ga qo‘shing.
 
 | O‘zgaruvchi | Standart | Qayerda |
 |---|---|---|
-| `BACKUP_MAX_AGE_HOURS` | `'36'` | `backend/config/settings.py:291` |
-| `BACKUP_MEDIA` | `True` | `backend/config/settings.py:289` |
-| `CACHE_DIR` | `'/tmp/uzswlu-cache'` | `backend/config/settings.py:202` |
-| `COOKIE_SECURE` | `True` | `backend/config/settings.py:188` |
-| `HEMIS_CLIENT` | `'apps.hemis.cache.CachedHemis' if HEMIS_API_URL else 'apps.hemis.snapshot.SnapshotHemis'` | `backend/config/settings.py:292` |
-| `HEMIS_MAX_CONSECUTIVE_FAILURES` | `'5'` | `backend/config/settings.py:274` |
-| `HEMIS_MAX_REQUESTS` | `'3000'` | `backend/config/settings.py:273` |
-| `HEMIS_OAUTH_AUTHORIZE_PATH` | `'/oauth/authorize'` | `backend/config/settings.py:297` |
-| `HEMIS_OAUTH_GLOBAL_PER_MIN` | `'120'` | `backend/config/settings.py:275` |
-| `HEMIS_OAUTH_TOKEN_PATH` | `'/oauth/access-token'` | `backend/config/settings.py:298` |
-| `HEMIS_OAUTH_USER_PATH` | `'/oauth/api/user'` | `backend/config/settings.py:299` |
-| `HEMIS_SNAPSHOT` | `str(BASE_DIR / 'seed_data' / 'hemis-snapshot.json')` | `backend/config/settings.py:326` |
-| `HEMIS_SYNC_AT` | `'02:30'` | `backend/config/settings.py:271` |
-| `HEMIS_SYNC_JITTER_MINUTES` | `'20'` | `backend/config/settings.py:272` |
-| `HEMIS_SYNC_WINDOW` | `'01:00-05:00'` | `backend/config/settings.py:270` |
-| `HEMIS_TIMEOUT` | `'20'` | `backend/config/settings.py:266` |
-| `HIT_RETENTION_DAYS` | `'730'` | `backend/config/settings.py:276` |
-| `HSTS_SECONDS` | `'31536000'` | `backend/config/settings.py:191` |
-| `LOGIN_EVENT_RETENTION_DAYS` | `'365'` | `backend/config/settings.py:277` |
-| `LOG_LEVEL` | `'INFO'` | `backend/config/settings.py:332` |
-| `SITE_PURGE_TOKEN` | `''` | `backend/config/settings.py:260` |
-| `SITE_PURGE_URL` | `''` | `backend/config/settings.py:259` |
-| `STAFF_SESSION_COOKIE` | `'session'` | `backend/config/settings.py:254` |
-| `STAFF_SESSION_TTL_HOURS` | `'12'` | `backend/config/settings.py:255` |
-| `THROTTLE_CABINET` | `'180/min'` | `backend/config/settings.py:236` |
-| `THROTTLE_CABINET_UPLOAD` | `'30/hour'` | `backend/config/settings.py:237` |
-| `THROTTLE_DOCS` | `'60/min'` | `backend/config/settings.py:240` |
-| `THROTTLE_HIT` | `'240/min'` | `backend/config/settings.py:239` |
-| `THROTTLE_OPEN` | `'1200/min'` | `backend/config/settings.py:230` |
-| `THROTTLE_PANEL_READ` | `'1200/min'` | `backend/config/settings.py:234` |
-| `THROTTLE_PANEL_WRITE` | `'180/min'` | `backend/config/settings.py:235` |
+| `BACKUP_MAX_AGE_HOURS` | `'36'` | `backend/config/settings.py:293` |
+| `BACKUP_MEDIA` | `True` | `backend/config/settings.py:291` |
+| `CACHE_DIR` | `'/tmp/uzswlu-cache'` | `backend/config/settings.py:204` |
+| `COOKIE_SECURE` | `True` | `backend/config/settings.py:190` |
+| `HEMIS_CLIENT` | `'apps.hemis.cache.CachedHemis' if HEMIS_API_URL else 'apps.hemis.snapshot.SnapshotHemis'` | `backend/config/settings.py:294` |
+| `HEMIS_MAX_CONSECUTIVE_FAILURES` | `'5'` | `backend/config/settings.py:276` |
+| `HEMIS_MAX_REQUESTS` | `'3000'` | `backend/config/settings.py:275` |
+| `HEMIS_OAUTH_AUTHORIZE_PATH` | `'/oauth/authorize'` | `backend/config/settings.py:299` |
+| `HEMIS_OAUTH_GLOBAL_PER_MIN` | `'120'` | `backend/config/settings.py:277` |
+| `HEMIS_OAUTH_TOKEN_PATH` | `'/oauth/access-token'` | `backend/config/settings.py:300` |
+| `HEMIS_OAUTH_USER_PATH` | `'/oauth/api/user'` | `backend/config/settings.py:301` |
+| `HEMIS_SNAPSHOT` | `str(BASE_DIR / 'seed_data' / 'hemis-snapshot.json')` | `backend/config/settings.py:328` |
+| `HEMIS_SYNC_AT` | `'02:30'` | `backend/config/settings.py:273` |
+| `HEMIS_SYNC_JITTER_MINUTES` | `'20'` | `backend/config/settings.py:274` |
+| `HEMIS_SYNC_WINDOW` | `'01:00-05:00'` | `backend/config/settings.py:272` |
+| `HEMIS_TIMEOUT` | `'20'` | `backend/config/settings.py:268` |
+| `HIT_RETENTION_DAYS` | `'730'` | `backend/config/settings.py:278` |
+| `HSTS_SECONDS` | `'31536000'` | `backend/config/settings.py:193` |
+| `LOGIN_EVENT_RETENTION_DAYS` | `'365'` | `backend/config/settings.py:279` |
+| `LOG_LEVEL` | `'INFO'` | `backend/config/settings.py:334` |
+| `SITE_PURGE_TOKEN` | `''` | `backend/config/settings.py:262` |
+| `SITE_PURGE_URL` | `''` | `backend/config/settings.py:261` |
+| `STAFF_SESSION_COOKIE` | `'session'` | `backend/config/settings.py:256` |
+| `STAFF_SESSION_TTL_HOURS` | `'12'` | `backend/config/settings.py:257` |
+| `THROTTLE_CABINET` | `'180/min'` | `backend/config/settings.py:238` |
+| `THROTTLE_CABINET_UPLOAD` | `'30/hour'` | `backend/config/settings.py:239` |
+| `THROTTLE_DOCS` | `'60/min'` | `backend/config/settings.py:242` |
+| `THROTTLE_HIT` | `'240/min'` | `backend/config/settings.py:241` |
+| `THROTTLE_OPEN` | `'1200/min'` | `backend/config/settings.py:232` |
+| `THROTTLE_PANEL_READ` | `'1200/min'` | `backend/config/settings.py:236` |
+| `THROTTLE_PANEL_WRITE` | `'180/min'` | `backend/config/settings.py:237` |
 
 ### Production tekshiruvlari (`python manage.py check`)
 
@@ -220,6 +222,7 @@ Batafsil parametr va javoblar — Swagger: `http://localhost:8000/api/docs/`. Pa
 |---|---|---|---|
 | `/api/admission` | `AdmissionView` | `apps/api/views.py` | `public` |
 | `/api/appeals` | `AppealView` | `apps/api/views.py` | `appeals` |
+| `/api/applications` | `ApplicationView` | `apps/api/views.py` | `appeals` |
 | `/api/contact` | `ContactView` | `apps/api/views.py` | `public` |
 | `/api/documents/<int:pk>/file` | `DocumentFileView` | `apps/api/views.py` | `open` |
 | `/api/documents` | `DocumentsView` | `apps/api/views.py` | `public` |
@@ -363,6 +366,7 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `/xodimlar` | `admin/src/pages/StaffPage.vue` | hamma kirgan xodim |
 | `/brm` | `admin/src/pages/BrmPage.vue` | hamma kirgan xodim |
 | `/sahifalar` | `admin/src/pages/PagesPage.vue` | hamma kirgan xodim |
+| `/arizalar` | `admin/src/pages/ApplicationsPage.vue` | faqat `superadmin` |
 | `/statistika` | `admin/src/pages/StatsPage.vue` | faqat `superadmin` |
 
 ### Frontend (Nuxt)
@@ -406,6 +410,7 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `POST /api/_purge` | `frontend/server/api/_purge.post.ts` |
 | `GET /api/admission` | `frontend/server/api/admission.get.ts` |
 | `POST /api/appeals` | `frontend/server/api/appeals.post.ts` |
+| `POST /api/applications` | `frontend/server/api/applications.post.ts` |
 | `GET /api/contact` | `frontend/server/api/contact.get.ts` |
 | `GET /api/dev-login` | `frontend/server/api/dev-login.get.ts` |
 | `GET /api/documents` | `frontend/server/api/documents.get.ts` |
@@ -607,6 +612,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `structure` | `ContactEmail` | E-pochta (aloqa) | `apps/structure/models.py` |
 | `structure` | `RudeWord` | Haqoratli so‘z | `apps/structure/models.py` |
 | `structure` | `Appeal` | Murojaat | `apps/structure/models.py` |
+| `structure` | `Application` | Ariza | `apps/structure/models.py` |
 | `pages` | `Page` | Sahifa | `apps/pages/models.py` |
 | `pages` | `PageFact` | Raqam | `apps/pages/models.py` |
 | `pages` | `PageTimeline` | Vaqt chizig‘i | `apps/pages/models.py` |

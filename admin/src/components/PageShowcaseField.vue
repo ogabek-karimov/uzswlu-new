@@ -11,7 +11,8 @@ import { mediaUrl } from '@/lib/posts'
 // bitta til tanlanadi; bloklar va ro'yxatlar yig'ilgan holda, bosilsa oçiladi; böş qismlar «+ …» tugmasi bilan qöşiladi.
 // Ma'lumot şakli özgarmagan: raqamlar va bandlar har tilda qatorlar («son | nomi», «Nom — izoh»).
 export type ShowcaseColumn = { title: I18n; icon: string; style: 'numbers' | 'checks'; items: I18n }
-export type ShowcaseBlock = { intro: I18n; stats: I18n; columns: ShowcaseColumn[]; outro: I18n; photos?: MediaDoc[] }
+export type ShowcaseCard = { title: I18n; url: string; photo?: MediaDoc | null }
+export type ShowcaseBlock = { intro: I18n; stats: I18n; columns: ShowcaseColumn[]; outro: I18n; photos?: MediaDoc[]; slider?: boolean; cards?: ShowcaseCard[] }
 export type Showcase = { blocks?: ShowcaseBlock[]; intro?: I18n; columns?: ShowcaseColumn[] }
 const model = defineModel<Showcase>({ required: true })
 
@@ -50,6 +51,7 @@ function summary(b: ShowcaseBlock) {
     b.photos?.length && `${b.photos.length} surat`,
     lines(b.stats).length && `${lines(b.stats).length} raqam`,
     b.columns.length && `${b.columns.length} röyxat`,
+    b.cards?.length && `${b.cards.length} karta`,
   ].filter(Boolean)
   return { title, parts }
 }
@@ -115,6 +117,10 @@ function moveColumn(bi: number, ci: number, d: -1 | 1) {
   openColumn.value = `${bi}-${j}`
 }
 
+function setCard(bi: number, ci: number, patch: Partial<ShowcaseCard>) {
+  setBlock(bi, { cards: (blocks()[bi]!.cards ?? []).map((c, n) => (n === ci ? { ...c, ...patch } : c)) })
+}
+
 // ── Suratlar ──────────────────────────────────────────────
 function addPhoto(bi: number, m: MediaDoc | null) {
   if (!m) return
@@ -170,7 +176,10 @@ function movePhoto(bi: number, pi: number, d: -1 | 1) {
         <div v-if="openBlock === bi" class="flex flex-col gap-4 border-t border-[#F0EEF6] px-3.5 py-3.5">
           <!-- Suratlar -->
           <section v-if="isOn(bi, 'photos', !!block.photos?.length)">
-            <h4 class="mb-1.5 text-[13px] font-bold">Suratlar <span class="font-normal text-muted">— birinçisi katta körinadi</span></h4>
+            <div class="mb-1.5 flex flex-wrap items-center justify-between gap-2">
+              <h4 class="text-[13px] font-bold">Suratlar <span class="font-normal text-muted">— {{ block.slider ? 'slayderda bittadan, ostida 1 2 3 …' : 'birinçisi katta körinadi' }}</span></h4>
+              <label class="flex cursor-pointer items-center gap-2 text-xs font-semibold"><input type="checkbox" :checked="!!block.slider" class="size-4 accent-[var(--color-brand-700)]" @change="setBlock(bi, { slider: ($event.target as HTMLInputElement).checked })">Slayder körinişida</label>
+            </div>
             <ul class="flex flex-wrap gap-2">
               <li v-for="(ph, pi) in block.photos ?? []" :key="ph.id" class="group relative size-[88px] overflow-hidden rounded-xl border border-[#ECEAF4] bg-[#F1F0F5]">
                 <img v-if="mediaUrl(ph)" :src="mediaUrl(ph)!" alt="" class="size-full object-cover">
@@ -180,8 +189,24 @@ function movePhoto(bi: number, pi: number, d: -1 | 1) {
                   <button type="button" class="grid size-6 place-items-center rounded bg-night/70 text-xs text-white disabled:opacity-40" :disabled="pi === (block.photos ?? []).length - 1" aria-label="Öngga" @click="movePhoto(bi, pi, 1)">→</button>
                 </span>
               </li>
-              <li v-if="(block.photos ?? []).length < 12" class="w-[88px]"><ImageField :model-value="null" compact folder="posts" label="Surat" @update:model-value="m => addPhoto(bi, m)" /></li>
+              <li v-if="(block.photos ?? []).length < 40" class="w-[88px]"><ImageField :model-value="null" compact folder="posts" label="Surat" @update:model-value="m => addPhoto(bi, m)" /></li>
             </ul>
+          </section>
+
+          <!-- Havolali kartalar -->
+          <section v-if="isOn(bi, 'cards', !!block.cards?.length)">
+            <h4 class="mb-1.5 text-[13px] font-bold">Havolali kartalar <span class="font-normal text-muted">· {{ langLabel }} — rasm, nom, bosilganda oçiladigan sahifa</span></h4>
+            <ul class="flex flex-col gap-2">
+              <li v-for="(c, ci) in block.cards ?? []" :key="ci" class="flex items-start gap-2.5 rounded-lg border border-[#ECEAF4] p-2.5">
+                <div class="w-[72px] shrink-0"><ImageField :model-value="c.photo ?? null" compact folder="posts" label="Rasm" @update:model-value="m => setCard(bi, ci, { photo: m })" /></div>
+                <div class="grid min-w-0 flex-1 gap-1.5">
+                  <input :value="c.title?.[lang] ?? ''" class="field h-9!" :aria-label="`${ci + 1}-karta nomi`" placeholder="Nomi (masalan, Viza rasmiylaştiriş)" @input="setCard(bi, ci, { title: setTr(c.title, ($event.target as HTMLInputElement).value) })">
+                  <input :value="c.url" class="field h-9!" :aria-label="`${ci + 1}-karta havolasi`" placeholder="/sahifa-manzili yoki https://…" @input="setCard(bi, ci, { url: ($event.target as HTMLInputElement).value.trim() })">
+                </div>
+                <button type="button" class="grid size-8 shrink-0 place-items-center rounded-full text-[#C5192D] hover:bg-red-50" :aria-label="`${ci + 1}-kartani öçiriş`" @click="setBlock(bi, { cards: (block.cards ?? []).filter((_, n) => n !== ci) })"><Icon name="x" :size="15" /></button>
+              </li>
+            </ul>
+            <button type="button" class="mt-1.5 text-[13px] font-semibold text-brand-700 hover:underline" @click="setBlock(bi, { cards: [...(block.cards ?? []), { title: {}, url: '', photo: null }] })">+ Karta qöşiş</button>
           </section>
 
           <!-- Kirish gapi -->
@@ -260,6 +285,7 @@ function movePhoto(bi: number, pi: number, d: -1 | 1) {
           <!-- Qöşiş tugmalari: faqat hali yöq qismlar -->
           <div class="flex flex-wrap gap-1.5">
             <button v-if="!isOn(bi, 'photos', !!block.photos?.length)" type="button" class="chip-add" @click="turnOn(bi, 'photos')">+ Suratlar</button>
+            <button v-if="!isOn(bi, 'cards', !!block.cards?.length)" type="button" class="chip-add" @click="turnOn(bi, 'cards')">+ Havolali kartalar</button>
             <button v-if="!isOn(bi, 'intro', has(block.intro))" type="button" class="chip-add" @click="turnOn(bi, 'intro')">+ Kirish gapi</button>
             <button v-if="!isOn(bi, 'stats', has(block.stats))" type="button" class="chip-add" @click="turnOn(bi, 'stats'); addStat(bi)">+ Raqamlar</button>
             <button v-if="block.columns.length < 20" type="button" class="chip-add" @click="addColumn(bi)">+ Röyxat</button>

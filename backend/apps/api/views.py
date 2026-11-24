@@ -17,7 +17,7 @@ from apps.core.uploads import clean_upload
 from apps.core.throttles import ScopedThrottle
 from apps.core.utils import client_ip, sha256
 from apps.pages.models import Page, SdgGoal
-from apps.structure.models import Appeal, Faculty
+from apps.structure.models import Appeal, Application, Faculty
 from apps.api.text_quality import is_meaningful_text
 
 from . import builders, builders_site as bs, search
@@ -283,6 +283,53 @@ class AppealView(PublicView):
             appeal.file = file
             appeal.save(update_fields=['file'])
         return Response({'number': appeal.number})
+
+
+APPLICATION_FILE_TYPES = {'.pdf', '.jpg', '.jpeg', '.png'}
+APPLICATION_MAX_FILE = 5 * 1024 * 1024
+
+
+class ApplicationView(PublicView):
+    """Xorijiy abituriyent arizasi (pasport, diplom/sertifikat va 3x4 surat — majburiy). Frontend serveri ham tekshiradi."""
+
+    throttle_classes = [ScopedThrottle]
+    throttle_scope = 'appeals'
+
+    def post(self, request):
+        d = request.data
+        f = {k: re.sub(r'\s+', ' ', str(d.get(k) or '')).strip() for k in (
+            'lastName', 'firstName', 'middleName', 'passport', 'country', 'address', 'gender', 'faculty', 'studyForm', 'degree', 'program', 'phone', 'email', 'lang')}
+        f['passport'] = f['passport'].replace(' ', '').upper()
+        checks = [
+            2 <= len(f['lastName']) <= 70, 2 <= len(f['firstName']) <= 60, len(f['middleName']) <= 60,
+            re.fullmatch(r'[A-Z0-9]{5,20}', f['passport']), 2 <= len(f['country']) <= 80, 5 <= len(f['address']) <= 300,
+            f['gender'] in dict(Application.GENDERS), 2 <= len(f['faculty']) <= 200, f['studyForm'] in dict(Application.FORMS),
+            f['degree'] in dict(Application.DEGREES), 2 <= len(f['program']) <= 300,
+            re.fullmatch(r'\+?[\d\s()-]{7,20}', f['phone']), len(f['email']) <= 200 and re.fullmatch(r'[^\s@]+@[^\s@]+\.[^\s@]+', f['email']),
+        ]
+        if not all(checks):
+            raise Unprocessable('Invalid form')
+        if str(d.get('consent') or '') != 'yes':
+            raise Unprocessable('Consent required')
+        day_ago = timezone.now() - timedelta(days=1)
+        if Application.objects.filter(email__iexact=f['email'], created_at__gte=day_ago).count() >= 3:
+            raise Throttled(detail='Too many applications')
+        files = {}
+        for key in ('passportFile', 'diplomaFile', 'photoFile'):
+            up = request.FILES.get(key)
+            if not up:
+                raise Unprocessable('File required')
+            try:
+                files[key], _ = clean_upload(up, APPLICATION_FILE_TYPES, APPLICATION_MAX_FILE)
+            except ValidationError as exc:
+                raise Unprocessable('Invalid file') from exc
+        a = Application.objects.create(
+            last_name=f['lastName'], first_name=f['firstName'], middle_name=f['middleName'], passport=f['passport'], country=f['country'],
+            address=f['address'], gender=f['gender'], faculty=f['faculty'], study_form=f['studyForm'], degree=f['degree'], program=f['program'],
+            phone=f['phone'], email=f['email'], lang=f['lang'] if f['lang'] in ('uz', 'ru', 'en', 'zh') else 'uz', ip=client_ip(request),
+            passport_file=files['passportFile'], diploma_file=files['diplomaFile'], photo_file=files['photoFile'],
+        )
+        return Response({'number': a.number})
 
 
 class HitView(OpenView):
