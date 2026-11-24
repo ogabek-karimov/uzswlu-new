@@ -2,11 +2,12 @@
 // Brauzer/Nuxt kerak emas: manba fayllarni o'qib, qoidalar buzilmaganini tekshiradi.
 import assert from 'node:assert/strict'
 import { readdirSync, readFileSync, statSync } from 'node:fs'
-import { join, relative } from 'node:path'
+import { basename, join, relative, sep } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const root = new URL('..', import.meta.url).pathname
+const root = fileURLToPath(new URL('..', import.meta.url))
 const walk = (dir: string): string[] => readdirSync(dir).flatMap(n => (statSync(join(dir, n)).isDirectory() ? walk(join(dir, n)) : [join(dir, n)]))
-const rel = (f: string) => relative(root, f)
+const rel = (f: string) => relative(root, f).split(sep).join('/')
 const vue = walk(join(root, 'app')).filter(f => f.endsWith('.vue'))
 let failed = 0
 const check = (name: string, problems: string[]) => {
@@ -30,7 +31,7 @@ for (const f of vue) {
   for (const m of readFileSync(f, 'utf8').matchAll(/<img\b[^>]*>/gs)) {
     const tag = m[0]
     if (!/(^|\s):?alt=/.test(tag)) noAlt.push(rel(f))
-    if (!/loading=/.test(tag) && !EAGER_OK.has(f.split('/').pop()!)) noLoading.push(rel(f))
+    if (!/loading=/.test(tag) && !EAGER_OK.has(basename(f))) noLoading.push(rel(f))
   }
 }
 check('<img alt> bor', noAlt)

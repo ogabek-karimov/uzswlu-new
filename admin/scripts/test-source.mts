@@ -1,13 +1,14 @@
 // Admin manba kodi bo'yicha statik tekshiruv (lint o'rnini bosadi): npm test (Node 22.6+)
 import assert from 'node:assert/strict'
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
-import { join, relative } from 'node:path'
+import { join, relative, sep } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const root = new URL('..', import.meta.url).pathname
+const root = fileURLToPath(new URL('..', import.meta.url))
 const src = join(root, 'src')
 const walk = (dir: string): string[] => readdirSync(dir).flatMap(n => (statSync(join(dir, n)).isDirectory() ? walk(join(dir, n)) : [join(dir, n)]))
 const files = walk(src).filter(f => /\.(vue|ts)$/.test(f))
-const rel = (f: string) => relative(root, f)
+const rel = (f: string) => relative(root, f).split(sep).join('/')
 let failed = 0
 const check = (name: string, problems: string[]) => {
   if (problems.length) { failed++; console.error(`✗ ${name}\n  ${problems.join('\n  ')}`) }

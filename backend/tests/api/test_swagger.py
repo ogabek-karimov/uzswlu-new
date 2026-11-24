@@ -42,8 +42,9 @@ def code_routes():
 
 class SwaggerCompletenessTests(TestCase):
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUpTestData(cls):
+        # setUpClass da emas: u yerda xato bo'lsa Django sinf tranzaksiyasini yopmaydi va keyingi testlar
+        # (masalan SQLite zaxirasi) osilib qoladi. setUpTestData xatoda tranzaksiyani o'zi bekor qiladi.
         cls.schema = get_schema()
         cls.paths = cls.schema['paths']
 
