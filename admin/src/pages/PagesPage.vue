@@ -217,7 +217,7 @@ async function onAttach(e: Event) {
   const file = (e.target as HTMLInputElement).files?.[0]
   if (!file) return
   const m = await uploadMedia(file, { folder: 'docs' })
-  form.attachments.push({ file: m, title: { uz: file.name.replace(/\.pdf$/i, '') }, meta: {}, display: 'open', height: 680 })
+  form.attachments.push({ file: m, title: { uz: file.name.replace(/\.pdf$/i, '') }, meta: {}, display: 'embed', height: 680 })
   ;(e.target as HTMLInputElement).value = ''
 }
 // «Saytda qanday körinadi» izohi — sahifalarda «Içi körinadi» PDF ko'rgiçda (varaqlar 1 2 3 …) oçiladi
@@ -226,6 +226,13 @@ const PAGE_PDF_NOTE: Record<string, string> = {
   open: 'Karta körinişida; bosilganda PDF yangi oynada oçiladi.',
   download: 'Karta körinişida; bosilganda fayl yuklab olinadi.',
   link: 'Matn ostida faqat nomi (havola); bosilganda PDF oçiladi.',
+}
+// «Havola / PDF» sahifasini matnli sahifaga aylantiriş: yuklangan PDF «Içi körinadi» bölib o'tadi (taşqi havola — olib taşlanadi)
+function toEmbeddedPage() {
+  if (form.file) form.attachments.push({ file: form.file, title: { ...form.title }, meta: {}, display: 'embed', height: 680 })
+  form.template = 'text'
+  form.file = null
+  form.url = ''
 }
 // Karta belgilari uçun tez tanlov (istalgan Lucide nomi ham bölaveradi)
 const ICONS = ['brain', 'chess-knight', 'puzzle', 'goal', 'target', 'volleyball', 'book-open-text', 'lightbulb', 'trophy', 'medal', 'music', 'palette', 'mic', 'camera', 'globe', 'heart-handshake', 'users-round', 'sparkles']
@@ -367,6 +374,12 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
           <h3 class="text-base font-bold">Havola yoki PDF</h3>
           <p class="text-sm text-muted">Menyuda bosilganda şu fayl yoki tashqi sahifa oçiladi. Fayl yuklansa — havola özgarmaydi, yangi versiya yuklaş mumkin.</p>
           <div class="max-w-[260px]"><PdfSlot v-model="form.file" lang="PDF fayl" note="yoki yuqoridagi havola" /></div>
+          <!-- PDF'ni saytning öz sahifasida (varaqlab) körsatiş: sahifa matnli sahifaga aylanadi, PDF — «Içi körinadi» -->
+          <div class="rounded-xl border border-dashed border-brand-200 bg-brand-50/50 px-4 py-3.5">
+            <p class="text-sm font-semibold">PDF sayt sahifasi içida oçilsinmi?</p>
+            <p class="mt-1 text-xs text-muted">Hozir menyuda bosilganda PDF alohida oçiladi. Tugma bosilsa — bu sahifa matnli sahifaga aylanadi: PDF sayt içida birinçi varaq bilan oçilib turadi, ostida 1 2 3 … varaqlar. Keyin «Saqlaş» ni bosing.</p>
+            <button type="button" class="btn-primary mt-2.5 h-9! text-xs!" @click="toEmbeddedPage">PDF sahifa içida körinsin</button>
+          </div>
         </section>
 
         <!-- Matnli sahifa mazmuni -->
@@ -422,7 +435,7 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
               </span>
             </div>
             <input ref="attInput" type="file" accept="application/pdf" class="hidden" @change="onAttach">
-            <MediaPicker :open="picker" kind="pdf" @close="picker = false" @pick="m => { form.attachments.push({ file: m, title: { uz: (m.filename ?? '').replace(/\.pdf$/i, '') }, meta: {}, display: 'open', height: 680 }); picker = false }" />
+            <MediaPicker :open="picker" kind="pdf" @close="picker = false" @pick="m => { form.attachments.push({ file: m, title: { uz: (m.filename ?? '').replace(/\.pdf$/i, '') }, meta: {}, display: 'embed', height: 680 }); picker = false }" />
             <p v-if="!form.attachments.length" class="rounded-xl bg-canvas px-3.5 py-3 text-sm text-muted">PDF yöq. «+ PDF yuklaş» bilan qöşing — keyin uning ostida <b>«Saytda qanday körinadi»</b> tanlanadi (masalan, «Içi körinadi» — PDF sahifada oçilib turadi va 1 2 3 … bilan varaqlanadi).</p>
             <div v-for="(a, i) in form.attachments" :key="i" class="rounded-[14px] border border-line p-3.5">
               <div class="flex items-start gap-3">
