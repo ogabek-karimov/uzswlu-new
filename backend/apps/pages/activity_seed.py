@@ -23,6 +23,8 @@ def seed_pages(Page, part: int) -> None:
         p = Page.objects.filter(slug=s['slug']).first()
         fields = {'body': s['body'], 'showcase': {'blocks': s['showcase']}}
         if p is None:
+            if s['root']:  # bölim sahifasi (menyuda) seed'da yaratiladi — bu yerda faqat mavjudi yangilanadi
+                continue
             parent = Page.objects.filter(slug=s['parent']).first() if s['parent'] else None
             if s['parent'] and not parent:
                 continue
