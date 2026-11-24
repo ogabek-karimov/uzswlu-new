@@ -1,0 +1,164 @@
+erDiagram
+    core_Media {
+        int id PK
+        file file
+        char kind
+        char folder
+        i18n alt
+        positiveinteger width
+        positiveinteger height
+        positivebiginteger filesize
+        positivebiginteger original_size
+        json sizes
+        int uploaded_by FK
+        datetime created_at
+    }
+    core_SiteSettings {
+        int id PK
+        i18n name
+        i18n abbr
+        i18n description
+        char phone
+        char phone_ext
+        email email
+        i18n address
+        i18n reception
+        url telegram
+        url instagram
+        url facebook
+        url youtube
+        url x_url
+        boolean show_buildings_link
+        url support_telegram
+        i18n support_text
+        boolean support_show_in_admin
+        boolean support_show_on_site
+        char support_pages
+        char support_place
+        boolean numbers_auto
+        boolean symbols_background
+        positiveinteger students
+        positiveinteger staff
+        positiveinteger faculties
+        positiveinteger departments
+        datetime updated_at
+    }
+    core_Activity {
+        int id PK
+        int user FK
+        char user_name
+        char action
+        char entity
+        char entity_id
+        char label
+        json changes
+        char ip
+        datetime created_at
+    }
+    core_Hit {
+        int id PK
+        datetime ts
+        char visitor
+        char kind
+        char path
+        char lang
+        char referrer
+        char device
+        char country
+        char name
+        char value
+    }
+    accounts_User {
+        string tashqi_model
+    }
+    content_Document {
+        string tashqi_model
+    }
+    content_HomeBanner {
+        string tashqi_model
+    }
+    content_HomeVideoTour {
+        string tashqi_model
+    }
+    content_Leader {
+        string tashqi_model
+    }
+    content_Partner {
+        string tashqi_model
+    }
+    content_Post {
+        string tashqi_model
+    }
+    content_PostAttachment {
+        string tashqi_model
+    }
+    content_PostGalleryImage {
+        string tashqi_model
+    }
+    content_Slide {
+        string tashqi_model
+    }
+    content_StateSymbol {
+        string tashqi_model
+    }
+    content_UnitHead {
+        string tashqi_model
+    }
+    pages_Page {
+        string tashqi_model
+    }
+    pages_PageAttachment {
+        string tashqi_model
+    }
+    pages_SdgGoalReport {
+        string tashqi_model
+    }
+    pages_SdgOverviewReport {
+        string tashqi_model
+    }
+    pages_SdgSection {
+        string tashqi_model
+    }
+    structure_Department {
+        string tashqi_model
+    }
+    structure_Faculty {
+        string tashqi_model
+    }
+    structure_StaffProfile {
+        string tashqi_model
+    }
+    ANY_MODEL {
+        string polimorf
+    }
+    accounts_User |o--o{ core_Activity : "user"
+    accounts_User |o--o{ core_Media : "uploaded_by"
+    core_Activity }o..o| ANY_MODEL : "entity+entity_id"
+    core_Media |o--o{ accounts_User : "avatar"
+    core_Media |o--o{ content_Document : "file_en protect"
+    core_Media |o--o{ content_Document : "file_ru protect"
+    core_Media |o--o{ content_Document : "file_uz protect"
+    core_Media |o--o{ content_Document : "file_zh protect"
+    core_Media |o--o{ content_HomeBanner : "image protect"
+    core_Media |o--o{ content_HomeVideoTour : "poster protect"
+    core_Media |o--o{ content_Leader : "photo protect"
+    core_Media |o--o{ content_Post : "cover protect"
+    core_Media |o--o{ content_Post : "cover_en protect"
+    core_Media |o--o{ content_Post : "cover_ru protect"
+    core_Media |o--o{ content_Post : "cover_zh protect"
+    core_Media |o--o{ content_PostAttachment : "file protect"
+    core_Media |o--o{ content_StateSymbol : "audio protect"
+    core_Media |o--o{ content_StateSymbol : "image protect"
+    core_Media |o--o{ content_UnitHead : "photo protect"
+    core_Media |o--o{ pages_Page : "file protect"
+    core_Media |o--o{ pages_PageAttachment : "file protect"
+    core_Media |o--o{ pages_SdgGoalReport : "file protect"
+    core_Media |o--o{ pages_SdgOverviewReport : "file protect"
+    core_Media |o--o{ structure_Department : "image protect"
+    core_Media |o--o{ structure_Faculty : "cover protect"
+    core_Media |o--o{ structure_Faculty : "logo protect"
+    core_Media |o--o{ structure_StaffProfile : "own_photo"
+    core_Media ||--o{ content_Partner : "logo protect"
+    core_Media ||--o{ content_PostGalleryImage : "image protect"
+    core_Media ||--o{ content_Slide : "image protect"
+    pages_SdgSection }o--o{ core_Media : "images (M2M)"

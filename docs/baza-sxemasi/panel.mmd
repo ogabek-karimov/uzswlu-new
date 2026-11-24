@@ -1,0 +1,37 @@
+erDiagram
+    panel_LoginEvent {
+        int id PK
+        int user FK
+        char username
+        char method
+        char result
+        char ip
+        char network
+        char browser
+        char os
+        char device
+        char user_agent
+        datetime created_at
+    }
+    panel_Version {
+        int id PK
+        char entity
+        char entity_id
+        json data
+        int user FK
+        datetime created_at
+    }
+    panel_RevokedToken {
+        int id PK
+        char jti UK
+        datetime expires_at
+    }
+    accounts_User {
+        string tashqi_model
+    }
+    ANY_MODEL {
+        string polimorf
+    }
+    accounts_User |o--o{ panel_LoginEvent : "user"
+    accounts_User |o--o{ panel_Version : "user"
+    panel_Version }o..o| ANY_MODEL : "entity+entity_id"

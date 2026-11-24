@@ -1,0 +1,220 @@
+erDiagram
+    content_Category {
+        int id PK
+        char key UK
+        i18n name
+    }
+    content_Post {
+        int id PK
+        char type
+        i18n title
+        i18n excerpt
+        i18n body
+        char slug
+        int category FK
+        positivesmallinteger sdg
+        int cover FK
+        int cover_ru FK
+        int cover_en FK
+        int cover_zh FK
+        i18n tags
+        int author FK
+        datetime published_at
+        char status
+        boolean hidden
+        datetime starts_at
+        datetime ends_at
+        i18n location
+        positiveinteger views
+        datetime deleted_at
+        datetime created_at
+        datetime updated_at
+    }
+    content_PostAttachment {
+        int id PK
+        int file FK
+        char url
+        i18n title
+        i18n meta
+        char display
+        positiveinteger height
+        positiveinteger order
+        int post FK
+    }
+    content_PostGalleryImage {
+        int id PK
+        int post FK
+        int image FK
+        positiveinteger order
+    }
+    content_Slide {
+        int id PK
+        char name
+        int image FK
+        i18n alt
+        char link
+        datetime starts_at
+        datetime ends_at
+        positiveinteger order
+    }
+    content_Leader {
+        int id PK
+        char kind
+        char name
+        char staff_id
+        int photo FK
+        i18n role
+        i18n hours
+        char phone
+        char ext
+        email email
+        boolean reception
+        positiveinteger order
+    }
+    content_UnitHead {
+        int id PK
+        char name
+        i18n position
+        int photo FK
+        char phone
+        char ext
+        email email
+        char url
+        positiveinteger order
+        boolean visible
+    }
+    content_DocCategory {
+        int id PK
+        i18n title
+        positiveinteger order
+    }
+    content_Document {
+        int id PK
+        i18n title
+        int category FK
+        char number
+        int file_uz FK
+        int file_ru FK
+        int file_en FK
+        int file_zh FK
+        char url
+        char display
+        positiveinteger height
+        char pages
+        positiveinteger downloads
+        positiveinteger order
+    }
+    content_VideoCategory {
+        int id PK
+        char key UK
+        i18n title
+        char greeting
+        positiveinteger order
+    }
+    content_Video {
+        int id PK
+        url url
+        i18n title
+        int category FK
+        char teacher
+        char duration
+        url thumbnail
+        positiveinteger order
+    }
+    content_VideoPage {
+        int id PK
+        boolean live
+        url live_url
+        i18n next_title
+        datetime next_at
+        url channel_url
+    }
+    content_HomeBanner {
+        int id PK
+        int image FK
+        boolean visible
+        i18n alt
+        char link
+    }
+    content_HomeVideoTour {
+        int id PK
+        char url
+        int poster FK
+        i18n title
+        i18n text
+        boolean visible
+    }
+    content_QuickLink {
+        int id PK
+        char icon
+        char url
+        i18n title
+        i18n text
+        positiveinteger order
+        boolean visible
+    }
+    content_StateSymbol {
+        int id PK
+        char key UK
+        int image FK
+        int audio FK
+        i18n title
+        i18n description
+        url link
+        char source
+    }
+    content_Partner {
+        int id PK
+        i18n name
+        int logo FK
+        url url
+        positiveinteger order
+    }
+    content_TaughtLanguage {
+        int id PK
+        char code UK
+        char native
+        positiveinteger order
+    }
+    accounts_User {
+        string tashqi_model
+    }
+    core_Media {
+        string tashqi_model
+    }
+    pages_SdgGoal {
+        string tashqi_model
+    }
+    structure_Program {
+        string tashqi_model
+    }
+    structure_StaffProfile {
+        string tashqi_model
+    }
+    accounts_User |o--o{ content_Post : "author"
+    content_Category |o--o{ content_Post : "category"
+    content_DocCategory ||--o{ content_Document : "category protect"
+    content_Post ||--o{ content_PostAttachment : "post ✕cascade"
+    content_Post ||--o{ content_PostGalleryImage : "post ✕cascade"
+    content_TaughtLanguage |o--o{ structure_Program : "language"
+    content_VideoCategory ||--o{ content_Video : "category ✕cascade"
+    core_Media |o--o{ content_Document : "file_en protect"
+    core_Media |o--o{ content_Document : "file_ru protect"
+    core_Media |o--o{ content_Document : "file_uz protect"
+    core_Media |o--o{ content_Document : "file_zh protect"
+    core_Media |o--o{ content_HomeBanner : "image protect"
+    core_Media |o--o{ content_HomeVideoTour : "poster protect"
+    core_Media |o--o{ content_Leader : "photo protect"
+    core_Media |o--o{ content_Post : "cover protect"
+    core_Media |o--o{ content_Post : "cover_en protect"
+    core_Media |o--o{ content_Post : "cover_ru protect"
+    core_Media |o--o{ content_Post : "cover_zh protect"
+    core_Media |o--o{ content_PostAttachment : "file protect"
+    core_Media |o--o{ content_StateSymbol : "audio protect"
+    core_Media |o--o{ content_StateSymbol : "image protect"
+    core_Media |o--o{ content_UnitHead : "photo protect"
+    core_Media ||--o{ content_Partner : "logo protect"
+    core_Media ||--o{ content_PostGalleryImage : "image protect"
+    core_Media ||--o{ content_Slide : "image protect"
+    pages_SdgGoal |o..o{ content_Post : "sdg → number"
+    structure_StaffProfile |o..o{ content_Leader : "staff_id → hemis_id"

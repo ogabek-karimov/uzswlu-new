@@ -1,0 +1,22 @@
+flowchart LR
+  accounts["<b>accounts — Foydalanuvchilar</b> (4)<br/>User<br/>Role<br/>StaffSession<br/>StaffTask"]
+  content["<b>content — Kontent</b> (18)<br/>Category<br/>Post<br/>PostAttachment<br/>PostGalleryImage<br/>Slide<br/>Leader<br/>UnitHead<br/>DocCategory<br/>Document<br/>VideoCategory<br/>Video<br/>VideoPage<br/>HomeBanner<br/>HomeVideoTour<br/>QuickLink<br/>StateSymbol<br/>Partner<br/>TaughtLanguage"]
+  core["<b>core — Media, sozlamalar, faollik</b> (4)<br/>Media<br/>SiteSettings<br/>Activity<br/>Hit"]
+  hemis["<b>hemis — HEMIS</b> (1)<br/>HemisSnapshot"]
+  pages["<b>pages — Sahifalar va BRM</b> (10)<br/>Page<br/>PageFact<br/>PageTimeline<br/>PageAttachment<br/>SdgGoal<br/>SdgSection<br/>SdgGoalReport<br/>SdgPage<br/>SdgCategory<br/>SdgOverviewReport"]
+  panel["<b>panel — Panel</b> (3)<br/>LoginEvent<br/>Version<br/>RevokedToken"]
+  structure["<b>structure — Tuzilma</b> (14)<br/>Faculty<br/>Department<br/>StaffProfile<br/>StaffDocument<br/>ProgramGroup<br/>Program<br/>AdmissionYear<br/>AdmissionDate<br/>AdmissionFaq<br/>Campus<br/>PhoneEntry<br/>ContactEmail<br/>RudeWord<br/>Appeal"]
+  core -->|"1 FK"| accounts
+  core -->|"18 FK"| content
+  accounts -->|"1 FK"| content
+  accounts -->|"2 FK"| core
+  core -->|"5 FK"| pages
+  accounts -->|"2 FK"| panel
+  core -->|"4 FK"| structure
+  content -->|"1 FK"| structure
+  structure -.->|"5 mantiqiy"| accounts
+  structure -.->|"1 mantiqiy"| content
+  pages -.->|"1 mantiqiy"| content
+  core -.->|"Activity, Version: entity_id"| panel
+  classDef g fill:#eef,stroke:#66a,text-align:left
+  class accounts,content,core,hemis,pages,panel,structure g

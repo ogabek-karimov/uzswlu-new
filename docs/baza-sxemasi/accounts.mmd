@@ -1,0 +1,87 @@
+erDiagram
+    accounts_User {
+        int id PK
+        char name
+        char role
+        char status
+        char position
+        char department
+        char scope
+        char hemis_id
+        int avatar FK
+        positivesmallinteger login_attempts
+        datetime lock_until
+        char totp_secret
+        boolean totp_enabled
+        biginteger totp_last_step
+        json recovery_hashes
+        text legacy_password
+        boolean hemis_auto
+    }
+    accounts_Role {
+        int id PK
+        slug slug UK
+        char name
+        char description
+        json permissions
+        boolean scoped
+        boolean edit_all
+        boolean system
+        char hemis_role
+        datetime created_at
+        datetime updated_at
+    }
+    accounts_StaffSession {
+        int id PK
+        char hemis_id
+        char token_hash UK
+        datetime created_at
+        datetime expires_at
+        datetime last_used
+    }
+    accounts_StaffTask {
+        int id PK
+        char title
+        text note
+        char assignee_id
+        char assignee_name
+        char author_id
+        char author_name
+        date due
+        char status
+        datetime created_at
+        datetime done_at
+    }
+    content_Post {
+        string tashqi_model
+    }
+    core_Activity {
+        string tashqi_model
+    }
+    core_Media {
+        string tashqi_model
+    }
+    panel_LoginEvent {
+        string tashqi_model
+    }
+    panel_Version {
+        string tashqi_model
+    }
+    structure_Faculty {
+        string tashqi_model
+    }
+    structure_StaffProfile {
+        string tashqi_model
+    }
+    accounts_Role |o..o{ accounts_User : "role → slug"
+    accounts_User |o--o{ content_Post : "author"
+    accounts_User |o--o{ core_Activity : "user"
+    accounts_User |o--o{ core_Media : "uploaded_by"
+    accounts_User |o--o{ panel_LoginEvent : "user"
+    accounts_User |o--o{ panel_Version : "user"
+    core_Media |o--o{ accounts_User : "avatar"
+    structure_Faculty |o..o{ accounts_User : "scope → slug"
+    structure_StaffProfile |o..o{ accounts_StaffSession : "hemis_id → hemis_id"
+    structure_StaffProfile |o..o{ accounts_StaffTask : "assignee_id → hemis_id"
+    structure_StaffProfile |o..o{ accounts_StaffTask : "author_id → hemis_id"
+    structure_StaffProfile |o..o{ accounts_User : "hemis_id → hemis_id"

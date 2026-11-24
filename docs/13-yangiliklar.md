@@ -2,6 +2,10 @@
 
 Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `CLAUDE.md`). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.
 
+## 2026-11-24
+
+- **Hujjat (baza sxemasi):** barcha 54 ta Django modeli va bog‘lanishlari (52 ta tashqi kalit, 12 ta slug/HEMIS ID orqali mantiqiy bog‘lanish) ER diagramma qilib chizildi: `docs/baza-sxemasi/` (umumiy sxema + har ilova uchun `.mmd`/`.svg`, avtomatik yaratuvchi skriptlar). Kod o‘zgarmadi. — `e433168`
+
 ## 2026-11-23
 
 - **Admin + sayt (PDF har sahifada sayt ichida):** «Sharoitlar» (Abituriyentlar) «Havola / PDF» edi — menyudan eski saytdagi PDF’ga olib borardi; endi matnli sahifa `/sharoitlar` (`pages.0027`), admin «PDF hujjatlar»ga PDF yuklab «Ichi ko‘rinadi» tanlaydi. «Havola / PDF» turidagi har qanday sahifada **«PDF sahifa ichida ko‘rinsin»** tugmasi — sahifani matnli sahifaga aylantiradi, yuklangan PDF «Ichi ko‘rinadi» bo‘lib o‘tadi. Sahifaga yangi yuklangan PDF endi sukut bo‘yicha «Ichi ko‘rinadi» (ko‘rgichda varaqlanadi).

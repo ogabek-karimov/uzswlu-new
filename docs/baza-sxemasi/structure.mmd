@@ -1,0 +1,187 @@
+erDiagram
+    structure_Faculty {
+        int id PK
+        slug slug UK
+        char hemis_id UK
+        i18n name
+        int logo FK
+        int cover FK
+        i18n about
+        char phone
+        char email
+        i18n address
+        url map_url
+        positiveinteger order
+    }
+    structure_Department {
+        int id PK
+        char hemis_id UK
+        char faculty_slug
+        i18n name
+        int image FK
+        i18n about
+        char room
+        char ext
+        boolean show_staff
+    }
+    structure_StaffProfile {
+        int id PK
+        char hemis_id UK
+        char name
+        i18n about
+        json contacts
+        json socials
+        json science
+        int own_photo FK
+        boolean hidden
+        boolean show_cv
+        boolean show_books
+        boolean show_articles
+        datetime updated_at
+    }
+    structure_StaffDocument {
+        int id PK
+        char hemis_id
+        char section
+        i18n title
+        file file
+        url url
+        datetime created_at
+    }
+    structure_ProgramGroup {
+        int id PK
+        char key
+        char level
+        i18n title
+        positiveinteger order
+    }
+    structure_Program {
+        int id PK
+        char code
+        i18n title
+        char level
+        int group FK
+        int language FK
+        char form
+        positivesmallinteger years
+        int faculty FK
+        boolean in_admission
+        i18n price
+        positiveinteger order
+    }
+    structure_AdmissionYear {
+        int id PK
+        char year UK
+        char status
+        boolean public
+        json programs_snapshot
+        url apply_url
+        i18n documents
+        url documents_url
+        i18n address
+        i18n hours
+        char phone
+        url telegram
+    }
+    structure_AdmissionDate {
+        int id PK
+        int admission FK
+        i18n title
+        i18n period
+        boolean current
+        positiveinteger order
+    }
+    structure_AdmissionFaq {
+        int id PK
+        int admission FK
+        i18n question
+        i18n answer
+        positiveinteger order
+    }
+    structure_Campus {
+        int id PK
+        slug key UK
+        i18n name
+        i18n address
+        char phone
+        email email
+        char coords
+        url map_url
+        int faculty FK
+        positiveinteger order
+    }
+    structure_PhoneEntry {
+        int id PK
+        boolean is_section
+        char name
+        i18n position
+        char ext
+        char phone
+        positiveinteger order
+        boolean visible
+    }
+    structure_ContactEmail {
+        int id PK
+        i18n title
+        email value
+        i18n extra
+        positiveinteger order
+    }
+    structure_RudeWord {
+        int id PK
+        char word UK
+        char lang
+        boolean active
+        datetime created_at
+    }
+    structure_Appeal {
+        int id PK
+        char number
+        char name
+        char passport
+        char phone
+        email email
+        char recipient
+        char recipient_title
+        text message
+        file file
+        char status
+        char ip
+        datetime created_at
+    }
+    accounts_StaffSession {
+        string tashqi_model
+    }
+    accounts_StaffTask {
+        string tashqi_model
+    }
+    accounts_User {
+        string tashqi_model
+    }
+    content_Leader {
+        string tashqi_model
+    }
+    content_TaughtLanguage {
+        string tashqi_model
+    }
+    core_Media {
+        string tashqi_model
+    }
+    content_TaughtLanguage |o--o{ structure_Program : "language"
+    core_Media |o--o{ structure_Department : "image protect"
+    core_Media |o--o{ structure_Faculty : "cover protect"
+    core_Media |o--o{ structure_Faculty : "logo protect"
+    core_Media |o--o{ structure_StaffProfile : "own_photo"
+    structure_AdmissionYear ||--o{ structure_AdmissionDate : "admission ✕cascade"
+    structure_AdmissionYear ||--o{ structure_AdmissionFaq : "admission ✕cascade"
+    structure_Faculty |o--o{ structure_Campus : "faculty"
+    structure_Faculty |o--o{ structure_Program : "faculty"
+    structure_Faculty |o..o{ accounts_User : "scope → slug"
+    structure_Faculty |o..o{ structure_Department : "faculty_slug → slug"
+    structure_ProgramGroup |o--o{ structure_Program : "group"
+    structure_StaffProfile |o..o{ accounts_StaffSession : "hemis_id → hemis_id"
+    structure_StaffProfile |o..o{ accounts_StaffTask : "assignee_id → hemis_id"
+    structure_StaffProfile |o..o{ accounts_StaffTask : "author_id → hemis_id"
+    structure_StaffProfile |o..o{ accounts_User : "hemis_id → hemis_id"
+    structure_StaffProfile |o..o{ content_Leader : "staff_id → hemis_id"
+    structure_StaffProfile |o..o{ structure_StaffDocument : "hemis_id → hemis_id"

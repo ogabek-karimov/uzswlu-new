@@ -1,0 +1,149 @@
+erDiagram
+    pages_Page {
+        int id PK
+        i18n title
+        char template
+        int parent FK
+        slug slug UK
+        char url
+        int file FK
+        char group_key
+        i18n description
+        char overview
+        positivesmallinteger sdg
+        boolean in_menu
+        boolean published
+        boolean highlight
+        boolean show_units
+        char staff_department
+        json staff_extra
+        json staff_contacts
+        i18n staff_hours
+        i18n cta_title
+        i18n cta_text
+        i18n cta_label
+        char cta_url
+        char icon
+        boolean show_children
+        json showcase
+        boolean doc_style
+        boolean show_rector
+        i18n lead
+        i18n body
+        positiveinteger order
+        datetime updated_at
+    }
+    pages_PageFact {
+        int id PK
+        int page FK
+        char value
+        i18n label
+        positiveinteger order
+    }
+    pages_PageTimeline {
+        int id PK
+        int page FK
+        i18n label
+        i18n text
+        boolean highlight
+        positiveinteger order
+    }
+    pages_PageAttachment {
+        int id PK
+        int file FK
+        char url
+        i18n title
+        i18n meta
+        char display
+        positiveinteger height
+        positiveinteger order
+        int page FK
+    }
+    pages_SdgGoal {
+        int id PK
+        positivesmallinteger n UK
+        i18n title
+        i18n subtitle
+        char url
+        char impact_rank
+        char impact_score
+        char highlight_label
+        i18n highlight_value
+    }
+    pages_SdgSection {
+        int id PK
+        int goal FK
+        char key
+        i18n title
+        i18n body
+        positiveinteger order
+    }
+    pages_SdgGoalReport {
+        int id PK
+        int file FK
+        char url
+        i18n title
+        i18n meta
+        char display
+        positiveinteger height
+        positiveinteger order
+        int goal FK
+    }
+    pages_SdgPage {
+        int id PK
+        positivesmallinteger impact_year
+        positivesmallinteger gm_year
+        char gm_world_rank
+        integer gm_world_change
+        char gm_asia_rank
+        integer gm_asia_change
+        char gm_country_rank
+        integer gm_country_change
+        i18n gm_highlight_text
+        char gm_highlight_url
+        i18n education_title
+        i18n education_text
+        i18n education_tags
+        char education_url
+    }
+    pages_SdgCategory {
+        int id PK
+        int page FK
+        char code
+        i18n title
+        char subtitle
+        i18n badge
+        char url
+        positiveinteger order
+    }
+    pages_SdgOverviewReport {
+        int id PK
+        int file FK
+        char url
+        i18n title
+        i18n meta
+        char display
+        positiveinteger height
+        positiveinteger order
+        int page FK
+    }
+    content_Post {
+        string tashqi_model
+    }
+    core_Media {
+        string tashqi_model
+    }
+    core_Media |o--o{ pages_Page : "file protect"
+    core_Media |o--o{ pages_PageAttachment : "file protect"
+    core_Media |o--o{ pages_SdgGoalReport : "file protect"
+    core_Media |o--o{ pages_SdgOverviewReport : "file protect"
+    pages_Page |o--o{ pages_Page : "parent protect"
+    pages_Page ||--o{ pages_PageAttachment : "page ✕cascade"
+    pages_Page ||--o{ pages_PageFact : "page ✕cascade"
+    pages_Page ||--o{ pages_PageTimeline : "page ✕cascade"
+    pages_SdgGoal |o..o{ content_Post : "sdg → number"
+    pages_SdgGoal ||--o{ pages_SdgGoalReport : "goal ✕cascade"
+    pages_SdgGoal ||--o{ pages_SdgSection : "goal ✕cascade"
+    pages_SdgPage ||--o{ pages_SdgCategory : "page ✕cascade"
+    pages_SdgPage ||--o{ pages_SdgOverviewReport : "page ✕cascade"
+    pages_SdgSection }o--o{ core_Media : "images (M2M)"
