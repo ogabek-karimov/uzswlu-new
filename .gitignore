@@ -42,3 +42,6 @@ backend/.test-session
 backend/private/
 .coverage
 htmlcov/
+
+# Katta PDF töplamlari (Faoliyat böyimi, ~1 GB) — Git’ga tuşmaydi; serverga alohida köçirilib, `manage.py seed_activity` bilan ulanadi
+backend/seed_data/files-large/

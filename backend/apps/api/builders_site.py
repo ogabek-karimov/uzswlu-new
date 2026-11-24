@@ -250,6 +250,16 @@ def settings_out(lang: str) -> dict:
 
 # ─── Matnli sahifalar ────────────────────────────────────────────────────────
 
+def _trail(p: Page, lang: str) -> list[dict]:
+    out = []
+    while p and p.template != 'group':
+        out.insert(0, {'title': tr(p.title, lang), 'url': p.site_url})
+        if p.in_menu:
+            break
+        p = p.parent
+    return out
+
+
 def page_out(p: Page, lang: str) -> dict:
     return {
         'slug': p.slug,
@@ -258,7 +268,9 @@ def page_out(p: Page, lang: str) -> dict:
         # Menyuda yöq ichki sahifa (masalan, Magistrlik dasturlari → Qabul kvotasi): bölim va yon menyu ota sahifa orqali topiladi
         # cards — ota sahifadagi boşqa havolali kartalar (sahifa ostida «tez ötiş» uçun)
         'parent': {'title': tr(p.parent.title, lang), 'url': p.parent.site_url,
-                   'cards': [c for b in showcase_out(p.parent.showcase, lang) for c in b['cards'] if c['url'] != p.site_url]}
+                   'cards': [c for b in showcase_out(p.parent.showcase, lang) for c in b['cards'] if c['url'] != p.site_url],
+                   # Çuqur ichki sahifa (3-4 daraja): menyudagi ajdodgaça zanjir — breadcrumb va yon menyu uçun
+                   'trail': _trail(p.parent, lang)}
         if not p.in_menu and p.parent_id and p.parent.template != 'group' else None,
         'facts': [{'value': f.value, 'label': tr(f.label, lang)} for f in p.facts.all()],
         'body': restore_timeline(tr(p.body, lang)),

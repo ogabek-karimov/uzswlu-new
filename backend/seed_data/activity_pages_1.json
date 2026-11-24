@@ -1,0 +1,4113 @@
+[
+ {
+  "slug": "moliyaviy-faoliyat",
+  "parent": null,
+  "root": true,
+  "title": {
+   "uz": "Moliyaviy faoliyat",
+   "ru": "Финансовая деятельность",
+   "en": "Financial activity",
+   "zh": "金融活动"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p>",
+   "ru": "<p>[[kartalar-1]]</p>",
+   "en": "<p>[[kartalar-1]]</p>",
+   "zh": "<p>[[kartalar-1]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {},
+    "stats": {},
+    "columns": [],
+    "outro": {},
+    "photos": [],
+    "cards": [
+     {
+      "title": {
+       "uz": "Hisob-kitob bölimi",
+       "ru": "Бухгалтерия",
+       "en": "Accounting",
+       "zh": "会计部"
+      },
+      "url": "/xisob-kitob-bolimi",
+      "photo": null
+     }
+    ]
+   }
+  ],
+  "docs": [],
+  "display": "embed"
+ },
+ {
+  "slug": "xisob-kitob-bolimi",
+  "parent": "moliyaviy-faoliyat",
+  "root": false,
+  "title": {
+   "uz": "Hisob-kitob bölimi",
+   "ru": "Бухгалтерия",
+   "en": "Accounting",
+   "zh": "会计部"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "16862143081502.pdf",
+    {
+     "uz": "5-band Xorijiy safar",
+     "ru": "Пункт 5 иностранные поездки",
+     "en": "Paragraph 5 Foreign Travel",
+     "zh": "第5项：出国公务"
+    }
+   ],
+   [
+    "16862145821244.pdf",
+    {
+     "uz": "9-band xizmat avto va uylar",
+     "ru": "Pervice 9 Service Auto и дома",
+     "en": "PERVICE 9 SERVICE AUTO AND HOUSES",
+     "zh": "第9项：公务车辆与住房"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "kelajakka-qadam-markazi",
+  "parent": null,
+  "root": true,
+  "title": {
+   "uz": "\"Kelajakka qadam\" markazi",
+   "ru": "Центр «Шаг в будущее»",
+   "en": "“Step into the Future” Center",
+   "zh": "“迈向未来”中心"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p>",
+   "ru": "<p>[[kartalar-1]]</p>",
+   "en": "<p>[[kartalar-1]]</p>",
+   "zh": "<p>[[kartalar-1]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {
+     "uz": "<h2>“Kelajakka qadam” — ÖzDJTU talabalari va bitiruvçilarini qöllab-quvvatlaş dasturi</h2><p><strong>Dastur maqsadi:</strong> ÖzDJTU talabalari va bitiruvçilarining ta’lim, kasbiy rivojlaniş, tadbirkorlik, startap, xalqaro tajriba va bandlik imkoniyatlarini kengaytiriş, ularning bilim va salohiyatini amaliy loyihalarga yönaltiriş.</p>",
+     "ru": "<h2>«Шаг в будущее» — программа поддержки студентов и выпускников УзГУМЯ</h2><p><strong>Цель программы:</strong> расширение возможностей студентов и выпускников УзГУМЯ в области образования, профессионального развития, предпринимательства, стартапов, международного опыта и трудоустройства, направление их знаний и потенциала на практические проекты.</p>",
+     "en": "<h2>“Step into the Future” — a support programme for UzSWLU students and graduates</h2><p><strong>Programme goal:</strong> to expand the opportunities of UzSWLU students and graduates in education, professional development, entrepreneurship, start-ups, international experience and employment, and to channel their knowledge and potential into practical projects.</p>",
+     "zh": "<h2>“迈向未来”——乌兹别克斯坦国立世界语言大学学生与毕业生支持计划</h2><p><strong>计划目标：</strong>拓展本校学生和毕业生在教育、职业发展、创业、初创项目、国际经验和就业方面的机会，将他们的知识与潜力引向实际项目。</p>"
+    },
+    "stats": {},
+    "photos": [],
+    "cards": [],
+    "columns": [
+     {
+      "title": {
+       "uz": "Dastur yönalişlari",
+       "ru": "Направления программы",
+       "en": "Programme tracks",
+       "zh": "计划方向"
+      },
+      "icon": "rocket",
+      "style": "numbers",
+      "items": {
+       "uz": "“Tadbirkorlikka ilk qadam” — talabalarning biznes ğoyalarini qöllab-quvvatlaş\n“Talaba invest” — talabalarning innovatsion va startap loyihalariga investitsiya jalb qiliş\n“Biznes start” — bitiruvçilarning yangi biznes loyihalarini boşlaşiga kömaklaşiş\n“Biznes progress” — faoliyat yuritayotgan yoş tadbirkorlarning loyihalarini kengaytiriş",
+       "ru": "«Первый шаг в предпринимательство» — поддержка бизнес-идей студентов\n«Студент-инвест» — привлечение инвестиций в инновационные и стартап-проекты студентов\n«Бизнес-старт» — помощь выпускникам в запуске новых бизнес-проектов\n«Бизнес-прогресс» — расширение проектов действующих молодых предпринимателей",
+       "en": "“First Step into Entrepreneurship” — support for students’ business ideas\n“Student Invest” — attracting investment to students’ innovative and start-up projects\n“Business Start” — helping graduates launch new business projects\n“Business Progress” — scaling up the projects of young entrepreneurs already in business",
+       "zh": "“创业第一步” — 支持学生的商业创意\n“学生投资” — 为学生的创新和初创项目吸引投资\n“创业起步” — 帮助毕业生启动新的商业项目\n“业务发展” — 扩大在营青年企业家的项目"
+      }
+     },
+     {
+      "title": {
+       "uz": "Asosiy mexanizm",
+       "ru": "Основной механизм",
+       "en": "How it works",
+       "zh": "主要机制"
+      },
+      "icon": "route",
+      "style": "numbers",
+      "items": {
+       "uz": "Ğoya\nTa’lim\nMentorlik\nMoliyaviy kömak\nLoyiha\nAmaliy natija",
+       "ru": "Идея\nОбучение\nМенторство\nФинансовая поддержка\nПроект\nПрактический результат",
+       "en": "Idea\nTraining\nMentoring\nFinancial support\nProject\nPractical result",
+       "zh": "创意\n培训\n导师指导\n资金支持\n项目\n实际成果"
+      }
+     }
+    ],
+    "outro": {}
+   }
+  ],
+  "docs": [
+   [
+    "17890327749070.pdf",
+    {
+     "uz": "“Kelajakka qadam” dasturi",
+     "ru": "Программа «Шаг в будущее»",
+     "en": "“Step into the Future” Programme",
+     "zh": "“迈向未来”计划"
+    }
+   ],
+   [
+    "17890330486073.pdf",
+    {
+     "uz": "“Kelajakka qadam” dasturi doirasida bitiruvçi talabalarining amaliyotlarini moliyalaştiriş tartibi",
+     "ru": "Порядок финансирования практики студентов-выпускников в рамках программы «Шаг в будущее»",
+     "en": "Procedure for Financing Internship Placements for Graduating Students under the “Step into the Future” Programme",
+     "zh": "“迈向未来”计划框架内毕业生实习资助办法"
+    }
+   ],
+   [
+    "17890336496839.pdf",
+    {
+     "uz": "Oliy ta’lim taşkilotlari bitiruvçilarining işga joylaşişiga kömaklaşiş böyiça çora tadbirlar",
+     "ru": "Меры по содействию трудоустройству выпускников высших образовательных учреждений",
+     "en": "Measures to Support the Employment of Higher Education Graduates",
+     "zh": "促进高校毕业生就业的措施"
+    }
+   ],
+   [
+    "17890339511197.pdf",
+    {
+     "uz": "Tadbirkorlik loyihalarini qöllab-quvvatlaş orqali yoşlar bandligini ta’minlaşga doir çora-tadbirlar töğrisida",
+     "ru": "О мерах по обеспечению занятости молодежи посредством поддержки предпринимательских проектов",
+     "en": "On Measures to Promote Youth Employment through Support for Entrepreneurship Projects",
+     "zh": "关于通过支持创业项目促进青年就业的措施"
+    }
+   ],
+   [
+    "17890342916205.pdf",
+    {
+     "uz": "Oliy ta’lim taşkilotlari bitiruvçi talabalarining amaliyotlarini moliyalaştiriş çora-tadbirlari töğrisida",
+     "ru": "О мерах по финансированию практики студентов-выпускников организаций высшего образования",
+     "en": "On Measures to Finance Internship Placements for Graduating Students of Higher Education Institutions",
+     "zh": "关于资助高校毕业生实习的措施"
+    }
+   ],
+   [
+    "17890345846582.pdf",
+    {
+     "uz": "Bitiruvçi talabalarni kasbga tayyorlaş jarayonlarini taşkil etiş va moliyalaştiriş çora-tadbirlari töğrisida",
+     "ru": "О мерах по организации и финансированию процессов профессиональной подготовки студентов-выпускников",
+     "en": "On Measures to Organize and Finance the Professional Training of Graduating Students",
+     "zh": "关于组织和资助毕业生职业培训的措施"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "oquv-uslubiy-hujjatlar",
+  "parent": null,
+  "root": true,
+  "title": {
+   "uz": "Öquv-uslubiy hujjatlar",
+   "ru": "Учебно-методические документы",
+   "en": "Educational and methodological documents",
+   "zh": "教学文件"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p>",
+   "ru": "<p>[[kartalar-1]]</p>",
+   "en": "<p>[[kartalar-1]]</p>",
+   "zh": "<p>[[kartalar-1]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {},
+    "stats": {},
+    "columns": [],
+    "outro": {},
+    "photos": [],
+    "cards": [
+     {
+      "title": {
+       "uz": "Malaka talablari",
+       "ru": "Квалификационные требования",
+       "en": "Qualification requirements",
+       "zh": "资格要求"
+      },
+      "url": "/malaka-talablari",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Öquv jarayoni grafigi",
+       "ru": "График учебного процесса",
+       "en": "Academic schedule",
+       "zh": "教学过程时间表"
+      },
+      "url": "/oquv-jarayoni-grafigi",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Öquv rejalar",
+       "ru": "Учебные планы",
+       "en": "Curricula",
+       "zh": "教学计划"
+      },
+      "url": "/oquv-rejalar",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Öquv dasturlar",
+       "ru": "Учебные планы",
+       "en": "Syllabi",
+       "zh": "教学大纲"
+      },
+      "url": "/oquv-dasturlar",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Kredit haftaligini taşkil qiliş metodologiyasi",
+       "ru": "Методика организации кредитной недели",
+       "en": "Methodology of Organizing Credit-Orientation Week",
+       "zh": "学分周组织方法"
+      },
+      "url": "/kredit-haftaligini-tashkil-qilish-metodologiyasi",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Ta’lim grantlarini taqdim etiş va qayta taqsimlaş",
+       "ru": "Предоставление и перераспределение образовательных грантов",
+       "en": "Provision and redistribution of educational grants",
+       "zh": "教育助学金的发放与重新分配"
+      },
+      "url": "/talim-grantlarini-taqdim-etish-va-qayta-taqsimlash",
+      "photo": null
+     }
+    ]
+   }
+  ],
+  "docs": [
+   [
+    "17867106396775.pdf",
+    {
+     "uz": "Oliy ta’limning davlat ta’lim standarti. Asosiy qoidalar",
+     "ru": "Государственный образовательный стандарт высшего образования. Основные принципы",
+     "en": "State Educational Standard of Higher Education. Basic Principles",
+     "zh": "高等教育国家教育标准：基本规定"
+    }
+   ],
+   [
+    "17438520318653.pdf",
+    {
+     "uz": "Oliy ta’limning davlat ta’lim standarti. Oliy ta’lim yönalişlari va mutaxassisliklari klassifikatori",
+     "ru": "Государственный образовательный стандарт высшего образования. Классификатор направлений и специальностей высшего образования",
+     "en": "State Educational Standard of Higher Education. Classifier of Higher Education Directions and Specialties",
+     "zh": "高等教育国家教育标准：高等教育方向与专业分类目录"
+    }
+   ],
+   [
+    "17440191723236.pdf",
+    {
+     "uz": "“Oliy ta’limning davlat ta’lim standard. Oliy ta’lim yönalişlari va mutaxassisliklari klassifikatori” Özbekiston Respublikasining Davlat standartiga özgartiriş va qöşimçalar kiritiş töğrisida",
+     "ru": "Государственный образовательный стандарт высшего образования. Классификатор направлений высшего образования и специальностей\" в отношении внесения изменений и дополнений в государственный стандарт Республики Узбекистан",
+     "en": "State Educational Standard of Higher Education. Classification of Higher Education Fields and Specialties\" regarding amendments and additions to the State Standard of the Republic of Uzbekistan",
+     "zh": "关于修改和补充乌兹别克斯坦共和国国家标准《高等教育国家教育标准：高等教育方向与专业分类目录》"
+    }
+   ],
+   [
+    "17885191324492.pdf",
+    {
+     "uz": "Öquv adabiyotlarini yaratiş va rasmiylaştiriş tartibi",
+     "ru": "Порядок создания и оформления учебных материалов",
+     "en": "Procedure for the creation and formalization of educational literature",
+     "zh": "教学文献编写与规范办法"
+    }
+   ],
+   [
+    "17440195876532.pdf",
+    {
+     "uz": "Oliy ta’lim muassasalari professor-öqituvçilari tarkibining öquv yuklamasi hamda öquv-uslubiy, ilmiy-tadqiqot va “ustoz-şogird” işlarini belgilaş qoidalari",
+     "ru": "Правила установления учебной нагрузки профессорско-преподавательского состава высших учебных заведений, а также их учебно-методической, научно-исследовательской работы и работы \"наставник-ученик",
+     "en": "Rules for determining the academic workload of the teaching staff of higher education institutions, as well as their educational-methodological, research, and \"mentor-mentee\" activities",
+     "zh": "高校教师教学工作量及教学法、科研和“师徒”工作确定规则"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "malaka-talablari",
+  "parent": "oquv-uslubiy-hujjatlar",
+  "root": false,
+  "title": {
+   "uz": "Malaka talablari",
+   "ru": "Квалификационные требования",
+   "en": "Qualification requirements",
+   "zh": "资格要求"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p>",
+   "ru": "<p>[[kartalar-1]]</p>",
+   "en": "<p>[[kartalar-1]]</p>",
+   "zh": "<p>[[kartalar-1]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {},
+    "stats": {},
+    "columns": [],
+    "outro": {},
+    "photos": [],
+    "cards": [
+     {
+      "title": {
+       "uz": "Bakalavriat ta’lim yönalişlari malaka talablari",
+       "ru": "Квалификационные требования по направлениям бакалавриата",
+       "en": "Qualification requirements for bachelor’s degree programs",
+       "zh": "本科教育方向的资格要求"
+      },
+      "url": "/bakalavriat-talim-yonalishlari-malaka-talablari",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Magistratura mutaxassisliklari",
+       "ru": "Специальности магистратуры",
+       "en": "Master’s degree specialties",
+       "zh": "硕士专业"
+      },
+      "url": "/magistratura-mutaxassisliklari",
+      "photo": null
+     }
+    ]
+   }
+  ],
+  "docs": [],
+  "display": "embed"
+ },
+ {
+  "slug": "bakalavriat-talim-yonalishlari-malaka-talablari",
+  "parent": "malaka-talablari",
+  "root": false,
+  "title": {
+   "uz": "Bakalavriat ta’lim yönalişlari malaka talablari",
+   "ru": "Квалификационные требования по направлениям бакалавриата",
+   "en": "Qualification requirements for bachelor’s degree programs",
+   "zh": "本科教育方向的资格要求"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17440199159019.pdf",
+    {
+     "uz": "Ona tili va adabiyoti",
+     "ru": "Родной язык и литература",
+     "en": "Mother tongue and literature",
+     "zh": "母语与文学"
+    }
+   ],
+   [
+    "17821199473478.pdf",
+    {
+     "uz": "Xorijiy til va adabiyoti",
+     "ru": "Иностранный язык и литература",
+     "en": "Foreign language and literature",
+     "zh": "外国语言文学"
+    }
+   ],
+   [
+    "17878490881065.pdf",
+    {
+     "uz": "Filologiya va tillarni öqitiş",
+     "ru": "Филология и преподавание языков",
+     "en": "Philology and language teaching",
+     "zh": "语文学与语言教学"
+    }
+   ],
+   [
+    "17821306295681.pdf",
+    {
+     "uz": "Tarjima nazariyasi va amaliyoti",
+     "ru": "Теория и практика перевода",
+     "en": "Translation theory and practice",
+     "zh": "翻译理论与实践"
+    }
+   ],
+   [
+    "17821198287458.pdf",
+    {
+     "uz": "Noşirlik işi",
+     "ru": "Издательская деятельность",
+     "en": "Publishing work",
+     "zh": "出版工作"
+    }
+   ],
+   [
+    "17821196936731.pdf",
+    {
+     "uz": "Kompyuter lingvistikasi",
+     "ru": "Компьютерная лингвистика",
+     "en": "Computational linguistics",
+     "zh": "计算语言学"
+    }
+   ],
+   [
+    "17821226267186.pdf",
+    {
+     "uz": "Siyosatşunoslik",
+     "ru": "Политология",
+     "en": "Political science",
+     "zh": "政治学"
+    }
+   ],
+   [
+    "17821227230109.pdf",
+    {
+     "uz": "Xalqaro munosabatlar",
+     "ru": "Международные отношения",
+     "en": "International relations",
+     "zh": "国际关系"
+    }
+   ],
+   [
+    "17821306922216.pdf",
+    {
+     "uz": "Sotsiologiya",
+     "ru": "Социология",
+     "en": "Sociology",
+     "zh": "社会学"
+    }
+   ],
+   [
+    "17821195824619.pdf",
+    {
+     "uz": "Jurnalistika",
+     "ru": "Журналистика",
+     "en": "Journalism",
+     "zh": "新闻学"
+    }
+   ],
+   [
+    "17821125585698.pdf",
+    {
+     "uz": "Axborot xizmati va jamoatçilik bilan aloqalar malaka talabi",
+     "ru": "Информационная_служба_и_связи_с_общественностью",
+     "en": "Information services and public relations",
+     "zh": "信息服务与公共关系"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "magistratura-mutaxassisliklari",
+  "parent": "malaka-talablari",
+  "root": false,
+  "title": {
+   "uz": "Magistratura mutaxassisliklari",
+   "ru": "Специальности магистратуры",
+   "en": "Master’s degree specialties",
+   "zh": "硕士专业"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17822166701685.pdf",
+    {
+     "uz": "Ona tili va adabiyoti",
+     "ru": "Родной язык и литература",
+     "en": "Mother tongue and literature",
+     "zh": "母语与文学"
+    }
+   ],
+   [
+    "17822167867572.pdf",
+    {
+     "uz": "Xorijiy til va adabiyoti",
+     "ru": "Иностранный язык и литература",
+     "en": "Foreign language and literature",
+     "zh": "外国语言文学"
+    }
+   ],
+   [
+    "17822168291572.pdf",
+    {
+     "uz": "Lingvistika",
+     "ru": "Лингвистика",
+     "en": "Linguistics",
+     "zh": "语言学"
+    }
+   ],
+   [
+    "17822168723158.pdf",
+    {
+     "uz": "Adabiyotşunoslik",
+     "ru": "Литературоведение",
+     "en": "Literary studies",
+     "zh": "文学研究"
+    }
+   ],
+   [
+    "17822169125499.pdf",
+    {
+     "uz": "Qiyosiy tilşunoslik, lingvisrik tarjimaşunoslik",
+     "ru": "Сравнительное языкознание, лингвистическая транслятология",
+     "en": "Comparative linguistics, linguistic translation studies",
+     "zh": "比较语言学、语言翻译学"
+    }
+   ],
+   [
+    "17822169513157.pdf",
+    {
+     "uz": "Sinxron tarjima",
+     "ru": "Синхронный перевод",
+     "en": "Simultaneous interpretation",
+     "zh": "同声传译"
+    }
+   ],
+   [
+    "17822170163388.pdf",
+    {
+     "uz": "Kompyuter lingvistikasi",
+     "ru": "Компьютерная лингвистика",
+     "en": "Computational linguistics",
+     "zh": "计算语言学"
+    }
+   ],
+   [
+    "17822170578822.pdf",
+    {
+     "uz": "Jurnalistika",
+     "ru": "Журналистика",
+     "en": "Journalism",
+     "zh": "新闻学"
+    }
+   ],
+   [
+    "17822170920114.pdf",
+    {
+     "uz": "Axborot xizmati va jamoatçilik bilan aloqalar",
+     "ru": "Информационная служба и связи с общественностью",
+     "en": "Information service and public relations",
+     "zh": "信息服务与公共关系"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "oquv-jarayoni-grafigi",
+  "parent": "oquv-uslubiy-hujjatlar",
+  "root": false,
+  "title": {
+   "uz": "Öquv jarayoni grafigi",
+   "ru": "График учебного процесса",
+   "en": "Academic schedule",
+   "zh": "教学过程时间表"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17891106721509.pdf",
+    {
+     "uz": "Öquv jarayon grafigi (keçki)",
+     "ru": "График учебного процесса (вечерний)",
+     "en": "Academic schedule (evening)",
+     "zh": "教学进程表（夜间）"
+    }
+   ],
+   [
+    "17891109792924.pdf",
+    {
+     "uz": "Öquv jarayon grafigi (kunduzgi)",
+     "ru": "График учебного процесса (дневной)",
+     "en": "Academic schedule (daytime)",
+     "zh": "教学进程表（全日制）"
+    }
+   ],
+   [
+    "17891110984182.pdf",
+    {
+     "uz": "Öquv jarayon grafigi (sirtqi)",
+     "ru": "График учебного процесса (заочный)",
+     "en": "Academic schedule (correspondence)",
+     "zh": "教学进程表（函授）"
+    }
+   ],
+   [
+    "17891111676750.pdf",
+    {
+     "uz": "Öquv jarayon grafigi (magistratura)",
+     "ru": "График учебного процесса (магистратура)",
+     "en": "Academic schedule (master’s program)",
+     "zh": "教学进程表（硕士）"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "oquv-rejalar",
+  "parent": "oquv-uslubiy-hujjatlar",
+  "root": false,
+  "title": {
+   "uz": "Öquv rejalar",
+   "ru": "Учебные планы",
+   "en": "Curricula",
+   "zh": "教学计划"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p>",
+   "ru": "<p>[[kartalar-1]]</p>",
+   "en": "<p>[[kartalar-1]]</p>",
+   "zh": "<p>[[kartalar-1]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {},
+    "stats": {},
+    "columns": [],
+    "outro": {},
+    "photos": [],
+    "cards": [
+     {
+      "title": {
+       "uz": "Bakalavriat öquv rejalari",
+       "ru": "Учебные планы бакалавриата",
+       "en": "Bachelor’s degree curricula",
+       "zh": "本科课程计划"
+      },
+      "url": "/bakalavriat-oquv-rejalari",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Magistratura öquv rejalari",
+       "ru": "Учебные планы магистратуры",
+       "en": "Master’s Degree Curriculum",
+       "zh": "硕士学位课程安排"
+      },
+      "url": "/magistratura-oquv-rejalari",
+      "photo": null
+     }
+    ]
+   }
+  ],
+  "docs": [],
+  "display": "embed"
+ },
+ {
+  "slug": "bakalavriat-oquv-rejalari",
+  "parent": "oquv-rejalar",
+  "root": false,
+  "title": {
+   "uz": "Bakalavriat öquv rejalari",
+   "ru": "Учебные планы бакалавриата",
+   "en": "Bachelor’s degree curricula",
+   "zh": "本科课程计划"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17440228719114.pdf",
+    {
+     "uz": "Axborot xizmati va jamoatçilik bilan aloqalar",
+     "ru": "Информационная служба и связи с общественностью",
+     "en": "Information service and public relations",
+     "zh": "信息服务与公共关系"
+    }
+   ],
+   [
+    "17440230699553.pdf",
+    {
+     "uz": "Filologiya va tillarni öqitiş (roman-german tillari)",
+     "ru": "Филология и преподавание языков (романо-германские языки)",
+     "en": "Philology and language teaching (Romance-Germanic languages)",
+     "zh": "语文学与语言教学（罗曼-日耳曼语言）"
+    }
+   ],
+   [
+    "17441879228318.pdf",
+    {
+     "uz": "Filologiya va tillarni öqitiş (rus)",
+     "ru": "Филология и преподавание языков (русский язык)",
+     "en": "Philology and Language Teaching (Russian)",
+     "zh": "语文学与语言教学（俄语）"
+    }
+   ],
+   [
+    "17441898185638.pdf",
+    {
+     "uz": "Filologiya va tillarni öqitiş (şarq tillari)",
+     "ru": "Филология и преподавание языков (восточные языки)",
+     "en": "Philology and Language Teaching (Eastern Languages)",
+     "zh": "语文学与语言教学（东方语言）"
+    }
+   ],
+   [
+    "17441898842905.pdf",
+    {
+     "uz": "Jurnalistika",
+     "ru": "Журналистика",
+     "en": "Journalism",
+     "zh": "新闻学"
+    }
+   ],
+   [
+    "17441899390053.pdf",
+    {
+     "uz": "Kompyuter lingvistikasi",
+     "ru": "Компьютерная лингвистика",
+     "en": "Computational Linguistics",
+     "zh": "计算语言学"
+    }
+   ],
+   [
+    "17441904669804.pdf",
+    {
+     "uz": "Ona tili va adabiyoti",
+     "ru": "Родной язык и литература",
+     "en": "Mother tongue and literature",
+     "zh": "母语与文学"
+    }
+   ],
+   [
+    "17441906788545.pdf",
+    {
+     "uz": "Siyosatşunoslik",
+     "ru": "Политология",
+     "en": "Political Science",
+     "zh": "政治学"
+    }
+   ],
+   [
+    "17441907367630.pdf",
+    {
+     "uz": "Sotsiologiya",
+     "ru": "Социология",
+     "en": "Sociology",
+     "zh": "社会学"
+    }
+   ],
+   [
+    "17441909453816.pdf",
+    {
+     "uz": "Tarjima nazariyasi va amaliyoti (roman-german tillari)",
+     "ru": "Теория и практика перевода (романогерманские языки)",
+     "en": "Theory and Practice of Translation (Romance-Germanic Languages)",
+     "zh": "翻译理论与实践（罗曼-日耳曼语言）"
+    }
+   ],
+   [
+    "17441910028776.pdf",
+    {
+     "uz": "Tarjima nazariyasi va amaliyoti (şarq tillari)",
+     "ru": "Теория и практика перевода (восточные языки)",
+     "en": "Theory and Practice of Translation (Eastern Languages)",
+     "zh": "翻译理论与实践（东方语言）"
+    }
+   ],
+   [
+    "17441910503031.pdf",
+    {
+     "uz": "Xalqaro munosabatlar",
+     "ru": "Международные отношения",
+     "en": "International Relations",
+     "zh": "国际关系"
+    }
+   ],
+   [
+    "17441911453734.pdf",
+    {
+     "uz": "Xorijiy til va adabiyoti",
+     "ru": "Иностранный язык и литература",
+     "en": "Foreign Language and Literature",
+     "zh": "外国语言文学"
+    }
+   ],
+   [
+    "17929964334326.pdf",
+    {
+     "uz": "60230100 Işçi öquv reja - Filologiya va tillarni öqitiş (şarq tillari)",
+     "ru": "60230100 Рабочий учебный план - Филология и преподавание языков (восточные языки)",
+     "en": "60230100 Working Curriculum - Philology and Language Teaching (Oriental Languages)",
+     "zh": "60230100 工作教学计划——语文学与语言教学（东方语言）"
+    }
+   ],
+   [
+    "17929965968651.pdf",
+    {
+     "uz": "60230100 Işçi öquv reja - Filologiya va tillarni öqitiş (roman-german tillari)",
+     "ru": "60230100 Рабочий учебный план - Филология и преподавание языков (романо-германские языки)",
+     "en": "60230100 Working Curriculum - Philology and Language Teaching (Romance-Germanic Languages)",
+     "zh": "60230100 工作教学计划——语文学与语言教学（罗曼-日耳曼语言）"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "magistratura-oquv-rejalari",
+  "parent": "oquv-rejalar",
+  "root": false,
+  "title": {
+   "uz": "Magistratura öquv rejalari",
+   "ru": "Учебные планы магистратуры",
+   "en": "Master’s Degree Curriculum",
+   "zh": "硕士学位课程安排"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17441916232893.pdf",
+    {
+     "uz": "Adabiyotşunoslik (ingliz adabiyoti)",
+     "ru": "Литературоведение (английская литература)",
+     "en": "Literary Studies (English Literature)",
+     "zh": "文学研究（英国文学）"
+    }
+   ],
+   [
+    "17441940207798.pdf",
+    {
+     "uz": "Adabiyotşunoslik (rus adabiyoti)",
+     "ru": "Литературоведение (русская литература)",
+     "en": "Literary Studies (Russian Literature)",
+     "zh": "文学研究（俄罗斯文学）"
+    }
+   ],
+   [
+    "17441941732790.pdf",
+    {
+     "uz": "Axborot xizmati va jamoatçilik bilan aloqalar",
+     "ru": "Информационная служба и связи с общественностью",
+     "en": "Public Relations and Information Service",
+     "zh": "公共关系与信息服务"
+    }
+   ],
+   [
+    "17441943047715.pdf",
+    {
+     "uz": "Jurnalistika",
+     "ru": "Журналистика",
+     "en": "Journalism",
+     "zh": "新闻学"
+    }
+   ],
+   [
+    "17441946220739.pdf",
+    {
+     "uz": "Lingvistika (roman-german tillari)",
+     "ru": "Лингвистика (романогерманские языки)",
+     "en": "Linguistics (Romance-Germanic Languages)",
+     "zh": "语言学（罗曼-日耳曼语言）"
+    }
+   ],
+   [
+    "17441948051152.pdf",
+    {
+     "uz": "Lingvistika (şarq tillari)",
+     "ru": "Лингвистика (восточные языки)",
+     "en": "Linguistics (Eastern Languages)",
+     "zh": "语言学（东方语言）"
+    }
+   ],
+   [
+    "17441951242606.pdf",
+    {
+     "uz": "Lingvistika (rus tili)",
+     "ru": "Лингвистика (русский язык)",
+     "en": "Linguistics (Russian Language)",
+     "zh": "语言学（俄语）"
+    }
+   ],
+   [
+    "17441955296150.pdf",
+    {
+     "uz": "Ona tili va adabiyoti (rus tili)",
+     "ru": "Родной язык и литература (русский язык)",
+     "en": "Mother Tongue and Literature (Russian Language)",
+     "zh": "母语与文学（俄语）"
+    }
+   ],
+   [
+    "17441957858950.pdf",
+    {
+     "uz": "Qiyosiy tilşunoslik, lingvistik tarjimaşunoslik (ingliz va italyan tillari)",
+     "ru": "Сравнительное языкознание, лингвистическое переводоведение (английский и итальянский языки)",
+     "en": "Comparative Linguistics and Linguistic Translation Studies (English and Italian Languages)",
+     "zh": "比较语言学与语言翻译学（英语和意大利语）"
+    }
+   ],
+   [
+    "17441967557510.pdf",
+    {
+     "uz": "Sinxron tarjima (ingliz tili)",
+     "ru": "Синхронный перевод (английский язык)",
+     "en": "Simultaneous Interpretation (English Language)",
+     "zh": "同声传译（英语）"
+    }
+   ],
+   [
+    "17441972153640.pdf",
+    {
+     "uz": "Xorijiy til va adabiyoti (ingliz tili)",
+     "ru": "Иностранный язык и литература (английский язык)",
+     "en": "Foreign Language and Literature (English)",
+     "zh": "外国语言文学（英语）"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "oquv-dasturlar",
+  "parent": "oquv-uslubiy-hujjatlar",
+  "root": false,
+  "title": {
+   "uz": "Öquv dasturlar",
+   "ru": "Учебные планы",
+   "en": "Syllabi",
+   "zh": "教学大纲"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p>",
+   "ru": "<p>[[kartalar-1]]</p>",
+   "en": "<p>[[kartalar-1]]</p>",
+   "zh": "<p>[[kartalar-1]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {},
+    "stats": {},
+    "columns": [],
+    "outro": {},
+    "photos": [],
+    "cards": [
+     {
+      "title": {
+       "uz": "1-kurs",
+       "ru": "1 курс",
+       "en": "1st year",
+       "zh": "一年级"
+      },
+      "url": "/1-kurs",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "2-kurs",
+       "ru": "2 курс",
+       "en": "2nd year",
+       "zh": "二年级"
+      },
+      "url": "/2-kurs",
+      "photo": null
+     }
+    ]
+   }
+  ],
+  "docs": [],
+  "display": "embed"
+ },
+ {
+  "slug": "1-kurs",
+  "parent": "oquv-dasturlar",
+  "root": false,
+  "title": {
+   "uz": "1-kurs",
+   "ru": "1 курс",
+   "en": "1st year",
+   "zh": "一年级"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p>",
+   "ru": "<p>[[kartalar-1]]</p>",
+   "en": "<p>[[kartalar-1]]</p>",
+   "zh": "<p>[[kartalar-1]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {},
+    "stats": {},
+    "columns": [],
+    "outro": {},
+    "photos": [],
+    "cards": [
+     {
+      "title": {
+       "uz": "Xorijiy til va adabiyot (ingliz tili)",
+       "ru": "Иностранный язык и литература (английский язык)",
+       "en": "Foreign Language and Literature (English Language)",
+       "zh": "外国语言与文学（英语）"
+      },
+      "url": "/xorijiy-til-va-adabiyot-ingliz-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya va tillarni öqitiş (ingliz tili)",
+       "ru": "Филология и обучение языкам (английский язык)",
+       "en": "Philology and Language Teaching (English Language)",
+       "zh": "语言学与语言教学（英语）"
+      },
+      "url": "/filologiya-va-tillarni-oqitish-ingliz-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya va tillarni öqitiş (nemis tili)",
+       "ru": "Филология и обучение языкам (немецкий язык)",
+       "en": "Philology and Language Teaching (German Language)",
+       "zh": "语言学与语言教学（德语）"
+      },
+      "url": "/filologiya-va-tillarni-oqitish-nemis-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya va tillarni öqitiş (fransuz tili)",
+       "ru": "Филология и обучение языкам (французский язык)",
+       "en": "Philology and Language Teaching (French Language)",
+       "zh": "语言学与语言教学（法语）"
+      },
+      "url": "/filologiya-va-tillarni-oqitish-fransuz-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya va tillarni öqitiş (ispan tili)",
+       "ru": "Филология и обучение языкам (испанский язык)",
+       "en": "Philology and Language Teaching (Spanish Language)",
+       "zh": "语言学与语言教学（西班牙语）"
+      },
+      "url": "/filologiya-va-tillarni-oqitish-ispan-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya va tillarni öqitiş (xitoy tili)",
+       "ru": "Филология и обучение языкам (китайский язык)",
+       "en": "Philology and Language Teaching (Chinese Language)",
+       "zh": "语言学与语言教学（中文）"
+      },
+      "url": "/filologiya-va-tillarni-oqitish-xitoy-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya va tillarni öqitiş (yapon tili)",
+       "ru": "Филология и обучение языкам (японский язык)",
+       "en": "Philology and Language Teaching (Japanese Language)",
+       "zh": "语言学与语言教学（日语）"
+      },
+      "url": "/filologiya-va-tillarni-oqitish-yapon-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya va tillarni oqitiş (koreys tili)",
+       "ru": "Филология и обучение языкам",
+       "en": "Philology and Language Teaching",
+       "zh": "语言学与语言教学"
+      },
+      "url": "/filologiya-va-tillarni-oqitish-koreys-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya va tillarni öqitiş (arab tili)",
+       "ru": "Филология и обучение языкам (арабский язык)",
+       "en": "Philology and Language Teaching (Arabic Language)",
+       "zh": "语言学与语言教学（阿拉伯语）"
+      },
+      "url": "/filologiya-va-tillarni-oqitish-arab-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya va tillarni öqitiş (turk tili)",
+       "ru": "Филология и обучение языкам (турецкий язык)",
+       "en": "Philology and Language Teaching (Turkish Language)",
+       "zh": "语言学与语言教学"
+      },
+      "url": "/filologiya-va-tillarni-oqitish-turk-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya va tillarni öqitiş (rus tili)",
+       "ru": "Филология и обучение языкам (русский язык)",
+       "en": "Philology and Language Teaching (Russian Language)",
+       "zh": "语言学与语言教学（俄语）"
+      },
+      "url": "/filologiya-va-tillarni-oqitish-rus-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Ona tili va adabiyoti (rus tili va adabiyoti)",
+       "ru": "Родной язык и литература (русский язык и литература)",
+       "en": "Mother Tongue and Literature (Russian Language and Literature",
+       "zh": "母语与文学（俄语与文学）"
+      },
+      "url": "/ona-tili-va-adabiyoti-rus-tili-va-adabiyoti",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Tarjima nazariyasi va amaliyoti (ingliz tili)",
+       "ru": "Теория и практика перевода (английский язык)",
+       "en": "Theory and Practice of Translation (English Language)",
+       "zh": "翻译理论与实践（英语）"
+      },
+      "url": "/tarjima-nazariyasi-va-amaliyoti-ingliz-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Tarjima nazariyasi va amaliyoti (fransuz tili)",
+       "ru": "Теория и практика перевода (французский язык)",
+       "en": "Theory and Practice of Translation (French Language)",
+       "zh": "翻译理论与实践（法语）"
+      },
+      "url": "/tarjima-nazariyasi-va-amaliyoti-fransuz-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Tarjima nazariyasi va amaliyoti (nemis tili)",
+       "ru": "Теория и практика перевода (немецкий язык)",
+       "en": "Theory and Practice of Translation (German Language)",
+       "zh": "翻译理论与实践（德语）"
+      },
+      "url": "/tarjima-nazariyasi-va-amaliyoti-nemis-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Tarjima nazariyasi va amaliyoti (italyan tili)",
+       "ru": "Теория и практика перевода (немецкий язык)",
+       "en": "Theory and Practice of Translation (German Language)",
+       "zh": "翻译理论与实践（德语）"
+      },
+      "url": "/tarjima-nazariyasi-va-amaliyoti-italyan-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Tarjima nazariyasi va amaliyoti (ispan tili)",
+       "ru": "Теория и практика перевода (испанский язык)",
+       "en": "Theory and Practice of Translation (Spanish Language)",
+       "zh": "翻译理论与实践（西班牙语）"
+      },
+      "url": "/tarjima-nazariyasi-va-amaliyoti-ispan-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Tarjima nazariyasi va amaliyoti (arab tili)",
+       "ru": "Теория и практика перевода (арабский язык)",
+       "en": "Theory and Practice of Translation (Arabic Language)",
+       "zh": "翻译理论与实践（阿拉伯语）"
+      },
+      "url": "/tarjima-nazariyasi-va-amaliyoti-arab-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Tarjima nazariyasi va amaliyoti (turk tili)",
+       "ru": "Теория и практика перевода (турецкий язык)",
+       "en": "Theory and Practice of Translation (Turkish Language)",
+       "zh": "翻译理论与实践（土耳其语）"
+      },
+      "url": "/tarjima-nazariyasi-va-amaliyoti-turk-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Tarjima nazariyasi va amaliyoti (xitoy tili)",
+       "ru": "Теория и практика перевода (китайский язык)",
+       "en": "Theory and Practice of Translation (Chinese Language)",
+       "zh": "翻译理论与实践（中文）"
+      },
+      "url": "/tarjima-nazariyasi-va-amaliyoti-xitoy-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Kompyuter lingvistikasi",
+       "ru": "Компьютерная лингвистика",
+       "en": "Computational Linguistics",
+       "zh": "计算语言学"
+      },
+      "url": "/kompyuter-lingvistikasi",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Siyosatşunoslik",
+       "ru": "Политология",
+       "en": "Political Science",
+       "zh": "政治学"
+      },
+      "url": "/siyosatshunoslik",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Sotsiologiya",
+       "ru": "Социология",
+       "en": "Sociology",
+       "zh": "社会学"
+      },
+      "url": "/sotsiologiya",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Xalqaro munosabatlar",
+       "ru": "Международные отношения",
+       "en": "International relations",
+       "zh": "国际关系"
+      },
+      "url": "/xalqaro-munosabatlar",
+      "photo": null
+     }
+    ]
+   }
+  ],
+  "docs": [],
+  "display": "embed"
+ },
+ {
+  "slug": "xorijiy-til-va-adabiyot-ingliz-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Xorijiy til va adabiyot (ingliz tili)",
+   "ru": "Иностранный язык и литература (английский язык)",
+   "en": "Foreign Language and Literature (English Language)",
+   "zh": "外国语言与文学（英语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789235682995.pdf",
+    {
+     "uz": "Öqiş va yoziş amaliyoti (XTA)",
+     "ru": "Практика чтения и письма (иностранный язык и литература)",
+     "en": "Reading and Writing Practice (Foreign Language and Literature)",
+     "zh": "阅读与写作实践（外国语言文学）"
+    }
+   ],
+   [
+    "17789236649328.pdf",
+    {
+     "uz": "Nutq könikmalari integratsiyasi (XTA)",
+     "ru": "Интеграция речевых навыков (иностранный язык и литература)",
+     "en": "Integration of Speech Skills (Foreign Language and Literature)",
+     "zh": "言语技能综合（外国语言文学）"
+    }
+   ],
+   [
+    "17789237271793.pdf",
+    {
+     "uz": "Til aspektlari amaliyoti",
+     "ru": "Практика языковых аспектов",
+     "en": "Practice of Language Aspects",
+     "zh": "语言要素实践"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-va-tillarni-oqitish-ingliz-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya va tillarni öqitiş (ingliz tili)",
+   "ru": "Филология и обучение языкам (английский язык)",
+   "en": "Philology and Language Teaching (English Language)",
+   "zh": "语言学与语言教学（英语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789238629068.pdf",
+    {
+     "uz": "Oğzaki nutq amaliyoti",
+     "ru": "Практика устной речи",
+     "en": "Oral Speech Practice",
+     "zh": "口语实践"
+    }
+   ],
+   [
+    "17789239161175.pdf",
+    {
+     "uz": "Öqiş va yoziş amaliyoti",
+     "ru": "Практика чтения и письма",
+     "en": "Reading and Writing Practice",
+     "zh": "阅读与写作实践"
+    }
+   ],
+   [
+    "17789239851388.pdf",
+    {
+     "uz": "Amaliy grammatika va fonetika",
+     "ru": "Практическая грамматика и фонетика",
+     "en": "Practical Grammar and Phonetics",
+     "zh": "实用语法与语音"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-va-tillarni-oqitish-nemis-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya va tillarni öqitiş (nemis tili)",
+   "ru": "Филология и обучение языкам (немецкий язык)",
+   "en": "Philology and Language Teaching (German Language)",
+   "zh": "语言学与语言教学（德语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789243958258.pdf",
+    {
+     "uz": "Oğzaki nutq amaliyoti",
+     "ru": "Практика устной речи",
+     "en": "Oral Speech Practice",
+     "zh": "口语实践"
+    }
+   ],
+   [
+    "17789244426406.pdf",
+    {
+     "uz": "Öqiş va yoziş amaliyoti",
+     "ru": "Практика чтения и письма",
+     "en": "Reading and Writing Practice",
+     "zh": "阅读与写作实践"
+    }
+   ],
+   [
+    "17789244931104.pdf",
+    {
+     "uz": "Öqiş va yoziş amaliyoti 2025-26, 2026-2027",
+     "ru": "Практика чтения и письма (2025–2026, 2026–2027)",
+     "en": "Reading and Writing Practice (2025–2026, 2026–2027)",
+     "zh": "阅读与写作实践（2025–2026、2026–2027）"
+    }
+   ],
+   [
+    "17789245290283.pdf",
+    {
+     "uz": "Amaliy grammatika va fonetika",
+     "ru": "Практическая грамматика и фонетика",
+     "en": "Practical Grammar and Phonetics",
+     "zh": "实用语法与语音"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-va-tillarni-oqitish-fransuz-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya va tillarni öqitiş (fransuz tili)",
+   "ru": "Филология и обучение языкам (французский язык)",
+   "en": "Philology and Language Teaching (French Language)",
+   "zh": "语言学与语言教学（法语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789246443053.pdf",
+    {
+     "uz": "Oğzaki nutq amaliyoti",
+     "ru": "Практика устной речи",
+     "en": "Oral Speech Practice",
+     "zh": "口语实践"
+    }
+   ],
+   [
+    "17789246897667.pdf",
+    {
+     "uz": "Öqiş va yoziş amaliyoti",
+     "ru": "Практика чтения и письма",
+     "en": "Reading and Writing Practice",
+     "zh": "阅读与写作实践"
+    }
+   ],
+   [
+    "17789247526444.pdf",
+    {
+     "uz": "Amaliy grammatika va fonetika",
+     "ru": "Практическая грамматика и фонетика",
+     "en": "Practical Grammar and Phonetics",
+     "zh": "实用语法与语音"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-va-tillarni-oqitish-ispan-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya va tillarni öqitiş (ispan tili)",
+   "ru": "Филология и обучение языкам (испанский язык)",
+   "en": "Philology and Language Teaching (Spanish Language)",
+   "zh": "语言学与语言教学（西班牙语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789248718642.pdf",
+    {
+     "uz": "Oğzaki nutq amaliyoti",
+     "ru": "Практика устной речи",
+     "en": "Oral Speech Practice",
+     "zh": "口语实践"
+    }
+   ],
+   [
+    "17789249183638.pdf",
+    {
+     "uz": "Öqiş va yoziş amaliyoti",
+     "ru": "Практика чтения и письма",
+     "en": "Reading and Writing Practice",
+     "zh": "阅读与写作实践"
+    }
+   ],
+   [
+    "17789249631598.pdf",
+    {
+     "uz": "Amaliy grammatika va fonetika",
+     "ru": "Практическая грамматика и фонетика",
+     "en": "Practical Grammar and Phonetics",
+     "zh": "实用语法与语音"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-va-tillarni-oqitish-xitoy-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya va tillarni öqitiş (xitoy tili)",
+   "ru": "Филология и обучение языкам (китайский язык)",
+   "en": "Philology and Language Teaching (Chinese Language)",
+   "zh": "语言学与语言教学（中文）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789250671998.pdf",
+    {
+     "uz": "Mamlakatşunoslik (xitoy tili)",
+     "ru": "Страноведение (китайский язык)",
+     "en": "Country Studies (Chinese Language)",
+     "zh": "国情学（汉语）"
+    }
+   ],
+   [
+    "17789251295449.pdf",
+    {
+     "uz": "Xorijiy şarq tili (xitoy tili)",
+     "ru": "Восточный иностранный язык (китайский язык)",
+     "en": "Oriental Foreign Language (Chinese Language)",
+     "zh": "东方外语（汉语）"
+    }
+   ],
+   [
+    "17789252308519.pdf",
+    {
+     "uz": "Xorijiy şarq tili 1-kurs (xitoy tili)",
+     "ru": "Восточный иностранный язык 1 курс (китайский язык)",
+     "en": "Oriental Foreign Language, 1st Year (Chinese Language)",
+     "zh": "东方外语，一年级（汉语）"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-va-tillarni-oqitish-yapon-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya va tillarni öqitiş (yapon tili)",
+   "ru": "Филология и обучение языкам (японский язык)",
+   "en": "Philology and Language Teaching (Japanese Language)",
+   "zh": "语言学与语言教学（日语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789253482650.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17789253933594.pdf",
+    {
+     "uz": "Xorijiy şarq tili",
+     "ru": "Восточный иностранный язык",
+     "en": "Oriental Foreign Language",
+     "zh": "东方外语"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "filologiya-va-tillarni-oqitish-koreys-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya va tillarni oqitiş (koreys tili)",
+   "ru": "Филология и обучение языкам",
+   "en": "Philology and Language Teaching",
+   "zh": "语言学与语言教学"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789255937360.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17789256428498.pdf",
+    {
+     "uz": "Xorijiy şarq tili",
+     "ru": "Восточный иностранный язык",
+     "en": "Oriental Foreign Language",
+     "zh": "东方外语"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "filologiya-va-tillarni-oqitish-arab-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya va tillarni öqitiş (arab tili)",
+   "ru": "Филология и обучение языкам (арабский язык)",
+   "en": "Philology and Language Teaching (Arabic Language)",
+   "zh": "语言学与语言教学（阿拉伯语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789257522870.pdf",
+    {
+     "uz": "Mamlakataşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17789258053436.pdf",
+    {
+     "uz": "Xorijiy şarq tili",
+     "ru": "Восточный иностранный язык",
+     "en": "Oriental Foreign Language",
+     "zh": "东方外语"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "filologiya-va-tillarni-oqitish-turk-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya va tillarni öqitiş (turk tili)",
+   "ru": "Филология и обучение языкам (турецкий язык)",
+   "en": "Philology and Language Teaching (Turkish Language)",
+   "zh": "语言学与语言教学"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789259123321.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17789259483817.pdf",
+    {
+     "uz": "Xorijiy şarq tili",
+     "ru": "Восточный иностранный язык",
+     "en": "Oriental Foreign Language",
+     "zh": "东方外语"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "filologiya-va-tillarni-oqitish-rus-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya va tillarni öqitiş (rus tili)",
+   "ru": "Филология и обучение языкам (русский язык)",
+   "en": "Philology and Language Teaching (Russian Language)",
+   "zh": "语言学与语言教学（俄语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789260657326.pdf",
+    {
+     "uz": "Folklor 1-semestr",
+     "ru": "Фольклор, 1 семестр",
+     "en": "Folklore, 1st Semester",
+     "zh": "民间文学（第1学期）"
+    }
+   ],
+   [
+    "17789261142171.pdf",
+    {
+     "uz": "Hozirgi rus tili 2-7 semestr",
+     "ru": "Современный русский язык (2–7 семестры)",
+     "en": "Modern Russian Language (2nd–7th semesters)",
+     "zh": "现代俄语（第2–7学期）"
+    }
+   ],
+   [
+    "17789261648111.pdf",
+    {
+     "uz": "Rus tili tarixi 2-semestr",
+     "ru": "История русского языка, 2 семестр",
+     "en": "History of the Russian Language, 2nd Semester",
+     "zh": "俄语史（第2学期）"
+    }
+   ],
+   [
+    "17789262099483.pdf",
+    {
+     "uz": "Jahon adabiyoti tarixi 2,3,4-semestr",
+     "ru": "История мировой литературы (2–4 семестры)",
+     "en": "History of World Literature (2nd–4th semesters)",
+     "zh": "世界文学史（第2–4学期）"
+    }
+   ],
+   [
+    "17789262511441.pdf",
+    {
+     "uz": "Rus adabiyoti tarixi 2-7 semestr",
+     "ru": "История русской литературы (2–7 семестры)",
+     "en": "History of Russian Literature (2nd–7th semesters)",
+     "zh": "俄罗斯文学史（第2–7学期）"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "ona-tili-va-adabiyoti-rus-tili-va-adabiyoti",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Ona tili va adabiyoti (rus tili va adabiyoti)",
+   "ru": "Родной язык и литература (русский язык и литература)",
+   "en": "Mother Tongue and Literature (Russian Language and Literature",
+   "zh": "母语与文学（俄语与文学）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789263568782.pdf",
+    {
+     "uz": "Mutaxassislikka kiriş",
+     "ru": "Введение в специальность",
+     "en": "Introduction to the Specialty",
+     "zh": "专业导论"
+    }
+   ],
+   [
+    "17789264130386.pdf",
+    {
+     "uz": "Çet el adabiyoti tarixi 1-3 semestr",
+     "ru": "История зарубежной литературы (1–3 семестры)",
+     "en": "History of Foreign Literature (1st–3rd semesters)",
+     "zh": "外国文学史（第1–3学期）"
+    }
+   ],
+   [
+    "17789264654574.pdf",
+    {
+     "uz": "Rus tili praktikumi",
+     "ru": "Практикум по русскому языку",
+     "en": "Russian Language Practicum",
+     "zh": "俄语实践"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "tarjima-nazariyasi-va-amaliyoti-ingliz-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Tarjima nazariyasi va amaliyoti (ingliz tili)",
+   "ru": "Теория и практика перевода (английский язык)",
+   "en": "Theory and Practice of Translation (English Language)",
+   "zh": "翻译理论与实践（英语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789265858720.pdf",
+    {
+     "uz": "Amaliy tarjima",
+     "ru": "Практический перевод",
+     "en": "Practical Translation",
+     "zh": "翻译实践"
+    }
+   ],
+   [
+    "17789266334869.pdf",
+    {
+     "uz": "Asosiy örganilayotgan çet tili",
+     "ru": "Основной изучаемый иностранный язык",
+     "en": "Main Studied Foreign Language",
+     "zh": "主修外语"
+    }
+   ],
+   [
+    "17789266800675.pdf",
+    {
+     "uz": "Tarjimaşunoslik",
+     "ru": "Переводоведение",
+     "en": "Translation Studies",
+     "zh": "翻译学"
+    }
+   ],
+   [
+    "17789267349004.pdf",
+    {
+     "uz": "Tarjimonlik mutaxassisligiga kiriş",
+     "ru": "Введение в специальность переводчика",
+     "en": "Introduction to Translation Studies",
+     "zh": "翻译学导论"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "tarjima-nazariyasi-va-amaliyoti-fransuz-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Tarjima nazariyasi va amaliyoti (fransuz tili)",
+   "ru": "Теория и практика перевода (французский язык)",
+   "en": "Theory and Practice of Translation (French Language)",
+   "zh": "翻译理论与实践（法语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789483288192.pdf",
+    {
+     "uz": "Amaliy tarjima",
+     "ru": "Практический перевод",
+     "en": "Practical Translation",
+     "zh": "翻译实践"
+    }
+   ],
+   [
+    "17789486391998.pdf",
+    {
+     "uz": "Asosiy örganilayotgan çet tili",
+     "ru": "Основной изучаемый иностранный язык",
+     "en": "Main Studied Foreign Language",
+     "zh": "主修外语"
+    }
+   ],
+   [
+    "17789487767458.pdf",
+    {
+     "uz": "Tarjimaşunoslik",
+     "ru": "Переводоведение",
+     "en": "Translation Studies",
+     "zh": "翻译学"
+    }
+   ],
+   [
+    "17789489063836.pdf",
+    {
+     "uz": "Tarjimonlik mutaxassisligiga kiriş",
+     "ru": "Введение в специальность переводчика",
+     "en": "Introduction to Translation Studies",
+     "zh": "翻译学导论"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "tarjima-nazariyasi-va-amaliyoti-nemis-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Tarjima nazariyasi va amaliyoti (nemis tili)",
+   "ru": "Теория и практика перевода (немецкий язык)",
+   "en": "Theory and Practice of Translation (German Language)",
+   "zh": "翻译理论与实践（德语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789490522813.pdf",
+    {
+     "uz": "Amaliy tarjima",
+     "ru": "Практический перевод",
+     "en": "Practical Translation",
+     "zh": "翻译实践"
+    }
+   ],
+   [
+    "17789491189107.pdf",
+    {
+     "uz": "Asosiy örganilayotgan çet tili",
+     "ru": "Основной изучаемый иностранный язык",
+     "en": "Main Studied Foreign Language",
+     "zh": "主修外语"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "tarjima-nazariyasi-va-amaliyoti-italyan-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Tarjima nazariyasi va amaliyoti (italyan tili)",
+   "ru": "Теория и практика перевода (немецкий язык)",
+   "en": "Theory and Practice of Translation (German Language)",
+   "zh": "翻译理论与实践（德语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789557484115.pdf",
+    {
+     "uz": "Amaliy tarjima 1-6 semestr",
+     "ru": "Практический перевод (1–6 семестры)",
+     "en": "Practical Translation (semesters 1–6)",
+     "zh": "翻译实践（第1–6学期）"
+    }
+   ],
+   [
+    "17789558343244.pdf",
+    {
+     "uz": "Asosiy örganilayotgan çet tili",
+     "ru": "Основной изучаемый иностранный язык",
+     "en": "Main Foreign Language",
+     "zh": "主修外语"
+    }
+   ],
+   [
+    "17789558924342.pdf",
+    {
+     "uz": "Tarjimonlik mutaxassisligiga kiriş",
+     "ru": "Введение в специальность переводчика",
+     "en": "Introduction to the Translation Profession",
+     "zh": "翻译专业导论"
+    }
+   ],
+   [
+    "17789559478134.pdf",
+    {
+     "uz": "Tarjimaşunoslik",
+     "ru": "Переводоведение",
+     "en": "Translation Studies",
+     "zh": "翻译学"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "tarjima-nazariyasi-va-amaliyoti-ispan-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Tarjima nazariyasi va amaliyoti (ispan tili)",
+   "ru": "Теория и практика перевода (испанский язык)",
+   "en": "Theory and Practice of Translation (Spanish Language)",
+   "zh": "翻译理论与实践（西班牙语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789560770081.pdf",
+    {
+     "uz": "Amaliy tarjima",
+     "ru": "Практический перевод",
+     "en": "Practical Translation",
+     "zh": "翻译实践"
+    }
+   ],
+   [
+    "17789561654840.pdf",
+    {
+     "uz": "Asosiy örganilayotgan çet tili",
+     "ru": "Основной изучаемый иностранный язык",
+     "en": "Main Studied Foreign Language",
+     "zh": "主修外语"
+    }
+   ],
+   [
+    "17789562142520.pdf",
+    {
+     "uz": "Tarjimaşunoslik",
+     "ru": "Переводоведение",
+     "en": "Translation Studies",
+     "zh": "翻译学"
+    }
+   ],
+   [
+    "17789562556649.pdf",
+    {
+     "uz": "Tarjimonlik mutaxassisligiga kiriş",
+     "ru": "Введение в специальность переводчика",
+     "en": "Introduction to Translation Studies",
+     "zh": "翻译学导论"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "tarjima-nazariyasi-va-amaliyoti-arab-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Tarjima nazariyasi va amaliyoti (arab tili)",
+   "ru": "Теория и практика перевода (арабский язык)",
+   "en": "Theory and Practice of Translation (Arabic Language)",
+   "zh": "翻译理论与实践（阿拉伯语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17789573459450.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17789574254524.pdf",
+    {
+     "uz": "Xorijiy şarq tili",
+     "ru": "Восточный иностранный язык",
+     "en": "Oriental Foreign Language",
+     "zh": "东方外语"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "tarjima-nazariyasi-va-amaliyoti-turk-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Tarjima nazariyasi va amaliyoti (turk tili)",
+   "ru": "Теория и практика перевода (турецкий язык)",
+   "en": "Theory and Practice of Translation (Turkish Language)",
+   "zh": "翻译理论与实践（土耳其语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790015474858.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17790018138254.pdf",
+    {
+     "uz": "Xorijiy şarq tili",
+     "ru": "Восточный иностранный язык",
+     "en": "Oriental Foreign Language",
+     "zh": "东方外语"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "tarjima-nazariyasi-va-amaliyoti-xitoy-tili",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Tarjima nazariyasi va amaliyoti (xitoy tili)",
+   "ru": "Теория и практика перевода (китайский язык)",
+   "en": "Theory and Practice of Translation (Chinese Language)",
+   "zh": "翻译理论与实践（中文）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790019460747.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17790019980718.pdf",
+    {
+     "uz": "Xorijiy şarq tili",
+     "ru": "Восточный иностранный язык",
+     "en": "Oriental Foreign Language",
+     "zh": "东方外语"
+    }
+   ],
+   [
+    "17790020558837.pdf",
+    {
+     "uz": "Xorijiy şarq tili",
+     "ru": "Восточный иностранный язык",
+     "en": "Oriental Foreign Language",
+     "zh": "东方外语"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "kompyuter-lingvistikasi",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Kompyuter lingvistikasi",
+   "ru": "Компьютерная лингвистика",
+   "en": "Computational Linguistics",
+   "zh": "计算语言学"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790030303060.pdf",
+    {
+     "uz": "Dasturlaş asoslari",
+     "ru": "Основы программирования",
+     "en": "Fundamentals of Programming",
+     "zh": "程序设计基础"
+    }
+   ],
+   [
+    "17790030853536.pdf",
+    {
+     "uz": "Mantiq asoslari",
+     "ru": "Основы логики",
+     "en": "Fundamentals of Logic",
+     "zh": "逻辑学基础"
+    }
+   ],
+   [
+    "17790031352975.pdf",
+    {
+     "uz": "Algoritmlar nazariyasi",
+     "ru": "Теория алгоритмов",
+     "en": "Theory of Algorithms",
+     "zh": "算法理论"
+    }
+   ],
+   [
+    "17790031992833.pdf",
+    {
+     "uz": "Leksikologiya va leksikografiya",
+     "ru": "Лексикология и лексикография",
+     "en": "Lexicology and Lexicography",
+     "zh": "词汇学与词典学"
+    }
+   ],
+   [
+    "17790032755573.pdf",
+    {
+     "uz": "Statistika",
+     "ru": "Статистика",
+     "en": "Statistics",
+     "zh": "统计学"
+    }
+   ],
+   [
+    "17790033433664.pdf",
+    {
+     "uz": "Tillar tipologiyasi",
+     "ru": "Типология языков",
+     "en": "Language Typology",
+     "zh": "语言类型学"
+    }
+   ],
+   [
+    "17790033919254.pdf",
+    {
+     "uz": "Tillar tipologiyasi (rus guruhlari uçun)",
+     "ru": "Типология языков (для русских групп)",
+     "en": "Language Typology (for Russian Groups)",
+     "zh": "语言类型学（俄语班）"
+    }
+   ],
+   [
+    "17790034668973.pdf",
+    {
+     "uz": "Morfologiya",
+     "ru": "Морфология",
+     "en": "Morphology",
+     "zh": "形态学"
+    }
+   ],
+   [
+    "17790035374875.pdf",
+    {
+     "uz": "Morfologiya (rus guruhlari uçun)",
+     "ru": "Морфология (для русских групп)",
+     "en": "Morphology (for Russian Groups)",
+     "zh": "形态学（俄语班）"
+    }
+   ],
+   [
+    "17790036037213.pdf",
+    {
+     "uz": "Dasturlaş texnologiyalari",
+     "ru": "Технологии программирования",
+     "en": "Programming Technologies",
+     "zh": "程序设计技术"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "siyosatshunoslik",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Siyosatşunoslik",
+   "ru": "Политология",
+   "en": "Political Science",
+   "zh": "政治学"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790038336307.pdf",
+    {
+     "uz": "Konstitutsiyaviy huquq",
+     "ru": "Конституционное право",
+     "en": "Constitutional Law",
+     "zh": "宪法学"
+    }
+   ],
+   [
+    "17790039138717.pdf",
+    {
+     "uz": "Siyosatşunoslikka kiriş",
+     "ru": "Введение в политологию",
+     "en": "Introduction to Political Science",
+     "zh": "政治学导论"
+    }
+   ],
+   [
+    "17790040005629.pdf",
+    {
+     "uz": "Siyosiy ta’limotlar tarixi",
+     "ru": "История политических учений",
+     "en": "History of Political Thought",
+     "zh": "政治思想史"
+    }
+   ],
+   [
+    "17790041181417.pdf",
+    {
+     "uz": "Siyosiy mad., mafk. va antrop",
+     "ru": "Политическая культура, идеология и антропология",
+     "en": "Political Culture, Ideology and Anthropology",
+     "zh": "政治文化、意识形态与人类学"
+    }
+   ],
+   [
+    "17790043078194.pdf",
+    {
+     "uz": "Kratologiya",
+     "ru": "Кратология",
+     "en": "Cratology (Science of Power)",
+     "zh": "权力学"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "sotsiologiya",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Sotsiologiya",
+   "ru": "Социология",
+   "en": "Sociology",
+   "zh": "社会学"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790047929211.pdf",
+    {
+     "uz": "Jamoatçilik fikri sotsiologiyasi",
+     "ru": "Социология общественного мнения",
+     "en": "Sociology of Public Opinion",
+     "zh": "舆论社会学"
+    }
+   ],
+   [
+    "17790049065449.pdf",
+    {
+     "uz": "Sotsiologiya tarixi",
+     "ru": "История социологии",
+     "en": "History of Sociology",
+     "zh": "社会学史"
+    }
+   ],
+   [
+    "17790050031361.pdf",
+    {
+     "uz": "Umumiy sotsiologiya",
+     "ru": "Общая социология",
+     "en": "General Sociology",
+     "zh": "普通社会学"
+    }
+   ],
+   [
+    "17790051409221.pdf",
+    {
+     "uz": "Oila va gender sotsiologiyasi",
+     "ru": "Социология семьи и гендера",
+     "en": "Sociology of Family and Gender",
+     "zh": "家庭与性别社会学"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "xalqaro-munosabatlar",
+  "parent": "1-kurs",
+  "root": false,
+  "title": {
+   "uz": "Xalqaro munosabatlar",
+   "ru": "Международные отношения",
+   "en": "International relations",
+   "zh": "国际关系"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790054282726.pdf",
+    {
+     "uz": "Siyosatşunoslikka kiriş (Xalqaro munosabatlar)",
+     "ru": "Введение в политологию (Международные отношения)",
+     "en": "Introduction to Political Science (International Relations)",
+     "zh": "政治学导论（国际关系）"
+    }
+   ],
+   [
+    "17790055049490.pdf",
+    {
+     "uz": "Xalqaro munosabatlar tarixi",
+     "ru": "История международных отношений",
+     "en": "History of International Relations",
+     "zh": "国际关系史"
+    }
+   ],
+   [
+    "17790056516336.pdf",
+    {
+     "uz": "Özbekiston taşqi siyosatining huquqiy asoslari",
+     "ru": "Правовые основы внешней политики Узбекистана",
+     "en": "Legal Foundations of Uzbekistan’s Foreign Policy",
+     "zh": "乌兹别克斯坦外交政策的法律基础"
+    }
+   ],
+   [
+    "17790057235964.pdf",
+    {
+     "uz": "Xalqaro mintaqaşunoslik",
+     "ru": "Международное регионоведение",
+     "en": "International Area Studies",
+     "zh": "国际区域学"
+    }
+   ],
+   [
+    "17790057769508.pdf",
+    {
+     "uz": "Diplomatiya asoslari",
+     "ru": "Основы дипломатии",
+     "en": "Fundamentals of Diplomacy",
+     "zh": "外交学基础"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "2-kurs",
+  "parent": "oquv-dasturlar",
+  "root": false,
+  "title": {
+   "uz": "2-kurs",
+   "ru": "2 курс",
+   "en": "2nd year",
+   "zh": "二年级"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p>",
+   "ru": "<p>[[kartalar-1]]</p>",
+   "en": "<p>[[kartalar-1]]</p>",
+   "zh": "<p>[[kartalar-1]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {},
+    "stats": {},
+    "columns": [],
+    "outro": {},
+    "photos": [],
+    "cards": [
+     {
+      "title": {
+       "uz": "Xorijiy til va adabiyot",
+       "ru": "Иностранный язык и литература",
+       "en": "Foreign language and literature",
+       "zh": "外国语言文学"
+      },
+      "url": "/xorijiy-til-va-adabiyot",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya (ingliz tili)",
+       "ru": "Филология (английский язык)",
+       "en": "Philology (English Language)",
+       "zh": "语言学（英语）"
+      },
+      "url": "/filologiya-ingliz-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya (nemis tili)",
+       "ru": "Филология (немецкий язык)",
+       "en": "Philology (German Language)",
+       "zh": "语言学（德语）"
+      },
+      "url": "/filologiya-nemis-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya (fransuz tili)",
+       "ru": "Филология (французский язык)",
+       "en": "Philology (French Language)",
+       "zh": "语言学（法语"
+      },
+      "url": "/filologiya-fransuz-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya (ispan tili)",
+       "ru": "Филология (испанский язык)",
+       "en": "Philology (Spanish Language)",
+       "zh": "语言学（西班牙语）"
+      },
+      "url": "/filologiya-ispan-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya (xitoy tili)",
+       "ru": "Филология (китайский язык)",
+       "en": "Philology (Chinese Language)",
+       "zh": "语言学（中文）"
+      },
+      "url": "/filologiya-xitoy-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya (yapon tili)",
+       "ru": "Филология (японский язык)",
+       "en": "Philology (Japanese Language)",
+       "zh": "语言学（日语）"
+      },
+      "url": "/filologiya-yapon-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya (koreys tili)",
+       "ru": "Филология (корейский язык)",
+       "en": "Philology (Korean Language)",
+       "zh": "语言学（韩语）"
+      },
+      "url": "/filologiya-koreys-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya (arab tili)",
+       "ru": "Филология (арабский язык)",
+       "en": "Philology (Arabic Language)",
+       "zh": "语言学（阿拉伯语）"
+      },
+      "url": "/filologiya-arab-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya (turk tili)",
+       "ru": "Филология (турецкий язык)",
+       "en": "Philology (Turkish Language)",
+       "zh": "语言学（土耳其语）"
+      },
+      "url": "/filologiya-turk-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Filologiya (rus tili)",
+       "ru": "Филология (русский язык)",
+       "en": "Philology (Russian Language)",
+       "zh": "语言学（俄语）"
+      },
+      "url": "/filologiya-rus-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Ona tili va adabiyoti",
+       "ru": "Родной язык и литература",
+       "en": "Native Language and Literature",
+       "zh": "母语与文学"
+      },
+      "url": "/ona-tili-va-adabiyoti",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Tarjima nazariyasi va amaliyoti (ingliz tili)",
+       "ru": "Теория и практика перевода (английский язык)",
+       "en": "Theory and Practice of Translation (English Language)",
+       "zh": "翻译理论与实践（英语）"
+      },
+      "url": "/tarjima-nazariyasi-va-amaliyoti-ingliz-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Tarjima nazariyasi va amaliyoti (fransuz tili)",
+       "ru": "Теория и практика перевода (французский язык)",
+       "en": "Theory and Practice of Translation (French Language)",
+       "zh": "翻译理论与实践（法语）"
+      },
+      "url": "/tarjima-nazariyasi-va-amaliyoti-fransuz-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Tarjima nazariyasi va amaliyoti (nemis tili)",
+       "ru": "Теория и практика перевода (немецкий язык)",
+       "en": "Theory and Practice of Translation (German Language)",
+       "zh": "翻译理论与实践（德语）"
+      },
+      "url": "/tarjima-nazariyasi-va-amaliyoti-nemis-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Tarjima nazariyasi va amaliyoti (italyan tili)",
+       "ru": "Теория и практика перевода (немецкий язык)",
+       "en": "Theory and Practice of Translation (German Language)",
+       "zh": "翻译理论与实践（德语）"
+      },
+      "url": "/tarjima-nazariyasi-va-amaliyoti-italyan-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Tarjima nazariyasi va amaliyoti (arab tili)",
+       "ru": "Теория и практика перевода (арабский язык)",
+       "en": "Theory and Practice of Translation (Arabic Language)",
+       "zh": "翻译理论与实践（阿拉伯语）"
+      },
+      "url": "/tarjima-nazariyasi-va-amaliyoti-arab-tili",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Tarjima nazariyasi va amaliyoti (turk tili)",
+       "ru": "Теория и практика перевода (турецкий язык)",
+       "en": "Theory and Practice of Translation (Turkish Language)",
+       "zh": "翻译理论与实践（土耳其语）"
+      },
+      "url": "/tarjima-nazariyasi-va-amaliyoti-turk-tili",
+      "photo": null
+     }
+    ]
+   }
+  ],
+  "docs": [],
+  "display": "embed"
+ },
+ {
+  "slug": "xorijiy-til-va-adabiyot",
+  "parent": "2-kurs",
+  "root": false,
+  "title": {
+   "uz": "Xorijiy til va adabiyot",
+   "ru": "Иностранный язык и литература",
+   "en": "Foreign language and literature",
+   "zh": "外国语言文学"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790076295206.pdf",
+    {
+     "uz": "Til aspektlari amaliyoti",
+     "ru": "Практика языковых аспектов",
+     "en": "Language Aspects Practice",
+     "zh": "语言要素实践"
+    }
+   ],
+   [
+    "17790077011349.pdf",
+    {
+     "uz": "Nutq könikmalari integratsiyasi (XTA)",
+     "ru": "Интеграция речевых навыков (ИЯЛ)",
+     "en": "Integrated Speaking Skills (FLL)",
+     "zh": "言语技能综合（外国语言文学）"
+    }
+   ],
+   [
+    "17790078199531.pdf",
+    {
+     "uz": "Öqiş va yozuv amaliyoti",
+     "ru": "Практика чтения и письма",
+     "en": "Reading and Writing Practice",
+     "zh": "阅读与写作实践"
+    }
+   ],
+   [
+    "17790080074665.pdf",
+    {
+     "uz": "Amaliy lingvistika",
+     "ru": "Прикладная лингвистика",
+     "en": "Applied Linguistics",
+     "zh": "应用语言学"
+    }
+   ],
+   [
+    "17790080646038.pdf",
+    {
+     "uz": "Sotsiolingvistika",
+     "ru": "Социолингвистика",
+     "en": "Sociolinguistics",
+     "zh": "社会语言学"
+    }
+   ],
+   [
+    "17790081620295.pdf",
+    {
+     "uz": "Çet tillarni öqitişning uslub va tamoyillari",
+     "ru": "Методы и принципы обучения иностранным языкам",
+     "en": "Methods and Principles of Foreign Language Teaching",
+     "zh": "外语教学方法与原则"
+    }
+   ],
+   [
+    "17790082392047.pdf",
+    {
+     "uz": "Ingliz tili xalqaro til sifatida",
+     "ru": "Английский язык как международный",
+     "en": "English as an International Language",
+     "zh": "作为国际语言的英语"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-ingliz-tili",
+  "parent": "2-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya (ingliz tili)",
+   "ru": "Филология (английский язык)",
+   "en": "Philology (English Language)",
+   "zh": "语言学（英语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790083992296.pdf",
+    {
+     "uz": "Oğzaki nutq amaliyoti",
+     "ru": "Практика устной речи",
+     "en": "Oral Speech Practice",
+     "zh": "口语实践"
+    }
+   ],
+   [
+    "17790084767378.pdf",
+    {
+     "uz": "Öqiş va yoziş amaliyoti",
+     "ru": "Практика чтения и письма",
+     "en": "Reading and Writing Practice",
+     "zh": "阅读与写作实践"
+    }
+   ],
+   [
+    "17790086907077.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17790087758676.pdf",
+    {
+     "uz": "Kommunikativ leksika",
+     "ru": "Коммуникативная лексика",
+     "en": "Communicative Lexis",
+     "zh": "交际词汇"
+    }
+   ],
+   [
+    "17790088562132.pdf",
+    {
+     "uz": "Ölkaşunoslik va turizm",
+     "ru": "Краеведение и туризм",
+     "en": "Regional Studies and Tourism",
+     "zh": "区域学与旅游"
+    }
+   ],
+   [
+    "17790089062431.pdf",
+    {
+     "uz": "Badiiy öqiş",
+     "ru": "Художественное чтение",
+     "en": "Literary Reading",
+     "zh": "文学阅读"
+    }
+   ],
+   [
+    "17790090697280.pdf",
+    {
+     "uz": "Madaniyatlararo muloqot",
+     "ru": "Межкультурная коммуникация",
+     "en": "Intercultural Communication",
+     "zh": "跨文化交际"
+    }
+   ],
+   [
+    "17790109407030.pdf",
+    {
+     "uz": "Mustaqil ta’lim könikmalari",
+     "ru": "Навыки самостоятельного обучения",
+     "en": "Independent Learning Skills",
+     "zh": "自主学习技能"
+    }
+   ],
+   [
+    "17790110182083.pdf",
+    {
+     "uz": "Til könikmalari integratsiyasi",
+     "ru": "Интеграция языковых навыков",
+     "en": "Integration of Language Skills",
+     "zh": "语言技能综合"
+    }
+   ],
+   [
+    "17790110802678.pdf",
+    {
+     "uz": "Çet tillarini öqitiş uslub va tamoyillari",
+     "ru": "Методы и принципы обучения иностранным языкам",
+     "en": "Methods and Principles of Teaching Foreign Languages",
+     "zh": "外语教学方法与原则"
+    }
+   ],
+   [
+    "17790111761456.pdf",
+    {
+     "uz": "Çet tilini öqitişda AKT",
+     "ru": "ИКТ в обучении иностранному языку",
+     "en": "ICT in Foreign Language Teaching",
+     "zh": "外语教学中的信息通信技术"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-nemis-tili",
+  "parent": "2-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya (nemis tili)",
+   "ru": "Филология (немецкий язык)",
+   "en": "Philology (German Language)",
+   "zh": "语言学（德语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790114425191.pdf",
+    {
+     "uz": "Oğzaki nutq amaliyoti",
+     "ru": "Практика устной речи",
+     "en": "Oral Speech Practice",
+     "zh": "口语实践"
+    }
+   ],
+   [
+    "17790115453603.pdf",
+    {
+     "uz": "Öqiş va yoziş amaliyoti",
+     "ru": "Практика чтения и письма",
+     "en": "Reading and Writing Practice",
+     "zh": "阅读与写作实践"
+    }
+   ],
+   [
+    "17790116219509.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17790116828967.pdf",
+    {
+     "uz": "Kommunikativ leksika",
+     "ru": "Коммуникативная лексика",
+     "en": "Communicative Lexis",
+     "zh": "交际词汇"
+    }
+   ],
+   [
+    "17790117505407.pdf",
+    {
+     "uz": "Ölkaşunoslik va turizm",
+     "ru": "Краеведение и туризм",
+     "en": "Regional Studies and Tourism",
+     "zh": "区域学与旅游"
+    }
+   ],
+   [
+    "17790118456973.pdf",
+    {
+     "uz": "Badiiy öqiş",
+     "ru": "Художественное чтение",
+     "en": "Literary Reading",
+     "zh": "文学阅读"
+    }
+   ],
+   [
+    "17790119169343.pdf",
+    {
+     "uz": "Madaniyatlararo muloqot",
+     "ru": "Межкультурная коммуникация",
+     "en": "Intercultural Communication",
+     "zh": "跨文化交际"
+    }
+   ],
+   [
+    "17790148360485.pdf",
+    {
+     "uz": "Mustaqil ta’lim könikmalari",
+     "ru": "Навыки самостоятельного обучения",
+     "en": "Independent Learning Skills",
+     "zh": "自主学习技能"
+    }
+   ],
+   [
+    "17790149446634.pdf",
+    {
+     "uz": "Til könikmalari integratsiyasi",
+     "ru": "Интеграция языковых навыков",
+     "en": "Integration of Language Skills",
+     "zh": "语言技能综合"
+    }
+   ],
+   [
+    "17790150551202.pdf",
+    {
+     "uz": "Çet tillarini öqitiş uslub va tamoyillari",
+     "ru": "Методы и принципы обучения иностранным языкам",
+     "en": "Methods and Principles of Teaching Foreign Languages",
+     "zh": "外语教学方法与原则"
+    }
+   ],
+   [
+    "17790151298177.pdf",
+    {
+     "uz": "Çet tilini öqitişda AKT",
+     "ru": "ИКТ в обучении иностранному языку",
+     "en": "ICT in Foreign Language Teaching",
+     "zh": "外语教学中的信息通信技术"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-fransuz-tili",
+  "parent": "2-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya (fransuz tili)",
+   "ru": "Филология (французский язык)",
+   "en": "Philology (French Language)",
+   "zh": "语言学（法语"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790153191229.pdf",
+    {
+     "uz": "Oğzaki nutq amaliyoti",
+     "ru": "Практика устной речи",
+     "en": "Oral Speech Practice",
+     "zh": "口语实践"
+    }
+   ],
+   [
+    "17790155124884.pdf",
+    {
+     "uz": "Öqiş va yoziş amaliyoti",
+     "ru": "Практика чтения и письма",
+     "en": "Reading and Writing Practice",
+     "zh": "阅读与写作实践"
+    }
+   ],
+   [
+    "17790155841348.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17790156317821.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17790157048241.pdf",
+    {
+     "uz": "Kommunikativ leksika",
+     "ru": "Коммуникативная лексика",
+     "en": "Communicative Lexis",
+     "zh": "交际词汇"
+    }
+   ],
+   [
+    "17790157695508.pdf",
+    {
+     "uz": "Ölkaşunoslik va turizm",
+     "ru": "Краеведение и туризм",
+     "en": "Regional Studies and Tourism",
+     "zh": "区域学与旅游"
+    }
+   ],
+   [
+    "17790158360220.pdf",
+    {
+     "uz": "Turizm tili",
+     "ru": "Язык туризма",
+     "en": "Language of Tourism",
+     "zh": "旅游语言"
+    }
+   ],
+   [
+    "17790158983087.pdf",
+    {
+     "uz": "Badiiy öqiş",
+     "ru": "Художественное чтение",
+     "en": "Literary Reading",
+     "zh": "文学阅读"
+    }
+   ],
+   [
+    "17790159524015.pdf",
+    {
+     "uz": "Madaniyatlararo muloqot",
+     "ru": "Межкультурная коммуникация",
+     "en": "Intercultural Communication",
+     "zh": "跨文化交际"
+    }
+   ],
+   [
+    "17790160320322.pdf",
+    {
+     "uz": "Notiqlik mahorati",
+     "ru": "Ораторское мастерство",
+     "en": "Oratory Skills",
+     "zh": "演讲技巧"
+    }
+   ],
+   [
+    "17790160885820.pdf",
+    {
+     "uz": "Mustaqil ta’lim könikmalari",
+     "ru": "Навыки самостоятельного обучения",
+     "en": "Independent Learning Skills",
+     "zh": "自主学习技能"
+    }
+   ],
+   [
+    "17790161495253.pdf",
+    {
+     "uz": "Til könikmalari integratsiyasi",
+     "ru": "Интеграция языковых навыков",
+     "en": "Integration of Language Skills",
+     "zh": "语言技能综合"
+    }
+   ],
+   [
+    "17790162449559.pdf",
+    {
+     "uz": "Çet tillarini öqitiş uslub va tamoyillari",
+     "ru": "Методы и принципы обучения иностранным языкам",
+     "en": "Methods and Principles of Teaching Foreign Languages",
+     "zh": "外语教学方法与原则"
+    }
+   ],
+   [
+    "17790163145793.pdf",
+    {
+     "uz": "Çet tilini öqitişda AKT",
+     "ru": "ИКТ в обучении иностранному языку",
+     "en": "ICT in Foreign Language Teaching",
+     "zh": "外语教学中的信息通信技术"
+    }
+   ],
+   [
+    "17790163854095.pdf",
+    {
+     "uz": "Oğzaki tarjima könikmalarini rivojlantiriş",
+     "ru": "Развитие навыков устного перевода",
+     "en": "Development of Oral Translation Skills",
+     "zh": "口译技能培养"
+    }
+   ],
+   [
+    "17790164551027.pdf",
+    {
+     "uz": "Çet tilini öqitişda internet resurslaridan foydalaniş",
+     "ru": "Использование интернет-ресурсов в обучении иностранному языку",
+     "en": "Use of Internet Resources in Foreign Language Teaching",
+     "zh": "外语教学中的互联网资源利用"
+    }
+   ],
+   [
+    "17790164992823.pdf",
+    {
+     "uz": "Mamlakatşunoslik (2026-2027 öquv yili)",
+     "ru": "Страноведение (2026–2027 учебный год)",
+     "en": "Country Studies (2026–2027 Academic Year)",
+     "zh": "国情学（2026–2027学年）"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-ispan-tili",
+  "parent": "2-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya (ispan tili)",
+   "ru": "Филология (испанский язык)",
+   "en": "Philology (Spanish Language)",
+   "zh": "语言学（西班牙语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790167111407.pdf",
+    {
+     "uz": "Oğzaki nutq amaliyoti",
+     "ru": "Практика устной речи",
+     "en": "Oral Speech Practice",
+     "zh": "口语实践"
+    }
+   ],
+   [
+    "17790167766082.pdf",
+    {
+     "uz": "Öqiş va yoziş amaliyoti",
+     "ru": "Практика чтения и письма",
+     "en": "Reading and Writing Practice",
+     "zh": "阅读与写作实践"
+    }
+   ],
+   [
+    "17790168508281.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17790169138763.pdf",
+    {
+     "uz": "Kommunikativ leksika",
+     "ru": "Коммуникативная лексика",
+     "en": "Communicative Lexis",
+     "zh": "交际词汇"
+    }
+   ],
+   [
+    "17790169662586.pdf",
+    {
+     "uz": "Ölkaşunoslik va turizm",
+     "ru": "Краеведение и туризм",
+     "en": "Regional Studies and Tourism",
+     "zh": "区域学与旅游"
+    }
+   ],
+   [
+    "17790171166643.pdf",
+    {
+     "uz": "Turizm tili",
+     "ru": "Язык туризма",
+     "en": "Language of Tourism",
+     "zh": "旅游语言"
+    }
+   ],
+   [
+    "17790171645053.pdf",
+    {
+     "uz": "Çet tillarini öqitiş uslub va tamoyillari",
+     "ru": "Методы и принципы обучения иностранным языкам",
+     "en": "Methods and Principles of Teaching Foreign Languages",
+     "zh": "外语教学方法与原则"
+    }
+   ],
+   [
+    "17790172106043.pdf",
+    {
+     "uz": "Çet tilini öqitişda AKT",
+     "ru": "ИКТ в обучении иностранному языку",
+     "en": "ICT in Foreign Language Teaching",
+     "zh": "外语教学中的信息通信技术"
+    }
+   ],
+   [
+    "17790172633478.pdf",
+    {
+     "uz": "Çet tilini öqitişda internet resurslaridan foydalaniş",
+     "ru": "Использование интернет-ресурсов в обучении иностранному языку",
+     "en": "Use of Internet Resources in Foreign Language Teaching",
+     "zh": "外语教学中的互联网资源利用"
+    }
+   ],
+   [
+    "17790173113928.pdf",
+    {
+     "uz": "Mustaqil ta’lim könikmalari",
+     "ru": "Навыки самостоятельного обучения",
+     "en": "Independent Learning Skills",
+     "zh": "自主学习技能"
+    }
+   ],
+   [
+    "17790173558140.pdf",
+    {
+     "uz": "Til könikmalari integratsiyasi",
+     "ru": "Интеграция языковых навыков",
+     "en": "Integration of Language Skills",
+     "zh": "语言技能综合"
+    }
+   ],
+   [
+    "17790174028856.pdf",
+    {
+     "uz": "Oğzaki tarjima könikmalarini rivojlantiriş",
+     "ru": "Развитие навыков устного перевод",
+     "en": "Development of Oral Translation Skills",
+     "zh": "口译技能培养"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-xitoy-tili",
+  "parent": "2-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya (xitoy tili)",
+   "ru": "Филология (китайский язык)",
+   "en": "Philology (Chinese Language)",
+   "zh": "语言学（中文）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790176291536.pdf",
+    {
+     "uz": "Xorijiy şarq tili",
+     "ru": "Восточный иностранный язык",
+     "en": "Oriental Foreign Language",
+     "zh": "东方外语"
+    }
+   ],
+   [
+    "17790176996954.pdf",
+    {
+     "uz": "Xorijiy şarq tili (keçki)",
+     "ru": "Восточный иностранный язык (вечерняя форма)",
+     "en": "Oriental Foreign Language (Evening Program)",
+     "zh": "东方外语（夜间）"
+    }
+   ],
+   [
+    "17790178216230.pdf",
+    {
+     "uz": "Tili örganilayotgan mamlakatlar adabiyoti",
+     "ru": "Литература стран изучаемого языка",
+     "en": "Literature of Countries of the Studied Language",
+     "zh": "对象国文学"
+    }
+   ],
+   [
+    "17790178704707.pdf",
+    {
+     "uz": "Tili örganilayotgan mamlakatlar adabiyoti (keçki)",
+     "ru": "Литература стран изучаемого языка (вечерняя форма)",
+     "en": "Literature of Countries of the Studied Language (Evening Program)",
+     "zh": "对象国文学（夜间）"
+    }
+   ],
+   [
+    "17790179347515.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17790180002293.pdf",
+    {
+     "uz": "Tinglab tuşunişni takomillaştririş",
+     "ru": "Совершенствование навыков аудирования",
+     "en": "Improving Listening Comprehension",
+     "zh": "听力理解提高"
+    }
+   ],
+   [
+    "17790180515339.pdf",
+    {
+     "uz": "Oğzaki nutqni takomillaştiriş",
+     "ru": "Совершенствование устной речи",
+     "en": "Improving Oral Speech",
+     "zh": "口语提高"
+    }
+   ],
+   [
+    "17790181457114.pdf",
+    {
+     "uz": "Yozma nutqni şakllantiriş",
+     "ru": "Формирование письменной речи",
+     "en": "Development of Written Speech",
+     "zh": "书面语能力培养"
+    }
+   ],
+   [
+    "17790183359783.pdf",
+    {
+     "uz": "Ölkaşunoslik",
+     "ru": "Краеведение",
+     "en": "Regional Studies",
+     "zh": "区域学"
+    }
+   ],
+   [
+    "17790184122302.pdf",
+    {
+     "uz": "Öqib tuşunişni takomillaştiriş",
+     "ru": "Совершенствование навыков чтения и понимания",
+     "en": "Improving Reading Comprehension",
+     "zh": "阅读理解提高"
+    }
+   ],
+   [
+    "17790184715688.pdf",
+    {
+     "uz": "Kommunikativ leksika",
+     "ru": "Коммуникативная лексика",
+     "en": "Communicative Vocabulary",
+     "zh": "交际词汇"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-yapon-tili",
+  "parent": "2-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya (yapon tili)",
+   "ru": "Филология (японский язык)",
+   "en": "Philology (Japanese Language)",
+   "zh": "语言学（日语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790186592196.pdf",
+    {
+     "uz": "Xorijiy şarq tili",
+     "ru": "Восточный иностранный язык",
+     "en": "Oriental Foreign Language",
+     "zh": "东方外语"
+    }
+   ],
+   [
+    "17790187098569.pdf",
+    {
+     "uz": "Tili örganilayotgn mamlakatlr dabiyoti",
+     "ru": "Литература стран изучаемого языка",
+     "en": "Literature of Countries of the Studied Language",
+     "zh": "对象国文学"
+    }
+   ],
+   [
+    "17790187835778.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17790188316691.pdf",
+    {
+     "uz": "Tinglab tuşunişni takomillaştririş",
+     "ru": "Совершенствование навыков аудирования",
+     "en": "Improving Listening Comprehension",
+     "zh": "听力理解提高"
+    }
+   ],
+   [
+    "17790188731250.pdf",
+    {
+     "uz": "Oğzaki nutqni takomillaştiriş",
+     "ru": "Совершенствование устной речи",
+     "en": "Improving Oral Speech",
+     "zh": "口语提高"
+    }
+   ],
+   [
+    "17790189264222.pdf",
+    {
+     "uz": "Yozma nutqni şakllantiriş",
+     "ru": "Формирование письменной речи",
+     "en": "Development of Written Speech",
+     "zh": "书面语能力培养"
+    }
+   ],
+   [
+    "17790189802734.pdf",
+    {
+     "uz": "Ölkaşunoslik",
+     "ru": "Краеведение",
+     "en": "Regional Studies",
+     "zh": "区域学"
+    }
+   ],
+   [
+    "17790190264735.pdf",
+    {
+     "uz": "Öqib tuşunişni takomillaştiriş",
+     "ru": "Совершенствование навыков чтения и понимания",
+     "en": "Improving Reading Comprehension",
+     "zh": "阅读理解提高"
+    }
+   ],
+   [
+    "17790191240084.pdf",
+    {
+     "uz": "Kommunikativ leksika",
+     "ru": "Коммуникативная лексика",
+     "en": "Communicative Vocabulary",
+     "zh": "交际词汇"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-koreys-tili",
+  "parent": "2-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya (koreys tili)",
+   "ru": "Филология (корейский язык)",
+   "en": "Philology (Korean Language)",
+   "zh": "语言学（韩语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790192381954.pdf",
+    {
+     "uz": "Xorijiy şarq tili",
+     "ru": "Восточный иностранный язык",
+     "en": "Oriental Foreign Language",
+     "zh": "东方外语"
+    }
+   ],
+   [
+    "17790193100996.pdf",
+    {
+     "uz": "Tili örganilayotgn mamlakatlar dabiyoti",
+     "ru": "Литература стран изучаемого языка",
+     "en": "Literature of Countries of the Studied Language",
+     "zh": "对象国文学"
+    }
+   ],
+   [
+    "17790193452795.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17790193975784.pdf",
+    {
+     "uz": "Tinglab tuşunişni takomillaştririş",
+     "ru": "Совершенствование навыков аудирования",
+     "en": "Improving Listening Comprehension",
+     "zh": "听力理解提高"
+    }
+   ],
+   [
+    "17790194350654.pdf",
+    {
+     "uz": "Oğzaki nutqni takomillaştiriş",
+     "ru": "Совершенствование устной речи",
+     "en": "Improving Oral Speech",
+     "zh": "口语提高"
+    }
+   ],
+   [
+    "17790194711517.pdf",
+    {
+     "uz": "Yozma nutqni şakllantiriş",
+     "ru": "Формирование письменной речи",
+     "en": "Development of Written Speech",
+     "zh": "书面语能力培养"
+    }
+   ],
+   [
+    "17790195068768.pdf",
+    {
+     "uz": "Ölkaşunoslik",
+     "ru": "Краеведение",
+     "en": "Regional Studies",
+     "zh": "区域学"
+    }
+   ],
+   [
+    "17790196950149.pdf",
+    {
+     "uz": "Öqib tuşunişni takomillaştiriş",
+     "ru": "Совершенствование навыков чтения и понимания",
+     "en": "Improving Reading Comprehension",
+     "zh": "阅读理解提高"
+    }
+   ],
+   [
+    "17790197380536.pdf",
+    {
+     "uz": "Kommunikativ leksika",
+     "ru": "Коммуникативная лексика",
+     "en": "Communicative Vocabulary",
+     "zh": "交际词汇"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-arab-tili",
+  "parent": "2-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya (arab tili)",
+   "ru": "Филология (арабский язык)",
+   "en": "Philology (Arabic Language)",
+   "zh": "语言学（阿拉伯语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790198779570.pdf",
+    {
+     "uz": "Xorijiy şarq tili",
+     "ru": "Восточный иностранный язык",
+     "en": "Oriental Foreign Language",
+     "zh": "东方外语"
+    }
+   ],
+   [
+    "17790199265372.pdf",
+    {
+     "uz": "Tili örganilayotgn mamlakatlr dabiyoti",
+     "ru": "Литература стран изучаемого языка",
+     "en": "Literature of Countries of the Studied Language",
+     "zh": "对象国文学"
+    }
+   ],
+   [
+    "17790199722527.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17790200174481.pdf",
+    {
+     "uz": "Tinglab tuşunişni takomillaştririş",
+     "ru": "Совершенствование навыков аудирования",
+     "en": "Improving Listening Comprehension",
+     "zh": "听力理解提高"
+    }
+   ],
+   [
+    "17790200592712.pdf",
+    {
+     "uz": "Oğzaki nutqni takomillaştiriş",
+     "ru": "Совершенствование устной речи",
+     "en": "Improving Oral Speech",
+     "zh": "口语提高"
+    }
+   ],
+   [
+    "17790200943325.pdf",
+    {
+     "uz": "Yozma nutqni şakllantiriş",
+     "ru": "Формирование письменной речи",
+     "en": "Development of Written Speech",
+     "zh": "书面语能力培养"
+    }
+   ],
+   [
+    "17790201323083.pdf",
+    {
+     "uz": "Ölkaşunoslik",
+     "ru": "Краеведение",
+     "en": "Regional Studies",
+     "zh": "区域学"
+    }
+   ],
+   [
+    "17790201686310.pdf",
+    {
+     "uz": "Öqib tuşunişni takomillaştiriş",
+     "ru": "Совершенствование навыков чтения и понимания",
+     "en": "Improving Reading Comprehension",
+     "zh": "阅读理解提高"
+    }
+   ],
+   [
+    "17790202118844.pdf",
+    {
+     "uz": "Kommunikativ leksika",
+     "ru": "Коммуникативная лексика",
+     "en": "Communicative Vocabulary",
+     "zh": "交际词汇"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-turk-tili",
+  "parent": "2-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya (turk tili)",
+   "ru": "Филология (турецкий язык)",
+   "en": "Philology (Turkish Language)",
+   "zh": "语言学（土耳其语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790203376308.pdf",
+    {
+     "uz": "Xorijiy şarq tili",
+     "ru": "Восточный иностранный язык",
+     "en": "Oriental Foreign Language",
+     "zh": "东方外语"
+    }
+   ],
+   [
+    "17790203828238.pdf",
+    {
+     "uz": "Tili örganilayotgn mamlakatlar dabiyoti",
+     "ru": "Литература стран изучаемого языка",
+     "en": "Literature of Countries of the Studied Language",
+     "zh": "对象国文学"
+    }
+   ],
+   [
+    "17790204284111.pdf",
+    {
+     "uz": "Mamlakatşunoslik",
+     "ru": "Страноведение",
+     "en": "Country Studies",
+     "zh": "国情学"
+    }
+   ],
+   [
+    "17790205043194.pdf",
+    {
+     "uz": "Tinglab tuşunişni takomillaştririş",
+     "ru": "Совершенствование навыков аудирования",
+     "en": "Improving Listening Comprehension",
+     "zh": "听力理解提高"
+    }
+   ],
+   [
+    "17790205804227.pdf",
+    {
+     "uz": "Oğzaki nutqni takomillaştiriş",
+     "ru": "Совершенствование устной речи",
+     "en": "Improving Oral Speech",
+     "zh": "口语提高"
+    }
+   ],
+   [
+    "17790206324865.pdf",
+    {
+     "uz": "Yozma nutqni şakllantiriş",
+     "ru": "Формирование письменной речи",
+     "en": "Development of Written Speech",
+     "zh": "书面语能力培养"
+    }
+   ],
+   [
+    "17790206953744.pdf",
+    {
+     "uz": "Ölkaşunoslik",
+     "ru": "Краеведение",
+     "en": "Regional Studies",
+     "zh": "区域学"
+    }
+   ],
+   [
+    "17790207417775.pdf",
+    {
+     "uz": "Öqib tuşunişni takomillaştiriş",
+     "ru": "Совершенствование навыков чтения и понимания",
+     "en": "Improving Reading Comprehension",
+     "zh": "阅读理解提高"
+    }
+   ],
+   [
+    "17790207746411.pdf",
+    {
+     "uz": "Kommunikativ leksika",
+     "ru": "Коммуникативная лексика",
+     "en": "Communicative Vocabulary",
+     "zh": "交际词汇"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "filologiya-rus-tili",
+  "parent": "2-kurs",
+  "root": false,
+  "title": {
+   "uz": "Filologiya (rus tili)",
+   "ru": "Филология (русский язык)",
+   "en": "Philology (Russian Language)",
+   "zh": "语言学（俄语）"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790212403160.pdf",
+    {
+     "uz": "Hozirgi rus tili",
+     "ru": "Современный русский язык",
+     "en": "Modern Russian Language",
+     "zh": "现代俄语"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "ona-tili-va-adabiyoti",
+  "parent": "2-kurs",
+  "root": false,
+  "title": {
+   "uz": "Ona tili va adabiyoti",
+   "ru": "Родной язык и литература",
+   "en": "Native Language and Literature",
+   "zh": "母语与文学"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17790841684010.pdf",
+    {
+     "uz": "Hozirgi rus tili",
+     "ru": "Современный русский язык",
+     "en": "Modern Russian Language",
+     "zh": "现代俄语"
+    }
+   ],
+   [
+    "17790842338845.pdf",
+    {
+     "uz": "Rus tili stilistikasi",
+     "ru": "Стилистика русского языка",
+     "en": "Stylistics of the Russian Language",
+     "zh": "俄语修辞学"
+    }
+   ],
+   [
+    "17790843008377.pdf",
+    {
+     "uz": "Bolalar adabiyoti va ona tili",
+     "ru": ": Детская литература и родной язык",
+     "en": "Children’s Literature and Native Language",
+     "zh": "儿童文学与母语"
+    }
+   ],
+   [
+    "17790843647084.pdf",
+    {
+     "uz": "Jahon kontekstida özbek adabiyoti, ona tili va adabiyoti",
+     "ru": "Узбекская литература в мировом контексте, родной язык и литература",
+     "en": "Uzbek Literature in the World Context, Native Language and Literature",
+     "zh": "世界语境中的乌兹别克文学、母语与文学"
+    }
+   ],
+   [
+    "17790844119315.pdf",
+    {
+     "uz": "Imloviy amaliyot",
+     "ru": "Практикум по орфографии",
+     "en": "Practicum in Orthography",
+     "zh": "正字法实践"
+    }
+   ],
+   [
+    "17790844636899.pdf",
+    {
+     "uz": "Nutqni rivojlantiriş amaliyoti",
+     "ru": "Практикум по развитию речи",
+     "en": "Practicum on Speech Development",
+     "zh": "言语发展实践"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "kredit-haftaligini-tashkil-qilish-metodologiyasi",
+  "parent": "oquv-uslubiy-hujjatlar",
+  "root": false,
+  "title": {
+   "uz": "Kredit haftaligini taşkil qiliş metodologiyasi",
+   "ru": "Методика организации кредитной недели",
+   "en": "Methodology of Organizing Credit-Orientation Week",
+   "zh": "学分周组织方法"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17891112708758.pdf",
+    {
+     "uz": "Kredit haftaligini taşkil qiliş metodologiyasi",
+     "ru": "Методика организации кредитной недели",
+     "en": "Methodology of Organizing Credit-Orientation Week",
+     "zh": "学分周组织方法"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "talim-grantlarini-taqdim-etish-va-qayta-taqsimlash",
+  "parent": "oquv-uslubiy-hujjatlar",
+  "root": false,
+  "title": {
+   "uz": "Ta’lim grantlarini taqdim etiş va qayta taqsimlaş",
+   "ru": "Предоставление и перераспределение образовательных грантов",
+   "en": "Provision and redistribution of educational grants",
+   "zh": "教育助学金的发放与重新分配"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17878431047678.pdf",
+    {
+     "uz": "Bakalaviriat ta’limi uçun",
+     "ru": "Для обучения в бакалавриате",
+     "en": "For undergraduate education",
+     "zh": "本科教育"
+    }
+   ],
+   [
+    "17878432057176.pdf",
+    {
+     "uz": "Magistratura ta’lim yönalişi uçun",
+     "ru": "Для обучения в магистратуре",
+     "en": "For graduate education",
+     "zh": "硕士教育"
+    }
+   ]
+  ],
+  "display": "embed"
+ }
+]

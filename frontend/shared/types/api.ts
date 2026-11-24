@@ -481,7 +481,7 @@ export interface ContentPage {
   title: string
   /** Sarlavha ostidagi qisqa kirish matni */
   lead?: string | null
-  parent?: { title: string; url: string; cards: { title: string; url: string; photo: string | null }[] } | null
+  parent?: { title: string; url: string; cards: { title: string; url: string; photo: string | null }[]; trail?: { title: string; url: string }[] } | null
   /** Raqamlar qatori (ixtiyoriy): [{ value: "23 168", label: "talaba" }] */
   facts: { value: string; label: string }[]
   /**

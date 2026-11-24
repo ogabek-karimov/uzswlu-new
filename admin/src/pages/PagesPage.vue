@@ -143,6 +143,18 @@ const parentOptions = computed(() => {
   return out
 })
 
+// Yaşiriş oldidan tasdiq oynasi, körsatiş — darhol
+const hiding = ref<Page | null>(null)
+async function toggleVisible(p: Page, sure = false) {
+  const v = p.published === false
+  if (!v && !sure) { hiding.value = p; return }
+  hiding.value = null
+  await api.patch(`/pages/${p.id}`, { published: v }, { depth: 0 })
+  p.published = v
+  if (sel.value === p.id) form.published = v
+  pages.value = [...pages.value]
+}
+
 async function save() {
   if (!form.title.uz?.trim()) { error.value = 'Özbekça nomi majburiy'; return }
   saving.value = true
@@ -268,6 +280,7 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
               <button type="button" class="h-6 px-0.5 text-[10px] text-subtle" :aria-label="`${r.page.title.uz} — yuqoriga`" @click="move(r.page, -1)">▲</button>
               <button type="button" class="h-6 px-0.5 text-[10px] text-subtle" :aria-label="`${r.page.title.uz} — pastga`" @click="move(r.page, 1)">▼</button>
             </span>
+            <button type="button" class="grid size-7 shrink-0 place-items-center rounded-lg transition-colors hover:bg-brand-50" :class="r.page.published === false ? 'text-[#F79009]' : 'text-subtle hover:text-brand-700'" :title="r.page.published === false ? 'Saytda körinmaydi — körsatiş' : 'Saytda körinadi — yaşiriş'" :aria-label="`${r.page.title.uz} — ${r.page.published === false ? 'saytda körsatiş' : 'saytdan yaşiriş'}`" :aria-pressed="r.page.published !== false" @click="toggleVisible(r.page)"><Icon :name="r.page.published === false ? 'eye-off' : 'eye'" :size="15" /></button>
             <span :title="dot(r.page)[1]" class="size-[7px] shrink-0 rounded-full" :style="{ background: dot(r.page)[0] }" />
             <span class="min-w-[22px] shrink-0 text-right text-[11px] text-subtle">{{ r.count || '' }}</span>
           </li>
@@ -465,5 +478,16 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
         </div>
       </form>
     </div>
+  </div>
+  <div v-if="hiding" class="fixed inset-0 z-[90] grid place-items-center bg-night/55 p-4" @click.self="hiding = null" @keydown.esc="hiding = null">
+    <section role="alertdialog" aria-modal="true" aria-labelledby="hide-title" aria-describedby="hide-text" class="w-full max-w-[440px] rounded-[22px] bg-white p-6 shadow-2xl">
+      <span class="grid size-11 place-items-center rounded-2xl bg-[#FEF3DC] text-[#B54708]"><Icon name="eye-off" :size="20" /></span>
+      <h2 id="hide-title" class="mt-4 text-xl font-bold tracking-tight">Sahifa yaşirilsinmi?</h2>
+      <p id="hide-text" class="mt-2 text-[15px] leading-relaxed text-muted">«{{ hiding.title.uz }}» saytda körinmay qoladi (qoralamaga ötadi). Uni istalgan payt ko'z belgisi orqali qayta körsatiş mumkin.</p>
+      <div class="mt-5 flex flex-wrap justify-end gap-3">
+        <button type="button" class="btn-ghost" @click="hiding = null">Bekor qiliş</button>
+        <button type="button" class="btn-primary" @click="toggleVisible(hiding!, true)">Ha, yaşiriş</button>
+      </div>
+    </section>
   </div>
 </template>

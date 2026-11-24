@@ -71,6 +71,7 @@ Docker'da: `docker compose exec backend python manage.py <buyruq>`. Parametrlar:
 | `python manage.py issue_staff_session` | Xodim kabineti uchun sessiya tokenini yaratadi | `apps/core/management/commands/issue_staff_session.py` |
 | `python manage.py restore` | Zaxira nusxadan bazani va fayllarni tiklash | `apps/core/management/commands/restore.py` |
 | `python manage.py run_nightly` | Kechki vazifalar: HEMIS sinxronlash, eski sessiya va yozuvlarni tozalash | `apps/core/management/commands/run_nightly.py` |
+| `python manage.py seed_activity` | «Faoliyat» sahifalari va PDF'larini eski sayt ma'lumotlaridan ulaydi (takror işlatiş xavfsiz). | `apps/pages/management/commands/seed_activity.py` |
 | `python manage.py seed_demo` | Boshlang‘ich ma’lumotlarni yuklaydi (bo‘sh bo‘limlarga) | `apps/core/management/commands/seed_demo.py` |
 | `python manage.py seed_demo_tasks` | Namunaviy kabinet vazifalarini yaratadi (faqat sinov uchun; mavjudlarini o‘chirmaydi) | `apps/core/management/commands/seed_demo_tasks.py` |
 | `python manage.py sync_hemis` | HEMIS’dan xodimlar, bo‘limlar va sonlarni olib bazaga yozadi (kechki oynada) | `apps/hemis/management/commands/sync_hemis.py` |
@@ -503,6 +504,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/hemis/sync.py` | HEMIS → sayt uchun nusxa (seed_data/hemis-snapshot.json bilan bir xil tuzilma). |
 | `backend/apps/hemis/urls.py` | — |
 | `backend/apps/hemis/views.py` | HEMIS orqali kirish (OAuth2): xodim universitet login-paroli bilan kiradi. |
+| `backend/apps/pages/activity_seed.py` | «Faoliyat» bölimi sahifalari eski saytdan (seed_data/activity_pages_*.json): sahifalar, kartalar va PDF hujjatlar. |
 | `backend/apps/pages/models.py` | — |
 | `backend/apps/panel/auth.py` | Vue admin panel kirishi: Django sessiyasi + Payload'dagi kabi Origin tekshiruvi, bloklash va kirish tarixi. |
 | `backend/apps/panel/cabinet.py` | Xodim kabineti → admin panel ko'prigi: sayt ichidagi kabinetdan turib rolga ruxsat etilgan ma'lumotlar bilan ishlash. |

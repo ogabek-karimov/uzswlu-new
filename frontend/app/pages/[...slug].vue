@@ -27,7 +27,8 @@ const { data: site } = await useSiteData()
 
 const path = computed(() => `/${slug.value}`)
 // Menyuda yöq ichki sahifa — yon menyu va yöl ota sahifaniki (u faol körinadi)
-const navPath = computed(() => page.value?.parent?.url ?? path.value)
+// Ichki sahifada — menyudagi ajdod (trail[0]), bölmasa ota sahifa
+const navPath = computed(() => page.value?.parent?.trail?.[0]?.url ?? page.value?.parent?.url ?? path.value)
 const group = computed(() => site.value?.menu.find(g => g.links.some(l => l.url === navPath.value)))
 const siblings = computed(() => group.value?.links ?? [])
 const internal = computed(() => siblings.value.filter(l => !isExternal(l)))
@@ -58,7 +59,7 @@ useSeo({
 <template>
   <div v-if="page">
     <section class="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-      <PageBreadcrumbs :items="[...(group ? [{ label: group.title }] : []), ...(page.parent ? [{ label: page.parent.title, to: page.parent.url }] : []), { label: page.title }]" />
+      <PageBreadcrumbs :items="[...(group ? [{ label: group.title }] : []), ...(page.parent ? (page.parent.trail?.length ? page.parent.trail : [page.parent]).map(x => ({ label: x.title, to: x.url })) : []), { label: page.title }]" />
       <div class="mt-7 flex flex-wrap items-end justify-between gap-6 border-b border-line pb-9">
         <div class="max-w-[820px] min-w-0">
           <h1 class="mt-3.5 font-display text-[2.75rem] leading-[1.04] font-semibold tracking-tight text-ink sm:text-6xl lg:text-[64px]">{{ page.title }}</h1>

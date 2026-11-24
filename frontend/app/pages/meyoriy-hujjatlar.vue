@@ -35,7 +35,9 @@ useSeo({ title: () => t('docs.title'), description: () => t('docs.lead') })
       </div>
     </PageIntro>
 
-    <section class="mx-auto max-w-7xl px-4 pt-9 pb-24 sm:px-6 lg:px-8">
+    <div class="mx-auto flex max-w-7xl flex-col gap-14 px-4 pt-9 pb-24 sm:px-6 lg:flex-row lg:items-start lg:px-8">
+      <SectionSideNav />
+      <section class="order-1 min-w-0 flex-1 lg:order-2">
       <div role="group" :aria-label="t('docs.categories')" class="flex flex-wrap gap-2">
         <button
           v-for="tab in tabs"
@@ -76,7 +78,8 @@ useSeo({ title: () => t('docs.title'), description: () => t('docs.lead') })
       <p v-else class="mt-7 rounded-[22px] border border-dashed border-brand-200 bg-white p-10 text-center text-muted">{{ t('docs.empty') }}</p>
 
       <p class="mt-5 text-sm text-muted" aria-live="polite">{{ t('docs.shown', { n: items.length }) }}</p>
-    </section>
+      </section>
+    </div>
     <SectionNav />
   </div>
 </template>
