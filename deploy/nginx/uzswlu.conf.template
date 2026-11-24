@@ -28,6 +28,19 @@ map $http_x_cache_refresh $cache_refresh {
 # `set $x host:port; proxy_pass http://$x;`. Bonus: backend/frontend hali ko'tarilmagan bo'lsa ham nginx ishga tushadi.
 resolver 127.0.0.11 valid=5s ipv6=off;
 resolver_timeout 3s;
+
+# --- Oldingi ishonchli proksi (TLS shu tuzilma oldida: docs/10-server.md) ---
+# REAL_IP_FROM (compose → 15-real-ip.sh) dagi manzillardan kelgan so'rovda haqiqiy IP X-Forwarded-For dan olinadi
+# (real_ip.conf, har server'da) va X-Forwarded-Proto: https ishoniladi. Bo'sh bo'lsa — hech kimga ishonilmaydi.
+# $realip_remote_addr — real_ip almashtirishidan OLDINGI manzil, ya'ni bizga bevosita ulangan proksi.
+geo $realip_remote_addr $from_trusted_proxy {
+  default 0;
+  include /etc/nginx/trusted_proxies.geo;
+}
+map "$from_trusted_proxy:$http_x_forwarded_proto" $fwd_proto {
+  default   $scheme;
+  "1:https" https;
+}
 upstream gz      { server 127.0.0.1:8081; keepalive 32; }   # quyidagi ichki siqish serveri (127.0.0.1 — o'zgarmaydi)
 
 # --- Ichki siqish serveri: faqat nginx'ning o'zidan (127.0.0.1) so'raladi, tashqariga ochilmaydi ---
@@ -35,6 +48,7 @@ upstream gz      { server 127.0.0.1:8081; keepalive 32; }   # quyidagi ichki siq
 server {
   listen 127.0.0.1:8081;
   gzip_comp_level 6;
+  client_max_body_size 25m;                # sayt server'idagi bilan bir xil (so'rov tanasi shu server orqali Nuxt'ga o'tadi)
   location / {
     set $nuxt_up frontend:3000;
     proxy_pass http://$nuxt_up;
@@ -51,6 +65,10 @@ server {
 server {
   listen 80 default_server;
   server_name ${SITE_HOST};
+  include /etc/nginx/real_ip.conf;         # ishonchli proksi ortida — haqiqiy mijoz IP'si (yuqoridagi izoh)
+  # Ariza (3×5 MB), murojaat va kabinet yuklashlari (10–20 MB) shu domendagi Nuxt /api/* orqali o'tadi; standart 1 MB ularni 413 bilan
+  # rad etardi. Aniq cheklovni Nuxt (assertUploadSize) va backend qo'yadi.
+  client_max_body_size 25m;
 
   location /_nuxt/ {                       # fayl nomida xesh bor — brauzerda bir yil, nginx keshida siqilgan holda
     proxy_pass http://gz;
@@ -58,7 +76,7 @@ server {
     proxy_set_header Connection "";
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $remote_addr;
-    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Proto $fwd_proto;
     proxy_set_header Accept-Encoding gzip;  # keshda doim siqilgan nusxa; siqishni bilmaydigan mijozga `gunzip` ochib beradi
     gunzip on;
     proxy_ignore_headers Vary;              # kesh Vary bo'yicha bo'linib ketmasin (brauzerlarning Accept-Encoding qatori har xil); sarlavha mijozga baribir boradi
@@ -69,6 +87,7 @@ server {
     expires 1y;
     add_header Cache-Control "public, immutable";
     add_header X-Cache $upstream_cache_status;
+    include /etc/nginx/security_headers.conf;
   }
 
   location = /api/_purge { return 404; }   # Nuxt keshini tozalash faqat ichki tarmoqdan (backend → frontend:3000), tashqaridan yo'q
@@ -81,12 +100,13 @@ server {
     proxy_set_header Connection "";
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $remote_addr;
-    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Proto $fwd_proto;
     proxy_set_header Accept-Encoding gzip;
     gunzip on;
     proxy_cache off;
     proxy_hide_header Cache-Control;       # brauzer ham 1 soat eslab qolmasin: har safar tekshiradi (ETag bilan)
     add_header Cache-Control "no-cache" always;
+    include /etc/nginx/security_headers.conf;
   }
 
   location / {
@@ -95,7 +115,7 @@ server {
     proxy_set_header Connection "";
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $remote_addr;   # ustiga yozamiz: soxta IP bilan so'rov cheklovini aylanib o'tib bo'lmasin
-    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Proto $fwd_proto;
     proxy_set_header Accept-Encoding gzip; # keshda doim SIQILGAN nusxa (bitta variant); har so'rovda qayta siqilmaydi
     gunzip on;                             # siqishni bilmaydigan kam uchraydigan mijozga nginx ochib beradi
     proxy_ignore_headers Vary;             # kesh Vary bo'yicha bo'linib ketmasin: har brauzer Accept-Encoding'ni boshqacha yozadi (gzip, deflate, br...) — aks holda har variant alohida MISS bo'lardi
@@ -109,6 +129,8 @@ server {
     proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
     proxy_cache_bypass $cache_refresh;     # admin saqlaganda yangilash (yuqoridagi map)
     add_header X-Cache $upstream_cache_status;   # HIT / MISS / STALE / BYPASS — tekshirish uchun
+    include /etc/nginx/security_headers.conf;
+    add_header X-Frame-Options "SAMEORIGIN" always;   # sayt boshqa domendagi iframe ichida ochilmasin (o'z PDF'lari — mumkin)
   }
 }
 
@@ -116,6 +138,7 @@ server {
 server {
   listen 80;
   server_name ${API_HOST};
+  include /etc/nginx/real_ip.conf;
   client_max_body_size 25m;                # backenddagi BODY_LIMITS/UPLOAD_LIMITS bilan mos
   location / {
     set $backend_up backend:8000;
@@ -124,7 +147,7 @@ server {
     proxy_set_header Connection "";
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $remote_addr;   # NUM_PROXIES=1 shunga tayanadi
-    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Proto $fwd_proto;
     proxy_read_timeout 40s;
   }
 }
@@ -134,6 +157,7 @@ server {
   listen 80;
   server_name ${ADMIN_HOST};
   root /usr/share/nginx/admin;
+  include /etc/nginx/real_ip.conf;
   client_max_body_size 25m;
   location /api/ {
     set $backend_up backend:8000;
@@ -142,7 +166,23 @@ server {
     proxy_set_header Connection "";
     proxy_set_header Host ${API_HOST};
     proxy_set_header X-Forwarded-For $remote_addr;
-    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Proto $fwd_proto;
   }
-  location / { try_files $uri /index.html; }   # SPA marshrutlari
+  # Vite fayllari (nomida xesh) — bir yil; yo'q fayl 404 (index.html emas: aks holda brauzer HTML'ni JS deb o'qib, «MIME type» xatosi)
+  location /assets/ {
+    try_files $uri =404;
+    add_header Cache-Control "public, max-age=31536000, immutable";
+    include /etc/nginx/security_headers.conf;
+  }
+  # index.html har safar tekshiriladi (ETag): deploy'dan keyin brauzer eski index.html'dan o'chirilgan assets/*.js ni so'ramasin
+  location = /index.html {
+    add_header Cache-Control "no-cache" always;
+    include /etc/nginx/security_headers.conf;
+    add_header X-Frame-Options "DENY" always;   # admin panel hech qanday iframe'da ochilmaydi (clickjacking)
+  }
+  location / {                             # SPA marshrutlari
+    try_files $uri /index.html;
+    include /etc/nginx/security_headers.conf;
+    add_header X-Frame-Options "DENY" always;
+  }
 }

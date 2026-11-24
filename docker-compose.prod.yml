@@ -6,7 +6,8 @@
 #   docker compose -f docker-compose.prod.yml up -d --build
 #   sayt http://localhost:8080 · admin http://admin.localhost:8080 · API http://api.localhost:8080  (SITE_HOST/ADMIN_HOST/API_HOST ni o'zgartirsa bo'ladi)
 #   Tekshirish:  curl -sI http://localhost:8080/ | grep -i x-cache     (MISS → keyingisi HIT)
-# Ildiz `.env` o'zgaruvchilari: SITE_HOST, ADMIN_HOST, API_HOST, HTTP_PORT, EDGE_REFRESH_TOKEN, COOKIE_SECURE (http da sinash uchun false).
+# Ildiz `.env` o'zgaruvchilari: SITE_HOST, ADMIN_HOST, API_HOST, HTTP_PORT, EDGE_REFRESH_TOKEN, COOKIE_SECURE (http da sinash uchun false),
+#   REAL_IP_FROM (oldidagi TLS proksi CIDR'lari — haqiqiy mijoz IP'si va https uchun; docs/10-server.md).
 name: uzswlu-prod
 
 x-backend: &backend
@@ -105,6 +106,9 @@ services:
       ADMIN_HOST: ${ADMIN_HOST:-admin.localhost}
       API_HOST: ${API_HOST:-api.localhost}
       EDGE_REFRESH_TOKEN: ${EDGE_REFRESH_TOKEN:?ildiz .env da EDGE_REFRESH_TOKEN yozing}
+      # Oldidagi TLS proksi manzillari (CIDR, bo'sh joy/vergul bilan) — haqiqiy mijoz IP'si va https shulardan ishoniladi.
+      # Shu hostdagi nginx/certbot → odatda "172.16.0.0/12"; Cloudflare → uning IP diapazonlari. Bo'sh — hech kimga ishonilmaydi.
+      REAL_IP_FROM: ${REAL_IP_FROM:-}
     ports:
       - "${HTTP_PORT:-8080}:80"
     volumes:

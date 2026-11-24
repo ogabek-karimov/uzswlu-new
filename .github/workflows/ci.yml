@@ -85,12 +85,17 @@ jobs:
           EDGE_REFRESH_TOKEN=ci-token docker compose -f docker-compose.prod.yml config -q
       - name: Kalitsiz compose ishga tushmaydi (bo'sh kalit hamma so'rovni keshdan chetlab o'tardi)
         run: "! docker compose -f docker-compose.prod.yml config -q 2>/dev/null"
-      - name: nginx sozlamasi (nginx -t)
+      - name: nginx sozlamasi (nginx -t; ishonchli proksisiz va proksi bilan)
         run: |
-          docker run --rm --add-host frontend:127.0.0.1 --add-host backend:127.0.0.1 \
-            -e SITE_HOST=localhost -e API_HOST=api.localhost -e ADMIN_HOST=admin.localhost -e EDGE_REFRESH_TOKEN=ci-token \
-            -v "$PWD/deploy/nginx/uzswlu.conf.template:/etc/nginx/templates/default.conf.template:ro" \
-            nginx:1.27-alpine nginx -t
+          for real_ip in "" "172.16.0.0/12, 10.0.0.0/8"; do
+            docker run --rm --add-host frontend:127.0.0.1 --add-host backend:127.0.0.1 \
+              -e SITE_HOST=localhost -e API_HOST=api.localhost -e ADMIN_HOST=admin.localhost -e EDGE_REFRESH_TOKEN=ci-token \
+              -e REAL_IP_FROM="$real_ip" \
+              -v "$PWD/deploy/nginx/uzswlu.conf.template:/etc/nginx/templates/default.conf.template:ro" \
+              -v "$PWD/deploy/nginx/security_headers.conf:/etc/nginx/security_headers.conf:ro" \
+              -v "$PWD/deploy/nginx/15-real-ip.sh:/docker-entrypoint.d/15-real-ip.sh:ro" \
+              nginx:1.28-alpine nginx -t
+          done
 
   audit:
     name: Zaif bog'liqliklar (ma'lumot uchun)
