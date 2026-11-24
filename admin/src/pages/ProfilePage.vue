@@ -3,6 +3,7 @@ import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Icon from '@/components/Icon.vue'
 import ProfileSecurity from '@/components/profile/ProfileSecurity.vue'
+import ShowMore from '@/components/ShowMore.vue'
 import { api, ApiError, type MediaDoc, type Paginated, uploadMedia } from '@/lib/api'
 import { auth, initials, roleLabel } from '@/lib/auth'
 import { POST_TYPES } from '@/lib/constants'
@@ -40,6 +41,14 @@ const sections = computed(() => {
     .filter(g => g.items.length)
 })
 const writeCount = computed(() => sections.value.flatMap(g => g.items).filter(s => s.level === 'write').length)
+// Ruxsatlar: avval 5 ta, «yana» bosilganda 5 tadan qo'shiladi (guruh sarlavhalari saqlanadi)
+const STEP = 5
+const permTotal = computed(() => sections.value.reduce((n, g) => n + g.items.length, 0))
+const permShown = ref(STEP)
+const visibleSections = computed(() => {
+  let left = permShown.value
+  return sections.value.map(g => ({ ...g, items: g.items.slice(0, Math.max(0, (left -= g.items.length) + g.items.length)) })).filter(g => g.items.length)
+})
 
 // Profil to'liqligi: saytda muallif sifatida chiqadigan ma'lumot + himoya
 const steps = computed(() => [
@@ -54,12 +63,20 @@ const percent = computed(() => Math.round(steps.value.filter(s => s.ok).length /
 const postTypes = computed(() => POST_TYPES.filter(t => auth.can(t.value)).map(t => t.value))
 const myPosts = ref<Post[] | null>(null)
 const myTotal = ref(0)
-async function loadPosts() {
+const postsBusy = ref(false)
+// So'nggi postlarim: 5 tadan sahifalab olinadi; «yana» — keyingi 5 tasi ro'yxat oxiriga qo'shiladi
+async function loadPosts(more = false) {
   if (!postTypes.value.length || !me.value) return
-  const res = await api.get<Paginated<Post>>('/posts', { where: { and: [{ author: { equals: me.value.id } }, { type: { in: postTypes.value.join(',') } }] }, sort: '-updatedAt', limit: 5, depth: 1 })
-  myPosts.value = res.docs
-  myTotal.value = res.totalDocs
+  postsBusy.value = true
+  try {
+    const page = more ? Math.floor((myPosts.value?.length ?? 0) / STEP) + 1 : 1
+    const res = await api.get<Paginated<Post>>('/posts', { where: { and: [{ author: { equals: me.value.id } }, { type: { in: postTypes.value.join(',') } }] }, sort: '-updatedAt', limit: STEP, page, depth: 1 })
+    myPosts.value = more ? [...(myPosts.value ?? []), ...res.docs.filter(d => !myPosts.value?.some(p => p.id === d.id))] : res.docs
+    myTotal.value = res.totalDocs
+  }
+  finally { postsBusy.value = false }
 }
+const lessPosts = (n: number) => { myPosts.value = myPosts.value?.slice(0, n) ?? null }
 onMounted(() => loadPosts().catch(() => { myPosts.value = [] }))
 
 async function saveInfo() {
@@ -192,6 +209,7 @@ const typeLabel = (t: string) => POST_TYPES.find(p => p.value === t)?.label ?? t
               </RouterLink>
             </li>
           </ul>
+          <ShowMore v-if="myPosts?.length" :shown="myPosts.length" :total="myTotal" :busy="postsBusy" @more="loadPosts(true)" @less="lessPosts" />
         </section>
       </div>
 
@@ -215,7 +233,7 @@ const typeLabel = (t: string) => POST_TYPES.find(p => p.value === t)?.label ?? t
             <p class="mt-1 text-[13px] leading-snug text-white/65">{{ isSuper ? 'Hamma bölim, foydalanuvçilar, rollar va sozlamalar.' : (me?.roleDescription || `${writeCount} ta bölimda yozish, qolganida körish`) }}</p>
             <p v-if="me?.scoped" class="mt-2 text-xs text-mint">Faqat öz fakulteti doirasida{{ me?.scope ? `: ${me.scope}` : '' }}</p>
           </div>
-          <div v-for="g in sections" :key="g.group" class="mt-4">
+          <div v-for="g in visibleSections" :key="g.group" class="mt-4">
             <p class="mb-1.5 text-[11px] font-bold tracking-[0.14em] text-muted uppercase">{{ g.group }}</p>
             <ul class="grid gap-1.5">
               <li v-for="s in g.items" :key="s.key">
@@ -227,6 +245,7 @@ const typeLabel = (t: string) => POST_TYPES.find(p => p.value === t)?.label ?? t
             </ul>
           </div>
           <p class="mt-4 text-xs leading-snug text-subtle">Ruxsatni superadmin «Rollar» sahifasida özgartiradi. Har bir amalingiz faollik jurnalida saqlanadi.</p>
+          <ShowMore class="-mx-[22px] mt-4 -mb-[22px]" :shown="permShown" :total="permTotal" @more="permShown += STEP" @less="n => (permShown = n)" />
         </section>
       </div>
     </div>
