@@ -18,6 +18,8 @@ urlpatterns = [
     path('me', s.MeView.as_view()),
     path('me/avatar', s.MeAvatarView.as_view()),
     path('me/admin-link', s.MeAdminLinkView.as_view()),
+    path('me/notifications', s.MeNotificationsView.as_view()),
+    path('me/logout', s.MeLogoutView.as_view()),
     path('me/cms/<slug:slug>', cabinet.CabinetCollectionView.as_view()),
     path('me/cms/<slug:slug>/<int:pk>', cabinet.CabinetDocView.as_view()),
     path('me/documents/<str:section>', s.MeDocumentsView.as_view()),

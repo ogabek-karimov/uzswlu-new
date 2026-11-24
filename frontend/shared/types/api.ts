@@ -308,6 +308,24 @@ export interface CabinetDocument {
  * kirmagan bo'lsa 401. Ism, sharif, tug'ilgan kun, telefon, e-pochta, ish joylari — HEMIS'dan (faqat o'qish).
  */
 /** Kabinet roli: HEMIS lavozimidan avtomatik (dekan > kafedra mudiri > o'qituvchi > xodim); talaba — HEMIS talaba kirishi ulanganda */
+/** GET /me/notifications — kabinet qo'ng'iroqchasi (faqat o'z bildirishnomalari) */
+export interface CabinetNotification {
+  id: number
+  kind: 'role' | 'post' | 'application' | 'system'
+  title: string
+  body: string | null
+  link: string | null
+  read: boolean
+  createdAt: string
+}
+
+export interface CabinetNotifications {
+  unread: number
+  docs: CabinetNotification[]
+  /** Sayt serveri qo'shadi: xodim kirganmi (mehmonda false — qo'ng'iroqcha chiqmaydi) */
+  signedIn?: boolean
+}
+
 export interface CabinetAdminSection {
   key: string
   label: string

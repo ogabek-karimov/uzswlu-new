@@ -231,6 +231,8 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
           {{ t('nav.admission', { year: admissionYear(site).short }) }}
           <Icon name="lucide:arrow-up-right" class="size-4" />
         </NuxtLink>
+        <!-- Bildirishnomalar: faqat kabinetga kirgan xodimga (mehmonda chiqmaydi) -->
+        <ClientOnly><CabinetNotificationBell /></ClientOnly>
         <LoginMenu />
         <button
           type="button"

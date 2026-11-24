@@ -156,11 +156,56 @@ paths:
       security: [{ userSession: [] }]
       responses:
         '200': { description: OK }
+  /me/logout:
+    post:
+      summary: Kabinetdan chiqish
+      description: Joriy xodim sessiyasi bazadan o'chiriladi (token qayta ishlamaydi). Sayt serveri `session` cookie'sini o'chiradi va bosh sahifaga qaytaradi (`GET /logout`).
+      security: [{ userSession: [] }]
+      responses:
+        '200': { description: OK }
+        '401': { description: Kirilmagan }
+  /me/notifications:
+    get:
+      summary: Bildirishnomalarim (kabinet qo'ng'iroqchasi)
+      description: |
+        Xodimning admin hisobi (HEMIS ID) bildirishnomalari — faqat o'ziniki (foydalanuvchi sessiyadan; ID bilan boshqasinikini olib bo'lmaydi).
+        Hisobi yo'q (rolsiz) xodimga bo'sh ro'yxat. `unread` — o'qilmaganlar soni, `docs` — oxirgi 20 tasi.
+      security: [{ userSession: [] }]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  unread: { type: integer }
+                  docs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: { type: integer }
+                        kind: { type: string, enum: [role, post, application, system] }
+                        title: { type: string }
+                        body: { type: [string, 'null'] }
+                        link: { type: [string, 'null'], description: Admin panel sahifasi }
+                        read: { type: boolean }
+                        createdAt: { type: string, format: date-time }
+    post:
+      summary: O'qildi deb belgilash
+      security: [{ userSession: [] }]
+      requestBody:
+        content:
+          application/json:
+            schema: { type: object, properties: { ids: { type: array, items: { type: integer }, description: "Bo'lmasa — hammasi" } } }
+      responses:
+        '200': { description: OK }
   /me/admin-link:
     get:
       summary: «Admin panel» tugmasi va profil menyusidagi «Mening bo'limlarim»
       description: |
-        Xodimning admin hisobi bo'lsa (yoki HEMIS lavozimi admin paneldagi rolga bog'langan bo'lsa) `available: true`, rol nomi,
+        Xodimning admin hisobi bo'lsa (superadmin rol va HEMIS ID bergan) `available: true`, rol nomi,
         rolga ruxsat etilgan bo'limlar (`sections`) va 60 soniyalik bir martalik `url` qaytaradi; brauzer shu manzilga o'tadi va
         admin panelga HEMIS'dan qayta kirmasdan tushadi. `list=1` — havolasiz (faqat ro'yxat); `next=<bo'lim kaliti>` — havola shu bo'limga
         olib boradi (rolda yo'q bo'lim — 404).

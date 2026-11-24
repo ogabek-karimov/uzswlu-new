@@ -238,3 +238,26 @@ class Hit(models.Model):
 
     def __str__(self):
         return f'{self.kind} {self.path or self.name}'
+
+
+class Notification(models.Model):
+    """Bildirishnoma (admin panel va kabinetdagi qo'ng'iroqcha): faqat egasiga ko'rinadi. Kabinetda — xodimning admin hisobi
+    (HEMIS ID) orqali. Hodisalar: rol o'zgardi, postini boshqa odam o'zgartirdi/o'chirdi, yangi ariza (superadminga)."""
+
+    KINDS = [('role', 'Rol'), ('post', 'Post'), ('application', 'Ariza'), ('system', 'Tizim')]
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='notifications')
+    kind = models.CharField('Turi', max_length=12, choices=KINDS, default='system')
+    title = models.CharField('Sarlavha', max_length=300)
+    body = models.CharField('Matn', max_length=500, blank=True)
+    link = models.CharField('Admin panel sahifasi', max_length=300, blank=True)
+    read_at = models.DateTimeField('O‘qilgan', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        verbose_name = 'Bildirishnoma'
+        verbose_name_plural = 'Bildirishnomalar'
+        ordering = ['-created_at', '-id']
+        indexes = [models.Index(fields=['user', 'read_at'])]
+
+    def __str__(self):
+        return self.title

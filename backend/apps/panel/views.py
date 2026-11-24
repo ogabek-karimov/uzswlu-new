@@ -82,6 +82,24 @@ class Conflict(ValidationError):
     """409: yozuv boshqa joyda ishlatilmoqda (Payload'dagi kabi)."""
 
 
+POST_VERBS = {'edit': 'tahrirlandi', 'publish': 'nashr qilindi', 'hide': 'saytdan yashirildi', 'show': 'saytda qayta ko‘rsatildi',
+              'delete': 'savatga tashlandi', 'purge': 'butunlay o‘chirildi'}
+
+
+def notify_change(coll, obj, action: str, changes: dict, request) -> None:
+    """Bildirishnoma: postini boshqa odam o'zgartirsa — muallifga; rol/holat o'zgarsa — o'sha foydalanuvchiga."""
+    from apps.accounts.models import Role
+    from apps.core.notify import notify
+    who = getattr(request.user, 'name', '') or getattr(request.user, 'username', '') or 'admin'
+    if coll.slug == 'posts' and obj.author_id and action in POST_VERBS:
+        link = '' if action == 'purge' else f'/postlar/{obj.type}/{obj.pk}'
+        notify(obj.author, 'post', f'«{coll.label(obj)[:120]}» postingiz {POST_VERBS[action]}', f'{who} tomonidan', link, exclude=request.user)
+    elif coll.slug == 'users' and action == 'role':
+        role = Role.objects.filter(slug=obj.role).first()
+        body = f'Rol: {role.name if role else obj.role}' + (' · hisob yopildi' if obj.status == 'disabled' else '')
+        notify(obj, 'role', 'Rolingiz yoki hisob holatingiz o‘zgartirildi', f'{body} ({who})', '/profil', exclude=request.user)
+
+
 def save_doc(coll: Collection, obj, data: dict, request, creating: bool, log: bool = True):
     """Saqlash: maydonlar → model → ichki ro'yxatlar, keyin faollik jurnali, versiya va sayt keshi."""
     before = None if creating else coll.out(obj, 0)
@@ -105,6 +123,7 @@ def save_doc(coll: Collection, obj, data: dict, request, creating: bool, log: bo
             else:
                 action = coll.action_for(before, after, changes)
             log_activity(request, action=action, entity=entity, entity_id=obj.pk, label=coll.label(obj), changes=changes)
+            notify_change(coll, obj, action, changes, request)
     if coll.versions:
         keep_version(coll.slug, obj.pk, after, request.user, coll.versions)
     purge_site_cache(coll.tags)
@@ -285,7 +304,9 @@ def delete_doc(coll: Collection, obj, request):
         obj.delete()
     log_activity(request, action=action, entity=coll.entity or coll.slug, entity_id=pk, label=label)
     purge_site_cache(coll.tags)
-    obj.pk = pk  # butunlay o'chganda Django pk ni None qiladi — javobdagi `id` saqlansin
+    obj.pk = pk
+    if coll.slug == 'posts':
+        notify_change(coll, obj, action, {}, request)  # butunlay o'chganda Django pk ni None qiladi — javobdagi `id` saqlansin
     return obj
 
 

@@ -631,6 +631,12 @@
     "noRole": {
       "title": "No role assigned",
       "text": "Only staff with a role in the admin panel can use the cabinet. Contact the university administrator — once a role is assigned, sign in via HEMIS again."
+    },
+    "notes": {
+      "title": "Notifications",
+      "labelNew": "Notifications: {n} new",
+      "readAll": "Mark all as read",
+      "empty": "No notifications yet"
     }
   },
   "page": {

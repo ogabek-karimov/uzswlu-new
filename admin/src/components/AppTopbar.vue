@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { auth, initials, roleLabel } from '@/lib/auth'
 import Icon from './Icon.vue'
+import NotificationBell from './NotificationBell.vue'
 
 defineEmits<{ menu: [] }>()
 const router = useRouter()
@@ -27,6 +28,8 @@ async function logout() {
         <Icon name="plus" :size="16" />
         <span class="hidden sm:inline">Yangi qöşiş</span>
       </RouterLink>
+
+      <NotificationBell />
 
       <div class="relative">
         <button type="button" class="flex items-center gap-2.5 border-l border-line pl-3" :aria-expanded="userOpen" @click="userOpen = !userOpen">

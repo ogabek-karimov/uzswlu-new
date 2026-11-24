@@ -238,6 +238,8 @@ Batafsil parametr va javoblar — Swagger: `http://localhost:8000/api/docs/`. Pa
 | `/api/me/cms/<slug:slug>` | `CabinetCollectionView` | `apps/panel/cabinet.py` |  |
 | `/api/me/documents/<str:section>/<str:pk>` | `MeDocumentDetailView` | `apps/api/views_staff.py` | `cabinet` |
 | `/api/me/documents/<str:section>` | `MeDocumentsView` | `apps/api/views_staff.py` | `cabinet` |
+| `/api/me/logout` | `MeLogoutView` | `apps/api/views_staff.py` | `cabinet` |
+| `/api/me/notifications` | `MeNotificationsView` | `apps/api/views_staff.py` | `cabinet` |
 | `/api/me` | `MeView` | `apps/api/views_staff.py` | `cabinet` |
 | `/api/pages/<slug:slug>` | `PageView` | `apps/api/views.py` | `public` |
 | `/api/posts/<str:type>/<str:slug>` | `PostDetailView` | `apps/api/views.py` | `public` |
@@ -293,6 +295,7 @@ Batafsil parametr va javoblar — Swagger: `http://localhost:8000/api/docs/`. Pa
 | `/api/cms/panel/media-stats` | `MediaStatsView` | `apps/panel/dashboard.py` |  |
 | `/api/cms/panel/media-usage/<int:pk>` | `MediaUsageView` | `apps/panel/dashboard.py` |  |
 | `/api/cms/panel/media-used` | `MediaUsedView` | `apps/panel/dashboard.py` |  |
+| `/api/cms/panel/notifications` | `NotificationsView` | `apps/panel/dashboard.py` |  |
 | `/api/cms/panel/overview` | `OverviewView` | `apps/panel/dashboard.py` |  |
 | `/api/cms/panel/sdg-counts` | `SdgCountsView` | `apps/panel/dashboard.py` |  |
 | `/api/cms/panel/stats` | `StatsView` | `apps/panel/dashboard.py` |  |
@@ -427,6 +430,8 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `POST /api/me/documents/:section` | `frontend/server/api/me/documents/[section].post.ts` |
 | `GET /api/me` | `frontend/server/api/me/index.get.ts` |
 | `PATCH /api/me` | `frontend/server/api/me/index.patch.ts` |
+| `GET /api/me/notifications` | `frontend/server/api/me/notifications.get.ts` |
+| `POST /api/me/notifications` | `frontend/server/api/me/notifications.post.ts` |
 | `GET /api/pages/:slug` | `frontend/server/api/pages/[slug].get.ts` |
 | `GET /api/posts/:type/:slug` | `frontend/server/api/posts/[type]/[slug].get.ts` |
 | `GET /api/posts` | `frontend/server/api/posts/index.get.ts` |
@@ -479,6 +484,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/core/middleware.py` | Fayl xavfsizligi middleware'lari (faqat Python/Django). |
 | `backend/apps/core/models.py` | — |
 | `backend/apps/core/nightly.py` | Kechki vazifalar: har biri mustaqil, biri yiqilsa qolganlari ishlayveradi. `run_nightly` shularni tinch oynada ishga tushiradi. |
+| `backend/apps/core/notify.py` | Bildirishnomalar: yaratish va o'qish. Yaratishdagi xato asosiy amalni to'xtatmaydi (log_activity kabi). |
 | `backend/apps/core/parsers.py` | So'rov tanasi parserlari: hamma endpoint (panel, kabinet, murojaat, kirish) shu orqali o'tadi. |
 | `backend/apps/core/signals.py` | — |
 | `backend/apps/core/storage.py` | Yopiq saqlash: ochiq `/media/` dan tashqarida turadigan fayllar (fuqarolar murojaati ilovalari). |
@@ -517,7 +523,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (407 ta test)
+### Backend testlari xaritasi (412 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -539,11 +545,12 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/core/test_backup.py` | 41 | Zaxira va tiklash: yaratish, tekshirish, tiklash (SQLite va PostgreSQL — qaysi baza bilan ishlayotgan bo'lsa), ko'chma JSON, |
 | `backend/tests/core/test_docs.py` | 10 | Qo'llanma (docs/) eskirmasligi: avtomatik fayllar kodga mos, havolalar/anchorlar/yo'llar/buyruqlar mavjud. |
 | `backend/tests/core/test_page_cleanup.py` | 4 | «Toshkent haqida» / «Kontingent» sahifalarini o'chiruvchi migratsiya (0002_remove_toshkent_kontingent). |
-| `backend/tests/hemis/test_admin_access.py` | 7 | HEMIS orqali kirish → admin bergan hisob: rolni faqat admin beradi (Foydalanuvchilar → rol + HEMIS ID). |
+| `backend/tests/hemis/test_admin_access.py` | 8 | HEMIS orqali kirish → admin bergan hisob: rolni faqat admin beradi (Foydalanuvchilar → rol + HEMIS ID). |
 | `backend/tests/hemis/test_dev_login.py` | 3 | Lokal sinov kirishi: faqat DEBUG + STAFF_DEV_LOGIN + HEMIS ulanmagan bo'lganda ishlaydi. |
 | `backend/tests/hemis/test_load_control.py` | 25 | HEMIS'ga va serverga bosim: tinch oyna, qulf, so'rov byudjeti, ketma-ket xatoda to'xtash, kechki jadval. |
 | `backend/tests/panel/test_cabinet_cms.py` | 5 | Kabinet → panel ko'prigi: sayt ichidagi kabinetdan yangilik/e'lon/tadbir yozish (rol ruxsatlari admin paneldagi bilan bir xil). |
 | `backend/tests/panel/test_collections.py` | 13 | Admin panel API (`/api/cms/*`): har bir kolleksiya uchun o'qish → o'zini PATCH → nusxa yaratish → o'chirish aylanishi, · `slow` |
+| `backend/tests/panel/test_notifications.py` | 4 | Bildirishnomalar: hodisalar (post boshqa odam tomonidan o'zgardi/o'chdi, rol o'zgardi), faqat egasiga ko'rinishi |
 | `backend/tests/panel/test_pagination.py` | 5 | Sahifalash: har bir kolleksiyada barcha sahifalarni aylanib chiqqanda yozuvlar yo'qolmaydi va takrorlanmaydi; · `slow` |
 | `backend/tests/panel/test_quick_links.py` | 7 |  |
 | `backend/tests/panel/test_roles.py` | 14 | Rollar: superadmin rol yaratadi, bo'limlar bo'yicha ruxsat beradi; foydalanuvchi faqat o'z bo'limlarini ko'radi va yozadi. |
@@ -572,6 +579,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `core` | `SiteSettings` | Sayt sozlamalari | `apps/core/models.py` |
 | `core` | `Activity` | Faollik | `apps/core/models.py` |
 | `core` | `Hit` | Tashrif | `apps/core/models.py` |
+| `core` | `Notification` | Bildirishnoma | `apps/core/models.py` |
 | `accounts` | `User` | Foydalanuvchi | `apps/accounts/models.py` |
 | `accounts` | `Role` | Rol | `apps/accounts/models.py` |
 | `accounts` | `StaffSession` | Xodim sessiyasi | `apps/accounts/models.py` |

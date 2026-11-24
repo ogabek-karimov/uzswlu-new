@@ -253,3 +253,28 @@ class StatsView(PanelView):
             'range': rng, 'from': frm.isoformat(), 'current': current, 'previous': previous, 'unit': unit, 'series': series, 'prevSeries': prev_series,
             'sources': sources, 'countries': countries, 'langs': langs, 'pages': pages, 'searches': searches, 'events': events,
         })
+
+
+class NotificationsView(PanelView):
+    """Admin panel qo'ng'iroqchasi: faqat kirgan foydalanuvchining o'z bildirishnomalari (har qanday rol)."""
+
+    @extend_schema(tags=TAG, summary='Bildirishnomalarim (o‘qilmaganlar soni + oxirgilari)', responses=OpenApiTypes.OBJECT)
+    def get(self, request):
+        from apps.core.notify import listing
+        u = request.user
+        if not (u and u.is_authenticated and u.status != 'disabled'):
+            return error('Ruxsat yo‘q', 401)
+        try:
+            limit = int(request.query_params.get('limit', 20))
+        except ValueError:
+            limit = 20
+        return Response(listing(u, limit))
+
+    @extend_schema(tags=TAG, summary='O‘qildi deb belgilash (`ids` — tanlanganlar, bo‘lmasa hammasi)', request=OpenApiTypes.OBJECT, responses=OpenApiTypes.OBJECT)
+    def post(self, request):
+        from apps.core.notify import mark_read
+        u = request.user
+        if not (u and u.is_authenticated and u.status != 'disabled'):
+            return error('Ruxsat yo‘q', 401)
+        ids = request.data.get('ids') if isinstance(request.data, dict) else None
+        return Response({'updated': mark_read(u, ids if isinstance(ids, list) else None)})

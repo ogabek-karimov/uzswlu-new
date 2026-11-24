@@ -631,6 +631,12 @@
     "noRole": {
       "title": "Sizga rol berilmagan",
       "text": "Kabinetdan faqat admin panelda roli bor xodimlar foydalanadi. Rol olish uçun universitet administratoriga murojaat qiling — rol berilgaç HEMIS orqali qayta kiring."
+    },
+    "notes": {
+      "title": "Bildirişnomalar",
+      "labelNew": "Bildirişnomalar: {n} ta yangi",
+      "readAll": "Hammasi öqildi",
+      "empty": "Hozirça bildirişnoma yöq"
     }
   },
   "page": {

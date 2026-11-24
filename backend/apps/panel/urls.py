@@ -26,6 +26,7 @@ urlpatterns = [
     path('panel/youtube', dashboard.YoutubeView.as_view()),
     path('panel/hemis', dashboard.HemisView.as_view()),
     path('panel/sdg-counts', dashboard.SdgCountsView.as_view()),
+    path('panel/notifications', dashboard.NotificationsView.as_view()),
 
     path('globals/<slug:slug>', v.GlobalView.as_view()),
     path('globals/<slug:slug>/versions', v.GlobalVersionsView.as_view()),

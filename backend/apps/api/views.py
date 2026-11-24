@@ -329,6 +329,10 @@ class ApplicationView(PublicView):
             phone=f['phone'], email=f['email'], lang=f['lang'] if f['lang'] in ('uz', 'ru', 'en', 'zh') else 'uz', ip=client_ip(request),
             passport_file=files['passportFile'], diploma_file=files['diplomaFile'], photo_file=files['photoFile'],
         )
+        from apps.accounts.models import User
+        from apps.core.notify import notify
+        notify(list(User.objects.filter(role='superadmin').exclude(status='disabled')), 'application',
+               f'Yangi ariza: {a.last_name} {a.first_name}'[:300], f'{a.country} · {a.program}'[:500], '/arizalar')
         return Response({'number': a.number})
 
 

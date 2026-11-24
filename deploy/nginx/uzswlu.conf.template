@@ -22,6 +22,13 @@ map $http_x_cache_refresh $cache_refresh {
   "${EDGE_REFRESH_TOKEN}" 1;
 }
 
+# Hech qachon keshlanmaydigan sayt yo'llari: kabinetdan chiqish (cookie o'chiriladi) — eski javob (masalan, 404) keshda
+# «eskirgan nusxa» bo'lib qolib, chiqishni buzmasin
+map $uri $never_cache {
+  default 0;
+  /logout 1;
+}
+
 # Backenddagi to'g'ridan-to'g'ri so'rovlar uchun real IP: oldimizda yana bir proksi (Cloudflare/LB) bo'lsa, real_ip sozlang.
 # Docker DNS: konteyner qayta yaratilsa (docker compose up -d --build backend) IP o'zgaradi. `upstream { server backend:8000 }` IP'ni nginx
 # ishga tushganda BIR marta eslab qoladi → 502 Bad Gateway bo'lardi. Shuning uchun nomlar so'rov paytida (har 5 s) qayta aniqlanadi:
@@ -127,7 +134,8 @@ server {
     proxy_cache_lock_timeout 10s;
     proxy_cache_background_update on;       # eskirgan nusxa darrov beriladi, yangisi fonda olinadi (stale-while-revalidate)
     proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
-    proxy_cache_bypass $cache_refresh;     # admin saqlaganda yangilash (yuqoridagi map)
+    proxy_cache_bypass $cache_refresh $never_cache;   # admin saqlaganda yangilash; /logout — har doim Node'dan
+    proxy_no_cache $never_cache;
     add_header X-Cache $upstream_cache_status;   # HIT / MISS / STALE / BYPASS — tekshirish uchun
     include /etc/nginx/security_headers.conf;
     add_header X-Frame-Options "SAMEORIGIN" always;   # sayt boshqa domendagi iframe ichida ochilmasin (o'z PDF'lari — mumkin)

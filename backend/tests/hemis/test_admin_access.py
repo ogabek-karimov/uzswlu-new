@@ -103,3 +103,11 @@ class AdminAccessTests(TestCase):
         res = self.client.get(f'/api/auth/hemis/handoff?t={token}')
         self.assertEqual(res.status_code, 302)
         self.assertNotIn('evil.example', res['Location'])
+
+    def test_logout_deletes_staff_session(self):
+        from apps.accounts.models import StaffSession
+        h = bearer(DEAN)
+        self.assertEqual(self.client.get('/api/me/notifications', **h).status_code, 200)
+        self.assertEqual(self.client.post('/api/me/logout', **h).status_code, 200)
+        self.assertEqual(StaffSession.objects.filter(hemis_id=DEAN).count(), 0)
+        self.assertEqual(self.client.get('/api/me/notifications', **h).status_code, 401)  # eski token endi ishlamaydi

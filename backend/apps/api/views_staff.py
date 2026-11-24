@@ -119,6 +119,34 @@ class MeDocumentDetailView(CabinetView):
         return Response({'ok': True})
 
 
+class MeLogoutView(CabinetView):
+    """Kabinetdan chiqish: shu sessiya bazadan o'chiriladi (cookie'ni sayt serveri o'chiradi) — token qayta ishlamaydi."""
+    permission_classes = [IsStaff]
+
+    def post(self, request):
+        from apps.accounts.models import StaffSession
+        from apps.core.utils import sha256
+        StaffSession.objects.filter(token_hash=sha256(str(request.auth or ''))).delete()
+        return Response({'ok': True})
+
+
+class MeNotificationsView(CabinetView):
+    """Kabinet qo'ng'iroqchasi: xodimning admin hisobi (HEMIS ID) bildirishnomalari; hisobi yo'q (rolsiz) — bo'sh.
+    Foydalanuvchi sessiyadan aniqlanadi — so'rovdagi ID bilan boshqa birovnikini olib bo'lmaydi."""
+    permission_classes = [IsStaff]
+
+    def get(self, request):
+        from apps.core.notify import listing
+        from apps.hemis.access import account
+        return Response(listing(account(self.hemis_id), 20))
+
+    def post(self, request):
+        from apps.core.notify import mark_read
+        from apps.hemis.access import account
+        ids = request.data.get('ids') if isinstance(request.data, dict) else None
+        return Response({'updated': mark_read(account(self.hemis_id), ids if isinstance(ids, list) else None)})
+
+
 class MeAdminLinkView(CabinetView):
     """Kabinetdagi «Admin panel» tugmasi va saytdagi profil menyusi («Mening bo'limlarim»): xodimning admin hisobi bo'lsa
     (admin bergan, HEMIS ID biriktirilgan) rol nomi, bo'limlari va 60 soniyalik bir martalik havola qaytaradi;
