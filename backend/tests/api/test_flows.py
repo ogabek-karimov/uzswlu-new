@@ -8,7 +8,7 @@ from PIL import Image
 
 from apps.accounts.models import StaffSession
 from apps.core.models import Hit
-from tests.support import SeededTestCase
+from tests.support import SeededTestCase, give_cabinet_role
 
 PDF = b'%PDF-1.4 test\n%%EOF\n'
 
@@ -66,6 +66,7 @@ class StaffCabinetFlowTests(SeededTestCase):
 
     def setUp(self):
         super().setUp()
+        give_cabinet_role('9300')  # kabinetga faqat admin panelda roli bor xodim kiradi
         self.A = {'HTTP_AUTHORIZATION': f"Bearer {StaffSession.issue('9300')}"}
 
     def patch(self, body, **kw):

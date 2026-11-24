@@ -8,7 +8,7 @@ from datetime import timedelta
 from django.conf import settings
 from django.utils import timezone
 from rest_framework.authentication import BaseAuthentication
-from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.exceptions import AuthenticationFailed, PermissionDenied
 from rest_framework.permissions import BasePermission
 
 from apps.accounts.models import StaffSession
@@ -47,5 +47,20 @@ class StaffSessionAuthentication(BaseAuthentication):
 
 
 class IsStaff(BasePermission):
+    """HEMIS orqali kirgan xodim (rolidan qat'i nazar): kabinet bosh sahifasini (Dashboard) ko'ra oladi."""
+
     def has_permission(self, request, view):
         return isinstance(request.user, StaffPrincipal)
+
+
+class HasCabinetRole(IsStaff):
+    """Kabinetda biror narsa qilish (profil, rasm, hujjatlar): faqat superadmin bergan rol egasi (Foydalanuvchilar → rol + HEMIS ID).
+    HEMIS lavozimi rol bermaydi. Rolsiz xodim — 403 (`code: no_role`), u faqat Dashboard va KPI'ni ko'radi."""
+
+    def has_permission(self, request, view):
+        if not super().has_permission(request, view):
+            return False
+        from apps.hemis.access import cabinet_allowed
+        if not cabinet_allowed(request.user.hemis_id):
+            raise PermissionDenied('Admin panelda rol berilmagan — bu amal faqat rol egalariga', code='no_role')
+        return True

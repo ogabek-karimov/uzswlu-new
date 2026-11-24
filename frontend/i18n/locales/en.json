@@ -54,7 +54,14 @@
     "adminPanel": "Admin panel",
     "levelWrite": "edit",
     "levelRead": "view",
-    "inPanel": "Opens in the admin panel"
+    "inPanel": "Opens in the admin panel",
+    "dash": {
+      "title": "Dashboards",
+      "site": "Dashboard (UzSWLU)",
+      "hemis": "Dashboard (HEMIS)",
+      "kpi": "Dashboard (KPI)",
+      "admin": "Admin panel"
+    }
   },
   "menu": {
     "university": {
@@ -413,14 +420,14 @@
     "title": "Dashboard",
     "menu": {
       "admin": "Open admin panel",
-      "tasks": "Tasks",
       "profile": "Profile details",
       "documents": "Documents",
       "label": "Dashboard",
       "dashboard": "Dashboard (UzSWLU)",
       "staffPage": "My staff page",
       "logout": "Log out",
-      "news": "News menu"
+      "news": "News menu",
+      "kpi": "KPI system"
     },
     "myPage": "My page",
     "support": {
@@ -538,31 +545,6 @@
       "staff": "Your personal page and contact details.",
       "student": "Student cabinet."
     },
-    "tasks": {
-      "title": "Tasks",
-      "desc": "Tasks assigned to you and tasks you have given to others.",
-      "mine": "Assigned to me",
-      "given": "Assigned by me",
-      "empty": "No tasks yet.",
-      "emptyGiven": "You have not assigned any tasks yet.",
-      "add": "Add a task",
-      "who": "Assign to",
-      "me": "Myself",
-      "name": "Task title",
-      "note": "Note (optional)",
-      "due": "Due date",
-      "save": "Save",
-      "cancel": "Cancel",
-      "done": "Done",
-      "reopen": "Reopen",
-      "remove": "Delete",
-      "overdue": "Overdue",
-      "from": "Assigned by",
-      "to": "Assignee",
-      "until": "Due",
-      "error": "Could not save the task, please try again.",
-      "confirm": "Delete this task?"
-    },
     "rolePanel": {
       "title": "Your panel",
       "openFaculty": "Faculty page",
@@ -633,6 +615,22 @@
         "science": "Research profiles",
         "docs": "Documents"
       }
+    },
+    "home": {
+      "welcome": "Welcome,",
+      "noRole": "No admin panel role assigned",
+      "sections": "Access to {n} sections",
+      "noRoleHint": "You have no admin panel role: you can see the Dashboard and the KPI system; other actions (profile, documents, news) are for role holders only. Contact the administrator to get a role.",
+      "cards": {
+        "published": "My published posts",
+        "month": "Published this month",
+        "drafts": "Drafts",
+        "docs": "Uploaded documents"
+      }
+    },
+    "noRole": {
+      "title": "No role assigned",
+      "text": "Only staff with a role in the admin panel can use the cabinet. Contact the university administrator — once a role is assigned, sign in via HEMIS again."
     }
   },
   "page": {

@@ -2,11 +2,14 @@
 import type { CabinetAdminLink } from '#shared/types/api'
 
 const { t } = useI18n()
+const NuxtLinkComp = resolveComponent('NuxtLink')
 const { open, root } = useDropdown()
 
 // Kirgan xodimning admin paneldagi bo'limlari («Mening bo'limlarim»): menyu birinchi ochilganda so'raladi (sessiya cookie'si httpOnly —
 // kirgan-kirmaganini faqat server biladi). Kirmagan mehmonda hech narsa chiqmaydi. Bo'limga bosilganda 60 soniyalik bir martalik havola olinadi.
 const mine = ref<CabinetAdminLink | null>(null)
+// Xodim kirgan bo'lsa (sayt serveri `signedIn` beradi; mehmonda false) menyu «Dashboardlar» ro'yxatiga aylanadi (kirish havolalari o'rniga)
+const signedIn = computed(() => mine.value?.signedIn === true)
 const opening = ref('')
 let asked = false
 watch(open, async (isOpen) => {
@@ -54,6 +57,13 @@ const groups = [
 ]
 
 const host = (url: string) => new URL(url).host
+
+// Kirgan xodimning dashboardlari: o'z saytimizdagi kabinet, admin panel (rol bo'lsa) va universitetning boshqa tizimlari
+const dashboards = computed(() => [
+  { key: 'site', label: t('auth.dash.site'), sub: 'uzswlu.uz', icon: 'lucide:layout-grid', to: localePath('/dashboard') },
+  { key: 'hemis', label: t('auth.dash.hemis'), sub: 'hemis.uzswlu.uz', icon: 'lucide:database', href: 'https://hemis.uzswlu.uz/dashboard/login' },
+  { key: 'kpi', label: t('auth.dash.kpi'), sub: 'kpi.uzswlu.uz', icon: 'lucide:gauge', href: 'https://kpi.uzswlu.uz' },
+])
 </script>
 
 <template>
@@ -83,6 +93,28 @@ const host = (url: string) => new URL(url).host
         id="login-menu"
         class="absolute top-full right-0 z-[60] mt-2 w-72 rounded-2xl border border-line bg-white p-2 shadow-[0_24px_48px_-20px_rgba(19,17,47,0.4)]"
       >
+        <div v-if="signedIn" class="mb-1 border-b border-line pb-2">
+          <p class="px-3 pt-2 pb-1 text-[11px] font-semibold tracking-[0.14em] text-muted uppercase">{{ t('auth.dash.title') }}</p>
+          <ul>
+            <li v-for="d in dashboards" :key="d.key">
+              <component
+                :is="d.to ? NuxtLinkComp : 'a'" :to="d.to" :href="d.href" :rel="d.href ? 'noopener' : undefined"
+                class="group flex items-center gap-3 rounded-xl px-3 py-2 transition-colors hover:bg-brand-50" @click="open = false"
+              >
+                <span class="grid size-8 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-700 transition-colors group-hover:bg-brand-800 group-hover:text-accent-400"><Icon :name="d.icon" class="size-4" /></span>
+                <span class="min-w-0 flex-1"><span class="block text-sm font-semibold text-ink">{{ d.label }}</span><span class="block truncate text-xs text-muted">{{ d.sub }}</span></span>
+                <Icon v-if="d.href" name="lucide:arrow-up-right" class="size-3.5 shrink-0 text-muted" />
+              </component>
+            </li>
+            <li v-if="mine?.available">
+              <button type="button" class="group flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left transition-colors hover:bg-brand-50 disabled:opacity-60" :disabled="!!opening" @click="goPanel()">
+                <span class="grid size-8 shrink-0 place-items-center rounded-lg bg-accent-100 text-accent-700 transition-colors group-hover:bg-brand-800 group-hover:text-accent-400"><Icon name="lucide:shield-check" class="size-4" /></span>
+                <span class="min-w-0 flex-1"><span class="block text-sm font-semibold text-ink">{{ t('auth.dash.admin') }}</span><span class="block truncate text-xs text-muted">{{ mine.role }}</span></span>
+                <Icon name="lucide:arrow-up-right" class="size-3.5 shrink-0 text-muted" />
+              </button>
+            </li>
+          </ul>
+        </div>
         <div v-if="mine?.available" class="mb-1 border-b border-line pb-2">
           <p class="px-3 pt-2 text-[11px] font-semibold tracking-[0.14em] text-muted uppercase">{{ t('auth.mySections') }}</p>
           <p class="truncate px-3 pt-1 text-sm font-semibold text-ink">{{ mine.role }}</p>
@@ -111,16 +143,11 @@ const host = (url: string) => new URL(url).host
               </button>
             </li>
           </ul>
-          <button
-            type="button"
-            class="mt-1 flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-left text-xs text-muted transition-colors hover:bg-brand-50 disabled:opacity-60"
-            :disabled="!!opening"
-            @click="goPanel()"
-          >
-            <Icon name="lucide:layout-dashboard" class="size-3.5" />{{ t('auth.adminPanel') }}
-            <Icon name="lucide:arrow-up-right" class="ml-auto size-3.5" />
-          </button>
         </div>
+        <a v-if="signedIn" href="/logout" class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-ink transition-colors hover:bg-[#fdecec] hover:text-[#8e1b1b]">
+          <Icon name="lucide:log-out" class="size-4" />{{ t('cabinet.menu.logout') }}
+        </a>
+        <template v-else>
         <p class="flex items-center gap-2 px-3 pt-2 pb-1 text-sm font-semibold text-ink">
           <Icon name="lucide:log-in" class="size-4 text-brand-600" />
           {{ t('auth.login') }}
@@ -142,6 +169,7 @@ const host = (url: string) => new URL(url).host
             </li>
           </ul>
         </div>
+        </template>
       </div>
     </Transition>
   </div>

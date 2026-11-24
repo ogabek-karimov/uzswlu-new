@@ -9,9 +9,8 @@ from apps.core.throttles import ScopedThrottle
 from apps.structure.models import StaffProfile
 
 from . import builders_staff as bst
-from . import cabinet_tasks as ct
 from .common import PublicView, lang_of
-from .staff_auth import IsStaff, StaffSessionAuthentication
+from .staff_auth import HasCabinetRole, IsStaff, StaffSessionAuthentication
 
 
 def _int(value, default: int, lo: int, hi: int) -> int:
@@ -58,7 +57,7 @@ class StaffHiddenView(PublicView):
 
 class CabinetView(APIView):
     authentication_classes = [StaffSessionAuthentication]
-    permission_classes = [IsStaff]
+    permission_classes = [HasCabinetRole]  # sukut: faqat rol egasi; ko'rish (GET /me, admin-link) — har qanday kirgan xodim
     throttle_classes = [ScopedThrottle]
     throttle_scope = 'cabinet'
 
@@ -68,8 +67,13 @@ class CabinetView(APIView):
 
 
 class MeView(CabinetView):
+    def get_permissions(self):
+        # Dashboard'ni rolsiz xodim ham ko'radi (faqat o'qish); o'zgartirish — faqat rol egasi
+        return [IsStaff()] if self.request.method in ('GET', 'HEAD', 'OPTIONS') else super().get_permissions()
+
     def get(self, request):
-        return Response(bst.cabinet_out(self.hemis_id, lang_of(request)))
+        from apps.hemis.access import cabinet_allowed
+        return Response({**bst.cabinet_out(self.hemis_id, lang_of(request)), 'hasRole': cabinet_allowed(self.hemis_id)})
 
     def patch(self, request):
         bst.patch_cabinet(self.hemis_id, request.data)
@@ -115,37 +119,32 @@ class MeDocumentDetailView(CabinetView):
         return Response({'ok': True})
 
 
-class MeTasksView(CabinetView):
-    def get(self, request):
-        return Response(ct.tasks_out(self.hemis_id))
-
-    def post(self, request):
-        return Response(ct.create_task(self.hemis_id, request.data), status=201)
-
-
-class MeTaskDetailView(CabinetView):
-    def patch(self, request, pk):
-        return Response(ct.set_status(self.hemis_id, pk, str(request.data.get('status') or '')))
-
-    def delete(self, request, pk):
-        ct.delete_task(self.hemis_id, pk)
-        return Response({'ok': True})
-
-
 class MeAdminLinkView(CabinetView):
     """Kabinetdagi «Admin panel» tugmasi va saytdagi profil menyusi («Mening bo'limlarim»): xodimning admin hisobi bo'lsa
-    (yoki lavozimi «HEMIS roli» ga bog'langan bo'lsa) rol nomi, bo'limlari va 60 soniyalik bir martalik havola qaytaradi;
+    (admin bergan, HEMIS ID biriktirilgan) rol nomi, bo'limlari va 60 soniyalik bir martalik havola qaytaradi;
     bo'lmasa available=false. `?list=1` — havolasiz (faqat ro'yxat); `?next=<bo'lim kaliti>` — havola shu bo'limga olib boradi."""
+    permission_classes = [IsStaff]  # rolsiz xodimga ham javob beradi: available=false
+
+    def post_stats(self) -> dict:
+        """Kabinet bosh sahifasidagi rol paneli uchun: shu xodimning admin hisobi yozgan postlar (hisob hali yaratilmagan bo'lsa — 0)."""
+        from django.utils import timezone
+
+        from apps.accounts.models import User
+        from apps.content.models import Post
+        acc = User.objects.filter(hemis_id=str(self.hemis_id)).first()
+        if not acc:
+            return {'published': 0, 'drafts': 0, 'month': 0}
+        mine = Post.objects.filter(author=acc, deleted_at__isnull=True)
+        month_start = timezone.localtime().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+        return {
+            'published': mine.filter(status='published').count(),
+            'drafts': mine.filter(status='draft').count(),
+            'month': mine.filter(status='published', published_at__gte=month_start).count(),
+        }
 
     def get(self, request):
-        from secrets import token_urlsafe
-
-        from django.conf import settings
-        from django.core import signing
-        from django.core.cache import cache
-
         from apps.hemis import access
-        from apps.hemis.views import HANDOFF_SALT, HANDOFF_TTL
+        from apps.hemis.views import handoff_url
 
         from apps.accounts.roles import SECTION_PATHS, sections_of
 
@@ -156,12 +155,10 @@ class MeAdminLinkView(CabinetView):
         sections = sections_of(perms)
         out = {'available': True, 'url': None, 'role': role_name, 'sections': sections}
         if request.query_params.get('list'):
+            out['stats'] = self.post_stats()
             return Response(out)
         key = str(request.query_params.get('next') or '')
         if key and key not in {s['key'] for s in sections}:
             raise NotFound('Bo‘lim topilmadi')  # rolda yo'q bo'lim uchun havola berilmaydi
-        nonce = token_urlsafe(12)
-        cache.set(f'hemis-handoff:{nonce}', 1, HANDOFF_TTL + 5)
-        token = signing.dumps({'h': self.hemis_id, 'n': nonce, 'p': SECTION_PATHS.get(key, '/')}, salt=HANDOFF_SALT)
-        out['url'] = f'{settings.PUBLIC_SERVER_URL}/api/auth/hemis/handoff?t={token}'
+        out['url'] = handoff_url(self.hemis_id, SECTION_PATHS.get(key, '/'))  # admin panel domenida — o'sha domenda sessiya ochiladi
         return Response(out)

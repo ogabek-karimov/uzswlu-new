@@ -377,6 +377,15 @@ class Users(Collection):
             return False
         return not User.objects.filter(role='superadmin').exclude(status='disabled').exclude(pk=u.pk).exists()
 
+    @staticmethod
+    def check_hemis_id(u):
+        """HEMIS ID — HEMIS'da mavjud xodim va faqat bitta hisobga biriktiriladi (aks holda boshqa odam shu hisob nomidan kirardi)."""
+        from apps.hemis import get_client
+        if not any(str(p['id']) == u.hemis_id for p in get_client().staff('uz')):
+            raise ValidationError(f'HEMIS’da {u.hemis_id} ID li xodim yo‘q — ro‘yxatdan tanlang')
+        if User.objects.filter(hemis_id=u.hemis_id).exclude(pk=u.pk).exists():
+            raise ValidationError('Bu HEMIS xodimi boshqa hisobga biriktirilgan')
+
     def before_delete(self, obj, request):
         if self.is_last_superadmin(obj):
             raise ValidationError('Bu yagona faol superadmin — o‘chirib bo‘lmaydi. Avval boshqa foydalanuvchiga superadmin rolini bering.')
@@ -429,6 +438,8 @@ class Users(Collection):
                 if data['status'] not in dict(User.STATUSES):
                     raise ValidationError('Holat noto‘g‘ri')
                 u.status = data['status']
+            if 'hemisId' in data and u.hemis_id:
+                self.check_hemis_id(u)
             if was_last_super and (u.role != 'superadmin' or u.status == 'disabled'):
                 raise ValidationError('Bu yagona faol superadmin — rolini o‘zgartirib yoki hisobini yopib bo‘lmaydi (panel egasiz qoladi). '
                                       'Avval boshqa foydalanuvchiga superadmin rolini bering.')
@@ -1257,7 +1268,7 @@ class Roles(Collection):
     access = {'read': SUPER, 'create': SUPER, 'update': SUPER, 'delete': SUPER}
     fields = {'createdAt': 'created_at', 'updatedAt': 'updated_at'}
     rules = {'delete': 'Superadmin roli o‘chirilmaydi; qolgan rollar (editor, pages, sdg ham) o‘chiriladi. Foydalanuvchisi bor rol o‘chsa, ular hisobini saqlaydi, lekin ruxsatsiz qoladi — superadmin yangi rol beradi.',
-             'update': 'Superadmin rolining bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi; qolgan rollarning bo‘limlari, doirasi va «boshqalarning postlarini ham tahrirlaydi» belgisi o‘zgartiriladi. «HEMIS roli» — shu lavozimdagi xodim HEMIS orqali kirganda hisob va shu rol avtomatik beriladi (superadmin roliga berilmaydi).'}
+             'update': 'Superadmin rolining bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi; qolgan rollarning bo‘limlari, doirasi va «boshqalarning postlarini ham tahrirlaydi» belgisi o‘zgartiriladi.'}
 
     def can(self, user, action, obj=None):
         if not super().can(user, action, obj):
@@ -1281,7 +1292,7 @@ class Roles(Collection):
             users = User.objects.filter(role=r.slug).count()
         return {
             'id': r.pk, 'slug': r.slug, 'name': r.name, 'description': r.description or None, 'system': r.system, 'scoped': r.scoped,
-            'permissions': rl.permissions_of_role(r), 'users': users, 'hemisRole': r.hemis_role or None, 'editAll': r.edit_all,
+            'permissions': rl.permissions_of_role(r), 'users': users, 'editAll': r.edit_all,
             'createdAt': dt(r.created_at), 'updatedAt': dt(r.updated_at), 'collection': 'roles',
         }
 
@@ -1302,13 +1313,6 @@ class Roles(Collection):
                 r.scoped = flag(data['scoped'])
             if 'editAll' in data:
                 r.edit_all = flag(data['editAll'])
-            if 'hemisRole' in data:
-                hr = str(data['hemisRole'] or '')
-                if hr and hr not in rl.HEMIS_ROLES:
-                    raise ValidationError('HEMIS roli noto‘g‘ri')
-                if hr and Role.objects.filter(hemis_role=hr).exclude(pk=r.pk).exists():
-                    raise ValidationError('Bu HEMIS roli boshqa rolga bog‘langan — avval uni bo‘shating')
-                r.hemis_role = hr
 
 
 REGISTRY: dict[str, Collection] = {c.slug: c for c in (

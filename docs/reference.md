@@ -55,7 +55,7 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 - `posts` · **delete**: Rolda «boshqalarning postlarini ham tahrirlaydi» belgisi bo‘lmasa — faqat **o‘zi yozgan** postni o‘chiradi; `superadmin` va shu belgili rollar (tayyor holatda `editor`) — hammasini.
 - `quick-links` · **create**: `icon` — `lucide:*` ro‘yxatidan; `url` — `/yo‘l` yoki `https://…`; `title.uz` majburiy.
 - `roles` · **delete**: Superadmin roli o‘chirilmaydi; qolgan rollar (editor, pages, sdg ham) o‘chiriladi. Foydalanuvchisi bor rol o‘chsa, ular hisobini saqlaydi, lekin ruxsatsiz qoladi — superadmin yangi rol beradi.
-- `roles` · **update**: Superadmin rolining bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi; qolgan rollarning bo‘limlari, doirasi va «boshqalarning postlarini ham tahrirlaydi» belgisi o‘zgartiriladi. «HEMIS roli» — shu lavozimdagi xodim HEMIS orqali kirganda hisob va shu rol avtomatik beriladi (superadmin roliga berilmaydi).
+- `roles` · **update**: Superadmin rolining bo‘limlari qat’iy — faqat nomi va izohi o‘zgaradi; qolgan rollarning bo‘limlari, doirasi va «boshqalarning postlarini ham tahrirlaydi» belgisi o‘zgartiriladi.
 - `rude-words` · **create**: `word` majburiy, takrorlanmas (kichik harf); oxirida `*` — shu bilan boshlanuvchi barcha so‘zlar; `lang`: uz/ru/en/zh.
 - `unit-heads` · **create**: `name` va `position.uz` majburiy; `url` — /yo‘l yoki https://…
 
@@ -73,7 +73,6 @@ Docker'da: `docker compose exec backend python manage.py <buyruq>`. Parametrlar:
 | `python manage.py run_nightly` | Kechki vazifalar: HEMIS sinxronlash, eski sessiya va yozuvlarni tozalash | `apps/core/management/commands/run_nightly.py` |
 | `python manage.py seed_activity` | «Faoliyat» sahifalari va PDF'larini eski sayt ma'lumotlaridan ulaydi (takror işlatiş xavfsiz). | `apps/pages/management/commands/seed_activity.py` |
 | `python manage.py seed_demo` | Boshlang‘ich ma’lumotlarni yuklaydi (bo‘sh bo‘limlarga) | `apps/core/management/commands/seed_demo.py` |
-| `python manage.py seed_demo_tasks` | Namunaviy kabinet vazifalarini yaratadi (faqat sinov uchun; mavjudlarini o‘chirmaydi) | `apps/core/management/commands/seed_demo_tasks.py` |
 | `python manage.py sync_hemis` | HEMIS’dan xodimlar, bo‘limlar va sonlarni olib bazaga yozadi (kechki oynada) | `apps/hemis/management/commands/sync_hemis.py` |
 
 ### Sozlamalar (.env)
@@ -239,8 +238,6 @@ Batafsil parametr va javoblar — Swagger: `http://localhost:8000/api/docs/`. Pa
 | `/api/me/cms/<slug:slug>` | `CabinetCollectionView` | `apps/panel/cabinet.py` |  |
 | `/api/me/documents/<str:section>/<str:pk>` | `MeDocumentDetailView` | `apps/api/views_staff.py` | `cabinet` |
 | `/api/me/documents/<str:section>` | `MeDocumentsView` | `apps/api/views_staff.py` | `cabinet` |
-| `/api/me/tasks/<int:pk>` | `MeTaskDetailView` | `apps/api/views_staff.py` | `cabinet` |
-| `/api/me/tasks` | `MeTasksView` | `apps/api/views_staff.py` | `cabinet` |
 | `/api/me` | `MeView` | `apps/api/views_staff.py` | `cabinet` |
 | `/api/pages/<slug:slug>` | `PageView` | `apps/api/views.py` | `public` |
 | `/api/posts/<str:type>/<str:slug>` | `PostDetailView` | `apps/api/views.py` | `public` |
@@ -430,10 +427,6 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `POST /api/me/documents/:section` | `frontend/server/api/me/documents/[section].post.ts` |
 | `GET /api/me` | `frontend/server/api/me/index.get.ts` |
 | `PATCH /api/me` | `frontend/server/api/me/index.patch.ts` |
-| `DELETE /api/me/tasks/:id` | `frontend/server/api/me/tasks/[id].delete.ts` |
-| `PATCH /api/me/tasks/:id` | `frontend/server/api/me/tasks/[id].patch.ts` |
-| `GET /api/me/tasks` | `frontend/server/api/me/tasks/index.get.ts` |
-| `POST /api/me/tasks` | `frontend/server/api/me/tasks/index.post.ts` |
 | `GET /api/pages/:slug` | `frontend/server/api/pages/[slug].get.ts` |
 | `GET /api/posts/:type/:slug` | `frontend/server/api/posts/[type]/[slug].get.ts` |
 | `GET /api/posts` | `frontend/server/api/posts/index.get.ts` |
@@ -460,7 +453,6 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/api/builders_site.py` | Ochiq sayt API'si javoblarini yig'ish (frontend/docs/openapi.yaml shartnomasi). |
 | `backend/apps/api/builders_staff.py` | Xodimlar: ommaviy ro'yxat/profil (HEMIS + saytdagi qo'shimcha ma'lumot) va xodim kabineti. |
 | `backend/apps/api/cabinet_roles.py` | Kabinetdagi rol (rolga asoslangan panel): HEMIS lavozimidan avtomatik aniqlanadi. |
-| `backend/apps/api/cabinet_tasks.py` | Xodim kabinetidagi vazifalar: dekan dekanat xodimlari va kafedra mudirlariga, kafedra mudiri o'z xodimlariga topshiriq beradi; |
 | `backend/apps/api/common.py` | Ochiq API uchun umumiy yordamchilar: til, rasm/fayl manzillari, biriktirmalar, token tekshiruvi. |
 | `backend/apps/api/edge.py` | Kontent o'zgarganda sayt qatlamlari keshini darrov yangilash (Nuxt + nginx). |
 | `backend/apps/api/hits.py` | Sayt statistikasi — cookie'siz va shaxsiy ma'lumotsiz (Umami usulida). |
@@ -493,7 +485,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/core/throttles.py` | So'rov cheklovlari (rate limit) — tizimga yuklama tushmasligi va parol terib ko'rishdan himoya. |
 | `backend/apps/core/uploads.py` | Foydalanuvchi yuklagan fayllar: umumiy kirish nuqtalari. Chuqur tekshiruv — `filesafe.py` da (faqat Python). |
 | `backend/apps/core/utils.py` | — |
-| `backend/apps/hemis/access.py` | HEMIS lavozimi → admin panel hisobi. |
+| `backend/apps/hemis/access.py` | HEMIS orqali kirgan xodim → admin panel hisobi. |
 | `backend/apps/hemis/api.py` | HEMIS REST API (v1) bilan ishlash: universitetning o'z HEMIS serveri, token bilan, faqat o'qish. |
 | `backend/apps/hemis/base.py` | HEMIS (faqat o'qish) klienti interfeysi. |
 | `backend/apps/hemis/cache.py` | HEMIS klienti: bazadagi oxirgi nusxadan o'qiydi (HemisSnapshot). Nusxa hali bo'lmasa — namunaga qaytadi. |
@@ -525,7 +517,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (409 ta test)
+### Backend testlari xaritasi (407 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -533,7 +525,6 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 |---|---|---|
 | `backend/tests/api/test_admission_years.py` | 4 | Qabul yillari: faol yil saytda, yangi yil nusxa bilan (qoralama), faol qilish → oldingisi arxiv (narxlar saqlanadi), |
 | `backend/tests/api/test_cabinet_roles.py` | 10 |  |
-| `backend/tests/api/test_cabinet_tasks.py` | 5 | Kabinet vazifalari: dekan → kafedra mudiri → o'qituvchi (namunaviy HEMIS ma'lumoti). |
 | `backend/tests/api/test_cache_stampede.py` | 8 | Ochiq javoblar keshi: to'dan himoya — bir xil so'rovlar bazaga bir vaqtda urilmaydi (CachedGetMixin._cached_or_build). |
 | `backend/tests/api/test_contract.py` | 6 | Shartnoma testi: ochiq API javoblari `frontend/docs/openapi.yaml` sxemalariga mos bo'lishi shart (4 til × barcha endpoint). |
 | `backend/tests/api/test_edge_refresh.py` | 7 | Kontent o'zgarganda Nuxt/nginx keshini yangilash (apps/api/edge.py). |
@@ -548,7 +539,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/core/test_backup.py` | 41 | Zaxira va tiklash: yaratish, tekshirish, tiklash (SQLite va PostgreSQL — qaysi baza bilan ishlayotgan bo'lsa), ko'chma JSON, |
 | `backend/tests/core/test_docs.py` | 10 | Qo'llanma (docs/) eskirmasligi: avtomatik fayllar kodga mos, havolalar/anchorlar/yo'llar/buyruqlar mavjud. |
 | `backend/tests/core/test_page_cleanup.py` | 4 | «Toshkent haqida» / «Kontingent» sahifalarini o'chiruvchi migratsiya (0002_remove_toshkent_kontingent). |
-| `backend/tests/hemis/test_admin_access.py` | 7 | HEMIS lavozimi → admin hisobi: avtomatik yaratish, doira, yopish va kabinetdan o'tish havolasi. |
+| `backend/tests/hemis/test_admin_access.py` | 7 | HEMIS orqali kirish → admin bergan hisob: rolni faqat admin beradi (Foydalanuvchilar → rol + HEMIS ID). |
 | `backend/tests/hemis/test_dev_login.py` | 3 | Lokal sinov kirishi: faqat DEBUG + STAFF_DEV_LOGIN + HEMIS ulanmagan bo'lganda ishlaydi. |
 | `backend/tests/hemis/test_load_control.py` | 25 | HEMIS'ga va serverga bosim: tinch oyna, qulf, so'rov byudjeti, ketma-ket xatoda to'xtash, kechki jadval. |
 | `backend/tests/panel/test_cabinet_cms.py` | 5 | Kabinet → panel ko'prigi: sayt ichidagi kabinetdan yangilik/e'lon/tadbir yozish (rol ruxsatlari admin paneldagi bilan bir xil). |
@@ -566,6 +557,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/security/test_data_theft.py` | 17 | Hujum simulyatsiyasi: ma'lumot o'g'irlash (oracle, enumeration, IDOR, draft sizishi, token/rol), scraping va suiiste'mol. |
 | `backend/tests/security/test_files.py` | 31 | Fayl xavfsizligi testlari: yuklash (tekshiruv, tozalash), yopiq saqlash, yuklab olish sarlavhalari, hajm cheklovi. |
 | `backend/tests/security/test_hardening.py` | 17 | Chiqishdan oldingi audit topilmalari: har biri uchun regressiya testi (hujum so'rovi → xavfsiz javob). |
+| `backend/tests/security/test_id_swap.py` | 3 | ID almashtirib boshqa ma'lumotni olishga urinish (IDOR): so'rovdagi ID/`where` ni o'zgartirib ruxsatsiz yozuvni o'qib bo'lmaydi. |
 | `backend/tests/security/test_jwt_roles.py` | 8 | JWT va rollar: soxta/muddati o'tgan token, rol cheklovlari, yopilgan hisob, Swagger ruxsati. |
 | `backend/tests/security/test_production_checks.py` | 2 | API_TOKEN almashtirish va production sozlama ogohlantirishlari. |
 | `backend/tests/security/test_query_injection.py` | 6 | Soʻrov xavfsizligi: `where`/`sort` orqali yashirin maydonlarni tekshirib bo‘lmaydi. |

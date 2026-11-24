@@ -308,22 +308,6 @@ export interface CabinetDocument {
  * kirmagan bo'lsa 401. Ism, sharif, tug'ilgan kun, telefon, e-pochta, ish joylari — HEMIS'dan (faqat o'qish).
  */
 /** Kabinet roli: HEMIS lavozimidan avtomatik (dekan > kafedra mudiri > o'qituvchi > xodim); talaba — HEMIS talaba kirishi ulanganda */
-export interface CabinetTask {
-  id: number
-  title: string
-  note: string
-  status: 'open' | 'done'
-  due: string | null
-  overdue: boolean
-  assigneeId: string
-  assigneeName: string
-  authorId: string
-  authorName: string
-  self: boolean
-  createdAt: string
-  doneAt: string | null
-}
-
 export interface CabinetAdminSection {
   key: string
   label: string
@@ -338,12 +322,10 @@ export interface CabinetAdminLink {
   role: string | null
   /** Rolga ruxsat etilgan bo'limlar (admin yon menyusidagi tartibda) */
   sections: CabinetAdminSection[]
-}
-
-export interface CabinetTasks {
-  mine: CabinetTask[]
-  given: CabinetTask[]
-  assignees: { id: string, name: string, position: string }[]
+  /** Sayt serveri qo'shadi: xodim kabinetga kirganmi (mehmonda false) */
+  signedIn?: boolean
+  /** `?list=1` da: shu xodim yozgan postlar (kabinet bosh sahifasidagi rol paneli) */
+  stats?: { published: number, drafts: number, month: number }
 }
 
 export type CabinetRole = 'dean' | 'chair_head' | 'teacher' | 'staff' | 'student'
@@ -380,6 +362,8 @@ export interface StaffCabinet {
   about: LocalizedText
   /** Xodimning o'zi yuklagan surat bormi (✕ — HEMIS suratiga qaytarish faqat shunda chiqadi) */
   hasOwnPhoto: boolean
+  /** Superadmin bergan rol bormi (Foydalanuvchilar → rol + HEMIS ID). Yo'q bo'lsa — faqat Dashboard va KPI, hech narsa o'zgartirilmaydi */
+  hasRole?: boolean
   /** Hujjat bo'limlari: soni va Staff'da ko'rinishi (cv/books/articles; boshida ochiq) */
   documents: Record<CabinetDocSection, CabinetDocStat>
 }

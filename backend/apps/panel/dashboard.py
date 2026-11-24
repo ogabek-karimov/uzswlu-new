@@ -232,6 +232,10 @@ class StatsView(PanelView):
             cur.execute(f"""SELECT date_trunc('{unit}', ts AT TIME ZONE 'Asia/Tashkent') AS t, count(*), count(DISTINCT visitor)
                             FROM core_hit WHERE kind = 'pageview' AND ts >= %s GROUP BY 1 ORDER BY 1""", [frm])
             series = [{'t': t.isoformat(), 'views': int(v), 'visitors': int(u)} for t, v, u in cur.fetchall()]
+            # Oldingi davr (taqqoslash chizig'i uchun): xuddi shu bo'laklar, bir davr oldin
+            cur.execute(f"""SELECT date_trunc('{unit}', ts AT TIME ZONE 'Asia/Tashkent') AS t, count(*), count(DISTINCT visitor)
+                            FROM core_hit WHERE kind = 'pageview' AND ts >= %s AND ts < %s GROUP BY 1 ORDER BY 1""", [prev, frm])
+            prev_series = [{'t': t.isoformat(), 'views': int(v), 'visitors': int(u)} for t, v, u in cur.fetchall()]
             refs = _rows(cur, "SELECT coalesce(referrer, ''), count(DISTINCT visitor) FROM core_hit WHERE kind = 'pageview' AND ts >= %s GROUP BY 1 ORDER BY 2 DESC LIMIT 50", [frm])
             countries = _rows(cur, "SELECT country, count(DISTINCT visitor) FROM core_hit WHERE kind = 'pageview' AND ts >= %s AND country <> '' GROUP BY 1 ORDER BY 2 DESC LIMIT 6", [frm])
             langs = _rows(cur, "SELECT coalesce(nullif(lang, ''), 'uz'), count(*) FROM core_hit WHERE kind = 'pageview' AND ts >= %s GROUP BY 1 ORDER BY 2 DESC", [frm])
@@ -246,6 +250,6 @@ class StatsView(PanelView):
         rest = sum(v for _, v in top[5:])
         sources = [{'k': k, 'v': v} for k, v in top[:5]] + ([{'k': 'Boshqa', 'v': rest}] if rest else [])
         return Response({
-            'range': rng, 'from': frm.isoformat(), 'current': current, 'previous': previous, 'unit': unit, 'series': series,
+            'range': rng, 'from': frm.isoformat(), 'current': current, 'previous': previous, 'unit': unit, 'series': series, 'prevSeries': prev_series,
             'sources': sources, 'countries': countries, 'langs': langs, 'pages': pages, 'searches': searches, 'events': events,
         })

@@ -357,6 +357,11 @@ class VersionsView(PanelView):
             return error('Ruxsat yo‘q', 403)
         params = nested_params(request.query_params)
         qs = Version.objects.filter(entity=slug).filter(where_q(params.get('where'), VERSION_FIELDS, Version))
+        if request.user.role != 'superadmin':
+            # Faqat o'zi ko'ra oladigan yozuvlarning versiyalari (masalan, ruxsati bor post turlari): `where[parent]` ga boshqa ID
+            # qo'yib, ruxsatsiz bo'limdagi (qoralama) postlar matnini o'qib bo'lmasin
+            visible = coll.scope(request, coll.model.objects.all()).values_list('pk', flat=True)
+            qs = qs.filter(entity_id__in=[str(pk) for pk in visible])
         qs = qs.order_by(*order_by(request.query_params.get('sort'), VERSION_FIELDS, ['-created_at', '-id'], Version))
         return Response(paginate(qs, request.query_params, version_out))
 

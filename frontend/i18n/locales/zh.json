@@ -54,7 +54,14 @@
     "adminPanel": "管理后台",
     "levelWrite": "可编辑",
     "levelRead": "只读",
-    "inPanel": "在管理后台中打开"
+    "inPanel": "在管理后台中打开",
+    "dash": {
+      "title": "控制台",
+      "site": "控制台（UzSWLU）",
+      "hemis": "控制台（HEMIS）",
+      "kpi": "控制台（KPI）",
+      "admin": "管理面板"
+    }
   },
   "menu": {
     "university": {
@@ -413,14 +420,14 @@
     "title": "个人后台",
     "menu": {
       "admin": "打开管理后台",
-      "tasks": "任务",
       "profile": "个人资料",
       "documents": "文档",
       "label": "个人后台",
       "dashboard": "个人后台 (UzSWLU)",
       "staffPage": "我的主页",
       "logout": "退出",
-      "news": "新闻菜单"
+      "news": "新闻菜单",
+      "kpi": "KPI 系统"
     },
     "myPage": "我的主页",
     "support": {
@@ -538,31 +545,6 @@
       "staff": "您的个人页面和联系方式。",
       "student": "学生中心。"
     },
-    "tasks": {
-      "title": "任务",
-      "desc": "分配给您的任务以及您分配给他人的任务。",
-      "mine": "分配给我的",
-      "given": "我分配的",
-      "empty": "暂无任务。",
-      "emptyGiven": "您还没有分配过任务。",
-      "add": "添加任务",
-      "who": "分配给",
-      "me": "自己",
-      "name": "任务名称",
-      "note": "备注（可选）",
-      "due": "截止日期",
-      "save": "保存",
-      "cancel": "取消",
-      "done": "已完成",
-      "reopen": "重新打开",
-      "remove": "删除",
-      "overdue": "已逾期",
-      "from": "分配人",
-      "to": "执行人",
-      "until": "截止",
-      "error": "无法保存任务，请重试。",
-      "confirm": "删除此任务？"
-    },
     "rolePanel": {
       "title": "您的面板",
       "openFaculty": "学院页面",
@@ -633,6 +615,22 @@
         "science": "学术档案",
         "docs": "文件"
       }
+    },
+    "home": {
+      "welcome": "欢迎，",
+      "noRole": "未分配管理面板角色",
+      "sections": "可访问 {n} 个栏目",
+      "noRoleHint": "您在管理面板中没有角色：只能查看控制台和 KPI 系统；其他操作（个人资料、文件、新闻）仅限有角色的员工。请联系管理员获取角色。",
+      "cards": {
+        "published": "我发布的文章",
+        "month": "本月发布",
+        "drafts": "草稿",
+        "docs": "已上传文件"
+      }
+    },
+    "noRole": {
+      "title": "您尚未被分配角色",
+      "text": "只有在管理面板中拥有角色的员工才能使用个人中心。请联系学校管理员——分配角色后请通过 HEMIS 重新登录。"
     }
   },
   "page": {

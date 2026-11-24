@@ -20,8 +20,6 @@ urlpatterns = [
     path('me/admin-link', s.MeAdminLinkView.as_view()),
     path('me/cms/<slug:slug>', cabinet.CabinetCollectionView.as_view()),
     path('me/cms/<slug:slug>/<int:pk>', cabinet.CabinetDocView.as_view()),
-    path('me/tasks', s.MeTasksView.as_view()),
-    path('me/tasks/<int:pk>', s.MeTaskDetailView.as_view()),
     path('me/documents/<str:section>', s.MeDocumentsView.as_view()),
     path('me/documents/<str:section>/<str:pk>', s.MeDocumentDetailView.as_view()),
     path('pages/<slug:slug>', v.PageView.as_view()),

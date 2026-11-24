@@ -54,7 +54,14 @@
     "adminPanel": "Admin panel",
     "levelWrite": "tahrirlaş",
     "levelRead": "köriş",
-    "inPanel": "Admin panelda oçiladi"
+    "inPanel": "Admin panelda oçiladi",
+    "dash": {
+      "title": "Dashboardlar",
+      "site": "Dashboard (UzSWLU)",
+      "hemis": "Dashboard (HEMIS)",
+      "kpi": "Dashboard (KPI)",
+      "admin": "Admin panel"
+    }
   },
   "menu": {
     "university": {
@@ -413,14 +420,14 @@
     "title": "Dashboard",
     "menu": {
       "admin": "Admin panelga oçiş",
-      "tasks": "Vazifalar",
       "profile": "Profil ma’lumotlari",
       "documents": "Hujjatlar",
       "label": "Dashboard",
       "dashboard": "Dashboard (UzSWLU)",
       "staffPage": "Staff sahifam",
       "logout": "Çiqiş",
-      "news": "Yangiliklar menyusi"
+      "news": "Yangiliklar menyusi",
+      "kpi": "KPI tizimi"
     },
     "myPage": "Mening sahifam",
     "support": {
@@ -538,31 +545,6 @@
       "staff": "Şaxsiy sahifangiz va aloqa ma’lumotlaringiz.",
       "student": "Talaba kabineti."
     },
-    "tasks": {
-      "title": "Vazifalar",
-      "desc": "Sizga berilgan vazifalar va siz bergan topşiriqlar.",
-      "mine": "Menga berilgan",
-      "given": "Men bergan",
-      "empty": "Hozirça vazifa yöq.",
-      "emptyGiven": "Hali heç kimga topşiriq bermagansiz.",
-      "add": "Vazifa qöşiş",
-      "who": "Kimga",
-      "me": "Özimga",
-      "name": "Vazifa nomi",
-      "note": "Izoh (ixtiyoriy)",
-      "due": "Muddat",
-      "save": "Saqlaş",
-      "cancel": "Bekor qiliş",
-      "done": "Bajarildi",
-      "reopen": "Qayta oçiş",
-      "remove": "Öçiriş",
-      "overdue": "Muddati ötgan",
-      "from": "Bergan",
-      "to": "Ijroçi",
-      "until": "Muddat",
-      "error": "Vazifani saqlab bölmadi, qayta urinib köring.",
-      "confirm": "Vazifa öçirilsinmi?"
-    },
     "rolePanel": {
       "title": "Sizning panelingiz",
       "openFaculty": "Fakultet sahifasi",
@@ -633,6 +615,22 @@
         "science": "Ilmiy profillar",
         "docs": "Hujjatlar"
       }
+    },
+    "home": {
+      "welcome": "Xush kelibsiz,",
+      "noRole": "Admin panelda rol berilmagan",
+      "sections": "{n} ta bölimga ruxsat",
+      "noRoleHint": "Sizga admin panelda rol berilmagan: Dashboard va KPI tizimini köra olasiz, boşqa amallar (profil, hujjatlar, yangiliklar) faqat rol egalariga. Rol olish uçun adminga murojaat qiling.",
+      "cards": {
+        "published": "Naşr qilingan postlarim",
+        "month": "Şu oy naşr qilingan",
+        "drafts": "Qoralamalar",
+        "docs": "Yuklangan hujjatlar"
+      }
+    },
+    "noRole": {
+      "title": "Sizga rol berilmagan",
+      "text": "Kabinetdan faqat admin panelda roli bor xodimlar foydalanadi. Rol olish uçun universitet administratoriga murojaat qiling — rol berilgaç HEMIS orqali qayta kiring."
     }
   },
   "page": {

@@ -3,7 +3,7 @@ from django.test import TestCase
 
 from apps.accounts.models import Role, StaffSession, User
 from apps.content.models import Post
-from tests.support import seed_preset_roles
+from tests.support import give_cabinet_role, seed_preset_roles
 
 DEAN, TEACHER = '8654', '7792'
 POSTS = '/api/me/cms/posts'
@@ -20,16 +20,18 @@ def new(title='Sinov', type_='news', **extra):
 class CabinetCmsTests(TestCase):
     def setUp(self):
         seed_preset_roles()
-        Role.objects.filter(slug='dekan').update(hemis_role='dean')
-        Role.objects.filter(slug='oqituvchi').update(hemis_role='teacher')
+        # Rolni admin beradi: hisob + rol + HEMIS ID (lavozim bo'yicha avtomatik rol yo'q)
+        self.dean_acc = give_cabinet_role(DEAN, role='dekan')
+        give_cabinet_role(TEACHER, role='oqituvchi')
 
     def post(self, path, body, who=DEAN):
         return self.client.post(path, body, content_type='application/json', **bearer(who))
 
     def test_requires_login_and_role(self):
         self.assertEqual(self.client.get(POSTS).status_code, 401)
-        Role.objects.filter(slug='dekan').update(hemis_role='')
-        self.assertEqual(self.client.get(POSTS, **bearer(DEAN)).status_code, 403)  # lavozim rolga bog'lanmagan
+        self.dean_acc.hemis_id = ''
+        self.dean_acc.save()
+        self.assertEqual(self.client.get(POSTS, **bearer(DEAN)).status_code, 403)  # admin HEMIS ID ni olib tashladi — kirish yo'q
 
     def test_dean_creates_edits_and_deletes_own_post(self):
         res = self.post(POSTS, new())

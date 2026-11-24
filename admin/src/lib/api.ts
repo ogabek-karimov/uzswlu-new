@@ -147,6 +147,8 @@ export type User = {
   lockUntil?: string | null
   loginAttempts?: number
   twoFactorEnabled?: boolean
+  /** HEMIS orqali kirish (kabinet va admin panel) — shu hisobga bog'lanadi */
+  hemisId?: string | null
   lastLogin?: string | null
   createdAt?: string
   updatedAt?: string

@@ -29,6 +29,32 @@ const ALLOWED = [
 ]
 // Rasm-belgilar (ilova logolari): kalit → rasm
 const IMAGE_ICONS: Record<string, string> = { 'app:akt-lugat': '/images/quick/akt-lugat.webp' }
+// Rangli «ilova belgisi» plitkalari (BRM va ilova logolari kabi): har xizmatga o'z rangi — gradient fon, oq belgi, rangli soya.
+// Ro'yxatda yo'q belgi — tartib bo'yicha zaxira ranglardan
+const TILE: Record<string, [string, string]> = {
+  'lucide:message-square-text': ['#7C5CFF', '#4F35D2'],
+  'lucide:graduation-cap': ['#1FB6FF', '#0A6FD6'],
+  'lucide:database': ['#14C38E', '#0A8F6B'],
+  'lucide:globe': ['#14C38E', '#0A8F6B'],
+  'lucide:mail': ['#FF8A4C', '#E8483B'],
+  'lucide:briefcase-business': ['#FFB020', '#F07A0B'],
+  'lucide:book-a': ['#FF5C8A', '#D6336C'],
+  'lucide:smartphone': ['#22C5D9', '#0E8FA3'],
+  'lucide:calendar-days': ['#8B7CF6', '#5B45E0'],
+  'lucide:file-text': ['#5B8CFF', '#2F5BDB'],
+  'lucide:library': ['#B67CFF', '#7B3FE0'],
+  'lucide:phone': ['#2DD4A0', '#0E9F74'],
+  'lucide:users': ['#FF7A59', '#E2473A'],
+  'lucide:video': ['#FF4D6D', '#C9184A'],
+  'lucide:map-pin': ['#F25C54', '#C0392B'],
+  'lucide:award': ['#FFC53D', '#E58E00'],
+  'lucide:life-buoy': ['#4CC9F0', '#3A7BD5'],
+}
+const SPARE: [string, string][] = [['#7C5CFF', '#4F35D2'], ['#1FB6FF', '#0A6FD6'], ['#14C38E', '#0A8F6B'], ['#FF8A4C', '#E8483B'], ['#FFB020', '#F07A0B']]
+function tile(icon: string, i: number) {
+  const [a, b] = TILE[icon] ?? SPARE[i % SPARE.length]!
+  return { background: `linear-gradient(140deg, ${a} 0%, ${b} 100%)`, boxShadow: `0 10px 20px -10px ${b}, inset 0 1px 0 rgb(255 255 255 / 0.35)` }
+}
 // Katta ekranda barcha nomlar bir qatorga sig'sa (≤ 18 belgi) — nom ostidagi bo'sh qator olib tashlanadi; uzunroq (ruscha) — kartalar tekis turishi uchun 2 qator joy qoladi
 const shortTitles = computed(() => links.value.every(l => (l.title ?? '').length <= 18))
 const links = computed(() => (home.value?.quickLinks ?? []).map(q => ({ ...q, icon: ALLOWED.includes(q.icon) ? q.icon : 'lucide:globe' })))
@@ -61,7 +87,7 @@ watch(links, () => nextTick(measure))
     </div>
     <div>
       <ul ref="track" class="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto overscroll-x-contain px-4 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-7" @scroll.passive="measure">
-        <li data-reveal-item v-for="link in links" :key="link.id" class="group/li min-w-[62%] shrink-0 snap-start min-[480px]:min-w-[44%] sm:min-w-0">
+        <li data-reveal-item v-for="(link, i) in links" :key="link.id" class="group/li min-w-[62%] shrink-0 snap-start min-[480px]:min-w-[44%] sm:min-w-0">
           <component
             :is="link.external ? 'a' : NuxtLink"
             v-bind="link.external ? { href: link.url, target: '_blank', rel: 'noopener' } : { to: localePath(link.url) }"
@@ -80,8 +106,10 @@ watch(links, () => nextTick(measure))
             <span v-else-if="link.icon === 'lucide:sprout'" class="relative grid size-14 place-items-center rounded-2xl bg-white shadow-[0_8px_18px_-10px_rgb(19_17_47/0.5)] ring-1 ring-line origin-bottom transition duration-300 group-hover:scale-110 group-hover:shadow-[0_12px_24px_-14px_rgb(19_17_47/0.35)] motion-reduce:transition-none motion-reduce:group-hover:transform-none">
               <NavGroupIcon id="sdg" class="size-10" />
             </span>
-            <span v-else class="relative grid size-14 place-items-center rounded-2xl bg-brand-50 text-brand-700 origin-bottom transition duration-300 group-hover:scale-110 group-hover:bg-brand-100 group-hover:shadow-[0_12px_24px_-14px_rgb(56_43_133/0.35)] motion-reduce:transition-none motion-reduce:group-hover:transform-none">
-              <Icon :name="link.icon" class="text-[34px]" />
+            <span v-else class="relative grid size-14 place-items-center overflow-hidden rounded-2xl text-white origin-bottom transition duration-300 group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:transform-none" :style="tile(link.icon, i)">
+              <!-- yuqoridan tushadigan yengil yaltiroq — ilova belgisi hissi -->
+              <span aria-hidden="true" class="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/25 to-transparent" />
+              <Icon :name="link.icon" class="relative text-[30px] drop-shadow-[0_1px_1px_rgb(0_0_0/0.15)]" />
             </span>
             <span>
               <span class="block min-h-[2lh] text-[15px] font-semibold text-ink" :class="shortTitles && 'lg:min-h-0'">{{ link.title }}</span>

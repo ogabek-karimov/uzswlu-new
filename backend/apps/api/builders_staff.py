@@ -153,6 +153,8 @@ def staff_overlay_out(hemis_id: str, lang: str) -> dict:
     p = StaffProfile.objects.filter(hemis_id=hemis_id).first()
     if not p:
         return {'hidden': False, 'about': None, 'science': []}
+    if p.hidden:  # saytdan yashirilgan xodim: matn va havolalar berilmaydi (ID ni almashtirib o'qib bo'lmasin)
+        return {'hidden': True, 'about': None, 'science': []}
     return {'hidden': p.hidden, 'about': tr(p.about, lang) or None, 'science': [s for s in p.science if s.get('url')]}
 
 

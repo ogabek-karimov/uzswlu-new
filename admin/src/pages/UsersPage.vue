@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
+import HemisPicker from '@/components/HemisPicker.vue'
 import Icon from '@/components/Icon.vue'
 import { api, ApiError, type Paginated, type User } from '@/lib/api'
 import { auth, initials } from '@/lib/auth'
@@ -11,7 +12,7 @@ const lastLogin = ref<Record<number, string>>({})
 const open = ref(false)
 const error = ref('')
 const message = ref('')
-const form = reactive({ name: '', username: '', password: '', role: 'editor', position: '', scope: '' })
+const form = reactive({ name: '', username: '', password: '', role: 'editor', position: '', scope: '', hemisId: '' })
 
 const roles = ref<RoleDoc[]>([])
 const roleOf = (slug: string) => roles.value.find(x => x.slug === slug)
@@ -42,13 +43,26 @@ async function create() {
   try {
     await api.post('/users', { ...form, status: 'active' })
     flash(`${form.name} qöşildi. Login va parolni unga xavfsiz yöl bilan bering.`)
-    Object.assign(form, { name: '', username: '', password: '', role: 'editor', position: '', scope: '' })
+    Object.assign(form, { name: '', username: '', password: '', role: 'editor', position: '', scope: '', hemisId: '' })
+    newHemisName.value = ''
     open.value = false
     await load()
   }
   catch (e) {
     error.value = e instanceof ApiError ? e.message : 'Saqlab bölmadi'
   }
+}
+
+// HEMIS ID: xodim HEMIS orqali kirganda shu hisob (va roli) ishlatiladi — kabinetga kirish ham shundan.
+// Raqam qo'lda yozilmaydi: HEMIS ro'yxatidan ism bo'yicha tanlanadi (server ham tekshiradi — HEMIS'da bormi, boshqa hisobda bandmi)
+const picker = ref<{ open: boolean; for: User | 'new' | null }>({ open: false, for: null })
+const newHemisName = ref('')
+const takenIds = () => users.value.map(u => u.hemisId).filter((x): x is string => !!x)
+function setHemis(u: User) { picker.value = { open: true, for: u } }
+async function onPick(s: { id: string; name: string } | null) {
+  const target = picker.value.for
+  if (target === 'new') { form.hemisId = s?.id ?? ''; newHemisName.value = s?.name ?? ''; return }
+  if (target) await update(target, { hemisId: s?.id ?? '' }, s ? `HEMIS boğlandi: ${s.name}` : 'HEMIS boğlaniş olib taşlandi')
 }
 
 async function remove(u: User) {
@@ -135,6 +149,14 @@ const locked = (u: User) => !!u.lockUntil && new Date(u.lockUntil).getTime() > D
             ><b class="block text-sm">{{ r.name }}</b><span class="mt-1 block text-xs leading-snug text-muted">{{ r.description }}</span></button>
           </div>
         </div>
+        <div class="sm:col-span-2">
+          <span class="label">HEMIS xodimi <span class="font-normal">(ixtiyoriy)</span></span>
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" class="btn-ghost" @click="picker = { open: true, for: 'new' }"><Icon name="search" :size="15" />{{ form.hemisId ? 'Almaştiriş' : 'HEMIS’dan tanlaş' }}</button>
+            <span v-if="form.hemisId" class="text-sm"><b>{{ newHemisName }}</b> <span class="text-muted">· ID {{ form.hemisId }}</span></span>
+          </div>
+          <p class="mt-1.5 text-xs leading-snug text-muted">Yozilsa, xodim HEMIS orqali saytdagi kabinetga va admin panelga şu rol bilan kiradi. Kabinetga faqat admin panelda roli borlar kiradi.</p>
+        </div>
         <div v-if="roleOf(form.role)?.scoped" class="sm:col-span-2"><label for="u-scope" class="label">Qaysi fakultet?</label><input id="u-scope" v-model="form.scope" class="field" placeholder="Masalan: Ingliz filologiyasi fakulteti"></div>
         <p v-if="error" class="rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-800 sm:col-span-2">{{ error }}</p>
         <div class="flex justify-end gap-2.5 sm:col-span-2">
@@ -162,7 +184,7 @@ const locked = (u: User) => !!u.lockUntil && new Date(u.lockUntil).getTime() > D
               <td class="px-5 py-3.5">
                 <span class="flex items-center gap-3">
                   <span class="grid size-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-brand-700 to-night text-[13px] font-bold text-mint" :class="u.status === 'disabled' && 'opacity-50'">{{ initials(u.name) }}</span>
-                  <span class="leading-snug"><b class="block">{{ u.name }} <span v-if="u.id === auth.user.value?.id" class="text-xs font-semibold text-mint-text">· siz</span></b><span class="text-xs text-muted">{{ u.username }}{{ u.position ? ` · ${u.position}` : '' }}</span></span>
+                  <span class="leading-snug"><b class="block">{{ u.name }} <span v-if="u.id === auth.user.value?.id" class="text-xs font-semibold text-mint-text">· siz</span></b><span class="text-xs text-muted">{{ u.username }}{{ u.position ? ` · ${u.position}` : '' }}</span><span v-if="u.hemisId" class="ml-1.5 rounded-full bg-mint/20 px-1.5 py-0.5 text-[10px] font-semibold">HEMIS {{ u.hemisId }}</span></span>
                 </span>
               </td>
               <td class="px-3.5 py-3.5">
@@ -177,6 +199,7 @@ const locked = (u: User) => !!u.lockUntil && new Date(u.lockUntil).getTime() > D
               </td>
               <td class="px-5 py-3.5 text-right whitespace-nowrap">
                 <button v-if="locked(u)" type="button" class="btn-ghost h-8! px-3! text-xs!" @click="unlock(u)">Blokdan çiqariş</button>
+                <button type="button" class="btn-ghost ml-1 h-8! px-3! text-xs!" title="HEMIS ID — xodim HEMIS orqali kabinet va admin panelga şu rol bilan kiradi" @click="setHemis(u)">HEMIS</button>
                 <button type="button" class="btn-ghost ml-1 h-8! px-3! text-xs!" @click="resetPassword(u)">Parol</button>
                 <button v-if="u.twoFactorEnabled" type="button" class="btn-ghost ml-1 h-8! px-3! text-xs!" title="Telefon yoqotilgan bölsa" @click="resetTwoFactor(u)">2FA</button>
                 <button
@@ -190,6 +213,8 @@ const locked = (u: User) => !!u.lockUntil && new Date(u.lockUntil).getTime() > D
         </table>
       </div>
     </section>
+
+    <HemisPicker v-model:open="picker.open" :taken="takenIds()" :current="picker.for && picker.for !== 'new' ? picker.for.hemisId : form.hemisId" @pick="onPick" />
 
     <div v-if="message" role="status" class="fixed right-6 bottom-6 z-50 max-w-sm rounded-2xl bg-night px-4 py-3 text-sm font-semibold text-white shadow-xl">{{ message }}</div>
   </div>

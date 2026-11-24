@@ -1,15 +1,13 @@
-"""HEMIS lavozimi → admin panel hisobi.
+"""HEMIS orqali kirgan xodim → admin panel hisobi.
 
-Superadmin «Rollar» sahifasida rolga «HEMIS roli» (dekan, kafedra mudiri, o'qituvchi, xodim) biriktiradi. Shundan keyin
-shu lavozimdagi xodim HEMIS orqali admin panelga kirganda hisob o'zi yaratiladi (parolsiz) va har kirishda lavozim/doira
-HEMIS bo'yicha yangilanadi. Qo'lda yaratilgan (HEMIS ID biriktirilgan) hisoblarga tegilmaydi.
-
-Xavfsizlik: avtomatik hisob faqat tizim bo'lmagan rolni oladi (superadmin hech qachon); doirali rolda doira HEMIS'dan topilmasa
-hisob hech narsani o'zgartira olmaydi (`in_scope`); lavozim bog'lanishi o'chsa hisob yopiladi va o'zi qayta yoqilmaydi."""
+Rolni FAQAT admin beradi: Foydalanuvchilar sahifasida hisob yaratadi, rol tanlaydi va HEMIS ID yozadi. Shu xodim HEMIS orqali
+kirganda shu hisob (va roli) ishlatiladi — admin panelga ham, saytdagi kabinetga ham. HEMIS lavozimi (dekan, mudir, o'qituvchi)
+hech qanday rol yoki kirish huquqi bermaydi; HEMIS'dan faqat ism, lavozim va bo'lim nomi yangilanadi.
+(Avvalgi «HEMIS roli» — lavozim bo'yicha avtomatik rol berish — accounts.0011 bilan olib tashlangan.)"""
 from django.utils import timezone
 
-from apps.accounts.models import Role, User
-from apps.accounts.roles import permissions_of, permissions_of_role, role_obj
+from apps.accounts.models import User
+from apps.accounts.roles import permissions_of, role_obj
 
 
 def _context(hemis_id: str):
@@ -23,82 +21,43 @@ def _context(hemis_id: str):
     return person, role, emp
 
 
-def _scope(role: str, emp: dict | None) -> str:
-    """Doirali rol uchun fakultet manzili (slug): dekan — o'z fakulteti, kafedra mudiri — kafedrasi kirgan fakultet."""
-    from apps.api.cabinet_roles import _dept_name, _faculty_for, _norm
-    from apps.hemis import get_client
-
-    if role == 'dean':
-        return (_faculty_for(emp) or {}).get('slug') or ''
-    dept = _norm(_dept_name(emp))
-    if not dept:
-        return ''
-    for f in get_client().faculties():
-        for d in f.get('departments') or []:
-            if dept in {_norm((d.get('name') or {}).get(lang)) for lang in ('uz', 'ru', 'en', 'zh')}:
-                return f.get('slug') or ''
-    return ''
-
-
-def mapped_role(hemis_role: str) -> Role | None:
-    return Role.objects.filter(hemis_role=hemis_role, system=False).first() if hemis_role else None
+def account(hemis_id: str) -> User | None:
+    """Admin bergan faol hisob (HEMIS ID bo'yicha) yoki None."""
+    return User.objects.filter(hemis_id=str(hemis_id)).exclude(hemis_id='').exclude(status='disabled').first()
 
 
 def panel_access(hemis_id: str):
     """Shu xodim admin panelga kira oladimi va nimalarga: (rol nomi, {bo'lim: daraja}) yoki None. Hech narsa yozmaydi.
     Saytdagi kabinet tugmasi va profil menyusi («Mening bo'limlarim») shundan foydalanadi."""
-    existing = User.objects.filter(hemis_id=str(hemis_id)).first()
-    if existing and not existing.hemis_auto:
-        if existing.status == 'disabled':
-            return None
-        r = role_obj(existing)
-        return (r.name if r else existing.role), permissions_of(existing)
-    ctx = _context(hemis_id)
-    role = mapped_role(ctx[1]) if ctx else None
-    if not role or (existing and existing.status == 'disabled'):
+    user = account(hemis_id)
+    if not user:
         return None
-    return role.name, permissions_of_role(role)
+    r = role_obj(user)
+    return (r.name if r else user.role), permissions_of(user)
+
+
+def cabinet_allowed(hemis_id: str) -> bool:
+    """Saytdagi kabinetga kirish: faqat admin HEMIS ID biriktirgan faol hisob egasi. Keshlanmaydi — hisob yopilsa yoki HEMIS ID
+    olib tashlansa darhol yopiladi."""
+    return account(hemis_id) is not None
 
 
 def eligible(hemis_id: str) -> bool:
     """Shu xodim admin panelga kira oladimi (kabinetda «Admin panel» tugmasi uchun) — hech narsa yozmaydi."""
-    return panel_access(hemis_id) is not None
+    return account(hemis_id) is not None
 
 
 def provision(hemis_id: str, name: str = '') -> User | None:
-    """Admin panelga kirish uchun hisobni topadi/yaratadi/yangilaydi; ruxsat bo'lmasa None."""
-    hemis_id = str(hemis_id)
-    existing = User.objects.filter(hemis_id=hemis_id).first()
-    if existing and not existing.hemis_auto:
-        if existing.status == 'disabled':
-            return None
-        # Qo'lda tayinlangan: roli o'zgarmaydi, faqat profil HEMIS'dan yangilanadi
-        ctx = _context(hemis_id)
-        if ctx:
-            existing.name = (name or ctx[0].get('name') or existing.name)[:200]
-            existing.position = (((ctx[2] or {}).get('position') or {}).get('name') or existing.position)[:200]
-            existing.department = (((ctx[2] or {}).get('department') or {}).get('name') or existing.department)[:200]
-        existing.status, existing.last_login = 'active', timezone.now()
-        existing.save()
-        return existing
-    ctx = _context(hemis_id)
-    role = mapped_role(ctx[1]) if ctx else None
-    if not ctx or not role:
-        if existing and existing.status != 'disabled':
-            existing.status = 'disabled'  # lavozim bog'lanishi yo'q — kirish yopiladi (o'zi qayta yoqilmaydi)
-            existing.save(update_fields=['status'])
+    """HEMIS orqali kirish: admin bergan hisobni topadi va ism/lavozim/bo'limni HEMIS'dan yangilaydi (roli o'zgarmaydi).
+    Hisob bo'lmasa yoki yopilgan bo'lsa — None (hisob o'zi yaratilmaydi)."""
+    user = account(hemis_id)
+    if not user:
         return None
-    if existing and existing.status == 'disabled':
-        return None
-    person, hemis_role, emp = ctx
-    user = existing or User(username=f'hemis-{hemis_id}', hemis_id=hemis_id, hemis_auto=True)
-    if not existing:
-        user.set_unusable_password()
-    user.name = (name or person.get('name') or user.name or hemis_id)[:200]
-    user.position = (((emp or {}).get('position') or {}).get('name') or '')[:200]
-    user.department = (((emp or {}).get('department') or {}).get('name') or '')[:200]
-    user.role = role.slug
-    user.scope = _scope(hemis_role, emp) if role.scoped else ''
-    user.status, user.last_login = 'active', timezone.now()
+    ctx = _context(str(hemis_id))
+    if ctx:
+        user.name = (name or ctx[0].get('name') or user.name)[:200]
+        user.position = (((ctx[2] or {}).get('position') or {}).get('name') or user.position)[:200]
+        user.department = (((ctx[2] or {}).get('department') or {}).get('name') or user.department)[:200]
+    user.last_login = timezone.now()
     user.save()
     return user

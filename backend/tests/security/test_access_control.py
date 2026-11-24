@@ -3,7 +3,7 @@
 from django.test import Client, override_settings
 from apps.accounts.models import StaffSession, User
 from apps.structure.models import Department, StaffDocument
-from tests.support import HOST, Base, api, jwt_for, seed_faculty_role
+from tests.support import HOST, Base, api, give_cabinet_role, jwt_for, seed_faculty_role
 
 
 class ObjectLevelAccessTests(Base):
@@ -86,6 +86,7 @@ class CabinetIsolationTests(Base):
 
     def setUp(self):
         super().setUp()
+        give_cabinet_role('1001'), give_cabinet_role('1002')  # kabinet — faqat admin paneldagi rol egalariga
         self.tok_a, self.tok_b = StaffSession.issue('1001'), StaffSession.issue('1002')
         self.doc_b = StaffDocument.objects.create(hemis_id='1002', section='articles', title={'uz': 'B maqolasi'}, url='https://example.org/b')
         self.doc_a = StaffDocument.objects.create(hemis_id='1001', section='articles', title={'uz': 'A maqolasi'}, url='https://example.org/a')

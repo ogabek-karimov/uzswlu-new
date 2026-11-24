@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CabinetAdminLink, CabinetTasks, CabinetDocSection, CabinetPatch, StaffCabinet, StaffContactType, StaffDocSection, StaffNetwork, StaffScienceNetwork } from '#shared/types/api'
+import type { CabinetAdminLink, CabinetDocSection, CabinetPatch, StaffCabinet, StaffContactType, StaffDocSection, StaffNetwork, StaffScienceNetwork } from '#shared/types/api'
 
 // Xodim kabineti (oldingi saytdagi /site/dashboard ning yakuniy holati asosida).
 // HEMIS (my.gov) orqali kirgan xodim o'z Staff sahifasidagi ma'lumotlarni shu yerda qo'shadi va o'zgartiradi;
@@ -24,27 +24,36 @@ const staffUrl = computed(() => (person.value ? `${requestUrl.origin}${localePat
 const POST_TYPES = ['news', 'announcements', 'events'] as const
 const BASE_SECTIONS = [
   { key: 'overview', icon: 'lucide:layout-grid', label: 'dashboard' },
-  { key: 'tasks', icon: 'lucide:list-checks', label: 'tasks' },
   { key: 'profile', icon: 'lucide:user-pen', label: 'profile' },
   { key: 'documents', icon: 'lucide:folder-open', label: 'documents' },
 ] as const
 const NEWS_SECTION = { key: 'news', icon: 'lucide:newspaper', label: 'news' } as const
 type SectionKey = typeof BASE_SECTIONS[number]['key'] | typeof NEWS_SECTION['key']
 const route = useRoute()
-const { data: tasks } = await useFetch<CabinetTasks>('/api/me/tasks', { key: 'cabinet-tasks', default: () => ({ mine: [], given: [], assignees: [] }) })
-const openTasks = computed(() => tasks.value.mine.filter(x => x.status === 'open').length)
 
-// «Admin panel»: xodimning admin hisobi bo'lsa (yoki lavozimi rolga bog'langan bo'lsa) tugma chiqadi; havola 60 soniyalik, bir martalik (bosilganda olinadi)
+// «Admin panel»: xodimning admin hisobi bo'lsa (admin bergan rol + HEMIS ID) tugma chiqadi; havola 60 soniyalik, bir martalik (bosilganda olinadi)
 const { data: adminLink } = await useFetch<CabinetAdminLink>('/api/me/admin-link', { query: { list: 1 }, key: 'cabinet-admin-link', default: () => ({ available: false, url: null, role: null, sections: [] }) })
 const postTypes = computed(() => POST_TYPES.filter(k => adminLink.value.sections.some(s => s.key === k && s.level === 'write')))
-const SECTIONS = computed(() => (postTypes.value.length ? [...BASE_SECTIONS, NEWS_SECTION] : [...BASE_SECTIONS]))
+// Rolsiz xodim (HEMIS lavozimi saytda rol bermaydi): faqat Dashboard ko'rinadi va qo'shimcha KPI; hech narsani o'zgartira olmaydi
+const hasRole = computed(() => cabinet.value?.hasRole !== false)
+const SECTIONS = computed(() => (!hasRole.value ? [BASE_SECTIONS[0]] : postTypes.value.length ? [...BASE_SECTIONS, NEWS_SECTION] : [...BASE_SECTIONS]))
+const KPI_URL = 'https://kpi.uzswlu.uz'
 const view = computed<SectionKey>(() => SECTIONS.value.find(s => s.key === route.query.bolim)?.key ?? 'overview')
 const openingAdmin = ref(false)
+// Admin panel shu oynaning YONIDAGI yangi tabda ochiladi, kabinet tabi o'z joyida qoladi. Tab bosish paytida ochiladi —
+// brauzer uni bloklamasin; bir martalik havola kelgach o'sha tabga yuklanadi. Kelmasa — tab yopiladi
 async function openAdmin() {
   openingAdmin.value = true
+  const win = window.open('', '_blank')
+  if (win) win.opener = null
   try {
     const link = await $fetch<CabinetAdminLink>('/api/me/admin-link')
-    if (link.url) window.location.assign(link.url)
+    if (link.url && win) win.location.href = link.url
+    else if (link.url) window.location.assign(link.url) // brauzer yangi oynani bloklagan bo'lsa — shu oynada
+    else win?.close()
+  }
+  catch {
+    win?.close()
   }
   finally {
     openingAdmin.value = false
@@ -130,7 +139,15 @@ const menuClass = 'flex items-center gap-3 rounded-[14px] px-3.5 py-3 font-mediu
     <!-- Kirilmagan (backend 401) -->
     <section v-if="error || !cabinet || !person" class="mx-auto max-w-3xl px-4 py-24 text-center sm:px-6">
       <span class="mx-auto grid size-16 place-items-center rounded-2xl bg-brand-50 text-brand-700"><Icon name="lucide:lock" class="size-7" /></span>
-      <p class="mt-6 text-lg text-muted">{{ t('cabinet.error') }}</p>
+      <!-- 403 — HEMIS orqali kirgan, lekin admin panelda roli yo'q: kabinet faqat rol egalariga -->
+      <template v-if="error?.statusCode === 403">
+        <h1 class="mt-6 text-2xl font-bold text-ink">{{ t('cabinet.noRole.title') }}</h1>
+        <p class="mx-auto mt-3 max-w-xl leading-relaxed text-muted">{{ t('cabinet.noRole.text') }}</p>
+        <NuxtLink :to="localePath('/aloqa')" class="mt-6 inline-flex h-12 items-center gap-2 rounded-full bg-brand-800 px-6 font-semibold text-white hover:bg-brand-900">
+          {{ t('cabinet.support.link') }}<Icon name="lucide:arrow-up-right" class="size-4" />
+        </NuxtLink>
+      </template>
+      <p v-else class="mt-6 text-lg text-muted">{{ t('cabinet.error') }}</p>
     </section>
 
     <section v-else class="mx-auto flex max-w-7xl flex-col gap-7 px-4 pt-7 pb-24 sm:px-6 lg:flex-row lg:items-start lg:px-8">
@@ -138,7 +155,7 @@ const menuClass = 'flex items-center gap-3 rounded-[14px] px-3.5 py-3 font-mediu
       <div class="flex flex-col gap-5 lg:w-[380px] lg:shrink-0">
         <StaffProfileCard
           :person="person"
-          editable-photo
+          :editable-photo="hasRole"
           :has-own-photo="cabinet.hasOwnPhoto"
           :busy="photoBusy"
           @photo="uploadPhoto"
@@ -179,13 +196,18 @@ const menuClass = 'flex items-center gap-3 rounded-[14px] px-3.5 py-3 font-mediu
           >
             <Icon :name="s.icon" class="size-5" />
             {{ t(`cabinet.menu.${s.label}`) }}
-            <span v-if="s.key === 'tasks' && openTasks" class="ml-auto rounded-full bg-accent-400 px-2 py-0.5 text-xs font-bold text-ink">{{ openTasks }}</span>
           </NuxtLink>
           <button v-if="adminLink.available" type="button" :disabled="openingAdmin" :class="[menuClass, 'mt-1 w-full text-left']" @click="openAdmin">
             <Icon name="lucide:shield-check" class="size-5" />
             {{ t('cabinet.menu.admin') }}
+            <Icon name="lucide:arrow-up-right" class="ml-auto size-4 text-muted" />
           </button>
-          <NuxtLink :to="localePath(`/teacher/${person.id}`)" :class="[menuClass, 'mt-1']">
+          <a :href="KPI_URL" rel="noopener" :class="[menuClass, 'mt-1']">
+            <Icon name="lucide:gauge" class="size-5" />
+            {{ t('cabinet.menu.kpi') }}
+            <Icon name="lucide:arrow-up-right" class="ml-auto size-4 text-muted" />
+          </a>
+          <NuxtLink v-if="hasRole" :to="localePath(`/teacher/${person.id}`)" :class="[menuClass, 'mt-1']">
             <Icon name="lucide:id-card" class="size-5" />
             {{ t('cabinet.menu.staffPage') }}
           </NuxtLink>
@@ -222,10 +244,10 @@ const menuClass = 'flex items-center gap-3 rounded-[14px] px-3.5 py-3 font-mediu
         <p v-if="failed" role="alert" class="rounded-2xl bg-[#fdecec] px-5 py-3 text-[#8e1b1b]">{{ t('cabinet.error') }}</p>
 
         <template v-if="view === 'overview'">
-          <CabinetRolePanel v-if="cabinet.panel" :role="cabinet.role" :panel="cabinet.panel" :person-id="person.id" />
+          <!-- Rolga mos panel: admin paneldagi rol bo'yicha (HEMIS lavozimi — dekan/mudir/o'qituvchi — bu yerda ishlatilmaydi) -->
+          <CabinetHomePanel :cabinet="cabinet" :admin="adminLink" :has-role="hasRole" />
           <CabinetHemisCard :cabinet="cabinet" />
         </template>
-        <CabinetTasks v-else-if="view === 'tasks'" />
         <CabinetPosts v-else-if="view === 'news'" :types="[...postTypes]" />
         <template v-else-if="view === 'profile'">
           <CabinetProfileOverview :cabinet="cabinet" :admin="adminLink" />

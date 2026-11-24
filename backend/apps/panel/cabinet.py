@@ -1,7 +1,7 @@
 """Xodim kabineti → admin panel ko'prigi: sayt ichidagi kabinetdan turib rolga ruxsat etilgan ma'lumotlar bilan ishlash.
 
-Xodim HEMIS orqali kirgan (StaffSession). Ko'prik uning admin hisobini topadi (kerak bo'lsa `access.provision` yaratadi — bu hisob
-faqat superadmin lavozimni rolga bog'lagan bo'lsa bo'ladi) va panelning o'sha `CollectionView`/`DocView` kodini ishlatadi: shuning uchun
+Xodim HEMIS orqali kirgan (StaffSession). Ko'prik uning admin hisobini topadi (`access.provision` — faqat admin rol va HEMIS ID
+bergan hisob; o'zi yaratilmaydi) va panelning o'sha `CollectionView`/`DocView` kodini ishlatadi: shuning uchun
 ruxsatlar (bo'lim × o'qish/yozish), fakultet doirasi, «faqat o'zi yozgan postni tahrirlaydi», versiyalar va faollik jurnali admin paneldagi bilan
 BIR XIL. Faqat `CABINET_SLUGS`; ommaviy (where bo'yicha) amallar yo'q; media — faqat yuklash (kutubxonani ko'rish yo'q).
 Brauzer bevosita API'ga emas, Nuxt server qatlamiga murojaat qiladi (u sessiyani Bearer sifatida uzatadi) — shuning uchun CSRF xavfi yo'q."""
@@ -21,7 +21,7 @@ ACCOUNT_TTL = 60  # soniya: lavozim/rol o'zgarishi shuncha vaqtda kuchga kiradi 
 
 
 def account_of(hemis_id: str) -> User | None:
-    """Xodimning admin hisobi (yo'q bo'lsa — lavozimga bog'langan rol bo'yicha yaratadi); ruxsat bo'lmasa None."""
+    """Xodimning admin hisobi (admin HEMIS ID biriktirgan); bo'lmasa yoki yopilgan bo'lsa None."""
     hemis_id = str(hemis_id)
     key = f'cabinet-account:{hemis_id}'
     pk = cache.get(key)

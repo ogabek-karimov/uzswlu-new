@@ -90,17 +90,11 @@ class RoleTests(PanelBase):
         self.assertEqual(doc['name'], 'Bosh admin')
         self.assertEqual(doc['permissions']['news'], 'write')  # superadmin hamma narsaga yozadi — o'zgartirib bo'lmaydi
 
-    def test_hemis_role_link_rules(self):
+    def test_hemis_role_mapping_is_gone(self):
+        # Lavozim bo'yicha avtomatik rol yo'q: hemisRole qabul qilinmaydi va javobda chiqmaydi (rolni faqat admin beradi)
         r = self.send('post', '/api/cms/roles', {'name': 'Dekan 2', 'hemisRole': 'dean', 'permissions': {'news': 'write'}})
         self.assertEqual(r.status_code, 201, r.content[:200])
-        self.assertEqual(self.j(r)['doc']['hemisRole'], 'dean')
-        # bir HEMIS roli faqat bitta rolga bog'lanadi, noma'lum qiymat rad etiladi
-        self.assertEqual(self.send('post', '/api/cms/roles', {'name': 'Dekan 3', 'hemisRole': 'dean'}).status_code, 400)
-        self.assertEqual(self.send('post', '/api/cms/roles', {'name': 'Boshqa', 'hemisRole': 'rector'}).status_code, 400)
-        # tizim roliga (superadmin) HEMIS roli biriktirilmaydi
-        sa = next(x for x in self.j(self.client.get('/api/cms/roles?limit=50'))['docs'] if x['slug'] == 'superadmin')
-        self.send('patch', f'/api/cms/roles/{sa["id"]}', {'hemisRole': 'staff'})
-        self.assertIsNone(self.j(self.client.get(f'/api/cms/roles/{sa["id"]}'))['hemisRole'])
+        self.assertNotIn('hemisRole', self.j(r)['doc'])
 
 
 class NoPresetRolesTests(PanelBase):

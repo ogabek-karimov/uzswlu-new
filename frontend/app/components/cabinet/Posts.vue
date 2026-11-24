@@ -71,6 +71,8 @@ function open(doc: CabinetPostDoc | 'new') {
   form.cover = p?.cover ? { id: p.cover.id, url: p.cover.url } : null
   editing.value = doc
 }
+// Kabinet bosh sahifasidagi «Yangi yangilik/e'lon/tadbir» tezkor amali: ?yangi=1 — forma darhol ochiladi
+onMounted(() => { if (route.query.yangi) open('new') })
 const richWarning = computed(() => editing.value && editing.value !== 'new' && LANGS.some(l => isRich(orig.body[l])))
 
 const errMessage = (e: unknown) => (e as { data?: { data?: { message?: string } } })?.data?.data?.message || t('cabinet.posts.error')

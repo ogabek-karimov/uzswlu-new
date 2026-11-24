@@ -83,3 +83,9 @@ class SeededTestCase(TestCase):
     def setUp(self):
         cache.clear()
         self.client = Client(**HOST)
+
+
+def give_cabinet_role(hemis_id: str, role: str = 'editor'):
+    """Kabinetga faqat admin panelda roli bor xodim kiradi: sinov xodimiga qo'lda admin hisob (HEMIS ID bilan) beradi."""
+    from apps.accounts.models import User
+    return User.objects.get_or_create(hemis_id=str(hemis_id), defaults={'username': f'staff{hemis_id}', 'name': f'Xodim {hemis_id}', 'role': role})[0]
