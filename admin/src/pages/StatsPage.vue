@@ -125,7 +125,7 @@ const empty = computed(() => !!data.value && !data.value.current.pageviews)
     <section class="card px-5 py-[18px]">
       <div class="flex flex-wrap items-center justify-between gap-3">
         <h2 class="text-base font-bold">Taşriflar va sahifa körişlari</h2>
-        <span class="text-xs text-muted">Nuqta ustiga keling — kun bo‘yiça batafsil</span>
+        <span class="text-xs text-muted">Ustun ustiga keling — batafsil</span>
       </div>
       <TrafficChart class="mt-3" :points="points" :prev-label="prevLabel" />
     </section>
