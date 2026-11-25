@@ -6,12 +6,18 @@ import CamerasField from '@/components/CamerasField.vue'
 import Icon from '@/components/Icon.vue'
 import { api, type I18n, type Paginated } from '@/lib/api'
 import { type Camera, camerasHtml, cameraUrl, parseCameras, stripCameras } from '@/lib/cameras'
-import { LANGS, SITE_URL } from '@/lib/constants'
+import { LANGS, type Lang, SITE_URL } from '@/lib/constants'
 
 type PageDoc = { id: number; slug?: string | null; body?: I18n }
 const SLUG = 'online-translatsiya'
 const page = ref<PageDoc | null>(null)
 const cameras = ref<Camera[]>([])
+// Saytdagi qisqa tavsif (kameralar ustidagi matn), 4 tilda
+const desc = ref<Record<string, string>>({})
+const lang = ref<Lang>('uz')
+const toText = (h: string) => stripCameras(h).replace(/<\/p>\s*<p[^>]*>/g, '\n').replace(/<br\s*\/?>/g, '\n').replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').trim()
+const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+const toHtml = (t: string) => (t ?? '').split(/\n+/).map(x => x.trim()).filter(Boolean).map(x => `<p>${esc(x)}</p>`).join('')
 const loading = ref(true)
 const saving = ref(false)
 const error = ref('')
@@ -19,11 +25,15 @@ const saved = ref(false)
 const initial = ref('[]')
 // Faqat to'liq kiritilgan (nomi + tögri havola) kameralar hisoblanadi — yangi böş qator «özgariş» emas
 const ready = computed(() => cameras.value.filter(c => c.name.trim() && cameraUrl(c.url)))
-const snap = () => JSON.stringify(ready.value.map(c => [c.name.trim(), cameraUrl(c.url), c.hidden]))
+const snap = () => JSON.stringify([ready.value.map(c => [c.name.trim(), cameraUrl(c.url), c.hidden]), LANGS.map(l => (desc.value[l.code] ?? '').trim())])
 const dirty = computed(() => !loading.value && snap() !== initial.value)
 const shown = computed(() => ready.value.filter(c => !c.hidden).length)
 let savedTimer: ReturnType<typeof setTimeout> | undefined
-function reset() { cameras.value = JSON.parse(initial.value).map(([name, url, hidden]: [string, string, boolean]) => ({ name, url, hidden })) }
+function reset() {
+  const [cams, texts] = JSON.parse(initial.value) as [[string, string, boolean][], string[]]
+  cameras.value = cams.map(([name, url, hidden]) => ({ name, url, hidden }))
+  desc.value = Object.fromEntries(LANGS.map((l, i) => [l.code, texts[i] ?? '']))
+}
 const warn = (e: BeforeUnloadEvent) => { if (dirty.value) e.preventDefault() }
 onMounted(() => window.addEventListener('beforeunload', warn))
 onBeforeUnmount(() => { window.removeEventListener('beforeunload', warn); clearTimeout(savedTimer) })
@@ -37,6 +47,7 @@ async function load() {
     page.value = docs.find(p => p.slug === SLUG) ?? null
     const body = page.value?.body ?? {}
     cameras.value = parseCameras(LANGS.map(l => body[l.code] ?? '').find(h => parseCameras(h).length) ?? '')
+    desc.value = Object.fromEntries(LANGS.map(l => [l.code, toText(body[l.code] ?? '')]))
     initial.value = snap()
   } catch (e) {
     error.value = (e as Error).message
@@ -54,7 +65,7 @@ async function save() {
   try {
     const body = page.value.body ?? {}
     const cams = camerasHtml(cameras.value)
-    const next = Object.fromEntries(LANGS.map(l => [l.code, stripCameras(body[l.code] ?? '') + cams])) as I18n
+    const next = Object.fromEntries(LANGS.map(l => [l.code, toHtml(desc.value[l.code] ?? '') + cams])) as I18n
     await api.patch(`/pages/${page.value.id}`, { body: next }, { depth: 0 })
     page.value.body = next
     cameras.value = parseCameras(cams)
@@ -99,7 +110,18 @@ onMounted(load)
     <p v-if="error" role="alert" class="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{{ error }}</p>
     <p v-if="loading" class="text-sm text-muted">Yuklanmoqda…</p>
     <p v-else-if="!page" class="text-sm text-muted">«Online translatsiya» sahifasi topilmadi.</p>
-    <div v-else class="max-w-4xl rounded-2xl bg-white p-5"><CamerasField v-model="cameras" bare /></div>
+    <template v-else>
+      <div class="max-w-4xl rounded-2xl bg-white p-5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <label :for="`cam-desc-${lang}`" class="label mb-0!">Saytdagi qisqa tavsif <span class="font-normal">— kameralar ustida körinadi</span></label>
+          <div role="tablist" aria-label="Til" class="flex gap-1">
+            <button v-for="l in LANGS" :key="l.code" type="button" role="tab" :aria-selected="lang === l.code" class="h-7 min-w-[38px] rounded-lg px-2 text-[11px] font-bold" :class="lang === l.code ? 'bg-ink text-white' : 'border border-field bg-white text-muted'" @click="lang = l.code">{{ l.short }}<span v-if="!(desc[l.code] ?? '').trim()" class="ml-0.5 text-orange-500" aria-label="böş">•</span></button>
+          </div>
+        </div>
+        <textarea :id="`cam-desc-${lang}`" v-model="desc[lang]" rows="3" class="field mt-2.5 h-auto! py-2.5 leading-relaxed" :placeholder="`Masalan: Auditoriyalardagi darslarni onlayn kuzatiş… (${lang})`" />
+      </div>
+      <div class="max-w-4xl rounded-2xl bg-white p-5"><CamerasField v-model="cameras" bare /></div>
+    </template>
 
   </div>
 </template>

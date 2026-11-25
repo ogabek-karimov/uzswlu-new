@@ -172,7 +172,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
     @mouseleave="scheduleClose"
   >
     <!-- 1-qator: logo, qidiruv, amallar -->
-    <div class="mx-auto flex h-[72px] max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8" @mouseenter="scheduleClose">
+    <div class="mx-auto flex h-[72px] max-w-7xl items-center gap-2 px-4 sm:gap-4 sm:px-6 lg:px-8" @mouseenter="scheduleClose">
       <NuxtLink :to="localePath('/')" class="flex shrink-0 items-center gap-3" :aria-label="t('university.name')">
         <BrandMark class="size-12" />
         <span class="text-[15px] font-semibold text-ink sm:hidden">{{ t('university.short') }}</span>
@@ -201,7 +201,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
         </div>
       </form>
 
-      <div class="ml-auto flex items-center gap-1.5 xl:ml-0">
+      <div class="ml-auto flex items-center gap-0.5 sm:gap-1.5 xl:ml-0">
         <!-- «Filologiya masalalari» ilmiy jurnali (eski saytda chap paneldagi «FM» belgisi) -->
         <a
           :href="JOURNAL.url"

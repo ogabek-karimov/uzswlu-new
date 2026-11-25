@@ -95,7 +95,7 @@ useSeo({
       <aside class="order-2 lg:sticky lg:top-36 lg:order-1 lg:w-[320px] lg:shrink-0">
         <nav class="side-nav" :aria-label="t('sdg.goal.goals')">
           <p class="side-nav-title"><Icon name="lucide:target" class="text-[15px]" />{{ t('sdg.goal.goals') }}</p>
-          <ul class="grid gap-1 sm:grid-cols-2 lg:grid-cols-1">
+          <ul class="grid grid-cols-1 gap-1 sm:grid-cols-2 lg:grid-cols-1">
             <li v-for="g in goals" :key="g.n">
               <NuxtLink
                 :to="localePath(g.url)"

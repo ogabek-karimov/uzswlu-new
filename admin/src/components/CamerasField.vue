@@ -57,9 +57,9 @@ function removeCam(i: number, sure = false) {
   <ul class="mt-2.5 flex flex-col gap-2">
     <li v-for="(c, i) in list" :key="i" class="flex flex-wrap items-center gap-2 rounded-lg border border-line p-2" :class="c.hidden && 'bg-canvas'">
       <button type="button" class="grid size-8 shrink-0 place-items-center rounded-lg" :class="c.hidden ? 'text-orange-600' : 'text-brand-700'" :aria-pressed="c.hidden" :title="c.hidden ? 'Yaşirin — körsatiş' : 'Saytda körinadi — yaşiriş'" :aria-label="`${c.name || 'Kamera'}: ${c.hidden ? 'körsatiş' : 'yaşiriş'}`" @click="toggleCam(i)"><Icon :name="c.hidden ? 'eye-off' : 'eye'" :size="16" /></button>
-      <input v-model="c.name" class="field w-28! shrink-0" aria-label="Kamera nomi" placeholder="A-411">
-      <input :value="c.url" class="field min-w-0 flex-1" aria-label="Havola yoki iframe kodi" placeholder="https://rtsp.ru/embed/… yoki <iframe …> kodi" @change="e => (c.url = cameraUrl((e.target as HTMLInputElement).value) || (e.target as HTMLInputElement).value)">
-      <span v-if="c.url && !cameraUrl(c.url)" class="w-full text-xs text-red-700">Havola rtsp.ru/embed/… bölişi kerak — bu kamera saqlanmaydi.</span>
+      <input v-model="c.name" class="field min-w-0 flex-1 sm:w-28! sm:flex-none" aria-label="Kamera nomi" placeholder="A-411">
+      <input :value="c.url" class="field order-last w-full min-w-0 sm:order-none sm:w-auto sm:flex-1" aria-label="Havola yoki iframe kodi" placeholder="https://rtsp.ru/embed/… yoki <iframe …> kodi" @change="e => (c.url = cameraUrl((e.target as HTMLInputElement).value) || (e.target as HTMLInputElement).value)">
+      <span v-if="c.url && !cameraUrl(c.url)" class="order-last w-full text-xs text-red-700">Havola rtsp.ru/embed/… bölişi kerak — bu kamera saqlanmaydi.</span>
       <button type="button" class="grid size-8 shrink-0 place-items-center rounded-lg text-subtle hover:bg-red-50 hover:text-red-700" :aria-label="`${c.name || 'Kamera'}ni öçiriş`" @click="removeCam(i)"><Icon name="trash" :size="14" /></button>
     </li>
   </ul>
