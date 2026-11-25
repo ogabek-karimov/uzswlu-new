@@ -3,7 +3,7 @@ from pathlib import Path
 from django.core.management.base import BaseCommand
 
 from apps.core.models import Media
-from apps.pages.activity_seed import BRM_FILES, FILES, seed_files, seed_goal_files, seed_goals, seed_pages
+from apps.pages.activity_seed import BRM_FILES, FILES, seed_files, seed_goal_files, seed_goals, seed_nizom, seed_pages
 from apps.pages.models import Page, PageAttachment, SdgGoal, SdgGoalReport, SdgSection
 
 
@@ -20,4 +20,5 @@ class Command(BaseCommand):
         if part == 3:
             seed_goals(SdgGoal, SdgSection)
             n += seed_goal_files(SdgGoal, SdgGoalReport, Media, BRM_FILES)
+            n += seed_nizom(Page, Media)
         self.stdout.write(self.style.SUCCESS(f'{n} ta PDF ulandi'))

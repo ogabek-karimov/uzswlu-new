@@ -103,3 +103,21 @@ def seed_goal_files(SdgGoal, SdgGoalReport, Media, files: Path = BRM_FILES) -> i
             SdgGoalReport.objects.create(goal=g, file=m, url='', title=title, meta={}, display='open', order=n, section=key)
             added += 1
     return added
+
+
+# ─── Universitet nizomi: menyudagi havola eski saytdagi PDF'ga olib borardi — fayl o'zimizga ───────────────
+NIZOM = DATA / 'files-large' / 'docs' / 'ozdjtu-nizomi.pdf'
+
+
+def seed_nizom(Page, Media, path: Path = NIZOM) -> bool:
+    p = Page.objects.filter(template='link', file__isnull=True, url__icontains='nizomi.pdf').first()
+    if not p or not path.exists():
+        return False
+    with path.open('rb') as fh:
+        size = path.stat().st_size
+        m = Media(folder='docs', kind='pdf', filesize=size, original_size=size, alt={}, sizes={})
+        m.file.save('ozdjtu-nizomi.pdf', File(fh, name='ozdjtu-nizomi.pdf'), save=False)
+        m.save()
+    p.file, p.url = m, ''
+    p.save(update_fields=['file', 'url'])
+    return True
