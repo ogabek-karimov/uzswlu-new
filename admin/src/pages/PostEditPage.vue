@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue'
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 import AlphabetButton from '@/components/AlphabetButton.vue'
 import Icon from '@/components/Icon.vue'
@@ -15,6 +15,7 @@ import { trackUnsaved } from '@/lib/session'
 import { LANGS, type Lang, POST_TYPES, type PostType, SITE_URL } from '@/lib/constants'
 import { dateTime, fromInputs, longDateTime, toInputs } from '@/lib/format'
 import { type Attachment, langFill, type Post, postState, STATE_BADGE } from '@/lib/posts'
+import { detectPostDate } from '@/lib/textdate'
 
 const route = useRoute()
 const router = useRouter()
@@ -47,7 +48,9 @@ const authorName = ref(auth.user.value?.name ?? '')
 const authorRole = ref(auth.user.value?.position ?? '')
 const lang = ref<Lang>('uz')
 const categories = ref<Category[]>([])
-const when = ref<'now' | 'custom'>('now')
+// Qaçon naşr: hozir · matndagi sana (matndan öqiladi) · belgilangan vaqt (kelajak — rejalaştiriş)
+const when = ref<'now' | 'text' | 'custom'>('now')
+let whenTouched = false
 const pub = reactive(toInputs())
 const evStart = reactive(toInputs())
 const evEnd = reactive({ date: '', time: '' })
@@ -66,8 +69,28 @@ const types = computed(() => POST_TYPES.filter(t => auth.can(t.value, id.value ?
 if (!id.value && !auth.can(form.type, 'create')) form.type = POST_TYPES.find(t => auth.can(t.value, 'create'))?.value ?? form.type
 const fill = computed(() => Object.fromEntries(LANGS.map(l => [l.code, langFill(form, l.code)])) as Record<Lang, 0 | 0.5 | 1>)
 const customAt = computed(() => fromInputs(pub.date, pub.time))
-const isFuture = computed(() => when.value === 'custom' && !!customAt.value && new Date(customAt.value).getTime() > Date.now())
-const shownAt = computed(() => (when.value === 'custom' ? customAt.value : form.status === 'published' && form.publishedAt ? form.publishedAt : new Date().toISOString()))
+// Matndan topilgan sana (barça tillar; yil/vaqt yetmasa — taxmin)
+const textAt = computed(() => detectPostDate(form))
+const pickedAt = computed(() => (when.value === 'custom' ? customAt.value : when.value === 'text' ? textAt.value?.iso ?? null : null))
+const isFuture = computed(() => !!pickedAt.value && new Date(pickedAt.value).getTime() > Date.now())
+const shownAt = computed(() => pickedAt.value ?? (form.status === 'published' && form.publishedAt ? form.publishedAt : new Date().toISOString()))
+const GUESS: Record<string, string> = { year: 'yil', day: 'kun', time: 'vaqt (09:00)' }
+const WHEN_OPTIONS = [['now', 'Hozir joylaş', 'upload'], ['text', 'Matndagi sana', 'file'], ['custom', 'Belgilangan vaqtda', 'calendar']] as const
+function pickWhen(w: typeof when.value) {
+  whenTouched = true
+  when.value = w
+}
+// Matndagi sanani «Belgilangan vaqt»ga ötkazib tuzatiş
+function editTextDate() {
+  if (!textAt.value) return
+  Object.assign(pub, { date: textAt.value.date, time: textAt.value.time })
+  pickWhen('custom')
+}
+// Yangi postda matnda ötgan sana topilsa — öz-özidan «Matndagi sana» tanlanadi (foydalanuvçi tanlamagan bölsa)
+watch(textAt, (t) => {
+  if (id.value || whenTouched || !ready) return
+  when.value = t && new Date(t.iso).getTime() <= Date.now() ? 'text' : 'now'
+})
 const langLabel = computed(() => LANGS.find(l => l.code === lang.value)!.label)
 
 const NOTES: Record<Lang, (f: 0 | 0.5 | 1) => [string, string]> = {
@@ -130,8 +153,8 @@ function addTag() {
 
 function payload(status: 'draft' | 'published') {
   let publishedAt = form.publishedAt
-  if (status === 'published') publishedAt = when.value === 'custom' ? customAt.value : (form.status === 'published' && form.publishedAt ? form.publishedAt : new Date().toISOString())
-  else if (when.value === 'custom') publishedAt = customAt.value
+  if (status === 'published') publishedAt = pickedAt.value ?? (form.status === 'published' && form.publishedAt ? form.publishedAt : new Date().toISOString())
+  else if (pickedAt.value) publishedAt = pickedAt.value
   return {
     type: form.type,
     title: form.title,
@@ -171,8 +194,11 @@ async function save(status: 'draft' | 'published') {
     form.publishedAt = res.doc.publishedAt ?? null
     form.slug = res.doc.slug ?? form.slug
     savedAt.value = new Date().toISOString()
+    // Saqlangaç tahrir sahifasi yopiladi — röyxatga qaytamiz (yuqorida «Saqlandi / Naşr qilindi» bildirişi çiqadi).
+    // Forma javobdan yangilangani «özgariş» deb sanalmasin — kuzatuvçi işlab bölgaç belgini tozalaymiz, keyin çiqamiz
+    await nextTick()
     dirty.value = false
-    if (!id.value) router.replace(`/postlar/${res.doc.type}/${res.doc.id}`)
+    router.push(`/postlar/${res.doc.type}`)
   }
   catch (e) {
     error.value = e instanceof ApiError ? e.message : 'Saqlab bölmadi.'
@@ -300,18 +326,37 @@ const siteLink = computed(() => (form.slug ? `${SITE_URL}${lang.value === 'uz' ?
       <aside class="flex min-w-0 flex-[1_1_340px] flex-col gap-5">
         <section class="card p-[22px]">
           <h2 class="text-base font-bold">Naşr</h2>
-          <div role="radiogroup" aria-label="Qaçon naşr qilinadi" class="mt-3.5 grid grid-cols-2 gap-1 rounded-xl bg-canvas p-1">
-            <button v-for="w in [['now', 'Hozir'], ['custom', 'Boşqa sana va vaqt']] as const" :key="w[0]" type="button" role="radio" :aria-checked="when === w[0]" class="h-[38px] rounded-[9px] text-[13px] font-semibold" :class="when === w[0] ? 'bg-white text-ink shadow-sm' : 'text-muted'" @click="when = w[0]">{{ w[1] }}</button>
+          <p class="mt-1 text-[13px] text-muted">Saytga qaçon çiqsin?</p>
+          <div role="radiogroup" aria-label="Qaçon naşr qilinadi" class="mt-3 grid grid-cols-3 gap-1 rounded-xl bg-canvas p-1">
+            <button
+              v-for="w in WHEN_OPTIONS" :key="w[0]" type="button" role="radio" :aria-checked="when === w[0]"
+              class="flex min-h-[54px] flex-col items-center justify-center gap-1 rounded-[9px] px-1 py-1.5 text-center text-[12px] leading-tight font-semibold transition-colors"
+              :class="when === w[0] ? 'bg-white text-ink shadow-sm' : 'text-muted hover:text-ink'"
+              @click="pickWhen(w[0])"
+            >
+              <Icon :name="w[2]" :size="16" :class="when === w[0] ? 'text-brand-700' : ''" />{{ w[1] }}
+            </button>
+          </div>
+          <!-- Matndagi sana: topilgan parça, natija va taxmin qilingan qismlar -->
+          <div v-if="when === 'text'" class="mt-3.5 rounded-xl border border-field p-3">
+            <template v-if="textAt">
+              <p class="text-xs text-subtle">Matnda topildi ({{ textAt.lang.toUpperCase() }}):</p>
+              <p class="mt-1 text-sm font-semibold break-words text-brand-800">«{{ textAt.snippet }}»</p>
+              <p class="mt-1.5 text-[13px]">→ <b>{{ dateTime(textAt.iso) }}</b></p>
+              <p v-if="textAt.guessed.length" class="mt-1 text-xs text-[#8A5A00]">Matnda yöq, taxmin qilindi: {{ textAt.guessed.map(g => GUESS[g]).join(', ') }}</p>
+              <button type="button" class="mt-2 text-[13px] font-semibold text-brand-700 hover:underline" @click="editTextDate">Sana yoki vaqtni tuzatiş</button>
+            </template>
+            <p v-else class="text-[13px] text-muted">Matnda sana topilmadi (özbek, rus, ingliz, xitoy tillarida va 20.10.2026 kabi yozuvlarda qidirildi). Naşr tugmasi bosilgan vaqt yoziladi.</p>
           </div>
           <!-- Tor ekranda (telefon) vaqt maydoni sana ostiga tushadi — sahifada gorizontal aylantirish paydo bo'lmasin -->
           <div v-if="when === 'custom'" class="mt-3.5 flex flex-wrap gap-2.5">
             <div class="min-w-0 flex-[1_1_150px]"><label for="p-date" class="label">Sana</label><input id="p-date" v-model="pub.date" type="date" class="field"></div>
             <div class="shrink-0"><label for="p-time" class="label">Vaqt (24 soat)</label><input id="p-time" v-model="pub.time" type="time" step="60" class="field w-32!"></div>
           </div>
-          <p class="mt-3 rounded-[10px] px-3 py-2.5 text-[13px] leading-relaxed" :class="when === 'now' ? 'bg-canvas text-muted' : isFuture ? 'bg-[#FEF3DC] text-[#6B4600]' : 'bg-brand-50 text-brand-800'">
-            <template v-if="when === 'now'">Naşr tugmasi bosilgan vaqt yoziladi (24 soatlik).</template>
-            <template v-else-if="isFuture">Kelajak vaqt: {{ dateTime(customAt) }} da öz-özidan saytda çiqadi — kompyuter yoqiq turişi şart emas.</template>
-            <template v-else>Ötgan vaqt: post darhol çiqadi, saytda {{ dateTime(customAt) }} deb körinadi va röyxatda şu sana örnida turadi.</template>
+          <p class="mt-3 rounded-[10px] px-3 py-2.5 text-[13px] leading-relaxed" :class="!pickedAt ? 'bg-canvas text-muted' : isFuture ? 'bg-[#FEF3DC] text-[#6B4600]' : 'bg-brand-50 text-brand-800'">
+            <template v-if="!pickedAt">Naşr tugmasi bosilgan vaqt yoziladi — post darhol saytda çiqadi.</template>
+            <template v-else-if="isFuture"><b>Rejalaştiriladi:</b> {{ dateTime(pickedAt) }} da öz-özidan saytda çiqadi — kompyuter yoqiq turişi şart emas.<template v-if="form.type === 'events'"> Ungaça tadbir «Yaqin tadbirlar» va taqvimda «Tez orada» belgisi bilan körinadi (sahifasi oçilmaydi).</template></template>
+            <template v-else>Ötgan vaqt: post darhol çiqadi, saytda {{ dateTime(pickedAt) }} deb körinadi va röyxatda şu sana örnida turadi.</template>
           </p>
 
           <div class="mt-3.5 flex items-center justify-between gap-3 border-t border-[#F0EEF6] pt-3.5">

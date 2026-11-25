@@ -2,6 +2,8 @@
 import assert from 'node:assert/strict'
 import { ApiError, api, httpMessage, qs, setUnauthorizedHandler, TIMEOUT_MS } from '../src/lib/api.ts'
 import { onSessionExpired } from '../src/lib/session-policy.ts'
+import { detectPostDate, findDate } from '../src/lib/textdate.ts'
+import { onToast, savedMessage } from '../src/lib/toast.ts'
 
 const realFetch = globalThis.fetch
 const reply = (status: number, body: string, type = 'application/json') => async () => new Response(status === 204 ? null : body, { status, headers: { 'content-type': type } })
@@ -78,6 +80,51 @@ assert.equal(onSessionExpired({ ...base, touched: true }), 'modal')
 assert.equal(onSessionExpired({ ...base, unsaved: 1 }), 'modal')
 assert.equal(onSessionExpired({ ...base, expired: true }), 'ignore')
 assert.equal(onSessionExpired({ ...base, loggedIn: false }), 'ignore')
+
+// 10. «Saqlandi» bildirişi: saqlaş/naşr/öçirişda çiqadi, kiriş, 2FA va GET da — yöq; xato javobda — yöq
+assert.equal(savedMessage('GET', '/posts'), null)
+assert.equal(savedMessage('POST', '/users/login', {}), null)
+assert.equal(savedMessage('POST', '/users/2fa/enable', {}), null)
+assert.equal(savedMessage('POST', '/panel/notifications', {}), null)
+assert.equal(savedMessage('PATCH', '/pages/5', { title: {} })?.text, 'Saqlandi')
+assert.equal(savedMessage('PATCH', '/posts/5', { status: 'published' })?.text, 'Naşr qilindi')
+assert.equal(savedMessage('POST', '/posts', { status: 'draft' })?.text, 'Qoralama saqlandi')
+assert.deepEqual(savedMessage('DELETE', '/pages/5'), { text: 'Öçirildi', kind: 'delete' })
+assert.equal(savedMessage('POST', '/media', new FormData())?.text, 'Fayl yuklandi')
+const seen: string[] = []
+const stop = onToast(t => seen.push(t.text))
+use(reply(200, '{"doc":{}}'))
+await api.patch('/pages/1', { title: {} })
+await api.get('/pages')
+use(reply(400, '{"message":"Xato"}'))
+await fails(api.patch('/pages/1', {}))
+stop()
+assert.deepEqual(seen, ['Saqlandi'])
+
+// 11. Matndan sana (nashr vaqti): har xil til va yozuv; yetishmagan yil/vaqt taxmin qilinadi
+const NOW = new Date('2026-11-25T10:00:00+05:00')
+const on = (text: string) => { const r = findDate(text, NOW); return r && `${r.date} ${r.time} ${r.guessed.join(',')}` }
+assert.equal(on('2026-yil 20-oktabr kuni soat 14:30 da anjuman bo‘lib o‘tdi'), '2026-10-20 14:30 ')
+assert.equal(on('Universitetda 5-noyabr kuni tadbir bo‘ldi'), '2026-11-05 09:00 year,time')
+assert.equal(on('Kecha, 28-dekabr kuni…'), '2025-12-28 09:00 year,time') // yil yöq, kelajakka tuşadi → ötgan yil
+assert.equal(on('Ötgan yili 2025 йил 3 сентябр куни соат 10:00 да'), '2025-09-03 10:00 ')
+assert.equal(on('20 октября 2026 г. в 11:00 состоялась конференция'), '2026-10-20 11:00 ')
+assert.equal(on('On October 7, 2026 the university hosted…'), '2026-10-07 09:00 time')
+assert.equal(on('The forum was held on 3rd of March 2025.'), '2025-03-03 09:00 time')
+assert.equal(on('2026年10月20日，我校举办了会议'), '2026-10-20 09:00 time')
+assert.equal(on('Sana: 12.09.2026, soat 16:00'), '2026-09-12 16:00 ')
+assert.equal(on('Hujjat 2026-04-01 da tasdiqlangan'), '2026-04-01 09:00 time')
+assert.equal(on('oktabrning 15-kuni seminar'), '2026-10-15 09:00 year,time')
+assert.equal(on('Sentyabr 2026 da qabul yakunlandi'), '2026-09-01 09:00 day,time')
+assert.equal(on('Hech qanday sana yöq, faqat 2.5 ming talaba'), null)
+assert.equal(on('31-fevral 2026'), null) // mavjud emas
+assert.equal(findDate('20-oktabr 2026', NOW)?.snippet, '20-oktabr 2026')
+assert.equal(findDate('20-oktabr 2026 soat 10:00', NOW)?.iso, '2026-10-20T05:00:00.000Z') // Toshkent → UTC
+// Post: özbekça böş bölsa — boşqa tildan; HTML teglari xalaqit bermaydi
+const det = detectPostDate({ title: { uz: 'Anjuman' }, body: { uz: '<p>Matn</p>', ru: '<p><b>15</b> мая 2026 года</p>' } }, NOW)
+assert.equal(det?.lang, 'ru')
+assert.equal(det?.date, '2026-05-15')
+assert.equal(detectPostDate({ title: { uz: 'Sanasiz' } }, NOW), null)
 
 globalThis.fetch = realFetch
 console.log('admin api: OK')
