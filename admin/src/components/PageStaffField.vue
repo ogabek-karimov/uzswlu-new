@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import I18nFields from '@/components/I18nFields.vue'
+import Collapsible from '@/components/Collapsible.vue'
 import Icon from '@/components/Icon.vue'
 import type { I18n } from '@/lib/api'
 import { useHemis } from '@/lib/hemis'
@@ -68,8 +69,7 @@ const jobs = (p: { employments: { department: { name: string }; position: string
 </script>
 
 <template>
-  <fieldset class="rounded-2xl border border-line bg-[#FAF9FD] px-4 py-3.5">
-    <legend class="px-1 text-sm font-bold">Sahifadagi xodimlar <span class="font-normal text-muted">(matndan oldin, HEMIS’dan)</span></legend>
+  <Collapsible id="page-staff" variant="inner" title="Sahifadagi xodimlar" hint="Matndan oldin, HEMIS’dan" :default-open="!!department" body-class="">
 
     <label for="ps-dept" class="label">HEMIS bölimi — xodimlari avtomatik çiqadi</label>
     <select id="ps-dept" v-model="department" class="field">
@@ -129,5 +129,5 @@ const jobs = (p: { employments: { department: { name: string }; position: string
       <I18nFields v-model="hours" label="Qabul kunlari (barça kartalarda)" layout="rows" :placeholders="{ uz: 'Duşanbadan jumagaça, 8:30 dan 16:30 gaça' }" />
       <p class="mt-1 text-xs text-muted">Böş qolsa kartada körinmaydi.</p>
     </div>
-  </fieldset>
+  </Collapsible>
 </template>

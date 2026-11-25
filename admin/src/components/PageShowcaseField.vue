@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import Collapsible from '@/components/Collapsible.vue'
 import Icon from '@/components/Icon.vue'
 import ImageField from '@/components/ImageField.vue'
 import LangTabs from '@/components/LangTabs.vue'
@@ -138,8 +139,7 @@ function movePhoto(bi: number, pi: number, d: -1 | 1) {
 </script>
 
 <template>
-  <fieldset class="rounded-2xl border border-line bg-[#FAF9FD] px-4 py-3.5">
-    <legend class="px-1 text-sm font-bold">Kartali bloklar <span class="font-normal text-muted">— raqamlar, röyxatlar va suratlar chiroyli kartalarda</span></legend>
+  <Collapsible id="page-showcase" variant="inner" title="Kartali bloklar" hint="Raqamlar, röyxatlar va suratlar chiroyli kartalarda" :default-open="!!(model.blocks?.length || model.columns?.length)" body-class="">
 
     <details class="rounded-xl bg-white px-3.5 py-2.5 text-[13px] leading-relaxed text-muted">
       <summary class="cursor-pointer font-semibold text-brand-700">Qanday işlaydi?</summary>
@@ -297,7 +297,7 @@ function movePhoto(bi: number, pi: number, d: -1 | 1) {
     </ul>
 
     <button v-if="blocks().length < 10" type="button" class="btn-ghost mt-3 h-10! gap-2" @click="addBlock"><Icon name="plus" :size="16" /> Yangi blok</button>
-  </fieldset>
+  </Collapsible>
 </template>
 
 <style scoped>

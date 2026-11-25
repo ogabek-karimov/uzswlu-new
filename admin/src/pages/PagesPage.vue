@@ -2,8 +2,10 @@
 import { computed, onMounted, reactive, ref } from 'vue'
 import { api, type I18n, type MediaDoc, type Paginated, uploadMedia } from '@/lib/api'
 import { LANGS, type Lang, PDF_MODES, SITE_URL } from '@/lib/constants'
+import { setAllCollapsed } from '@/lib/collapse'
 import { fileSize } from '@/lib/format'
 import AlphabetButton from '@/components/AlphabetButton.vue'
+import Collapsible from '@/components/Collapsible.vue'
 import Icon from '@/components/Icon.vue'
 import I18nFields from '@/components/I18nFields.vue'
 import MediaPicker from '@/components/MediaPicker.vue'
@@ -300,7 +302,9 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
               <p class="text-xs text-subtle">{{ path }}</p>
               <h2 class="mt-1 text-[22px] font-bold">{{ form.title.uz || 'Yangi sahifa' }}</h2>
             </div>
-            <div class="flex gap-2">
+            <div class="flex flex-wrap gap-2">
+              <button type="button" class="btn-ghost h-10! px-3!" title="Barça bölimlarni yiğiş" @click="setAllCollapsed(true)">Hammasini yiğiş</button>
+              <button type="button" class="btn-ghost h-10! px-3!" title="Barça bölimlarni yoyiş" @click="setAllCollapsed(false)">Yoyiş</button>
               <a v-if="siteUrl && sel !== null" :href="siteUrl" target="_blank" rel="noopener" class="btn-ghost h-10!">Saytda köriş ↗</a>
               <button type="submit" class="btn-primary h-10!" :disabled="saving">{{ saving ? 'Saqlanmoqda…' : 'Saqlaş' }}</button>
             </div>
@@ -344,8 +348,7 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
           <PageStaffField v-if="form.template === 'text'" v-model:department="form.staffDepartment" v-model:extra="form.staffExtra" v-model:contacts="form.staffContacts" v-model:hours="form.staffHours" class="mt-4" />
           <PageShowcaseField v-if="form.template === 'text'" v-model="form.showcase" class="mt-4" />
           <!-- Matndan keyin animatsiyali chaqiruv bloki (masalan, ARM → uzlib.uz) -->
-          <fieldset v-if="form.template === 'text'" class="mt-4 rounded-2xl border border-line bg-[#FAF9FD] px-4 py-3.5">
-            <legend class="px-1 text-sm font-bold">Chaqiruv bloki <span class="font-normal text-muted">(matndan keyin, animatsiyali tugma)</span></legend>
+          <Collapsible v-if="form.template === 'text'" id="page-cta" variant="inner" class="mt-4" title="Chaqiruv bloki" hint="Matndan keyin, animatsiyali tugma" :default-open="!!form.ctaUrl" body-class="">
             <div>
               <label for="pg-cta-url" class="label">Havola</label>
               <input id="pg-cta-url" v-model="form.ctaUrl" class="field" placeholder="https://uzlib.uz/ yoki /sahifa-manzili">
@@ -356,7 +359,7 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
               <I18nFields v-model="form.ctaText" label="Matn" textarea :rows="2" />
               <I18nFields v-model="form.ctaLabel" label="Tugma yozuvi" layout="rows" />
             </div>
-          </fieldset>
+          </Collapsible>
           <p v-if="error" class="mt-3 rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-800">{{ error }}</p>
           <p v-else-if="saved" class="mt-3 rounded-xl bg-[#DDFBF0] px-3.5 py-2.5 text-sm text-[#0B5A43]">Saqlandi — sayt menyusi va sahifa yangilandi.</p>
         </section>
@@ -365,26 +368,23 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
         <VideoTourCard v-if="form.slug === 'universitet-haqida' || (form.template === 'group' && form.groupKey === 'university')" />
 
         <!-- Bo'lim (menyu guruhi) -->
-        <section v-if="form.template === 'group'" class="card flex flex-col gap-3 px-[22px] py-5">
-          <h3 class="text-base font-bold">Menyu bölimi</h3>
+        <Collapsible v-if="form.template === 'group'" id="page-group" title="Menyu bölimi">
           <I18nFields v-model="form.description" label="Qisqa tavsif (mega-menyuda)" textarea :rows="2" />
           <div class="grid gap-3 sm:grid-cols-3">
             <div><label for="pg-ov" class="label">Umumiy sahifasi</label><input id="pg-ov" v-model="form.overview" class="field" placeholder="/universitet-haqida"></div>
             <div><label for="pg-gurl" class="label">Bitta sahifali bölim</label><input id="pg-gurl" v-model="form.url" class="field" placeholder="/aloqa"></div>
             <div><label for="pg-key" class="label">Belgi kaliti</label><select id="pg-key" v-model="form.groupKey" class="field"><option v-for="k in ['university', 'applicants', 'activity', 'news', 'sdg', 'programs', 'video', 'contact']" :key="k" :value="k">{{ k }}</option></select></div>
           </div>
-        </section>
+        </Collapsible>
 
         <!-- Maxsus sahifa -->
-        <section v-else-if="form.template === 'special'" class="card flex flex-col gap-3 px-[22px] py-5">
-          <h3 class="text-base font-bold">Saytning maxsus sahifasi</h3>
+        <Collapsible v-else-if="form.template === 'special'" id="page-special" title="Saytning maxsus sahifasi">
           <p class="text-sm leading-relaxed text-muted">Bu sahifaning dizayni saytda alohida qilingan — bu yerda faqat nomi, menyudagi örni va manzili boşqariladi.<template v-if="specialEditor"> Mazmuni <RouterLink :to="specialEditor[1]" class="font-semibold text-brand-700 underline">{{ specialEditor[2] }}</RouterLink> bölimida tahrirlanadi.</template></p>
           <div class="max-w-[200px]"><label for="pg-sdg" class="label">BRM maqsadi <span class="font-normal">(rangli plitka)</span></label><input id="pg-sdg" v-model.number="form.sdg" type="number" min="0" max="17" class="field"></div>
-        </section>
+        </Collapsible>
 
         <!-- Havola / PDF -->
-        <section v-else-if="form.template === 'link'" class="card flex flex-col gap-3 px-[22px] py-5">
-          <h3 class="text-base font-bold">Havola yoki PDF</h3>
+        <Collapsible v-else-if="form.template === 'link'" id="page-link" title="Havola yoki PDF">
           <p class="text-sm text-muted">Menyuda bosilganda şu fayl yoki tashqi sahifa oçiladi. Fayl yuklansa — havola özgarmaydi, yangi versiya yuklaş mumkin.</p>
           <div class="max-w-[260px]"><PdfSlot v-model="form.file" lang="PDF fayl" note="yoki yuqoridagi havola" /></div>
           <!-- PDF'ni saytning öz sahifasida (varaqlab) körsatiş: sahifa matnli sahifaga aylanadi, PDF — «Içi körinadi» -->
@@ -393,60 +393,47 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
             <p class="mt-1 text-xs text-muted">Hozir menyuda bosilganda PDF alohida oçiladi. Tugma bosilsa — bu sahifa matnli sahifaga aylanadi: PDF sayt içida birinçi varaq bilan oçilib turadi, ostida 1 2 3 … varaqlar. Keyin «Saqlaş» ni bosing.</p>
             <button type="button" class="btn-primary mt-2.5 h-9! text-xs!" @click="toEmbeddedPage">PDF sahifa içida körinsin</button>
           </div>
-        </section>
+        </Collapsible>
 
         <!-- Matnli sahifa mazmuni -->
         <template v-else>
-          <section class="card flex flex-col gap-3.5 px-[22px] py-5">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <h3 class="text-base font-bold">Sahifa mazmuni</h3>
+          <Collapsible id="page-content" title="Sahifa mazmuni" body-class="flex flex-col gap-3.5">
+            <template #actions>
               <div role="tablist" aria-label="Til" class="flex gap-1">
                 <button v-for="l in LANGS" :key="l.code" type="button" role="tab" :aria-selected="lang === l.code" class="h-7 min-w-[38px] rounded-lg px-2 text-[11px] font-bold" :class="lang === l.code ? 'bg-ink text-white' : 'border border-field bg-white text-muted'" @click="lang = l.code">{{ l.short }}</button>
               </div>
-            </div>
+            </template>
             <div><label for="pg-lead" class="label">Kirish matni · {{ LANG_LABEL }} <span class="font-normal">(sarlavha ostida)</span></label><textarea id="pg-lead" v-model="form.lead[lang]" rows="2" class="field h-auto! py-2.5 leading-relaxed" /></div>
             <div>
               <span class="label">Matn · {{ LANG_LABEL }} <span class="font-normal">— rasm, jadval, video ham şu yerda; vaqt çiziği joyini [[timeline]], kartali bloklar joyini [[kartalar-1]], [[kartalar-2]]… deb belgilang</span></span>
               <div class="overflow-hidden rounded-xl border border-field"><RichEditor :key="`${sel}-${lang}`" :model-value="form.body[lang] ?? ''" placeholder="Sahifa matni…" @update:model-value="v => (form.body[lang] = v)" /></div>
             </div>
-          </section>
+          </Collapsible>
 
-          <section class="card flex flex-col gap-2.5 px-[22px] py-5">
-            <div class="flex items-center justify-between gap-2">
-              <h3 class="text-base font-bold">Raqamlar <span class="text-[13px] font-medium text-subtle">(ixtiyoriy)</span></h3>
-              <button type="button" class="btn-ghost h-9! text-xs!" @click="form.facts.push({ value: '', label: {} })">+ Raqam</button>
-            </div>
+          <Collapsible id="page-facts" title="Raqamlar" hint="Ixtiyoriy" :count="form.facts.length" :default-open="false" body-class="flex flex-col gap-2.5">
+            <template #actions><button type="button" class="btn-ghost h-9! text-xs!" @click="form.facts.push({ value: '', label: {} })">+ Raqam</button></template>
             <div v-for="(f, i) in form.facts" :key="i" class="flex items-center gap-2">
               <input v-model="f.value" class="field w-[130px]! shrink-0" aria-label="Raqam" placeholder="23 168">
               <input v-model="f.label[lang]" class="field" :aria-label="`Izoh · ${lang}`" :placeholder="`Izoh · ${LANG_LABEL}`">
               <button type="button" class="grid size-9 shrink-0 place-items-center rounded-lg text-subtle hover:bg-red-50 hover:text-red-700" aria-label="Raqamni olib taşlaş" @click="form.facts.splice(i, 1)"><Icon name="trash" :size="14" /></button>
             </div>
-          </section>
+          </Collapsible>
 
-          <section class="card flex flex-col gap-2.5 px-[22px] py-5">
-            <div class="flex items-center justify-between gap-2">
-              <h3 class="text-base font-bold">Vaqt çiziği <span class="text-[13px] font-medium text-subtle">(ixtiyoriy)</span></h3>
-              <button type="button" class="btn-ghost h-9! text-xs!" @click="form.timeline.push({ label: {}, text: {}, highlight: false })">+ Sana</button>
-            </div>
+          <Collapsible id="page-timeline" title="Vaqt çiziği" hint="Ixtiyoriy" :count="form.timeline.length" :default-open="false" body-class="flex flex-col gap-2.5">
+            <template #actions><button type="button" class="btn-ghost h-9! text-xs!" @click="form.timeline.push({ label: {}, text: {}, highlight: false })">+ Sana</button></template>
             <div v-for="(t, i) in form.timeline" :key="i" class="grid items-center gap-2 sm:grid-cols-[130px_1fr_auto_auto]">
               <input v-model="t.label[lang]" class="field" :aria-label="`Yil · ${lang}`" placeholder="1949">
               <input v-model="t.text[lang]" class="field" :aria-label="`Matn · ${lang}`" :placeholder="`Matn · ${LANG_LABEL}`">
               <label class="flex items-center gap-1.5 text-xs text-muted"><input v-model="t.highlight" type="checkbox" class="accent-brand-800"> ajratilgan</label>
               <button type="button" class="grid size-9 place-items-center rounded-lg text-subtle hover:bg-red-50 hover:text-red-700" aria-label="Sanani olib taşlaş" @click="form.timeline.splice(i, 1)"><Icon name="trash" :size="14" /></button>
             </div>
-          </section>
+          </Collapsible>
 
-          <section class="card flex flex-col gap-3 px-[22px] py-5">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <h3 class="text-base font-bold">PDF hujjatlar</h3>
-                <p class="mt-0.5 text-xs text-muted">Matndan keyin çiqadi. Har bir PDF uçun saytda qanday körinişini tanlang.</p>
-              </div>
-              <span class="flex gap-1.5">
-                <button type="button" class="btn-ghost h-9! text-xs!" @click="attInput?.click()">+ PDF yuklaş</button>
-                <button type="button" class="btn-ghost h-9! text-xs!" @click="picker = true">Serverdan tanlaş</button>
-              </span>
-            </div>
+          <Collapsible id="page-pdf" title="PDF hujjatlar" hint="Matndan keyin çiqadi. Har bir PDF uçun saytda qanday körinişini tanlang." :count="form.attachments.length">
+            <template #actions>
+              <button type="button" class="btn-ghost h-9! text-xs!" @click="attInput?.click()">+ PDF yuklaş</button>
+              <button type="button" class="btn-ghost h-9! text-xs!" @click="picker = true">Serverdan tanlaş</button>
+            </template>
             <input ref="attInput" type="file" accept="application/pdf" class="hidden" @change="onAttach">
             <MediaPicker :open="picker" kind="pdf" @close="picker = false" @pick="m => { form.attachments.push({ file: m, title: { uz: (m.filename ?? '').replace(/\.pdf$/i, '') }, meta: {}, display: 'embed', height: 680 }); picker = false }" />
             <p v-if="!form.attachments.length" class="rounded-xl bg-canvas px-3.5 py-3 text-sm text-muted">PDF yöq. «+ PDF yuklaş» bilan qöşing — keyin uning ostida <b>«Saytda qanday körinadi»</b> tanlanadi (masalan, «Içi körinadi» — PDF sahifada oçilib turadi va 1 2 3 … bilan varaqlanadi).</p>
@@ -470,7 +457,7 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
                 <p class="mt-1.5 text-xs text-muted">{{ PAGE_PDF_NOTE[a.display] }}</p>
               </div>
             </div>
-          </section>
+          </Collapsible>
         </template>
 
         <div v-if="sel !== null" class="flex justify-end">
