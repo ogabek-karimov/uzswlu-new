@@ -50,3 +50,14 @@ export function parseCameraFile(text: string): { name: string; url: string }[] {
   }
   return out
 }
+
+/** Sahifa matnidan (barça tillar) kameralarni ajratadi: matn kameralarsiz, kameralar alohida */
+export function splitCameras(body: Record<string, string | null | undefined>, langs: readonly { code: string }[]) {
+  const cams = parseCameras(langs.map(l => body[l.code] ?? '').find(h => parseCameras(h).length) ?? '')
+  if (cams.length) for (const l of langs) body[l.code] = stripCameras(body[l.code] ?? '')
+  return cams
+}
+
+/** Saqlaş: har til matni oxiriga kamera qatorlari */
+export const joinCameras = (body: Record<string, string | null | undefined>, cams: Camera[], langs: readonly { code: string }[]) =>
+  Object.fromEntries(langs.map(l => [l.code, (body[l.code] ?? '') + camerasHtml(cams)]))

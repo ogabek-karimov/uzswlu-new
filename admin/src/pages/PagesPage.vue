@@ -15,7 +15,7 @@ import PageStaffField from '@/components/PageStaffField.vue'
 import PdfSlot from '@/components/PdfSlot.vue'
 import RichEditor from '@/components/RichEditor.vue'
 import CamerasField from '@/components/CamerasField.vue'
-import { type Camera, camerasHtml, parseCameras, stripCameras } from '@/lib/cameras'
+import { type Camera, joinCameras, splitCameras } from '@/lib/cameras'
 import VideoTourCard from '@/components/VideoTourCard.vue'
 import ToggleSwitch from '@/components/ToggleSwitch.vue'
 
@@ -123,19 +123,12 @@ function pick(id: number) {
     timeline: (p.timeline ?? []).map(t => ({ label: { ...t.label }, text: { ...t.text }, highlight: !!t.highlight })),
     attachments: (p.attachments ?? []).map(a => ({ ...a, title: { ...(a.title ?? {}) }, meta: { ...(a.meta ?? {}) } })),
   })
-  // Onlayn kameralar matndan alohida panelga olinadi (saqlaşda barça tillar matni oxiriga qaytadi)
-  const src = LANGS.map(l => form.body[l.code] ?? '').find(h => parseCameras(h).length) ?? ''
-  cameras.value = parseCameras(src)
-  if (cameras.value.length) for (const l of LANGS) form.body[l.code] = stripCameras(form.body[l.code] ?? '')
+  cameras.value = splitCameras(form.body, LANGS) // Onlayn kameralar — alohida panelda (saqlaşda matn oxiriga qaytadi)
 }
 // ─── Onlayn kameralar (Online translatsiya) ───
 const cameras = ref<Camera[]>([])
 const camerasOn = computed(() => form.slug === 'online-translatsiya' || cameras.value.length > 0)
-function bodyOut() {
-  if (!camerasOn.value) return form.body
-  const cams = camerasHtml(cameras.value)
-  return Object.fromEntries(LANGS.map(l => [l.code, (form.body[l.code] ?? '') + cams]))
-}
+const bodyOut = () => (camerasOn.value ? joinCameras(form.body, cameras.value, LANGS) : form.body)
 
 const path = computed(() => {
   const names: string[] = []
