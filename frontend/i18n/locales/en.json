@@ -967,6 +967,12 @@
     "channel": "Official channel",
     "campuses": "Buildings",
     "route": "Get directions",
+    "mail": {
+      "write": "Write to {email}",
+      "copy": "Copy address: {email}",
+      "copied": "Copied",
+      "count": "Addresses: {n}"
+    },
     "leaders": "Leadership phone numbers",
     "table": {
       "name": "Name and position",

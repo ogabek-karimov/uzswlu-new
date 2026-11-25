@@ -48,6 +48,22 @@ function goPhonePage(i: number) {
 }
 watch(phoneQuery, () => { phonePage.value = 0 })
 
+// E-poçta kartalari: asosiy manzil + qöşimça qatorlar (admin → Aloqa → E-poçtalar, «har qatorda bittadan»).
+// Qator «Izoh: manzil@domen» körinişida bölsa izoh manzil ustida yoziladi; har bir manzil — alohida mailto havola.
+const EMAIL = /[\w.+-]+@[\w-]+(?:\.[\w-]+)+/
+const emailCards = computed(() => (data.value?.emails ?? []).map(e => ({
+  title: e.title,
+  items: [
+    { email: e.value, label: null as string | null, main: true },
+    ...e.extra.flatMap((line) => {
+      const m = EMAIL.exec(line)
+      if (!m) return []
+      const label = line.slice(0, m.index).replace(/[\s:：—–-]+$/, '').trim()
+      return [{ email: m[0], label: label || null, main: false }]
+    }),
+  ],
+})))
+
 const tel = (phone: string) => `tel:${phone.startsWith('+') ? '' : '+998'}${phone.replace(/[^\d+]/g, '')}`
 
 useSeo({ title: () => t('contact.title'), description: () => t('contact.lead') })
@@ -58,22 +74,50 @@ useSeo({ title: () => t('contact.title'), description: () => t('contact.lead') }
     <PageIntro :crumbs="[{ label: t('nav.contact') }]" :title="t('contact.title')" :lead="t('contact.lead')" />
 
     <section class="mx-auto max-w-7xl px-4 pt-9 sm:px-6 lg:px-8">
-      <div v-reveal class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <a :href="tel(data.hotline.phone)" data-reveal-item class="rounded-3xl bg-brand-900 p-6 text-white transition-colors hover:bg-brand-800">
-          <span class="block text-[13px] text-white/60">{{ t('contact.hotline') }}</span>
-          <span class="mt-1.5 block font-display text-[28px] font-semibold">{{ data.hotline.phone }}</span>
-          <span v-if="data.hotline.ext" class="mt-1 block text-[13px] text-accent-400">{{ t('contact.ext', { ext: data.hotline.ext }) }}</span>
-        </a>
-        <div v-for="e in data.emails" :key="e.value" data-reveal-item class="rounded-3xl border border-line bg-white p-6">
-          <span class="block text-[13px] text-muted">{{ e.title }}</span>
-          <a :href="`mailto:${e.value}`" class="mt-1.5 block text-lg font-semibold break-all hover:text-brand-700">{{ e.value }}</a>
-          <span v-if="e.extra.length" class="mt-1 block text-[13px] break-all text-muted">{{ e.extra.join(' · ') }}</span>
+      <!-- Çapda: işonç telefoni va Telegram ustma-ust, ong tomonda — e-poçta kartalari (manzillar uzun, keng joy kerak) -->
+      <div v-reveal class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid gap-4 sm:col-span-2 sm:grid-cols-2 lg:col-span-1 lg:grid-cols-1">
+          <!-- Işonç telefoni: töq fon, burçakda mint nur, orqada katta telefon belgisi -->
+          <a :href="tel(data.hotline.phone)" data-reveal-item class="group/hot relative isolate overflow-hidden rounded-3xl bg-brand-900 p-6 text-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-28px_rgb(56_43_133/0.8)] motion-reduce:hover:transform-none">
+            <span class="pointer-events-none absolute -top-16 -right-16 -z-10 size-48 rounded-full bg-accent-400/25 blur-3xl transition-opacity duration-500 group-hover/hot:opacity-80" aria-hidden="true" />
+            <Icon name="lucide:phone-call" class="pointer-events-none absolute -right-3 -bottom-4 -z-10 size-28 -rotate-12 text-white/[0.06] transition-transform duration-500 group-hover/hot:rotate-0" aria-hidden="true" />
+            <span class="flex items-center gap-2 text-[13px] text-white/60"><span class="relative flex size-2"><span class="absolute inline-flex size-full animate-ping rounded-full bg-accent-400 opacity-75 motion-reduce:animate-none" /><span class="relative inline-flex size-2 rounded-full bg-accent-400" /></span>{{ t('contact.hotline') }}</span>
+            <span class="mt-2 block font-display text-[28px] font-semibold tabular-nums">{{ data.hotline.phone }}</span>
+            <span v-if="data.hotline.ext" class="mt-1 block text-[13px] text-accent-400">{{ t('contact.ext', { ext: data.hotline.ext }) }}</span>
+          </a>
+          <!-- Telegram: hover'da kanal rangidagi gradient -->
+          <a href="https://t.me/UzSWLU" target="_blank" rel="noopener" data-reveal-item class="group/tg relative isolate flex items-center gap-4 overflow-hidden rounded-3xl border border-line bg-white p-6 text-ink transition duration-300 hover:-translate-y-1 hover:border-[#2AABEE]/50 hover:shadow-[0_30px_60px_-30px_rgb(42_171_238/0.6)] motion-reduce:hover:transform-none">
+            <span class="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(120deg,rgb(42_171_238/0.10),transparent_60%)] opacity-0 transition-opacity duration-500 group-hover/tg:opacity-100" aria-hidden="true" />
+            <span class="grid size-12 shrink-0 place-items-center rounded-2xl bg-[linear-gradient(135deg,#37BBFE,#007DBB)] text-white shadow-[0_10px_24px_-10px_rgb(42_171_238/0.9)] transition-transform duration-300 group-hover/tg:-rotate-6 group-hover/tg:scale-105" aria-hidden="true">
+              <Icon name="lucide:send" class="size-5 -translate-x-px translate-y-px" />
+            </span>
+            <span class="min-w-0">
+              <span class="block text-[13px] text-muted">Telegram · {{ t('contact.channel') }}</span>
+              <span class="mt-0.5 block text-lg font-semibold">t.me/UzSWLU</span>
+            </span>
+            <Icon name="lucide:arrow-up-right" class="ml-auto size-5 shrink-0 text-muted transition duration-300 group-hover/tg:translate-x-0.5 group-hover/tg:-translate-y-0.5 group-hover/tg:text-[#2AABEE]" aria-hidden="true" />
+          </a>
         </div>
-        <a href="https://t.me/UzSWLU" target="_blank" rel="noopener" data-reveal-item class="rounded-3xl border border-line bg-white p-6 text-ink transition-colors hover:border-accent-500">
-          <span class="block text-[13px] text-muted">Telegram</span>
-          <span class="mt-1.5 block text-lg font-semibold">t.me/UzSWLU</span>
-          <span class="mt-1 block text-[13px] text-brand-700">{{ t('contact.channel') }} →</span>
-        </a>
+        <!-- E-poçta: har bir manzil bosiladigan havola (poçta ilovasi oçiladi) + nusxa oliş tugmasi.
+             Bezak: yuqorida mint → indigo çiziq (hover'da töladi), burçakda katta «@» -->
+        <div v-for="(e, i) in emailCards" :key="e.items[0]!.email" data-reveal-item class="group/card relative isolate flex flex-col overflow-hidden rounded-3xl border border-line bg-white p-3 transition duration-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-28px_rgb(56_43_133/0.55)] motion-reduce:hover:transform-none">
+          <span class="absolute inset-x-0 top-0 h-1 origin-left scale-x-[0.25] bg-[linear-gradient(90deg,#00fcb4,#7f70d3,#382b85)] transition-transform duration-500 group-hover/card:scale-x-100" aria-hidden="true" />
+          <span class="pointer-events-none absolute -top-10 -right-4 -z-10 font-display text-[170px] leading-none font-semibold text-brand-50 transition duration-500 select-none group-hover/card:-rotate-12 group-hover/card:text-brand-100/70" aria-hidden="true">@</span>
+          <div class="flex items-center gap-3 px-3 pt-4 pb-3">
+            <span class="grid size-11 shrink-0 place-items-center rounded-2xl bg-[linear-gradient(135deg,#5b4bb7,#211a5c)] text-accent-400 shadow-[0_10px_24px_-10px_rgb(56_43_133/0.9)] transition-transform duration-300 group-hover/card:-rotate-6" aria-hidden="true">
+              <Icon :name="i === 0 ? 'lucide:mail' : 'lucide:globe'" class="size-5" />
+            </span>
+            <span class="min-w-0 flex-1">
+              <span class="block font-semibold leading-tight">{{ e.title }}</span>
+              <span class="mt-0.5 block text-xs text-muted tabular-nums">{{ t('contact.mail.count', { n: e.items.length }) }}</span>
+            </span>
+          </div>
+          <ul class="grid gap-0.5 border-t border-dashed border-line pt-2">
+            <li v-for="m in e.items" :key="m.email">
+              <MailLink :email="m.email" :label="m.label" :strong="m.main" />
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
 

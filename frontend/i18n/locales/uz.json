@@ -967,6 +967,12 @@
     "channel": "Rasmiy kanal",
     "campuses": "Binolar",
     "route": "Yönaliş oliş",
+    "mail": {
+      "write": "Xat yoziş: {email}",
+      "copy": "Manzildan nusxa oliş: {email}",
+      "copied": "Nusxa olindi",
+      "count": "{n} ta manzil"
+    },
     "leaders": "Rahbariyat telefonlari",
     "table": {
       "name": "F.I.Ş. va lavozim",

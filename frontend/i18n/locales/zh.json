@@ -967,6 +967,12 @@
     "channel": "官方频道",
     "campuses": "校区楼宇",
     "route": "获取路线",
+    "mail": {
+      "write": "发送邮件：{email}",
+      "copy": "复制地址：{email}",
+      "copied": "已复制",
+      "count": "{n} 个地址"
+    },
     "leaders": "校领导电话",
     "table": {
       "name": "姓名与职务",

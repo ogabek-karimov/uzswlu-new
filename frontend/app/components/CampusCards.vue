@@ -33,7 +33,8 @@ const tel = (phone: string) => `tel:${phone.startsWith('+') ? '' : '+998'}${phon
       <div class="p-5">
         <h3 class="text-lg font-semibold transition-colors group-hover/campus:text-brand-700">{{ c.name }}</h3>
         <p class="mt-2 text-sm leading-normal text-muted">{{ c.address }}</p>
-        <a :href="tel(c.phone)" class="mt-2.5 block text-[15px] font-semibold hover:text-brand-700">{{ c.phone }}</a>
+        <a :href="tel(c.phone)" class="mt-2.5 flex items-center gap-2 text-[15px] font-semibold hover:text-brand-700"><Icon name="lucide:phone" class="size-4 shrink-0 text-brand-700" aria-hidden="true" />{{ c.phone }}</a>
+        <a v-if="c.email" :href="`mailto:${c.email}`" class="mt-1.5 flex min-w-0 items-center gap-2 text-[15px] font-medium break-all hover:text-brand-700"><Icon name="lucide:mail" class="size-4 shrink-0 text-brand-700" aria-hidden="true" />{{ c.email }}</a>
         <a :href="c.mapUrl" target="_blank" rel="noopener" class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700">{{ t('contact.route') }} →</a>
       </div>
     </li>
