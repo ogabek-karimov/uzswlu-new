@@ -79,19 +79,22 @@ onMounted(load)
         <h1 class="text-[28px] font-bold tracking-tight">Onlayn kameralar</h1>
         <p class="mt-1.5 max-w-3xl text-[15px] text-muted">«Online translatsiya» sahifasidagi jonli kameralar. <b class="text-ink">Köz</b> belgisi — kamerani saytda yaşiriş/körsatiş. Havola örniga rtsp.ru bergan iframe kodini ham qöyiş mumkin.</p>
       </div>
-      <div class="flex flex-wrap items-center gap-2">
+      <a :href="`${SITE_URL}/${SLUG}`" target="_blank" rel="noopener" class="btn-ghost h-[46px]">Saytda köriş ↗</a>
+    </div>
+    <div v-if="page && !loading" class="flex max-w-4xl flex-wrap items-center justify-between gap-3">
+      <div class="flex flex-wrap gap-2 text-sm">
+        <span class="rounded-full bg-white px-3.5 py-1.5 font-semibold">Jami: {{ ready.length }}</span>
+        <span class="rounded-full bg-emerald-50 px-3.5 py-1.5 font-semibold text-emerald-800">Saytda: {{ shown }}</span>
+        <span v-if="ready.length - shown" class="rounded-full bg-[#FEF3DC] px-3.5 py-1.5 font-semibold text-[#B54708]">Yaşirin: {{ ready.length - shown }}</span>
+      </div>
+      <div class="flex min-h-10 flex-wrap items-center gap-2">
         <span v-if="saved && !dirty" role="status" class="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-700"><Icon name="check" :size="16" />Saqlandi</span>
         <template v-if="dirty">
-          <button type="button" class="btn-ghost h-[46px]" :disabled="saving" @click="reset">Bekor qiliş</button>
-          <button type="button" class="btn-primary h-[46px] gap-2" :disabled="saving" @click="save"><Icon name="check" :size="18" />{{ saving ? 'Saqlanmoqda…' : 'Saqlaş' }}</button>
+          <span class="mr-1 text-sm text-muted">Saqlanmagan özgariş bor</span>
+          <button type="button" class="btn-ghost h-10! text-sm!" :disabled="saving" @click="reset">Bekor qiliş</button>
+          <button type="button" class="btn-primary h-10! gap-1.5 text-sm!" :disabled="saving" @click="save"><Icon name="check" :size="16" />{{ saving ? 'Saqlanmoqda…' : 'Saqlaş' }}</button>
         </template>
-        <a :href="`${SITE_URL}/${SLUG}`" target="_blank" rel="noopener" class="btn-ghost h-[46px]">Saytda köriş ↗</a>
       </div>
-    </div>
-    <div v-if="page && !loading" class="flex flex-wrap gap-2 text-sm">
-      <span class="rounded-full bg-white px-3.5 py-1.5 font-semibold">Jami: {{ ready.length }}</span>
-      <span class="rounded-full bg-emerald-50 px-3.5 py-1.5 font-semibold text-emerald-800">Saytda: {{ shown }}</span>
-      <span v-if="ready.length - shown" class="rounded-full bg-[#FEF3DC] px-3.5 py-1.5 font-semibold text-[#B54708]">Yaşirin: {{ ready.length - shown }}</span>
     </div>
     <p v-if="error" role="alert" class="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{{ error }}</p>
     <p v-if="loading" class="text-sm text-muted">Yuklanmoqda…</p>
