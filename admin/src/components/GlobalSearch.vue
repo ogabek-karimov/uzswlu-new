@@ -102,6 +102,7 @@ onBeforeUnmount(() => { window.removeEventListener('keydown', hotkey); document.
 </script>
 
 <template>
+  <div class="flex min-w-0 flex-1 items-center gap-3">
   <div ref="root" class="relative min-w-0 flex-1 sm:max-w-[520px]">
     <label for="admin-search" class="sr-only">Admin panel böyiça qidiruv</label>
     <div class="flex h-[42px] items-center gap-2 rounded-xl border border-line bg-canvas px-3 transition focus-within:border-brand-300 focus-within:bg-white focus-within:ring-4 focus-within:ring-brand-100">
@@ -114,9 +115,6 @@ onBeforeUnmount(() => { window.removeEventListener('keydown', hotkey); document.
         class="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-subtle"
         @focus="open = true" @keydown="onKey"
       >
-      <span v-if="!q" class="hidden shrink-0 items-center gap-1 text-[11px] whitespace-nowrap text-subtle lg:inline-flex" title="Klaviaturada Ctrl va K tugmalarini birga bossangiz, qidiruv oynasi darhol oçiladi">
-        Tez oçiş: <kbd class="rounded-md border border-line bg-white px-1.5 py-0.5 font-semibold text-muted">Ctrl</kbd>+<kbd class="rounded-md border border-line bg-white px-1.5 py-0.5 font-semibold text-muted">K</kbd>
-      </span>
     </div>
     <div v-if="open && q.trim()" id="admin-search-list" role="listbox" class="absolute inset-x-0 top-full z-40 mt-2 max-h-[min(70vh,520px)] overflow-y-auto rounded-2xl border border-line bg-white p-1.5 shadow-xl sm:min-w-[420px]">
       <template v-for="[g, items] in grouped" :key="g">
@@ -137,5 +135,7 @@ onBeforeUnmount(() => { window.removeEventListener('keydown', hotkey); document.
       <p v-if="loading" class="px-3 py-2.5 text-sm text-muted">Qidirilmoqda…</p>
       <p v-else-if="!hits.length" class="px-3 py-2.5 text-sm text-muted">«{{ q.trim() }}» böyiça hech narsa topilmadi.</p>
     </div>
+  </div>
+  <span class="hidden shrink-0 text-xs text-muted xl:inline">Tez oçiş: Ctrl + K</span>
   </div>
 </template>
