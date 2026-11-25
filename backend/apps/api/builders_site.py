@@ -547,6 +547,7 @@ def programs_out(lang: str, level: str) -> dict:
                 'language': {'code': p.language.code, 'native': p.language.native} if p.language else None,
                 'group': p.group.key if p.group else '',
                 'form': form_label(p.form, lang),
+                'formId': p.form,  # day | evening | distance — saytdagi «Kunduzgi / Kechki / Sirtqi» filtri uchun
                 'years': p.years,
             }
             for p in Program.objects.filter(level=level).select_related('group', 'language')

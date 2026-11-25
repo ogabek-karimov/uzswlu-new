@@ -100,6 +100,7 @@ export function getMockPrograms(lang: Locale, level: 'bachelor' | 'master'): Pro
       language: language ? languages[language]! : null,
       group,
       form: FORM.day[lang],
+      formId: 'day' as const,
       years: level === 'bachelor' ? 4 : 2,
     })),
   }

@@ -650,9 +650,13 @@ export interface Program {
   group: string
   /** Ta'lim shakli: "Kunduzgi", "Kechki", "Sirtqi" */
   form: string
+  /** Ta'lim shakli kaliti — sahifadagi filtr uchun */
+  formId: StudyForm
   /** O'qish muddati, yil */
   years: number
 }
+
+export type StudyForm = 'day' | 'evening' | 'distance'
 
 /** GET /programs?lang=&level=bachelor|master — ta'lim yo'nalishlari */
 export interface ProgramList {

@@ -1365,7 +1365,7 @@ components:
 
     Program:
       type: object
-      required: [id, code, title, group, form, years]
+      required: [id, code, title, group, form, formId, years]
       properties:
         id: { type: string }
         code: { type: string, example: '60230100' }
@@ -1373,6 +1373,7 @@ components:
         language: { oneOf: [{ $ref: '#/components/schemas/TaughtLanguage' }, { type: 'null' }], description: O'qitiladigan til (yo'q bo'lsa — o'zbek tilida) }
         group: { type: string, description: 'ProgramList.groups[].id' }
         form: { type: string, example: Kunduzgi }
+        formId: { type: string, enum: [day, evening, distance], description: 'Ta''lim shakli kaliti (filtr uchun): kunduzgi, kechki, sirtqi' }
         years: { type: integer }
 
     ProgramList:

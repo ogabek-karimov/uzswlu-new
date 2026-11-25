@@ -790,6 +790,13 @@
     },
     "groups": "Yönaliş guruhi",
     "all": "Barçasi",
+    "forms": {
+      "label": "Ta’lim şakli",
+      "day": "Kunduzgi",
+      "evening": "Keçki",
+      "distance": "Sirtqi",
+      "empty": "Bu ta’lim şaklida hozirça yönaliş yöq."
+    },
     "shown": "{n} ta yönaliş",
     "years": "{n} yil",
     "evening": {

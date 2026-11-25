@@ -790,6 +790,13 @@
     },
     "groups": "专业类别",
     "all": "全部",
+    "forms": {
+      "label": "学习形式",
+      "day": "全日制",
+      "evening": "夜校",
+      "distance": "函授",
+      "empty": "该学习形式暂无专业。"
+    },
     "shown": "共 {n} 个专业",
     "years": "{n} 年",
     "evening": {

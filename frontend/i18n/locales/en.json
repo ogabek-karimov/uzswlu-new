@@ -790,6 +790,13 @@
     },
     "groups": "Programme group",
     "all": "All",
+    "forms": {
+      "label": "Mode of study",
+      "day": "Full-time",
+      "evening": "Evening",
+      "distance": "Distance",
+      "empty": "No programmes in this mode of study yet."
+    },
     "shown": "{n} programmes",
     "years": "{n} yrs",
     "evening": {

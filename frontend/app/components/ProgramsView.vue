@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ProgramList } from '#shared/types/api'
+import type { ProgramList, StudyForm } from '#shared/types/api'
 
 // Ta'lim yo'nalishlari (canvas: "Ta'lim yo'nalishlari — Bakalavriat"); /bakalavriat va /magistratura
 const props = defineProps<{ level: 'bachelor' | 'master' }>()
@@ -11,11 +11,34 @@ const localePath = useLocalePath()
 const { data } = await useFetch<ProgramList>('/api/programs', { key: `programs-${props.level}`, query: { lang: locale, level: props.level } })
 
 const group = ref('all')
-const groups = computed(() => [
-  { id: 'all', title: t('programs.all'), count: data.value?.items.length ?? 0 },
-  ...(data.value?.groups ?? []).map(g => ({ ...g, count: data.value!.items.filter(p => p.group === g.id).length })),
+
+// Ta'lim şakli: Barçasi / Kunduzgi / Keçki / Sirtqi — guruh filtri bilan birga işlaydi; tanlov manzilda (?shakl=kechki),
+// havola yuborilsa ham şu körinişda oçiladi
+const FORMS: { id: StudyForm; slug: string; icon: string }[] = [
+  { id: 'day', slug: 'kunduzgi', icon: 'lucide:sun' },
+  { id: 'evening', slug: 'kechki', icon: 'lucide:moon-star' },
+  { id: 'distance', slug: 'sirtqi', icon: 'lucide:book-open' },
+]
+const route = useRoute()
+const router = useRouter()
+const form = computed<StudyForm | 'all'>({
+  get: () => FORMS.find(f => f.slug === route.query.shakl)?.id ?? 'all',
+  set: (v) => {
+    const shakl = FORMS.find(f => f.id === v)?.slug
+    router.replace({ query: { ...route.query, shakl } })
+  },
+})
+const inForm = computed(() => (data.value?.items ?? []).filter(p => form.value === 'all' || p.formId === form.value))
+const inGroup = computed(() => (data.value?.items ?? []).filter(p => group.value === 'all' || p.group === group.value))
+const forms = computed(() => [
+  { id: 'all' as const, icon: 'lucide:layers', title: t('programs.all'), count: inGroup.value.length },
+  ...FORMS.map(f => ({ id: f.id, icon: f.icon, title: t(`programs.forms.${f.id}`), count: inGroup.value.filter(p => p.formId === f.id).length })),
 ])
-const items = computed(() => (data.value?.items ?? []).filter(p => group.value === 'all' || p.group === group.value))
+const groups = computed(() => [
+  { id: 'all', title: t('programs.all'), count: inForm.value.length },
+  ...(data.value?.groups ?? []).map(g => ({ ...g, count: inForm.value.filter(p => p.group === g.id).length })),
+])
+const items = computed(() => inForm.value.filter(p => group.value === 'all' || p.group === group.value))
 
 const levels = [
   { id: 'bachelor', to: '/bakalavriat' },
@@ -47,6 +70,24 @@ useSeo({ title: () => t(`programs.${props.level}.title`), description: () => t(`
     </section>
 
     <section class="mx-auto max-w-7xl px-4 pt-10 sm:px-6 lg:px-8">
+      <!-- Ta'lim şakli: segmentli tanlagiç (har birida belgi va yönalişlar soni) -->
+      <span class="mb-2 block text-xs font-semibold tracking-[0.08em] text-muted uppercase" aria-hidden="true">{{ t('programs.forms.label') }}</span>
+      <div role="group" :aria-label="t('programs.forms.label')" class="mb-6 flex max-w-full gap-1 overflow-x-auto rounded-full border border-line bg-white p-1.5 shadow-[0_18px_40px_-30px_rgb(56_43_133/0.45)] sm:inline-flex">
+        <button
+          v-for="f in forms"
+          :key="f.id"
+          type="button"
+          :aria-pressed="form === f.id"
+          class="group/form inline-flex h-11 shrink-0 items-center gap-2 rounded-full px-4 text-sm font-semibold whitespace-nowrap transition duration-300"
+          :class="form === f.id ? 'bg-brand-900 text-white shadow-[0_10px_24px_-10px_rgb(56_43_133/0.9)]' : 'text-ink hover:bg-brand-50'"
+          @click="form = f.id"
+        >
+          <Icon :name="f.icon" class="size-4 transition-transform duration-300 group-hover/form:-rotate-12" :class="form === f.id ? 'text-accent-400' : 'text-brand-600'" aria-hidden="true" />
+          {{ f.title }}
+          <span class="min-w-6 rounded-full px-1.5 py-0.5 text-center text-xs tabular-nums" :class="form === f.id ? 'bg-white/15 text-white' : 'bg-brand-50 text-muted'">{{ f.count }}</span>
+        </button>
+      </div>
+      <span class="mb-2 block text-xs font-semibold tracking-[0.08em] text-muted uppercase" aria-hidden="true">{{ t('programs.groups') }}</span>
       <div class="flex flex-wrap items-center justify-between gap-4">
         <div role="group" :aria-label="t('programs.groups')" class="flex flex-wrap gap-2">
           <button
@@ -78,6 +119,7 @@ useSeo({ title: () => t(`programs.${props.level}.title`), description: () => t(`
           <span class="mt-auto border-t border-line/70 pt-3.5 text-sm text-muted">{{ p.form }} · {{ t('programs.years', { n: p.years }) }}</span>
         </li>
       </ul>
+      <p v-if="!items.length" class="mt-7 rounded-[22px] border border-dashed border-line bg-white px-6 py-10 text-center text-muted">{{ t('programs.forms.empty') }}</p>
     </section>
 
     <section class="mx-auto grid max-w-7xl gap-5 px-4 pt-14 pb-24 sm:px-6 md:grid-cols-2 lg:px-8">
