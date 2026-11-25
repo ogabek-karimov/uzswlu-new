@@ -79,6 +79,8 @@ Sahifalar va ularni kim ko‘rishi: [reference → Admin panel sahifalari](refer
 | Kirish holati, rol tekshiruvi | `src/lib/auth.ts` |
 | 4 tilli maydon | `components/I18nFields.vue`, `LangTabs.vue` |
 | Matn muharriri | `components/RichEditor.vue` (TipTap) |
+| Post nashr vaqti (hozir / matndagi sana / belgilangan vaqt) | `pages/PostEditPage.vue`; matndan sana topish — `src/lib/textdate.ts` (`detectPostDate`): o‘zbek (lotin, kirill), rus, ingliz, xitoy va `20.10.2026`, `2026-10-20` yozuvlari; yil yo‘q → joriy yil (kelajakka tushsa — o‘tgan yil), vaqt yo‘q → 09:00, kun yo‘q → 1-kun. Kelajak vaqt — rejalashtirish (`Post.visible`: `published_at <= hozir`). Testlar: `admin/scripts/test-api.mts` (11-bo‘lim) |
+| «Saqlandi» bildirishi | `src/lib/toast.ts`, `components/AppToaster.vue` — `api.ts` muvaffaqiyatli saqlash/o‘chirishdan keyin chaqiradi |
 | Rasm/fayl tanlash | `MediaPicker.vue`, `ImageField.vue`, `PdfAttachments.vue` |
 | Uslublar | `src/styles.css` (Tailwind 4; tugmalar uchun global `cursor: pointer` qoidasi shu yerda) |
 

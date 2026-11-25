@@ -528,7 +528,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (430 ta test)
+### Backend testlari xaritasi (431 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -568,7 +568,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/security/test_access_control.py` | 22 | Ob‘ekt darajasidagi ruxsat: id almashtirib begona ma’lumot olish (IDOR), kabinet izolyatsiyasi, post egaligi. |
 | `backend/tests/security/test_auth.py` | 22 | Kirish: JWT, parol almashganda bekor qilish, 2FA (TOTP). |
 | `backend/tests/security/test_cache_pressure.py` | 15 | Kesh va bosim: cache-busting, kesh to'qnashuvi, token bilan himoyalangan javob keshi, statistika/yuklab olish suiiste'moli. |
-| `backend/tests/security/test_data_theft.py` | 17 | Hujum simulyatsiyasi: ma'lumot o'g'irlash (oracle, enumeration, IDOR, draft sizishi, token/rol), scraping va suiiste'mol. |
+| `backend/tests/security/test_data_theft.py` | 18 | Hujum simulyatsiyasi: ma'lumot o'g'irlash (oracle, enumeration, IDOR, draft sizishi, token/rol), scraping va suiiste'mol. |
 | `backend/tests/security/test_files.py` | 31 | Fayl xavfsizligi testlari: yuklash (tekshiruv, tozalash), yopiq saqlash, yuklab olish sarlavhalari, hajm cheklovi. |
 | `backend/tests/security/test_hardening.py` | 17 | Chiqishdan oldingi audit topilmalari: har biri uchun regressiya testi (hujum so'rovi → xavfsiz javob). |
 | `backend/tests/security/test_id_swap.py` | 3 | ID almashtirib boshqa ma'lumotni olishga urinish (IDOR): so'rovdagi ID/`where` ni o'zgartirib ruxsatsiz yozuvni o'qib bo'lmaydi. |
