@@ -9,8 +9,9 @@ const localePath = useLocalePath()
 const isSdg = computed(() => props.group.links.some(l => l.sdg))
 const columns = computed(() => {
   const n = props.group.links.length
-  return n > 10 ? 'columns-3' : n > 4 ? 'columns-2' : 'columns-1'
+  return n > 10 ? 'grid-cols-3' : n > 4 ? 'grid-cols-2' : 'grid-cols-1 max-w-md'
 })
+const num = (i: number) => String(i + 1).padStart(2, '0')
 </script>
 
 <template>
@@ -47,17 +48,23 @@ const columns = computed(() => {
 
     <div class="col-span-9 border-l border-line pl-10">
       <NavSdgGrid v-if="isSdg" :links="group.links" />
-      <ul v-else class="gap-x-6" :class="columns">
-        <li v-for="link in group.links" :key="link.url" class="break-inside-avoid">
+      <!-- Ichki sahifalar: har biri — kartoçka (tartib raqami, yumşoq gradient fon); hover'da töq indigo gradient, mint strelka -->
+      <ul v-else class="grid gap-2.5" :class="columns">
+        <li v-for="(link, i) in group.links" :key="link.url" class="min-w-0">
           <NavMenuLink
             :link="link"
-            class="group/link flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] transition-colors hover:bg-brand-50"
-            :class="link.highlight ? 'font-semibold text-brand-800' : 'text-ink/85 hover:text-ink'"
+            class="group/link relative isolate flex h-full min-h-[58px] items-center gap-3 overflow-hidden rounded-2xl border px-3 py-2.5 text-[15px] leading-snug transition duration-300 ease-out hover:-translate-y-0.5 hover:border-transparent hover:shadow-[0_18px_36px_-20px_rgb(56_43_133/0.75)] motion-reduce:hover:transform-none"
+            :class="link.highlight ? 'border-accent-400/60 bg-[linear-gradient(135deg,#effff9,#f4f2fd)]' : 'border-line/80 bg-[linear-gradient(135deg,#fbfaff,#f3f1fc)]'"
           >
-            <span class="size-1.5 shrink-0 rounded-full transition-colors" :class="link.highlight ? 'bg-accent-500' : 'bg-brand-200 group-hover/link:bg-brand-600'" />
-            <span class="flex-1">{{ link.title }}</span>
-            <span v-if="link.file" class="rounded-md bg-red-50 px-1.5 py-0.5 text-[10px] font-bold tracking-wide text-red-700 uppercase">{{ link.file }}</span>
-            <Icon v-else name="lucide:arrow-right" class="size-4 shrink-0 -translate-x-1 text-brand-600 opacity-0 transition group-hover/link:translate-x-0 group-hover/link:opacity-100" />
+            <span class="absolute inset-0 -z-10 bg-[linear-gradient(135deg,#382b85,#13112f)] opacity-0 transition-opacity duration-300 group-hover/link:opacity-100" aria-hidden="true" />
+            <span
+              class="grid size-9 shrink-0 place-items-center rounded-xl text-[12px] font-bold tabular-nums ring-1 transition-colors duration-300 group-hover/link:bg-white/10 group-hover/link:text-accent-400 group-hover/link:ring-white/15"
+              :class="link.highlight ? 'bg-accent-400 text-brand-950 ring-accent-400' : 'bg-white text-brand-700 ring-line'"
+              aria-hidden="true"
+            >{{ num(i) }}</span>
+            <span class="min-w-0 flex-1 transition-colors duration-300 group-hover/link:text-white" :class="link.highlight ? 'font-semibold text-brand-800' : 'font-medium text-ink/90'">{{ link.title }}</span>
+            <span v-if="link.file" class="shrink-0 rounded-md bg-red-50 px-1.5 py-0.5 text-[10px] font-bold tracking-wide text-red-700 uppercase">{{ link.file }}</span>
+            <Icon v-else name="lucide:arrow-up-right" class="size-4 shrink-0 text-brand-400 transition duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-hover/link:text-accent-400" />
           </NavMenuLink>
         </li>
       </ul>

@@ -690,3 +690,48 @@ html[data-scheme] [data-speaking] {
   text-align: center;
   font-weight: 700;
 }
+
+/* Ichki sahifa boshi (PageIntro, oddiy sahifalar, ta'lim yo'nalişlari): ixcham karta —
+   indigo → ko'k → mint qiya gradient, çap yuqorida lavanda nur; öng tomonda ingiçka oq va mint tölqin çiziqlar.
+   Matn oq. Chop etishda fon va tölqinlar olib tashlanadi, matn töq. */
+.page-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 28px;
+  color: #fff;
+  background:
+    radial-gradient(40% 120% at 0% 0%, rgb(160 148 240 / 0.5), transparent 70%),
+    linear-gradient(120deg, #4b3aa8 0%, #4f5fc8 55%, #17b89b 100%);
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: -1;
+  width: min(62%, 640px);
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200' preserveAspectRatio='none'%3E%3Cg fill='none' vector-effect='non-scaling-stroke'%3E%3Cpath d='M0 150C80 90 160 190 240 120S360 60 400 90' stroke='%23fff' stroke-opacity='.22' stroke-width='1.5'/%3E%3Cpath d='M0 170C90 110 170 210 250 140S370 80 400 110' stroke='%2300fcb4' stroke-opacity='.55' stroke-width='2'/%3E%3Cpath d='M0 190C100 130 180 230 260 160S380 100 400 130' stroke='%23fff' stroke-opacity='.14' stroke-width='1.5'/%3E%3Cpath d='M40 60C120 10 200 100 280 40S380 0 400 20' stroke='%23fff' stroke-opacity='.12' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+@media print {
+  .page-hero { background: none; border-radius: 0; }
+  .page-hero::before { display: none; }
+  .page-hero, .page-hero * { color: #13112f !important; }
+}
+
+/* Yuqori menyu: joriy sahifa tegişli bölim — yozuv ostida yaşil (mint) çiziq (TheHeader.vue → isCurrent) */
+.nav-current { position: relative; color: var(--color-ink); }
+.nav-current::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 1px;
+  width: calc(100% - 1.75rem);
+  min-width: 14px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-accent-400), #0fb98f);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+@media print { .nav-current::after { display: none; } }

@@ -58,26 +58,28 @@ useSeo({
 
 <template>
   <div v-if="page">
-    <section class="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-      <PageBreadcrumbs :items="[...(group ? [{ label: group.title }] : []), ...(page.parent ? (page.parent.trail?.length ? page.parent.trail : [page.parent]).map(x => ({ label: x.title, to: x.url })) : []), { label: page.title }]" />
-      <div class="mt-7 flex flex-wrap items-end justify-between gap-6 border-b border-line pb-9">
-        <div class="max-w-[820px] min-w-0">
-          <h1 class="mt-3.5 font-display text-[2.75rem] leading-[1.04] font-semibold tracking-tight text-ink sm:text-6xl lg:text-[64px]">{{ page.title }}</h1>
-          <p v-if="page.lead" class="mt-5 text-lg leading-relaxed text-muted sm:text-xl">{{ page.lead }}</p>
-        </div>
-        <div class="no-print flex gap-2">
-          <button
-            type="button"
-            class="relative grid size-11 place-items-center rounded-full border border-line bg-white text-ink transition-colors hover:border-accent-500"
-            :aria-label="t('page.share')"
-            @click="share(page.title)"
-          >
-            <Icon :name="copied ? 'lucide:check' : 'lucide:share-2'" class="size-[18px]" />
-            <span v-if="copied" role="status" class="absolute top-full right-0 mt-2 rounded-lg bg-ink px-2.5 py-1 text-xs whitespace-nowrap text-white">{{ t('page.copied') }}</span>
-          </button>
-          <button type="button" class="grid size-11 place-items-center rounded-full border border-line bg-white text-ink transition-colors hover:border-accent-500" :aria-label="t('page.print')" @click="printPage">
-            <Icon name="lucide:printer" class="size-[18px]" />
-          </button>
+    <section class="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
+      <div class="page-hero px-5 py-6 sm:px-8 sm:py-7">
+        <PageBreadcrumbs dark :items="[...(group ? [{ label: group.title }] : []), ...(page.parent ? (page.parent.trail?.length ? page.parent.trail : [page.parent]).map(x => ({ label: x.title, to: x.url })) : []), { label: page.title }]" />
+        <div class="mt-4 flex flex-wrap items-end justify-between gap-5">
+          <div class="max-w-[820px] min-w-0">
+            <h1 class="font-display text-[2.25rem] leading-[1.06] font-semibold tracking-tight text-white sm:text-5xl lg:text-[52px]">{{ page.title }}</h1>
+            <p v-if="page.lead" class="mt-3 text-base leading-relaxed text-white/75 sm:text-lg">{{ page.lead }}</p>
+          </div>
+          <div class="no-print flex gap-2">
+            <button
+              type="button"
+              class="relative grid size-11 place-items-center rounded-full border border-white/15 bg-white/10 text-accent-400 transition-colors hover:border-accent-400 hover:bg-white/15"
+              :aria-label="t('page.share')"
+              @click="share(page.title)"
+            >
+              <Icon :name="copied ? 'lucide:check' : 'lucide:share-2'" class="size-[18px]" />
+              <span v-if="copied" role="status" class="absolute top-1/2 right-full mr-2 -translate-y-1/2 rounded-lg bg-white px-2.5 py-1 text-xs font-medium whitespace-nowrap text-brand-900">{{ t('page.copied') }}</span>
+            </button>
+            <button type="button" class="grid size-11 place-items-center rounded-full border border-white/15 bg-white/10 text-accent-400 transition-colors hover:border-accent-400 hover:bg-white/15" :aria-label="t('page.print')" @click="printPage">
+              <Icon name="lucide:printer" class="size-[18px]" />
+            </button>
+          </div>
         </div>
       </div>
     </section>

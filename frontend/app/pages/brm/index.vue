@@ -16,11 +16,10 @@ useSeo({ title: () => t('sdg.eyebrow'), description: () => t('sdg.lead') })
 
 <template>
   <div v-if="data">
-    <!-- Hero: aylana + GreenMetric -->
-    <section class="relative overflow-hidden bg-brand-950 text-white">
-      <span class="decor pointer-events-none absolute -top-56 -left-44 size-[560px] rounded-full border-[56px] border-accent-400/5" aria-hidden="true" />
-      <span class="absolute inset-x-0 bottom-0 h-2.5" :style="{ background: stripe }" aria-hidden="true" />
-      <div class="relative mx-auto max-w-7xl px-4 pt-8 pb-22 sm:px-6 lg:px-8">
+    <!-- Hero: aylana + GreenMetric — boshqa sahifalar kabi `page-hero` (indigo→mint gradient, to'lqinlar), pastda 17 maqsad chizig'i -->
+    <section class="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
+      <div class="page-hero px-5 pt-6 pb-14 sm:px-8 sm:pt-7 lg:px-10">
+        <span class="absolute inset-x-0 bottom-0 h-2.5" :style="{ background: stripe }" aria-hidden="true" />
         <PageBreadcrumbs dark :items="[{ label: t('sdg.crumb') }]" />
         <div class="mt-7 grid items-center gap-14 lg:grid-cols-[1fr_minmax(0,600px)]">
           <div class="min-w-0">
@@ -28,7 +27,7 @@ useSeo({ title: () => t('sdg.eyebrow'), description: () => t('sdg.lead') })
             <h1 class="mt-3.5 font-display text-[2.75rem] leading-[1.04] font-semibold sm:text-[56px]">{{ t('sdg.title') }} <span class="text-accent-400 italic">{{ t('sdg.titleAccent') }}</span></h1>
             <p class="mt-5 max-w-xl text-lg leading-relaxed text-white/72">{{ t('sdg.lead') }}</p>
 
-            <div class="mt-9 max-w-[560px] rounded-3xl border border-white/14 bg-white/[0.06] p-6">
+            <div class="mt-9 max-w-[560px] rounded-3xl border border-white/20 bg-brand-950/25 p-6 backdrop-blur-sm">
               <p class="text-[13px] font-semibold tracking-[0.14em] text-white/65 uppercase">UI GreenMetric {{ data.greenmetric.year }}</p>
               <dl class="mt-4 grid grid-cols-3 gap-3">
                 <div v-for="key in (['world', 'asia', 'country'] as const)" :key="key" class="flex flex-col-reverse gap-1.5">

@@ -32,8 +32,8 @@ onBeforeUnmount(() => clearTimeout(timer))
 </script>
 
 <template>
-  <div class="group/mail flex items-center gap-2 rounded-2xl px-3 py-2 transition-colors hover:bg-brand-50/80">
-    <span class="grid size-9 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-700 transition duration-300 group-hover/mail:bg-brand-800 group-hover/mail:text-accent-400" aria-hidden="true">
+  <div class="group/mail flex items-center gap-2 rounded-2xl px-3 py-2 transition-colors hover:bg-white/70">
+    <span class="grid size-9 shrink-0 place-items-center rounded-xl bg-white/75 text-brand-700 ring-1 ring-[#eadfc4] transition duration-300 group-hover/mail:bg-brand-800 group-hover/mail:ring-transparent group-hover/mail:text-accent-400" aria-hidden="true">
       <Icon name="lucide:mail" class="size-[18px]" />
     </span>
     <a :href="`mailto:${email}`" class="min-w-0 flex-1 leading-tight" :title="t('contact.mail.write', { email })">

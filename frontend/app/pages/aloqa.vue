@@ -77,13 +77,17 @@ useSeo({ title: () => t('contact.title'), description: () => t('contact.lead') }
       <!-- Çapda: işonç telefoni va Telegram ustma-ust, ong tomonda — e-poçta kartalari (manzillar uzun, keng joy kerak) -->
       <div v-reveal class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div class="grid gap-4 sm:col-span-2 sm:grid-cols-2 lg:col-span-1 lg:grid-cols-1">
-          <!-- Işonç telefoni: töq fon, burçakda mint nur, orqada katta telefon belgisi -->
-          <a :href="tel(data.hotline.phone)" data-reveal-item class="group/hot relative isolate overflow-hidden rounded-3xl bg-brand-900 p-6 text-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-28px_rgb(56_43_133/0.8)] motion-reduce:hover:transform-none">
-            <span class="pointer-events-none absolute -top-16 -right-16 -z-10 size-48 rounded-full bg-accent-400/25 blur-3xl transition-opacity duration-500 group-hover/hot:opacity-80" aria-hidden="true" />
-            <Icon name="lucide:phone-call" class="pointer-events-none absolute -right-3 -bottom-4 -z-10 size-28 -rotate-12 text-white/[0.06] transition-transform duration-500 group-hover/hot:rotate-0" aria-hidden="true" />
-            <span class="flex items-center gap-2 text-[13px] text-white/60"><span class="relative flex size-2"><span class="absolute inline-flex size-full animate-ping rounded-full bg-accent-400 opacity-75 motion-reduce:animate-none" /><span class="relative inline-flex size-2 rounded-full bg-accent-400" /></span>{{ t('contact.hotline') }}</span>
-            <span class="mt-2 block font-display text-[28px] font-semibold tabular-nums">{{ data.hotline.phone }}</span>
-            <span v-if="data.hotline.ext" class="mt-1 block text-[13px] text-accent-400">{{ t('contact.ext', { ext: data.hotline.ext }) }}</span>
+          <!-- Işonç telefoni: och mint fon, ingiçka tölqin çiziqlar (sahifa boşidagi kabi), orqada katta telefon belgisi -->
+          <a :href="tel(data.hotline.phone)" data-reveal-item class="group/hot relative isolate overflow-hidden rounded-3xl border border-[#9fead3] bg-[linear-gradient(120deg,#e9fdf6,#bff3e2)] p-6 text-ink transition duration-300 hover:-translate-y-1 hover:border-accent-500 hover:shadow-[0_30px_60px_-28px_rgb(15_185_143/0.55)] motion-reduce:hover:transform-none">
+            <svg class="pointer-events-none absolute inset-0 -z-10 size-full" viewBox="0 0 300 130" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M90 112C150 72 205 132 300 82" fill="none" stroke="rgb(15 185 143 / 0.6)" stroke-width="1.6" vector-effect="non-scaling-stroke" />
+              <path d="M110 126C170 92 225 142 300 102" fill="none" stroke="rgb(75 58 168 / 0.22)" stroke-width="1.2" vector-effect="non-scaling-stroke" />
+              <path d="M140 40C190 10 240 60 300 30" fill="none" stroke="rgb(15 185 143 / 0.25)" stroke-width="1.2" vector-effect="non-scaling-stroke" />
+            </svg>
+            <Icon name="lucide:phone-call" class="pointer-events-none absolute -right-3 -bottom-4 -z-10 size-28 -rotate-12 text-[#0fb98f]/[0.14] transition-transform duration-500 group-hover/hot:rotate-0" aria-hidden="true" />
+            <span class="flex items-center gap-2 text-[13px] font-medium text-[#0b5a43]"><span class="relative flex size-2"><span class="absolute inline-flex size-full animate-ping rounded-full bg-[#0fb98f] opacity-75 motion-reduce:animate-none" /><span class="relative inline-flex size-2 rounded-full bg-[#0fb98f]" /></span>{{ t('contact.hotline') }}</span>
+            <span class="mt-2 block font-display text-[28px] font-semibold text-brand-950 tabular-nums">{{ data.hotline.phone }}</span>
+            <span v-if="data.hotline.ext" class="mt-1 block text-[13px] font-semibold text-brand-800">{{ t('contact.ext', { ext: data.hotline.ext }) }}</span>
           </a>
           <!-- Telegram: hover'da kanal rangidagi gradient -->
           <a href="https://t.me/UzSWLU" target="_blank" rel="noopener" data-reveal-item class="group/tg relative isolate flex items-center gap-4 overflow-hidden rounded-3xl border border-line bg-white p-6 text-ink transition duration-300 hover:-translate-y-1 hover:border-[#2AABEE]/50 hover:shadow-[0_30px_60px_-30px_rgb(42_171_238/0.6)] motion-reduce:hover:transform-none">
@@ -99,10 +103,12 @@ useSeo({ title: () => t('contact.title'), description: () => t('contact.lead') }
           </a>
         </div>
         <!-- E-poçta: har bir manzil bosiladigan havola (poçta ilovasi oçiladi) + nusxa oliş tugmasi.
-             Bezak: yuqorida mint → indigo çiziq (hover'da töladi), burçakda katta «@» -->
-        <div v-for="(e, i) in emailCards" :key="e.items[0]!.email" data-reveal-item class="group/card relative isolate flex flex-col overflow-hidden rounded-3xl border border-line bg-white p-3 transition duration-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-28px_rgb(56_43_133/0.55)] motion-reduce:hover:transform-none">
-          <span class="absolute inset-x-0 top-0 h-1 origin-left scale-x-[0.25] bg-[linear-gradient(90deg,#00fcb4,#7f70d3,#382b85)] transition-transform duration-500 group-hover/card:scale-x-100" aria-hidden="true" />
-          <span class="pointer-events-none absolute -top-10 -right-4 -z-10 font-display text-[170px] leading-none font-semibold text-brand-50 transition duration-500 select-none group-hover/card:-rotate-12 group-hover/card:text-brand-100/70" aria-hidden="true">@</span>
+             Bezak: qaymoq fon, orqada mint, lavanda va şaftoli rangli yumşoq şarlar; ustida yarim şaffof «şişa» panel (hover'da şarlar siljiydi) -->
+        <div v-for="(e, i) in emailCards" :key="e.items[0]!.email" data-reveal-item class="group/card relative isolate flex flex-col overflow-hidden rounded-3xl border border-[#ecdfc0] bg-[#f8eed8] p-2.5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-28px_rgb(120_95_40/0.45)] motion-reduce:hover:transform-none">
+          <span class="pointer-events-none absolute -top-10 -right-10 -z-10 size-44 rounded-full bg-[radial-gradient(circle,#00fcb4,rgb(0_252_180/0)_70%)] transition-transform duration-700 group-hover/card:-translate-x-6 group-hover/card:translate-y-4" aria-hidden="true" />
+          <span class="pointer-events-none absolute -bottom-14 -left-10 -z-10 size-48 rounded-full bg-[radial-gradient(circle,#a99cec,rgb(169_156_236/0)_70%)] transition-transform duration-700 group-hover/card:translate-x-6 group-hover/card:-translate-y-3" aria-hidden="true" />
+          <span class="pointer-events-none absolute top-1/3 left-1/2 -z-10 size-28 rounded-full bg-[radial-gradient(circle,#ffcf9e,rgb(255_207_158/0)_70%)] transition-transform duration-700 group-hover/card:scale-125" aria-hidden="true" />
+          <div class="flex flex-1 flex-col rounded-[20px] border border-white/85 bg-[rgb(255_250_240/0.62)] px-0.5 pb-1 backdrop-blur-xl backdrop-saturate-150">
           <div class="flex items-center gap-3 px-3 pt-4 pb-3">
             <span class="grid size-11 shrink-0 place-items-center rounded-2xl bg-[linear-gradient(135deg,#5b4bb7,#211a5c)] text-accent-400 shadow-[0_10px_24px_-10px_rgb(56_43_133/0.9)] transition-transform duration-300 group-hover/card:-rotate-6" aria-hidden="true">
               <Icon :name="i === 0 ? 'lucide:mail' : 'lucide:globe'" class="size-5" />
@@ -112,11 +118,12 @@ useSeo({ title: () => t('contact.title'), description: () => t('contact.lead') }
               <span class="mt-0.5 block text-xs text-muted tabular-nums">{{ t('contact.mail.count', { n: e.items.length }) }}</span>
             </span>
           </div>
-          <ul class="grid gap-0.5 border-t border-dashed border-line pt-2">
+          <ul class="grid gap-0.5 border-t border-[#e3d6b5] pt-2">
             <li v-for="m in e.items" :key="m.email">
               <MailLink :email="m.email" :label="m.label" :strong="m.main" />
             </li>
           </ul>
+          </div>
         </div>
       </div>
     </section>

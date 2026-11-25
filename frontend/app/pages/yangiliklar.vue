@@ -10,6 +10,8 @@ const localePath = useLocalePath()
 const formatDate = useFormatDate()
 
 const TYPES: PostType[] = ['news', 'events', 'announcements']
+// Yorliq kartoçkalari belgilari
+const TYPE_ICONS: Record<PostType, string> = { news: 'lucide:newspaper', events: 'lucide:calendar-days', announcements: 'lucide:megaphone' }
 const PER_PAGE = 12
 
 const str = (v: unknown) => (typeof v === 'string' ? v : '')
@@ -66,44 +68,70 @@ useSeo({ title: () => t('posts.title'), description: () => t('posts.lead') })
 
 <template>
   <div>
-    <section class="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-      <PageBreadcrumbs :items="[{ label: t(`posts.tabs.${type}`) }]" />
-      <div class="mt-7 flex flex-wrap items-end justify-between gap-6">
-        <h1 class="font-display text-[2.75rem] leading-[1.04] font-semibold tracking-tight text-ink sm:text-6xl lg:text-[64px]">{{ t('posts.title') }}</h1>
+    <section class="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
+      <!-- Boşqa içki sahifalar bilan bir xil karta (tölqinli gradient): assets/css/main.css → .page-hero -->
+      <div class="page-hero px-5 py-6 sm:px-8 sm:py-7">
+      <PageBreadcrumbs dark :items="[{ label: t(`posts.tabs.${type}`) }]" />
+      <div class="mt-4 flex flex-wrap items-end justify-between gap-6">
+        <h1 class="font-display text-[2.25rem] leading-[1.06] font-semibold tracking-tight text-white sm:text-5xl lg:text-[52px]">{{ t('posts.title') }}</h1>
         <div role="search" class="flex w-full flex-wrap items-center gap-2.5 sm:w-auto">
-          <label class="flex h-12 min-w-0 flex-1 items-center gap-2 rounded-full border border-line bg-white px-4 focus-within:border-accent-600 sm:w-72 sm:flex-none">
+          <label class="flex h-12 min-w-0 flex-1 basis-full items-center gap-2 rounded-full border border-white/30 bg-white px-4 text-ink focus-within:border-accent-400 sm:w-72 sm:flex-none sm:basis-auto">
             <Icon name="lucide:search" class="size-[18px] shrink-0 text-muted" />
             <span class="sr-only">{{ t('posts.search') }}</span>
             <input v-model="search" type="search" autocomplete="off" :placeholder="t('posts.searchPlaceholder')" class="h-full min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted">
           </label>
-          <label class="relative">
-            <span class="sr-only">{{ t('posts.month') }}</span>
-            <select
-              :value="month"
-              class="h-12 cursor-pointer appearance-none rounded-full border border-line bg-white pr-10 pl-4 text-[15px] font-medium outline-none focus:border-accent-600"
-              @change="setFilters({ month: ($event.target as HTMLSelectElement).value })"
-            >
-              <option value="">{{ t('posts.allMonths') }}</option>
-              <option v-for="m in data?.months ?? []" :key="m" :value="m">{{ monthLabel(m) }}</option>
-            </select>
-            <Icon name="lucide:chevron-down" class="pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2 text-muted" />
-          </label>
+          <!-- Oy tanlovi: çapda mint taqvim belgisi; oy tanlansa — tözalaş tugmasi -->
+          <div class="relative flex h-12 w-full items-center rounded-full bg-white text-ink sm:w-auto ring-1 ring-white/30 transition focus-within:ring-2 focus-within:ring-accent-400" :class="month && 'ring-2 ring-accent-400'">
+            <span class="pointer-events-none absolute left-1.5 grid size-9 place-items-center rounded-full bg-[linear-gradient(135deg,#00fcb4,#7f70d3)] text-brand-950" aria-hidden="true">
+              <Icon name="lucide:calendar-days" class="size-[17px]" />
+            </span>
+            <label class="contents">
+              <span class="sr-only">{{ t('posts.month') }}</span>
+              <select
+                :value="month"
+                class="h-full min-w-0 flex-1 cursor-pointer appearance-none rounded-full bg-transparent pl-[3.25rem] text-[15px] font-semibold outline-none"
+                :class="month ? 'pr-3' : 'pr-10'"
+                @change="setFilters({ month: ($event.target as HTMLSelectElement).value })"
+              >
+                <option value="" :selected="!month">{{ t('posts.allMonths') }}</option>
+                <option v-for="m in data?.months ?? []" :key="m" :value="m" :selected="m === month">{{ monthLabel(m) }}</option>
+              </select>
+            </label>
+            <button v-if="month" type="button" class="mr-1.5 grid size-9 shrink-0 place-items-center rounded-full bg-brand-50 text-brand-800 transition-colors hover:bg-brand-800 hover:text-white" :aria-label="t('posts.allMonths')" @click="setFilters({ month: '' })">
+              <Icon name="lucide:x" class="size-4" />
+            </button>
+            <Icon v-else name="lucide:chevron-down" class="pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2 text-brand-600" />
+          </div>
         </div>
       </div>
+      </div>
 
-      <div role="tablist" :aria-label="t('posts.typeLabel')" class="mt-7 flex gap-1 overflow-x-auto overflow-y-hidden border-b border-line [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <!-- Yangiliklar / Tadbirlar / E'lonlar: belgili kartoçkalar; tanlangani — töq indigo gradient, mint belgi va son -->
+      <div role="tablist" :aria-label="t('posts.typeLabel')" class="mt-5 grid grid-cols-3 gap-2 sm:flex sm:gap-3">
         <button
           v-for="tab in TYPES"
           :key="tab"
           type="button"
           role="tab"
           :aria-selected="type === tab"
-          class="-mb-px flex h-[52px] shrink-0 items-center gap-1.5 border-b-[3px] px-4 text-base transition-colors sm:px-5"
-          :class="type === tab ? 'border-brand-800 font-semibold text-ink' : 'border-transparent font-medium text-muted hover:text-ink'"
+          class="group/tab relative isolate flex min-w-0 flex-col items-start gap-2 overflow-hidden rounded-2xl border p-2.5 text-left transition duration-300 sm:min-w-[210px] sm:flex-row sm:items-center sm:gap-3 sm:p-3 sm:pr-5"
+          :class="type === tab
+            ? 'border-transparent bg-[linear-gradient(135deg,#382b85,#13112f)] text-white shadow-[0_18px_36px_-18px_rgb(56_43_133/0.8)]'
+            : 'border-line bg-white text-ink hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_16px_32px_-22px_rgb(56_43_133/0.6)] motion-reduce:hover:transform-none'"
           @click="setFilters({ type: tab, month: '' })"
         >
-          {{ t(`posts.tabs.${tab}`) }}
-          <span class="rounded-full px-2 py-0.5 text-xs" :class="type === tab ? 'bg-brand-800 text-white' : 'bg-brand-50 text-brand-800'">{{ data?.counts[tab]?.toLocaleString('ru-RU') ?? '' }}</span>
+          <span v-if="type === tab" class="pointer-events-none absolute -top-8 -right-8 -z-10 size-24 rounded-full bg-accent-400/25 blur-2xl" aria-hidden="true" />
+          <span
+            class="grid size-9 shrink-0 place-items-center rounded-xl transition-colors sm:size-11"
+            :class="type === tab ? 'bg-white/10 text-accent-400 ring-1 ring-white/15' : 'bg-brand-50 text-brand-700 group-hover/tab:bg-brand-800 group-hover/tab:text-white'"
+            aria-hidden="true"
+          >
+            <Icon :name="TYPE_ICONS[tab]" class="size-[18px] sm:size-5" />
+          </span>
+          <span class="flex min-w-0 flex-col">
+            <span class="truncate text-[14px] font-semibold sm:text-base">{{ t(`posts.tabs.${tab}`) }}</span>
+            <span class="text-xs font-bold tabular-nums" :class="type === tab ? 'text-accent-400' : 'text-brand-600/70'">{{ data?.counts[tab]?.toLocaleString('ru-RU') ?? '' }}</span>
+          </span>
         </button>
       </div>
     </section>

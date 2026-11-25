@@ -248,6 +248,8 @@
     "sdg": "SDG {n}"
   },
   "events": {
+    "soon": "Coming soon",
+    "soonHint": "Details will be published soon",
     "eyebrow": "Calendar",
     "title": "Upcoming events",
     "all": "All events",
@@ -798,14 +800,7 @@
       "empty": "No programmes in this mode of study yet."
     },
     "shown": "{n} programmes",
-    "years": "{n} yrs",
-    "evening": {
-      "title": "Evening study",
-      "text": "60110900 Foreign Language and Literature (English), 60230100 Philology and Language Teaching (English) and other programmes.",
-      "cta": "Evening programmes"
-    },
-    "admission": "Tuition fees, number of grants and how to apply",
-    "admissionCta": "Go to Admissions"
+    "years": "{n} yrs"
   },
   "facultyList": {
     "title": "Faculties and Departments",

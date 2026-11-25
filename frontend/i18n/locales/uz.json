@@ -248,6 +248,8 @@
     "sdg": "BRM {n}-maqsad"
   },
   "events": {
+    "soon": "Tez orada",
+    "soonHint": "Batafsil ma’lumot tez orada e’lon qilinadi",
     "eyebrow": "Taqvim",
     "title": "Yaqin tadbirlar",
     "all": "Barça tadbirlar",
@@ -798,14 +800,7 @@
       "empty": "Bu ta’lim şaklida hozirça yönaliş yöq."
     },
     "shown": "{n} ta yönaliş",
-    "years": "{n} yil",
-    "evening": {
-      "title": "Keçki ta’lim",
-      "text": "60110900 Xorijiy til va adabiyoti (ingliz tili), 60230100 Filologiya va tillarni öqitiş (ingliz tili) va boşqa yönalişlar.",
-      "cta": "Keçki yönalişlar"
-    },
-    "admission": "Kontrakt miqdori, grantlar soni va hujjat topşiriş tartibi",
-    "admissionCta": "Qabul sahifasiga"
+    "years": "{n} yil"
   },
   "facultyList": {
     "title": "Fakultetlar va kafedralar",
