@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { auth, initials, roleLabel } from '@/lib/auth'
 import Icon from './Icon.vue'
+import GlobalSearch from './GlobalSearch.vue'
 import NotificationBell from './NotificationBell.vue'
 
 defineEmits<{ menu: [] }>()
@@ -22,6 +23,8 @@ async function logout() {
     <button type="button" aria-label="Menyuni oçiş" class="grid size-10 place-items-center rounded-xl border border-line text-muted lg:hidden" @click="$emit('menu')">
       <Icon name="menu" :size="18" />
     </button>
+
+    <GlobalSearch />
 
     <div class="ml-auto flex items-center gap-2.5">
       <RouterLink v-if="newType" :to="`/postlar/${newType}/yangi`" class="btn-primary h-[42px]">

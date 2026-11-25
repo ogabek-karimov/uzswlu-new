@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { api, type I18n, type Paginated } from '@/lib/api'
 import { initials } from '@/lib/auth'
 import { LANGS, type Lang, SITE_URL } from '@/lib/constants'
@@ -11,7 +12,10 @@ type Profile = { id: number; hemisId: string; name?: string | null; bio?: I18n; 
 const hemis = useHemis()
 const badge = computed(() => hemisBadge(hemis.value))
 const profiles = ref<Profile[]>([])
-const q = ref('')
+const route = useRoute()
+// Umumiy qidiruvdan: /xodimlar?q=Ism
+const q = ref(String(route.query.q ?? ''))
+watch(() => route.query.q, v => { q.value = String(v ?? '') })
 const dept = ref('all')
 const state = ref<'all' | 'todo' | 'hidden'>('all')
 const sel = ref<string | null>(null)

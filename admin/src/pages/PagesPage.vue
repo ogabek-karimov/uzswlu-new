@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { api, type I18n, type MediaDoc, type Paginated, uploadMedia } from '@/lib/api'
 import { LANGS, type Lang, PDF_MODES, SITE_URL } from '@/lib/constants'
 import { setAllCollapsed } from '@/lib/collapse'
@@ -59,12 +60,17 @@ const byId = (id: number | null) => pages.value.find(p => p.id === id) ?? null
 
 async function load() {
   pages.value = (await api.get<Paginated<Page>>('/pages', { limit: 2000, depth: 0, sort: 'order' })).docs
+  const want = Number(route.query.id)
+  if (want && byId(want)) { pick(want); return }
   if (sel.value === null) {
     const first = kids(null)[0]
     if (first) { open.value.add(first.id); pick(kids(first.id)[0]?.id ?? first.id) }
   }
 }
 onMounted(load)
+const route = useRoute()
+// Umumiy qidiruvdan: /sahifalar?id=N — şu sahifa tanlanadi
+watch(() => route.query.id, v => { if (Number(v) && byId(Number(v))) pick(Number(v)) })
 
 // Daraxt (qidiruvda — mos sahifalar va ularning ota sahifalari)
 type Row = { page: Page; depth: number; count: number }
