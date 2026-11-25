@@ -114,7 +114,6 @@ onBeforeUnmount(() => { window.removeEventListener('keydown', hotkey); document.
         class="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-subtle"
         @focus="open = true" @keydown="onKey"
       >
-      <kbd class="hidden shrink-0 rounded-md border border-line bg-white px-1.5 py-0.5 text-[11px] font-semibold text-muted md:inline">Ctrl K</kbd>
     </div>
     <div v-if="open && q.trim()" id="admin-search-list" role="listbox" class="absolute inset-x-0 top-full z-40 mt-2 max-h-[min(70vh,520px)] overflow-y-auto rounded-2xl border border-line bg-white p-1.5 shadow-xl sm:min-w-[420px]">
       <template v-for="[g, items] in grouped" :key="g">
