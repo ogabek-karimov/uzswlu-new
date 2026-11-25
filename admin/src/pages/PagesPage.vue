@@ -13,6 +13,7 @@ import PageShowcaseField, { type Showcase } from '@/components/PageShowcaseField
 import PageStaffField from '@/components/PageStaffField.vue'
 import PdfSlot from '@/components/PdfSlot.vue'
 import RichEditor from '@/components/RichEditor.vue'
+import { type Camera, cameraUrl, camerasHtml, parseCameras, stripCameras } from '@/lib/cameras'
 import VideoTourCard from '@/components/VideoTourCard.vue'
 import ToggleSwitch from '@/components/ToggleSwitch.vue'
 
@@ -115,6 +116,28 @@ function pick(id: number) {
     timeline: (p.timeline ?? []).map(t => ({ label: { ...t.label }, text: { ...t.text }, highlight: !!t.highlight })),
     attachments: (p.attachments ?? []).map(a => ({ ...a, title: { ...(a.title ?? {}) }, meta: { ...(a.meta ?? {}) } })),
   })
+  // Onlayn kameralar matndan alohida panelga olinadi (saqlaşda barça tillar matni oxiriga qaytadi)
+  const src = LANGS.map(l => form.body[l.code] ?? '').find(h => parseCameras(h).length) ?? ''
+  cameras.value = parseCameras(src)
+  if (cameras.value.length) for (const l of LANGS) form.body[l.code] = stripCameras(form.body[l.code] ?? '')
+}
+// ─── Onlayn kameralar (Online translatsiya) ───
+const cameras = ref<Camera[]>([])
+const camerasOn = computed(() => form.slug === 'online-translatsiya' || cameras.value.length > 0)
+const hidingCam = ref<number | null>(null)
+function toggleCam(i: number, sure = false) {
+  const c = cameras.value[i]!
+  if (!c.hidden && !sure) { hidingCam.value = i; return }
+  hidingCam.value = null
+  c.hidden = !c.hidden
+}
+function removeCam(i: number) {
+  if (confirm(`“${cameras.value[i]?.name}” kamerasi öçirilsinmi?`)) cameras.value.splice(i, 1)
+}
+function bodyOut() {
+  if (!camerasOn.value) return form.body
+  const cams = camerasHtml(cameras.value)
+  return Object.fromEntries(LANGS.map(l => [l.code, (form.body[l.code] ?? '') + cams]))
 }
 
 const path = computed(() => {
@@ -165,7 +188,7 @@ async function save() {
     title: form.title, template: form.template, parent: form.parent, slug: form.slug.trim() || null, url: form.url.trim() || null, file: form.file?.id ?? null,
     groupKey: form.groupKey.trim() || null, description: form.description, overview: form.overview.trim() || null, sdg: form.sdg || null,
     inMenu: form.inMenu, published: form.published, highlight: form.highlight, showRector: form.showRector, showUnits: form.showUnits, staffDepartment: form.staffDepartment.trim(), staffExtra: form.staffExtra, staffContacts: form.staffContacts, staffHours: form.staffHours, ctaTitle: form.ctaTitle, ctaText: form.ctaText, ctaLabel: form.ctaLabel, ctaUrl: form.ctaUrl.trim(), icon: form.icon.trim(), showChildren: form.showChildren, showcase: form.showcase, docStyle: form.docStyle,
-    lead: form.lead, body: form.body, facts: form.facts.filter(f => f.value.trim()), timeline: form.timeline,
+    lead: form.lead, body: bodyOut(), facts: form.facts.filter(f => f.value.trim()), timeline: form.timeline,
     attachments: form.attachments.map(a => ({ file: obj(a.file)?.id ?? (typeof a.file === 'number' ? a.file : null), url: a.url?.trim() || null, title: a.title, meta: a.meta, display: a.display, height: a.height })),
   }
   try {
@@ -408,6 +431,22 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
               <span class="label">Matn · {{ LANG_LABEL }} <span class="font-normal">— rasm, jadval, video ham şu yerda; vaqt çiziği joyini [[timeline]], kartali bloklar joyini [[kartalar-1]], [[kartalar-2]]… deb belgilang</span></span>
               <div class="overflow-hidden rounded-xl border border-field"><RichEditor :key="`${sel}-${lang}`" :model-value="form.body[lang] ?? ''" placeholder="Sahifa matni…" @update:model-value="v => (form.body[lang] = v)" /></div>
             </div>
+            <div v-if="camerasOn" class="rounded-xl border border-field p-3.5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <span class="label mb-0!">Onlayn kameralar <span class="font-normal">— matn ostida 2–3 ustunli setka, barça tillarda bir xil</span></span>
+                <button type="button" class="btn-ghost h-9! text-xs!" @click="cameras.push({ name: '', url: '', hidden: false })">+ Kamera qöşiş</button>
+              </div>
+              <p v-if="!cameras.length" class="mt-2 text-sm text-muted">Kamera yöq.</p>
+              <ul class="mt-2.5 flex flex-col gap-2">
+                <li v-for="(c, i) in cameras" :key="i" class="flex flex-wrap items-center gap-2 rounded-lg border border-line p-2" :class="c.hidden && 'bg-canvas'">
+                  <button type="button" class="grid size-8 shrink-0 place-items-center rounded-lg" :class="c.hidden ? 'text-orange-600' : 'text-brand-700'" :aria-pressed="c.hidden" :title="c.hidden ? 'Yaşirin — körsatiş' : 'Saytda körinadi — yaşiriş'" :aria-label="`${c.name || 'Kamera'}: ${c.hidden ? 'körsatiş' : 'yaşiriş'}`" @click="toggleCam(i)"><Icon :name="c.hidden ? 'eye-off' : 'eye'" :size="16" /></button>
+                  <input v-model="c.name" class="field w-28! shrink-0" aria-label="Kamera nomi" placeholder="A-411">
+                  <input :value="c.url" class="field min-w-0 flex-1" aria-label="Havola yoki iframe kodi" placeholder="https://rtsp.ru/embed/… yoki <iframe …> kodi" @change="e => (c.url = cameraUrl((e.target as HTMLInputElement).value) || (e.target as HTMLInputElement).value)">
+                  <span v-if="c.url && !cameraUrl(c.url)" class="w-full text-xs text-red-700">Havola rtsp.ru/embed/… bölişi kerak — bu kamera saqlanmaydi.</span>
+                  <button type="button" class="grid size-8 shrink-0 place-items-center rounded-lg text-subtle hover:bg-red-50 hover:text-red-700" :aria-label="`${c.name || 'Kamera'}ni öçiriş`" @click="removeCam(i)"><Icon name="trash" :size="14" /></button>
+                </li>
+              </ul>
+            </div>
           </Collapsible>
 
           <Collapsible id="page-facts" title="Raqamlar" hint="Ixtiyoriy" :count="form.facts.length" :default-open="false" body-class="flex flex-col gap-2.5">
@@ -474,6 +513,17 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
       <div class="mt-5 flex flex-wrap justify-end gap-3">
         <button type="button" class="btn-ghost" @click="hiding = null">Bekor qiliş</button>
         <button type="button" class="btn-primary" @click="toggleVisible(hiding!, true)">Ha, yaşiriş</button>
+      </div>
+    </section>
+  </div>
+  <div v-if="hidingCam !== null" class="fixed inset-0 z-[90] grid place-items-center bg-night/55 p-4" @click.self="hidingCam = null" @keydown.esc="hidingCam = null">
+    <section role="alertdialog" aria-modal="true" aria-labelledby="cam-hide-title" aria-describedby="cam-hide-text" class="w-full max-w-[440px] rounded-[22px] bg-white p-6 shadow-2xl">
+      <span class="grid size-11 place-items-center rounded-2xl bg-[#FEF3DC] text-[#B54708]"><Icon name="eye-off" :size="20" /></span>
+      <h2 id="cam-hide-title" class="mt-4 text-xl font-bold tracking-tight">Kamera yaşirilsinmi?</h2>
+      <p id="cam-hide-text" class="mt-2 text-[15px] leading-relaxed text-muted">«{{ cameras[hidingCam]?.name }}» saqlagandan keyin saytda körinmay qoladi. Uni istalgan payt ko'z belgisi orqali qayta körsatiş mumkin.</p>
+      <div class="mt-5 flex flex-wrap justify-end gap-3">
+        <button type="button" class="btn-ghost" @click="hidingCam = null">Bekor qiliş</button>
+        <button type="button" class="btn-primary" @click="toggleCam(hidingCam!, true)">Ha, yaşiriş</button>
       </div>
     </section>
   </div>

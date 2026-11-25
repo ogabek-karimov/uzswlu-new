@@ -267,7 +267,7 @@ def _trail(p: Page, lang: str) -> list[dict]:
 
 
 # Onlayn kameralar (Online translatsiya): matndagi «Nomi | https://rtsp.ru/embed/…» qatorlari — 2 ustunli kamera setkasi.
-# Admin matnda faqat şu qatorlarni qöşadi/öçiradi; iframe saqlanmaydi, faqat ruxsat etilgan xostdan quriladi.
+# Admin matnda faqat şu qatorlarni qöşadi/öçiradi; boşiga «-» qöyilsa kamera vaqtinça yaşiriladi; iframe saqlanmaydi, faqat ruxsat etilgan xostdan quriladi.
 _CAMERA = re.compile(r'<p>(?:<[^>]+>|\s)*([^<|]{1,60}?)\s*\|\s*(?:<a[^>]*>)?\s*(https://rtsp\.ru/embed/[\w-]+/?)\s*(?:</a>)?(?:</[^>]+>|\s)*</p>')
 _CAMERA_RUN = re.compile(r'(?:\s*' + _CAMERA.pattern + r')+')
 
@@ -277,8 +277,8 @@ def cameras_html(body: str) -> str:
         items = ''.join(
             f'<figure class="camera"><figcaption>{escape(name.strip())}</figcaption><div class="camera-frame">'
             f'<iframe src="{escape(url)}" title="{escape(name.strip())}" allow="fullscreen; autoplay" allowfullscreen loading="lazy"></iframe></div></figure>'
-            for name, url in _CAMERA.findall(run.group(0)))
-        return f'<div class="camera-grid">{items}</div>'
+            for name, url in _CAMERA.findall(run.group(0)) if not name.strip().startswith(('-', '#')))
+        return f'<div class="camera-grid">{items}</div>' if items else ''
     return _CAMERA_RUN.sub(grid, body) if 'rtsp.ru/embed/' in body else body
 
 
