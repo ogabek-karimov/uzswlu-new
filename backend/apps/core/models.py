@@ -244,7 +244,7 @@ class Notification(models.Model):
     """Bildirishnoma (admin panel va kabinetdagi qo'ng'iroqcha): faqat egasiga ko'rinadi. Kabinetda — xodimning admin hisobi
     (HEMIS ID) orqali. Hodisalar: rol o'zgardi, postini boshqa odam o'zgartirdi/o'chirdi, yangi ariza (superadminga)."""
 
-    KINDS = [('role', 'Rol'), ('post', 'Post'), ('application', 'Ariza'), ('system', 'Tizim')]
+    KINDS = [('role', 'Rol'), ('post', 'Post'), ('application', 'Ariza'), ('security', 'Xavfsizlik'), ('system', 'Tizim')]
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='notifications')
     kind = models.CharField('Turi', max_length=12, choices=KINDS, default='system')
     title = models.CharField('Sarlavha', max_length=300)

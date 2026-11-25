@@ -186,7 +186,7 @@ paths:
                       type: object
                       properties:
                         id: { type: integer }
-                        kind: { type: string, enum: [role, post, application, system] }
+                        kind: { type: string, enum: [role, post, application, security, system] }
                         title: { type: string }
                         body: { type: [string, 'null'] }
                         link: { type: [string, 'null'], description: Admin panel sahifasi }

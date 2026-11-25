@@ -7,7 +7,7 @@ import type { CabinetNotification, CabinetNotifications } from '#shared/types/ap
 const { t } = useI18n()
 const { open, root } = useDropdown()
 const data = ref<CabinetNotifications>({ unread: 0, docs: [] })
-const ICON: Record<CabinetNotification['kind'], string> = { role: 'lucide:shield-check', post: 'lucide:newspaper', application: 'lucide:file-text', system: 'lucide:bell' }
+const ICON: Record<CabinetNotification['kind'], string> = { role: 'lucide:shield-check', post: 'lucide:newspaper', application: 'lucide:file-text', security: 'lucide:shield-alert', system: 'lucide:bell' }
 
 async function load() {
   try {

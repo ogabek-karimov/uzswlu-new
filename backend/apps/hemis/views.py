@@ -155,7 +155,9 @@ class AdminHandoffView(APIView):
             return HttpResponseRedirect(fail + 'xato')
         if not cache.delete(f'hemis-handoff:{data.get("n")}'):  # bir martalik
             return HttpResponseRedirect(fail + 'xato')
-        to = data.get('p') if data.get('p') in SECTION_PATHS.values() else '/'  # faqat admin panelning ma'lum sahifalari (ochiq yo'naltirish yo'q)
+        # faqat admin panelning ma'lum sahifalari (ochiq yo'naltirish yo'q): bo'lim sahifasi yoki post bo'limining «yangi» sahifasi
+        allowed = set(SECTION_PATHS.values()) | {f'{SECTION_PATHS[k]}/yangi' for k in ('news', 'announcements', 'events')}
+        to = data.get('p') if data.get('p') in allowed else '/'
         return admin_login(request, str(data['h']), f'hemis:{data["h"]}', '', fail, to)
 
 

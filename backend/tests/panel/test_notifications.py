@@ -56,3 +56,42 @@ class NotificationTests(PanelBase):
         res = self.client.get('/api/me/notifications', HTTP_AUTHORIZATION=f'Bearer {StaffSession.issue("7909")}').json()
         self.assertEqual(res, {'unread': 0, 'docs': []})
         self.assertEqual(self.client.get('/api/me/notifications').status_code, 401)
+
+
+class SecurityNotificationTests(PanelBase):
+    """Superadminga: kim kirdi, xato parollar (3 — ogohlantirish, 5 — bloklandi), ruxsatsiz urinishlar; takrorlar yog'ilmaydi."""
+
+    def setUp(self):
+        super().setUp()
+        from django.core.cache import cache
+        cache.clear()
+        self.editor = User(username='muharrir1', name='Muharrir', role='editor', status='active')
+        self.editor.set_password('Parol-12345!')
+        self.editor.save()
+        self.client.logout()
+
+    def login(self, username, password):
+        return self.send('post', '/api/cms/users/login', {'username': username, 'password': password})
+
+    def notes(self):
+        return list(Notification.objects.filter(user=self.superadmin, kind='security').values_list('title', flat=True))
+
+    def test_successful_login_notifies_superadmin(self):
+        self.assertEqual(self.login('muharrir1', 'Parol-12345!').status_code, 200)
+        self.assertTrue(any('admin panelga kirdi' in t for t in self.notes()), self.notes())
+
+    def test_bad_passwords_warn_then_lock_once(self):
+        for _ in range(5):
+            self.login('muharrir1', 'xato-parol')
+        titles = self.notes()
+        self.assertEqual(sum('3 marta noto‘g‘ri parol' in t for t in titles), 1)
+        self.assertEqual(sum('bloklandi' in t for t in titles), 1)
+        self.assertTrue(Notification.objects.filter(user=self.editor, kind='security').exists())  # egasining o'ziga ham
+        for _ in range(3):  # bloklangan holatdagi urinishlar — xabar ko'paymaydi
+            self.login('muharrir1', 'xato-parol')
+        self.assertEqual(len(self.notes()), len(titles))
+
+    def test_unknown_login_guessing_is_reported(self):
+        for _ in range(5):
+            self.login('yoq-login', 'nimadir')
+        self.assertTrue(any('bunday login yo‘q' in t for t in self.notes()), self.notes())

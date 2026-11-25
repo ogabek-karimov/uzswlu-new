@@ -72,7 +72,27 @@ function open(doc: CabinetPostDoc | 'new') {
   editing.value = doc
 }
 // Kabinet bosh sahifasidagi «Yangi yangilik/e'lon/tadbir» tezkor amali: ?yangi=1 — forma darhol ochiladi
-onMounted(() => { if (route.query.yangi) open('new') })
+// «Yangi …» — kabinetda emas, ADMIN PANELda qo'shiladi: yangi tabda admin panelning shu turdagi «yangi» sahifasi ochiladi
+// (xodim o'z roli bilan, bir martalik havola orqali). Tab bosish paytida ochiladi — brauzer bloklamasin
+const openingNew = ref(false)
+async function addInAdmin() {
+  openingNew.value = true
+  const win = window.open('', '_blank')
+  if (win) win.opener = null
+  try {
+    const link = await $fetch<{ url: string | null }>('/api/me/admin-link', { query: { next: tab.value, new: 1 } })
+    if (link.url && win) win.location.href = link.url
+    else if (link.url) window.location.assign(link.url)
+    else win?.close()
+  }
+  catch {
+    win?.close()
+    error.value = t('cabinet.error')
+  }
+  finally {
+    openingNew.value = false
+  }
+}
 const richWarning = computed(() => editing.value && editing.value !== 'new' && LANGS.some(l => isRich(orig.body[l])))
 
 const errMessage = (e: unknown) => (e as { data?: { data?: { message?: string } } })?.data?.data?.message || t('cabinet.posts.error')
@@ -153,8 +173,8 @@ const fmt = (d: string | null) => (d ? new Date(d).toLocaleDateString(undefined,
         <h2 class="font-display text-[28px] font-semibold text-ink">{{ t('cabinet.posts.title') }}</h2>
         <p class="mt-1 text-[15px] text-muted">{{ t('cabinet.posts.desc') }}</p>
       </div>
-      <button v-if="!editing" type="button" class="inline-flex items-center gap-1.5 rounded-full bg-brand-700 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-900" @click="open('new')">
-        <Icon name="lucide:plus" class="size-4" />{{ t(`cabinet.posts.add.${tab}`) }}
+      <button v-if="!editing" type="button" class="inline-flex items-center gap-1.5 rounded-full bg-brand-700 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-900" :disabled="openingNew" @click="addInAdmin">
+        <Icon name="lucide:plus" class="size-4" />{{ t(`cabinet.posts.add.${tab}`) }}<Icon name="lucide:arrow-up-right" class="size-4" />
       </button>
     </div>
 

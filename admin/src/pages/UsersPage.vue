@@ -54,11 +54,10 @@ async function create() {
 }
 
 // HEMIS ID: xodim HEMIS orqali kirganda shu hisob (va roli) ishlatiladi — kabinetga kirish ham shundan.
-// Raqam qo'lda yozilmaydi: HEMIS ro'yxatidan ism bo'yicha tanlanadi (server ham tekshiradi — HEMIS'da bormi, boshqa hisobda bandmi)
+// Raqam qo'lda yozilmaydi: HEMIS ro'yxatidan ism bo'yicha tanlanadi — faqat yangi hisob yaratishda (server ham tekshiradi — HEMIS'da bormi, boshqa hisobda bandmi)
 const picker = ref<{ open: boolean; for: User | 'new' | null }>({ open: false, for: null })
 const newHemisName = ref('')
 const takenIds = () => users.value.map(u => u.hemisId).filter((x): x is string => !!x)
-function setHemis(u: User) { picker.value = { open: true, for: u } }
 async function onPick(s: { id: string; name: string } | null) {
   const target = picker.value.for
   if (target === 'new') { form.hemisId = s?.id ?? ''; newHemisName.value = s?.name ?? ''; return }
@@ -199,7 +198,6 @@ const locked = (u: User) => !!u.lockUntil && new Date(u.lockUntil).getTime() > D
               </td>
               <td class="px-5 py-3.5 text-right whitespace-nowrap">
                 <button v-if="locked(u)" type="button" class="btn-ghost h-8! px-3! text-xs!" @click="unlock(u)">Blokdan çiqariş</button>
-                <button type="button" class="btn-ghost ml-1 h-8! px-3! text-xs!" title="HEMIS ID — xodim HEMIS orqali kabinet va admin panelga şu rol bilan kiradi" @click="setHemis(u)">HEMIS</button>
                 <button type="button" class="btn-ghost ml-1 h-8! px-3! text-xs!" @click="resetPassword(u)">Parol</button>
                 <button v-if="u.twoFactorEnabled" type="button" class="btn-ghost ml-1 h-8! px-3! text-xs!" title="Telefon yoqotilgan bölsa" @click="resetTwoFactor(u)">2FA</button>
                 <button

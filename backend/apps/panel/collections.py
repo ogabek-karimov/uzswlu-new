@@ -482,6 +482,14 @@ class Medias(Collection):
     access = {'read': ALL, 'create': MEDIA_ROLES, 'update': MEDIA_ROLES, 'delete': SUPER}
     fields = {'filename': 'file', 'mimeType': _media_kind, 'filesize': 'filesize', 'createdAt': 'created_at', 'alt.uz': 'alt__uz'}
 
+    def can(self, user, action, obj=None):
+        if super().can(user, action, obj):
+            return True
+        # Yangilik/e'lon/tadbir yozish ruxsati bor xodim o'z posti uchun rasm (muqova) YUKLAY oladi — «Media» ruxsatisiz ham
+        # (aks holda post yozadi-yu, rasm qo'sha olmasdi). Kutubxonani tahrirlash/o'chirish — avvalgidek faqat «Media» bilan.
+        return (action == 'create' and obj is None and user and user.is_authenticated and user.status != 'disabled'
+                and rl.is_custom(user) and bool(rl.post_types_allowed(user, 'write')))
+
     def label(self, m):
         return str(m)
 

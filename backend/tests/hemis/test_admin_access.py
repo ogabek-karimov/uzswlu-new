@@ -111,3 +111,12 @@ class AdminAccessTests(TestCase):
         self.assertEqual(self.client.post('/api/me/logout', **h).status_code, 200)
         self.assertEqual(StaffSession.objects.filter(hemis_id=DEAN).count(), 0)
         self.assertEqual(self.client.get('/api/me/notifications', **h).status_code, 401)  # eski token endi ishlamaydi
+
+    def test_new_post_link_opens_admin_new_page(self):
+        self.give()
+        link = self.client.get('/api/me/admin-link?next=news&new=1', **bearer(DEAN)).json()['url']
+        res = self.client.get(link[link.index('/api/auth/hemis/handoff'):])
+        self.assertTrue(res['Location'].endswith('/postlar/news/yangi'), res['Location'])
+        # yozish ruxsati yo'q bo'limga «yangi» havolasi berilmaydi
+        Role.objects.filter(slug='dekan').update(permissions={'news': 'read'})
+        self.assertEqual(self.client.get('/api/me/admin-link?next=news&new=1', **bearer(DEAN)).status_code, 404)

@@ -7,13 +7,13 @@ import Icon from './Icon.vue'
 
 // Qo'ng'iroqcha (har qanday rol): o'qilmaganlar soni belgi ustida, bosilsa — oxirgi bildirishnomalar.
 // Faqat o'z bildirishnomalari (/panel/notifications). Har 60 soniyada va oyna qayta ochilganda yangilanadi.
-type Note = { id: number; kind: 'role' | 'post' | 'application' | 'system'; title: string; body: string | null; link: string | null; read: boolean; createdAt: string }
+type Note = { id: number; kind: 'role' | 'post' | 'application' | 'security' | 'system'; title: string; body: string | null; link: string | null; read: boolean; createdAt: string }
 const router = useRouter()
 const open = ref(false)
 const unread = ref(0)
 const docs = ref<Note[]>([])
 const root = ref<HTMLElement>()
-const ICON = { role: 'users', post: 'news', application: 'file', system: 'settings' } as const
+const ICON = { role: 'users', post: 'news', application: 'file', security: 'shield', system: 'settings' } as const
 
 async function load() {
   try {

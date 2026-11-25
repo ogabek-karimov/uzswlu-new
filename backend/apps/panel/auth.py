@@ -71,7 +71,12 @@ def error(message: str, code: int = 400) -> Response:
 
 def record(request, user, username: str, result: str, method: str = 'password'):
     info = request_info(request)
-    LoginEvent.objects.create(user=user, username=username[:100], method=method, result=result, **info)
+    e = LoginEvent.objects.create(user=user, username=username[:100], method=method, result=result, **info)
+    try:  # superadminga bildirishnoma (kim kirdi, xato parollar, bloklanish) — xato kirishni to'xtatmasin
+        from .security_notify import on_login_event
+        on_login_event(e)
+    except Exception:  # noqa: BLE001
+        pass
 
 
 def _dummy_check(password: str) -> None:

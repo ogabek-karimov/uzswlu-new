@@ -188,5 +188,11 @@ class MeAdminLinkView(CabinetView):
         key = str(request.query_params.get('next') or '')
         if key and key not in {s['key'] for s in sections}:
             raise NotFound('Bo‘lim topilmadi')  # rolda yo'q bo'lim uchun havola berilmaydi
-        out['url'] = handoff_url(self.hemis_id, SECTION_PATHS.get(key, '/'))  # admin panel domenida — o'sha domenda sessiya ochiladi
+        path = SECTION_PATHS.get(key, '/')
+        # `new=1` — post bo'limining «yangi qo'shish» sahifasi (kabinetdagi «Yangi yangilik» tugmasi): faqat shu turga yozish ruxsati bo'lsa
+        if request.query_params.get('new') and key in ('news', 'announcements', 'events'):
+            if not any(s['key'] == key and s['level'] == 'write' for s in sections):
+                raise NotFound('Bo‘lim topilmadi')
+            path += '/yangi'
+        out['url'] = handoff_url(self.hemis_id, path)  # admin panel domenida — o'sha domenda sessiya ochiladi
         return Response(out)

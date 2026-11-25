@@ -68,3 +68,16 @@ class CabinetCmsTests(TestCase):
         self.assertEqual(self.client.get('/api/me/cms/media', **bearer(DEAN)).status_code, 404)  # kutubxonani ko'rish yo'q
         self.assertEqual(self.client.patch(POSTS + '?where[id][in]=1', {}, content_type='application/json', **bearer(DEAN)).status_code, 405)
         self.assertEqual(self.client.delete(POSTS + '?where[id][in]=1', **bearer(DEAN)).status_code, 405)
+
+    def test_post_writer_can_upload_cover_without_media_section(self):
+        # Rolda faqat «Yangiliklar» (media yo'q): post uchun rasm yuklay oladi, kutubxonani ko'ra/o'chira olmaydi
+        import io
+
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        from PIL import Image
+        Role.objects.filter(slug='dekan').update(permissions={'news': 'write'})
+        buf = io.BytesIO()
+        Image.new('RGB', (40, 40), 'red').save(buf, 'PNG')
+        res = self.client.post('/api/me/cms/media', {'file': SimpleUploadedFile('a.png', buf.getvalue(), 'image/png')}, **bearer(DEAN))
+        self.assertIn(res.status_code, (200, 201), res.content[:200])
+        self.assertEqual(self.client.get('/api/me/cms/media', **bearer(DEAN)).status_code, 404)  # kutubxona ro'yxati yo'q

@@ -311,7 +311,7 @@ export interface CabinetDocument {
 /** GET /me/notifications — kabinet qo'ng'iroqchasi (faqat o'z bildirishnomalari) */
 export interface CabinetNotification {
   id: number
-  kind: 'role' | 'post' | 'application' | 'system'
+  kind: 'role' | 'post' | 'application' | 'security' | 'system'
   title: string
   body: string | null
   link: string | null

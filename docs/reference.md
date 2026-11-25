@@ -513,6 +513,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/panel/models.py` | — |
 | `backend/apps/panel/query.py` | Payload CMS so'rov formati → Django ORM. |
 | `backend/apps/panel/request.py` | So'rovdan IP, tarmoq turi, brauzer, OS va qurilma (kirish tarixi uchun, kutubxonasiz). |
+| `backend/apps/panel/security_notify.py` | Kirish hodisalari bo'yicha superadmin bildirishnomalari (qo'ng'iroqcha): kim kirdi, xato parollar, bloklanish, ruxsatsiz urinishlar. |
 | `backend/apps/panel/twofactor.py` | Ikki bosqichli tasdiq (TOTP, RFC 6238): Google/Microsoft Authenticator, 1Password, Authy va h.k. |
 | `backend/apps/panel/urls.py` | Vue admin panel API'si: /api/cms/* (Payload REST bilan bir xil manzillar va javoblar). |
 | `backend/apps/panel/usage.py` | Media fayli qayerda ishlatilgan: "Qayerda ishlatilgan" ro'yxati va ishlatilayotgan faylni o'chirishdan himoya. |
@@ -523,7 +524,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (412 ta test)
+### Backend testlari xaritasi (417 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -545,12 +546,12 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/core/test_backup.py` | 41 | Zaxira va tiklash: yaratish, tekshirish, tiklash (SQLite va PostgreSQL — qaysi baza bilan ishlayotgan bo'lsa), ko'chma JSON, |
 | `backend/tests/core/test_docs.py` | 10 | Qo'llanma (docs/) eskirmasligi: avtomatik fayllar kodga mos, havolalar/anchorlar/yo'llar/buyruqlar mavjud. |
 | `backend/tests/core/test_page_cleanup.py` | 4 | «Toshkent haqida» / «Kontingent» sahifalarini o'chiruvchi migratsiya (0002_remove_toshkent_kontingent). |
-| `backend/tests/hemis/test_admin_access.py` | 8 | HEMIS orqali kirish → admin bergan hisob: rolni faqat admin beradi (Foydalanuvchilar → rol + HEMIS ID). |
+| `backend/tests/hemis/test_admin_access.py` | 9 | HEMIS orqali kirish → admin bergan hisob: rolni faqat admin beradi (Foydalanuvchilar → rol + HEMIS ID). |
 | `backend/tests/hemis/test_dev_login.py` | 3 | Lokal sinov kirishi: faqat DEBUG + STAFF_DEV_LOGIN + HEMIS ulanmagan bo'lganda ishlaydi. |
 | `backend/tests/hemis/test_load_control.py` | 25 | HEMIS'ga va serverga bosim: tinch oyna, qulf, so'rov byudjeti, ketma-ket xatoda to'xtash, kechki jadval. |
-| `backend/tests/panel/test_cabinet_cms.py` | 5 | Kabinet → panel ko'prigi: sayt ichidagi kabinetdan yangilik/e'lon/tadbir yozish (rol ruxsatlari admin paneldagi bilan bir xil). |
+| `backend/tests/panel/test_cabinet_cms.py` | 6 | Kabinet → panel ko'prigi: sayt ichidagi kabinetdan yangilik/e'lon/tadbir yozish (rol ruxsatlari admin paneldagi bilan bir xil). |
 | `backend/tests/panel/test_collections.py` | 13 | Admin panel API (`/api/cms/*`): har bir kolleksiya uchun o'qish → o'zini PATCH → nusxa yaratish → o'chirish aylanishi, · `slow` |
-| `backend/tests/panel/test_notifications.py` | 4 | Bildirishnomalar: hodisalar (post boshqa odam tomonidan o'zgardi/o'chdi, rol o'zgardi), faqat egasiga ko'rinishi |
+| `backend/tests/panel/test_notifications.py` | 7 | Bildirishnomalar: hodisalar (post boshqa odam tomonidan o'zgardi/o'chdi, rol o'zgardi), faqat egasiga ko'rinishi |
 | `backend/tests/panel/test_pagination.py` | 5 | Sahifalash: har bir kolleksiyada barcha sahifalarni aylanib chiqqanda yozuvlar yo'qolmaydi va takrorlanmaydi; · `slow` |
 | `backend/tests/panel/test_quick_links.py` | 7 |  |
 | `backend/tests/panel/test_roles.py` | 14 | Rollar: superadmin rol yaratadi, bo'limlar bo'yicha ruxsat beradi; foydalanuvchi faqat o'z bo'limlarini ko'radi va yozadi. |

@@ -12,6 +12,7 @@ export default defineEventHandler(async (event): Promise<CabinetAdminLink> => {
   const query: Record<string, string> = {}
   if (q.list) query.list = '1'
   if (typeof q.next === 'string' && /^[a-z-]{1,30}$/.test(q.next)) query.next = q.next
+  if (q.new) query.new = '1' // post bo'limining «yangi qo'shish» sahifasi
   try {
     // Backend javob berdi — xodim kirgan (rol bo'lmasa ham): profil menyusi «Dashboardlar» ro'yxatini ko'rsatadi
     return { ...await backendUserFetch<CabinetAdminLink>(event, '/me/admin-link', { query }), signedIn: true }
