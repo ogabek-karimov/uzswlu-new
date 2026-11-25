@@ -27,3 +27,26 @@ export function camerasHtml(list: Camera[]): string {
     .map(c => `<p>${c.hidden ? '- ' : ''}${esc(c.name.trim())} | ${cameraUrl(c.url)}</p>`)
     .join('')
 }
+
+/** rtsp.ru bergan fayl/matn: «A-411» qatori, ostida <iframe src="https://rtsp.ru/embed/…/">. Nechta bölsa — şunça kamera. */
+export function parseCameraFile(text: string): { name: string; url: string }[] {
+  const out: { name: string; url: string }[] = []
+  let name = ''
+  let inFrame = false
+  for (const raw of (text ?? '').split(/\r?\n/)) {
+    const line = raw.trim()
+    if (!line) continue
+    const url = cameraUrl(line)
+    if (url) {
+      out.push({ name: name || `Kamera ${out.length + 1}`, url })
+      name = ''
+      continue
+    }
+    if (/^<iframe\b/i.test(line)) { inFrame = true; continue }
+    if (inFrame) { if (/<\/iframe>/i.test(line)) inFrame = false; continue }
+    if (/^</.test(line) || /=/.test(line)) continue
+    const pipe = line.match(/^([^|]{1,60}?)\s*\|/)
+    name = (pipe ? pipe[1]! : line).trim().slice(0, 60)
+  }
+  return out
+}

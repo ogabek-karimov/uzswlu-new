@@ -30,6 +30,7 @@ export const router = createRouter({
         { path: 'media', name: 'media', component: () => import('./pages/MediaPage.vue'), meta: { title: 'Media kutubxona', section: 'media' } },
         { path: 'hujjatlar', name: 'documents', component: () => import('./pages/DocumentsPage.vue'), meta: { title: 'Hujjatlar', section: 'documents' } },
         { path: 'video', name: 'videos', component: () => import('./pages/VideosPage.vue'), meta: { title: 'Video darsliklar', section: 'videos' } },
+        { path: 'onlayn-kameralar', name: 'cameras', component: () => import('./pages/CamerasPage.vue'), meta: { title: 'Onlayn kameralar', section: 'pages' } },
         { path: 'rahbariyat', name: 'leaders', component: () => import('./pages/LeadersPage.vue'), meta: { title: 'Rahbariyat', section: 'leaders' } },
         { path: 'ramzlar', name: 'symbols', component: () => import('./pages/SymbolsPage.vue'), meta: { title: 'Ramzlar', superOnly: true } },
         { path: 'fakultetlar', name: 'faculties', component: () => import('./pages/FacultiesPage.vue'), meta: { title: 'Fakultetlar', section: 'faculties' } },

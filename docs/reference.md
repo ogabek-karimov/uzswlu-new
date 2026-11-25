@@ -363,6 +363,7 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `/media` | `admin/src/pages/MediaPage.vue` | hamma kirgan xodim |
 | `/hujjatlar` | `admin/src/pages/DocumentsPage.vue` | hamma kirgan xodim |
 | `/video` | `admin/src/pages/VideosPage.vue` | hamma kirgan xodim |
+| `/onlayn-kameralar` | `admin/src/pages/CamerasPage.vue` | hamma kirgan xodim |
 | `/rahbariyat` | `admin/src/pages/LeadersPage.vue` | hamma kirgan xodim |
 | `/ramzlar` | `admin/src/pages/SymbolsPage.vue` | faqat `superadmin` |
 | `/fakultetlar` | `admin/src/pages/FacultiesPage.vue` | hamma kirgan xodim |

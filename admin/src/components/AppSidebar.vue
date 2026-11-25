@@ -34,6 +34,7 @@ const groups: { label: string; items: Item[] }[] = [
     { to: '/media', label: 'Media kutubxona', icon: 'media', section: 'media' },
     { to: '/hujjatlar', label: 'Hujjatlar', icon: 'docs', section: 'documents' },
     { to: '/video', label: 'Video darsliklar', icon: 'video', section: 'videos' },
+    { to: '/onlayn-kameralar', label: 'Onlayn kameralar', icon: 'cctv', section: 'pages' },
   ] },
   { label: 'Tuzilma', items: [
     { to: '/fakultetlar', label: 'Fakultetlar', icon: 'faculties', section: 'faculties' },
