@@ -75,6 +75,15 @@ const points = computed<Point[]>(() => {
   }
   return out
 })
+const summary = computed(() => {
+  const ps = points.value
+  const total = ps.reduce((a, p) => a + p.views, 0)
+  const prev = ps.reduce((a, p) => a + p.prev, 0)
+  const per = range.value === '1' ? 'soat' : range.value === '365' ? 'oy' : 'kun'
+  const peak = ps.reduce<Point | null>((b, p) => (p.views > (b?.views ?? 0) ? p : b), null)
+  return { total, per, unit: per === 'soat' ? 'Soatlar' : per === 'oy' ? 'Oylar' : 'Kunlar', avg: ps.length ? Math.round(total / ps.length) : 0, peak,
+    diff: prev ? Math.round(((total - prev) / prev) * 100) : null, active: ps.filter(p => p.views > 0).length }
+})
 const prevLabel = computed(() => ({ '1': 'Kecha', '7': 'Oldingi 7 kun', '30': 'Oldingi 30 kun', '365': 'Oldingi 12 oy' })[range.value])
 
 const LANG_NAMES: Record<string, string> = { uz: 'Özbekça', ru: 'Rusça', en: 'Inglizça', zh: 'Xitoyça' }
@@ -122,13 +131,30 @@ const empty = computed(() => !!data.value && !data.value.current.pageviews)
       </div>
     </div>
 
-    <section class="card px-5 py-[18px]">
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <h2 class="text-base font-bold">Taşriflar va sahifa körişlari</h2>
-        <span class="text-xs text-muted">Ustun ustiga keling — batafsil</span>
-      </div>
-      <TrafficChart class="mt-3" :points="points" :prev-label="prevLabel" />
-    </section>
+    <div class="grid gap-[18px] xl:grid-cols-3">
+      <section class="card px-5 py-[18px] xl:col-span-2">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h2 class="text-base font-bold">Taşriflar va sahifa körişlari</h2>
+          <span class="text-xs text-muted">Ustun ustiga keling — batafsil</span>
+        </div>
+        <TrafficChart class="mt-3" :points="points" :prev-label="prevLabel" />
+      </section>
+      <!-- Davr xulosasi: grafikdagi ma'lumotdan -->
+      <section class="card flex flex-col px-5 py-[18px]">
+        <h2 class="text-base font-bold">Davr xulosasi</h2>
+        <p class="text-xs text-subtle">{{ summary.unit }} böyiça</p>
+        <dl class="mt-4 grid flex-1 grid-cols-2 content-start gap-3">
+          <div class="rounded-2xl bg-canvas p-3.5"><dt class="text-xs text-muted">Jami körişlar</dt><dd class="mt-1 text-xl font-bold tabular-nums">{{ summary.total.toLocaleString('ru').replace(/,/g, ' ') }}</dd></div>
+          <div class="rounded-2xl bg-canvas p-3.5"><dt class="text-xs text-muted">Örtaça ({{ summary.per }})</dt><dd class="mt-1 text-xl font-bold tabular-nums">{{ summary.avg }}</dd></div>
+          <div class="col-span-2 rounded-2xl bg-canvas p-3.5"><dt class="text-xs text-muted">Eng faol {{ summary.per }}</dt><dd class="mt-1 flex items-baseline justify-between gap-2"><span class="font-semibold">{{ summary.peak?.full ?? '—' }}</span><b class="text-xl tabular-nums">{{ summary.peak?.views ?? 0 }}</b></dd></div>
+          <div class="col-span-2 rounded-2xl p-3.5" :class="summary.diff === null ? 'bg-canvas' : summary.diff >= 0 ? 'bg-[#E8F7F1]' : 'bg-[#FDECEA]'">
+            <dt class="text-xs text-muted">{{ prevLabel }}ga nisbatan</dt>
+            <dd class="mt-1 font-bold" :class="summary.diff === null ? 'text-sm text-muted' : summary.diff >= 0 ? 'text-xl text-[#0B5A43]' : 'text-xl text-[#B42318]'">{{ summary.diff === null ? 'Oldingi davr ma’lumoti yöq' : `${summary.diff >= 0 ? '▲' : '▼'} ${Math.abs(summary.diff)}%` }}</dd>
+          </div>
+          <div class="col-span-2 text-xs text-muted">Faol {{ summary.per }}lar: <b class="text-ink">{{ summary.active }}</b> / {{ points.length }}</div>
+        </dl>
+      </section>
+    </div>
 
     <div class="grid gap-[18px] lg:grid-cols-3">
       <section class="card px-5 py-[18px]">

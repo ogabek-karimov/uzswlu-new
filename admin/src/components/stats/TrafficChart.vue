@@ -8,7 +8,7 @@ export type Point = { label: string; full: string; views: number; visitors: numb
 const props = defineProps<{ points: Point[]; prevLabel: string }>()
 
 const W = 760
-const H = 280
+const H = 230
 const PAD = { l: 44, r: 12, t: 16, b: 30 }
 const show = ref({ views: true, visitors: true, prev: true })
 const hover = ref<number | null>(null)
