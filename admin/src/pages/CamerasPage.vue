@@ -73,13 +73,20 @@ onMounted(load)
 </script>
 
 <template>
-  <div class="flex flex-col gap-[18px] pb-24">
+  <div class="flex flex-col gap-[18px]">
     <div class="flex flex-wrap items-end justify-between gap-4">
       <div>
         <h1 class="text-[28px] font-bold tracking-tight">Onlayn kameralar</h1>
         <p class="mt-1.5 max-w-3xl text-[15px] text-muted">«Online translatsiya» sahifasidagi jonli kameralar. <b class="text-ink">Köz</b> belgisi — kamerani saytda yaşiriş/körsatiş. Havola örniga rtsp.ru bergan iframe kodini ham qöyiş mumkin.</p>
       </div>
-      <a :href="`${SITE_URL}/${SLUG}`" target="_blank" rel="noopener" class="btn-ghost h-[46px]">Saytda köriş ↗</a>
+      <div class="flex flex-wrap items-center gap-2">
+        <span v-if="saved && !dirty" role="status" class="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-700"><Icon name="check" :size="16" />Saqlandi</span>
+        <template v-if="dirty">
+          <button type="button" class="btn-ghost h-[46px]" :disabled="saving" @click="reset">Bekor qiliş</button>
+          <button type="button" class="btn-primary h-[46px] gap-2" :disabled="saving" @click="save"><Icon name="check" :size="18" />{{ saving ? 'Saqlanmoqda…' : 'Saqlaş' }}</button>
+        </template>
+        <a :href="`${SITE_URL}/${SLUG}`" target="_blank" rel="noopener" class="btn-ghost h-[46px]">Saytda köriş ↗</a>
+      </div>
     </div>
     <div v-if="page && !loading" class="flex flex-wrap gap-2 text-sm">
       <span class="rounded-full bg-white px-3.5 py-1.5 font-semibold">Jami: {{ ready.length }}</span>
@@ -91,18 +98,5 @@ onMounted(load)
     <p v-else-if="!page" class="text-sm text-muted">«Online translatsiya» sahifasi topilmadi.</p>
     <div v-else class="max-w-4xl rounded-2xl bg-white p-5"><CamerasField v-model="cameras" bare /></div>
 
-    <!-- Saqlaş paneli: faqat özgariş bölganda -->
-    <Transition enter-from-class="translate-y-4 opacity-0" leave-to-class="translate-y-4 opacity-0" enter-active-class="transition duration-200" leave-active-class="transition duration-150">
-      <div v-if="dirty || saved" class="fixed inset-x-4 bottom-4 z-40 mx-auto flex max-w-xl flex-wrap items-center justify-between gap-3 rounded-2xl bg-ink px-4 py-3 text-white shadow-2xl" :role="saved && !dirty ? 'status' : undefined">
-        <template v-if="dirty">
-          <span class="text-sm font-semibold">Saqlanmagan özgarişlar bor</span>
-          <span class="flex gap-2">
-            <button type="button" class="h-10 rounded-xl px-4 text-sm font-semibold text-white/80 hover:bg-white/10" :disabled="saving" @click="reset">Bekor qiliş</button>
-            <button type="button" class="inline-flex h-10 items-center gap-1.5 rounded-xl bg-mint px-4 text-sm font-bold text-ink" :disabled="saving" @click="save"><Icon name="check" :size="16" />{{ saving ? 'Saqlanmoqda…' : 'Saqlaş' }}</button>
-          </span>
-        </template>
-        <span v-else class="inline-flex items-center gap-2 text-sm font-semibold"><Icon name="check" :size="16" /> Saqlandi — saytda yangilandi</span>
-      </div>
-    </Transition>
   </div>
 </template>
