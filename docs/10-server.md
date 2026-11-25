@@ -138,7 +138,7 @@ server {
 }
 ```
 
-Backend (gunicorn) uchun: `WEB_CONCURRENCY` ≈ yadro soni × 2 + 1, `WEB_THREADS` 2–4 (standart 3×2 — kichik server uchun). Kesh umumiy bo‘lishi uchun productionda **Redis** (`REDIS_URL`) bo‘lsin, aks holda har gunicorn jarayoni alohida kesh va alohida so‘rov-cheklov hisoblagichi yuritadi.
+Backend (gunicorn) uchun: `WEB_CONCURRENCY` bo‘sh bo‘lsa — avtomatik yadro soni × 2 + 1 (ko‘pi bilan 9), `WEB_THREADS` sukut 4. Jami bazaga ulanish ≈ jarayon × oqim (9 × 4 = 36) — PostgreSQL `max_connections` (sukut 100) dan kam bo‘lsin. Kesh umumiy bo‘lishi uchun productionda **Redis** (`REDIS_URL`) bo‘lsin, aks holda har gunicorn jarayoni alohida kesh va alohida so‘rov-cheklov hisoblagichi yuritadi.
 
 **Production’da tekshirish** (ishga tushirgach, 1–2 daqiqa): `curl -sI https://sizning.uz/ | grep -i x-cache` ikkinchi marta `HIT` bo‘lishi kerak; `hey -n 1000 -c 200 https://sizning.uz/` (yoki `ab`) natijasida xato 0 va p95 ~100 ms dan past bo‘lishi kerak.
 
@@ -222,7 +222,8 @@ Sayt bir vaqtda ko‘plab kompyuter, telefon va sekin tarmoqdan ochiladi. Shunin
 - **Yuklash hajmi:** sayt domenida `client_max_body_size 25m` (ariza 3×5 MB, murojaat va kabinet 10–20 MB Nuxt `/api/*` orqali o‘tadi; nginx standarti 1 MB ularni `413` bilan rad etardi). Aniq cheklovni Nuxt (`assertUploadSize`) va backend qo‘yadi.
 - **Xavfsizlik sarlavhalari** (`deploy/nginx/security_headers.conf`): sayt va admin HTML’ida `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`; `X-Frame-Options` — saytda `SAMEORIGIN`, admin panelda `DENY` (clickjacking). API javoblariga sarlavhalarni Django o‘zi qo‘yadi.
 - **Admin panel keshi:** `assets/*` (nomida xesh) — bir yil `immutable`, yo‘q fayl `404`; `index.html` — `no-cache` (deploy’dan keyin brauzer eski `index.html` bilan o‘chirilgan JS’ni so‘ramasin).
-- **Umumiy IP (universitet tarmog‘i, mobil operator NAT):** minglab talaba bitta IP’dan chiqishi mumkin. Shuning uchun nginx’da IP bo‘yicha `limit_req` ataylab qo‘yilmagan (bitta sahifa ochilishi ~40 so‘rov, umumiy IP tez bloklanib qolardi). Himoya backenddagi so‘rov cheklovi (`THROTTLE_*`, qidiruv va login qattiqroq) va tashqi qatlam (Cloudflare) bilan.
+- **Umumiy IP (universitet tarmog‘i, mobil operator NAT):** minglab talaba bitta IP’dan chiqishi mumkin. Shuning uchun nginx’da IP bo‘yicha `limit_req` (soniyadagi so‘rovlar) ataylab qo‘yilmagan (bitta sahifa ochilishi ~40 so‘rov, umumiy IP tez bloklanib qolardi). Faqat **bir vaqtda ishlanayotgan** so‘rovlar soni cheklanadi (`limit_conn`, quyida) — keshdan beriladigan sahifa millisekundlarda tugagani uchun bu chegaraga oddiy foydalanuvchilar yetmaydi. Himoya backenddagi so‘rov cheklovi (`THROTTLE_*`, qidiruv va login qattiqroq) va tashqi qatlam (Cloudflare) bilan.
+- **Ortiqcha yukni darhol rad etish (`limit_conn`, 2026-11-25):** chegaradan oshgan so‘rov navbatda 40 s kutib 504 olmaydi — darhol `429` oladi. Qiymatlar ildiz `.env` da: `LIMIT_CONN_PER_IP` (sahifa va `/_nuxt`, sukut 100), `LIMIT_CONN_API_PER_IP` (`/api/`, API va admin, sukut 30), `LIMIT_CONN_BACKEND` (backendga jami bir vaqtda, sukut 300). nginx 65 535 dan kattasini qabul qilmaydi. NAT ortida (masalan, kampus Wi-Fi) 429 ko‘paysa — `LIMIT_CONN_API_PER_IP` ni oshiring yoki `REAL_IP_FROM` to‘g‘ri sozlanganini tekshiring (aks holda hamma mijoz proksi IP’sida ko‘rinadi).
 - **Brauzer keshi:** `/_nuxt/*` bir yil (fayl nomida xesh bor), sahifaning o‘zi brauzerda saqlanmaydi (har tashrif yangi nusxani nginx keshidan oladi).
 
 Tekshirish: `curl.exe -sI -H "Accept-Encoding: gzip" http://localhost:8080/` — javobda `Content-Encoding: gzip` va `Vary: Accept-Encoding` bo‘lishi kerak. Tezlikni `ab` bilan emas (u HTTP/1.0 yuboradi, nginx siqmaydi), `wrk` bilan o‘lchang: `docker run --rm --network uzswlu-prod_default williamyeh/wrk -t4 -c200 -d15s --latency -H "Accept-Encoding: gzip" http://nginx/`.
@@ -244,7 +245,17 @@ docker network ls                       # nomi uzswlu-prod_default bo‘lishi ke
 docker run --rm --network uzswlu-prod_default httpd:2.4-alpine ab -k -n 20000 -c 200 http://nginx/
 ```
 
-Natijada `Requests per second`, `Time per request` va foizli kechikish jadvali (50%, 95%, 99%) chiqadi. Sinov va server bir mashinada bo‘lsa raqamlar haqiqiy serverdan past bo‘lishi mumkin. Faqat o‘z serveringizga yuboring.
+Natijada `Requests per second`, `Time per request` va foizli kechikish jadvali (50%, 95%, 99%) chiqadi.
+
+**10 000 ta bir vaqtdagi so‘rov sinovi (2026-11-25, lokal: 8 CPU, 4 GB, klient Docker tarmog‘ida).** Windows’dan `localhost:8080` ga yuborilsa Docker Desktop port-proksisi ~2 000 tadan ortig‘ini o‘zi tashlaydi — sinovni Docker tarmog‘i ichidan o‘tkazing. Topilgan va tuzatilgan tor joylar:
+
+| Muammo | Tuzatish | Oldin → keyin |
+|---|---|---|
+| nginx `worker_connections 1024` to‘lib, ulanishlar javobsiz yopilardi | `deploy/nginx/nginx.conf`: 16 384, `worker_rlimit_nofile 65535`, `backlog=4096`, ichki `keepalive 256` | bosh sahifa: 7 442 → **10 000** / 10 000 javob (4.7 s) |
+| backend sukut 3 × 2 = 6 ishchi (8 CPU’dan foydalanmaydi) | gunicorn CPU bo‘yicha (9 × 4), `--backlog 2048` | keshsiz backend (9 × 4): **10 000** / 10 000 javob, 10.7 s, 504 yo‘q (oldingi o‘lchov `DEBUG`/runserver rejimida bo‘lgani uchun taqqoslanmaydi) |
+| ortiqcha yuk navbatda kutardi | `limit_conn` → darhol 429 | bitta IP’dan 10 000 ta API so‘rovi: ~2 s da 429, server band bo‘lmaydi |
+
+Qolgan chegara: sayt API’si (`/api/home` va h.k.) bitta Node jarayonidan o‘tadi (~400 so‘rov/s) — Nuxt’ning xotiradagi keshi bitta jarayonga bog‘liq (tozalash so‘rovi hamma nusxaga yetmaydi), shuning uchun klaster qilinmagan; ortiqchasini `LIMIT_CONN_BACKEND` 429 bilan to‘xtatadi. `reuseport` sinab ko‘rildi — ulanishlarning ~13% i uzildi, qo‘shilmagan. Sinov va server bir mashinada bo‘lsa raqamlar haqiqiy serverdan past bo‘lishi mumkin. Faqat o‘z serveringizga yuboring.
 
 ### Admin ma’lumotni o‘zgartirganda keshni yangilash
 

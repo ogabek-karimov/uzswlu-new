@@ -13,6 +13,17 @@ gzip_vary on;                 # `Vary: Accept-Encoding` — oraliq keshlar siqil
 gzip_types text/plain text/css text/xml application/json application/javascript text/javascript application/xml application/rss+xml application/manifest+json image/svg+xml font/ttf font/otf application/vnd.ms-fontobject;
 server_tokens off;            # nginx versiyasini sarlavhada ko'rsatmaymiz
 
+# --- Ortiqcha yukni darhol rad etish (yuk sinovi 2026-11-25) ---
+# Cheklovsiz holatda 10 000 ta bir vaqtdagi so'rovda backend navbati to'lib, so'rovlar 40 s kutib 504 bilan tugardi.
+# Endi chegaradan oshgani darhol 429 oladi (brauzer/foydalanuvchi qayta urinadi), qolganlar tez xizmat oladi.
+# Bitta IP (bitta hujumchi) butun saytni band qila olmaydi. Universitet NAT'i ortida ko'p talaba bitta IP'da bo'lishi mumkin —
+# shuning uchun sahifalar uchun chegara keng (keshdan millisekundlarda beriladi, bir vaqtdagi ulanish kam bo'ladi).
+# Qiymatlar ildiz .env dan: LIMIT_CONN_PER_IP, LIMIT_CONN_API_PER_IP, LIMIT_CONN_BACKEND (docker-compose.prod.yml).
+limit_conn_zone $binary_remote_addr zone=perip:20m;
+limit_conn_zone $server_name zone=backend_total:1m;
+limit_conn_status 429;
+limit_conn_log_level warn;
+
 proxy_cache_path /var/cache/nginx/site levels=1:2 keys_zone=site:50m max_size=1g inactive=10m use_temp_path=off;
 
 # Backend admin saqlaganda shu sarlavha bilan sahifani so'raydi → nginx keshni chetlab o'tib YANGI nusxani saqlaydi.
@@ -48,7 +59,7 @@ map "$from_trusted_proxy:$http_x_forwarded_proto" $fwd_proto {
   default   $scheme;
   "1:https" https;
 }
-upstream gz      { server 127.0.0.1:8081; keepalive 32; }   # quyidagi ichki siqish serveri (127.0.0.1 — o'zgarmaydi)
+upstream gz      { server 127.0.0.1:8081; keepalive 256; }  # ichki ulanishlar qayta ishlatiladi (yuk ostida yangi ulanish ochilmaydi)   # quyidagi ichki siqish serveri (127.0.0.1 — o'zgarmaydi)
 
 # --- Ichki siqish serveri: faqat nginx'ning o'zidan (127.0.0.1) so'raladi, tashqariga ochilmaydi ---
 # Nuxtdan siqilmagan javob oladi va BIR marta siqadi; sayt serveri shuni keshlaydi. Yuqori daraja (6) — chunki keshga bir marta yoziladi.
@@ -70,9 +81,12 @@ server {
 
 # --- Sayt ---
 server {
-  listen 80 default_server;
+  # backlog — birdan kelgan ulanishlar navbati (sukut 511 — to'lqinda tashlab yuborardi). :80 dagi barcha server'larga amal qiladi.
+  # `reuseport` sinab ko'rildi (2026-11-25): bosh sahifada ~13% ulanish uzilib/kutib qoldi — qo'shilmaydi.
+  listen 80 default_server backlog=4096;
   server_name ${SITE_HOST};
   include /etc/nginx/real_ip.conf;         # ishonchli proksi ortida — haqiqiy mijoz IP'si (yuqoridagi izoh)
+  limit_conn perip ${LIMIT_CONN_PER_IP};   # sahifa va /_nuxt: bitta IP'dan bir vaqtda (ortig'i — 429)
   # Ariza (3×5 MB), murojaat va kabinet yuklashlari (10–20 MB) shu domendagi Nuxt /api/* orqali o'tadi; standart 1 MB ularni 413 bilan
   # rad etardi. Aniq cheklovni Nuxt (assertUploadSize) va backend qo'yadi.
   client_max_body_size 25m;
@@ -102,6 +116,8 @@ server {
   # Sayt ma'lumoti (/api/site, /api/home ...) nginx'da KESHLANMAYDI: Nuxt'ning o'z keshi (admin saqlaganda tozalanadi) va backend keshi bor.
   # Aks holda Nuxt `max-age=3600` bergani uchun admin o'zgartirgan kontent (masalan AKT havolasi) nginx'da 1 soatgacha eski qolardi.
   location /api/ {
+    limit_conn perip ${LIMIT_CONN_API_PER_IP};        # bitta IP'dan bir vaqtda (ortig'i — darhol 429)
+    limit_conn backend_total ${LIMIT_CONN_BACKEND};   # backendga jami bir vaqtda (ortig'i navbatda 40 s kutmaydi — darhol 429)
     proxy_pass http://gz;
     proxy_http_version 1.1;
     proxy_set_header Connection "";
@@ -149,6 +165,8 @@ server {
   include /etc/nginx/real_ip.conf;
   client_max_body_size 25m;                # backenddagi BODY_LIMITS/UPLOAD_LIMITS bilan mos
   location / {
+    limit_conn perip ${LIMIT_CONN_API_PER_IP};        # bitta IP'dan bir vaqtda (ortig'i — darhol 429)
+    limit_conn backend_total ${LIMIT_CONN_BACKEND};   # backendga jami bir vaqtda (ortig'i navbatda 40 s kutmaydi — darhol 429)
     set $backend_up backend:8000;
     proxy_pass http://$backend_up;
     proxy_http_version 1.1;
@@ -168,6 +186,8 @@ server {
   include /etc/nginx/real_ip.conf;
   client_max_body_size 25m;
   location /api/ {
+    limit_conn perip ${LIMIT_CONN_API_PER_IP};        # bitta IP'dan bir vaqtda (ortig'i — darhol 429)
+    limit_conn backend_total ${LIMIT_CONN_BACKEND};   # backendga jami bir vaqtda (ortig'i navbatda 40 s kutmaydi — darhol 429)
     set $backend_up backend:8000;
     proxy_pass http://$backend_up;
     proxy_http_version 1.1;

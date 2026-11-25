@@ -127,8 +127,8 @@ Fayllar: `backend/.env` (namuna: `backend/.env.example`), `.env.docker` (namuna:
 | `STAFF_DEV_LOGIN` | `true` | Faqat lokal sinov: HEMIS ulanmaganda xodim kabinetiga rol tanlab kirish (/api/auth/hemis/login?next=cabinet). DEBUG=true bo'lsagina ishlaydi | ixtiyoriy (izohda) |
 | `ADMIN_MAX_LIMIT` | `5000` | Admin ro'yxatida bir so'rovda ko'pi bilan nechta yozuv |  |
 | `REDIS_URL` | *(bo‘sh)* | Bir nechta server/jarayon bo'lsa umumiy kesh (so'rov cheklovi hisobi uchun); bo'sh bo'lsa fayl keshi |  |
-| `WEB_CONCURRENCY` | `3` | Gunicorn: jarayonlar, oqimlar va so'rov vaqti chegarasi |  |
-| `WEB_THREADS` | `2` |  |  |
+| `WEB_CONCURRENCY` | *(bo‘sh)* | Gunicorn: jarayonlar, oqimlar va so'rov vaqti chegarasi Bo'sh qoldiring — CPU bo'yicha avtomatik (2 × yadro + 1, ko'pi bilan 9) va 4 oqim. Jami ulanish: jarayon × oqim (PostgreSQL max_connections dan kam bo'lsin) |  |
+| `WEB_THREADS` | `4` |  |  |
 | `WEB_TIMEOUT` | `30` |  |  |
 | `REQUIRE_2FA_ROLES` | *(bo‘sh)* | Ikki bosqichli tasdiq (2FA, Google/Microsoft Authenticator) majburiy rollar, vergul bilan. Bo'sh — hamma uchun ixtiyoriy (Profil bo'limida yoqiladi) |  |
 | `BACKUP_ENABLED` | `true` | Kechasi avtomatik: baza + yuklangan fayllar → BACKUP_DIR/uzswlu-YYYYMMDD-HHMMSS.tar.gz. Serverda BACKUP_DIR alohida diskda bo'lsin. |  |

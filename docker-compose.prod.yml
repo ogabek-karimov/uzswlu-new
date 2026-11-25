@@ -109,6 +109,12 @@ services:
       # Oldidagi TLS proksi manzillari (CIDR, bo'sh joy/vergul bilan) — haqiqiy mijoz IP'si va https shulardan ishoniladi.
       # Shu hostdagi nginx/certbot → odatda "172.16.0.0/12"; Cloudflare → uning IP diapazonlari. Bo'sh — hech kimga ishonilmaydi.
       REAL_IP_FROM: ${REAL_IP_FROM:-}
+      # Ortiqcha yukni darhol rad etish (429): bitta IP'dan bir vaqtdagi ulanishlar — sahifalar / API; backendga jami
+      LIMIT_CONN_PER_IP: ${LIMIT_CONN_PER_IP:-100}
+      LIMIT_CONN_API_PER_IP: ${LIMIT_CONN_API_PER_IP:-30}
+      LIMIT_CONN_BACKEND: ${LIMIT_CONN_BACKEND:-300}
+    ulimits:
+      nofile: { soft: 65535, hard: 65535 }   # nginx.conf: worker_rlimit_nofile
     ports:
       - "${HTTP_PORT:-8080}:80"
     volumes:
