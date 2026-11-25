@@ -124,9 +124,14 @@ class Post(models.Model):
         super().save(*args, **kwargs)
 
     @classmethod
-    def visible(cls, lang: str = 'uz'):
-        """Saytda ko'rinadigan postlar (tilga qarab)."""
-        qs = cls.objects.filter(status='published', hidden=False, deleted_at__isnull=True, published_at__lte=timezone.now())
+    def visible(cls, lang: str = 'uz', *, scheduled: bool = False):
+        """Saytda ko'rinadigan postlar (tilga qarab).
+
+        scheduled=True — nashr vaqti hali kelmagan (rejalashtirilgan) postlar ham qo'shiladi. Faqat tadbirlar ro'yxati/taqvimi
+        uchun: ular «Tez orada» bo'lib chiqadi, sahifasi esa nashr vaqtigacha ochilmaydi.
+        """
+        qs = cls.objects.filter(status='published', hidden=False, deleted_at__isnull=True)
+        qs = qs.filter(published_at__isnull=False) if scheduled else qs.filter(published_at__lte=timezone.now())
         if settings.HIDE_UNTRANSLATED_POSTS:
             qs = qs.filter(**{f'title__{lang}__isnull': False}).exclude(**{f'title__{lang}': ''})
         return qs

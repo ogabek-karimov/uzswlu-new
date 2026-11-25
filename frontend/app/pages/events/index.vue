@@ -80,7 +80,7 @@ function downloadIcs() {
     `DTEND:${stamp(e.endsAt ?? new Date(new Date(e.startsAt).getTime() + 2 * 60 * 60 * 1000).toISOString())}`,
     `SUMMARY:${esc(e.title)}`,
     e.location ? `LOCATION:${esc(e.location)}` : '',
-    `URL:${window.location.origin}${localePath(`/events/${e.slug}`)}`,
+    `URL:${window.location.origin}${localePath(e.scheduled ? '/events' : `/events/${e.slug}`)}`,
     'END:VEVENT',
   ].filter(Boolean).join('\r\n'))
   const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//UzSWLU//Events//UZ', ...events, 'END:VCALENDAR'].join('\r\n')
@@ -96,7 +96,7 @@ useSeo({ title: () => t('calendar.title'), description: () => t('calendar.lead')
 <template>
   <div>
     <PageIntro :crumbs="[{ label: t('posts.tabs.news'), to: '/yangiliklar' }, { label: t('posts.tabs.events') }]" :title="t('calendar.title')" :lead="t('calendar.lead')">
-      <button type="button" class="inline-flex h-12 items-center gap-2 rounded-full border border-ink/20 px-5 text-sm font-semibold text-ink transition-colors hover:bg-ink hover:text-white" :disabled="!data?.items.length" @click="downloadIcs">
+      <button type="button" class="inline-flex h-12 items-center gap-2 rounded-full border border-white/25 px-5 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-brand-900" :disabled="!data?.items.length" @click="downloadIcs">
         <Icon name="lucide:calendar-plus" class="size-[18px]" />
         {{ t('calendar.subscribe') }}
       </button>
@@ -150,8 +150,12 @@ useSeo({ title: () => t('calendar.title'), description: () => t('calendar.lead')
         <h2 class="mt-2 font-display text-[34px] font-semibold first-letter:uppercase">{{ selectedLabel }}</h2>
         <ul v-if="dayEvents.length" class="mt-5 flex flex-col gap-3">
           <li v-for="e in dayEvents" :key="e.id" class="group relative rounded-[20px] border border-line bg-white px-5 py-[18px] transition-colors hover:border-accent-500">
-            <span v-if="e.category" class="rounded-full bg-accent-100 px-2.5 py-1 text-xs font-semibold text-accent-700">{{ e.category }}</span>
-            <NuxtLink :to="localePath(`/events/${e.slug}`)" class="mt-2.5 block text-[17px] leading-snug font-semibold text-ink">
+            <span class="flex flex-wrap gap-1.5">
+              <span v-if="e.scheduled" class="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-1 text-xs font-semibold text-brand-800"><Icon name="lucide:hourglass" class="size-3.5" />{{ t('events.soon') }}</span>
+              <span v-if="e.category" class="rounded-full bg-accent-100 px-2.5 py-1 text-xs font-semibold text-accent-700">{{ e.category }}</span>
+            </span>
+            <p v-if="e.scheduled" class="mt-2.5 text-[17px] leading-snug font-semibold text-ink">{{ e.title }}</p>
+            <NuxtLink v-else :to="localePath(`/events/${e.slug}`)" class="mt-2.5 block text-[17px] leading-snug font-semibold text-ink">
               <span class="absolute inset-0" aria-hidden="true" />
               {{ e.title }}
             </NuxtLink>
@@ -185,8 +189,10 @@ useSeo({ title: () => t('calendar.title'), description: () => t('calendar.lead')
           <div class="flex items-end gap-3">
             <span class="font-display text-[56px] leading-[0.85] font-semibold text-brand-200">{{ formatDate(e.startsAt, 'day') }}</span>
             <span class="text-sm text-muted">{{ formatDate(e.startsAt, 'month') }}, {{ formatDate(e.startsAt, 'weekday') }}</span>
+            <span v-if="e.scheduled" class="ml-auto inline-flex shrink-0 items-center gap-1 self-start rounded-full bg-brand-50 px-2.5 py-1 text-xs font-semibold text-brand-800"><Icon name="lucide:hourglass" class="size-3.5" />{{ t('events.soon') }}</span>
           </div>
-          <NuxtLink :to="localePath(`/events/${e.slug}`)" class="mt-5 block text-lg leading-snug font-semibold text-ink">
+          <p v-if="e.scheduled" class="mt-5 text-lg leading-snug font-semibold text-ink">{{ e.title }}</p>
+          <NuxtLink v-else :to="localePath(`/events/${e.slug}`)" class="mt-5 block text-lg leading-snug font-semibold text-ink">
             <span class="absolute inset-0" aria-hidden="true" />
             {{ e.title }}
           </NuxtLink>

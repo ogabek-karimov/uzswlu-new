@@ -57,7 +57,10 @@ export interface Announcement {
 
 export interface EventItem {
   id: string
+  /** Rejalashtirilgan tadbirda bo'sh — sahifasi nashr vaqtigacha yopiq */
   slug: string
+  /** Nashr vaqti hali kelmagan: ro'yxatda «Tez orada», havolasiz */
+  scheduled?: boolean
   title: string
   category: string
   /** Boshlanish vaqti, ISO 8601 vaqt mintaqasi bilan: 2026-11-07T10:00:00+05:00 */

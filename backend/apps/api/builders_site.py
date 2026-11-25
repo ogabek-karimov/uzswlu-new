@@ -430,7 +430,7 @@ def posts_list_out(lang: str, *, type_: str, q: str, month: str | None, sdg: int
 def events_out(lang: str, month: str) -> dict:
     start, end = month_range(month)
     in_month = (
-        Post.visible(lang).filter(type='events', starts_at__gte=start, starts_at__lt=end)
+        Post.visible(lang, scheduled=True).filter(type='events', starts_at__gte=start, starts_at__lt=end)
         .select_related(*POST_RELATED).order_by('starts_at')[:200]
     )
     return {

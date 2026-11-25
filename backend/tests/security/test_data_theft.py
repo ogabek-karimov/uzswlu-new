@@ -204,6 +204,25 @@ class Public(Base):
                 self.assertNotIn(f'"slug": "{slug}"', text.replace('":"', '": "'), f'{ep} {slug} sizdi')
                 self.assertNotIn(f'/{slug}"', text, f'{ep} {slug} sizdi')
 
+    def test_scheduled_event_listed_as_soon_without_page(self):
+        """Rejalashtirilgan tadbir «Yaqin tadbirlar» va taqvimda chiqadi (scheduled=True), lekin slug'i berilmaydi va sahifasi yopiq."""
+        now = timezone.now()
+        starts = now + timedelta(days=5)
+        title = {'uz': 'Kelgusi tadbir', 'ru': 'x', 'en': 'x', 'zh': 'x'}
+        Post.objects.create(type='events', slug='kelgusi-tadbir', title=title, status='published', published_at=now + timedelta(days=2), starts_at=starts)
+        Post.objects.create(type='events', slug='qoralama-tadbir', title=title, status='draft', published_at=now + timedelta(days=2), starts_at=starts)
+        Post.objects.create(type='events', slug='ochiq-tadbir', title=title, status='published', published_at=now - timedelta(hours=1), starts_at=starts)
+        month = (starts + timedelta(hours=5)).strftime('%Y-%m')
+        cal = self.c.get(f'/api/events?month={month}').json()
+        for rows in (cal['upcoming'], cal['items'], self.c.get('/api/home').json()['events']):
+            soon = [e for e in rows if e.get('scheduled')]
+            self.assertEqual(len(soon), 1, rows)   # qoralama chiqmaydi
+            self.assertEqual(soon[0]['slug'], '')
+            self.assertIn({'slug': 'ochiq-tadbir', 'scheduled': False}, [{'slug': e['slug'], 'scheduled': e['scheduled']} for e in rows])
+        text = json.dumps(cal) + self.c.get('/api/home').content.decode()
+        self.assertNotIn('kelgusi-tadbir', text)
+        self.assertEqual(self.c.get('/api/posts/events/kelgusi-tadbir').status_code, 404)
+
     @override_settings(API_TOKEN='s3cret-token-value')
     def test_token_required_on_public_api(self):
         for ep in ('/api/posts', '/api/home', '/api/staff', '/api/faculties', '/api/documents', '/api/search?q=abc', '/api/pages/x', '/api/leadership'):

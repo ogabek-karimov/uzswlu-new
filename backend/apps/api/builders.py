@@ -44,9 +44,12 @@ def announcement_item(p: Post, lang: str) -> dict:
 
 
 def event_item(p: Post, lang: str) -> dict:
+    # Rejalashtirilgan (nashr vaqti kelmagan) tadbir: ro'yxatda «Tez orada», slug berilmaydi — sahifasi hali yopiq
+    scheduled = bool(p.published_at and p.published_at > timezone.now())
     return {
         'id': str(p.pk),
-        'slug': p.slug,
+        'slug': '' if scheduled else p.slug,
+        'scheduled': scheduled,
         'title': tr(p.title, lang),
         'category': tr(p.category.name, lang) if p.category else '',
         'startsAt': iso(p.starts_at or p.published_at),
@@ -57,7 +60,7 @@ def event_item(p: Post, lang: str) -> dict:
 
 
 def upcoming_events(lang: str, limit: int = 3):
-    return list(Post.visible(lang).filter(type='events', starts_at__gte=timezone.now()).select_related(*POST_RELATED).order_by('starts_at')[:limit])
+    return list(Post.visible(lang, scheduled=True).filter(type='events', starts_at__gte=timezone.now()).select_related(*POST_RELATED).order_by('starts_at')[:limit])
 
 
 def latest_posts(lang: str, type_: str, limit: int, exclude_pk=None):

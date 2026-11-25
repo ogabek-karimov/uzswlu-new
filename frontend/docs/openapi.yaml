@@ -710,7 +710,8 @@ components:
       required: [id, slug, title, category, startsAt, location]
       properties:
         id: { type: string, example: '12' }
-        slug: { type: string, example: ochiq-eshiklar-kuni }
+        slug: { type: string, description: "Rejalashtirilgan tadbirda bo'sh (sahifasi hali yopiq)", example: ochiq-eshiklar-kuni }
+        scheduled: { type: boolean, description: "Nashr vaqti hali kelmagan — ro'yxatda «Tez orada», havolasiz" }
         title: { type: string, example: Ochiq eshiklar kuni }
         category: { type: string, example: Abituriyentlar }
         startsAt: { type: string, format: date-time, example: '2026-11-07T10:00:00+05:00' }

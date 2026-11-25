@@ -19,7 +19,7 @@ const formatDate = useFormatDate()
 
     <ul v-if="events.length" class="mt-12 grid gap-4 md:grid-cols-3">
       <li data-reveal-item class="group/li" v-for="event in events" :key="event.id">
-        <article data-spot class="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[28px] border border-line bg-white transition duration-300 group-hover/li:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-32px_var(--color-brand-700)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
+        <article data-spot :class="!event.scheduled && 'cursor-pointer'" class="group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-line bg-white transition duration-300 group-hover/li:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-32px_var(--color-brand-700)] motion-reduce:transition-none motion-reduce:group-hover/li:translate-y-0">
           <!-- Sarlavha: to'q gradient, katta sana, toifa -->
           <div class="relative overflow-hidden bg-gradient-to-br from-brand-500 via-brand-600 to-brand-700 px-6 pt-6 pb-7 text-white">
             <span class="decor pointer-events-none absolute -top-10 -right-10 size-40 rounded-full border-[1.6rem] border-white/[0.06] transition-transform duration-700 group-hover:scale-125 motion-reduce:transition-none" aria-hidden="true" />
@@ -32,13 +32,17 @@ const formatDate = useFormatDate()
                   <span class="block text-xs text-white/65 first-letter:uppercase">{{ formatDate(event.startsAt, 'weekday') }}</span>
                 </span>
               </time>
-              <span v-if="event.category" class="shrink-0 rounded-full bg-accent-400 px-3 py-1 text-xs font-semibold text-brand-950">{{ event.category }}</span>
+              <span v-if="event.scheduled" class="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/30">
+                <Icon name="lucide:hourglass" class="size-3.5 text-accent-300" />{{ t('events.soon') }}
+              </span>
+              <span v-else-if="event.category" class="shrink-0 rounded-full bg-accent-400 px-3 py-1 text-xs font-semibold text-brand-950">{{ event.category }}</span>
             </div>
           </div>
 
           <div class="flex flex-1 flex-col p-6 pt-5">
             <h3 class="line-clamp-3 min-h-[3lh] text-lg leading-snug font-semibold text-ink transition-colors group-hover:text-brand-700">
-              <NuxtLink :to="localePath(`/events/${event.slug}`)">
+              <template v-if="event.scheduled">{{ event.title }}</template>
+              <NuxtLink v-else :to="localePath(`/events/${event.slug}`)">
                 <span class="absolute inset-0" aria-hidden="true" />
                 {{ event.title }}
               </NuxtLink>
@@ -58,7 +62,10 @@ const formatDate = useFormatDate()
               </div>
             </dl>
 
-            <NuxtLink :to="localePath(`/events/${event.slug}`)" tabindex="-1" :aria-label="event.title" class="relative z-10 mt-auto flex justify-end pt-5">
+            <p v-if="event.scheduled" class="mt-auto flex items-center gap-2 pt-5 text-[13px] text-muted">
+              <Icon name="lucide:bell" class="size-4 shrink-0 text-brand-400" />{{ t('events.soonHint') }}
+            </p>
+            <NuxtLink v-else :to="localePath(`/events/${event.slug}`)" tabindex="-1" :aria-label="event.title" class="relative z-10 mt-auto flex justify-end pt-5">
               <span class="grid size-10 place-items-center rounded-full border border-brand-200 text-brand-700 transition duration-300 group-hover:-rotate-45 group-hover:border-accent-400 group-hover:bg-accent-400 group-hover:text-ink motion-reduce:transition-none">
                 <Icon name="lucide:arrow-right" class="size-4" />
               </span>
