@@ -153,6 +153,7 @@ def me_out(user) -> dict:
     data['roleDescription'] = (role.description or None) if role else None
     data['permissions'] = rl.permissions_of(user)
     data['scoped'] = rl.is_scoped(user)
+    data['sections'] = rl.catalog()  # ruxsatlar jadvali bo'limlari — admin panel o'z ro'yxatini saqlamaydi
     return data
 
 

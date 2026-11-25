@@ -9,7 +9,7 @@ defineEmits<{ menu: [] }>()
 const router = useRouter()
 const userOpen = ref(false)
 // «Yangi qo'shish» — rolga yozish ruxsati bor birinchi post turi (yangilik → e'lon → tadbir)
-const newType = computed(() => (['news', 'announcements', 'events'] as const).find(t => auth.can(t, 'write')))
+const newType = computed(() => (['news', 'announcements', 'events'] as const).find(t => auth.can(t, 'create')))
 
 async function logout() {
   await auth.logout()

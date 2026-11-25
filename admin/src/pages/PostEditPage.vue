@@ -61,8 +61,9 @@ let ready = false
 
 const meta = computed(() => POST_TYPES.find(t => t.value === form.type)!)
 // Rolga yozish ruxsati bor turlar (masalan, faqat yangiliklar) — qolganini tanlab bo'lmaydi (aks holda server «ruxsat yo'q» deydi)
-const types = computed(() => POST_TYPES.filter(t => auth.can(t.value, 'write') || t.value === form.type))
-if (!id.value && !auth.can(form.type, 'write')) form.type = POST_TYPES.find(t => auth.can(t.value, 'write'))?.value ?? form.type
+// yangi post — «qo'shish» ruxsati bor turlar; mavjud post — «tahrirlash» ruxsati bor turlar
+const types = computed(() => POST_TYPES.filter(t => auth.can(t.value, id.value ? 'update' : 'create') || t.value === form.type))
+if (!id.value && !auth.can(form.type, 'create')) form.type = POST_TYPES.find(t => auth.can(t.value, 'create'))?.value ?? form.type
 const fill = computed(() => Object.fromEntries(LANGS.map(l => [l.code, langFill(form, l.code)])) as Record<Lang, 0 | 0.5 | 1>)
 const customAt = computed(() => fromInputs(pub.date, pub.time))
 const isFuture = computed(() => when.value === 'custom' && !!customAt.value && new Date(customAt.value).getTime() > Date.now())

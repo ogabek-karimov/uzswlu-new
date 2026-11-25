@@ -28,7 +28,7 @@ class RoleTests(PanelBase):
         self.assertEqual(r.status_code, 201, r.content[:200])
         doc = self.j(r)['doc']
         self.assertEqual(doc['slug'], 'tutor')
-        self.assertEqual(doc['permissions'], {'news': 'write'})  # noma'lum bo'lim va daraja tashlab yuboriladi
+        self.assertEqual(doc['permissions'], {'news': ['read', 'create', 'update', 'delete']})  # noma'lum bo'lim va daraja tashlab yuboriladi; eski 'write' = barcha yozish amallari
         u = self.make_user('tutor')
         self.assertEqual(self.j(self.client.get(f'/api/cms/users/{u.pk}'))['role'], 'tutor')
         # noma'lum rolni tayinlab bo'lmaydi
@@ -38,7 +38,7 @@ class RoleTests(PanelBase):
         self.as_user(self.make_user('oqituvchi', 'teacher1'))
         me = self.j(self.client.get('/api/cms/users/me'))['user']
         self.assertEqual(me['roleName'], 'O‘qituvchi')
-        self.assertEqual(me['permissions']['events'], 'write')
+        self.assertEqual(me['permissions']['events'], ['read', 'create', 'update', 'delete'])
         self.assertNotIn('pages', me['permissions'])
 
     def test_custom_role_writes_only_allowed_sections(self):
@@ -88,7 +88,7 @@ class RoleTests(PanelBase):
         self.send('patch', f'/api/cms/roles/{rid}', {'permissions': {'news': 'read'}, 'name': 'Bosh admin'})
         doc = self.j(self.client.get(f'/api/cms/roles/{rid}'))
         self.assertEqual(doc['name'], 'Bosh admin')
-        self.assertEqual(doc['permissions']['news'], 'write')  # superadmin hamma narsaga yozadi — o'zgartirib bo'lmaydi
+        self.assertEqual(doc['permissions']['news'], ['read', 'create', 'update', 'delete'])  # superadmin hamma narsaga yozadi — o'zgartirib bo'lmaydi
 
     def test_hemis_role_mapping_is_gone(self):
         # Lavozim bo'yicha avtomatik rol yo'q: hemisRole qabul qilinmaydi va javobda chiqmaydi (rolni faqat admin beradi)
@@ -122,7 +122,7 @@ class DefaultRolesEditableTests(PanelBase):
 
     def test_default_roles_start_with_expected_sections(self):
         docs = {r['slug']: r for r in self.j(self.client.get('/api/cms/roles?limit=50'))['docs']}
-        self.assertEqual(docs['sdg']['permissions'], {'sdg': 'write', 'media': 'write'})
+        self.assertEqual(docs['sdg']['permissions'], {'sdg': ['read', 'create', 'update', 'delete'], 'media': ['read', 'create', 'update', 'delete']})
         self.assertTrue(docs['editor']['editAll'])
         self.assertFalse(docs['pages']['editAll'])
         self.assertFalse(docs['sdg']['system'])

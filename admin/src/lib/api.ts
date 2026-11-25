@@ -129,6 +129,12 @@ export type MediaDoc = {
   sizes?: Record<string, { url?: string | null } | undefined>
 }
 
+/** Bo'lim bo'yicha amal */
+export type Action = 'read' | 'create' | 'update' | 'delete'
+
+/** Ruxsatlar jadvalidagi bo'lim (server katalogi) */
+export type Section = { key: string; label: string; group: string; path: string }
+
 export type User = {
   id: number
   name: string
@@ -137,7 +143,10 @@ export type User = {
   role: string
   roleName?: string
   roleDescription?: string | null
-  permissions?: Record<string, 'read' | 'write'>
+  /** {bo'lim: amallar} — read (ko'rish), create (qo'shish), update (tahrirlash), delete (o'chirish); to'plamlar bilan birga yakuniy */
+  permissions?: Record<string, Action[]>
+  /** ruxsatlar jadvali bo'limlari (faqat /users/me va kirish javobida) */
+  sections?: Section[]
   scoped?: boolean
   status?: 'active' | 'invited' | 'disabled'
   position?: string | null

@@ -1,5 +1,6 @@
 import { computed, reactive } from 'vue'
-import { api, type User } from './api'
+import { type Action, api, type User } from './api'
+import { setSections } from './roles'
 
 // Kirgan foydalanuvchi holati (butun ilova uchun bitta)
 const state = reactive<{ user: User | null; checked: boolean }>({ user: null, checked: false })
@@ -9,13 +10,15 @@ export const auth = {
   user: computed(() => state.user),
   isSuper: computed(() => state.user?.role === 'superadmin'),
 
-  /** Rolga shu bo'lim ruxsat etilganmi (superadmin — hammasi) */
-  can(section: string, level: 'read' | 'write' = 'read') {
+  /** Rolga shu bo'lim uchun ruxsat bormi (superadmin — hammasi). `write` — qo'shish/tahrirlash/o'chirishdan biri;
+   *  `create` / `update` / `delete` — aniq amal (server ham shunday tekshiradi) */
+  can(section: string, level: 'read' | 'write' | Action = 'read') {
     const u = state.user
     if (!u) return false
     if (u.role === 'superadmin') return true
-    const got = u.permissions?.[section]
-    return level === 'read' ? !!got : got === 'write'
+    const got = u.permissions?.[section] ?? []
+    if (level === 'write') return got.some(a => a !== 'read')
+    return got.includes(level)
   },
 
   /** Kirgandan keyin tushadigan sahifa */
@@ -29,6 +32,7 @@ export const auth = {
     try {
       const res = await api.get<{ user: User | null }>('/users/me', { depth: 1 })
       state.user = res.user
+      setSections(res.user?.sections)
     }
     catch {
       state.user = null
@@ -44,6 +48,7 @@ export const auth = {
     catch { /* brauzer xotirasi yopiq bo'lishi mumkin */ }
     if (res.twoFactorRequired && res.challenge) return { challenge: res.challenge }
     state.user = res.user!
+    setSections(res.user!.sections)
     state.checked = true
     return res.user!
   },
@@ -52,6 +57,7 @@ export const auth = {
   async verifyTwoFactor(challenge: string, code: string) {
     const res = await api.post<{ user: User }>('/users/login/2fa', { challenge, code })
     state.user = res.user
+    setSections(res.user.sections)
     state.checked = true
     return res.user
   },

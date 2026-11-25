@@ -65,7 +65,8 @@ def diff(before: dict, after: dict) -> dict:
             # Rol ruxsatlari bo'lim-ma-bo'lim: «permissions.news: read → write» (yo'q bo'lim — '—')
             for sec in sorted(set(a) | set(b)):
                 if a.get(sec) != b.get(sec):
-                    out[f'{key}.{sec}'] = {'before': b.get(sec) or '—', 'after': a.get(sec) or '—'}
+                    fmt = lambda v: (', '.join(v) if isinstance(v, list) else v) or '—'  # noqa: E731 — amallar ro'yxati → «read, create»
+                    out[f'{key}.{sec}'] = {'before': fmt(b.get(sec)), 'after': fmt(a.get(sec))}
             continue
         long = key in LONG or isinstance(a, (list, dict))
         out[key] = {'before': '…' if long else short(b), 'after': '…' if long else short(a)}

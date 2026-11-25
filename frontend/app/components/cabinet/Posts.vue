@@ -5,7 +5,9 @@ import type { CabinetPostDoc, CabinetPostList } from '#shared/types/api'
 // Ruxsat (qaysi tur, fakultet doirasi, «faqat o'zi yozgan») backendda admin paneldagi qoidalar bilan tekshiriladi; `own` — tahrirlash mumkinmi.
 // Matn oddiy ko'rinishda (bo'sh qator — yangi abzats). Admin panelda yozilgan murakkab formatlash (jadval, rasm) tegilmaydi: matn o'zgartirilmasa yuborilmaydi.
 type PostType = CabinetPostDoc['type']
-const props = defineProps<{ types: PostType[] }>()
+// `actions` — tur bo'yicha rol amallari (qo'shish / tahrirlash / o'chirish): tugmalar faqat ruxsat bor bo'lsa chiqadi (server ham tekshiradi)
+const props = defineProps<{ types: PostType[], actions?: Partial<Record<PostType, string[]>> }>()
+const may = (a: 'create' | 'update' | 'delete') => (props.actions?.[tab.value] ?? ['read', 'create', 'update', 'delete']).includes(a)
 
 const { t } = useI18n()
 const LANGS = ['uz', 'ru', 'en', 'zh'] as const
@@ -173,7 +175,7 @@ const fmt = (d: string | null) => (d ? new Date(d).toLocaleDateString(undefined,
         <h2 class="font-display text-[28px] font-semibold text-ink">{{ t('cabinet.posts.title') }}</h2>
         <p class="mt-1 text-[15px] text-muted">{{ t('cabinet.posts.desc') }}</p>
       </div>
-      <button v-if="!editing" type="button" class="inline-flex items-center gap-1.5 rounded-full bg-brand-700 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-900" :disabled="openingNew" @click="addInAdmin">
+      <button v-if="!editing && may('create')" type="button" class="inline-flex items-center gap-1.5 rounded-full bg-brand-700 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-900" :disabled="openingNew" @click="addInAdmin">
         <Icon name="lucide:plus" class="size-4" />{{ t(`cabinet.posts.add.${tab}`) }}<Icon name="lucide:arrow-up-right" class="size-4" />
       </button>
     </div>
@@ -258,10 +260,10 @@ const fmt = (d: string | null) => (d ? new Date(d).toLocaleDateString(undefined,
             </p>
           </div>
           <template v-if="d.own">
-            <button type="button" :aria-label="t('cabinet.posts.edit')" :disabled="busy" class="grid size-8 shrink-0 place-items-center rounded-full text-muted transition-colors hover:bg-brand-50 hover:text-brand-700" @click="open(d)">
+            <button v-if="may('update')" type="button" :aria-label="t('cabinet.posts.edit')" :disabled="busy" class="grid size-8 shrink-0 place-items-center rounded-full text-muted transition-colors hover:bg-brand-50 hover:text-brand-700" @click="open(d)">
               <Icon name="lucide:pencil" class="size-4" />
             </button>
-            <button type="button" :aria-label="t('cabinet.posts.remove')" :disabled="busy" class="grid size-8 shrink-0 place-items-center rounded-full text-muted transition-colors hover:bg-brand-50 hover:text-[#b42318]" @click="remove(d)">
+            <button v-if="may('delete')" type="button" :aria-label="t('cabinet.posts.remove')" :disabled="busy" class="grid size-8 shrink-0 place-items-center rounded-full text-muted transition-colors hover:bg-brand-50 hover:text-[#b42318]" @click="remove(d)">
               <Icon name="lucide:trash-2" class="size-4" />
             </button>
           </template>

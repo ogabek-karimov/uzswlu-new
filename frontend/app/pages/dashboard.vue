@@ -36,6 +36,8 @@ const { data: adminLink } = await useFetch<CabinetAdminLink>('/api/me/admin-link
 const postTypes = computed(() => POST_TYPES.filter(k => adminLink.value.sections.some(s => s.key === k && s.level === 'write')))
 // Rolsiz xodim (HEMIS lavozimi saytda rol bermaydi): faqat Dashboard ko'rinadi va qo'shimcha KPI; hech narsani o'zgartira olmaydi
 const hasRole = computed(() => cabinet.value?.hasRole !== false)
+// Tur bo'yicha aniq amallar (qo'shish / tahrirlash / o'chirish) — kabinetdagi tugmalar shunga qarab chiqadi
+const postActions = computed(() => Object.fromEntries(adminLink.value.sections.filter(s => (POST_TYPES as readonly string[]).includes(s.key)).map(s => [s.key, s.actions ?? (s.level === 'write' ? ['read', 'create', 'update', 'delete'] : ['read'])])))
 const SECTIONS = computed(() => (!hasRole.value ? [BASE_SECTIONS[0]] : postTypes.value.length ? [...BASE_SECTIONS, NEWS_SECTION] : [...BASE_SECTIONS]))
 const KPI_URL = 'https://kpi.uzswlu.uz'
 const view = computed<SectionKey>(() => SECTIONS.value.find(s => s.key === route.query.bolim)?.key ?? 'overview')
@@ -248,7 +250,7 @@ const menuClass = 'flex items-center gap-3 rounded-[14px] px-3.5 py-3 font-mediu
           <CabinetHomePanel :cabinet="cabinet" :admin="adminLink" :has-role="hasRole" />
           <CabinetHemisCard :cabinet="cabinet" />
         </template>
-        <CabinetPosts v-else-if="view === 'news'" :types="[...postTypes]" />
+        <CabinetPosts v-else-if="view === 'news'" :types="[...postTypes]" :actions="postActions" />
         <template v-else-if="view === 'profile'">
           <CabinetProfileOverview :cabinet="cabinet" :admin="adminLink" />
           <div id="about" class="scroll-mt-24"><CabinetAboutCard :about="cabinet.about" :text="person.about" :saving="saving" @save="about => patch({ about })" /></div>

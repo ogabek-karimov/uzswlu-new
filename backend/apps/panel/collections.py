@@ -15,7 +15,7 @@ from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 
 from apps.accounts import roles as rl
-from apps.accounts.models import Role, User
+from apps.accounts.models import PermissionSet, Role, User
 from apps.content.models import (
     Category, DocCategory, Document, Leader, Post, UnitHead, PostAttachment, PostGalleryImage, QuickLink, Slide, Video, VideoCategory,
 )
@@ -597,8 +597,8 @@ class Posts(Collection):
         })
         if 'type' in data and data['type'] in dict(Post.TYPES):
             p.type = data['type']
-        if rl.is_custom(request.user) and not rl.allows(request.user, p.type, 'write'):
-            raise Forbidden('Bu turdagi postni yozishga ruxsat yo‘q')
+        if rl.is_custom(request.user) and not rl.allows(request.user, p.type, 'create' if creating else 'update'):
+            raise Forbidden('Bu turdagi postni qo‘shishga ruxsat yo‘q' if creating else 'Bu turdagi postni tahrirlashga ruxsat yo‘q')
         if 'tags' in data:
             p.tags = lists_to_lines(data['tags'])
         if 'category' in data:
@@ -1300,7 +1300,10 @@ class Roles(Collection):
             users = User.objects.filter(role=r.slug).count()
         return {
             'id': r.pk, 'slug': r.slug, 'name': r.name, 'description': r.description or None, 'system': r.system, 'scoped': r.scoped,
-            'permissions': rl.permissions_of_role(r), 'users': users, 'editAll': r.edit_all,
+            # permissions — rolning o'z belgilari (tahrirlash uchun); effective — to'plamlar bilan birga yakuniy ruxsat
+            'permissions': rl.normalize(rl.SYSTEM_ROLES[r.slug][2]) if r.slug in rl.SYSTEM_ROLES else rl.normalize(r.permissions),
+            'permissionSets': [ps.pk for ps in r.permission_sets.all()], 'effective': rl.permissions_of_role(r),
+            'users': users, 'editAll': r.edit_all,
             'createdAt': dt(r.created_at), 'updatedAt': dt(r.updated_at), 'collection': 'roles',
         }
 
@@ -1322,8 +1325,47 @@ class Roles(Collection):
             if 'editAll' in data:
                 r.edit_all = flag(data['editAll'])
 
+    def after(self, r, data, request, creating):
+        if not r.system and isinstance(data.get('permissionSets'), list):
+            ids = [int(i) for i in data['permissionSets'] if str(i).isdigit()]
+            r.permission_sets.set(PermissionSet.objects.filter(pk__in=ids))
+
+
+class PermissionSets(Collection):
+    """Ruxsatlar kutubxonasi: qayta ishlatiladigan ruxsat to'plamlari (faqat superadmin). Rolga biriktiriladi."""
+    slug = 'permission-sets'
+    model = PermissionSet
+    default_sort = ['name']
+    access = {'read': SUPER, 'create': SUPER, 'update': SUPER, 'delete': SUPER}
+    fields = {'createdAt': 'created_at', 'updatedAt': 'updated_at'}
+    rules = {'delete': 'To‘plam o‘chirilsa, u biriktirilgan rollardan olib tashlanadi (rolning o‘z belgilari qoladi).'}
+
+    def queryset(self, request):
+        from django.db.models import Count
+        return super().queryset(request).annotate(roles_n=Count('roles'))
+
+    def label(self, obj):
+        return obj.name
+
+    def out(self, ps, depth):
+        roles = getattr(ps, 'roles_n', None)
+        return {
+            'id': ps.pk, 'name': ps.name, 'description': ps.description or None, 'permissions': rl.normalize(ps.permissions),
+            'roles': roles if roles is not None else ps.roles.count(),
+            'createdAt': dt(ps.created_at), 'updatedAt': dt(ps.updated_at), 'collection': 'permission-sets',
+        }
+
+    def write(self, ps, data, request, creating):
+        put(ps, data, {'name': ('name', text), 'description': ('description', text)})
+        if not ps.name:
+            raise ValidationError('To‘plam nomi majburiy')
+        if 'permissions' in data:
+            ps.permissions = rl.clean_permissions(data['permissions'])
+        if PermissionSet.objects.filter(name__iexact=ps.name).exclude(pk=ps.pk).exists():
+            raise ValidationError('Bunday nomli to‘plam allaqachon bor')
+
 
 REGISTRY: dict[str, Collection] = {c.slug: c for c in (
     Users(), Medias(), Categories(), Posts(), Slides(), Leaders(), DocCategories(), Documents(), VideoCategories(), Videos(), QuickLinks(), Phones(), RudeWords(), AdmissionYears(), UnitHeads(),
-    Faculties(), Departments(), StaffProfiles(), SdgGoals(), Pages(), LoginEvents(), Activities(), Roles(), Applications(),
+    Faculties(), Departments(), StaffProfiles(), SdgGoals(), Pages(), LoginEvents(), Activities(), Roles(), PermissionSets(), Applications(),
 )}

@@ -22,6 +22,7 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 | `login-events` | R | — | — | — |
 | `media` | RCUD | RCU | RCU | RCU |
 | `pages` | RCUD | R | RCUD | R |
+| `permission-sets` | RCUD | — | — | — |
 | `phones` | RCUD | R | RCUD | R |
 | `posts` | RCUD | RCUD | RCUD | R |
 | `quick-links` | RCUD | R | RCUD | R |
@@ -50,6 +51,7 @@ Bu sahifa **koddan** yig‘iladi, shuning uchun doim haqiqatga mos: rollar, manz
 - `departments` · **create**: `faculty` faqat **o‘z fakultetiga** kafedra qo‘sha oladi.
 - `departments` · **update**: `faculty` faqat **o‘z fakultetidagi** kafedrani o‘zgartiradi.
 - `faculties` · **update**: `faculty` faqat **o‘z fakultetini** (`User.scope`) o‘zgartiradi; doirasi belgilanmagan bo‘lsa — hech narsani.
+- `permission-sets` · **delete**: To‘plam o‘chirilsa, u biriktirilgan rollardan olib tashlanadi (rolning o‘z belgilari qoladi).
 - `phones` · **create**: `position.uz` majburiy; `isSection` — butun qatorni egallagan bo‘lim sarlavhasi.
 - `posts` · **update**: Rolda «boshqalarning postlarini ham tahrirlaydi» belgisi bo‘lmasa — faqat **o‘zi yozgan** postni o‘zgartiradi; `superadmin` va shu belgili rollar (tayyor holatda `editor`) — hammasini.
 - `posts` · **delete**: Rolda «boshqalarning postlarini ham tahrirlaydi» belgisi bo‘lmasa — faqat **o‘zi yozgan** postni o‘chiradi; `superadmin` va shu belgili rollar (tayyor holatda `editor`) — hammasini.
@@ -347,6 +349,7 @@ Marshrut → fayl → kim ko‘radi (`admin/src/router.ts`; server tomonidagi ru
 | `/postlar/:type(news\|announcements\|events)/:id(\\d+)` | `admin/src/pages/PostEditPage.vue` | hamma kirgan xodim |
 | `/foydalanuvchilar` | `admin/src/pages/UsersPage.vue` | faqat `superadmin` |
 | `/rollar` | `admin/src/pages/RolesPage.vue` | faqat `superadmin` |
+| `/ruxsatlar` | `admin/src/pages/PermissionSetsPage.vue` | faqat `superadmin` |
 | `/kirish-tarixi` | `admin/src/pages/LoginHistoryPage.vue` | faqat `superadmin` |
 | `/faollik` | `admin/src/pages/ActivityPage.vue` | faqat `superadmin` |
 | `/sozlamalar` | `admin/src/pages/SettingsPage.vue` | faqat `superadmin` |
@@ -524,7 +527,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (417 ta test)
+### Backend testlari xaritasi (426 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -553,8 +556,10 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/panel/test_collections.py` | 13 | Admin panel API (`/api/cms/*`): har bir kolleksiya uchun o'qish → o'zini PATCH → nusxa yaratish → o'chirish aylanishi, · `slow` |
 | `backend/tests/panel/test_notifications.py` | 7 | Bildirishnomalar: hodisalar (post boshqa odam tomonidan o'zgardi/o'chdi, rol o'zgardi), faqat egasiga ko'rinishi |
 | `backend/tests/panel/test_pagination.py` | 5 | Sahifalash: har bir kolleksiyada barcha sahifalarni aylanib chiqqanda yozuvlar yo'qolmaydi va takrorlanmaydi; · `slow` |
+| `backend/tests/panel/test_permission_actions.py` | 4 | Amallar bo'yicha ruxsat (ko'rish / qo'shish / tahrirlash / o'chirish) va ruxsatlar kutubxonasi (PermissionSet). |
 | `backend/tests/panel/test_quick_links.py` | 7 |  |
 | `backend/tests/panel/test_roles.py` | 14 | Rollar: superadmin rol yaratadi, bo'limlar bo'yicha ruxsat beradi; foydalanuvchi faqat o'z bo'limlarini ko'radi va yozadi. |
+| `backend/tests/panel/test_sections_registry.py` | 5 | Yangi model qo'shilganda ruxsatlar jadvalidan tushib qolmasin. |
 | `backend/tests/panel/test_spa_queries.py` | 4 | Admin SPA yuboradigan murakkab so'rovlar (`where[and][0][...]`, `like`, `not_in`, `exists`, `trash` ...): |
 | `backend/tests/panel/test_superadmin.py` | 4 | Oxirgi faol superadmin himoyasi va rol ruxsatlari o'zgarishining faollik jurnalidagi (bo'lim-ma-bo'lim) yozuvi. |
 | `backend/tests/panel/test_trash.py` | 2 | Savat: birinchi o'chirish — savatga, savatdagini o'chirish — butunlay (versiyalari bilan); ommaviy tozalash; jurnalda «purge». |
@@ -582,6 +587,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `core` | `Hit` | Tashrif | `apps/core/models.py` |
 | `core` | `Notification` | Bildirishnoma | `apps/core/models.py` |
 | `accounts` | `User` | Foydalanuvchi | `apps/accounts/models.py` |
+| `accounts` | `PermissionSet` | Ruxsat to‘plami | `apps/accounts/models.py` |
 | `accounts` | `Role` | Rol | `apps/accounts/models.py` |
 | `accounts` | `StaffSession` | Xodim sessiyasi | `apps/accounts/models.py` |
 | `accounts` | `StaffTask` | Xodim vazifasi | `apps/accounts/models.py` |

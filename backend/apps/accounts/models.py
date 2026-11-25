@@ -59,8 +59,28 @@ class User(AbstractUser):
         super().save(*args, **kwargs)
 
 
+class PermissionSet(models.Model):
+    """Ruxsatlar kutubxonasi: qayta ishlatiladigan ruxsat to'plami (masalan, «Yangilik muharriri» — yangiliklar: ko'rish, qo'shish,
+    tahrirlash). Rolga bir nechta to'plam biriktiriladi; rolning yakuniy ruxsati — o'z belgilari + to'plamlar yig'indisi."""
+    name = models.CharField('Nomi', max_length=120, unique=True)
+    description = models.CharField('Izoh', max_length=300, blank=True)
+    permissions = models.JSONField('Bo‘limlar bo‘yicha amallar', default=dict, blank=True,
+                                   help_text='{"news": ["read", "create", "update"], "media": ["read", "create"]}')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Ruxsat to‘plami'
+        verbose_name_plural = 'Ruxsat to‘plamlari'
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
 class Role(models.Model):
-    """Admin panel roli: qaysi menyu bo'limlarida nima qila olishi (`permissions`: {bo'lim: 'read' | 'write'}).
+    """Admin panel roli: qaysi menyu bo'limlarida nima qila olishi — `permissions`: {bo'lim: [amallar]} (read, create, update, delete)
+    va biriktirilgan ruxsat to'plamlari (`permission_sets`).
     Faqat superadmin roli tizim roli (o'zgartirilmaydi va o'chirilmaydi); qolgan hamma rolni (editor, pages, sdg ham) superadmin tahrirlaydi yoki o'chiradi."""
     slug = models.SlugField('Kalit', max_length=40, unique=True)
     name = models.CharField('Nomi', max_length=120)
@@ -68,6 +88,7 @@ class Role(models.Model):
     permissions = models.JSONField('Bo‘limlar bo‘yicha ruxsat', default=dict, blank=True)
     scoped = models.BooleanField('Faqat o‘z fakulteti doirasida (User.scope)', default=False)
     edit_all = models.BooleanField('Boshqalarning postlarini ham tahrirlaydi', default=False)
+    permission_sets = models.ManyToManyField(PermissionSet, blank=True, related_name='roles', verbose_name='Ruxsat to‘plamlari')
     system = models.BooleanField('Tizim roli', default=False, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

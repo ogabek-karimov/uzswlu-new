@@ -35,6 +35,6 @@ class LastSuperadminTests(PanelBase):
         role = Role.objects.create(slug='jurnal', name='Jurnal', permissions={'news': 'write', 'media': 'read'})
         self.send('patch', f'/api/cms/roles/{role.pk}', {'permissions': {'news': 'read', 'pages': 'write'}})
         changes = Activity.objects.filter(entity='roles', entity_id=str(role.pk)).latest('created_at').changes
-        self.assertEqual(changes['permissions.news'], {'before': 'write', 'after': 'read'})
+        self.assertEqual(changes['permissions.news'], {'before': 'read, create, update, delete', 'after': 'read'})
         self.assertEqual(changes['permissions.media'], {'before': 'read', 'after': '—'})
-        self.assertEqual(changes['permissions.pages'], {'before': '—', 'after': 'write'})
+        self.assertEqual(changes['permissions.pages'], {'before': '—', 'after': 'read, create, update, delete'})

@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import Icon from '@/components/Icon.vue'
 import { api, type Paginated } from '@/lib/api'
 import { LANGS, POST_TYPES, type PostType, SDG_COLORS, SDG_NAMES, SITE_URL } from '@/lib/constants'
+import { auth } from '@/lib/auth'
 import { dateTime } from '@/lib/format'
 import { langFill, mediaUrl, type Post, postState, STATE_BADGE } from '@/lib/posts'
 
@@ -130,7 +131,7 @@ const authorName = (p: Post) => (p.author && typeof p.author === 'object' ? p.au
         <h1 class="text-[28px] font-bold tracking-tight">Yangiliklar, e’lonlar va tadbirlar</h1>
         <p class="mt-1.5 text-[15px] text-muted">Saytdagi barça postlar. Öçirilgani savatda turadi — qaytariş mumkin.</p>
       </div>
-      <RouterLink :to="`/postlar/${type}/yangi`" class="btn-primary h-[46px]"><Icon name="plus" :size="16" />{{ meta.label }} qöşiş</RouterLink>
+      <RouterLink v-if="auth.can(type, 'create')" :to="`/postlar/${type}/yangi`" class="btn-primary h-[46px]"><Icon name="plus" :size="16" />{{ meta.label }} qöşiş</RouterLink>
     </div>
 
     <section class="card overflow-hidden">
@@ -168,14 +169,14 @@ const authorName = (p: Post) => (p.author && typeof p.author === 'object' ? p.au
         <b class="mr-auto">{{ picked.size }} ta tanlandi</b>
         <template v-if="filters.trash">
           <button type="button" class="h-[34px] rounded-[9px] bg-mint px-3 text-[13px] font-bold text-night" @click="restorePicked">Qaytariş</button>
-          <button type="button" class="h-[34px] rounded-[9px] bg-red-600 px-3 text-[13px] font-bold text-white" @click="purgePicked">Butunlay öçiriş</button>
+          <button v-if="auth.can(type, 'delete')" type="button" class="h-[34px] rounded-[9px] bg-red-600 px-3 text-[13px] font-bold text-white" @click="purgePicked">Butunlay öçiriş</button>
         </template>
         <template v-else>
         <button type="button" class="h-[34px] rounded-[9px] bg-mint px-3 text-[13px] font-bold text-night" @click="bulk({ status: 'published' }, 'Naşr qilindi')">Naşr qiliş</button>
         <button type="button" class="h-[34px] rounded-[9px] border border-white/25 px-3 text-[13px] font-semibold" @click="bulk({ status: 'draft' }, 'Qoralamaga ötkazildi')">Qoralamaga</button>
         <button type="button" class="h-[34px] rounded-[9px] border border-white/25 px-3 text-[13px] font-semibold" @click="bulk({ hidden: true }, 'Saytdan yaşirildi')">Saytdan yaşiriş</button>
         <button type="button" class="h-[34px] rounded-[9px] border border-white/25 px-3 text-[13px] font-semibold" @click="bulk({ hidden: false }, 'Saytda yana körinadi')">Qayta körsatiş</button>
-        <button type="button" class="h-[34px] rounded-[9px] border border-white/25 px-3 text-[13px] font-semibold" @click="bulkTrash">Savatga</button>
+        <button v-if="auth.can(type, 'delete')" type="button" class="h-[34px] rounded-[9px] border border-white/25 px-3 text-[13px] font-semibold" @click="bulkTrash">Savatga</button>
         </template>
       </div>
       <div v-if="filters.trash && result?.totalDocs" class="mx-4 mb-3 flex flex-wrap items-center justify-between gap-2.5 rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-800">
@@ -243,7 +244,7 @@ const authorName = (p: Post) => (p.author && typeof p.author === 'object' ? p.au
               <td class="py-3 pr-4 pl-3 text-right whitespace-nowrap">
                 <template v-if="filters.trash">
                   <button type="button" class="btn-ghost h-8! px-3! text-xs!" @click="restore(p)">Qaytariş</button>
-                  <button type="button" class="ml-1 inline-grid size-8 place-items-center rounded-[9px] border border-line text-muted hover:border-red-600 hover:text-red-700" aria-label="Butunlay öçiriş" title="Butunlay öçiriş" @click="purgeOne(p)"><Icon name="trash" :size="15" /></button>
+                  <button v-if="auth.can(type, 'delete')" type="button" class="ml-1 inline-grid size-8 place-items-center rounded-[9px] border border-line text-muted hover:border-red-600 hover:text-red-700" aria-label="Butunlay öçiriş" title="Butunlay öçiriş" @click="purgeOne(p)"><Icon name="trash" :size="15" /></button>
                 </template>
                 <template v-else>
                   <RouterLink :to="`/postlar/${p.type}/${p.id}`" class="inline-grid size-[34px] place-items-center rounded-[9px] border border-line text-muted hover:border-brand-700 hover:text-brand-700" aria-label="Tahrirlaş"><Icon name="edit" :size="15" /></RouterLink>

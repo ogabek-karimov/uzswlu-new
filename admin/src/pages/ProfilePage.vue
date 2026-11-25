@@ -9,7 +9,7 @@ import { auth, initials, roleLabel } from '@/lib/auth'
 import { POST_TYPES } from '@/lib/constants'
 import { dateTime, relative } from '@/lib/format'
 import { mediaUrl, type Post, postState, STATE_BADGE } from '@/lib/posts'
-import { SECTION_PATHS, SECTIONS } from '@/lib/roles'
+import { ACTIONS, actionsLabel, SECTION_PATHS, SECTIONS } from '@/lib/roles'
 
 // Mening profilim: kim ekanim (rol, ruxsatlar), saytdagi muallif ko'rinishi, so'nggi postlarim va xavfsizlik (parol, 2FA)
 const route = useRoute()
@@ -37,7 +37,10 @@ const sections = computed(() => {
   const perms = me.value?.permissions ?? {}
   const groups = [...new Set(SECTIONS.map(s => s.group))]
   return groups
-    .map(g => ({ group: g, items: SECTIONS.filter(s => s.group === g && s.key !== 'dashboard' && (isSuper.value || perms[s.key])).map(s => ({ ...s, level: isSuper.value ? 'write' : perms[s.key]! })) }))
+    .map(g => ({ group: g, items: SECTIONS.filter(s => s.group === g && s.key !== 'dashboard' && (isSuper.value || perms[s.key])).map((s) => {
+      const acts = isSuper.value ? ACTIONS.map(a => a.key) : perms[s.key]!
+      return { ...s, acts, level: acts.some(a => a !== 'read') ? 'write' : 'read' }
+    }) }))
     .filter(g => g.items.length)
 })
 const writeCount = computed(() => sections.value.flatMap(g => g.items).filter(s => s.level === 'write').length)
@@ -239,7 +242,7 @@ const typeLabel = (t: string) => POST_TYPES.find(p => p.value === t)?.label ?? t
               <li v-for="s in g.items" :key="s.key">
                 <RouterLink :to="SECTION_PATHS[s.key] ?? '/'" class="flex items-center justify-between gap-3 rounded-xl border border-line px-3 py-2 text-sm hover:border-brand-700">
                   <span class="font-medium">{{ s.label }}</span>
-                  <span class="chip" :class="s.level === 'write' ? 'bg-brand-50 text-brand-800' : 'bg-[#F1F0F5] text-muted'">{{ s.level === 'write' ? 'yozish' : 'körish' }}</span>
+                  <span class="chip" :class="s.level === 'write' ? 'bg-brand-50 text-brand-800' : 'bg-[#F1F0F5] text-muted'">{{ actionsLabel(s.acts) }}</span>
                 </RouterLink>
               </li>
             </ul>

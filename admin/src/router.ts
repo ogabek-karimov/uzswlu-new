@@ -16,6 +16,7 @@ export const router = createRouter({
         { path: 'postlar/:type(news|announcements|events)/:id(\\d+)', name: 'post-edit', component: () => import('./pages/PostEditPage.vue'), meta: { title: 'Postni tahrirlaş' } },
         { path: 'foydalanuvchilar', name: 'users', component: () => import('./pages/UsersPage.vue'), meta: { title: 'Foydalanuvçilar', superOnly: true } },
         { path: 'rollar', name: 'roles', component: () => import('./pages/RolesPage.vue'), meta: { title: 'Rollar', superOnly: true } },
+        { path: 'ruxsatlar', name: 'permission-sets', component: () => import('./pages/PermissionSetsPage.vue'), meta: { title: 'Ruxsatlar', superOnly: true } },
         { path: 'kirish-tarixi', name: 'logins', component: () => import('./pages/LoginHistoryPage.vue'), meta: { title: 'Kiriş tarixi', superOnly: true } },
         { path: 'faollik', name: 'activity', component: () => import('./pages/ActivityPage.vue'), meta: { title: 'Faollik jurnali', superOnly: true } },
         { path: 'sozlamalar', name: 'settings', component: () => import('./pages/SettingsPage.vue'), meta: { title: 'Sayt sozlamalari', superOnly: true } },

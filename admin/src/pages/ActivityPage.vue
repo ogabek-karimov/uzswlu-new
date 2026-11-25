@@ -14,7 +14,7 @@ const VERB: Record<string, [string, string]> = {
   restore: ['qaytardi', 'bg-[#FEF3DC] text-[#8A5A00]'], role: ['rol berdi', 'bg-[#FEF3DC] text-[#8A5A00]'], settings: ['sozlamalarni saqladi', 'bg-brand-100 text-brand-800'],
 }
 // Rol ruxsati o'zgarishi bo'lim-ma-bo'lim: «Ruxsat: Yangiliklar — körish → yozish»
-const LEVEL: Record<string, string> = { read: 'körish', write: 'yozish', '—': 'yöq' }
+const LEVEL: Record<string, string> = { read: 'körish', write: 'yozish', create: 'qöşish', update: 'tahrirlaş', delete: 'öçiriş', '—': 'yöq' }
 const FIELD: Record<string, string> = { status: 'Holati', hidden: 'Saytda yaşirilgan', publishedAt: 'Naşr vaqti', sdg: 'BRM', type: 'Turi', role: 'Rol' }
 
 const kind = ref('all')
@@ -48,7 +48,7 @@ function fmt(key: string, v: unknown) {
   if (key === 'hidden') return v ? 'ha' : 'yöq'
   if (key === 'status') return v === 'published' ? 'naşr qilingan' : 'qoralama'
   if (key === 'publishedAt' && typeof v === 'string') return dateTime(v)
-  if (key.startsWith('permissions.')) return LEVEL[String(v)] ?? String(v)
+  if (key.startsWith('permissions.')) return String(v).split(/,\s*/).map(x => LEVEL[x] ?? x).join(', ')
   return String(v)
 }
 const label = (key: string) => FIELD[key] ?? (key.startsWith('permissions.') ? `Ruxsat: ${SECTIONS.find(s => s.key === key.slice(12))?.label ?? key.slice(12)}` : key.startsWith('title.') ? `Sarlavha (${key.slice(6).toUpperCase()})` : key.startsWith('body.') ? `Matn (${key.slice(5).toUpperCase()})` : key)

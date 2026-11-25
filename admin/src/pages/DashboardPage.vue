@@ -22,7 +22,7 @@ const typeLabel = (t: string) => POST_TYPES.find(p => p.value === t)?.label ?? t
 const ACTIONS: Record<string, string> = { create: 'yaratdi', edit: 'tahrirladi', publish: 'naşr qildi', hide: 'yaşirdi', show: 'qayta körsatdi', delete: 'savatga taşladi', purge: 'butunlay öçirdi', restore: 'qaytardi', role: 'rol berdi', settings: 'sozlamalarni saqladi' }
 
 // Tez qo'shish tugmalari — faqat rolga yozish ruxsati bor turlar
-const writable = POST_TYPES.filter(t => auth.can(t.value, 'write'))
+const writable = POST_TYPES.filter(t => auth.can(t.value, 'create'))
 
 const hour = new Date().getHours()
 const greeting = hour < 11 ? 'Xayrli tong' : hour < 18 ? 'Xayrli kun' : 'Xayrli keç'

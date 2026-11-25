@@ -331,6 +331,8 @@ export interface CabinetAdminSection {
   label: string
   group: string
   level: 'read' | 'write'
+  /** Aniq amallar: read (ko'rish), create (qo'shish), update (tahrirlash), delete (o'chirish) */
+  actions?: ('read' | 'create' | 'update' | 'delete')[]
 }
 
 export interface CabinetAdminLink {

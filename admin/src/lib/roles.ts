@@ -1,24 +1,18 @@
-// Rol bo'limlari — backend `apps/accounts/roles.py` dagi SECTIONS bilan bir xil
-export const SECTIONS: { key: string; label: string; group: string }[] = [
-  { key: 'dashboard', label: 'Boşqaruv paneli', group: 'Asosiy' },
-  { key: 'news', label: 'Yangiliklar', group: 'Kontent' },
-  { key: 'announcements', label: 'E’lonlar', group: 'Kontent' },
-  { key: 'events', label: 'Tadbirlar', group: 'Kontent' },
-  { key: 'pages', label: 'Sahifalar', group: 'Kontent' },
-  { key: 'quick-links', label: 'Tezkor xizmatlar', group: 'Kontent' },
-  { key: 'phones', label: 'Telefonlar ma’lumotnomasi', group: 'Kontent' },
-  { key: 'admission', label: 'Qabul yillari', group: 'Kontent' },
-  { key: 'units', label: 'Bölimlar', group: 'Kontent' },
-  { key: 'rude-words', label: 'Haqoratli sözlar', group: 'Kontent' },
-  { key: 'media', label: 'Media kutubxona', group: 'Kontent' },
-  { key: 'documents', label: 'Hujjatlar', group: 'Kontent' },
-  { key: 'videos', label: 'Video darsliklar', group: 'Kontent' },
-  { key: 'faculties', label: 'Fakultetlar', group: 'Tuzilma' },
-  { key: 'departments', label: 'Kafedralar', group: 'Tuzilma' },
-  { key: 'leaders', label: 'Rahbariyat', group: 'Tuzilma' },
-  { key: 'staff', label: 'Xodimlar', group: 'Tuzilma' },
-  { key: 'sdg', label: 'BRM', group: 'Tuzilma' },
-]
+import { reactive } from 'vue'
+import { toNewAlphabet } from './alphabet'
+import type { Action, Section } from './api'
+
+// Rol bo'limlari — SERVERDAN keladi (`/users/me` → `sections`, manba: backend `apps/accounts/roles.py` SECTIONS).
+// Yangi bo'lim backendga qo'shilsa, ruxsatlar jadvallari, profil va faollik jurnali uni o'zi ko'rsatadi — bu yerda hech narsa yozilmaydi.
+export const SECTIONS = reactive<Section[]>([])
+export const SECTION_PATHS = reactive<Record<string, string>>({})
+
+export function setSections(list: Section[] | undefined) {
+  if (!list?.length) return
+  SECTIONS.splice(0, SECTIONS.length, ...list.map(s => ({ ...s, label: toNewAlphabet(s.label), group: toNewAlphabet(s.group) })))
+  for (const k of Object.keys(SECTION_PATHS)) delete SECTION_PATHS[k]
+  for (const s of list) SECTION_PATHS[s.key] = s.path
+}
 
 export type RoleDoc = {
   id: number
@@ -28,14 +22,35 @@ export type RoleDoc = {
   system: boolean
   scoped: boolean
   editAll?: boolean
-  permissions: Record<string, 'read' | 'write'>
+  /** rolning o'z belgilari (tahrirlash uchun) */
+  permissions: Record<string, Action[]>
+  /** biriktirilgan ruxsat to'plamlari */
+  permissionSets?: number[]
+  /** yakuniy ruxsat: o'z belgilari + to'plamlar */
+  effective?: Record<string, Action[]>
   users: number
 }
 
-// Bo'lim → admin sahifasi (backend `roles.SECTION_PATHS` va AppSidebar bilan bir xil) — profildagi ruxsatlar ro'yxati havolalari
-export const SECTION_PATHS: Record<string, string> = {
-  dashboard: '/', news: '/postlar/news', announcements: '/postlar/announcements', events: '/postlar/events', pages: '/sahifalar',
-  'quick-links': '/tezkor-xizmatlar', phones: '/telefonlar', 'rude-words': '/haqoratli-sozlar', admission: '/qabul-yillari', units: '/bolimlar',
-  media: '/media', documents: '/hujjatlar', videos: '/video', faculties: '/fakultetlar', departments: '/kafedralar',
-  leaders: '/rahbariyat', staff: '/xodimlar', sdg: '/brm',
+// Amallar (backend `roles.ACTIONS` bilan bir xil): yozish amallaridan biri bo'lsa — ko'rish ham avtomatik
+export const ACTIONS: { key: Action; label: string; short: string }[] = [
+  { key: 'read', label: 'Köriş', short: 'Köriş' },
+  { key: 'create', label: 'Qöşiş', short: 'Qöşiş' },
+  { key: 'update', label: 'Tahrirlaş', short: 'Tahrir' },
+  { key: 'delete', label: 'Öçiriş', short: 'Öçiriş' },
+]
+
+/** Ruxsatlar kutubxonasidagi to'plam */
+export type PermissionSetDoc = {
+  id: number
+  name: string
+  description?: string | null
+  permissions: Record<string, Action[]>
+  roles: number
+}
+
+/** Amallar ro'yxatini qisqa matnga: «Köriş, Qöşiş, Tahrir» yoki «Hammasi» */
+export function actionsLabel(acts: Action[] | undefined): string {
+  if (!acts?.length) return 'yöq'
+  if (ACTIONS.every(a => acts.includes(a.key))) return 'hammasi'
+  return ACTIONS.filter(a => acts.includes(a.key)).map(a => a.short.toLowerCase()).join(', ')
 }

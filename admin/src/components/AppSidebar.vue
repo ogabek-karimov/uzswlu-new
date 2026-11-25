@@ -45,6 +45,7 @@ const groups: { label: string; items: Item[] }[] = [
   ] },
   { label: 'Tizim', items: [
     { to: '/rollar', label: 'Rollar va ruxsatlar', icon: 'users', superOnly: true },
+    { to: '/ruxsatlar', label: 'Ruxsatlar kutubxonasi', icon: 'shield', superOnly: true },
     { to: '/foydalanuvchilar', label: 'Foydalanuvçilar va rollar', icon: 'users', superOnly: true },
     { to: '/kirish-tarixi', label: 'Kiriş tarixi', icon: 'logins', superOnly: true },
     { to: '/faollik', label: 'Faollik jurnali', icon: 'activity', superOnly: true },

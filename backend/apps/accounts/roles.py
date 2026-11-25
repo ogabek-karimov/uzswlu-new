@@ -1,8 +1,9 @@
 """Rollar va menyu bo'limlari bo'yicha ruxsat.
 
 Faqat `superadmin` tizim roli (hamma narsa, o'zgartirilmaydi va o'chirilmaydi — aks holda hech kim kira olmay qolishi mumkin).
-Qolgan barcha rollar (editor, pages, sdg ham) oddiy: `Role.permissions` bo'yicha — bo'lim -> 'read' | 'write'; superadmin ularni
-admin panelda o'zgartiradi yoki o'chiradi.
+Qolgan barcha rollar (editor, pages, sdg ham) oddiy: `Role.permissions` bo'yicha — bo'lim -> amallar ro'yxati
+(`read` ko'rish, `create` qo'shish, `update` tahrirlash, `delete` o'chirish) va rolga biriktirilgan ruxsat to'plamlari (`PermissionSet`) —
+yakuniy ruxsat ularning yig'indisi. Eski yozuv ('read' | 'write') ham o'qiladi: 'write' = qo'shish + tahrirlash + o'chirish.
 Ma'lumotlarni O'QISH (ochiq sayt ma'lumotlari) har qanday faol rolga ruxsat; foydalanuvchilar, kirish tarixi, faollik, rollar — faqat superadmin.
 """
 from __future__ import annotations
@@ -28,7 +29,9 @@ SECTIONS: dict[str, tuple[str, str]] = {
     'staff': ('Xodimlar', 'Tuzilma'),
     'sdg': ('BRM', 'Tuzilma'),
 }
-LEVELS = ('read', 'write')
+LEVELS = ('read', 'write')  # eski (ixcham) daraja — saytdagi menyu va eski yozuvlar uchun
+ACTIONS = ('read', 'create', 'update', 'delete')
+WRITE_ACTIONS = ('create', 'update', 'delete')
 # Bo'lim -> admin panel sahifasi (admin/src/components/AppSidebar.vue bilan bir xil). Saytdagi «Mening bo'limlarim» menyusi shu yerdan oladi
 SECTION_PATHS: dict[str, str] = {
     'dashboard': '/', 'news': '/postlar/news', 'announcements': '/postlar/announcements', 'events': '/postlar/events', 'pages': '/sahifalar',
@@ -39,7 +42,10 @@ SECTION_PATHS: dict[str, str] = {
 POST_SECTIONS = ('news', 'announcements', 'events')
 
 # Faqat superadmin: bu kolleksiyalarni o'qish ham yopiq
-PRIVATE = frozenset({'users', 'login-events', 'activity', 'roles', 'applications'})
+PRIVATE = frozenset({'users', 'login-events', 'activity', 'roles', 'permission-sets', 'applications'})
+# Ruxsatlar jadvalida bo'limi YO'Q kolleksiya/global'lar — ularni faqat superadmin yozadi (ataylab). Yangi model qo'shilganda u yoki
+# `section` (SECTIONS kaliti) oladi, yoki shu ro'yxatga yoziladi — aks holda tests/panel/test_sections_registry.py xato beradi.
+SUPER_ONLY = PRIVATE | frozenset({'categories', 'slides', 'settings', 'symbols', 'home-banner'})
 
 W, R = 'write', 'read'
 # Tayyor rollarning boshlang'ich holati (migratsiya 0006 va testlar shundan oladi; keyin ular bazada o'zgartiriladi)
@@ -61,11 +67,47 @@ PRESET_ROLES = {
 }
 
 
-def clean_permissions(value) -> dict:
-    """Faqat mavjud bo'lim va to'g'ri daraja (read/write) qoladi."""
-    if not isinstance(value, dict):
+def actions_of(value) -> list[str]:
+    """Bitta bo'lim qiymati → amallar: 'read' | 'write' (eski) yoki ['read','create',…]. Har qanday yozish amali ko'rishni ham beradi."""
+    if value == 'read':
+        got = {'read'}
+    elif value == 'write':
+        got = set(ACTIONS)
+    elif isinstance(value, (list, tuple, set)):
+        got = {a for a in value if a in ACTIONS}
+    else:
+        got = set()
+    if got & set(WRITE_ACTIONS):
+        got.add('read')
+    return [a for a in ACTIONS if a in got]
+
+
+def normalize(perms) -> dict:
+    """{bo'lim: amallar} — faqat mavjud bo'limlar, bo'sh bo'limlar tashlanadi."""
+    if not isinstance(perms, dict):
         return {}
-    return {k: v for k, v in value.items() if k in SECTIONS and v in LEVELS}
+    out = {k: actions_of(v) for k, v in perms.items() if k in SECTIONS}
+    return {k: v for k, v in out.items() if v}
+
+
+def merge(*perm_dicts) -> dict:
+    """Bir nechta ruxsat to'plamining yig'indisi (rol o'zi + biriktirilgan to'plamlar)."""
+    got: dict[str, set] = {}
+    for d in perm_dicts:
+        for k, acts in normalize(d).items():
+            got.setdefault(k, set()).update(acts)
+    return {k: [a for a in ACTIONS if a in v] for k, v in got.items()}
+
+
+def level_of(actions) -> str | None:
+    """Ixcham daraja (saytdagi menyu, eski mijozlar): biror yozish amali bo'lsa 'write', faqat ko'rish — 'read'."""
+    acts = actions_of(actions)
+    return 'write' if set(acts) & set(WRITE_ACTIONS) else ('read' if acts else None)
+
+
+def clean_permissions(value) -> dict:
+    """Faqat mavjud bo'lim va to'g'ri amallar qoladi (eski 'read'/'write' ham qabul qilinadi)."""
+    return normalize(value)
 
 
 def _active(user) -> bool:
@@ -81,17 +123,21 @@ def role_obj(user):
 
 
 def permissions_of_role(r) -> dict:
-    """Rol bo'limlari: superadmin — hammasi (kodda), qolganlari — bazadan (`Role.permissions`)."""
+    """Rolning yakuniy ruxsati {bo'lim: amallar}: superadmin — hammasi (kodda); qolganlari — o'z belgilari + biriktirilgan
+    ruxsat to'plamlari (`PermissionSet`) yig'indisi."""
     if r.slug in SYSTEM_ROLES:
-        return dict(SYSTEM_ROLES[r.slug][2])
-    return dict(r.permissions) if isinstance(r.permissions, dict) else {}
+        return normalize(SYSTEM_ROLES[r.slug][2])
+    sets = [ps.permissions for ps in r.permission_sets.all()] if r.pk else []
+    return merge(r.permissions, *sets)
 
 
 def permissions_of(user) -> dict:
     if user.role == 'superadmin':
-        return {k: W for k in SECTIONS}
-    r = role_obj(user)
-    return permissions_of_role(r) if r else {}
+        return {k: list(ACTIONS) for k in SECTIONS}
+    if not hasattr(user, '_perms'):
+        r = role_obj(user)
+        user._perms = permissions_of_role(r) if r else {}
+    return user._perms
 
 
 def is_custom(user) -> bool:
@@ -108,13 +154,15 @@ def edits_all_posts(user) -> bool:
 
 
 def allows(user, section: str | None, action: str) -> bool:
-    """Bo'lim bo'yicha ruxsat: o'qish — read yoki write; yozish/o'chirish — write."""
+    """Bo'lim bo'yicha ruxsat: `read`, `create`, `update`, `delete` — aniq amal; `write` — biror yozish amali (qo'shish/tahrirlash/o'chirish)."""
     if not _active(user) or not section:
         return False
     if user.role == 'superadmin':
         return True
-    level = permissions_of(user).get(section)
-    return level in LEVELS if action == 'read' else level == W
+    acts = permissions_of(user).get(section) or []
+    if action == 'write':
+        return bool(set(acts) & set(WRITE_ACTIONS))
+    return action in acts
 
 
 def has_any(user) -> bool:
@@ -137,7 +185,15 @@ def is_scoped(user) -> bool:
     return bool(r and r.scoped)
 
 
+def catalog() -> list[dict]:
+    """Ruxsatlar jadvali uchun barcha bo'limlar (admin panel shu ro'yxatdan quradi — yangi bo'lim bu yerga qo'shilsa, «Rollar» va
+    «Ruxsatlar kutubxonasi» jadvallarida o'zi paydo bo'ladi): kalit, nom, guruh, admin sahifasi."""
+    return [{'key': k, 'label': label, 'group': group, 'path': SECTION_PATHS.get(k, '/')} for k, (label, group) in SECTIONS.items()]
+
+
 def sections_of(perms: dict) -> list[dict]:
-    """Rol bo'limlari ro'yxati (menyudagi tartibda; «Boshqaruv paneli» alohida tugma — bu yerga kirmaydi): kalit, nom, guruh, daraja."""
-    return [{'key': k, 'label': SECTIONS[k][0], 'group': SECTIONS[k][1], 'level': perms[k]}
-            for k in SECTIONS if k != 'dashboard' and perms.get(k) in LEVELS]
+    """Rol bo'limlari ro'yxati (menyudagi tartibda; «Boshqaruv paneli» alohida tugma — bu yerga kirmaydi): kalit, nom, guruh,
+    ixcham daraja (read/write) va aniq amallar."""
+    perms = normalize(perms)
+    return [{'key': k, 'label': SECTIONS[k][0], 'group': SECTIONS[k][1], 'level': level_of(perms[k]), 'actions': perms[k]}
+            for k in SECTIONS if k != 'dashboard' and perms.get(k)]
