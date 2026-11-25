@@ -2,6 +2,7 @@
 import re
 from collections import defaultdict
 from datetime import datetime
+from html import escape
 from zoneinfo import ZoneInfo
 
 from django.conf import settings
@@ -265,6 +266,22 @@ def _trail(p: Page, lang: str) -> list[dict]:
     return out
 
 
+# Onlayn kameralar (Online translatsiya): matndagi «Nomi | https://rtsp.ru/embed/…» qatorlari — 2 ustunli kamera setkasi.
+# Admin matnda faqat şu qatorlarni qöşadi/öçiradi; iframe saqlanmaydi, faqat ruxsat etilgan xostdan quriladi.
+_CAMERA = re.compile(r'<p>(?:<[^>]+>|\s)*([^<|]{1,60}?)\s*\|\s*(?:<a[^>]*>)?\s*(https://rtsp\.ru/embed/[\w-]+/?)\s*(?:</a>)?(?:</[^>]+>|\s)*</p>')
+_CAMERA_RUN = re.compile(r'(?:\s*' + _CAMERA.pattern + r')+')
+
+
+def cameras_html(body: str) -> str:
+    def grid(run):
+        items = ''.join(
+            f'<figure class="camera"><figcaption>{escape(name.strip())}</figcaption><div class="camera-frame">'
+            f'<iframe src="{escape(url)}" title="{escape(name.strip())}" allow="fullscreen; autoplay" allowfullscreen loading="lazy"></iframe></div></figure>'
+            for name, url in _CAMERA.findall(run.group(0)))
+        return f'<div class="camera-grid">{items}</div>'
+    return _CAMERA_RUN.sub(grid, body) if 'rtsp.ru/embed/' in body else body
+
+
 def page_out(p: Page, lang: str) -> dict:
     return {
         'slug': p.slug,
@@ -278,7 +295,7 @@ def page_out(p: Page, lang: str) -> dict:
                    'trail': _trail(p.parent, lang)}
         if not p.in_menu and p.parent_id and p.parent.template != 'group' else None,
         'facts': [{'value': f.value, 'label': tr(f.label, lang)} for f in p.facts.all()],
-        'body': restore_timeline(tr(p.body, lang)),
+        'body': cameras_html(restore_timeline(tr(p.body, lang))),
         'timeline': [{'label': tr(t.label, lang), 'text': tr(t.text, lang), 'highlight': t.highlight} for t in p.timeline.all()],
         'attachments': attachments_out(p.attachments.select_related('file'), lang),
         # Matndan keyin rektor kartasi (admin → Rahbariyat; rektor almashsa sahifa o'zi yangilanadi)

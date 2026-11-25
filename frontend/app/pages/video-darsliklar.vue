@@ -65,7 +65,9 @@ useSeo({ title: () => t('video.title'), description: () => t('video.lead') })
       </div>
     </section>
 
-    <section class="mx-auto max-w-7xl px-4 pt-14 pb-24 sm:px-6 lg:px-8">
+    <div class="mx-auto flex max-w-7xl flex-col gap-10 px-4 pt-14 pb-24 sm:px-6 lg:flex-row lg:items-start lg:px-8">
+      <SectionSideNav />
+      <section class="order-1 min-w-0 flex-1 lg:order-2">
       <div role="group" :aria-label="t('video.categories')" class="flex flex-wrap gap-2">
         <button
           v-for="c in data.categories"
@@ -79,7 +81,7 @@ useSeo({ title: () => t('video.title'), description: () => t('video.lead') })
           {{ c.title }}
         </button>
       </div>
-      <ul v-reveal class="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <ul v-reveal class="mt-7 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         <li data-reveal-item v-for="v in items" :key="v.id">
           <a :href="v.url" target="_blank" rel="noopener" class="group block text-ink">
             <span class="relative block aspect-video overflow-hidden rounded-[22px]" :class="tone.bg">
@@ -95,7 +97,8 @@ useSeo({ title: () => t('video.title'), description: () => t('video.lead') })
           </a>
         </li>
       </ul>
-    </section>
+      </section>
+    </div>
     <SectionNav />
   </div>
 </template>
