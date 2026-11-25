@@ -30,7 +30,8 @@ const obj = (v: unknown) => (v && typeof v === 'object' ? v as MediaDoc : null)
 async function load() {
   list.value = (await api.get<Paginated<Faculty>>('/faculties', { sort: 'order', limit: 100, depth: 1 })).docs
   const q = new URLSearchParams(location.search).get('f')
-  if (sel.value === null) pick(list.value.find(f => f.slug === q)?.id ?? list.value[0]?.id ?? null)
+  // ?f=slug bilan kelinsa (sayt / qidiruvdan) — şu fakultet oçiladi; aks holda hec biri tanlanmaydi
+  if (sel.value === null && q) pick(list.value.find(f => f.slug === q)?.id ?? null)
 }
 onMounted(load)
 

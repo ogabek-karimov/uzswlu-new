@@ -28,7 +28,6 @@ async function load() {
   loading.value = true
   slides.value = (await api.get<Paginated<Slide>>('/slides', { sort: 'order', limit: 100, depth: 1 })).docs
   loading.value = false
-  if (sel.value === null && slides.value[0]) pick(slides.value[0].id)
 }
 onMounted(load)
 

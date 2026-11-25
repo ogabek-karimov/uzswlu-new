@@ -15,7 +15,7 @@ type Page = { live?: boolean; liveUrl?: string | null; nextTitle?: I18n; nextAt?
 const cats = ref<Category[]>([])
 const videos = ref<Video[]>([])
 const tab = ref<number | 'all'>('all')
-const editing = ref<number | 'new'>('new')
+const editing = ref<number | 'new' | null>(null)
 const formEl = ref<HTMLElement>()
 
 const empty = () => ({ url: '', title: {} as I18n, category: null as number | null, teacher: '', duration: '', thumbnail: '' })
@@ -46,6 +46,12 @@ async function load() {
   if (form.category === null) form.category = cats.value[0]?.id ?? null
 }
 onMounted(load)
+
+// Kirganda tahrir oynasi yopiq: faqat «Yangi …» yoki röyxatdagi element bosilganda oçiladi; saqlangaç / öçirilgaç yana yopiladi
+function close() {
+  editing.value = null
+  error.value = ''
+}
 
 async function edit(v: Video | null) {
   editing.value = v ? v.id : 'new'
@@ -84,7 +90,7 @@ async function save() {
     if (editing.value === 'new') await api.post('/videos', { ...data, order: videos.value.length + 1 })
     else await api.patch(`/videos/${editing.value}`, data)
     await load()
-    edit(null)
+    close()
   }
   catch (e) {
     error.value = (e as Error).message
@@ -98,7 +104,7 @@ async function remove() {
   if (typeof editing.value !== 'number' || !confirm('Video saytdan olib taşlansinmi? (YouTube’dagi videoga tegilmaydi)')) return
   await api.del(`/videos/${editing.value}`)
   await load()
-  edit(null)
+  close()
 }
 
 // Jonli efir va kanal
@@ -131,15 +137,18 @@ const catColor = (id: number) => COLORS[cats.value.findIndex(c => c.id === id) %
         <h1 class="text-[28px] font-bold tracking-tight">Video darsliklar</h1>
         <p class="mt-1.5 text-[15px] text-muted">Videolar YouTube’da turadi — sayt ularni körsatadi, server yuklanmaydi.</p>
       </div>
-      <a :href="`${SITE_URL}/video-darsliklar`" target="_blank" rel="noopener" class="btn-ghost h-[46px]">Saytda köriş ↗</a>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" class="btn-primary h-[46px] gap-2" @click="edit(null)"><Icon name="plus" :size="18" /> Video qöşiş</button>
+        <a :href="`${SITE_URL}/video-darsliklar`" target="_blank" rel="noopener" class="btn-ghost h-[46px]">Saytda köriş ↗</a>
+      </div>
     </div>
 
     <div class="flex flex-wrap items-stretch gap-[18px]">
       <!-- Video qo'shish / tahrirlash -->
-      <form ref="formEl" class="card min-w-0 flex-[999_1_520px] px-5 py-[18px]" @submit.prevent="save">
+      <form v-if="editing !== null" ref="formEl" class="card min-w-0 flex-[999_1_520px] px-5 py-[18px]" @submit.prevent="save">
         <div class="flex items-center justify-between gap-2">
           <h2 class="text-base font-bold">{{ editing === 'new' ? 'Video qöşiş' : 'Videoni tahrirlaş' }}</h2>
-          <button v-if="editing !== 'new'" type="button" class="text-xs font-semibold text-brand-700 underline" @click="edit(null)">+ yangi video</button>
+          <button type="button" class="btn-ghost h-10 gap-1.5 text-sm" @click="close"><Icon name="x" :size="16" /> Yopiş</button>
         </div>
         <div class="mt-3.5 flex gap-2">
           <label class="flex h-[46px] flex-1 items-center gap-2 rounded-xl border border-field px-3 focus-within:border-brand-700 focus-within:ring-4 focus-within:ring-brand-700/10">

@@ -33,7 +33,7 @@ const ICONS = [
 ]
 
 const items = ref<Quick[]>([])
-const editing = ref<number | 'new'>('new')
+const editing = ref<number | 'new' | null>(null)
 const formEl = ref<HTMLElement>()
 const empty = () => ({ icon: 'lucide:globe', url: '', title: {} as I18n, text: {} as I18n, visible: true })
 const form = reactive(empty())
@@ -49,6 +49,12 @@ async function load() {
   loaded.value = true
 }
 onMounted(load)
+
+// Kirganda tahrir oynasi yopiq: faqat «Yangi …» yoki röyxatdagi element bosilganda oçiladi; saqlangaç / öçirilgaç yana yopiladi
+function close() {
+  editing.value = null
+  error.value = ''
+}
 
 async function edit(q: Quick | null) {
   editing.value = q ? q.id : 'new'
@@ -69,7 +75,7 @@ async function save() {
     if (editing.value === 'new') await api.post('/quick-links', { ...data, order: items.value.length + 1 })
     else await api.patch(`/quick-links/${editing.value}`, data)
     await load()
-    edit(null)
+    close()
   }
   catch (e) {
     error.value = (e as Error).message
@@ -88,7 +94,7 @@ async function remove() {
   if (typeof editing.value !== 'number' || !confirm('Karta saytdan olib taşlansinmi?')) return
   await api.del(`/quick-links/${editing.value}`)
   await load()
-  edit(null)
+  close()
 }
 
 const iconLabel = (v: string) => ICONS.find(i => i.value === v)?.label ?? v
@@ -102,14 +108,17 @@ const external = (u: string) => /^https?:/i.test(u)
         <h1 class="text-[28px] font-bold tracking-tight">Tezkor xizmatlar</h1>
         <p class="mt-1.5 text-[15px] text-muted">Boş sahifadagi «Tezkor xizmatlar» kartalari. Qöşiş, tartiblaş (suriş) va yaşirış şu yerdan. Masalan, AKT luğati — Play Market havolasi bilan.</p>
       </div>
-      <a :href="SITE_URL" target="_blank" rel="noopener" class="btn-ghost h-[46px]">Saytda köriş ↗</a>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" class="btn-primary h-[46px] gap-2" @click="edit(null)"><Icon name="plus" :size="18" /> Karta qöşiş</button>
+        <a :href="SITE_URL" target="_blank" rel="noopener" class="btn-ghost h-[46px]">Saytda köriş ↗</a>
+      </div>
     </div>
 
     <div class="flex flex-wrap items-start gap-[18px]">
-      <form ref="formEl" class="card min-w-0 flex-[999_1_460px] px-5 py-[18px]" @submit.prevent="save">
+      <form v-if="editing !== null" ref="formEl" class="card min-w-0 flex-[999_1_460px] px-5 py-[18px]" @submit.prevent="save">
         <div class="flex items-center justify-between gap-2">
           <h2 class="text-base font-bold">{{ editing === 'new' ? 'Karta qöşiş' : 'Kartani tahrirlaş' }}</h2>
-          <button v-if="editing !== 'new'" type="button" class="text-xs font-semibold text-brand-700 underline" @click="edit(null)">+ yangi karta</button>
+          <button type="button" class="btn-ghost h-10 gap-1.5 text-sm" @click="close"><Icon name="x" :size="16" /> Yopiş</button>
         </div>
         <div class="mt-3.5 grid gap-3.5">
           <div>

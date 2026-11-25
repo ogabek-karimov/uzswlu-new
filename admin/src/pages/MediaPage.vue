@@ -61,7 +61,7 @@ async function load(reset = true) {
     const res = await api.get<Paginated<Media>>('/media', { where: and.length ? { and } : undefined, sort: sort.value === 'big' ? '-filesize' : '-createdAt', limit: 40, page: page.value, depth: 1 })
     items.value = reset ? res.docs : [...items.value, ...res.docs]
     more.value = res.page < res.totalPages
-    if (reset && !items.value.some(m => m.id === sel.value?.id)) select(items.value[0] ?? null)
+    if (reset && !items.value.some(m => m.id === sel.value?.id)) select(null)  // kirganda fayl tanlanmaydi — tafsilotlar faqat bosilganda
   }
   finally {
     loading.value = false
@@ -131,7 +131,7 @@ async function remove() {
   try {
     await api.del(`/media/${sel.value.id}`)
     items.value = items.value.filter(m => m.id !== sel.value?.id)
-    select(items.value[0] ?? null)
+    select(null)
     loadStats()
   }
   catch (e) {

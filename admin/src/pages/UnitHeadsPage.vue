@@ -13,7 +13,7 @@ import ToggleSwitch from '@/components/ToggleSwitch.vue'
 type Unit = { id: number; name: string; position: I18n; photo?: MediaDoc | number | null; phone: string; ext: string; email: string; url: string; order?: number | null; visible: boolean }
 
 const items = ref<Unit[]>([])
-const editing = ref<number | 'new'>('new')
+const editing = ref<number | 'new' | null>(null)
 const formEl = ref<HTMLElement>()
 const empty = () => ({ name: '', position: {} as I18n, photo: null as MediaDoc | null, phone: '71-230-13-62', ext: '', email: '', url: '', visible: true })
 const form = reactive(empty())
@@ -34,6 +34,12 @@ const shown = computed(() => {
   return items.value.map((u, i) => ({ u, i })).filter(({ u }) => !q || `${u.name} ${u.position.uz ?? ''}`.toLowerCase().includes(q))
 })
 
+// Kirganda tahrir oynasi yopiq: faqat «Yangi …» yoki röyxatdagi element bosilganda oçiladi; saqlangaç / öçirilgaç yana yopiladi
+function close() {
+  editing.value = null
+  error.value = ''
+}
+
 async function edit(u: Unit | null) {
   editing.value = u ? u.id : 'new'
   error.value = ''
@@ -51,7 +57,7 @@ async function save() {
     if (editing.value === 'new') await api.post('/unit-heads', { ...data, order: items.value.length + 1 })
     else await api.patch(`/unit-heads/${editing.value}`, data)
     await load()
-    edit(null)
+    close()
   }
   catch (e) { error.value = (e as Error).message }
   finally { saving.value = false }
@@ -66,7 +72,7 @@ async function remove() {
   if (typeof editing.value !== 'number' || !confirm('Karta öçirilsinmi?')) return
   await api.del(`/unit-heads/${editing.value}`)
   await load()
-  edit(null)
+  close()
 }
 </script>
 
@@ -84,8 +90,11 @@ async function remove() {
     </div>
 
     <div class="flex flex-wrap items-start gap-[18px]">
-      <form ref="formEl" class="card min-w-0 flex-[1_1_380px] px-5 py-[18px] lg:sticky lg:top-4" @submit.prevent="save">
-        <h2 class="text-lg font-bold">{{ editing === 'new' ? 'Yangi karta' : 'Kartani tahrirlaş' }}</h2>
+      <form v-if="editing !== null" ref="formEl" class="card min-w-0 flex-[1_1_380px] px-5 py-[18px] lg:sticky lg:top-4" @submit.prevent="save">
+        <div class="flex items-center justify-between gap-2">
+          <h2 class="text-lg font-bold">{{ editing === 'new' ? 'Yangi karta' : 'Kartani tahrirlaş' }}</h2>
+          <button type="button" class="btn-ghost h-10 gap-1.5 text-sm" @click="close"><Icon name="x" :size="16" /> Yopiş</button>
+        </div>
         <div class="mt-3.5 flex gap-4">
           <div class="w-[96px] shrink-0"><ImageField v-model="form.photo" compact folder="staff" label="Rasm" /></div>
           <div class="min-w-0 flex-1">

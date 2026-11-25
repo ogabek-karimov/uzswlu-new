@@ -1,6 +1,8 @@
 // Backend bilan ishlash. Cookie avtomatik yuboriladi (bir xil manzil — /api proxy).
 // Django/DRF backend'da admin panel API'si /api/cms ostida (Payload REST bilan bir xil shakl).
 
+import { savedMessage, toast } from './toast.ts'
+
 export class ApiError extends Error {
   status: number
   data?: unknown
@@ -93,6 +95,9 @@ async function request<T>(method: string, path: string, body?: unknown, query?: 
     throw new ApiError(res.status, message, data)
   }
   if (!parsed.ok) throw new ApiError(res.status, 'Server kutilmagan javob qaytardi. Birozdan keyin qayta urinib ko‘ring.')
+  // Saqlaş / naşr / öçiriş muvaffaqiyatli — yuqorida «Saqlandi» bildirişi (lib/toast.ts)
+  const done = savedMessage(method, path, body)
+  if (done) toast(done.text, done.kind)
   return parsed.value as T
 }
 

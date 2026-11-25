@@ -33,8 +33,10 @@ const newYear = ref('')
 async function load(keep?: number) {
   const r = await api.get<Paginated<Year>>('/admission-years', { sort: '-year', limit: 100, depth: 0 })
   items.value = r.docs
-  const pick = items.value.find(y => y.id === (keep ?? selected.value)) ?? items.value.find(y => y.status === 'active') ?? items.value[0]
+  // Kirganda tahrir yopiq (hec bir yil tanlanmaydi) — faqat yangi oçilgan / faol qilingan yil oçiq qoladi
+  const pick = keep ? items.value.find(y => y.id === keep) : null
   if (pick) open(pick)
+  else selected.value = null
 }
 onMounted(() => load())
 
@@ -44,6 +46,11 @@ const nextYear = computed(() => {
   const last = items.value.map(y => Number(y.year.slice(0, 4))).sort((a, b) => b - a)[0] ?? new Date().getFullYear()
   return `${last + 1}/${last + 2}`
 })
+
+function close() {
+  selected.value = null
+  error.value = ''
+}
 
 function open(y: Year) {
   selected.value = y.id
@@ -58,8 +65,8 @@ async function save() {
   try {
     const { year, applyUrl, documents, documentsUrl, address, hours, phone, telegram, dates, faq } = form
     await api.patch(`/admission-years/${current.value.id}`, { year, applyUrl, documents, documentsUrl, address, hours, phone, telegram, dates, faq })
-    notice.value = 'Saqlandi'
-    await load(current.value.id)
+    notice.value = `${year} saqlandi`
+    await load()  // saqlangaç tahrir yopiladi
   }
   catch (e) { error.value = (e as Error).message }
   finally { saving.value = false }
@@ -162,13 +169,19 @@ function move<T>(list: T[] | undefined, i: number, d: number) {
         </div>
       </section>
 
-      <!-- Tanlangan yil -->
-      <form v-if="current" class="card min-w-0 flex-[3_1_560px] px-5 py-[18px]" @submit.prevent="save">
+      <!-- Tanlangan yil (yilni bosganda oçiladi) -->
+      <section v-if="!current" class="flex min-w-0 flex-[3_1_560px] flex-col items-center rounded-[22px] border-2 border-dashed border-field px-6 py-14 text-center">
+        <span class="grid size-14 place-items-center rounded-full bg-brand-50 text-brand-700"><Icon name="edit" :size="24" /></span>
+        <h2 class="mt-5 text-[20px] font-bold tracking-tight">Tahrirlaş uçun yilni tanlang</h2>
+        <p class="mt-2 max-w-md text-[15px] leading-relaxed text-muted">Çapdagi röyxatdan öquv yilini bosing yoki pastdagi «Yangi öquv yili» orqali yangisini oçing.</p>
+      </section>
+      <form v-else class="card min-w-0 flex-[3_1_560px] px-5 py-[18px]" @submit.prevent="save">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <h2 class="text-lg font-bold">Qabul {{ current.year }} <span class="ml-2 rounded-full px-2 py-0.5 align-middle text-xs font-semibold" :class="STATUS[current.status].cls">{{ STATUS[current.status].label }}</span></h2>
           <div class="flex flex-wrap gap-2">
             <button v-if="current.status !== 'active'" type="button" class="h-[46px] rounded-full bg-[#C5192D] px-5 text-sm font-bold text-white transition hover:bg-[#A31424]" @click="activate">Faol qiliş</button>
             <button v-if="current.status !== 'active'" type="button" class="btn-ghost h-[46px] text-[#C5192D]" @click="remove">Öçiriş</button>
+            <button type="button" class="btn-ghost h-[46px] gap-1.5" @click="close"><Icon name="x" :size="16" /> Yopiş</button>
           </div>
         </div>
         <p v-if="current.status === 'archive'" class="mt-2 text-sm text-muted">Arxiv: {{ current.programsCount }} ta yönalish va narxlari {{ current.year }} holatida saqlangan. Saytda: {{ current.public ? `/qabul/${current.slug}` : 'yaşirin' }}.</p>

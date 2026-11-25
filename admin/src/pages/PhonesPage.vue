@@ -11,7 +11,7 @@ import ToggleSwitch from '@/components/ToggleSwitch.vue'
 type Phone = { id: number; isSection: boolean; name: string; position: I18n; ext: string; phone: string; order?: number | null; visible: boolean }
 
 const items = ref<Phone[]>([])
-const editing = ref<number | 'new'>('new')
+const editing = ref<number | 'new' | null>(null)
 const formEl = ref<HTMLElement>()
 const empty = () => ({ isSection: false, name: '', position: {} as I18n, ext: '', phone: '71-230-13-62', visible: true })
 const form = reactive(empty())
@@ -34,6 +34,12 @@ const shown = computed(() => {
   return items.value.map((p, i) => ({ p, i })).filter(({ p }) => !q || `${p.name} ${p.position.uz ?? ''} ${p.ext} ${p.phone}`.toLowerCase().includes(q))
 })
 
+// Kirganda tahrir oynasi yopiq: faqat «Yangi …» yoki röyxatdagi element bosilganda oçiladi; saqlangaç / öçirilgaç yana yopiladi
+function close() {
+  editing.value = null
+  error.value = ''
+}
+
 async function edit(p: Phone | null) {
   editing.value = p ? p.id : 'new'
   error.value = ''
@@ -51,7 +57,7 @@ async function save() {
     if (editing.value === 'new') await api.post('/phones', { ...data, order: items.value.length + 1 })
     else await api.patch(`/phones/${editing.value}`, data)
     await load()
-    edit(null)
+    close()
   }
   catch (e) {
     error.value = (e as Error).message
@@ -70,7 +76,7 @@ async function remove() {
   if (typeof editing.value !== 'number' || !confirm('Qator öçirilsinmi?')) return
   await api.del(`/phones/${editing.value}`)
   await load()
-  edit(null)
+  close()
 }
 </script>
 
@@ -88,10 +94,10 @@ async function remove() {
     </div>
 
     <div class="flex flex-wrap items-start gap-[18px]">
-      <form ref="formEl" class="card min-w-0 flex-[1_1_380px] px-5 py-[18px] lg:sticky lg:top-4" @submit.prevent="save">
+      <form v-if="editing !== null" ref="formEl" class="card min-w-0 flex-[1_1_380px] px-5 py-[18px] lg:sticky lg:top-4" @submit.prevent="save">
         <div class="flex items-center justify-between gap-2">
           <h2 class="text-lg font-bold">{{ editing === 'new' ? 'Yangi qator qöşiş' : 'Qatorni tahrirlaş' }}</h2>
-          <button v-if="editing !== 'new'" type="button" class="btn-ghost h-10 gap-1.5 text-sm" @click="edit(null)"><Icon name="x" :size="16" /> Bekor qiliş</button>
+          <button type="button" class="btn-ghost h-10 gap-1.5 text-sm" @click="close"><Icon name="x" :size="16" /> Yopiş</button>
         </div>
         <div class="mt-3.5 grid gap-3.5">
           <div>

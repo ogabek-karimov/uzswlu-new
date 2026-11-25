@@ -17,7 +17,7 @@ type Goal = { id: number; n: number; url: string; title: I18n; subtitle?: I18n; 
 
 const goals = ref<Goal[]>([])
 const counts = ref<Record<number, number>>({})
-const sel = ref(6)
+const sel = ref<number | null>(null)
 const lang = ref<Lang>('uz')
 const impactYear = ref<number | null>(null)
 const saving = ref(false)
@@ -40,7 +40,7 @@ async function load() {
   goals.value = g.docs
   counts.value = c
   impactYear.value = page.impactYear ?? null
-  pick(sel.value)
+  if (sel.value !== null) pick(sel.value)
 }
 onMounted(load)
 

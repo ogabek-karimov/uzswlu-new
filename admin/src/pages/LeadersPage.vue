@@ -32,7 +32,6 @@ const form = reactive(empty())
 
 async function load() {
   people.value = (await api.get<Paginated<Leader>>('/leaders', { sort: 'order', limit: 100, depth: 1 })).docs
-  if (sel.value === null && people.value[0]) pick(people.value[0].id)
 }
 onMounted(load)
 

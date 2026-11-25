@@ -14,6 +14,7 @@ import PageShowcaseField, { type Showcase } from '@/components/PageShowcaseField
 import PageStaffField from '@/components/PageStaffField.vue'
 import PdfSlot from '@/components/PdfSlot.vue'
 import RichEditor from '@/components/RichEditor.vue'
+import SavedPanel from '@/components/SavedPanel.vue'
 import CamerasField from '@/components/CamerasField.vue'
 import { type Camera, joinCameras, splitCameras } from '@/lib/cameras'
 import VideoTourCard from '@/components/VideoTourCard.vue'
@@ -51,7 +52,7 @@ const open = ref<Set<number>>(new Set())
 const q = ref('')
 const lang = ref<Lang>('uz')
 const saving = ref(false)
-const saved = ref(false)
+const editorOpen = ref(false) // kirganda yopiq; saqlangaç tahrir oynasi yopiladi (SavedPanel); daraxtdan tanlansa yana oçiladi
 const error = ref('')
 
 const pid = (p: Page) => (p.parent && typeof p.parent === 'object' ? p.parent.id : p.parent ?? null)
@@ -61,11 +62,7 @@ const byId = (id: number | null) => pages.value.find(p => p.id === id) ?? null
 async function load() {
   pages.value = (await api.get<Paginated<Page>>('/pages', { limit: 2000, depth: 0, sort: 'order' })).docs
   const want = Number(route.query.id)
-  if (want && byId(want)) { pick(want); return }
-  if (sel.value === null) {
-    const first = kids(null)[0]
-    if (first) { open.value.add(first.id); pick(kids(first.id)[0]?.id ?? first.id) }
-  }
+  if (want && byId(want) && sel.value === null) pick(want)
 }
 onMounted(load)
 const route = useRoute()
@@ -109,7 +106,7 @@ const obj = (v: unknown) => (v && typeof v === 'object' ? v as MediaDoc : null)
 
 function pick(id: number) {
   sel.value = id
-  saved.value = false
+  editorOpen.value = true
   error.value = ''
   const p = byId(id)
   if (!p) return
@@ -189,7 +186,7 @@ async function save() {
     else await api.patch(`/pages/${sel.value}`, data)
     await load()
     pick(sel.value!)
-    saved.value = true
+    editorOpen.value = false
   }
   catch (e) {
     error.value = (e as Error).message
@@ -202,7 +199,7 @@ async function save() {
 function addPage() {
   const parent = current.value ? (current.value.template === 'group' ? current.value.id : pid(current.value)) : null
   sel.value = null
-  saved.value = false
+  editorOpen.value = true
   error.value = ''
   Object.assign(form, blank(), { parent, published: false, title: { uz: '' } })
 }
@@ -214,6 +211,7 @@ async function remove() {
   try {
     await api.del(`/pages/${current.value.id}`)
     sel.value = null
+    editorOpen.value = false
     await load()
   }
   catch (e) {
@@ -308,7 +306,8 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
       </section>
 
       <!-- Tanlangan sahifa -->
-      <form class="flex min-w-0 flex-[999_1_520px] flex-col gap-[18px]" @submit.prevent="save">
+      <SavedPanel v-if="!editorOpen" :idle="sel === null" :title="current?.title.uz" :site-url="siteUrl" text="Sayt menyusi va sahifa yangilandi. Boşqa sahifani tahrirlaş uçun çapdagi röyxatdan tanlang yoki yangi sahifa yarating." @reopen="pick(sel!)" />
+      <form v-else class="flex min-w-0 flex-[999_1_520px] flex-col gap-[18px]" @submit.prevent="save">
         <section class="card px-[22px] py-5">
           <div class="flex flex-wrap items-center justify-between gap-3">
             <div class="min-w-0">
@@ -374,7 +373,6 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
             </div>
           </Collapsible>
           <p v-if="error" class="mt-3 rounded-xl bg-red-50 px-3.5 py-2.5 text-sm text-red-800">{{ error }}</p>
-          <p v-else-if="saved" class="mt-3 rounded-xl bg-[#DDFBF0] px-3.5 py-2.5 text-sm text-[#0B5A43]">Saqlandi — sayt menyusi va sahifa yangilandi.</p>
         </section>
 
         <!-- «Universitet haqida» bo'limi: bosh sahifadagi video tur (media va ma'lumot faqat shu yerdan) -->
