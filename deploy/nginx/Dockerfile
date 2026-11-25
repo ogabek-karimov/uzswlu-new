@@ -9,6 +9,8 @@ RUN npm run build
 FROM nginx:1.28-alpine
 COPY --from=admin /app/dist /usr/share/nginx/admin
 # *.template dagi ${O'ZGARUVCHI} lar ishga tushishda muhitdan to'ldiriladi (nginx rasmiy imidji)
+# Yukni rad etish chegaralari (uzswlu.conf.template → limit_conn); compose ildiz .env dan almashtiradi. Bu yerda — compose'siz ham ishlashi uchun
+ENV LIMIT_CONN_PER_IP=100 LIMIT_CONN_API_PER_IP=30 LIMIT_CONN_BACKEND=300
 # Asosiy sozlama: ulanishlar chegarasi (worker_connections 16384), bufer bilan log — yuk sinovidan keyin
 COPY deploy/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY deploy/nginx/uzswlu.conf.template /etc/nginx/templates/default.conf.template

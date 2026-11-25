@@ -91,6 +91,9 @@ jobs:
             docker run --rm --add-host frontend:127.0.0.1 --add-host backend:127.0.0.1 \
               -e SITE_HOST=localhost -e API_HOST=api.localhost -e ADMIN_HOST=admin.localhost -e EDGE_REFRESH_TOKEN=ci-token \
               -e REAL_IP_FROM="$real_ip" \
+              -e LIMIT_CONN_PER_IP=100 -e LIMIT_CONN_API_PER_IP=30 -e LIMIT_CONN_BACKEND=300 \
+              --ulimit nofile=65535:65535 \
+              -v "$PWD/deploy/nginx/nginx.conf:/etc/nginx/nginx.conf:ro" \
               -v "$PWD/deploy/nginx/uzswlu.conf.template:/etc/nginx/templates/default.conf.template:ro" \
               -v "$PWD/deploy/nginx/security_headers.conf:/etc/nginx/security_headers.conf:ro" \
               -v "$PWD/deploy/nginx/15-real-ip.sh:/docker-entrypoint.d/15-real-ip.sh:ro" \
