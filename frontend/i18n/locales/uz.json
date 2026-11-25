@@ -326,9 +326,8 @@
     "email": "E-poçta",
     "ext": "içki raqam",
     "qr": {
-      "alt": "QR kod",
-      "caption": "Telefon kamerasi bilan skanerlang",
-      "pending": "Sayt tö‘liq işga tuşganda QR kod yangilanadi."
+      "alt": "Boş bino xaritada — QR kod",
+      "caption": "Skanerlang — boş bino xaritada oçiladi"
     }
   },
   "placeholder": {
@@ -593,6 +592,12 @@
       "remove": "O‘çiriş",
       "confirm": "Rostdan o‘çirasizmi? (savatga tuşadi)",
       "empty": "Hozircha yozuv yo‘q.",
+      "search": "Qidiruv",
+      "searchPlaceholder": "Sarlavha böyiça qidiriş…",
+      "month": "Oy",
+      "reset": "Tozalaş",
+      "found": "Topildi: {n}",
+      "notFound": "Bu filtr böyiça heç narsa topilmadi.",
       "foreign": "Boşqa muallif",
       "prev": "Oldingi",
       "next": "Keyingi",

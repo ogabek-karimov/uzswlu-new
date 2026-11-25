@@ -81,3 +81,37 @@ class CabinetCmsTests(TestCase):
         res = self.client.post('/api/me/cms/media', {'file': SimpleUploadedFile('a.png', buf.getvalue(), 'image/png')}, **bearer(DEAN))
         self.assertIn(res.status_code, (200, 201), res.content[:200])
         self.assertEqual(self.client.get('/api/me/cms/media', **bearer(DEAN)).status_code, 404)  # kutubxona ro'yxati yo'q
+
+
+class CabinetSearchTests(TestCase):
+    """Kabinetdagi qidiruv va oy filtri: sayt proksisi (`frontend/server/api/me/cms/[...path].ts`) `q`/`month` ni aynan shu
+    backend filtriga o'giradi — sarlavha 4 tilda, oy Toshkent vaqti bo'yicha."""
+
+    def setUp(self):
+        from datetime import datetime
+        from zoneinfo import ZoneInfo
+        seed_preset_roles()
+        give_cabinet_role(DEAN, role='dekan')
+        tz = ZoneInfo('Asia/Tashkent')
+        mk = lambda title, d: Post.objects.create(type='news', title=title, status='published', published_at=datetime(*d, tzinfo=tz))  # noqa: E731
+        self.a = mk({'uz': 'Qabul kuni', 'ru': 'День открытых дверей'}, (2019, 3, 1, 0, 30))   # oy boshi (Toshkent vaqtida)
+        self.b = mk({'uz': 'Ilmiy anjuman'}, (2019, 3, 31, 23, 30))                           # oy oxiri
+        self.c = mk({'uz': 'Qabul natijalari'}, (2019, 4, 1, 0, 10))                          # keyingi oy
+
+    def ids(self, query):
+        res = self.client.get(f'{POSTS}?where[type][equals]=news&{query}', **bearer(DEAN))
+        self.assertEqual(res.status_code, 200, res.content)
+        return {d['id'] for d in res.json()['docs']}
+
+    @staticmethod
+    def search(q):
+        return '&'.join(f'where[or][{i}][title.{lang}][like]={q}' for i, lang in enumerate(('uz', 'ru', 'en', 'zh')))
+
+    def test_title_search_in_any_language(self):
+        self.assertEqual(self.ids(self.search('qabul')), {self.a.pk, self.c.pk})
+        self.assertEqual(self.ids(self.search('открытых')), {self.a.pk})   # ruscha sarlavha bo'yicha ham
+
+    def test_month_range_uses_tashkent_time(self):
+        march = 'where[publishedAt][greater_than_equal]=2019-03-01T00:00:00%2B05:00&where[publishedAt][less_than]=2019-04-01T00:00:00%2B05:00'
+        self.assertEqual(self.ids(march), {self.a.pk, self.b.pk})
+        self.assertEqual(self.ids(f'{march}&{self.search("qabul")}'), {self.a.pk})   # qidiruv + oy birga

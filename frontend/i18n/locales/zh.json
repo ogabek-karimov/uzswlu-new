@@ -326,9 +326,8 @@
     "email": "电子邮箱",
     "ext": "分机",
     "qr": {
-      "alt": "二维码",
-      "caption": "用手机相机扫描",
-      "pending": "网站正式上线后将更新二维码。"
+      "alt": "主楼地图二维码",
+      "caption": "扫码在地图上查看主楼"
     }
   },
   "placeholder": {
@@ -593,6 +592,12 @@
       "remove": "删除",
       "confirm": "确定删除？（将移入回收站）",
       "empty": "暂无内容。",
+      "search": "搜索",
+      "searchPlaceholder": "按标题搜索…",
+      "month": "月份",
+      "reset": "清除",
+      "found": "找到：{n}",
+      "notFound": "没有符合此筛选条件的内容。",
       "foreign": "其他作者",
       "prev": "上一页",
       "next": "下一页",

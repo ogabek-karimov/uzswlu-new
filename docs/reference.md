@@ -527,7 +527,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (426 ta test)
+### Backend testlari xaritasi (430 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -539,7 +539,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/api/test_contract.py` | 6 | Shartnoma testi: ochiq API javoblari `frontend/docs/openapi.yaml` sxemalariga mos bo'lishi shart (4 til × barcha endpoint). |
 | `backend/tests/api/test_edge_refresh.py` | 7 | Kontent o'zgarganda Nuxt/nginx keshini yangilash (apps/api/edge.py). |
 | `backend/tests/api/test_flows.py` | 14 | Ochiq API oqimlari (demo ma'lumot bilan): sanoqlar, eski /api/site/* manzillari, API token, xodim kabineti, murojaat, statistika. |
-| `backend/tests/api/test_maps.py` | 5 |  |
+| `backend/tests/api/test_maps.py` | 7 |  |
 | `backend/tests/api/test_page_staff.py` | 12 | Sahifadagi bo'lim xodimlari (masalan, «Axborot-resurs markazi»): HEMIS'dan avtomatik, admin zaxirasi, karta kontaktlari. |
 | `backend/tests/api/test_post_neighbors.py` | 1 |  |
 | `backend/tests/api/test_search.py` | 9 | Sayt qidiruvi (GET /search): nima qidiriladi va yozuv farqlari (tutuq, yangi alifbo, kirill, qo'shimchalar). |
@@ -552,7 +552,7 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/hemis/test_admin_access.py` | 9 | HEMIS orqali kirish → admin bergan hisob: rolni faqat admin beradi (Foydalanuvchilar → rol + HEMIS ID). |
 | `backend/tests/hemis/test_dev_login.py` | 3 | Lokal sinov kirishi: faqat DEBUG + STAFF_DEV_LOGIN + HEMIS ulanmagan bo'lganda ishlaydi. |
 | `backend/tests/hemis/test_load_control.py` | 25 | HEMIS'ga va serverga bosim: tinch oyna, qulf, so'rov byudjeti, ketma-ket xatoda to'xtash, kechki jadval. |
-| `backend/tests/panel/test_cabinet_cms.py` | 6 | Kabinet → panel ko'prigi: sayt ichidagi kabinetdan yangilik/e'lon/tadbir yozish (rol ruxsatlari admin paneldagi bilan bir xil). |
+| `backend/tests/panel/test_cabinet_cms.py` | 8 | Kabinet → panel ko'prigi: sayt ichidagi kabinetdan yangilik/e'lon/tadbir yozish (rol ruxsatlari admin paneldagi bilan bir xil). |
 | `backend/tests/panel/test_collections.py` | 13 | Admin panel API (`/api/cms/*`): har bir kolleksiya uchun o'qish → o'zini PATCH → nusxa yaratish → o'chirish aylanishi, · `slow` |
 | `backend/tests/panel/test_notifications.py` | 7 | Bildirishnomalar: hodisalar (post boshqa odam tomonidan o'zgardi/o'chdi, rol o'zgardi), faqat egasiga ko'rinishi |
 | `backend/tests/panel/test_pagination.py` | 5 | Sahifalash: har bir kolleksiyada barcha sahifalarni aylanib chiqqanda yozuvlar yo'qolmaydi va takrorlanmaydi; · `slow` |

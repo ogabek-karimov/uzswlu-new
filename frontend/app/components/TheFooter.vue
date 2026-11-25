@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { renderSVG } from 'uqr'
+
 const { t } = useI18n()
 const localePath = useLocalePath()
 const { data: site } = await useSiteData()
@@ -8,6 +10,11 @@ const symbolHref = (key: string, fallback: string) => {
   const s = site.value?.symbols?.find(x => x.key === key)
   return s?.href || s?.audio || fallback
 }
+
+// QR kod: bosh binoni xaritada ochadi (admin → Sozlamalar → Binolar; birinchi — bosh bino). Skanerlansa telefonda Yandex Xaritalar
+// ilovasi binoning aniq nuqtasi bilan ochiladi. Havola yo'q bo'lsa QR ko'rsatilmaydi.
+const mainCampus = computed(() => site.value?.campuses?.find(c => c.id === 'main') ?? site.value?.campuses?.[0])
+const qrSvg = computed(() => (mainCampus.value?.mapUrl ? renderSVG(mainCampus.value.mapUrl, { border: 1, blackColor: '#13112F', whiteColor: '#FFFFFF' }) : ''))
 
 const usefulLinks = [
   { label: 'menu.applicants.items.admission', to: ADMISSION_PATH },
@@ -60,11 +67,9 @@ const usefulLinks = [
           </ul>
         </div>
 
-        <figure class="flex flex-col items-start gap-3">
-          <img src="/images/footer-qr.png" :alt="t('footer.qr.alt')" width="132" height="132" loading="lazy" class="size-[132px] rounded-2xl bg-white p-1.5 [image-rendering:pixelated]">
+        <figure v-if="qrSvg && mainCampus" class="flex flex-col items-start gap-3">
+          <a :href="mainCampus.mapUrl!" target="_blank" rel="noopener" :aria-label="`${t('footer.qr.alt')}: ${mainCampus.address}`" class="block size-[132px] overflow-hidden rounded-2xl bg-white p-1.5 transition-transform hover:scale-[1.03] [&>svg]:size-full" v-html="qrSvg" />
           <figcaption class="max-w-[132px] text-xs leading-snug text-white/55">{{ t('footer.qr.caption') }}</figcaption>
-          <!-- Vaqtinchalik: QR kod hozircha eski (me-qr) havolaga olib boradi — sayt serverga joylanib domen berilganda yangisi qo'yiladi -->
-          <p class="max-w-[132px] text-xs leading-snug font-semibold text-[#ff6b6b]">{{ t('footer.qr.pending') }}</p>
         </figure>
       </div>
     </div>

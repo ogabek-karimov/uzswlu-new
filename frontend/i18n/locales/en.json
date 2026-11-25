@@ -326,9 +326,8 @@
     "email": "Email",
     "ext": "ext.",
     "qr": {
-      "alt": "QR code",
-      "caption": "Scan with your phone camera",
-      "pending": "The QR code will be updated once the site fully launches."
+      "alt": "Main building on the map — QR code",
+      "caption": "Scan to open the main building on the map"
     }
   },
   "placeholder": {
@@ -593,6 +592,12 @@
       "remove": "Delete",
       "confirm": "Delete this? (it goes to the trash)",
       "empty": "Nothing here yet.",
+      "search": "Search",
+      "searchPlaceholder": "Search by title…",
+      "month": "Month",
+      "reset": "Clear",
+      "found": "Found: {n}",
+      "notFound": "Nothing matches this filter.",
       "foreign": "Another author",
       "prev": "Previous",
       "next": "Next",

@@ -223,7 +223,12 @@ def site_out(lang: str) -> dict:
         'phone': s.phone,
         'phoneExt': s.phone_ext,
         'emails': [e.value for e in ContactEmail.objects.all()],
-        'campuses': [{'id': c.key, 'name': tr(c.name, lang), 'address': tr(c.address, lang)} for c in Campus.objects.all()],
+        # mapUrl — «Xaritada ochish» (Aloqa sahifasidagi bilan bir xil); footerdagi QR kod bosh binoning shu havolasini kodlaydi
+        'campuses': [
+            {'id': c.key, 'name': tr(c.name, lang), 'address': tr(c.address, lang),
+             'mapUrl': c.map_url if c.map_url and 'google.' not in c.map_url else map_link(c.coords, tr(c.address, 'uz'))}
+            for c in Campus.objects.all()
+        ],
         'socials': socials,
         'showBuildings': s.show_buildings_link,
         # Faol qabul yili (admin → Qabul yillari): header tugmasi, menyu, sahifa sarlavhalari shundan

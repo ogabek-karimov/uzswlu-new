@@ -5,6 +5,8 @@ const PATH = /^(posts(\/\d+)?|media)$/
 const QUERY = /^(where\[(type|status)\]\[equals\]|sort|limit|page|depth)$/
 const SORT = /^-?(publishedAt|createdAt|updatedAt|startsAt)$/
 const UPLOAD_MAX = 10 * 1024 * 1024
+const MONTH = /^(\d{4})-(0[1-9]|1[0-2])$/
+const SEARCH_LANGS = ['uz', 'ru', 'en', 'zh']
 const IMAGES = ['image/jpeg', 'image/png', 'image/webp']
 const METHODS = ['GET', 'POST', 'PATCH', 'DELETE']
 
@@ -21,6 +23,20 @@ export default defineEventHandler(async (event) => {
     if (!QUERY.test(k) || typeof v !== 'string' || v.length > 40) continue
     if (k === 'sort' && !SORT.test(v)) continue
     query[k] = v
+  }
+  // Ro'yxat filtri (faqat GET /posts): sarlavha bo'yicha qidiruv (4 tilda, kamida 2 belgi) va oy. Kerakli yozuvni bitta so'rov bilan
+  // topish — minglab eski yozuvni sahifama-sahifa varaqlab serverni so'rovlar bilan bosishdan ko'ra yengil.
+  if (method === 'GET' && path === 'posts') {
+    const raw = getQuery(event)
+    const q = typeof raw.q === 'string' ? raw.q.trim().slice(0, 100) : ''
+    if (q.length >= 2) SEARCH_LANGS.forEach((l, i) => { query[`where[or][${i}][title.${l}][like]`] = q })
+    const m = typeof raw.month === 'string' ? MONTH.exec(raw.month) : null
+    if (m) {
+      const y = Number(m[1]), mo = Number(m[2])
+      const next = mo === 12 ? `${y + 1}-01` : `${y}-${String(mo + 1).padStart(2, '0')}`
+      query['where[publishedAt][greater_than_equal]'] = `${m[0]}-01T00:00:00+05:00`   // Toshkent vaqti
+      query['where[publishedAt][less_than]'] = `${next}-01T00:00:00+05:00`
+    }
   }
 
   let body: FormData | Record<string, unknown> | undefined

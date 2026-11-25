@@ -114,6 +114,8 @@ export interface Campus {
   id: string
   name: string
   address: string
+  /** Xaritada ochish havolasi (Yandex, binoning aniq nuqtasi) — footerdagi QR kod bosh binoniki */
+  mapUrl?: string | null
 }
 
 export interface SocialLink {

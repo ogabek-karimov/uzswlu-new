@@ -21,10 +21,25 @@ const fromQuery = (q: unknown) => props.types.find(k => k === q)
 const tab = ref<PostType>(fromQuery(route.query.tur) ?? props.types[0] ?? 'news')
 watch(() => route.query.tur, (q) => { const k = fromQuery(q); if (k) { tab.value = k; editing.value = null } })
 const page = ref(1)
+// Qidiruv (sarlavha, 4 tilda) va oy: so'rov yozib bo'lgach (400 ms) va kamida 2 belgi bo'lsa yuboriladi — har harfga emas
+const search = ref('')
+const q = ref('')
+const month = ref('')
+let searchTimer: ReturnType<typeof setTimeout> | undefined
+watch(search, (v) => {
+  clearTimeout(searchTimer)
+  searchTimer = setTimeout(() => {
+    const next = v.trim().length >= 2 ? v.trim() : ''
+    if (next !== q.value) { q.value = next; page.value = 1 }
+  }, 400)
+})
+watch(month, () => { page.value = 1 })
+const filtered = computed(() => !!(q.value || month.value))
+function resetFilters() { search.value = ''; q.value = ''; month.value = ''; page.value = 1 }
 const { data, refresh, status } = await useFetch<CabinetPostList>('/api/me/cms/posts', {
   key: 'cabinet-posts',
   server: false,
-  query: computed(() => ({ 'where[type][equals]': tab.value, 'sort': '-publishedAt', 'limit': 10, page: page.value, 'depth': 1 })),
+  query: computed(() => ({ 'where[type][equals]': tab.value, 'sort': '-publishedAt', 'limit': 10, page: page.value, 'depth': 1, q: q.value || undefined, month: month.value || undefined })),
   default: () => ({ docs: [], totalDocs: 0, totalPages: 1, page: 1 }),
 })
 watch(tab, () => { page.value = 1 })
@@ -249,6 +264,19 @@ const fmt = (d: string | null) => (d ? new Date(d).toLocaleDateString(undefined,
 
     <!-- Ro'yxat -->
     <template v-else>
+      <div role="search" class="mt-4 flex flex-wrap items-center gap-2">
+        <label class="flex h-10 min-w-0 flex-1 items-center gap-2 rounded-full border border-line bg-white px-3.5 focus-within:border-brand-700 sm:max-w-sm">
+          <Icon name="lucide:search" class="size-4 shrink-0 text-muted" />
+          <span class="sr-only">{{ t('cabinet.posts.search') }}</span>
+          <input v-model="search" type="search" autocomplete="off" maxlength="100" :placeholder="t('cabinet.posts.searchPlaceholder')" class="h-full min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted">
+        </label>
+        <label class="flex h-10 items-center gap-2 rounded-full border border-line bg-white px-3.5 text-sm focus-within:border-brand-700">
+          <span class="text-muted">{{ t('cabinet.posts.month') }}</span>
+          <input v-model="month" type="month" min="2000-01" class="bg-transparent outline-none">
+        </label>
+        <button v-if="filtered" type="button" class="h-10 rounded-full px-3.5 text-sm font-semibold text-brand-700 hover:bg-brand-50" @click="resetFilters">{{ t('cabinet.posts.reset') }}</button>
+        <span v-if="filtered && status !== 'pending'" class="text-sm text-muted">{{ t('cabinet.posts.found', { n: data.totalDocs }) }}</span>
+      </div>
       <ul v-if="data.docs.length" class="mt-4 grid gap-2">
         <li v-for="d in data.docs" :key="d.id" class="flex items-start gap-3 rounded-2xl border border-line px-4 py-3">
           <div class="min-w-0 flex-1">
@@ -269,7 +297,7 @@ const fmt = (d: string | null) => (d ? new Date(d).toLocaleDateString(undefined,
           </template>
         </li>
       </ul>
-      <p v-else-if="status !== 'pending'" class="mt-6 rounded-2xl bg-brand-50 px-4 py-6 text-center text-sm text-muted">{{ t('cabinet.posts.empty') }}</p>
+      <p v-else-if="status !== 'pending'" class="mt-6 rounded-2xl bg-brand-50 px-4 py-6 text-center text-sm text-muted">{{ filtered ? t('cabinet.posts.notFound') : t('cabinet.posts.empty') }}</p>
 
       <div v-if="data.totalPages > 1" class="mt-4 flex items-center justify-center gap-3 text-sm">
         <button type="button" :disabled="page <= 1" class="rounded-full border border-line px-4 py-1.5 font-semibold disabled:opacity-40" @click="page--">{{ t('cabinet.posts.prev') }}</button>

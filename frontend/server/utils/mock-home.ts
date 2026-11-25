@@ -66,6 +66,11 @@ const partners: { logo: string; name: L }[] = [
   { logo: 'partner-10', name: { uz: 'LAMDIK', ru: 'LAMDIK', en: 'LAMDIK', zh: 'LAMDIK' } },
 ]
 
+// Binolarning xaritadagi aniq nuqtasi (Yandex: uzunlik,kenglik) — backenddagi `structure.Campus.coords` bilan bir xil
+const CAMPUS_POINTS: Record<string, string> = {'main': '69.193875,41.286035', 'philology': '69.187803,41.309207', 'journalism': '69.205513,41.297953', 'russian': '69.232063,41.287104'}
+export const campusMapUrl = (id: string) => (CAMPUS_POINTS[id] ? `https://yandex.com/maps/?ll=${CAMPUS_POINTS[id]}&z=17&pt=${CAMPUS_POINTS[id]},pm2rdl` : null)
+export const campusMapEmbed = (id: string) => (CAMPUS_POINTS[id] ? `https://yandex.com/map-widget/v1/?ll=${CAMPUS_POINTS[id]}&z=17&pt=${CAMPUS_POINTS[id]},pm2rdl` : null)
+
 const campuses: { id: string; name: L; address: L }[] = [
   {
     id: 'main',
@@ -138,7 +143,7 @@ export function getMockSite(lang: Locale): SiteData {
     phone: '+998 71 230 13 73',
     phoneExt: '1061, 1062, 1063, 1064',
     emails: ['uzdjtu@uzswlu.uz', 'international@uzswlu.uz'],
-    campuses: campuses.map(c => ({ id: c.id, name: c.name[lang], address: c.address[lang] })),
+    campuses: campuses.map(c => ({ id: c.id, name: c.name[lang], address: c.address[lang], mapUrl: campusMapUrl(c.id) })),
     socials: [
       { network: 'telegram', url: 'https://t.me/UzSWLU' },
       { network: 'instagram', url: 'https://www.instagram.com/uzswlu_official' },

@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError
-from django.test import SimpleTestCase
+from django.test import SimpleTestCase, TestCase
 
 from apps.structure.maps import map_embed, map_link, parse_coords
 
@@ -28,3 +28,28 @@ class MapsTests(SimpleTestCase):
         self.assertEqual(parse_coords(''), '')
         with self.assertRaises(ValidationError):
             parse_coords('xarita')
+
+
+class SiteCampusMapTests(TestCase):
+    """Footer QR kodi `/api/site` dagi bosh binoning `mapUrl` ini kodlaydi — u binoning aniq nuqtasiga olib borishi kerak."""
+
+    def test_site_campuses_have_exact_map_link(self):
+        from apps.api.builders_site import site_out
+        from apps.structure.models import Campus
+        Campus.objects.create(key='main', name={'uz': 'Bosh bino'}, address={'uz': 'Toshkent'}, coords='41.286035, 69.193875',
+                              map_url='https://www.google.com/maps/search/?api=1&query=Toshkent', order=1)
+        Campus.objects.create(key='nopoint', name={'uz': 'Boshqa'}, address={'uz': 'Lutfiy 8'}, order=2)
+        out = {c['id']: c for c in site_out('uz')['campuses']}
+        self.assertEqual(out['main']['mapUrl'], 'https://yandex.com/maps/?ll=69.193875,41.286035&z=17&pt=69.193875,41.286035,pm2rdl')
+        self.assertEqual(out['nopoint']['mapUrl'], 'https://yandex.com/maps/?text=Lutfiy%208')   # nuqta yo'q — manzil bo'yicha
+
+    def test_migration_points_are_the_seed_points(self):
+        """Yangi bazaga (seed) va mavjud bazaga (migratsiya) bir xil aniq nuqtalar tushadi."""
+        import importlib
+        import json
+        from pathlib import Path
+        from django.conf import settings
+        fix = importlib.import_module('apps.structure.migrations.0012_campus_exact_coords').FIX
+        seed = json.loads((Path(settings.BASE_DIR) / 'seed_data' / 'mock-data.json').read_text(encoding='utf-8'))
+        points = {c['id']: c['coords'] for c in seed['contact']['campuses'] if c.get('coords')}
+        self.assertEqual(points, {k: new for k, (old, new) in fix.items()})
