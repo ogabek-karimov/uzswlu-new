@@ -31,8 +31,14 @@ async function onFile(e: Event) {
   }
   note.value = `Fayldan ${found.length} ta kamera ökildi: ${added} ta yangi qöşildi, ${updated} ta havolasi yangilandi${added + updated ? '. Saqlaşni unutmang.' : ' — özgariş yöq.'}`
 }
-function removeCam(i: number) {
-  if (confirm(`“${list.value[i]?.name}” kamerasi öçirilsinmi?`)) list.value.splice(i, 1)
+const removing = ref<number | null>(null)
+function removeCam(i: number, sure = false) {
+  const c = list.value[i]
+  if (!c) return
+  // Böş (hali kiritilmagan) qator sörovsiz olib taşlanadi
+  if (!sure && (c.name.trim() || c.url.trim())) { removing.value = i; return }
+  removing.value = null
+  list.value.splice(i, 1)
 }
 </script>
 
@@ -66,6 +72,17 @@ function removeCam(i: number) {
       <div class="mt-5 flex flex-wrap justify-end gap-3">
         <button type="button" class="btn-ghost" @click="hidingCam = null">Bekor qiliş</button>
         <button type="button" class="btn-primary" @click="toggleCam(hidingCam!, true)">Ha, yaşiriş</button>
+      </div>
+    </section>
+  </div>
+  <div v-if="removing !== null" class="fixed inset-0 z-[90] grid place-items-center bg-night/55 p-4" @click.self="removing = null" @keydown.esc="removing = null">
+    <section role="alertdialog" aria-modal="true" aria-labelledby="cam-del-title" aria-describedby="cam-del-text" class="w-full max-w-[440px] rounded-[22px] bg-white p-6 shadow-2xl">
+      <span class="grid size-11 place-items-center rounded-2xl bg-red-50 text-red-700"><Icon name="trash" :size="20" /></span>
+      <h2 id="cam-del-title" class="mt-4 text-xl font-bold tracking-tight">Kamera öçirilsinmi?</h2>
+      <p id="cam-del-text" class="mt-2 text-[15px] leading-relaxed text-muted">«{{ list[removing]?.name || 'Nomsiz kamera' }}» röyxatdan olib taşlanadi va saqlagandan keyin saytda körinmaydi. Vaqtinça berkitiş kerak bölsa — ko'z belgisidan foydalaning.</p>
+      <div class="mt-5 flex flex-wrap justify-end gap-3">
+        <button type="button" class="btn-ghost" autofocus @click="removing = null">Orqaga</button>
+        <button type="button" class="inline-flex h-11 items-center gap-2 rounded-xl bg-red-600 px-5 font-semibold text-white hover:bg-red-700" @click="removeCam(removing!, true)"><Icon name="trash" :size="16" />Öçiriş</button>
       </div>
     </section>
   </div>
