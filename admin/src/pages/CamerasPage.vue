@@ -17,9 +17,11 @@ const saving = ref(false)
 const error = ref('')
 const saved = ref(false)
 const initial = ref('[]')
-const snap = () => JSON.stringify(cameras.value.map(c => [c.name.trim(), cameraUrl(c.url) || c.url.trim(), c.hidden]))
+// Faqat to'liq kiritilgan (nomi + tögri havola) kameralar hisoblanadi — yangi böş qator «özgariş» emas
+const ready = computed(() => cameras.value.filter(c => c.name.trim() && cameraUrl(c.url)))
+const snap = () => JSON.stringify(ready.value.map(c => [c.name.trim(), cameraUrl(c.url), c.hidden]))
 const dirty = computed(() => !loading.value && snap() !== initial.value)
-const shown = computed(() => cameras.value.filter(c => !c.hidden).length)
+const shown = computed(() => ready.value.filter(c => !c.hidden).length)
 let savedTimer: ReturnType<typeof setTimeout> | undefined
 function reset() { cameras.value = JSON.parse(initial.value).map(([name, url, hidden]: [string, string, boolean]) => ({ name, url, hidden })) }
 const warn = (e: BeforeUnloadEvent) => { if (dirty.value) e.preventDefault() }
@@ -80,9 +82,9 @@ onMounted(load)
       <a :href="`${SITE_URL}/${SLUG}`" target="_blank" rel="noopener" class="btn-ghost h-[46px]">Saytda köriş ↗</a>
     </div>
     <div v-if="page && !loading" class="flex flex-wrap gap-2 text-sm">
-      <span class="rounded-full bg-white px-3.5 py-1.5 font-semibold">Jami: {{ cameras.length }}</span>
+      <span class="rounded-full bg-white px-3.5 py-1.5 font-semibold">Jami: {{ ready.length }}</span>
       <span class="rounded-full bg-emerald-50 px-3.5 py-1.5 font-semibold text-emerald-800">Saytda: {{ shown }}</span>
-      <span v-if="cameras.length - shown" class="rounded-full bg-[#FEF3DC] px-3.5 py-1.5 font-semibold text-[#B54708]">Yaşirin: {{ cameras.length - shown }}</span>
+      <span v-if="ready.length - shown" class="rounded-full bg-[#FEF3DC] px-3.5 py-1.5 font-semibold text-[#B54708]">Yaşirin: {{ ready.length - shown }}</span>
     </div>
     <p v-if="error" role="alert" class="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{{ error }}</p>
     <p v-if="loading" class="text-sm text-muted">Yuklanmoqda…</p>
