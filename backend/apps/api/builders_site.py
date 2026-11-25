@@ -28,7 +28,7 @@ from apps.structure.models import (
 from .builders import (
     POST_RELATED, announcement_item, event_item, latest_posts, news_item, post_summary, upcoming_events,
 )
-from .common import attachments_out, img, iso, lines
+from .common import attachment_out, attachments_out, img, iso, lines
 
 TASHKENT = ZoneInfo('Asia/Tashkent')
 
@@ -697,7 +697,10 @@ def sdg_goal_out(g: SdgGoal, lang: str) -> dict:
             }
             for i, s in enumerate(g.sections.prefetch_related('images'), start=1)
         ],
-        'documents': attachments_out(g.reports.select_related('file'), lang),
+        'documents': [
+            {**x, 'section': r.section or None}
+            for r in g.reports.select_related('file') for x in [attachment_out(r, lang)] if x
+        ],
     }
 
 

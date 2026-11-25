@@ -1146,7 +1146,7 @@ class SdgGoals(Collection):
                  'images': [media_out(m, depth) for m in s.images.all()]}
                 for s in g.sections.all()
             ],
-            'reports': [attachment_out(r, depth, meta_plain=True) for r in g.reports.all()],
+            'reports': [{**attachment_out(r, depth, meta_plain=True), 'section': r.section or None} for r in g.reports.all()],
         }
 
     def write(self, g, data, request, creating):
@@ -1165,11 +1165,17 @@ class SdgGoals(Collection):
             for i, s in enumerate(data.get('sections') or []):
                 if not isinstance(s, dict):
                     continue
-                section = SdgSection.objects.create(goal=g, key=text(s.get('key')), title=i18n_in(s.get('title')) or {'uz': 'Bo‘lim'},
+                section = SdgSection.objects.create(goal=g, key=text(s.get('key')) or f's{i + 1}', title=i18n_in(s.get('title')) or {'uz': 'Bo‘lim'},
                                                     body=i18n_in(s.get('body')), order=i)
                 section.images.set([m for m in (media_ref(x) for x in s.get('images') or []) if m])
         if 'reports' in data:
-            replace_attachments(g.reports, SdgGoalReport, 'goal', g, data.get('reports'), meta_plain=True)
+            items = [x for x in data.get('reports') or [] if isinstance(x, dict)]
+            replace_attachments(g.reports, SdgGoalReport, 'goal', g, items, meta_plain=True)
+            # Hujjat qaysi tabga tegişli (bölim kaliti) — tartib bo'yicha qayta yoziladi
+            for r, x in zip(g.reports.order_by('order', 'id'), [x for x in items if media_ref(x.get('file')) or text(x.get('url'))]):
+                if text(x.get('section')):
+                    r.section = text(x.get('section'))[:40]
+                    r.save(update_fields=['section'])
 
 
 class Pages(Collection):

@@ -173,6 +173,8 @@ class SdgSection(models.Model):
 
 class SdgGoalReport(AttachmentBase):
     goal = models.ForeignKey(SdgGoal, on_delete=models.CASCADE, related_name='reports')
+    # Ichki bo'lim kaliti (SdgSection.key): hujjat shu tab ichida chiqadi; bo'sh — sahifa pastidagi umumiy ro'yxatda
+    section = models.CharField('Ichki bo‘lim', max_length=40, blank=True)
 
     class Meta(AttachmentBase.Meta):
         verbose_name = 'Hisobot'

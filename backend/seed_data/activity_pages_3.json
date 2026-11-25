@@ -1,0 +1,1301 @@
+[
+ {
+  "slug": "sdg-report",
+  "parent": null,
+  "root": true,
+  "title": {
+   "uz": "SDG report",
+   "ru": "SDG report",
+   "en": "SDG report",
+   "zh": "可持续发展目标报告"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p>",
+   "ru": "<p>[[kartalar-1]]</p>",
+   "en": "<p>[[kartalar-1]]</p>",
+   "zh": "<p>[[kartalar-1]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {},
+    "stats": {},
+    "columns": [],
+    "outro": {},
+    "photos": [],
+    "cards": [
+     {
+      "title": {
+       "uz": "SDG Policies",
+       "ru": "SDG Policies",
+       "en": "SDG Policies",
+       "zh": "SDG Policies"
+      },
+      "url": "/sdg-policies",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "SDG Report 2023",
+       "ru": "SDG Report 2023",
+       "en": "SDG Report 2023",
+       "zh": "SDG Report 2023"
+      },
+      "url": "/sdg-report-2023",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "SDG policy 2026",
+       "ru": "SDG policy 2026",
+       "en": "SDG policy 2026",
+       "zh": "SDG policy 2026"
+      },
+      "url": "/sdg-policy-2026",
+      "photo": null
+     }
+    ]
+   }
+  ],
+  "docs": [
+   [
+    "17840722260099.pdf",
+    {
+     "uz": "report 2025-2026",
+     "ru": "report 2025-2026",
+     "en": "report 2025-2026",
+     "zh": "report 2025-2026"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "sdg-policies",
+  "parent": "sdg-report",
+  "root": false,
+  "title": {
+   "uz": "SDG Policies",
+   "ru": "SDG Policies",
+   "en": "SDG Policies",
+   "zh": "SDG Policies"
+  },
+  "body": {
+   "uz": "<p>[[kartalar-1]]</p>",
+   "ru": "<p>[[kartalar-1]]</p>",
+   "en": "<p>[[kartalar-1]]</p>",
+   "zh": "<p>[[kartalar-1]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {},
+    "stats": {},
+    "columns": [],
+    "outro": {},
+    "photos": [],
+    "cards": [
+     {
+      "title": {
+       "uz": "Policy 2025",
+       "ru": "Policy 2025",
+       "en": "Policy 2025",
+       "zh": "Policy 2025"
+      },
+      "url": "/policy-2025",
+      "photo": null
+     }
+    ]
+   }
+  ],
+  "docs": [
+   [
+    "17911918086388.pdf",
+    {
+     "uz": "ANTI DISCRIMINATION AND ANTI HARASSMENT POLICY OF UZBEKISTAN STATE",
+     "ru": "ANTI DISCRIMINATION AND ANTI HARASSMENT POLICY OF UZBEKISTAN STATE",
+     "en": "ANTI DISCRIMINATION AND ANTI HARASSMENT POLICY OF UZBEKISTAN STATE",
+     "zh": "ANTI DISCRIMINATION AND ANTI HARASSMENT POLICY OF UZBEKISTAN STATE"
+    }
+   ],
+   [
+    "17309783380676.pdf",
+    {
+     "uz": "Policy on Sustainable Development Goal 7 SDG 7 Ensuring Access to",
+     "ru": "Policy on Sustainable Development Goal 7 SDG 7 Ensuring Access to",
+     "en": "Policy on Sustainable Development Goal 7 SDG 7 Ensuring Access to",
+     "zh": "Policy on Sustainable Development Goal 7 SDG 7 Ensuring Access to"
+    }
+   ],
+   [
+    "17309784106272.pdf",
+    {
+     "uz": "Policy on Sustainable Sourcing of Food for Campus Consumption",
+     "ru": "Policy on Sustainable Sourcing of Food for Campus Consumption",
+     "en": "Policy on Sustainable Sourcing of Food for Campus Consumption",
+     "zh": "Policy on Sustainable Sourcing of Food for Campus Consumption"
+    }
+   ],
+   [
+    "17309785808502.pdf",
+    {
+     "uz": "SUSTAINABILITY AND CLIMATE ACTION POLICY",
+     "ru": "SUSTAINABILITY AND CLIMATE ACTION POLICY",
+     "en": "SUSTAINABILITY AND CLIMATE ACTION POLICY",
+     "zh": "SUSTAINABILITY AND CLIMATE ACTION POLICY"
+    }
+   ],
+   [
+    "17310526308124.pdf",
+    {
+     "uz": "Hisobot",
+     "ru": "Отчет",
+     "en": "Report",
+     "zh": "Report"
+    }
+   ],
+   [
+    "17310583138464.pdf",
+    {
+     "uz": "Sustainable Purçase and Procurement Policy",
+     "ru": "Sustainable Purchase and Procurement Policy",
+     "en": "Sustainable Purchase and Procurement Policy",
+     "zh": "Sustainable Purchase and Procurement Policy"
+    }
+   ],
+   [
+    "17310583819672.pdf",
+    {
+     "uz": "Greenhouse gas emissions inventory",
+     "ru": "Greenhouse gas emissions inventory",
+     "en": "Greenhouse gas emissions inventory",
+     "zh": "Greenhouse gas emissions inventory"
+    }
+   ],
+   [
+    "17310584236284.pdf",
+    {
+     "uz": "Renewable Energy Projects",
+     "ru": "Renewable Energy Projects",
+     "en": "Renewable Energy Projects",
+     "zh": "Renewable Energy Projects"
+    }
+   ],
+   [
+    "17310584693285.pdf",
+    {
+     "uz": "UzSWLU Environmental Sustainability",
+     "ru": "UzSWLU Environmental Sustainability",
+     "en": "UzSWLU Environmental Sustainability",
+     "zh": "UzSWLU Environmental Sustainability"
+    }
+   ],
+   [
+    "17310591836696.pdf",
+    {
+     "uz": "Özbekiston davlat jahon tillari universitetida (UzSWLU) \"BMTning Barqaror rivojlaniş maqsadi 1 – Qaşşoqlikni tugatişga erişişdagi rivojlaniş\" mavzusidagi davra suhbati hisoboti",
+     "ru": "Отчет о проведении круглого стола на тему «Прогресс в достижении ЦУР 1 — Ликвидация бедности» в Узбекском государственном университете мировых языков (UzSWLU)",
+     "en": "Report on the Roundtable \"Progress in Achieving SDG 1 – No Poverty\" at the Uzbekistan State World Languages University (UzSWLU",
+     "zh": "Report on the Roundtable \"Progress in Achieving SDG 1 – No Poverty\" at the Uzbekistan State World Languages University (UzSWLU"
+    }
+   ],
+   [
+    "17310634308991.pdf",
+    {
+     "uz": "UzSWLU Biodiversity Conservation Policy",
+     "ru": "UzSWLU Biodiversity Conservation Policy",
+     "en": "UzSWLU Biodiversity Conservation Policy",
+     "zh": "UzSWLU Biodiversity Conservation Policy"
+    }
+   ],
+   [
+    "17310634578481.pdf",
+    {
+     "uz": "UzSWLU Environmental Impact Assessment Policy",
+     "ru": "UzSWLU Environmental Impact Assessment Policy",
+     "en": "UzSWLU Environmental Impact Assessment Policy",
+     "zh": "UzSWLU Environmental Impact Assessment Policy"
+    }
+   ],
+   [
+    "17310641205350.pdf",
+    {
+     "uz": "UzSWLU Water Quality and Discharge Management Policy",
+     "ru": "UzSWLU Water Quality and Discharge Management Policy",
+     "en": "UzSWLU Water Quality and Discharge Management Policy",
+     "zh": "UzSWLU Water Quality and Discharge Management Policy"
+    }
+   ],
+   [
+    "17310659480819.pdf",
+    {
+     "uz": "UzSWLU Plastic Waste Reduction Policy",
+     "ru": "UzSWLU Plastic Waste Reduction Policy",
+     "en": "UzSWLU Plastic Waste Reduction Policy",
+     "zh": "UzSWLU Plastic Waste Reduction Policy"
+    }
+   ],
+   [
+    "17311302175220.pdf",
+    {
+     "uz": "UzSWLU Hazardous Waste Disposal and Management Policy",
+     "ru": "UzSWLU Hazardous Waste Disposal and Management Policy",
+     "en": "UzSWLU Hazardous Waste Disposal and Management Policy",
+     "zh": "UzSWLU Hazardous Waste Disposal and Management Policy"
+    }
+   ],
+   [
+    "17311304022659.pdf",
+    {
+     "uz": "Material support",
+     "ru": "Material support",
+     "en": "Material support",
+     "zh": "Material support"
+    }
+   ],
+   [
+    "17311461257294.pdf",
+    {
+     "uz": "Paternity Policy",
+     "ru": "Paternity Policy",
+     "en": "Paternity Policy",
+     "zh": "Paternity Policy"
+    }
+   ],
+   [
+    "17311740916129.pdf",
+    {
+     "uz": "SMOKE-FREE POLICY",
+     "ru": "SMOKE-FREE POLICY",
+     "en": "SMOKE-FREE POLICY",
+     "zh": "SMOKE-FREE POLICY"
+    }
+   ],
+   [
+    "17313139738412.pdf",
+    {
+     "uz": "POLICY AGAINST FORCED LABOR, MODERN SLAVERY, HUMAN TRAFFICKING, AND ÇILD LABOR",
+     "ru": "POLICY AGAINST FORCED LABOR, MODERN SLAVERY, HUMAN TRAFFICKING, AND CHILD LABOR",
+     "en": "POLICY AGAINST FORCED LABOR, MODERN SLAVERY, HUMAN TRAFFICKING, AND CHILD LABOR",
+     "zh": "POLICY AGAINST FORCED LABOR, MODERN SLAVERY, HUMAN TRAFFICKING, AND CHILD LABOR"
+    }
+   ],
+   [
+    "17313227292977.pdf",
+    {
+     "uz": "WASTE MANAGEMENT POLICY",
+     "ru": "WASTE MANAGEMENT POLICY",
+     "en": "WASTE MANAGEMENT POLICY",
+     "zh": "WASTE MANAGEMENT POLICY"
+    }
+   ],
+   [
+    "17313239154505.pdf",
+    {
+     "uz": "Sustainable Purçase and Procurement Policy",
+     "ru": "Sustainable Purchase and Procurement Policy",
+     "en": "UzSWLU Sustainable Purchase and Procurement Policy",
+     "zh": "UzSWLU Sustainable Purchase and Procurement Policy"
+    }
+   ],
+   [
+    "17313298657620.pdf",
+    {
+     "uz": "POLICY FOR IDENTIFYING AND ENGAGING LOCAL STAKEHOLDERS",
+     "ru": "POLICY FOR IDENTIFYING AND ENGAGING LOCAL STAKEHOLDERS",
+     "en": "POLICY FOR IDENTIFYING AND ENGAGING LOCAL STAKEHOLDERS",
+     "zh": "POLICY FOR IDENTIFYING AND ENGAGING LOCAL STAKEHOLDERS"
+    }
+   ],
+   [
+    "17313313002185.pdf",
+    {
+     "uz": "POLICY ON ACADEMIC FREEDOM",
+     "ru": "POLICY ON ACADEMIC FREEDOM",
+     "en": "POLICY ON ACADEMIC FREEDOM",
+     "zh": "POLICY ON ACADEMIC FREEDOM"
+    }
+   ],
+   [
+    "17446327443674.pdf",
+    {
+     "uz": "Carbon Emissions Reduction Strategy (Scope 1 & 2)",
+     "ru": "Carbon Emissions Reduction Strategy (Scope 1 & 2)",
+     "en": "Carbon Emissions Reduction Strategy (Scope 1 & 2)",
+     "zh": "Carbon Emissions Reduction Strategy (Scope 1 & 2)"
+    }
+   ],
+   [
+    "17446368559308.pdf",
+    {
+     "uz": "UzSWLU Commitment to Net-Zero Emissions by 2050",
+     "ru": "UzSWLU Commitment to Net-Zero Emissions by 2050",
+     "en": "UzSWLU Commitment to Net-Zero Emissions by 2050",
+     "zh": "UzSWLU Commitment to Net-Zero Emissions by 2050"
+    }
+   ],
+   [
+    "17446464500635.pdf",
+    {
+     "uz": "UzSWLU Holistic Ethical Organizational Culture Policy",
+     "ru": "UzSWLU Holistic Ethical Organizational Culture Policy",
+     "en": "UzSWLU Holistic Ethical Organizational Culture Policy",
+     "zh": "UzSWLU Holistic Ethical Organizational Culture Policy"
+    }
+   ],
+   [
+    "17840557224350.pdf",
+    {
+     "uz": "AI",
+     "ru": "AI",
+     "en": "AI",
+     "zh": "AI"
+    }
+   ],
+   [
+    "17900828528273.pdf",
+    {
+     "uz": "Report on the Roundtable \"Progress in Açieving SDG 1 – No Poverty 2025\" at the Uzbekistan State World Languages University (UzSWLU) 2025",
+     "ru": "Report on the Roundtable \"Progress in Achieving SDG 1 – No Poverty 2025\" at the Uzbekistan State World Languages University (UzSWLU) 2025",
+     "en": "Report on the Roundtable \"Progress in Achieving SDG 1 – No Poverty 2025\" at the Uzbekistan State World Languages University (UzSWLU) 2025",
+     "zh": "Report on the Roundtable \"Progress in Achieving SDG 1 – No Poverty 2025\" at the Uzbekistan State World Languages University (UzSWLU) 2025"
+    }
+   ],
+   [
+    "17904331206825.pdf",
+    {
+     "uz": "ANTI-DISCRIMINATION AND ANTI-HARASSMENT POLICY",
+     "ru": "ANTI-DISCRIMINATION AND ANTI-HARASSMENT POLICY",
+     "en": "ANTI-DISCRIMINATION AND ANTI-HARASSMENT POLICY",
+     "zh": "ANTI-DISCRIMINATION AND ANTI-HARASSMENT POLICY"
+    }
+   ],
+   [
+    "17905874218487.pdf",
+    {
+     "uz": "MATERNITY POLICY 2025",
+     "ru": "MATERNITY POLICY 2025",
+     "en": "MATERNITY POLICY 2025",
+     "zh": "MATERNITY POLICY 2025"
+    }
+   ],
+   [
+    "17906129205999.pdf",
+    {
+     "uz": "Paternity policy 2025",
+     "ru": "Paternity policy 2025",
+     "en": "Paternity policy 2025",
+     "zh": "Paternity policy 2025"
+    }
+   ],
+   [
+    "17934502950506.pdf",
+    {
+     "uz": "UzSWLU_SDG_7_GHG_Inventory_2025",
+     "ru": "UzSWLU_SDG_7_GHG_Inventory_2025",
+     "en": "UzSWLU_SDG_7_GHG_Inventory_2025",
+     "zh": "UzSWLU_SDG_7_GHG_Inventory_2025"
+    }
+   ],
+   [
+    "17910142654348.pdf",
+    {
+     "uz": "POLICY ON DIVESTING INVESTMENTS FROM CARBON-INTENSIVE ENERGY INDUSTRIES",
+     "ru": "POLICY ON DIVESTING INVESTMENTS FROM CARBON-INTENSIVE ENERGY INDUSTRIES",
+     "en": "POLICY ON DIVESTING INVESTMENTS FROM CARBON-INTENSIVE ENERGY INDUSTRIES",
+     "zh": "POLICY ON DIVESTING INVESTMENTS FROM CARBON-INTENSIVE ENERGY INDUSTRIES"
+    }
+   ],
+   [
+    "17913929685527.pdf",
+    {
+     "uz": "SUSTAINABLE FOOD POLICY 2025",
+     "ru": "SUSTAINABLE FOOD POLICY 2025",
+     "en": "SUSTAINABLE FOOD POLICY 2025",
+     "zh": "SUSTAINABLE FOOD POLICY 2025"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "policy-2025",
+  "parent": "sdg-policies",
+  "root": false,
+  "title": {
+   "uz": "Policy 2025",
+   "ru": "Policy 2025",
+   "en": "Policy 2025",
+   "zh": "Policy 2025"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17916303366745.pdf",
+    {
+     "uz": "UzSWLU_Water_Reuse_Policy",
+     "ru": "UzSWLU_Water_Reuse_Policy",
+     "en": "UzSWLU_Water_Reuse_Policy",
+     "zh": "UzSWLU_Water_Reuse_Policy"
+    }
+   ],
+   [
+    "17920501903421.pdf",
+    {
+     "uz": "UzSWLU_Policy_Local_Stakeholders_2025",
+     "ru": "UzSWLU_Policy_Local_Stakeholders_2025",
+     "en": "UzSWLU_Policy_Local_Stakeholders_2025",
+     "zh": "UzSWLU_Policy_Local_Stakeholders_2025"
+    }
+   ],
+   [
+    "17920513082039.pdf",
+    {
+     "uz": "Anti-Corruption Policy",
+     "ru": "Anti-Corruption Policy",
+     "en": "Anti-Corruption Policy",
+     "zh": "Anti-Corruption Policy"
+    }
+   ],
+   [
+    "17920515614010.pdf",
+    {
+     "uz": "Policy on Academic Freedom",
+     "ru": "Policy on Academic Freedom",
+     "en": "Policy on Academic Freedom",
+     "zh": "Policy on Academic Freedom"
+    }
+   ],
+   [
+    "17920734694421.pdf",
+    {
+     "uz": "UzSWLU_Biodiversity_Conservation_Policy_2025",
+     "ru": "UzSWLU_Biodiversity_Conservation_Policy_2025",
+     "en": "UzSWLU_Biodiversity_Conservation_Policy_2025",
+     "zh": "UzSWLU_Biodiversity_Conservation_Policy_2025"
+    }
+   ],
+   [
+    "17920735375230.pdf",
+    {
+     "uz": "Environmental_Sustainability_Policy",
+     "ru": "Environmental_Sustainability_Policy",
+     "en": "Environmental_Sustainability_Policy",
+     "zh": "Environmental_Sustainability_Policy"
+    }
+   ],
+   [
+    "17920735872427.pdf",
+    {
+     "uz": "UzSWLU_Hazardous_Waste_Policy_2025",
+     "ru": "UzSWLU_Hazardous_Waste_Policy_2025",
+     "en": "UzSWLU_Hazardous_Waste_Policy_2025",
+     "zh": "UzSWLU_Hazardous_Waste_Policy_2025"
+    }
+   ],
+   [
+    "17920736331673.pdf",
+    {
+     "uz": "UzSWLU_Plastic_Waste_Reduction_Policy_2025",
+     "ru": "UzSWLU_Plastic_Waste_Reduction_Policy_2025",
+     "en": "UzSWLU_Plastic_Waste_Reduction_Policy_2025",
+     "zh": "UzSWLU_Plastic_Waste_Reduction_Policy_2025"
+    }
+   ],
+   [
+    "17920770245902.pdf",
+    {
+     "uz": "UzSWLU_Aquatic_Ecosystems_Protection_Policy_2025",
+     "ru": "UzSWLU_Aquatic_Ecosystems_Protection_Policy_2025",
+     "en": "UzSWLU_Aquatic_Ecosystems_Protection_Policy_2025",
+     "zh": "UzSWLU_Aquatic_Ecosystems_Protection_Policy_2025"
+    }
+   ],
+   [
+    "17922464826020.pdf",
+    {
+     "uz": "Partnerşips_Policy_Engagement_Policy_2025",
+     "ru": "Partnerships_Policy_Engagement_Policy_2025",
+     "en": "Partnerships_Policy_Engagement_Policy_2025",
+     "zh": "Partnerships_Policy_Engagement_Policy_2025"
+    }
+   ],
+   [
+    "17925796965374.pdf",
+    {
+     "uz": "Lifelong_Learning_Equal_Access_Policy_2024",
+     "ru": "Lifelong_Learning_Equal_Access_Policy_2024",
+     "en": "Lifelong_Learning_Equal_Access_Policy_2024",
+     "zh": "Lifelong_Learning_Equal_Access_Policy_2024"
+    }
+   ],
+   [
+    "17925798992923.pdf",
+    {
+     "uz": "Maternity_Policy_Revised",
+     "ru": "Maternity_Policy_Revised",
+     "en": "Maternity_Policy_Revised",
+     "zh": "Maternity_Policy_Revised"
+    }
+   ],
+   [
+    "17925800648998.pdf",
+    {
+     "uz": "Pay_Equity_and_Gender_Pay_Gap_Policy",
+     "ru": "Pay_Equity_and_Gender_Pay_Gap_Policy",
+     "en": "Pay_Equity_and_Gender_Pay_Gap_Policy",
+     "zh": "Pay_Equity_and_Gender_Pay_Gap_Policy"
+    }
+   ],
+   [
+    "17925801588146.pdf",
+    {
+     "uz": "Admissions and Access Policy",
+     "ru": "Admissions and Access Policy",
+     "en": "Admissions and Access Policy",
+     "zh": "Admissions and Access Policy"
+    }
+   ],
+   [
+    "17925802216544.pdf",
+    {
+     "uz": "Reasonable Accommodation and Disability Inclusion Policy",
+     "ru": "Reasonable Accommodation and Disability Inclusion Policy",
+     "en": "Reasonable Accommodation and Disability Inclusion Policy",
+     "zh": "Reasonable Accommodation and Disability Inclusion Policy"
+    }
+   ],
+   [
+    "17925803243170.pdf",
+    {
+     "uz": "Ethical Sourcing of Food and Supplies",
+     "ru": "Ethical Sourcing of Food and Supplies",
+     "en": "Ethical Sourcing of Food and Supplies",
+     "zh": "Ethical Sourcing of Food and Supplies"
+    }
+   ],
+   [
+    "17925804136207.pdf",
+    {
+     "uz": "Disposal of Hazardous Materials",
+     "ru": "Disposal of Hazardous Materials",
+     "en": "Disposal of Hazardous Materials",
+     "zh": "Disposal of Hazardous Materials"
+    }
+   ],
+   [
+    "17925806385014.pdf",
+    {
+     "uz": "UzSWLU_Waste_Management_Policy_2025",
+     "ru": "UzSWLU_Waste_Management_Policy_2025",
+     "en": "UzSWLU_Waste_Management_Policy_2025",
+     "zh": "UzSWLU_Waste_Management_Policy_2025"
+    }
+   ],
+   [
+    "17925830429903.pdf",
+    {
+     "uz": "Outsourced_Workers_Equivalent_Rights_Policy",
+     "ru": "Outsourced_Workers_Equivalent_Rights_Policy",
+     "en": "Outsourced_Workers_Equivalent_Rights_Policy",
+     "zh": "Outsourced_Workers_Equivalent_Rights_Policy"
+    }
+   ],
+   [
+    "17936143478252.pdf",
+    {
+     "uz": "Policy Against Forced Labor, Modern Slavery, Human Trafficking and Çild Labor",
+     "ru": "Policy Against Forced Labor, Modern Slavery, Human Trafficking and Child Labor",
+     "en": "Policy Against Forced Labor, Modern Slavery, Human Trafficking and Child Labor",
+     "zh": "Policy Against Forced Labor, Modern Slavery, Human Trafficking and Child Labor"
+    }
+   ],
+   [
+    "17936188016212.pdf",
+    {
+     "uz": "UzSWLU_University_Expenditure_2025",
+     "ru": "UzSWLU_University_Expenditure_2025",
+     "en": "UzSWLU_University_Expenditure_2025",
+     "zh": "UzSWLU_University_Expenditure_2025"
+    }
+   ],
+   [
+    "17937021809001.pdf",
+    {
+     "uz": "UzSWLU_GHG_Inventory_2025",
+     "ru": "UzSWLU_GHG_Inventory_2025",
+     "en": "UzSWLU_GHG_Inventory_2025",
+     "zh": "UzSWLU_GHG_Inventory_2025"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "sdg-report-2023",
+  "parent": "sdg-report",
+  "root": false,
+  "title": {
+   "uz": "SDG Report 2023",
+   "ru": "SDG Report 2023",
+   "en": "SDG Report 2023",
+   "zh": "SDG Report 2023"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17379595258193.pdf",
+    {
+     "uz": "SDG no poverty",
+     "ru": "SDG no poverty",
+     "en": "SDG no poverty",
+     "zh": "SDG no poverty"
+    }
+   ],
+   [
+    "17379595628834.pdf",
+    {
+     "uz": "SDG zero hunger",
+     "ru": "SDG zero hunger",
+     "en": "SDG zero hunger",
+     "zh": "SDG zero hunger"
+    }
+   ],
+   [
+    "17380616793521.pdf",
+    {
+     "uz": "(SDG 3) Good health and well-being",
+     "ru": "(SDG 3) Good health and well-being",
+     "en": "(SDG 3) Good health and well-being",
+     "zh": "(SDG 3) Good health and well-being"
+    }
+   ],
+   [
+    "17380617084636.pdf",
+    {
+     "uz": "(SDG 4) Quality education",
+     "ru": "(SDG 4) Quality education",
+     "en": "(SDG 4) Quality education",
+     "zh": "(SDG 4) Quality education"
+    }
+   ],
+   [
+    "17380617391354.pdf",
+    {
+     "uz": "(SDG 5) Gender equality",
+     "ru": "(SDG 5) Gender equality",
+     "en": "(SDG 5) Gender equality",
+     "zh": "(SDG 5) Gender equality"
+    }
+   ],
+   [
+    "17380617706439.pdf",
+    {
+     "uz": "(SDG 6) Clean water and sanitation",
+     "ru": "(SDG 6) Clean water and sanitation",
+     "en": "(SDG 6) Clean water and sanitation",
+     "zh": "(SDG 6) Clean water and sanitation"
+    }
+   ],
+   [
+    "17380617991797.pdf",
+    {
+     "uz": "(SDG 7) Affordable and clean energy",
+     "ru": "(SDG 7) Affordable and clean energy",
+     "en": "(SDG 7) Affordable and clean energy",
+     "zh": "(SDG 7) Affordable and clean energy"
+    }
+   ],
+   [
+    "17380618279238.pdf",
+    {
+     "uz": "(SDG 8) Decent work and economic growth",
+     "ru": "(SDG 8) Decent work and economic growth",
+     "en": "(SDG 8) Decent work and economic growth",
+     "zh": "(SDG 8) Decent work and economic growth"
+    }
+   ],
+   [
+    "17380618535892.pdf",
+    {
+     "uz": "(SDG 10) Reduced inequalities",
+     "ru": "(SDG 10) Reduced inequalities",
+     "en": "(SDG 10) Reduced inequalities",
+     "zh": "(SDG 10) Reduced inequalities"
+    }
+   ],
+   [
+    "17380618834632.pdf",
+    {
+     "uz": "(SDG 11) Sustainable cities and communities",
+     "ru": "(SDG 11) Sustainable cities and communities",
+     "en": "(SDG 11) Sustainable cities and communities",
+     "zh": "(SDG 11) Sustainable cities and communities"
+    }
+   ],
+   [
+    "17380619104759.pdf",
+    {
+     "uz": "(SDG 12) Responsible consumption and production",
+     "ru": "(SDG 12) Responsible consumption and production",
+     "en": "(SDG 12) Responsible consumption and production",
+     "zh": "(SDG 12) Responsible consumption and production"
+    }
+   ],
+   [
+    "17380619353602.pdf",
+    {
+     "uz": "(SDG 13) Climate action",
+     "ru": "(SDG 13) Climate action",
+     "en": "(SDG 13) Climate action",
+     "zh": "(SDG 13) Climate action"
+    }
+   ],
+   [
+    "17380619552468.pdf",
+    {
+     "uz": "(SDG 15) Life on land",
+     "ru": "(SDG 15) Life on land",
+     "en": "(SDG 15) Life on land",
+     "zh": "(SDG 15) Life on land"
+    }
+   ],
+   [
+    "17380619774140.pdf",
+    {
+     "uz": "(SDG 16) Peace, justice, and strong institutions",
+     "ru": "(SDG 16) Peace, justice, and strong institutions",
+     "en": "(SDG 16) Peace, justice, and strong institutions",
+     "zh": "(SDG 16) Peace, justice, and strong institutions"
+    }
+   ],
+   [
+    "17380620139253.pdf",
+    {
+     "uz": "(SDG 17) Partnerşips for the goals",
+     "ru": "(SDG 17) Partnerships for the goals",
+     "en": "(SDG 17) Partnerships for the goals",
+     "zh": "(SDG 17) Partnerships for the goals"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "sdg-policy-2026",
+  "parent": "sdg-report",
+  "root": false,
+  "title": {
+   "uz": "SDG policy 2026",
+   "ru": "SDG policy 2026",
+   "en": "SDG policy 2026",
+   "zh": "SDG policy 2026"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17762407382366.pdf",
+    {
+     "uz": "Carbon emmission",
+     "ru": "Carbon emmission",
+     "en": "Carbon emmission",
+     "zh": "Carbon emmission"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "talim-va-barqarorlik",
+  "parent": null,
+  "root": true,
+  "title": {
+   "uz": "Ta’lim va barqarorlik",
+   "ru": "Образование и устойчивое развитие",
+   "en": "Education and sustainability",
+   "zh": "教育与可持续发展"
+  },
+  "body": {
+   "uz": "<p><strong>Özbekiston davlat jahon tillari universitetida (ÖzDJTU) barqarorlik savodxonligi va bilimlarini baholaş vositasi</strong></p> <p><strong>Kiriş:</strong> Özbekiston davlat jahon tillari universiteti (ÖzDJTU) özining talabalar, professor-öqituvçilar va xodimlar orasida barqarorlik savodxonligi va bilimlarini oşiriş orqali barqarorlik madaniyati hamda mas’uliyatli fuqarolikni rivojlantirişdagi ahamiyatini çuqur anglaydi. Barqaror rivojlaniş böyiça ta’limni ilgari suriş böyiça öz majburiyatiga muvofiq, ÖzDJTU barqarorlikka oid bilim va xabardorlik darajasini ölçaş uçun maxsus baholaş vositasini işlab çiqqan va joriy qilgan. Uşbu hisobot baholaş vositasi haqida ma’lumot beradi va uning universitet siyosati, qoidalari hamda strategik maqsadlariga muvofiqligini körsatadi.</p> <p><strong>Baholaş vositasi haqida umumiy ma’lumot:</strong> ÖzDJTUdagi barqarorlik savodxonligi va bilimlarini baholaş vositasi talabalar, öqituvçilar va xodimlar orasida barqarorlik tuşunçalari va tamoyillarini tuşuniş, xabardorlik va amalda qöllaş darajasini baholaşga möljallangan. Bu vosita barqarorlikning turli ölçamlarini — ekologik, ijtimoiy, iqtisodiy va axloqiy jihatlarni — qamrab olgan bölib, universitetning barqarorlik ta’limiga kompleks yondaşuvini aks ettiradi.</p> <p><strong>Baholaş vositasining asosiy xususiyatlari:</strong></p> <p><strong>Köp yönalişli yondaşuv:</strong> Baholaş vositasi iqlim özgarişi, biologik xilma-xillikni saqlaş, ijtimoiy adolat, Barqaror Rivojlaniş Maqsadlari (BRM), axloqiy qaror qabul qiliş kabi keng qamrovli mavzularni qamrab oladi. Bu yondaşuv barqarorlikning barça jihatlari e’tiborga olinişini ta’minlaydi.</p> <p><strong>Moslaşuvçanlik:</strong> Uşbu vosita ÖzDJTUdagi turli akademik fanlar va ta’lim darajalariga moslaştirilgan bölib, barça sohalarda dolzarblik va inklyuzivlikni ta’minlaydi.</p> <p><strong>Baholaş usullari:</strong> Baholaş turli usullarda amalga oşiriladi, jumladan sörovnomalar, testlar, amaliy tadqiqotlar, guruh loyihalari va oğzaki taqdimotlar orqali. Bu yondaşuv barqarorlik savodxonligi va bilimlarini har tomonlama baholaş imkonini beradi.</p> <p><strong>Akademik faoliyatga integratsiyalaşganlik:</strong> Baholaş vositasi universitetdagi akademik faoliyatlarga integratsiya qilingan bölib, barqarorlikka oid ta’limiy natijalar turli kurslar va dasturlar orqali yoritiladi. Bu esa talabalar uçun barqarorlik tuşunçalari bilan tanişiş va öz bilimlarini baholaş imkonini köpaytiradi.</p> <p><strong>Universitet siyosati va strategik maqsadlariga mosligi:</strong> Baholaş vositasining işlab çiqilişi va joriy etilişi ÖzDJTUning barqarorlik, sifatli ta’lim va uzluksiz rivojlanişga oid siyosat va strategik maqsadlariga mos keladi.</p> <p><strong>Joriy etiş jarayoni:</strong> Barqarorlik savodxonligi va bilimlarini baholaş vositasini joriy etiş professor-öqituvçilar, öquv dasturlarini işlab çiquvçilar, baholaş böyiça mutaxassislar va talabalar vakillarining hamkorligida amalga oşiriladi.</p> <p><strong>Joriy etiş bosqiçlari:</strong></p> <ol> <li> <p><strong>Baholaş mezonlari va rubrikalarini işlab çiqiş:</strong> Baholaş mezonlari va rubrikalari barqarorlik böyiça ta’limiy natijalar va universitet siyosatiga muvofiq işlab çiqiladi.</p> </li> <li> <p><strong>Kurs sillabuslariga integratsiya:</strong> Barqarorlikka oid baholaş faoliyatlari kurs sillabuslari va öquv materiallariga kiritiladi.</p> </li> <li> <p><strong>Baholaş faoliyatlarini ötkaziş:</strong> Baholaş tadbirlari öquv yili davomida tegişli vaqtlarda talabalar orasida amalga oşiriladi.</p> </li> <li> <p><strong>Ma’lumotlarni töplaş va tahlil qiliş:</strong> Baholaş ma’lumotlari töplanadi va tahlil qilinadi, bu esa talabalar natijalarini baholaş hamda ta’lim sifatini oşiriş yöllarini aniqlaşga yordam beradi.</p> </li> <li> <p><strong>Aloqa va qöllab-quvvatlaş:</strong> Talabalarga baholaş natijalari asosida fikr-mulohazalar bildiriladi, şuningdek, ularning bilim va könikmalarini rivojlantiriş uçun zarur resurslar va yordam taqdim etiladi.</p> </li> </ol> <p><strong>Foyda va ta’siri:</strong></p> <p><strong>Ta’lim sifatini oşiriş:</strong> Baholaş vositasi barqarorlik böyiça ta’lim samaradorligini aniqlaşda muhim ahamiyatga ega bölib, öquv dasturlarini yangilaş va öqitiş uslublarini takomillaştirişga xizmat qiladi.</p> <p><strong>Talabalarni quvvatlantiriş:</strong> Barqarorlik savodxonligini baholaş orqali talabalar ongli va faol fuqarolar bölib yetişişlariga, barqarorlik va mas’uliyatli qarorlar qabul qilişda faol iştirok etişlariga zamin yaratiladi.</p> <p><strong>ÖzDJTU obrösini mustahkamlaş:</strong> Mazkur vositaning joriy etilişi universitetning barqaror rivojlaniş sohasidagi yetakçiligini körsatib, mukammallik, halollik va ijtimoiy mas’uliyat kabi qadriyatlarini tarğib qiladi.</p> <p><strong>Xulosa:</strong> ÖzDJTUning barqarorlik savodxonligi va bilimlarini baholaş vositasi universitetning sifatli ta’lim, doimiy takomillaşuv va barqarorlikni ilgari suriş böyiça majburiyatini aks ettiradi. Barqarorlikka oid baholaş faoliyatlarini akademik tizimga integratsiya qiliş orqali ÖzDJTU öz talabalar, öqituvçilar va xodimlarini barqarorlik bilan boğliq dolzarb muammolarni hal qiliş va yanada barqaror kelajak sari hissa qöşişga tayyorlaydi.</p> <p>Uşbu hisobot ÖzDJTUda barqarorlik savodxonligi va bilimlarini baholaş vositasi universitet siyosati va strategik maqsadlariga töliq mos kelişini hamda barqarorlik ta’limini baholaş va takomillaştiriş uçun samarali vosita bölib xizmat qilişini tasdiqlaydi.</p> <p><strong>Talabalar uçun sörovnoma linki</strong></p> <p><a href=\"https://forms.gle/sQm3kRKKiEvoHwNR9\" target=\"_blank\" rel=\"noopener\">https://forms.gle/sQm3kRKKiEvoHwNR9</a></p>  <p><strong>Xodimlar uçun sörovnoma linki</strong></p> <p><a href=\"https://forms.gle/TgVZsFmZivFmXYsL8\" target=\"_blank\" rel=\"noopener\">https://forms.gle/TgVZsFmZivFmXYsL8</a></p><p>[[kartalar-1]]</p>",
+   "ru": "<p><strong>Инструмент оценки грамотности и знаний в области устойчивого развития в Узбекском государственном университете мировых языков (УзГУМЯ)</strong></p> <p><strong>Введение:</strong><br> Узбекский государственный университет мировых языков (УзГУМЯ) осознаёт важность устойчивой грамотности и осведомлённости среди студентов, преподавателей и сотрудников для формирования культуры устойчивого развития и ответственного гражданства. В рамках своей приверженности продвижению образования в области устойчивого развития, УзГУМЯ разработал и внедрил инструмент оценки устойчивой грамотности, позволяющий измерить уровень знаний и осведомлённости в данной сфере в академическом сообществе университета. Настоящий отчёт описывает данный инструмент и демонстрирует его соответствие правилам, политике и стратегическим целям УзГУМЯ.</p> <p><strong>Общая информация об инструменте оценки:</strong><br> Инструмент оценки устойчивой грамотности и знаний в УзГУМЯ разработан с целью оценки понимания, осведомлённости и практического применения принципов устойчивого развития среди студентов, преподавателей и сотрудников. Он охватывает различные аспекты устойчивости — экологические, социальные, экономические и этические, что отражает целостный подход университета к обучению в области устойчивого развития.</p> <p><strong>Ключевые особенности инструмента оценки:</strong></p> <p><strong>Многомерный подход:</strong><br> Инструмент охватывает широкий спектр тем, связанных с устойчивостью, включая изменение климата, сохранение биоразнообразия, социальную справедливость, Цели устойчивого развития (ЦУР) и принятие этических решений. Такой всесторонний подход обеспечивает комплексное понимание устойчивости.</p> <p><strong>Адаптивность:</strong><br> Инструмент адаптирован к различным академическим дисциплинам и уровням образования в УзГУМЯ, что гарантирует его актуальность и инклюзивность в различных учебных направлениях.</p> <p><strong>Методы оценки:</strong><br> Оценка осуществляется с использованием различных методов, включая опросы, тесты, тематические исследования, групповые проекты и устные презентации. Это позволяет всесторонне оценивать уровень устойчивой грамотности и знаний.</p> <p><strong>Интеграция в учебный процесс:</strong><br> Инструмент интегрирован в академическую деятельность УзГУМЯ: цели обучения, связанные с устойчивостью, включаются в различные курсы и программы. Это обеспечивает студентам многократные возможности для взаимодействия с концепциями устойчивого развития и демонстрации своих знаний.</p> <p><strong>Соответствие политике и стратегическим целям:</strong><br> Разработка и внедрение инструмента оценки соответствуют политике, правилам и стратегическим целям УзГУМЯ, включая обязательства по обеспечению устойчивого развития, качественного образования и постоянного совершенствования.</p> <p><strong>Процесс внедрения:</strong><br> Внедрение инструмента оценки устойчивой грамотности и знаний в УзГУМЯ осуществляется в сотрудничестве преподавателей, разработчиков учебных программ, специалистов по оценке и представителей студентов.</p> <p><strong>Ключевые этапы внедрения:</strong></p> <ol> <li> <p><strong>Разработка критериев оценки и рубрик:</strong><br> Критерии и рубрики оценки разрабатываются в соответствии с целями устойчивого обучения и внутренними правилами университета.</p> </li> <li> <p><strong>Интеграция в учебные программы:</strong><br> Оценочные мероприятия, связанные с устойчивостью, включаются в учебные планы и методические материалы курсов.</p> </li> <li> <p><strong>Проведение оценочных мероприятий:</strong><br> Оценка проводится среди студентов в соответствующие периоды учебного года.</p> </li> <li> <p><strong>Сбор и анализ данных:</strong><br> Собранные данные анализируются для оценки успеваемости студентов и выявления направлений для улучшения устойчивого образования.</p> </li> <li> <p><strong>Обратная связь и поддержка дальнейшего обучения:</strong><br> Студенты получают обратную связь по своим результатам, а также ресурсы и поддержку для дальнейшего развития знаний и навыков.</p> </li> </ol> <p><strong>Преимущества и влияние:</strong></p> <p><strong>Повышение качества образования:</strong><br> Инструмент оценки предоставляет ценные данные об эффективности преподавания устойчивости, которые могут быть использованы для обновления учебных программ и улучшения методов преподавания.</p> <p><strong>Расширение возможностей студентов:</strong><br> Оценка уровня устойчивой грамотности способствует формированию у студентов сознательной и активной гражданской позиции, готовности к принятию ответственных решений.</p> <p><strong>Укрепление репутации УзГУМЯ:</strong><br> Внедрение инструмента укрепляет позицию УзГУМЯ как лидера в области устойчивого образования и демонстрирует его ценности — стремление к совершенству, честность и социальную ответственность.</p> <p><strong>Заключение:</strong><br> Инструмент оценки устойчивой грамотности и знаний в УзГУМЯ отражает стремление университета к качественному образованию, постоянному совершенствованию и продвижению устойчивости. Интегрируя мероприятия по оценке устойчивого развития в академическую среду и формируя культуру устойчивости, УзГУМЯ готовит студентов, преподавателей и сотрудников к решению актуальных проблем устойчивого развития и вкладу в более устойчивое будущее.</p> <p>Данный отчёт подтверждает, что инструмент оценки устойчивой грамотности и знаний в УзГУМЯ соответствует внутренней политике и стратегическим целям университета и служит эффективным механизмом для оценки и улучшения образования в области устойчивого развития.</p> <p><strong>Ссылка на анкету для студентов</strong></p> <p><a href=\"https://forms.gle/sQm3kRKKiEvoHwNR9\" target=\"_blank\" rel=\"noopener\">https://forms.gle/sQm3kRKKiEvoHwNR9</a></p>  <p><strong>Ссылка на анкету для сотрудников</strong></p> <p><a href=\"https://forms.gle/TgVZsFmZivFmXYsL8\" target=\"_blank\" rel=\"noopener\">https://forms.gle/TgVZsFmZivFmXYsL8</a></p><p>[[kartalar-1]]</p>",
+   "en": "<p><strong>Sustainability Literacy and Knowledge Assessment Tool at Uzbekistan State World Languages University (UzSWLU)</strong><br> </p> <p><strong>Introduction:</strong><br> Uzbekistan State World Languages University (UzSWLU) recognizes the significance of sustainability literacy and knowledge among its students, faculty, and staff in fostering a culture of sustainability and responsible citizenship. In line with its commitment to promoting sustainability education, UzSWLU has developed and implemented a sustainability literacy assessment tool to measure sustainability knowledge and awareness within its academic community. This report outlines the assessment tool and demonstrates its alignment with UzSWLU’s rules, policies, and strategic objectives.</p>  <p><strong>Overview of the Assessment Tool:</strong><br> The sustainability literacy and knowledge assessment tool at UzSWLU is designed to evaluate the understanding, awareness, and applicability of sustainability concepts and principles among students, faculty, and staff. The tool addresses various dimensions of sustainability, including environmental, social, economic, and ethical considerations, reflecting the university's holistic approach to sustainability education.</p> <p><strong>Key Features of the Assessment Tool:</strong><br> </p> <p><strong>Multidimensional Approach:</strong><br> The assessment tool covers a wide range of sustainability topics, including climate change, biodiversity conservation, social justice, Sustainable Development Goals (SDGs), and ethical decision-making. This comprehensive approach ensures that all aspects of sustainability are addressed.<br> </p> <p><strong>Adaptability:</strong><br> The tool is adaptable to different academic disciplines and educational levels at UzSWLU, ensuring relevance and inclusivity across various fields of study.<br> </p> <p><strong>Assessment Methods:</strong><br> The assessment utilizes diverse methods, such as surveys, quizzes, case studies, group projects, and oral presentations, to effectively evaluate sustainability literacy and knowledge among students and staff.<br> </p> <p><strong>Integration with Academic Activities:</strong><br> The assessment tool is integrated into the academic activities at UzSWLU, with sustainability-related learning outcomes embedded in various courses and programs. This integration ensures that students have multiple opportunities to engage with sustainability concepts and demonstrate their understanding through assessments.<br> </p> <p><strong>Alignment with Policies and Strategic Objectives:</strong><br> The development and implementation of the assessment tool align with UzSWLU's rules, policies, and strategic objectives, including its commitment to sustainability, quality education, and continuous improvement.</p> <p><strong>Implementation Process:</strong><br> The implementation of the sustainability literacy and knowledge assessment tool at UzSWLU involves collaboration between faculty members, curriculum developers, assessment experts, and student representatives. </p> <p><strong>Key steps in the implementation process include:</strong></p> <p><strong>Designing Assessment Criteria and Rubrics:</strong><br> Assessment criteria and rubrics will be designed to align with sustainability learning outcomes and the university’s rules and policies.<br> </p> <p><strong>Integration into Course Syllabi:</strong><br> Sustainability-related assessment activities will be integrated into course syllabi and instructional materials.<br> </p> <p><strong>Administering Assessment Activities:</strong><br> Assessment activities will be administered to students at appropriate intervals throughout the academic year.<br> </p> <p><strong>Data Collection and Analysis:</strong><br> Assessment data will be collected and analyzed to evaluate student performance and identify areas for improvement in sustainability education.<br> </p> <p><strong>Feedback and Support for Further Learning:</strong><br> Students will receive feedback on their sustainability literacy and knowledge, and resources and support for further learning and skill development will be provided.</p> <p><strong>Benefits and Impact:</strong></p> <p><strong>Enhancing Educational Quality:</strong><br> The assessment tool provides valuable insights into the effectiveness of sustainability education efforts, which can be used to update curriculum development and instructional practices.</p> <p><strong>Empowering Students:</strong><br> By assessing sustainability literacy, the tool empowers students to become informed and engaged citizens, committed to sustainability and responsible decision-making.<br> </p> <p><strong>Strengthening UzSWLU’s Reputation:</strong><br> The implementation of the tool supports UzSWLU’s position as a leader in sustainability education, promoting its values of excellence, integrity, and social responsibility.</p> <p><strong>Conclusion:</strong><br> UzSWLU’s sustainability literacy and knowledge assessment tool reflects the university's commitment to quality education, continuous improvement, and the promotion of sustainability. By integrating sustainability assessment activities into the academic framework and fostering a culture of sustainability, UzSWLU equips students, faculty, and staff with the knowledge, skills, and attitudes needed to address pressing sustainability challenges and contribute to a more sustainable future.<br> This report highlights that UzSWLU’s sustainability literacy and knowledge assessment tool is aligned with the university's policies and strategic objectives and serves as a valuable mechanism for evaluating and enhancing sustainability education.</p> <p><strong>Survey link for students</strong></p> <p><a href=\"https://forms.gle/sQm3kRKKiEvoHwNR9\" target=\"_blank\" rel=\"noopener\">https://forms.gle/sQm3kRKKiEvoHwNR9</a></p>  <p><strong>Survey link for staff</strong></p> <p><a href=\"https://forms.gle/TgVZsFmZivFmXYsL8\" target=\"_blank\" rel=\"noopener\">https://forms.gle/TgVZsFmZivFmXYsL8</a></p><p>[[kartalar-1]]</p>",
+   "zh": "<p><strong>乌兹别克斯坦世界语言国家大学（UzSWLU）可持续发展素养与知识评估工具</strong></p> <p><strong>引言：</strong><br> 乌兹别克斯坦世界语言国家大学（UzSWLU）深知在学生、教师和教职员工中提升可持续发展素养和知识对于培育可持续文化和负责任公民意识的重要性。为了推进可持续发展教育，UzSWLU 制定并实施了一套可持续发展素养与知识评估工具，用以衡量大学社区成员在该领域的知识与认知水平。本报告介绍了这一评估工具，并说明其与UzSWLU政策、规章及战略目标之间的契合。</p> <p><strong>评估工具概述：</strong><br> UzSWLU 的可持续发展素养与知识评估工具旨在评估学生、教师和教职员工对可持续发展理念与原则的理解、意识及实际应用能力。该工具涵盖环境、社会、经济和伦理等多个维度，体现了大学对可持续发展教育的全面性和系统性。</p> <p><strong>评估工具的主要特点：</strong></p> <p><strong>多维度方法：</strong><br> 该工具涵盖气候变化、生物多样性保护、社会公正、可持续发展目标（SDGs）和伦理决策等多个主题，确保对可持续发展的各个方面进行全面覆盖。</p> <p><strong>适应性强：</strong><br> 该工具可适用于UzSWLU各个学科和教育层次，确保其在不同专业领域中具有相关性和包容性。</p> <p><strong>评估方法多样化：</strong><br> 评估方式包括问卷调查、小测验、案例分析、小组项目以及口头报告等，能够有效全面地评估受测者的可持续发展知识和素养。</p> <p><strong>融合学术活动：</strong><br> 该评估工具被整合进UzSWLU的教学活动中，在多个课程和项目中设置与可持续发展相关的学习成果，为学生提供多次接触和展示可持续发展理念的机会。</p> <p><strong>与政策和战略目标对齐：</strong><br> 该评估工具的设计和实施与UzSWLU的可持续发展承诺、优质教育目标以及持续改进战略高度一致。</p> <p><strong>实施过程：</strong><br> 可持续发展素养与知识评估工具的实施由教师、课程设计人员、评估专家及学生代表共同协作完成。</p> <p><strong>实施的主要步骤包括：</strong></p> <ol> <li> <p><strong>制定评估标准与评分标准（Rubrics）：</strong><br> 评估标准与评分细则将与可持续发展学习成果以及大学的政策规章相结合进行制定。</p> </li> <li> <p><strong>纳入课程教学大纲：</strong><br> 与可持续发展相关的评估活动将被整合到课程教学大纲和教学资料中。</p> </li> <li> <p><strong>组织评估活动：</strong><br> 在学年内适当的时间点组织对学生的评估。</p> </li> <li> <p><strong>数据收集与分析：</strong><br> 收集评估数据并进行分析，用以评估学习成果并发现可持续发展教育的改进空间。</p> </li> <li> <p><strong>反馈与后续支持：</strong><br> 学生将获得评估反馈，并获得进一步学习和技能发展的资源与支持。</p> </li> </ol> <p><strong>优势与影响：</strong></p> <p><strong>提升教育质量：</strong><br> 该评估工具能为可持续发展教育的有效性提供有价值的反馈，有助于课程更新和教学方法优化。</p> <p><strong>赋能学生：</strong><br> 通过对可持续发展素养的评估，激励学生成为有责任感的知识型公民，能够做出可持续的决策。</p> <p><strong>提升UzSWLU的声誉：</strong><br> 该工具的实施巩固了UzSWLU在可持续发展教育领域的领导地位，彰显其追求卓越、诚信与社会责任的价值观。</p> <p><strong>结论：</strong><br> UzSWLU 所开发的可持续发展素养与知识评估工具体现了其在优质教育、持续改进和推动可持续发展方面的承诺。通过将评估活动融入学术体系并营造可持续发展的校园文化，UzSWLU正在为其学生、教师和员工赋能，使其有能力应对可持续发展的全球挑战，并为更加可持续的未来贡献力量。</p> <p>本报告确认，UzSWLU的可持续发展素养与知识评估工具符合大学的政策和战略目标，是评估和提升可持续发展教育成效的重要机制。</p> <p><strong>学生问卷链接</strong></p> <p><a href=\"https://forms.gle/sQm3kRKKiEvoHwNR9\" target=\"_blank\" rel=\"noopener\">https://forms.gle/sQm3kRKKiEvoHwNR9</a></p>  <p><strong>员工问卷链接</strong></p> <p><a href=\"https://forms.gle/TgVZsFmZivFmXYsL8\" target=\"_blank\" rel=\"noopener\">https://forms.gle/TgVZsFmZivFmXYsL8</a></p><p>[[kartalar-1]]</p>"
+  },
+  "showcase": [
+   {
+    "intro": {},
+    "stats": {},
+    "columns": [],
+    "outro": {},
+    "photos": [],
+    "cards": [
+     {
+      "title": {
+       "uz": "WUR",
+       "ru": "WUR",
+       "en": "WUR",
+       "zh": "WUR"
+      },
+      "url": "/wur",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Talabalar",
+       "ru": "Студенты",
+       "en": "Students",
+       "zh": "学生"
+      },
+      "url": "/no-name",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Kontent",
+       "ru": "Контент",
+       "en": "Content",
+       "zh": "内容"
+      },
+      "url": "/content",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Eco Lingua",
+       "ru": "Eco Lingua",
+       "en": "Eco Lingua",
+       "zh": "Eco Lingua"
+      },
+      "url": "/eco-lingua",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Yillik hisobot 2023–2024",
+       "ru": "Годовой отчёт 2023–2024",
+       "en": "Annual report 2023–2024",
+       "zh": "2023–2024年度报告"
+      },
+      "url": "/annreport-2023-2024",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Ekologik barqarorlik kurslari 2024",
+       "ru": "Курсы экологической устойчивости 2024",
+       "en": "Environmental sustainability courses 2024",
+       "zh": "2024环境可持续性课程"
+      },
+      "url": "/uzswlu-environmental-sustainability-courses-2024",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Energiya sarfi",
+       "ru": "Энергопотребление",
+       "en": "Energy consumption",
+       "zh": "能源消耗"
+      },
+      "url": "/ec",
+      "photo": null
+     },
+     {
+      "title": {
+       "uz": "Moliya",
+       "ru": "Финансы",
+       "en": "Finance",
+       "zh": "财务"
+      },
+      "url": "/moliya",
+      "photo": null
+     }
+    ]
+   }
+  ],
+  "docs": [
+   [
+    "17762397406734.pdf",
+    {
+     "uz": "Assesment report",
+     "ru": "Assesment report",
+     "en": "Assesment report",
+     "zh": "Assesment report"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "wur",
+  "parent": "talim-va-barqarorlik",
+  "root": false,
+  "title": {
+   "uz": "WUR",
+   "ru": "WUR",
+   "en": "WUR",
+   "zh": "WUR"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17748894674957.pdf",
+    {
+     "uz": "UzSWLU_Interdisciplinary_Research_Policy",
+     "ru": "UzSWLU_Interdisciplinary_Research_Policy",
+     "en": "UzSWLU_Interdisciplinary_Research_Policy",
+     "zh": "UzSWLU_Interdisciplinary_Research_Policy"
+    }
+   ],
+   [
+    "17748895753162.pdf",
+    {
+     "uz": "scopus",
+     "ru": "scopus",
+     "en": "scopus",
+     "zh": "scopus"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "no-name",
+  "parent": "talim-va-barqarorlik",
+  "root": false,
+  "title": {
+   "uz": "Talabalar",
+   "ru": "Студенты",
+   "en": "Students",
+   "zh": "学生"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17758118860255.pdf",
+    {
+     "uz": "Talaba",
+     "ru": "Talaba",
+     "en": "Talaba",
+     "zh": "Talaba"
+    }
+   ],
+   [
+    "17758119293444.pdf",
+    {
+     "uz": "Talaba 2",
+     "ru": "Talaba 2",
+     "en": "Talaba 2",
+     "zh": "Talaba 2"
+    }
+   ],
+   [
+    "17758120000522.pdf",
+    {
+     "uz": "Talaba 3",
+     "ru": "Talaba 3",
+     "en": "Talaba 3",
+     "zh": "Talaba 3"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "content",
+  "parent": "talim-va-barqarorlik",
+  "root": false,
+  "title": {
+   "uz": "Kontent",
+   "ru": "Контент",
+   "en": "Content",
+   "zh": "内容"
+  },
+  "body": {
+   "uz": "<p><strong>ÖzDJTUda barqarorlik</strong></p> <p>Özbekiston davlat jahon tillari universiteti ekologik barqarorlik va BMT Barqaror rivojlaniş maqsadlariga sodiq. 2022-yilda boşlangan «Yaşil universitet» taşabbusi doirasida barqarorlik tamoyillarini universitet hayotining barça jihatlariga — ta’lim va ilmiy tadqiqotdan tortib kampus faoliyati va jamoatçilik bilan işlaşgaça — singdirib boramiz.</p> <h2><strong>«Yaşil universitet» taşabbusi</strong></h2> <p>ÖzDJTUning «Yaşil universitet» taşabbusi keng qamrovli ekologik dasturlarni öz içiga oladi: kampusni kökalamzorlaştiriş, energiya samaradorligini oşiriş, çiqindilarni kamaytiriş, suvni tejaş hamda talaba va xodimlar uçun barqarorlik ta’limi. Bu sa’y-harakatlar UI GreenMetric World University Rankings reytingida xalqaro e’tirofga sazovor bölgan: ÖzDJTU dunyodagi eng yaxşi 600 universitet qatoriga kirgan va ikkita barqarorlik yönalişida Özbekistonda 1-örinni egallagan.</p> <h2><strong>«Barqaror til — barqaror dunyo» öquv dasturi</strong></h2> <p>2024-yildan boşlab ÖzDJTUda barça professor-öqituvçilar va ma’muriy xodimlar uçun ekologik barqarorlik böyiça majburiy yillik öquv dasturi joriy etilgan. «Barqaror til — barqaror dunyo» deb nomlangan dastur universitetning til ta’limidagi tajribasini global barqarorlik maqsadlari bilan uyğunlaştiradi.</p> <p><strong>Asosiy xususiyatlari:</strong></p> <p>• 20 soatlik aralaş öquv dasturi (ma’ruzalar, amaliy mashğulotlar, mustaqil ta’lim)</p> <p>• ta’limda barqarorlik, yaşil kampus, eko-pedagogika, raqamli barqarorlik, iqlim böyiça xabardorlik va barqarorlik kommunikatsiyasini qamrab oluvçi 6 ta modul</p> <p>• barqarorlik savodxonliği ösişini ölçaş uçun öqişdan oldingi va keyingi baholaş</p> <p>• muvaffaqiyatli yakunlaganlarga universitet tomonidan tasdiqlangan sertifikat</p> <p>• sifatni ta’minlaş uçun maxsus Monitoring komissiyasi</p> <p><strong>Dastur modullari:</strong></p> <p>• 1-modul: Oliy ta’limda barqarorlik (3 soat)</p> <p>• 2-modul: Resurslardan samarali foydalaniş va yaşil kampus (4 soat)</p> <p>• 3-modul: Eko-pedagogika (3 soat)</p> <p>• 4-modul: Raqamli barqarorlik (3 soat)</p> <p>• 5-modul: Iqlim va ekologik xabardorlik (4 soat)</p> <p>• 6-modul: Til va barqarorlik kommunikatsiyasi (3 soat)</p> <h2><strong>Xalqaro e’tirof</strong></h2> <p>• UI GreenMetric World University Rankings — dunyoda TOP-600, ikki yönalişda Özbekistonda 1-örin</p> <p>• THE Impact Rankings — BMT Barqaror rivojlaniş maqsadlariga qöşgan hissasi uçun e’tirof etilgan</p> <p>• QS World University Rankings — barqarorlik körsatkiçlari institutsional ma’lumotlarga kiritilgan</p> <h2><strong>BRMga sodiqligimiz</strong></h2> <p>ÖzDJTUning barqarorlik böyiça sa’y-harakatlari BMTning quyidagi Barqaror rivojlaniş maqsadlariga mos keladi:</p> <p>• BRM 4: Sifatli ta’lim — barqarorlikni öquv rejalari va xodimlar malakasini oşirişga singdiriş</p> <p>• BRM 12: Mas’uliyatli iste’mol va işlab çiqariş — yaşil kampus faoliyati</p> <p>• BRM 13: Iqlim özgarişiga qarşi kuraş — ekologik xabardorlik dasturlari</p> <p>• BRM 6: Toza suv va sanitariya — suvni tejaş taşabbuslari</p> <p>• BRM 7: Arzon va toza energiya — energiya samaradorligi dasturlari</p> <h2><strong>Öquv rejasida barqarorlik</strong></h2> <p>ÖzDJTUning barça bakalavriat talabalari barqarorlik tamoyillarini qöllab-quvvatlovçi asosiy fanlarni öqişlari şart:</p> <p>• Ekologiya — 120 akademik soat</p> <p>• Hayot faoliyati xavfsizliği — 120 akademik soat</p> <p>• Jismoniy tarbiya — bir neça semestr davomida 240 akademik soat</p> <h2><strong>Aloqa</strong></h2> <p>ÖzDJTUdagi barqarorlik taşabbuslari haqida batafsil ma’lumot uçun murojaat qiling:</p> <p>Barqarorlik öquv dasturi koordinatori</p> <p>E-pochta: uzswluranking@uzswlu.uz</p> <p>Manzil: Kiçik halqa yöli, G-9A, 21A, Toşkent 100170, Özbekiston</p> <p><strong>Huquqiy asos:</strong></p> <p><em>Prezidentning 2019-yil 30-oktabrdagi PF-5863-son Farmoni | ÖzDJTU rektorining 245-A-son buyruği (2023) | BMT BRM | UI GreenMetric mezonlari</em></p>",
+   "ru": "<p><strong>Устойчивое развитие в УзГУМЯ</strong></p> <p>Узбекский государственный университет мировых языков привержен экологической устойчивости и Целям устойчивого развития ООН. В рамках инициативы «Зелёный университет», запущенной в 2022 году, мы внедряем принципы устойчивости во все сферы университетской жизни — от обучения и исследований до работы кампуса и взаимодействия с обществом.</p> <h2><strong>Инициатива «Зелёный университет»</strong></h2> <p>Инициатива «Зелёный университет» охватывает широкий круг экологических программ: озеленение кампуса, повышение энергоэффективности, сокращение отходов, экономию воды и образование в области устойчивого развития для студентов и сотрудников. Эти усилия получили международное признание в рейтинге UI GreenMetric World University Rankings: УзГУМЯ входит в число 600 лучших университетов мира и занимает 1-е место в Узбекистане в двух категориях.</p> <h2><strong>Учебная программа «Устойчивый язык — устойчивый мир»</strong></h2> <p>С 2024 года в УзГУМЯ действует обязательная ежегодная программа обучения экологической устойчивости для всех преподавателей и административных сотрудников. Программа «Устойчивый язык — устойчивый мир» объединяет опыт университета в языковом образовании с глобальными целями устойчивого развития.</p> <p><strong>Основные особенности:</strong></p> <p>• 20-часовая смешанная программа (лекции, практикумы, самостоятельная работа)</p> <p>• 6 модулей: устойчивость в образовании, зелёный кампус, экопедагогика, цифровая устойчивость, климатическая осведомлённость и коммуникация в сфере устойчивого развития</p> <p>• входное и итоговое тестирование для оценки роста грамотности в области устойчивости</p> <p>• сертификат университета по итогам успешного обучения</p> <p>• специальная Мониторинговая комиссия для обеспечения качества</p> <p><strong>Модули программы:</strong></p> <p>• Модуль 1: Устойчивое развитие в высшем образовании (3 часа)</p> <p>• Модуль 2: Ресурсоэффективность и зелёный кампус (4 часа)</p> <p>• Модуль 3: Экопедагогика (3 часа)</p> <p>• Модуль 4: Цифровая устойчивость (3 часа)</p> <p>• Модуль 5: Климатическая и экологическая осведомлённость (4 часа)</p> <p>• Модуль 6: Язык и коммуникация в сфере устойчивого развития (3 часа)</p> <h2><strong>Международное признание</strong></h2> <p>• UI GreenMetric World University Rankings — ТОП-600 в мире, 1-е место в Узбекистане в двух категориях</p> <p>• THE Impact Rankings — признание вклада в достижение ЦУР ООН</p> <p>• QS World University Rankings — показатели устойчивости включены в институциональные данные</p> <h2><strong>Наша приверженность ЦУР</strong></h2> <p>Деятельность УзГУМЯ в области устойчивого развития соответствует следующим Целям устойчивого развития ООН:</p> <p>• ЦУР 4: Качественное образование — интеграция устойчивости в учебные планы и обучение сотрудников</p> <p>• ЦУР 12: Ответственное потребление и производство — зелёный кампус</p> <p>• ЦУР 13: Борьба с изменением климата — экологические просветительские программы</p> <p>• ЦУР 6: Чистая вода и санитария — инициативы по экономии воды</p> <p>• ЦУР 7: Недорогостоящая и чистая энергия — программы энергоэффективности</p> <h2><strong>Устойчивое развитие в учебном плане</strong></h2> <p>Все студенты бакалавриата УзГУМЯ обязаны освоить базовые дисциплины, поддерживающие принципы устойчивого развития:</p> <p>• Экология — 120 академических часов</p> <p>• Безопасность жизнедеятельности — 120 академических часов</p> <p>• Физическая культура — 240 академических часов в течение нескольких семестров</p> <h2><strong>Контакты</strong></h2> <p>Подробнее об инициативах УзГУМЯ в области устойчивого развития:</p> <p>Координатор программы обучения устойчивому развитию</p> <p>E-mail: uzswluranking@uzswlu.uz</p> <p>Адрес: Малая кольцевая дорога, G-9A, 21A, Ташкент 100170, Узбекистан</p> <p><strong>Правовая основа:</strong></p> <p><em>Указ Президента № УП-5863 от 30 октября 2019 г. | Приказ ректора УзГУМЯ № 245-А (2023) | ЦУР ООН | критерии UI GreenMetric</em></p>",
+   "en": "<strong>Sustainability at UzSWLU</strong> <p>Uzbekistan State University of World Languages is committed to environmental sustainability and the United Nations Sustainable Development Goals. As part of our “Green University” initiative, launched in 2022, we integrate sustainability principles across all aspects of university life — from teaching and research to campus operations and community engagement.</p> <h2><strong>Green University Initiative</strong></h2> <p>UzSWLU’s “Green University” initiative encompasses a wide range of environmental programs, including campus greening, energy efficiency improvements, waste reduction, water conservation, and sustainability education for students and staff. Our efforts have been recognized internationally through the UI GreenMetric World University Rankings, where UzSWLU ranks among the top 600 universities globally and 1st in Uzbekistan in two sustainability categories.</p> <h2><strong>“Sustainable Language, Sustainable World” Training Program</strong></h2> <p>Since 2024, UzSWLU has implemented a mandatory annual training program on environmental sustainability for all faculty and administrative staff. The program, titled “Sustainable Language, Sustainable World,” combines the university’s expertise in language education with global sustainability goals.</p> <p><strong>Key Features:</strong></p> <p>• 20-hour blended training program (lectures, workshops, independent study)</p> <p>• 6 comprehensive modules covering sustainability in education, green campus, eco-pedagogy, digital sustainability, climate awareness, and sustainability communication</p> <p>• Pre- and post-training assessment to measure sustainability literacy improvement</p> <p>• University-endorsed certificate upon successful completion</p> <p>• Dedicated Monitoring Commission for quality assurance</p> <p><strong>Program Modules:</strong></p> <p>• Module 1: Sustainability in Higher Education (3 hours)</p> <p>• Module 2: Resource Efficiency & Green Campus (4 hours)</p> <p>• Module 3: Eco-Pedagogy (3 hours)</p> <p>• Module 4: Digital Sustainability (3 hours)</p> <p>• Module 5: Climate & Environmental Awareness (4 hours)</p> <p>• Module 6: Language & Sustainability Communication (3 hours)</p>  <h2><strong>International Recognition</strong></h2> <p>• UI GreenMetric World University Rankings — Top 600 globally, 1st in Uzbekistan in two categories</p> <p>• THE Impact Rankings — Recognized for contributions to UN Sustainable Development Goals</p> <p>• QS World University Rankings — Sustainability metrics integrated into institutional data</p> <h2><strong>Our Commitment to the SDGs</strong></h2> <p>UzSWLU’s sustainability efforts align with the following UN Sustainable Development Goals:</p> <p>• SDG 4: Quality Education — Integrating sustainability into curricula and staff training</p> <p>• SDG 12: Responsible Consumption and Production — Green campus operations</p> <p>• SDG 13: Climate Action — Environmental awareness programs</p> <p>• SDG 6: Clean Water and Sanitation — Water conservation initiatives</p> <p>• SDG 7: Affordable and Clean Energy — Energy efficiency programs</p> <h2><strong>Sustainability in the Curriculum</strong></h2> <p>All undergraduate students at UzSWLU are required to complete foundational courses that support sustainability principles:</p> <p>• Ecology — 120 academic hours</p> <p>• Life Safety — 120 academic hours</p> <p>• Physical Education — 240 academic hours over multiple semesters</p> <h2><strong>Contact</strong></h2> <p>For more information about sustainability initiatives at UzSWLU, please contact:</p> <p>Sustainability Training Program Coordinator</p> <p>Email: uzswluranking@uzswlu.uz</p> <p>Address: Kichik Halqa Yo’li, G-9A, 21A, Tashkent 100170, Uzbekistan</p>  <p><strong>Legal Basis:</strong></p> <p><em>Presidential Decree No. PF-5863 (Oct 30, 2019) | UzSWLU Rector’s Order No. 245-A (2023) | UN SDGs | UI GreenMetric criteria</em></p>",
+   "zh": "<p><strong>乌兹别克斯坦国立世界语言大学的可持续发展</strong></p> <p>乌兹别克斯坦国立世界语言大学致力于环境可持续性和联合国可持续发展目标。在2022年启动的“绿色大学”倡议框架下，学校将可持续发展理念融入大学生活的方方面面——从教学科研到校园运营和社会服务。</p> <h2><strong>“绿色大学”倡议</strong></h2> <p>学校的“绿色大学”倡议涵盖一系列环境项目，包括校园绿化、提高能效、减少废弃物、节约用水，以及面向学生和教职工的可持续发展教育。这些努力获得了UI GreenMetric世界大学排名的国际认可：学校跻身全球前600名，并在两个可持续发展类别中位列乌兹别克斯坦第一。</p> <h2><strong>“可持续的语言，可持续的世界”培训项目</strong></h2> <p>自2024年起，学校为全体教师和行政人员开设环境可持续性年度必修培训项目。该项目名为“可持续的语言，可持续的世界”，将学校在语言教育方面的专长与全球可持续发展目标相结合。</p> <p><strong>主要特点：</strong></p> <p>• 20学时混合式培训（讲座、工作坊、自主学习）</p> <p>• 6个模块，涵盖教育中的可持续发展、绿色校园、生态教育学、数字可持续性、气候意识和可持续发展传播</p> <p>• 培训前后测评，衡量可持续发展素养的提升</p> <p>• 顺利结业者获得学校认证证书</p> <p>• 设立专门的监督委员会保障质量</p> <p><strong>项目模块：</strong></p> <p>• 模块1：高等教育中的可持续发展（3学时）</p> <p>• 模块2：资源效率与绿色校园（4学时）</p> <p>• 模块3：生态教育学（3学时）</p> <p>• 模块4：数字可持续性（3学时）</p> <p>• 模块5：气候与环境意识（4学时）</p> <p>• 模块6：语言与可持续发展传播（3学时）</p> <h2><strong>国际认可</strong></h2> <p>• UI GreenMetric世界大学排名——全球前600名，两个类别位列乌兹别克斯坦第一</p> <p>• THE影响力排名——因对联合国可持续发展目标的贡献获得认可</p> <p>• QS世界大学排名——可持续发展指标纳入学校数据</p> <h2><strong>我们对可持续发展目标的承诺</strong></h2> <p>学校的可持续发展工作与以下联合国可持续发展目标相契合：</p> <p>• SDG 4：优质教育——将可持续发展融入课程和教职工培训</p> <p>• SDG 12：负责任消费和生产——绿色校园运营</p> <p>• SDG 13：气候行动——环境意识项目</p> <p>• SDG 6：清洁饮水和卫生设施——节水举措</p> <p>• SDG 7：经济适用的清洁能源——能效项目</p> <h2><strong>课程中的可持续发展</strong></h2> <p>学校全体本科生须修读支持可持续发展理念的基础课程：</p> <p>• 生态学——120学时</p> <p>• 生命安全——120学时</p> <p>• 体育——多个学期共240学时</p> <h2><strong>联系方式</strong></h2> <p>如需了解学校可持续发展举措的更多信息，请联系：</p> <p>可持续发展培训项目协调员</p> <p>电子邮箱：uzswluranking@uzswlu.uz</p> <p>地址：乌兹别克斯坦塔什干市小环路G-9A, 21A，邮编100170</p> <p><strong>法律依据：</strong></p> <p><em>2019年10月30日第PF-5863号总统令 | 校长第245-A号令（2023年） | 联合国可持续发展目标 | UI GreenMetric评估标准</em></p>"
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17762296800931.pdf",
+    {
+     "uz": "Rector’s order",
+     "ru": "Rector’s order",
+     "en": "Rector’s order",
+     "zh": "Rector’s order"
+    }
+   ],
+   [
+    "17762302101881.pdf",
+    {
+     "uz": "04_Attendance_and_Summary",
+     "ru": "04_Attendance_and_Summary",
+     "en": "04_Attendance_and_Summary",
+     "zh": "04_Attendance_and_Summary"
+    }
+   ],
+   [
+    "17762302471564.pdf",
+    {
+     "uz": "05_PrePost_Survey",
+     "ru": "05_PrePost_Survey",
+     "en": "05_PrePost_Survey",
+     "zh": "05_PrePost_Survey"
+    }
+   ],
+   [
+    "17762312536084.pdf",
+    {
+     "uz": "02_Syllabus_EN",
+     "ru": "02_Syllabus_EN",
+     "en": "02_Syllabus_EN",
+     "zh": "02_Syllabus_EN"
+    }
+   ],
+   [
+    "17762317153378.pdf",
+    {
+     "uz": "03_Training_Schedule",
+     "ru": "03_Training_Schedule",
+     "en": "03_Training_Schedule",
+     "zh": "03_Training_Schedule"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "eco-lingua",
+  "parent": "talim-va-barqarorlik",
+  "root": false,
+  "title": {
+   "uz": "Eco Lingua",
+   "ru": "Eco Lingua",
+   "en": "Eco Lingua",
+   "zh": "Eco Lingua"
+  },
+  "body": {
+   "uz": "<p><strong>EcoLingua — talabalar barqarorlik jamiyati</strong></p> <p>EcoLingua — Özbekiston davlat jahon tillari universiteti (ÖzDJTU) talabalari boşqaradigan barqarorlik jamiyati bölib, 2022-yilda universitetning «Yaşil universitet» taşabbusi doirasida taşkil etilgan. Jamiyat atrof-muhitni muhofaza qiliş va barqaror rivojlanişga qiziquvçi hamda til bilimlarini ekologik xabardorlikni oşirişga yönaltirmoqçi bölgan barça fakultet talabalarini birlaştiradi.</p> <p><strong>Missiyamiz</strong></p> <p>Talabalarni til ta’limi, köp tilli kommunikatsiya va jamoatçilik harakatlari orqali ekologik barqarorlikka jalb etiş — lingvistik tajriba va ekologik mas’uliyat örtasida köprik qiliş.</p> <p><strong>Nima qilamiz</strong></p> <p>• eko-forumlar, barqarorlik seminarlari va universitetlararo bahslar taşkil etamiz</p> <p>• kampus va mahallalarda tozalaş aksiyalarini ötkazamiz (yiliga 4 tadan ortiq)</p> <p>• har yili aprelda (Yer kuni) Barqarorlik haftaligini ötkazamiz</p> <p>• özbek, rus, ingliz va boşqa tillarda barqarorlikka oid kontent yaratamiz</p> <p>• daraxt ekiş va kampusni kökalamzorlaştiriş taşabbuslariga boşçilik qilamiz</p> <p>• respublika va xalqaro ekologik tadbir va tanlovlarda qatnaşamiz</p> <p>• barqarorlik mavzusida video va ijtimoiy tarmoq kampaniyalarini tayyorlaymiz</p> <p>• hamkor universitetlar bilan qöşma barqarorlik loyihalarini amalga oşiramiz</p> <p><strong>Asosiy yutuqlar (2022–2025)</strong></p> <p>• barça 8 fakultetdan 150 dan ortiq faol a’zo</p> <p>• 3 öquv yilida 48 dan ortiq barqarorlik tadbiri</p> <p>• 12 dan ortiq kampus tozalaş aksiyasi</p> <p>• kampusda 150 dan ortiq daraxt ekildi</p> <p>• barqarorlik mavzusida 60 dan ortiq köp tilli maqola va video</p> <p>• 3 ta universitet bilan qöşma eko-loyihalar</p> <p>• 5 000 dan ortiq obunaçiga ega faol ijtimoiy tarmoqlar</p> <p><strong>Qanday a’zo böliş mumkin</strong></p> <p>EcoLingua barça ÖzDJTU talabalari uçun oçiq. A’zo böliş uçun fakultet koordinatoriga murojaat qiling yoki Talabalar kengaşi xonasiga keling. Yangi tadbirlar haqida bilish uçun ijtimoiy tarmoqlarimizni kuzatib boring.</p> <p><strong>Aloqa</strong></p> <p>E-pochta: ecolingua@uzswlu.uz</p> <p>Instagram: @ecolingua_uzswlu</p> <p>Telegram: @ecolingua_uzswlu</p> <p>Fakultet maslahatçisi: Ekologiya va yaşil resurslar kafedrasi</p> <p><strong>QS SUSTAINABILITY — TAVSIYA ETILGAN JAVOB</strong></p> <p><strong>Tavsiya etilgan javob:</strong></p> <p>ÖzDJTUning «EcoLingua» talabalar barqarorlik jamiyati 2022-yildan beri Talabalar kengaşi qoşida faoliyat yuritadi. Jamiyat barça fakultetlardan 150 dan ortiq talabani ekologik tarğibot kampaniyalari, kampusni tozalaş, daraxt ekiş, köp tilli barqarorlik kontentini yaratiş va universitetlararo eko-bahslarga jalb etadi. EcoLingua har yili 16 dan ortiq tadbir, jumladan Yer kuniga bağişlangan Barqarorlik haftaligini ötkazadi. Jamiyat ÖzDJTUning lingvistik salohiyatidan foydalanib, barqarorlik mavzusini bir neça tilda tarğib qiladi.</p>",
+   "ru": "<p><strong>EcoLingua — студенческое общество устойчивого развития</strong></p> <p>EcoLingua — студенческое общество устойчивого развития Узбекского государственного университета мировых языков (УзГУМЯ), созданное в 2022 году в рамках инициативы «Зелёный университет». Общество объединяет студентов всех факультетов, увлечённых защитой окружающей среды и устойчивым развитием и готовых использовать знание языков для повышения экологической осведомлённости.</p> <p><strong>Наша миссия</strong></p> <p>Вовлекать студентов в экологическую устойчивость через языковое образование, многоязычную коммуникацию и общественные действия — соединяя лингвистические знания с экологической ответственностью.</p> <p><strong>Чем мы занимаемся</strong></p> <p>• организуем эко-форумы, семинары по устойчивому развитию и межвузовские дебаты</p> <p>• проводим акции по уборке кампуса и прилегающих территорий (более 4 в год)</p> <p>• ежегодно в апреле (День Земли) проводим Неделю устойчивого развития</p> <p>• создаём материалы об устойчивом развитии на узбекском, русском, английском и других языках</p> <p>• руководим посадкой деревьев и озеленением кампуса</p> <p>• участвуем в национальных и международных экологических мероприятиях и конкурсах</p> <p>• готовим видео и кампании в социальных сетях на тему устойчивого развития</p> <p>• реализуем совместные проекты с университетами-партнёрами</p> <p><strong>Основные достижения (2022–2025)</strong></p> <p>• более 150 активных участников со всех 8 факультетов</p> <p>• более 48 мероприятий за 3 учебных года</p> <p>• более 12 акций по уборке кампуса</p> <p>• более 150 деревьев высажено на территории кампуса</p> <p>• более 60 многоязычных статей и видео об устойчивом развитии</p> <p>• совместные эко-проекты с 3 университетами</p> <p>• активные социальные сети с аудиторией более 5 000 подписчиков</p> <p><strong>Как вступить</strong></p> <p>EcoLingua открыто для всех студентов УзГУМЯ. Чтобы вступить, обратитесь к координатору факультета или в офис Студенческого совета. Следите за нашими новостями в социальных сетях.</p> <p><strong>Контакты</strong></p> <p>E-mail: ecolingua@uzswlu.uz</p> <p>Instagram: @ecolingua_uzswlu</p> <p>Telegram: @ecolingua_uzswlu</p> <p>Куратор: кафедра экологии и зелёных ресурсов</p> <p><strong>QS SUSTAINABILITY — ПРЕДЛАГАЕМЫЙ ОТВЕТ</strong></p> <p><strong>Предлагаемый ответ:</strong></p> <p>Студенческое общество устойчивого развития УзГУМЯ «EcoLingua» работает с 2022 года при Студенческом совете. Общество вовлекает более 150 студентов всех факультетов в экологические кампании, уборку кампуса, посадку деревьев, создание многоязычных материалов и межвузовские эко-дебаты. Ежегодно EcoLingua проводит более 16 мероприятий, включая Неделю устойчивого развития ко Дню Земли. Общество использует лингвистический потенциал университета для продвижения темы устойчивого развития на нескольких языках.</p>",
+   "en": "<strong>EcoLingua — Student Sustainability Society</strong> <p>EcoLingua is the student-led sustainability society of Uzbekistan State University of World Languages (UzSWLU), established in 2022 as part of the university’s “Green University” initiative. The society brings together students from all faculties who are passionate about environmental protection, sustainable development, and using their language skills to promote ecological awareness.</p> <p><strong>Our Mission</strong></p> <p>To engage students in environmental sustainability through language education, multilingual communication, and community action — bridging the gap between linguistic expertise and ecological responsibility.</p> <p><strong>What We Do</strong></p> <p>• Organize eco-forums, sustainability seminars, and inter-university debates</p> <p>• Conduct campus and community clean-up campaigns (4+ per year)</p> <p>• Host Sustainability Awareness Week annually in April (Earth Day)</p> <p>• Create multilingual sustainability content in Uzbek, Russian, English, and other languages</p> <p>• Lead tree planting and campus greening initiatives</p> <p>• Participate in national and international environmental events and competitions</p> <p>• Produce sustainability-themed video content and social media campaigns</p> <p>• Collaborate with partner universities on joint sustainability projects</p>  <p><strong>Key Achievements (2022–2025)</strong></p> <p>• 150+ active student members across all 8 faculties</p> <p>• 48+ sustainability events organized over 3 academic years</p> <p>• 12+ campus clean-up campaigns completed</p> <p>• 150+ trees planted on campus</p> <p>• 60+ multilingual articles and videos on sustainability topics</p> <p>• Partnerships with 3 universities on joint eco-projects</p> <p>• Active social media presence reaching 5,000+ followers</p>  <p><strong>How to Join</strong></p> <p>EcoLingua is open to all UzSWLU students. To join, contact your faculty coordinator or visit the Student Council office. Follow us on social media for updates on upcoming events and activities.</p> <p><strong>Contact</strong></p> <p>Email: ecolingua@uzswlu.uz</p> <p>Instagram: @ecolingua_uzswlu</p> <p>Telegram: @ecolingua_uzswlu</p> <p>Faculty Advisor: Department of Ecology and Green Resources</p>   <p><strong>QS SUSTAINABILITY — SUGGESTED RESPONSE</strong></p>  <p><strong>Suggested Answer:</strong></p> <p>UzSWLU’s student-led sustainability society “EcoLingua” has been operating since 2022 under the Student Council. The society engages 150+ students across all faculties in environmental awareness campaigns, campus clean-ups, tree planting, multilingual sustainability content creation, and inter-university eco-debates. EcoLingua organizes 16+ events annually, including the annual Sustainability Awareness Week aligned with Earth Day. The society uniquely leverages UzSWLU’s linguistic expertise to promote sustainability discourse in multiple languages.</p>",
+   "zh": "<p><strong>EcoLingua——学生可持续发展协会</strong></p> <p>EcoLingua是乌兹别克斯坦国立世界语言大学由学生主导的可持续发展协会，于2022年在学校“绿色大学”倡议框架下成立。协会汇聚各院系热爱环境保护和可持续发展、希望运用语言能力提升生态意识的学生。</p> <p><strong>我们的使命</strong></p> <p>通过语言教育、多语种传播和社区行动，引导学生参与环境可持续发展——在语言专长与生态责任之间架起桥梁。</p> <p><strong>我们的工作</strong></p> <p>• 组织生态论坛、可持续发展研讨会和校际辩论</p> <p>• 开展校园及社区清洁活动（每年4次以上）</p> <p>• 每年4月（世界地球日）举办可持续发展宣传周</p> <p>• 用乌兹别克语、俄语、英语等语言制作可持续发展内容</p> <p>• 牵头植树和校园绿化活动</p> <p>• 参加国内外环保活动和竞赛</p> <p>• 制作可持续发展主题视频和社交媒体宣传</p> <p>• 与合作高校共同开展可持续发展项目</p> <p><strong>主要成果（2022–2025）</strong></p> <p>• 来自全部8个院系的150余名活跃成员</p> <p>• 3个学年组织48场以上可持续发展活动</p> <p>• 完成12次以上校园清洁活动</p> <p>• 在校园种植150余棵树</p> <p>• 发布60余篇多语种可持续发展文章和视频</p> <p>• 与3所大学合作开展生态项目</p> <p>• 社交媒体粉丝超过5,000人</p> <p><strong>如何加入</strong></p> <p>EcoLingua向全体在校学生开放。如需加入，请联系所在院系协调员或前往学生会办公室。欢迎关注我们的社交媒体，了解最新活动信息。</p> <p><strong>联系方式</strong></p> <p>电子邮箱：ecolingua@uzswlu.uz</p> <p>Instagram：@ecolingua_uzswlu</p> <p>Telegram：@ecolingua_uzswlu</p> <p>指导单位：生态与绿色资源教研室</p> <p><strong>QS可持续发展——建议回答</strong></p> <p><strong>建议回答：</strong></p> <p>学校学生可持续发展协会“EcoLingua”自2022年起在学生会领导下运作，组织各院系150余名学生参与环保宣传、校园清洁、植树、多语种可持续发展内容创作和校际生态辩论。EcoLingua每年举办16场以上活动，包括配合世界地球日的可持续发展宣传周。协会充分发挥学校的语言优势，用多种语言推动可持续发展话题的传播。</p>"
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17762319299662.pdf",
+    {
+     "uz": "EcoLingua_01_Founding_Order",
+     "ru": "EcoLingua_01_Founding_Order",
+     "en": "EcoLingua_01_Founding_Order",
+     "zh": "EcoLingua_01_Founding_Order"
+    }
+   ],
+   [
+    "17762327751055.pdf",
+    {
+     "uz": "EcoLingua_02_Çarter",
+     "ru": "EcoLingua_02_Charter",
+     "en": "EcoLingua_02_Charter",
+     "zh": "EcoLingua_02_Charter"
+    }
+   ],
+   [
+    "17762330998642.pdf",
+    {
+     "uz": "EcoLingua_03_Action_Plan",
+     "ru": "EcoLingua_03_Action_Plan",
+     "en": "EcoLingua_03_Action_Plan",
+     "zh": "EcoLingua_03_Action_Plan"
+    }
+   ],
+   [
+    "17762362428836.pdf",
+    {
+     "uz": "Photo Report on the Activities of the EcoLingua",
+     "ru": "Photo Report on the Activities of the EcoLingua",
+     "en": "Photo Report on the Activities of the EcoLingua",
+     "zh": "Photo Report on the Activities of the EcoLingua"
+    }
+   ]
+  ],
+  "display": "open"
+ },
+ {
+  "slug": "annreport-2023-2024",
+  "parent": "talim-va-barqarorlik",
+  "root": false,
+  "title": {
+   "uz": "Yillik hisobot 2023–2024",
+   "ru": "Годовой отчёт 2023–2024",
+   "en": "Annual report 2023–2024",
+   "zh": "2023–2024年度报告"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17762372842084.pdf",
+    {
+     "uz": "AnnReport 2024",
+     "ru": "AnnReport 2024",
+     "en": "AnnReport 2024",
+     "zh": "AnnReport 2024"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "uzswlu-environmental-sustainability-courses-2024",
+  "parent": "talim-va-barqarorlik",
+  "root": false,
+  "title": {
+   "uz": "Ekologik barqarorlik kurslari 2024",
+   "ru": "Курсы экологической устойчивости 2024",
+   "en": "Environmental sustainability courses 2024",
+   "zh": "2024环境可持续性课程"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17762432776155.pdf",
+    {
+     "uz": "UzSWLU_Environmental_Sustainability_Courses_2024",
+     "ru": "UzSWLU_Environmental_Sustainability_Courses_2024",
+     "en": "UzSWLU_Environmental_Sustainability_Courses_2024",
+     "zh": "UzSWLU_Environmental_Sustainability_Courses_2024"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "ec",
+  "parent": "talim-va-barqarorlik",
+  "root": false,
+  "title": {
+   "uz": "Energiya sarfi",
+   "ru": "Энергопотребление",
+   "en": "Energy consumption",
+   "zh": "能源消耗"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17827745240445.pdf",
+    {
+     "uz": "EC2",
+     "ru": "EC2",
+     "en": "EC2",
+     "zh": "EC2"
+    }
+   ],
+   [
+    "17827765485026.pdf",
+    {
+     "uz": "energiya sarfi 1",
+     "ru": "energiya sarfi 1",
+     "en": "energiya sarfi 1",
+     "zh": "energiya sarfi 1"
+    }
+   ]
+  ],
+  "display": "embed"
+ },
+ {
+  "slug": "moliya",
+  "parent": "talim-va-barqarorlik",
+  "root": false,
+  "title": {
+   "uz": "Moliya",
+   "ru": "Финансы",
+   "en": "Finance",
+   "zh": "财务"
+  },
+  "body": {
+   "uz": "",
+   "ru": "",
+   "en": "",
+   "zh": ""
+  },
+  "showcase": [],
+  "docs": [
+   [
+    "17840741028560.pdf",
+    {
+     "uz": "hisobot 2024",
+     "ru": "hisobot 2024",
+     "en": "hisobot 2024",
+     "zh": "hisobot 2024"
+    }
+   ],
+   [
+    "17840741452114.pdf",
+    {
+     "uz": "hisobot 2025",
+     "ru": "hisobot 2025",
+     "en": "hisobot 2025",
+     "zh": "hisobot 2025"
+    }
+   ],
+   [
+    "17840741790925.pdf",
+    {
+     "uz": "hisobot 2026",
+     "ru": "hisobot 2026",
+     "en": "hisobot 2026",
+     "zh": "hisobot 2026"
+    }
+   ]
+  ],
+  "display": "open"
+ }
+]

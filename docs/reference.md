@@ -73,7 +73,7 @@ Docker'da: `docker compose exec backend python manage.py <buyruq>`. Parametrlar:
 | `python manage.py issue_staff_session` | Xodim kabineti uchun sessiya tokenini yaratadi | `apps/core/management/commands/issue_staff_session.py` |
 | `python manage.py restore` | Zaxira nusxadan bazani va fayllarni tiklash | `apps/core/management/commands/restore.py` |
 | `python manage.py run_nightly` | Kechki vazifalar: HEMIS sinxronlash, eski sessiya va yozuvlarni tozalash | `apps/core/management/commands/run_nightly.py` |
-| `python manage.py seed_activity` | «Faoliyat» sahifalari va PDF'larini eski sayt ma'lumotlaridan ulaydi (takror işlatiş xavfsiz). | `apps/pages/management/commands/seed_activity.py` |
+| `python manage.py seed_activity` | «Faoliyat» sahifalari va PDF'larini eski sayt ma'lumotlaridan ulaydi; --part 3 — BRM (SDG report, Ta’lim va barqarorlik, 1–17 maqsadlar). Takror işlatiş xavfsiz. | `apps/pages/management/commands/seed_activity.py` |
 | `python manage.py seed_demo` | Boshlang‘ich ma’lumotlarni yuklaydi (bo‘sh bo‘limlarga) | `apps/core/management/commands/seed_demo.py` |
 | `python manage.py sync_hemis` | HEMIS’dan xodimlar, bo‘limlar va sonlarni olib bazaga yozadi (kechki oynada) | `apps/hemis/management/commands/sync_hemis.py` |
 

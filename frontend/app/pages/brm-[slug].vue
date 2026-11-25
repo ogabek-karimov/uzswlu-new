@@ -33,6 +33,9 @@ const reportLinks = computed(() => (overview.value?.reports ?? []).filter((r, i,
 
 const tab = ref(0)
 const section = computed(() => goal.value?.sections[tab.value])
+// Hujjatlar: bölimga biriktirilganlari shu tab ichida, qolganlari sahifa pastida
+const sectionDocs = computed(() => (goal.value?.documents ?? []).filter(d => d.section && d.section === section.value?.id))
+const generalDocs = computed(() => (goal.value?.documents ?? []).filter(d => !d.section || !goal.value?.sections.some(s => s.id === d.section)))
 
 // Faoliyat: shu maqsadga bog'langan yangiliklar / tadbirlar / e'lonlar (10 tadan, sahifalab)
 const TYPES: PostType[] = ['news', 'events', 'announcements']
@@ -145,13 +148,25 @@ useSeo({
           <div v-if="section.images.length" class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
             <img v-for="src in section.images" :key="src" :src="src" alt="" loading="lazy" class="aspect-[4/3] w-full rounded-2xl object-cover">
           </div>
+          <ul v-if="sectionDocs.length" class="mt-5 flex flex-col gap-2" :aria-label="t('sdg.goal.documents')">
+            <li v-for="(d, i) in sectionDocs" :key="i">
+              <a :href="d.url" target="_blank" rel="noopener" class="group flex items-center gap-3.5 rounded-2xl border border-line px-4 py-3 transition-colors hover:border-accent-500 hover:bg-brand-50/40">
+                <span class="grid h-11 w-9 shrink-0 place-items-center rounded-lg text-[10px] font-extrabold" :class="d.kind === 'pdf' ? 'bg-red-50 text-red-700' : 'bg-brand-50 text-brand-700'">{{ d.kind === 'pdf' ? 'PDF' : 'URL' }}</span>
+                <span class="min-w-0 flex-1">
+                  <span class="block font-semibold [overflow-wrap:anywhere]">{{ d.title }}</span>
+                  <span v-if="d.meta" class="mt-0.5 block text-[13px] text-muted">{{ d.meta }}</span>
+                </span>
+                <Icon :name="d.kind === 'pdf' ? 'lucide:download' : 'lucide:arrow-up-right'" class="shrink-0 text-lg text-muted transition-colors group-hover:text-ink" aria-hidden="true" />
+              </a>
+            </li>
+          </ul>
         </div>
 
         <!-- Hujjatlar -->
-        <template v-if="goal.documents.length">
+        <template v-if="generalDocs.length">
           <h2 class="mt-12 font-display text-[34px] font-semibold">{{ t('sdg.goal.documents') }}</h2>
           <ul class="mt-[18px] flex flex-col gap-2.5">
-            <li v-for="(d, i) in goal.documents" :key="i" class="flex flex-wrap items-center gap-4 rounded-[18px] border border-line bg-white px-[18px] py-4">
+            <li v-for="(d, i) in generalDocs" :key="i" class="flex flex-wrap items-center gap-4 rounded-[18px] border border-line bg-white px-[18px] py-4">
               <span class="grid h-[52px] w-11 shrink-0 place-items-center rounded-[10px] bg-red-50 text-[10px] font-extrabold text-red-700">{{ d.kind === 'pdf' ? 'PDF' : 'URL' }}</span>
               <span class="min-w-0 flex-[1_1_240px]">
                 <span class="block font-semibold">{{ d.title }}</span>

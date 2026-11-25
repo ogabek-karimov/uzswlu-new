@@ -12,7 +12,7 @@ import RichEditor from '@/components/RichEditor.vue'
 // BRM — 17 maqsad sahifasi: tavsif, ichki bo'limlar (saytdagi tablar), hisobotlar va THE Impact natijasi.
 // Yangilik qo'shilganda BRM tanlansa, u maqsad sahifasining "Faoliyat" qismida o'z-o'zidan chiqadi.
 type Section = { id?: string; key?: string | null; title: I18n; body: I18n; images: (MediaDoc | number)[] }
-type Report = { id?: string; file?: MediaDoc | number | null; url?: string | null; title: I18n; meta?: string | null; display: 'embed' | 'open' | 'download'; height?: number | null }
+type Report = { id?: string; file?: MediaDoc | number | null; url?: string | null; title: I18n; meta?: string | null; display: 'embed' | 'open' | 'download'; height?: number | null; section?: string | null }
 type Goal = { id: number; n: number; url: string; title: I18n; subtitle?: I18n; impactRank?: string | null; impactScore?: string | null; highlight?: { label?: string | null; value?: I18n }; sections?: Section[]; reports?: Report[] }
 
 const goals = ref<Goal[]>([])
@@ -55,7 +55,7 @@ function pick(n: number) {
     title: { ...g.title }, subtitle: { ...(g.subtitle ?? {}) }, impactRank: g.impactRank ?? '', impactScore: g.impactScore ?? '',
     hlLabel: g.highlight?.label ?? '', hlValue: { ...(g.highlight?.value ?? {}) },
     sections: (g.sections ?? []).map(s => ({ key: s.key, title: { ...s.title }, body: { ...(s.body ?? {}) }, images: [...(s.images ?? [])] })),
-    reports: (g.reports ?? []).map(r => ({ file: r.file ?? null, url: r.url ?? '', title: { ...(r.title ?? {}) }, meta: r.meta ?? '', display: r.display ?? 'open', height: r.height ?? 680 })),
+    reports: (g.reports ?? []).map(r => ({ file: r.file ?? null, url: r.url ?? '', title: { ...(r.title ?? {}) }, meta: r.meta ?? '', display: r.display ?? 'open', height: r.height ?? 680, section: r.section ?? '' })),
   })
 }
 
@@ -69,7 +69,7 @@ async function save() {
         title: form.title, subtitle: form.subtitle, impactRank: form.impactRank.trim() || null, impactScore: form.impactScore.trim() || null,
         highlight: { label: form.hlLabel.trim() || null, value: form.hlValue },
         sections: form.sections.map(s => ({ key: s.key ?? null, title: s.title, body: s.body, images: s.images.map(m => (typeof m === 'object' ? m.id : m)) })),
-        reports: form.reports.map(r => ({ file: obj(r.file)?.id ?? (typeof r.file === 'number' ? r.file : null), url: r.url?.trim() || null, title: r.title, meta: r.meta?.trim() || null, display: r.display, height: r.height })),
+        reports: form.reports.map(r => ({ file: obj(r.file)?.id ?? (typeof r.file === 'number' ? r.file : null), url: r.url?.trim() || null, title: r.title, meta: r.meta?.trim() || null, display: r.display, height: r.height, section: r.section || null })),
       }),
       api.post('/globals/sdg-page', { impactYear: impactYear.value }),
     ])
@@ -241,6 +241,10 @@ function addLink() {
                 <div class="grid min-w-0 flex-1 gap-2 sm:grid-cols-[1fr_160px]">
                   <input v-model="r.title[lang]" class="field" :aria-label="`Hisobot nomi · ${lang}`" :placeholder="`Nomi · ${LANGS.find(l => l.code === lang)?.label}`">
                   <input v-model="r.meta" class="field" aria-label="Izoh" placeholder="Izoh: 22.02.2023">
+                  <select v-model="r.section" class="field sm:col-span-2" aria-label="Qaysi bölimda körinadi">
+                    <option value="">Sahifa pastida (umumiy hujjatlar)</option>
+                    <option v-for="s in form.sections.filter(x => x.key)" :key="s.key!" :value="s.key">Bölim: {{ s.title.uz }}</option>
+                  </select>
                   <input v-if="!obj(r.file)" v-model="r.url" class="field sm:col-span-2" type="url" aria-label="Havola" placeholder="https://…">
                   <p v-else class="text-xs text-subtle sm:col-span-2">{{ obj(r.file)?.filename }} · {{ fileSize(obj(r.file)?.filesize) }}</p>
                 </div>

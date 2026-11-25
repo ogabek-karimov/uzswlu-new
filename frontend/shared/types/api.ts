@@ -773,7 +773,7 @@ export interface SdgGoal extends SdgGoalSummary {
   highlight?: { label: string; value: string } | null
   /** Ichki bo'limlar (tablar): Suvni o'lchash, Suvni tozalash … body — HTML */
   sections: { id: string; title: string; body: string; images: string[] }[]
-  documents: Attachment[]
+  documents: (Attachment & { section?: string | null })[]
 }
 
 /** GET /videos?lang= — video darsliklar */

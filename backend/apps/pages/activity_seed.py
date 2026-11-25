@@ -54,3 +54,52 @@ def seed_files(Page, PageAttachment, Media, part: int, files: Path = FILES) -> i
             PageAttachment.objects.create(page=p, file=m, url='', title=title, meta={}, display=s['display'], order=n)
             added += 1
     return added
+
+
+# ─── BRM 1–17 (seed_data/brm_goals.json): ichki bölimlar (tablar) va hujjatlar ───────────────────
+BRM_FILES = DATA / 'files-large' / 'brm'
+SDG_PLACEHOLDER = 'namunaviy matn'
+
+
+def brm_specs() -> list[dict]:
+    path = DATA / 'brm_goals.json'
+    return json.loads(path.read_text(encoding='utf-8')) if path.exists() else []
+
+
+def seed_goals(SdgGoal, SdgSection) -> None:
+    """Faqat hali namunaviy holatdagi maqsadlar yangilanadi (admin kiritgan matnga tegilmaydi)."""
+    for s in brm_specs():
+        g = SdgGoal.objects.filter(n=s['n']).first()
+        if not g:
+            continue
+        secs = list(g.sections.all())
+        if any(SDG_PLACEHOLDER not in str((x.body or {}).get('uz', '')) for x in secs):
+            continue
+        if g.reports.exclude(file__isnull=True).exists() or g.reports.exclude(url__startswith='https://uzswlu.uz/brm').exists():
+            continue
+        g.sections.all().delete()
+        g.reports.all().delete()
+        for i, x in enumerate(s['sections']):
+            SdgSection.objects.create(goal=g, key=x['key'], title=x['title'], body=x['body'], order=i)
+
+
+def seed_goal_files(SdgGoal, SdgGoalReport, Media, files: Path = BRM_FILES) -> int:
+    added = 0
+    for s in brm_specs():
+        g = SdgGoal.objects.filter(n=s['n']).first()
+        if not g or not set(g.sections.values_list('key', flat=True)) >= {x['key'] for x in s['sections']}:
+            continue
+        items = [(x['key'], d) for x in s['sections'] for d in x['docs']] + [('', d) for d in s['docs']]
+        for n, (key, (fname, title)) in enumerate(items, start=1):
+            src = files / fname
+            if not src.exists() or g.reports.filter(order=n).exists():
+                continue
+            name = f'brm-{s["n"]}-{n}.pdf'
+            with src.open('rb') as fh:
+                size = src.stat().st_size
+                m = Media(folder='docs', kind='pdf', filesize=size, original_size=size, alt={}, sizes={})
+                m.file.save(name, File(fh, name=name), save=False)
+                m.save()
+            SdgGoalReport.objects.create(goal=g, file=m, url='', title=title, meta={}, display='open', order=n, section=key)
+            added += 1
+    return added
