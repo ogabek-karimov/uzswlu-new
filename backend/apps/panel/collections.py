@@ -91,12 +91,25 @@ def ref_id(value):
         raise ValidationError(f'ID noto‘g‘ri: {value}') from None
 
 
+OFFICE_MIME = {
+    'doc': 'application/msword',
+    'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'xls': 'application/vnd.ms-excel',
+    'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'ppt': 'application/vnd.ms-powerpoint',
+    'pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+}
+
+
 def mime_of(m: Media) -> str:
     name = (m.file.name or '').lower()
     if m.kind == 'pdf' or name.endswith('.pdf'):
         return 'application/pdf'
     if m.kind == 'audio' or name.endswith('.mp3'):
         return 'audio/mpeg'
+    ext = name.rsplit('.', 1)[-1] if '.' in name else ''
+    if ext in OFFICE_MIME:
+        return OFFICE_MIME[ext]
     ext = name.rsplit('.', 1)[-1] if '.' in name else 'webp'
     return {'jpg': 'image/jpeg', 'jpeg': 'image/jpeg', 'svg': 'image/svg+xml'}.get(ext, f'image/{ext}')
 
@@ -465,7 +478,8 @@ class Users(Collection):
 def _media_kind(op, value):
     from django.db.models import Q
     v = str(value or '')
-    kind = 'pdf' if 'pdf' in v else 'audio' if v.startswith('audio') else 'image' if v.startswith('image') else None
+    kind = ('pdf' if 'pdf' in v else 'audio' if v.startswith('audio') else 'image' if v.startswith('image')
+            else 'doc' if v == 'doc' or 'officedocument' in v or 'ms-' in v or 'msword' in v else None)
     if kind is None:
         return Q()
     q = Q(kind=kind)
@@ -1195,7 +1209,7 @@ class Pages(Collection):
             'id': p.pk, 'title': i18n_out(p.title), 'template': p.template, 'parent': p.parent_id, 'slug': p.slug or None,
             'url': p.url or None, 'file': media_out(p.file, depth) if p.file_id else None, 'groupKey': p.group_key or None,
             'description': i18n_out(p.description), 'overview': p.overview or None, 'sdg': p.sdg, 'inMenu': p.in_menu,
-            'published': p.published, 'highlight': p.highlight, 'showRector': p.show_rector, 'showUnits': p.show_units, 'staffDepartment': p.staff_department, 'staffExtra': p.staff_extra or [], 'staffContacts': p.staff_contacts or {}, 'staffHours': i18n_out(p.staff_hours), 'ctaTitle': i18n_out(p.cta_title), 'ctaText': i18n_out(p.cta_text), 'ctaLabel': i18n_out(p.cta_label), 'ctaUrl': p.cta_url, 'icon': p.icon, 'showChildren': p.show_children, 'showcase': showcase_admin_out(p.showcase), 'docStyle': p.doc_style, 'lead': i18n_out(p.lead),
+            'published': p.published, 'highlight': p.highlight, 'showRector': p.show_rector, 'showUnits': p.show_units, 'staffDepartment': p.staff_department, 'staffExtra': p.staff_extra or [], 'staffContacts': p.staff_contacts or {}, 'staffHours': i18n_out(p.staff_hours), 'ctaTitle': i18n_out(p.cta_title), 'ctaText': i18n_out(p.cta_text), 'ctaLabel': i18n_out(p.cta_label), 'ctaUrl': p.cta_url, 'icon': p.icon, 'showChildren': p.show_children, 'childrenTabs': p.children_tabs, 'showcase': showcase_admin_out(p.showcase), 'docStyle': p.doc_style, 'lead': i18n_out(p.lead),
             'body': {k: (v.replace('<!-- timeline -->', '<p>[[timeline]]</p>') if v else v) for k, v in i18n_out(p.body).items()},
             'facts': [{'id': str(f.pk), 'value': f.value, 'label': i18n_out(f.label)} for f in p.facts.all()],
             'timeline': [{'id': str(t.pk), 'label': i18n_out(t.label), 'text': i18n_out(t.text), 'highlight': t.highlight} for t in p.timeline.all()],
@@ -1207,7 +1221,7 @@ class Pages(Collection):
         put(p, data, {'title': ('title', i18n_in), 'template': ('template', text), 'slug': ('slug', lambda v: text(v) or None),
                       'url': ('url', text), 'groupKey': ('group_key', text), 'description': ('description', i18n_in),
                       'overview': ('overview', text), 'inMenu': ('in_menu', flag), 'published': ('published', flag),
-                      'highlight': ('highlight', flag), 'showRector': ('show_rector', flag), 'showUnits': ('show_units', flag), 'staffDepartment': ('staff_department', text), 'staffExtra': ('staff_extra', staff_ids), 'staffContacts': ('staff_contacts', staff_contacts), 'staffHours': ('staff_hours', i18n_in), 'ctaTitle': ('cta_title', i18n_in), 'ctaText': ('cta_text', i18n_in), 'ctaLabel': ('cta_label', i18n_in), 'ctaUrl': ('cta_url', text), 'icon': ('icon', text), 'showChildren': ('show_children', flag), 'showcase': ('showcase', showcase), 'docStyle': ('doc_style', flag), 'lead': ('lead', i18n_in), 'body': ('body', i18n_in), 'order': ('order', num)})
+                      'highlight': ('highlight', flag), 'showRector': ('show_rector', flag), 'showUnits': ('show_units', flag), 'staffDepartment': ('staff_department', text), 'staffExtra': ('staff_extra', staff_ids), 'staffContacts': ('staff_contacts', staff_contacts), 'staffHours': ('staff_hours', i18n_in), 'ctaTitle': ('cta_title', i18n_in), 'ctaText': ('cta_text', i18n_in), 'ctaLabel': ('cta_label', i18n_in), 'ctaUrl': ('cta_url', text), 'icon': ('icon', text), 'showChildren': ('show_children', flag), 'childrenTabs': ('children_tabs', flag), 'showcase': ('showcase', showcase), 'docStyle': ('doc_style', flag), 'lead': ('lead', i18n_in), 'body': ('body', i18n_in), 'order': ('order', num)})
         if 'sdg' in data:
             p.sdg = num(data['sdg'], None) or None
         if 'parent' in data:

@@ -69,6 +69,7 @@ Docker'da: `docker compose exec backend python manage.py <buyruq>`. Parametrlar:
 |---|---|---|
 | `python manage.py backup` | Baza va yuklangan fayllarning zaxira nusxasini olish / tekshirish / ro‘yxati | `apps/core/management/commands/backup.py` |
 | `python manage.py build_docs` | Qo‘llanmani yig‘ish: docs/reference.md (koddan avtomatik) va docs/index.html (qidiriladigan bitta fayl) | `apps/core/management/commands/build_docs.py` |
+| `python manage.py import_accreditation` | Eski saytdan «Xalqaro akkreditatsiya» bo'limi hujjatlarini (PDF, Word, Excel) sahifalarga import qiladi | `apps/pages/management/commands/import_accreditation.py` |
 | `python manage.py import_payload` | Payload CMS bazasidagi ma’lumot va fayllarni shu backend’ga ko‘chiradi | `apps/core/management/commands/import_payload.py` |
 | `python manage.py issue_staff_session` | Xodim kabineti uchun sessiya tokenini yaratadi | `apps/core/management/commands/issue_staff_session.py` |
 | `python manage.py restore` | Zaxira nusxadan bazani va fayllarni tiklash | `apps/core/management/commands/restore.py` |
@@ -531,7 +532,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (433 ta test)
+### Backend testlari xaritasi (444 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -541,8 +542,10 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/api/test_cabinet_roles.py` | 10 |  |
 | `backend/tests/api/test_cache_stampede.py` | 8 | Ochiq javoblar keshi: to'dan himoya — bir xil so'rovlar bazaga bir vaqtda urilmaydi (CachedGetMixin._cached_or_build). |
 | `backend/tests/api/test_contract.py` | 6 | Shartnoma testi: ochiq API javoblari `frontend/docs/openapi.yaml` sxemalariga mos bo'lishi shart (4 til × barcha endpoint). |
+| `backend/tests/api/test_docs_tabs.py` | 6 | Office hujjatlari (Word, Excel, PowerPoint) sahifa hujjati sifatida, tugmali menyu (tab) va akkreditatsiya importi. |
 | `backend/tests/api/test_edge_refresh.py` | 7 | Kontent o'zgarganda Nuxt/nginx keshini yangilash (apps/api/edge.py). |
 | `backend/tests/api/test_flows.py` | 14 | Ochiq API oqimlari (demo ma'lumot bilan): sanoqlar, eski /api/site/* manzillari, API token, xodim kabineti, murojaat, statistika. |
+| `backend/tests/api/test_link_buttons.py` | 5 |  |
 | `backend/tests/api/test_maps.py` | 8 |  |
 | `backend/tests/api/test_page_staff.py` | 12 | Sahifadagi bo'lim xodimlari (masalan, «Axborot-resurs markazi»): HEMIS'dan avtomatik, admin zaxirasi, karta kontaktlari. |
 | `backend/tests/api/test_post_neighbors.py` | 1 |  |

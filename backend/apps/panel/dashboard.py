@@ -87,7 +87,7 @@ class MediaStatsView(PanelView):
         if not role_in(request, MEDIA_ROLES):
             return error('Ruxsat yo‘q', 401)
         folders = dict(Media.objects.values_list('folder').annotate(n=Count('id')))
-        kinds = {'image': 0, 'pdf': 0, 'audio': 0} | dict(Media.objects.values_list('kind').annotate(n=Count('id')))
+        kinds = {'image': 0, 'pdf': 0, 'doc': 0, 'audio': 0} | dict(Media.objects.values_list('kind').annotate(n=Count('id')))
         used = Media.objects.aggregate(s=Sum('filesize'))['s'] or 0
         saved = Media.objects.filter(original_size__gt=F('filesize')).aggregate(s=Sum(F('original_size') - F('filesize')))['s'] or 0
         try:

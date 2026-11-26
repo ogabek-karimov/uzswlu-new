@@ -106,7 +106,7 @@ useSeo({ title: () => t('posts.title'), description: () => t('posts.lead') })
       </div>
       </div>
 
-      <!-- Yangiliklar / Tadbirlar / E'lonlar: belgili kartoçkalar; tanlangani — töq indigo gradient, mint belgi va son -->
+      <!-- Yangiliklar / Tadbirlar / E'lonlar: belgili kartoçkalar; tanlangani — töq indigo gradient, mint belgi va son; kursor kelganda — yorqin mint (belgi, ramka, soya) -->
       <div role="tablist" :aria-label="t('posts.typeLabel')" class="mt-5 grid grid-cols-3 gap-2 sm:flex sm:gap-3">
         <button
           v-for="tab in TYPES"
@@ -117,13 +117,13 @@ useSeo({ title: () => t('posts.title'), description: () => t('posts.lead') })
           class="group/tab relative isolate flex min-w-0 flex-col items-start gap-2 overflow-hidden rounded-2xl border p-2.5 text-left transition duration-300 sm:min-w-[210px] sm:flex-row sm:items-center sm:gap-3 sm:p-3 sm:pr-5"
           :class="type === tab
             ? 'border-transparent bg-[linear-gradient(135deg,#382b85,#13112f)] text-white shadow-[0_18px_36px_-18px_rgb(56_43_133/0.8)]'
-            : 'border-line bg-white text-ink hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_16px_32px_-22px_rgb(56_43_133/0.6)] motion-reduce:hover:transform-none'"
+            : 'border-line bg-white text-ink hover:-translate-y-0.5 hover:border-accent-400 hover:shadow-[0_16px_32px_-20px_rgb(0_196_140/0.55)] motion-reduce:hover:transform-none'"
           @click="setFilters({ type: tab, month: '' })"
         >
           <span v-if="type === tab" class="pointer-events-none absolute -top-8 -right-8 -z-10 size-24 rounded-full bg-accent-400/25 blur-2xl" aria-hidden="true" />
           <span
             class="grid size-9 shrink-0 place-items-center rounded-xl transition-colors sm:size-11"
-            :class="type === tab ? 'bg-white/10 text-accent-400 ring-1 ring-white/15' : 'bg-brand-50 text-brand-700 group-hover/tab:bg-brand-800 group-hover/tab:text-white'"
+            :class="type === tab ? 'bg-white/10 text-accent-400 ring-1 ring-white/15' : 'bg-brand-50 text-brand-700 group-hover/tab:bg-accent-400 group-hover/tab:text-ink'"
             aria-hidden="true"
           >
             <Icon :name="TYPE_ICONS[tab]" class="size-[18px] sm:size-5" />

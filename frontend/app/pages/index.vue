@@ -16,7 +16,6 @@ const { data } = await useHomeData()
     <HomeBackdrop v-if="data?.announcements?.length" v-reveal variant="paper">
       <HomeNews show="announcements" :news="data?.news ?? []" :announcements="data?.announcements ?? []" />
     </HomeBackdrop>
-    <HomeEvents v-reveal :events="data?.events ?? []" />
     <HomeContact v-reveal :faculties="data?.faculties ?? []" />
     <HomeBanner v-reveal :banner="data?.banner ?? null" />
     <HomeStateSymbols v-reveal />

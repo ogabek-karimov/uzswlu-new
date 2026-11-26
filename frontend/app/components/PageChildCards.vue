@@ -16,7 +16,7 @@ const TONES = [
 
 <template>
   <ul class="child-grid mt-12 grid grid-cols-1 gap-4 min-[480px]:grid-cols-2 lg:grid-cols-4">
-    <li v-for="(c, i) in items" :key="c.slug" class="child-card group relative flex flex-col overflow-hidden rounded-3xl border border-line bg-white transition duration-300 hover:-translate-y-1.5 hover:border-transparent hover:shadow-[0_26px_50px_-28px_rgb(28_21_72/0.55)]" :style="{ '--i': i }">
+    <li v-for="(c, i) in items" :key="c.slug" class="child-card group relative flex flex-col hover:z-10 focus-within:z-10 overflow-hidden rounded-3xl border border-line bg-white transition duration-300 hover:-translate-y-1.5 hover:border-transparent hover:shadow-[0_26px_50px_-28px_rgb(28_21_72/0.55)]" :style="{ '--i': i }">
       <NuxtLink :to="localePath(c.url)" class="relative flex h-[118px] items-center justify-center overflow-hidden bg-gradient-to-br text-white" :class="TONES[i % TONES.length]" :aria-label="c.title">
         <span aria-hidden="true" class="child-orb" />
         <span aria-hidden="true" class="absolute inset-0 bg-[radial-gradient(rgb(255_255_255/0.14)_1px,transparent_1px)] [background-size:16px_16px] opacity-60" />

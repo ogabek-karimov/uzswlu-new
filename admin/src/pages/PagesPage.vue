@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { api, type I18n, type MediaDoc, type Paginated, uploadMedia } from '@/lib/api'
-import { LANGS, type Lang, PDF_MODES, SITE_URL } from '@/lib/constants'
+import { api, type I18n, type MediaDoc, type Paginated } from '@/lib/api'
+import { LANGS, type Lang, SITE_URL } from '@/lib/constants'
 import { setAllCollapsed } from '@/lib/collapse'
-import { fileSize } from '@/lib/format'
 import AlphabetButton from '@/components/AlphabetButton.vue'
 import Collapsible from '@/components/Collapsible.vue'
 import Icon from '@/components/Icon.vue'
 import I18nFields from '@/components/I18nFields.vue'
-import MediaPicker from '@/components/MediaPicker.vue'
+import PageDocsField from '@/components/PageDocsField.vue'
 import PageShowcaseField, { type Showcase } from '@/components/PageShowcaseField.vue'
 import PageStaffField from '@/components/PageStaffField.vue'
 import PdfSlot from '@/components/PdfSlot.vue'
@@ -25,7 +24,7 @@ type Template = 'group' | 'text' | 'special' | 'link'
 type Att = { file?: MediaDoc | number | null; url?: string | null; title: I18n; meta?: I18n; display: 'embed' | 'open' | 'download' | 'link'; height?: number | null }
 type Page = {
   id: number; title: I18n; template: Template; parent?: number | { id: number } | null; slug?: string | null; url?: string | null; file?: MediaDoc | number | null
-  groupKey?: string | null; description?: I18n; overview?: string | null; sdg?: number | null; inMenu?: boolean; published?: boolean; highlight?: boolean; showRector?: boolean; showUnits?: boolean; staffDepartment?: string; staffExtra?: string[]; staffContacts?: Record<string, { phone?: string; email?: string }>; staffHours?: I18n; ctaTitle?: I18n; ctaText?: I18n; ctaLabel?: I18n; ctaUrl?: string; icon?: string; showChildren?: boolean; showcase?: Showcase; docStyle?: boolean
+  groupKey?: string | null; description?: I18n; overview?: string | null; sdg?: number | null; inMenu?: boolean; published?: boolean; highlight?: boolean; showRector?: boolean; showUnits?: boolean; staffDepartment?: string; staffExtra?: string[]; staffContacts?: Record<string, { phone?: string; email?: string }>; staffHours?: I18n; ctaTitle?: I18n; ctaText?: I18n; ctaLabel?: I18n; ctaUrl?: string; icon?: string; showChildren?: boolean; childrenTabs?: boolean; showcase?: Showcase; docStyle?: boolean
   lead?: I18n; body?: I18n; facts?: { value: string; label: I18n }[]; timeline?: { label: I18n; text: I18n; highlight?: boolean }[]; attachments?: Att[]; order?: number | null
 }
 
@@ -97,7 +96,7 @@ function toggle(id: number) {
 // Tahrirlash formasi
 const blank = () => ({
   title: {} as I18n, template: 'text' as Template, parent: null as number | null, slug: '', url: '', file: null as MediaDoc | null, groupKey: '',
-  description: {} as I18n, overview: '', sdg: 0, inMenu: true, published: true, highlight: false, showRector: false, showUnits: false, staffDepartment: '', staffExtra: [] as string[], staffContacts: {} as Record<string, { phone?: string; email?: string }>, staffHours: {} as I18n, ctaTitle: {} as I18n, ctaText: {} as I18n, ctaLabel: {} as I18n, ctaUrl: '', icon: '', showChildren: false, showcase: {} as Showcase, docStyle: false,
+  description: {} as I18n, overview: '', sdg: 0, inMenu: true, published: true, highlight: false, showRector: false, showUnits: false, staffDepartment: '', staffExtra: [] as string[], staffContacts: {} as Record<string, { phone?: string; email?: string }>, staffHours: {} as I18n, ctaTitle: {} as I18n, ctaText: {} as I18n, ctaLabel: {} as I18n, ctaUrl: '', icon: '', showChildren: false, childrenTabs: false, showcase: {} as Showcase, docStyle: false,
   lead: {} as I18n, body: {} as I18n, facts: [] as { value: string; label: I18n }[], timeline: [] as { label: I18n; text: I18n; highlight: boolean }[], attachments: [] as Att[],
 })
 const form = reactive(blank())
@@ -114,7 +113,7 @@ function pick(id: number) {
   for (let x = pid(p); x; x = pid(byId(x)!)) open.value.add(x)
   Object.assign(form, blank(), {
     title: { ...p.title }, template: p.template, parent: pid(p), slug: p.slug ?? '', url: p.url ?? '', file: obj(p.file), groupKey: p.groupKey ?? '',
-    description: { ...(p.description ?? {}) }, overview: p.overview ?? '', sdg: p.sdg ?? 0, inMenu: p.inMenu !== false, published: p.published !== false, highlight: !!p.highlight, showRector: !!p.showRector, showUnits: !!p.showUnits, staffDepartment: p.staffDepartment ?? '', staffExtra: [...(p.staffExtra ?? [])], staffContacts: { ...(p.staffContacts ?? {}) }, staffHours: { ...(p.staffHours ?? {}) }, ctaTitle: { ...(p.ctaTitle ?? {}) }, ctaText: { ...(p.ctaText ?? {}) }, ctaLabel: { ...(p.ctaLabel ?? {}) }, ctaUrl: p.ctaUrl ?? '', icon: p.icon ?? '', showChildren: !!p.showChildren, showcase: JSON.parse(JSON.stringify(p.showcase ?? {})) as Showcase, docStyle: !!p.docStyle,
+    description: { ...(p.description ?? {}) }, overview: p.overview ?? '', sdg: p.sdg ?? 0, inMenu: p.inMenu !== false, published: p.published !== false, highlight: !!p.highlight, showRector: !!p.showRector, showUnits: !!p.showUnits, staffDepartment: p.staffDepartment ?? '', staffExtra: [...(p.staffExtra ?? [])], staffContacts: { ...(p.staffContacts ?? {}) }, staffHours: { ...(p.staffHours ?? {}) }, ctaTitle: { ...(p.ctaTitle ?? {}) }, ctaText: { ...(p.ctaText ?? {}) }, ctaLabel: { ...(p.ctaLabel ?? {}) }, ctaUrl: p.ctaUrl ?? '', icon: p.icon ?? '', showChildren: !!p.showChildren, childrenTabs: !!p.childrenTabs, showcase: JSON.parse(JSON.stringify(p.showcase ?? {})) as Showcase, docStyle: !!p.docStyle,
     lead: { ...(p.lead ?? {}) }, body: { ...(p.body ?? {}) },
     facts: (p.facts ?? []).map(f => ({ value: f.value, label: { ...f.label } })),
     timeline: (p.timeline ?? []).map(t => ({ label: { ...t.label }, text: { ...t.text }, highlight: !!t.highlight })),
@@ -174,7 +173,7 @@ async function save() {
   const data = {
     title: form.title, template: form.template, parent: form.parent, slug: form.slug.trim() || null, url: form.url.trim() || null, file: form.file?.id ?? null,
     groupKey: form.groupKey.trim() || null, description: form.description, overview: form.overview.trim() || null, sdg: form.sdg || null,
-    inMenu: form.inMenu, published: form.published, highlight: form.highlight, showRector: form.showRector, showUnits: form.showUnits, staffDepartment: form.staffDepartment.trim(), staffExtra: form.staffExtra, staffContacts: form.staffContacts, staffHours: form.staffHours, ctaTitle: form.ctaTitle, ctaText: form.ctaText, ctaLabel: form.ctaLabel, ctaUrl: form.ctaUrl.trim(), icon: form.icon.trim(), showChildren: form.showChildren, showcase: form.showcase, docStyle: form.docStyle,
+    inMenu: form.inMenu, published: form.published, highlight: form.highlight, showRector: form.showRector, showUnits: form.showUnits, staffDepartment: form.staffDepartment.trim(), staffExtra: form.staffExtra, staffContacts: form.staffContacts, staffHours: form.staffHours, ctaTitle: form.ctaTitle, ctaText: form.ctaText, ctaLabel: form.ctaLabel, ctaUrl: form.ctaUrl.trim(), icon: form.icon.trim(), showChildren: form.showChildren, childrenTabs: form.childrenTabs, showcase: form.showcase, docStyle: form.docStyle,
     lead: form.lead, body: bodyOut(), facts: form.facts.filter(f => f.value.trim()), timeline: form.timeline,
     attachments: form.attachments.map(a => ({ file: obj(a.file)?.id ?? (typeof a.file === 'number' ? a.file : null), url: a.url?.trim() || null, title: a.title, meta: a.meta, display: a.display, height: a.height })),
   }
@@ -235,23 +234,6 @@ async function move(p: Page, d: number) {
   pages.value = [...pages.value]
 }
 
-// PDF / havolalar
-const picker = ref(false)
-const attInput = ref<HTMLInputElement>()
-async function onAttach(e: Event) {
-  const file = (e.target as HTMLInputElement).files?.[0]
-  if (!file) return
-  const m = await uploadMedia(file, { folder: 'docs' })
-  form.attachments.push({ file: m, title: { uz: file.name.replace(/\.pdf$/i, '') }, meta: {}, display: 'embed', height: 680 })
-  ;(e.target as HTMLInputElement).value = ''
-}
-// «Saytda qanday körinadi» izohi — sahifalarda «Içi körinadi» PDF ko'rgiçda (varaqlar 1 2 3 …) oçiladi
-const PAGE_PDF_NOTE: Record<string, string> = {
-  embed: 'PDF sahifada oçilib turadi: birinçi varaq körinadi, ostida 1 2 3 … — bosilganda faqat varaq almaşadi. Telefonda ham işlaydi.',
-  open: 'Karta körinişida; bosilganda PDF yangi oynada oçiladi.',
-  download: 'Karta körinişida; bosilganda fayl yuklab olinadi.',
-  link: 'Matn ostida faqat nomi (havola); bosilganda PDF oçiladi.',
-}
 // «Havola / PDF» sahifasini matnli sahifaga aylantiriş: yuklangan PDF «Içi körinadi» bölib o'tadi (taşqi havola — olib taşlanadi)
 function toEmbeddedPage() {
   if (form.file) form.attachments.push({ file: form.file, title: { ...form.title }, meta: {}, display: 'embed', height: 680 })
@@ -350,6 +332,7 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
             <label v-if="form.template === 'text'" class="flex items-center gap-2.5" title="Kartalar «Bölimlar» bölimidan (surat, F.I.Sh., lavozim, telefon)"><ToggleSwitch v-model="form.showUnits" label="Matndan keyin bölimlar kartalari" />Bölimlar kartalari</label>
             <label v-if="form.template === 'text'" class="flex items-center gap-2.5" title="Times New Roman shrifti, sarlavhalar markazda — rasmiy hujjat (tarix, nizom) uçun"><ToggleSwitch v-model="form.docStyle" label="Hujjat uslubi" />Hujjat uslubi (Times New Roman)</label>
             <label v-if="form.template === 'text'" class="flex items-center gap-2.5" title="Shu sahifa ichidagi sahifalar (masalan, Yoshlar ittifoqi → Zakovat, Futbol) — belgi, nom va hujjatlari bilan kartalar"><ToggleSwitch v-model="form.showChildren" label="Ichki sahifalar kartalari" />Ichki sahifalar kartalari</label>
+            <label v-if="form.template === 'text'" class="flex items-center gap-2.5" title="Ichki sahifalar tugmalari sahifa tepasida turadi; bosilganda tanlangan sahifa matni va hujjatlari pastda oçiladi (sahifadan çiqmasdan). Ichma-ich sahifalar ham şunday oçiladi"><ToggleSwitch v-model="form.childrenTabs" label="Ichki sahifalar — tugmali menyu" />Ichki sahifalar — tugmali menyu</label>
           </div>
           <div v-if="form.template === 'text'" class="mt-3.5 max-w-[360px]">
             <label for="pg-icon" class="label">Belgi <span class="font-normal">(ota sahifadagi karta uçun)</span></label>
@@ -441,35 +424,7 @@ const LANG_LABEL = computed(() => LANGS.find(l => l.code === lang.value)?.label)
             </div>
           </Collapsible>
 
-          <Collapsible id="page-pdf" title="PDF hujjatlar" hint="Matndan keyin çiqadi. Har bir PDF uçun saytda qanday körinişini tanlang." :count="form.attachments.length">
-            <template #actions>
-              <button type="button" class="btn-ghost h-9! text-xs!" @click="attInput?.click()">+ PDF yuklaş</button>
-              <button type="button" class="btn-ghost h-9! text-xs!" @click="picker = true">Serverdan tanlaş</button>
-            </template>
-            <input ref="attInput" type="file" accept="application/pdf" class="hidden" @change="onAttach">
-            <MediaPicker :open="picker" kind="pdf" @close="picker = false" @pick="m => { form.attachments.push({ file: m, title: { uz: (m.filename ?? '').replace(/\.pdf$/i, '') }, meta: {}, display: 'embed', height: 680 }); picker = false }" />
-            <p v-if="!form.attachments.length" class="rounded-xl bg-canvas px-3.5 py-3 text-sm text-muted">PDF yöq. «+ PDF yuklaş» bilan qöşing — keyin uning ostida <b>«Saytda qanday körinadi»</b> tanlanadi (masalan, «Içi körinadi» — PDF sahifada oçilib turadi va 1 2 3 … bilan varaqlanadi).</p>
-            <div v-for="(a, i) in form.attachments" :key="i" class="rounded-[14px] border border-line p-3.5">
-              <div class="flex items-start gap-3">
-                <span aria-hidden="true" class="grid h-11 w-9 shrink-0 place-items-center rounded-md bg-[#FDECEA] text-[10px] font-extrabold text-[#B42318]">PDF</span>
-                <div class="grid min-w-0 flex-1 gap-2 sm:grid-cols-2">
-                  <input v-model="a.title[lang]" class="field" :aria-label="`Nomi · ${lang}`" :placeholder="`Nomi · ${LANG_LABEL}`">
-                  <input v-model="a.meta![lang]" class="field" :aria-label="`Izoh · ${lang}`" placeholder="Izoh (ixtiyoriy)">
-                  <p v-if="obj(a.file)" class="text-xs text-subtle sm:col-span-2">{{ obj(a.file)?.filename }} · {{ fileSize(obj(a.file)?.filesize) }}</p>
-                  <input v-else v-model="a.url" class="field sm:col-span-2" aria-label="Havola" placeholder="https://…">
-                </div>
-                <button type="button" class="grid size-8 shrink-0 place-items-center rounded-lg text-subtle hover:bg-red-50 hover:text-red-700" aria-label="PDF ni olib taşlaş" @click="form.attachments.splice(i, 1)"><Icon name="trash" :size="14" /></button>
-              </div>
-              <div v-if="obj(a.file)" class="mt-3">
-                <p class="mb-1.5 text-[13px] font-semibold">Saytda qanday körinadi:</p>
-                <div role="radiogroup" aria-label="Saytda qanday körinadi" class="grid grid-cols-2 gap-1 rounded-xl bg-canvas p-1 sm:grid-cols-4">
-                  <button v-for="m in PDF_MODES" :key="m.value" type="button" role="radio" :aria-checked="a.display === m.value" class="min-h-9 rounded-[9px] px-1.5 text-xs font-semibold" :class="a.display === m.value ? 'bg-white text-ink shadow-sm' : 'text-muted'" @click="a.display = m.value">{{ m.label }}</button>
-                </div>
-                <!-- Tanlangan körinişning izohi (sahifalar uçun) -->
-                <p class="mt-1.5 text-xs text-muted">{{ PAGE_PDF_NOTE[a.display] }}</p>
-              </div>
-            </div>
-          </Collapsible>
+          <PageDocsField v-model="form.attachments" :lang="lang" :lang-label="LANG_LABEL" />
         </template>
 
         <div v-if="sel !== null" class="flex justify-end">

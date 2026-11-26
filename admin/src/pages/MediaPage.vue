@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { DOC_ACCEPT, docTone, extOf, isDocFile } from '@/lib/files'
 import { computed, onMounted, ref, watch } from 'vue'
 import { api, type I18n, type MediaDoc, type Paginated, uploadMedia } from '@/lib/api'
 import { auth } from '@/lib/auth'
@@ -9,7 +10,7 @@ import I18nFields from '@/components/I18nFields.vue'
 
 // Media kutubxona: rasm, PDF va audio. Ishlatilayotgan faylni o'chirib bo'lmaydi.
 type Media = MediaDoc & { folder?: string | null; originalSize?: number | null; createdAt?: string; uploadedBy?: { name?: string } | number | null }
-type Stats = { total: number; folders: Record<string, number>; kinds: Record<'image' | 'pdf' | 'audio', number>; used: number; saved: number; disk: { total: number; free: number } | null }
+type Stats = { total: number; folders: Record<string, number>; kinds: Record<'image' | 'pdf' | 'doc' | 'audio', number>; used: number; saved: number; disk: { total: number; free: number } | null }
 
 const FOLDERS = [
   { key: 'all', label: 'Barça fayllar' },
@@ -23,7 +24,7 @@ const FOLDERS = [
 
 const stats = ref<Stats | null>(null)
 const folder = ref('all')
-const kind = ref<'all' | 'image' | 'pdf' | 'audio'>('all')
+const kind = ref<'all' | 'image' | 'pdf' | 'doc' | 'audio'>('all')
 const sort = ref<'new' | 'big' | 'unused'>('new')
 const q = ref('')
 const items = ref<Media[]>([])
@@ -51,6 +52,7 @@ async function load(reset = true) {
   if (folder.value !== 'all') and.push({ folder: { equals: folder.value } })
   if (kind.value === 'image') and.push({ mimeType: { like: 'image/' } })
   if (kind.value === 'pdf') and.push({ mimeType: { equals: 'application/pdf' } })
+  if (kind.value === 'doc') and.push({ mimeType: { equals: 'doc' } })
   if (kind.value === 'audio') and.push({ mimeType: { like: 'audio/' } })
   if (q.value.trim()) and.push({ or: [{ filename: { like: q.value.trim() } }, { 'alt.uz': { like: q.value.trim() } }] })
   if (sort.value === 'unused') {
@@ -85,10 +87,10 @@ async function select(m: Media | null) {
 async function upload(files: File[]) {
   error.value = ''
   for (const f of files) {
-    if (f.size > (f.type === 'application/pdf' ? 50 : 20) * 1024 * 1024) { error.value = `${f.name}: juda katta (rasm 20 MB gaça, PDF 50 MB gaça)`; continue }
+    if (f.size > (isDocFile(f.name) ? 50 : 20) * 1024 * 1024) { error.value = `${f.name}: juda katta (rasm 20 MB gaça, PDF/Word/Excel 50 MB gaça)`; continue }
     uploading.value++
     try {
-      const target = folder.value !== 'all' ? folder.value : f.type === 'application/pdf' ? 'docs' : f.type.startsWith('audio/') ? 'audio' : 'posts'
+      const target = folder.value !== 'all' ? folder.value : isDocFile(f.name) ? 'docs' : f.type.startsWith('audio/') ? 'audio' : 'posts'
       const m = await uploadMedia(f, { folder: target })
       items.value = [m as Media, ...items.value]
       select(m as Media)
@@ -141,7 +143,7 @@ async function remove() {
 
 const isImage = (m: Media) => !!m.mimeType?.startsWith('image/')
 const kindLabel = (m: Media) => (m.mimeType === 'application/pdf' ? 'PDF' : m.mimeType?.startsWith('audio/') ? 'MP3' : (m.filename?.split('.').pop() ?? '').toUpperCase())
-const kindBg = (m: Media) => (m.mimeType === 'application/pdf' ? '#C5192D' : m.mimeType?.startsWith('audio/') ? '#0E7A5A' : '#382B85')
+const kindBg = (m: Media) => (m.mimeType?.startsWith('audio/') ? '#0E7A5A' : m.mimeType?.startsWith('image/') ? '#382B85' : docTone(extOf(m.filename) || 'pdf').fg)
 const thumb = (m: Media) => m.sizes?.thumb?.url ?? m.url ?? ''
 const uploader = (m: Media) => (m.uploadedBy && typeof m.uploadedBy === 'object' ? m.uploadedBy.name : null)
 const metaLine = (m: Media) => [m.width && m.height ? `${m.width} × ${m.height}` : null, m.createdAt ? dateTime(m.createdAt).slice(0, 10) : null, uploader(m)].filter(Boolean).join(' · ')
@@ -161,7 +163,7 @@ const diskPct = computed(() => (stats.value?.disk ? Math.min(100, Math.round(((s
         <h1 class="text-[28px] font-bold tracking-tight">Media kutubxona</h1>
         <p class="mt-1.5 text-[15px] text-muted">Rasm, PDF va audio fayllar. Katta rasm yuklansa ham sayt sekinlaşmaydi — öz-özidan kiçraytiriladi.</p>
       </div>
-      <input ref="input" type="file" multiple class="hidden" accept="image/*,application/pdf,audio/mpeg" @change="onPick">
+      <input ref="input" type="file" multiple class="hidden" :accept="`image/*,${DOC_ACCEPT},audio/mpeg`" @change="onPick">
       <button type="button" class="btn-primary h-[46px]" :disabled="uploading > 0" @click="input?.click()"><Icon name="upload" :size="16" />{{ uploading ? `Yuklanmoqda (${uploading})…` : 'Fayl yuklaş' }}</button>
     </div>
 
@@ -195,7 +197,7 @@ const diskPct = computed(() => (stats.value?.disk ? Math.min(100, Math.round(((s
             <Icon name="search" :size="15" />
             <input v-model="q" aria-label="Fayl qidiriş" placeholder="Fayl nomi yoki tavsifi…" class="min-w-0 flex-1 bg-transparent text-[13px] outline-none">
           </label>
-          <select v-model="kind" class="field h-10! w-auto!" aria-label="Turi"><option value="all">Barça turlar</option><option value="image">Rasmlar</option><option value="pdf">PDF</option><option value="audio">Audio</option></select>
+          <select v-model="kind" class="field h-10! w-auto!" aria-label="Turi"><option value="all">Barça turlar</option><option value="image">Rasmlar</option><option value="pdf">PDF</option><option value="doc">Word / Excel / PowerPoint</option><option value="audio">Audio</option></select>
           <select v-model="sort" class="field h-10! w-auto!" aria-label="Saralaş"><option value="new">Yangilari birinçi</option><option value="big">Kattalari birinçi</option><option value="unused">Işlatilmaganlar</option></select>
         </div>
         <div

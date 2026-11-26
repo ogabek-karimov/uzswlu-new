@@ -469,8 +469,10 @@ export interface StateSymbol {
 export interface Attachment {
   title: string
   url: string
-  /** pdf — fayl (yuklab olinadi), link — tashqi sahifa */
-  kind: 'pdf' | 'link'
+  /** pdf — PDF fayl, doc — Word/Excel/PowerPoint (yuklab olinadi), link — tashqi sahifa */
+  kind: 'pdf' | 'doc' | 'link'
+  /** Fayl turi belgisi: PDF, DOCX, XLSX …; havolada null */
+  ext?: string | null
   /** Qo'shimcha izoh: "PDF · 2.4 MB", "22.02.2023", "inglizcha" */
   meta?: string | null
   /**
@@ -487,6 +489,14 @@ export interface Attachment {
  * GET /pages/:slug?lang= — oddiy matnli sahifa (Universitet haqida, Tuzilma, Stipendiyalar …).
  * Yon menyu va "Oldingi/Keyingi" frontend'da GET /site menyusidan hisoblanadi.
  */
+/** Ichki sahifa (tab tugmasi) */
+export interface PageSubpage {
+  slug: string
+  title: string
+  icon?: string | null
+  url: string
+}
+
 export interface ContentPage {
   slug: string
   title: string
@@ -508,6 +518,10 @@ export interface ContentPage {
   attachments: Attachment[]
   /** Hujjat uslubi: Times New Roman, sarlavhalar markazda */
   docStyle?: boolean
+  /** Ichki sahifalar tugmali menyu (tab) ko'rinishida: tugmalar tepada, tanlangani pastda ochiladi */
+  tabs?: boolean
+  /** Nashr qilingan ichki sahifalar (tartib bo'yicha) — tab ko'rinishi uchun */
+  subpages?: PageSubpage[]
   /** Bo'limlar kartalari (admin → Bo'limlar), sahifada yoqilgan bo'lsa */
   /** Bo'lim xodimlari — HEMIS'dan avtomatik (admin → Sahifalar'da bo'lim tanlanadi); rahbar birinchi */
   staff?: PageStaff[]

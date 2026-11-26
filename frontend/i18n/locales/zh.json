@@ -670,7 +670,9 @@
     "view": "查看",
     "noDocs": "文件即将上传",
     "staffTitle": "工作人员",
-    "unitStaff": "{n} 名员工"
+    "unitStaff": "{n} 名员工",
+    "tabsLabel": "栏目",
+    "tabsEmpty": "本栏目暂无内容。"
   },
   "posts": {
     "title": "校园生活",
@@ -859,7 +861,7 @@
   "admissionPage": {
     "eyebrow": "招生委员会",
     "title": "招生",
-    "lead": "本科、硕士和博士报名——一页了解：专业、时间、费用和所需材料。",
+    "lead": "本科、硕士和博士报名——一页了解：步骤、专业、费用和助学金。",
     "apply": "在线报名",
     "contact": "联系招生委员会",
     "dates": "重要日期",

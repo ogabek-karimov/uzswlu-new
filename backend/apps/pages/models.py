@@ -48,6 +48,9 @@ class Page(models.Model):
                             help_text='Lucide belgisi nomi, masalan: brain, chess-knight, volleyball (lucide.dev/icons)')
     show_children = models.BooleanField('Matndan keyin ichki sahifalar kartalari', default=False,
                                         help_text='Shu sahifa ichidagi sahifalar — belgi, nom va hujjatlari bilan kartalar')
+    children_tabs = models.BooleanField('Ichki sahifalar — tugmali menyu (tab)', default=False,
+                                        help_text='Ichki sahifalar tugmalari sahifa tepasida; bosilganda tanlangan sahifa matni va hujjatlari '
+                                                  'pastda ochiladi (sahifadan chiqmasdan). Ichma-ich sahifalar ham shu tarzda ochiladi')
     showcase = models.JSONField('Kartali ro‘yxat bloki', default=dict, blank=True,
                                 help_text='{intro: {uz…}, columns: [{title: {uz…}, icon, items: {uz: "qator\nqator"}}]} — matndagi [[kartalar]] joyida')
     doc_style = models.BooleanField('Hujjat uslubi', default=False, help_text='Matn Times New Roman shriftida, sarlavhalar markazda (rasmiy hujjat ko‘rinishi)')

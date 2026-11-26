@@ -49,6 +49,8 @@ MAGIC = {
     '.ppt': (_OLE_MAGIC,),
     '.docx': (b'PK\x03\x04',),
     '.pptx': (b'PK\x03\x04',),
+    '.xls': (_OLE_MAGIC,),
+    '.xlsx': (b'PK\x03\x04',),
     '.mp3': (b'ID3', b'\xff'),
 }
 
@@ -184,7 +186,7 @@ _OK_EMBEDDED = ('.xlsx', '.docx', '.pptx')  # diagramma/jadval uchun ichki hujja
 
 
 def inspect_ooxml(data: bytes, kind: str) -> None:
-    """docx/pptx: zip «bomba», xavfli yo'l nomlari, makro, ActiveX, ichki OLE, tashqi (hyperlinkdan boshqa) ulanishlar."""
+    """docx/xlsx/pptx: zip «bomba», xavfli yo'l nomlari, makro, ActiveX, ichki OLE, tashqi (hyperlinkdan boshqa) ulanishlar."""
     try:
         zf = zipfile.ZipFile(io.BytesIO(data))
     except zipfile.BadZipFile:
@@ -215,7 +217,7 @@ def inspect_ooxml(data: bytes, kind: str) -> None:
                 bad = True
             if bad:
                 fail('Faylda makro, ActiveX yoki ichki bajariladigan qism bor — qabul qilinmaydi')
-        required = 'word/document.xml' if kind == 'docx' else 'ppt/presentation.xml'
+        required = {'docx': 'word/document.xml', 'xlsx': 'xl/workbook.xml'}.get(kind, 'ppt/presentation.xml')
         if '[content_types].xml' not in names or required not in names:
             fail('Fayl turi kengaytmasiga mos emas')
 
@@ -255,11 +257,11 @@ _OLE_BAD = tuple(_u16(s) for s in ('_VBA_PROJECT', 'VBA', 'Macros', 'ObjectPool'
 
 
 def inspect_ole(data: bytes, kind: str) -> None:
-    """Eski .doc/.ppt: makro (VBA), ichki ob'ekt va parollangan paket bo'lsa rad etiladi. Katalog nomlari UTF-16LE."""
+    """Eski .doc/.xls/.ppt: makro (VBA), ichki ob'ekt va parollangan paket bo'lsa rad etiladi. Katalog nomlari UTF-16LE."""
     if not data.startswith(_OLE_MAGIC):
         fail('Fayl turi kengaytmasiga mos emas')
-    needed = _u16('WordDocument' if kind == 'doc' else 'PowerPoint Document')
-    if needed not in data:
+    needed = {'doc': ('WordDocument',), 'xls': ('Workbook', 'Book')}.get(kind, ('PowerPoint Document',))
+    if not any(_u16(n) in data for n in needed):
         fail('Fayl turi kengaytmasiga mos emas')
     if any(marker in data for marker in _OLE_BAD):
         fail('Faylda makro yoki ichki ob’ekt bor — qabul qilinmaydi')
@@ -292,9 +294,9 @@ def inspect_bytes(data: bytes, ext: str) -> None:
     """Turga qarab tegishli chuqur tekshiruv (rasmlar uchun — faqat ochib ko'rish)."""
     if ext == '.pdf':
         inspect_pdf(data)
-    elif ext in ('.docx', '.pptx'):
+    elif ext in ('.docx', '.xlsx', '.pptx'):
         inspect_ooxml(data, ext[1:])
-    elif ext in ('.doc', '.ppt'):
+    elif ext in ('.doc', '.xls', '.ppt'):
         inspect_ole(data, ext[1:])
     elif ext in IMAGE_EXTS:
         open_image(data)

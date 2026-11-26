@@ -1159,7 +1159,8 @@ components:
       properties:
         title: { type: string }
         url: { type: string, description: To'liq URL yoki saytdagi ichki manzil ("/sdg-report") }
-        kind: { type: string, enum: [pdf, link] }
+        kind: { type: string, enum: [pdf, doc, link], description: 'pdf — PDF fayl, doc — Word/Excel/PowerPoint (yuklab olinadi), link — havola' }
+        ext: { type: [string, 'null'], example: DOCX, description: 'Fayl turi belgisi: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX; havolada null' }
         meta: { type: [string, 'null'], example: 'PDF · 22.02.2023' }
         display:
           type: [string, 'null']
@@ -1188,6 +1189,11 @@ components:
           items: { type: object, required: [label, text], properties: { label: { type: string, example: '1949' }, text: { type: string }, highlight: { type: boolean } } }
         attachments: { type: array, items: { $ref: '#/components/schemas/Attachment' } }
         docStyle: { type: boolean, description: 'Hujjat uslubi: matn Times New Roman shriftida, sarlavhalar markazda' }
+        tabs: { type: boolean, description: "Ichki sahifalar tugmali menyu (tab) ko'rinishida: tugmalar tepada, tanlangani pastda ochiladi" }
+        subpages:
+          type: array
+          description: "Nashr qilingan ichki sahifalar (tartib bo'yicha) — tab ko'rinishi uchun"
+          items: { type: object, required: [slug, title, url], properties: { slug: { type: string }, title: { type: string }, icon: { type: [string, 'null'] }, url: { type: string } } }
         cta:
           type: [object, 'null']
           description: "Matndan keyin chaqiruv bloki (admin → Sahifalar); havola va tugma yozuvi bo'lmasa null"

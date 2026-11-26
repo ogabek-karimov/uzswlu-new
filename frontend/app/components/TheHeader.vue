@@ -5,6 +5,13 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 const router = useRouter()
+
+// Bosh sahifada turib logo / universitet nomi bosilsa — sahifa boshiga (silliq; «harakatni kamaytirish» yoqilgan bo'lsa — darhol, CSS scroll-behavior)
+function toTop(e: MouseEvent) {
+  if (route.path !== localePath('/') || e.ctrlKey || e.metaKey || e.shiftKey) return
+  e.preventDefault()
+  window.scrollTo({ top: 0 })
+}
 const { data: site } = await useSiteData()
 
 const groups = computed<MenuGroup[]>(() => site.value?.menu ?? [])
@@ -200,7 +207,7 @@ const currentHidden = computed(() => hiddenGroups.value.some(isCurrent))
   >
     <!-- 1-qator: logo, qidiruv, amallar -->
     <div class="mx-auto flex h-[72px] max-w-7xl items-center gap-2 px-3 min-[380px]:px-4 sm:gap-4 sm:px-6 lg:px-8" @mouseenter="scheduleClose">
-      <NuxtLink :to="localePath('/')" class="flex shrink-0 items-center gap-3" :aria-label="t('university.name')">
+      <NuxtLink :to="localePath('/')" class="flex shrink-0 items-center gap-3" :aria-label="t('university.name')" @click="toTop">
         <BrandMark class="size-10 min-[380px]:size-12" />
         <!-- Juda tor telefonda (<380px) qisqa nom yashiriladi — o'ngdagi tugmalar sig'ishi uchun (logo qoladi) -->
         <span class="hidden text-[15px] font-semibold text-ink min-[380px]:inline sm:hidden">{{ t('university.short') }}</span>

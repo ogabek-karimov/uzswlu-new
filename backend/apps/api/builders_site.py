@@ -283,6 +283,33 @@ def cameras_html(body: str) -> str:
     return _CAMERA_RUN.sub(grid, body) if 'rtsp.ru/embed/' in body else body
 
 
+# Faqat havolalardan iborat abzats (kamida 2 ta havola yoki telefon / e-pochta) — tugmalar qatori:
+# <p class="link-btns"><a class="link-btn link-btn--tel|tg|mail|web">. Admin'da oddiy havolalar yoziladi.
+_LINK_ROW = re.compile(r'<p>((?:\s*<a [^>]*>[^<]+</a>\s*){1,8})</p>')
+_LINK = re.compile(r'<a ([^>]*)>')
+
+
+def _link_kind(attrs: str) -> str:
+    href = (re.search(r'href="([^"]*)"', attrs) or [None, ''])[1].lower()
+    if href.startswith('tel:'):
+        return 'tel'
+    if href.startswith('mailto:'):
+        return 'mail'
+    return 'tg' if re.match(r'https?://(t|telegram)\.me/', href) else 'web'
+
+
+def link_buttons(body: str) -> str:
+    def row(m):
+        links = _LINK.findall(m.group(1))
+        kinds = [_link_kind(a) for a in links]
+        if len(links) < 2 and not {'tel', 'mail'} & set(kinds):
+            return m.group(0)
+        it = iter(kinds)
+        inner = _LINK.sub(lambda a: f'<a class="link-btn link-btn--{next(it)}" {a.group(1)}>', m.group(1).strip())
+        return f'<p class="link-btns">{inner}</p>'
+    return _LINK_ROW.sub(row, body) if '<a ' in body else body
+
+
 def page_out(p: Page, lang: str) -> dict:
     return {
         'slug': p.slug,
@@ -296,7 +323,7 @@ def page_out(p: Page, lang: str) -> dict:
                    'trail': _trail(p.parent, lang)}
         if not p.in_menu and p.parent_id and p.parent.template != 'group' else None,
         'facts': [{'value': f.value, 'label': tr(f.label, lang)} for f in p.facts.all()],
-        'body': cameras_html(restore_timeline(tr(p.body, lang))),
+        'body': link_buttons(cameras_html(restore_timeline(tr(p.body, lang)))),
         'timeline': [{'label': tr(t.label, lang), 'text': tr(t.text, lang), 'highlight': t.highlight} for t in p.timeline.all()],
         'attachments': attachments_out(p.attachments.select_related('file'), lang),
         # Matndan keyin rektor kartasi (admin → Rahbariyat; rektor almashsa sahifa o'zi yangilanadi)
@@ -315,6 +342,12 @@ def page_out(p: Page, lang: str) -> dict:
              'attachments': attachments_out(c.attachments.select_related('file'), lang)}
             for c in p.children.filter(published=True, template='text').exclude(slug=None).prefetch_related('attachments__file').order_by('order', 'id')
         ] if p.show_children else [],
+        # Tugmali menyu (tab): ichki sahifalar tepada, tanlangani pastda ochiladi; subpages — ichma-ich tablar uchun ham
+        'tabs': p.children_tabs,
+        'subpages': [
+            {'slug': c.slug, 'title': tr(c.title, lang), 'icon': c.icon or None, 'url': f'/{c.slug}'}
+            for c in p.children.filter(published=True, template='text').exclude(slug=None).order_by('order', 'id')
+        ],
         # Kartali bloklar (matndagi [[kartalar-N]] joyida): raqamlar, ustunlar (klublar / loyihalar…), xulosa
         'showcase': showcase_out(p.showcase, lang),
         'staff': department_staff_out(p.staff_department, lang, p.staff_extra, p.staff_contacts, tr(p.staff_hours, lang)),

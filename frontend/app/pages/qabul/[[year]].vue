@@ -63,46 +63,20 @@ useSeo({ title: () => t('admission.title', { year: data.value?.year ?? '' }), de
             </div>
           </div>
           <div class="shine rounded-[28px] border border-white/20 bg-white/10 p-7 shadow-[0_30px_60px_-30px_rgb(0_0_0/0.6)] backdrop-blur-xl" style="--shine-delay: 0.6s">
-            <p class="text-[13px] font-semibold tracking-[0.14em] text-white/60 uppercase">{{ t('admissionPage.dates') }}</p>
-            <ol class="mt-5">
-              <li v-for="(d, i) in data.dates" :key="i" class="flex gap-4 border-b border-white/10 py-3.5 last:border-0">
-                <span class="mt-1.5 size-2.5 shrink-0 rounded-full" :class="d.current ? 'bg-accent-400' : 'border-2 border-white/50'" />
+            <!-- «Tört qadamda talaba böling»: 4 qator, raqamlar orasida ingichka yo'l chizig'i -->
+            <h2 class="text-[13px] font-semibold tracking-[0.14em] text-white/60 uppercase">{{ t('admissionPage.stepsTitle') }}</h2>
+            <ol class="relative mt-5">
+              <span class="pointer-events-none absolute top-6 bottom-6 left-[19px] w-px bg-[linear-gradient(180deg,rgb(0_252_180/0.7),rgb(255_255_255/0.25))]" aria-hidden="true" />
+              <li v-for="n in 4" :key="n" class="group relative flex gap-4 border-b border-white/10 py-3.5 last:border-0">
+                <span class="relative grid size-10 shrink-0 place-items-center rounded-xl bg-[linear-gradient(135deg,var(--color-brand-500),var(--color-accent-500))] font-display text-[17px] font-semibold text-white shadow-[0_10px_22px_-12px_rgb(0_0_0/0.7)] transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6 motion-reduce:transition-none">{{ String(n).padStart(2, '0') }}</span>
                 <span class="flex-1">
-                  <span class="block font-semibold">{{ d.title }}</span>
-                  <span class="mt-0.5 block text-sm text-white/65">{{ d.period }}</span>
+                  <span class="block font-semibold">{{ t(`admission.steps.s${n}.title`) }}</span>
+                  <span class="mt-0.5 block text-sm leading-relaxed text-white/65">{{ t(`admission.steps.s${n}.text`) }}</span>
                 </span>
               </li>
             </ol>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Bosqichlar -->
-    <section class="section-wave relative isolate mt-20 overflow-hidden py-24">
-      <!-- Fon: yumshoq indigo → binafsha → mint gradient va yog'dular (shisha kartalar ko'rinishi uchun) -->
-      <div class="decor pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-        <span class="absolute inset-0 bg-[linear-gradient(120deg,#e9e6fb_0%,#d9d3f6_40%,#cdeee2_100%)]" />
-        <span class="absolute -top-24 left-[8%] size-[26rem] rounded-full bg-brand-400/40 blur-3xl" />
-        <span class="absolute right-[6%] -bottom-24 size-[28rem] rounded-full bg-accent-400/35 blur-3xl" />
-        <span class="absolute top-1/3 left-1/2 size-[20rem] -translate-x-1/2 rounded-full bg-white/60 blur-3xl" />
-      </div>
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading :eyebrow="t('admissionPage.how')" :title="t('admissionPage.stepsTitle')" />
-        <ol v-reveal class="relative mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          <!-- 1 → 4 yo'lini ko'rsatuvchi yorug' chiziq -->
-          <span class="pointer-events-none absolute top-[3.25rem] right-[12%] left-[12%] hidden h-px bg-[linear-gradient(90deg,transparent,rgb(255_255_255/0.9),rgb(0_252_180/0.8),rgb(255_255_255/0.9),transparent)] lg:block" aria-hidden="true" />
-          <li data-reveal-item
-            v-for="n in 4"
-            :key="n"
-            class="shine group relative rounded-[28px] border border-white/70 bg-white/45 p-7 shadow-[0_24px_50px_-30px_rgb(56_43_133/0.55)] backdrop-blur-xl transition duration-300 hover:-translate-y-1.5 hover:bg-white/60 hover:shadow-[0_34px_70px_-30px_rgb(56_43_133/0.6)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
-            :style="{ '--shine-delay': `${0.3 + n * 0.35}s` }"
-          >
-            <span class="relative grid size-14 place-items-center rounded-2xl bg-[linear-gradient(135deg,var(--color-brand-600),var(--color-brand-400)_55%,var(--color-accent-500))] font-display text-2xl font-semibold text-white shadow-[0_12px_24px_-12px_rgb(56_43_133/0.8)] transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">{{ String(n).padStart(2, '0') }}</span>
-            <p class="relative mt-6 text-[19px] font-semibold text-ink">{{ t(`admission.steps.s${n}.title`) }}</p>
-            <p class="relative mt-2 text-[15px] leading-relaxed text-ink/70">{{ t(`admission.steps.s${n}.text`) }}</p>
-          </li>
-        </ol>
       </div>
     </section>
 
@@ -152,8 +126,8 @@ useSeo({ title: () => t('admission.title', { year: data.value?.year ?? '' }), de
       <p v-else class="mt-7 rounded-3xl border border-dashed border-brand-200 bg-white p-10 text-center text-muted">{{ t('admissionPage.empty') }}</p>
     </section>
 
-    <!-- Narx, grant, hujjatlar -->
-    <section class="mx-auto grid max-w-7xl gap-6 px-4 pt-24 sm:px-6 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1.3fr] lg:px-8">
+    <!-- Narx va grant -->
+    <section class="mx-auto grid max-w-7xl gap-6 px-4 pt-24 sm:px-6 md:grid-cols-2 lg:px-8">
       <div class="shine group rounded-[28px] border border-line bg-white p-8 transition duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-[0_28px_56px_-32px_rgb(56_43_133/0.55)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
         <span class="grid size-[52px] place-items-center rounded-[14px] bg-[linear-gradient(135deg,var(--color-brand-600),var(--color-accent-500))] text-white shadow-[0_10px_22px_-12px_rgb(56_43_133/0.8)] transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6"><Icon name="lucide:wallet" class="size-6" /></span>
         <h2 class="mt-5 text-2xl font-semibold">{{ t('admissionPage.fees.title') }}</h2>
@@ -165,16 +139,6 @@ useSeo({ title: () => t('admission.title', { year: data.value?.year ?? '' }), de
         <h2 class="mt-5 text-2xl font-semibold">{{ t('admissionPage.grants.title') }}</h2>
         <p class="mt-2 text-[15px] leading-relaxed text-muted">{{ t('admissionPage.grants.text') }}</p>
         <NuxtLink :to="localePath('/talim-grantlar-soni')" class="mt-5 inline-flex items-center gap-1.5 font-semibold text-brand-700">{{ t('admissionPage.grants.cta') }} <Icon name="lucide:arrow-right" class="size-4" /></NuxtLink>
-      </div>
-      <div class="rounded-[28px] border border-brand-100 bg-[linear-gradient(150deg,#f3f1fd_0%,#e7f8f0_100%)] p-8 md:col-span-2 lg:col-span-1">
-        <h2 class="text-2xl font-semibold">{{ t('admissionPage.documents') }}</h2>
-        <ul class="mt-5 flex flex-col gap-3 text-[15px]">
-          <li v-for="doc in data.documents" :key="doc" class="flex items-start gap-3">
-            <span class="grid size-6 shrink-0 place-items-center rounded-full bg-brand-800 text-white"><Icon name="lucide:check" class="size-3.5" /></span>
-            {{ doc }}
-          </li>
-        </ul>
-        <a v-if="data.documentsUrl" :href="data.documentsUrl" target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-1.5 font-semibold text-brand-800">{{ t('admissionPage.documentsFull') }} <Icon name="lucide:arrow-right" class="size-4" /></a>
       </div>
     </section>
 

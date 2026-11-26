@@ -175,23 +175,31 @@ def lines(value, lang: str) -> list[str]:
     return [ln.strip() for ln in tr(value, lang).splitlines() if ln.strip()]
 
 
+OFFICE_EXT = {'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'}
+
+
 def attachment_out(a, lang: str):
     """Biriktirma (PDF yoki havola) → API shakli. Fayl ham, havola ham yo'q bo'lsa None."""
     file = a.file if a.file_id else None
     url = file_url(file) or a.url
     if not url:
         return None
-    is_pdf = bool(file) or bool(re.search(r'\.pdf($|\?)', url, re.I))
+    ext = os.path.splitext(file.file.name if file else url.split('?')[0])[1].lstrip('.').lower()
+    is_doc = ext in OFFICE_EXT
+    is_pdf = not is_doc and (bool(file) or ext == 'pdf')
+    label = 'PDF' if is_pdf else ext.upper() if is_doc else None
     meta = pick(a.meta, lang) or pick(a.meta, 'uz')
     if not meta and file:
-        meta = ' · '.join(x for x in ['PDF', size_label(file.filesize)] if x)
+        meta = ' · '.join(x for x in [label, size_label(file.filesize)] if x)
     return {
         'title': tr(a.title, lang) or (os.path.basename(file.file.name) if file else ''),
         'url': url,
-        'kind': 'pdf' if is_pdf else 'link',
+        # pdf — PDF fayl, doc — Word/Excel/PowerPoint (yuklab olinadi), link — tashqi sahifa
+        'kind': 'pdf' if is_pdf else 'doc' if is_doc else 'link',
+        'ext': label,
         'meta': meta or None,
-        'display': a.display if file else None,
-        'height': a.height if file and a.display == 'embed' else None,
+        'display': ('download' if is_doc else a.display) if file else None,  # Office hujjati saytda ochilmaydi
+        'height': a.height if file and is_pdf and a.display == 'embed' else None,
     }
 
 

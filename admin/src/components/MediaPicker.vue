@@ -1,15 +1,16 @@
 <script setup lang="ts">
+import { DOC_ACCEPT, docTone, extOf, isDocFile } from '@/lib/files'
 import { ref, watch } from 'vue'
 import { api, type MediaDoc, type Paginated, uploadMedia } from '@/lib/api'
 import { fileSize, relative } from '@/lib/format'
 import Icon from './Icon.vue'
 
 // "Serverdan tanlash": serverga yuklangan fayllar (media kutubxona) — eski admin'dagi "Browse Server" o'rnida.
-// Ro'yxat, qidiruv, PDF/rasm filtri va kompyuterdan yangi fayl yuklash.
-const props = defineProps<{ open: boolean; kind?: 'pdf' | 'image' | 'all' }>()
+// Ro'yxat, qidiruv, PDF / Word-Excel / rasm filtri va kompyuterdan yangi fayl yuklash.
+const props = defineProps<{ open: boolean; kind?: 'pdf' | 'doc' | 'image' | 'all' }>()
 const emit = defineEmits<{ pick: [MediaDoc]; close: [] }>()
 
-const filter = ref<'pdf' | 'image' | 'all'>('all')
+const filter = ref<'pdf' | 'doc' | 'image' | 'all'>('all')
 const q = ref('')
 const items = ref<MediaDoc[]>([])
 const page = ref(1)
@@ -24,6 +25,7 @@ async function load(reset = true) {
   loading.value = true
   const and: Record<string, unknown>[] = []
   if (filter.value === 'pdf') and.push({ mimeType: { equals: 'application/pdf' } })
+  if (filter.value === 'doc') and.push({ mimeType: { equals: 'doc' } })
   if (filter.value === 'image') and.push({ mimeType: { like: 'image/' } })
   if (q.value.trim()) and.push({ filename: { like: q.value.trim() } })
   try {
@@ -51,7 +53,7 @@ async function onFile(e: Event) {
   uploading.value = true
   try {
     for (const f of files) {
-      const media = await uploadMedia(f, { folder: f.type === 'application/pdf' ? 'docs' : 'posts' })
+      const media = await uploadMedia(f, { folder: isDocFile(f.name) ? 'docs' : 'posts' })
       items.value = [media, ...items.value]
       selected.value = media
     }
@@ -62,7 +64,9 @@ async function onFile(e: Event) {
   }
 }
 
-const isPdf = (m: MediaDoc) => m.mimeType === 'application/pdf'
+// Rasm bo'lmagan fayl (PDF, Word, Excel …) — rangli tur belgisi bilan
+const isFile = (m: MediaDoc) => !m.mimeType?.startsWith('image/')
+const extLabel = (m: MediaDoc) => (extOf(m.filename) || 'pdf').toUpperCase()
 const thumb = (m: MediaDoc) => m.sizes?.thumb?.url ?? m.url ?? ''
 function choose() {
   if (selected.value) emit('pick', selected.value)
@@ -84,9 +88,9 @@ function choose() {
             <input v-model="q" aria-label="Fayl qidiriş" placeholder="Fayl nomi böyiça qidiriş…" class="min-w-0 flex-1 bg-transparent text-[13px] outline-none">
           </label>
           <div role="tablist" aria-label="Fayl turi" class="flex gap-1">
-            <button v-for="f in ([['all', 'Hammasi'], ['pdf', 'PDF'], ['image', 'Rasmlar']] as const)" :key="f[0]" type="button" role="tab" :aria-selected="filter === f[0]" class="h-9 rounded-full px-3 text-xs font-semibold" :class="filter === f[0] ? 'bg-ink text-white' : 'border border-field text-[#3D3958]'" @click="filter = f[0]">{{ f[1] }}</button>
+            <button v-for="f in ([['all', 'Hammasi'], ['pdf', 'PDF'], ['doc', 'Word / Excel'], ['image', 'Rasmlar']] as const)" :key="f[0]" type="button" role="tab" :aria-selected="filter === f[0]" class="h-9 rounded-full px-3 text-xs font-semibold" :class="filter === f[0] ? 'bg-ink text-white' : 'border border-field text-[#3D3958]'" @click="filter = f[0]">{{ f[1] }}</button>
           </div>
-          <input ref="input" type="file" multiple class="hidden" :accept="filter === 'pdf' ? 'application/pdf' : filter === 'image' ? 'image/*' : 'application/pdf,image/*'" @change="onFile">
+          <input ref="input" type="file" multiple class="hidden" :accept="filter === 'pdf' ? 'application/pdf' : filter === 'doc' ? DOC_ACCEPT : filter === 'image' ? 'image/*' : `${DOC_ACCEPT},image/*`" @change="onFile">
           <button type="button" class="h-9 rounded-[10px] border border-dashed border-[#C9C2F0] px-3 text-xs font-semibold text-brand-700" :disabled="uploading" @click="input?.click()">{{ uploading ? 'Yuklanmoqda…' : '+ Kompyuterdan yuklaş' }}</button>
         </div>
 
@@ -99,7 +103,7 @@ function choose() {
                 :class="selected?.id === m.id ? 'border-2 border-brand-700 bg-brand-50' : 'border border-line hover:border-brand-300'"
                 @click="selected = m" @dblclick="selected = m; choose()"
               >
-                <span v-if="isPdf(m)" class="grid h-10 w-8 shrink-0 place-items-center rounded-md bg-red-50 text-[9px] font-extrabold text-red-700">PDF</span>
+                <span v-if="isFile(m)" class="grid h-10 w-9 shrink-0 place-items-center rounded-md text-[9px] font-extrabold" :style="{ background: docTone(extOf(m.filename) || 'pdf').bg, color: docTone(extOf(m.filename) || 'pdf').fg }">{{ extLabel(m) }}</span>
                 <img v-else :src="thumb(m)" alt="" class="size-10 shrink-0 rounded-md object-cover">
                 <span class="min-w-0"><b class="block truncate">{{ m.filename }}</b><span class="text-subtle">{{ fileSize(m.filesize) }}<template v-if="m.createdAt"> · {{ relative(m.createdAt) }}</template></span></span>
               </button>

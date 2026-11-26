@@ -670,7 +670,9 @@
     "view": "View",
     "noDocs": "Documents coming soon",
     "staffTitle": "Staff",
-    "unitStaff": "{n} staff"
+    "unitStaff": "{n} staff",
+    "tabsLabel": "Sections",
+    "tabsEmpty": "There is no content in this section yet."
   },
   "posts": {
     "title": "University life",
@@ -859,7 +861,7 @@
   "admissionPage": {
     "eyebrow": "Admissions Committee",
     "title": "Admission",
-    "lead": "Applying to bachelor’s, master’s and doctoral programmes — all on one page: programmes, deadlines, fees and required documents.",
+    "lead": "Applying to bachelor’s, master’s and doctoral programmes — all on one page: steps, programmes, fees and grants.",
     "apply": "Apply online",
     "contact": "Contact the committee",
     "dates": "Key dates",

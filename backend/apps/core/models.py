@@ -16,6 +16,8 @@ from .utils import abs_url
 
 IMAGE_EXT = filesafe.IMAGE_EXTS  # JPG, PNG, WEBP, GIF (BMP/TIFF — murakkab parserlar, qabul qilinmaydi)
 MAX_UPLOAD = 50 * 1024 * 1024
+# Office hujjatlari (Word, Excel, PowerPoint) — o'zgarishsiz saqlanadi, saytda yuklab olinadi
+DOC_EXT = {'.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx'}
 MAX_WIDTH = 2560
 IMAGE_SIZES = {'thumb': 400, 'card': 900, 'hero': 1920}
 
@@ -26,22 +28,22 @@ def upload_path(instance, filename: str) -> str:
 
 
 def validate_upload(file) -> None:
-    """Ruxsat etilgan turlar: rasm, PDF, MP3. Tarkib chuqur tekshiriladi (`apps.core.filesafe`):
-    rasm o'lchami chegarasi, PDF'da skript/ichki fayl yo'qligi, MP3 sarlavhasi."""
+    """Ruxsat etilgan turlar: rasm, PDF, MP3, Word/Excel/PowerPoint. Tarkib chuqur tekshiriladi (`apps.core.filesafe`):
+    rasm o'lchami chegarasi, PDF'da skript/ichki fayl yo'qligi, Office'da makro/ichki ob'ekt yo'qligi, MP3 sarlavhasi."""
     ext = filesafe.ext_of(file.name)
-    if ext not in IMAGE_EXT | {'.pdf', '.mp3'}:
-        raise ValidationError('Faqat JPG, PNG, WEBP, GIF rasm, PDF yoki MP3 yuklash mumkin')
+    if ext not in IMAGE_EXT | DOC_EXT | {'.pdf', '.mp3'}:
+        raise ValidationError('Faqat rasm (JPG, PNG, WEBP, GIF), PDF, Word, Excel, PowerPoint yoki MP3 yuklash mumkin')
     filesafe.inspect_bytes(filesafe.read_all(file, MAX_UPLOAD), ext)
 
 
 class Media(models.Model):
-    """Rasm, PDF va audio. Rasmlar yuklanganda WebP'ga o'giriladi va kichik o'lchamlari yaratiladi."""
+    """Rasm, PDF, Office hujjati (Word/Excel/PowerPoint) va audio. Rasmlar yuklanganda WebP'ga o'giriladi va kichik o'lchamlari yaratiladi."""
 
     FOLDERS = [
         ('posts', 'Yangiliklar'), ('carousel', 'Karusel'), ('docs', 'Hujjatlar'),
         ('staff', 'Xodimlar'), ('logos', 'Logotiplar'), ('audio', 'Audio'),
     ]
-    KINDS = [('image', 'Rasm'), ('pdf', 'PDF'), ('audio', 'Audio')]
+    KINDS = [('image', 'Rasm'), ('pdf', 'PDF'), ('doc', 'Hujjat (Word, Excel, PowerPoint)'), ('audio', 'Audio')]
 
     file = models.FileField('Fayl', upload_to=upload_path, max_length=300, validators=[validate_upload])
     kind = models.CharField(max_length=10, choices=KINDS, editable=False, default='image')
@@ -72,6 +74,11 @@ class Media(models.Model):
         ext = os.path.splitext(f.name)[1].lower()
         if ext == '.pdf':
             self.kind = 'pdf'
+            self.filesize = len(raw)
+            f.seek(0)
+            return
+        if ext in DOC_EXT:
+            self.kind = 'doc'
             self.filesize = len(raw)
             f.seek(0)
             return

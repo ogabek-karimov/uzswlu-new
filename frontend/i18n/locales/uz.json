@@ -670,7 +670,9 @@
     "noDocs": "Hujjatlar tez orada qöşiladi",
     "view": "Köriş",
     "staffTitle": "Xodimlar",
-    "unitStaff": "{n} ta xodim"
+    "unitStaff": "{n} ta xodim",
+    "tabsLabel": "Bölim sahifalari",
+    "tabsEmpty": "Bu bölimda hozirça maʼlumot yöq."
   },
   "posts": {
     "title": "Universitet hayoti",
@@ -859,7 +861,7 @@
   "admissionPage": {
     "eyebrow": "Qabul komissiyasi",
     "title": "Qabul",
-    "lead": "Bakalavriat, magistratura va doktoranturaga hujjat topşiriş — bir sahifada: yönalişlar, muddatlar, narxlar va kerakli hujjatlar.",
+    "lead": "Bakalavriat, magistratura va doktoranturaga hujjat topşiriş — bir sahifada: qadamlar, yönalişlar, narxlar va grantlar.",
     "apply": "Onlayn ariza topşiriş",
     "contact": "Komissiya bilan boğlaniş",
     "dates": "Muhim sanalar",

@@ -54,7 +54,7 @@ const tone = (ci: number) => TONES[(ci + (props.data.n - 1)) % TONES.length]!
         <component
           :is="/^https?:/.test(c.url) ? 'a' : NuxtLink"
           v-bind="/^https?:/.test(c.url) ? { href: c.url, target: '_blank', rel: 'noopener' } : { to: localePath(c.url) }"
-          class="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition duration-300 hover:-translate-y-1 hover:border-accent-500 hover:shadow-[0_20px_44px_-30px_var(--color-accent-600)]"
+          class="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition duration-300 hover:-translate-y-1 hover:border-accent-500 hover:shadow-[0_16px_34px_-14px_color-mix(in_oklab,var(--color-accent-600)_45%,transparent)]"
         >
           <span v-if="c.photo" class="block aspect-[4/3] overflow-hidden bg-white">
             <img :src="c.photo" :alt="c.title" loading="lazy" class="size-full object-contain p-2 transition-transform duration-500 group-hover:scale-105">
@@ -139,6 +139,10 @@ const tone = (ci: number) => TONES[(ci + (props.data.n - 1)) % TONES.length]!
 <style scoped>
 .showcase-item { animation: showcase-in 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(var(--i) * 60ms); }
 @keyframes showcase-in { from { opacity: 0; transform: translateY(10px); } }
+/* Kursor kelgan karta qo'shnilaridan yuqori qatlamda: aks holda soyasini keyingi qatordagi kartalar yopib qo'yardi
+   (soya faqat pastki qatorda ko'rinardi) */
+.showcase-item { position: relative; }
+.showcase-item:hover, .showcase-item:focus-within { z-index: 2; }
 @media (prefers-reduced-motion: reduce) {
   .showcase-item { animation: none; }
 }

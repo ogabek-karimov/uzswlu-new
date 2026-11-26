@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { DOC_ACCEPT } from '@/lib/files'
 import { ref } from 'vue'
 import { type I18n, uploadMedia } from '@/lib/api'
 import { type Lang, LANGS, PDF_MODES } from '@/lib/constants'
@@ -46,7 +47,7 @@ const langLabel = () => LANGS.find(l => l.code === props.lang)!.short
 
 <template>
   <div>
-    <input ref="input" type="file" accept="application/pdf" multiple class="hidden" @change="onFile">
+    <input ref="input" type="file" :accept="DOC_ACCEPT" multiple class="hidden" @change="onFile">
     <div class="flex flex-wrap items-baseline justify-between gap-2.5">
       <h2 class="text-base font-bold">Fayllar (PDF)</h2>
       <span class="flex gap-3.5">
