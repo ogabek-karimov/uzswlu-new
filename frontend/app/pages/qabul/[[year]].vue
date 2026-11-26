@@ -178,6 +178,25 @@ useSeo({ title: () => t('admission.title', { year: data.value?.year ?? '' }), de
       </div>
     </section>
 
+    <!-- Qabul bo'yicha ma'lumotlar (eski saytdagi ichki sahifalar): Qabul fanlari, kvota, ijodiy imtihonlar, super kontrakt… -->
+    <section v-if="data.guides?.length" class="mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
+      <SectionHeading :eyebrow="t('admissionPage.guidesEyebrow')" :title="t('admissionPage.guidesTitle')" />
+      <ul v-reveal class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <li v-for="g in data.guides" :key="g.url" data-reveal-item>
+          <NuxtLink :to="localePath(g.url)" class="group flex h-full flex-col gap-4 rounded-3xl border border-line bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-[0_28px_56px_-32px_rgb(56_43_133/0.55)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+            <span class="grid size-12 place-items-center rounded-[14px] bg-[linear-gradient(135deg,var(--color-brand-600),var(--color-accent-500))] text-white">
+              <Icon :name="`lucide:${g.icon || 'file-text'}`" class="size-[22px]" />
+            </span>
+            <span class="text-[17px] leading-snug font-semibold text-ink transition-colors group-hover:text-brand-700">{{ g.title }}</span>
+            <span class="mt-auto flex items-center justify-between text-[13px] font-semibold text-muted">
+              {{ g.docs ? t('admissionPage.guideDocs', { n: g.docs }) : t('admissionPage.guideOpen') }}
+              <Icon name="lucide:arrow-right" class="size-4 text-brand-700 transition-transform group-hover:translate-x-1" />
+            </span>
+          </NuxtLink>
+        </li>
+      </ul>
+    </section>
+
     <!-- Savol-javob -->
     <section class="mx-auto grid max-w-7xl gap-12 px-4 pt-24 sm:px-6 lg:grid-cols-[1fr_2fr] lg:px-8">
       <div>

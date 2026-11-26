@@ -885,6 +885,10 @@
       "cta": "Подробнее"
     },
     "documents": "Необходимые документы",
+    "guidesEyebrow": "Абитуриентам",
+    "guidesTitle": "Информация о приёме",
+    "guideDocs": "Документов: {n}",
+    "guideOpen": "Подробнее",
     "documentsFull": "Полный список (PDF)",
     "faqEyebrow": "Вопросы и ответы",
     "faqTitle": "Частые вопросы",

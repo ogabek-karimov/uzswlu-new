@@ -663,7 +663,19 @@ def admission_out(lang: str, year: str | None = None) -> dict | None:
         'documentsUrl': a.documents_url or None,
         'faq': [{'q': tr(x.question, lang), 'a': tr(x.answer, lang)} for x in a.faq.all()],
         'contact': {'address': tr(a.address, lang), 'hours': tr(a.hours, lang), 'phone': a.phone, 'telegram': a.telegram},
+        # «Qabul bo'yicha ma'lumotlar» ichki sahifalari (Qabul fanlari, kvota, ijodiy imtihonlar…) — admin → Sahifalar
+        'guides': admission_guides(lang),
     }
+
+
+def admission_guides(lang: str) -> list[dict]:
+    g = Page.objects.filter(slug='qabul-hujjatlari', published=True).first()
+    if not g:
+        return []
+    return [
+        {'title': tr(c.title, lang), 'url': f'/{c.slug}', 'icon': c.icon or None, 'docs': c.attachments.count()}
+        for c in g.children.filter(published=True, template='text').exclude(slug=None).order_by('order', 'id')
+    ]
 
 
 # ─── BRM ─────────────────────────────────────────────────────────────────────

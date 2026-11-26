@@ -731,6 +731,8 @@ export interface Admission {
   documentsUrl?: string | null
   faq: { q: string; a: string }[]
   contact: { address: string; hours: string; phone: string; telegram: string }
+  /** «Qabul bo'yicha ma'lumotlar» ichki sahifalari: Qabul fanlari, kvota, ijodiy imtihonlar… (docs — PDF soni) */
+  guides?: { title: string; url: string; icon?: string | null; docs: number }[]
 }
 
 /** Reyting o'rni: "#512" va o'tgan yilga nisbatan o'zgarish (+57) */

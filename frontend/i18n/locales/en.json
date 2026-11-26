@@ -885,6 +885,10 @@
       "cta": "Learn more"
     },
     "documents": "Required documents",
+    "guidesEyebrow": "For applicants",
+    "guidesTitle": "Admission information",
+    "guideDocs": "{n} documents",
+    "guideOpen": "Learn more",
     "documentsFull": "Full list (PDF)",
     "faqEyebrow": "FAQ",
     "faqTitle": "Frequently asked questions",

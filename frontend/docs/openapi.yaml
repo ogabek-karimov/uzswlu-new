@@ -1504,6 +1504,17 @@ components:
           type: object
           required: [address, hours, phone, telegram]
           properties: { address: { type: string }, hours: { type: string }, phone: { type: string }, telegram: { type: string, format: uri } }
+        guides:
+          type: array
+          description: "«Qabul bo'yicha ma'lumotlar» ichki sahifalari (Qabul fanlari, kvota, ijodiy imtihonlar…)"
+          items:
+            type: object
+            required: [title, url, docs]
+            properties:
+              title: { type: string, example: Qabul kvotasi }
+              url: { type: string, example: /qabul-kvotasi-intro }
+              icon: { type: [string, 'null'], description: Lucide belgisi, example: users }
+              docs: { type: integer, description: PDF hujjatlar soni, example: 7 }
 
     RankValue:
       type: object
