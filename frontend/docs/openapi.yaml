@@ -819,6 +819,7 @@ components:
         file: { type: [string, 'null'], enum: [pdf, null], description: Fayl bo'lsa — yonida belgi chiqadi }
         highlight: { type: boolean, description: Ajratib ko'rsatish (mega-menyuda alohida karta), example: true }
         sdg: { type: [integer, 'null'], minimum: 1, maximum: 17, description: 'BRM bo''limi: BMT maqsadi raqami — rangli plitka bo''lib chiqadi' }
+        icon: { type: [string, 'null'], description: 'Sahifa belgisi (lucide nomi, masalan radio-tower) — menyuda nuqta o''rnida chiqadi', example: radio-tower }
 
     Campus:
       type: object

@@ -54,7 +54,8 @@ const columns = computed(() => {
             class="group/link flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] transition-colors hover:bg-brand-50"
             :class="link.highlight ? 'font-semibold text-brand-800' : 'text-ink/85 hover:text-ink'"
           >
-            <span class="size-1.5 shrink-0 rounded-full transition-colors" :class="link.highlight ? 'bg-accent-500' : 'bg-brand-200 group-hover/link:bg-brand-600'" />
+            <Icon v-if="link.icon" :name="`lucide:${link.icon}`" class="size-[18px] shrink-0 text-brand-600 transition-colors group-hover/link:text-brand-800" aria-hidden="true" />
+            <span v-else class="size-1.5 shrink-0 rounded-full transition-colors" :class="link.highlight ? 'bg-accent-500' : 'bg-brand-200 group-hover/link:bg-brand-600'" />
             <span class="flex-1">{{ link.title }}</span>
             <span v-if="link.file" class="rounded-md bg-red-50 px-1.5 py-0.5 text-[10px] font-bold tracking-wide text-red-700 uppercase">{{ link.file }}</span>
             <Icon v-else name="lucide:arrow-right" class="size-4 shrink-0 -translate-x-1 text-brand-600 opacity-0 transition group-hover/link:translate-x-0 group-hover/link:opacity-100" />

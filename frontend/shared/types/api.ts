@@ -136,6 +136,8 @@ export interface MenuLink {
   highlight?: boolean
   /** BRM bo'limi: BMT barqaror rivojlanish maqsadi raqami (1–17) — rangli plitka bo'lib chiqadi */
   sdg?: number | null
+  /** Sahifa belgisi (lucide nomi) — menyu va yon menyuda nuqta o'rnida */
+  icon?: string | null
 }
 
 export interface MenuGroup {

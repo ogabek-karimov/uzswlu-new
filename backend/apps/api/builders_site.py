@@ -183,6 +183,7 @@ def menu_out(lang: str) -> list[dict]:
                 'file': 'pdf' if p.template == 'link' and (p.file_id or re.search(r'\.pdf($|\?)', url, re.I)) else None,
                 'highlight': p.highlight,
                 'sdg': p.sdg or None,
+                'icon': p.icon or None,
             })
         menu.append({
             'id': g.group_key or g.slug or str(g.pk),
