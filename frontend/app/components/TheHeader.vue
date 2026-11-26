@@ -321,7 +321,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
                     class="group/link flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-medium text-ink transition-colors hover:bg-brand-50"
                   >
                     <span class="grid size-9 place-items-center rounded-lg bg-brand-50 text-brand-700 transition-colors group-hover/link:bg-brand-800 group-hover/link:text-accent-400">
-                      <Icon v-if="link.icon" :name="`lucide:${link.icon}`" class="size-[18px]" />
+                      <Icon v-if="link.icon" :name="`lucide:${link.icon}`" class="size-6 text-2xl" />
                       <NavGroupIcon v-else :id="group.id" class="size-[18px]" />
                     </span>
                     <span class="flex-1">{{ link.title }}</span>
