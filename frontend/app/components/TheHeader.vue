@@ -307,10 +307,9 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
                   <NuxtLink
                     v-if="group.overview"
                     :to="localePath(group.overview)"
-                    class="group/ov flex items-center gap-3 rounded-xl px-3 pt-2.5 pb-1 font-display text-lg font-semibold text-ink transition-colors hover:text-brand-700"
+                    class="group/ov flex items-center justify-between rounded-xl px-3 pt-2.5 pb-1 font-display text-lg font-semibold text-ink transition-colors hover:text-brand-700"
                     :title="t('nav.overview')"
                   >
-                    <span class="grid size-9 shrink-0 place-items-center rounded-xl bg-brand-800 text-accent-400 transition-colors group-hover/ov:bg-brand-700" aria-hidden="true"><NavGroupIcon :id="group.id" class="size-6 text-2xl" /></span>
                     <span class="flex-1">{{ group.title }}</span>
                     <Icon name="lucide:arrow-right" class="size-4 text-brand-600 transition-transform group-hover/ov:translate-x-1" />
                   </NuxtLink>

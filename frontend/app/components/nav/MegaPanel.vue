@@ -18,7 +18,7 @@ const columns = computed(() => {
     <div class="col-span-3 flex flex-col">
       <!-- Umumiy sahifasi bor bo'lim (BRM → /brm): belgi va nom shu sahifaga olib boradi -->
       <NuxtLink v-if="group.overview" :to="localePath(group.overview)" class="group/ov self-start" :title="t('nav.overview')">
-        <span class="grid place-items-center rounded-2xl transition-colors" :class="group.id === 'sdg' ? 'size-16' : 'size-12', group.id === 'sdg' ? 'bg-white shadow-[0_8px_20px_-12px_rgb(19_17_47/0.5)] ring-1 ring-line' : 'bg-brand-800 text-accent-400 group-hover/ov:bg-brand-700'">
+        <span class="grid place-items-center rounded-2xl transition-colors" :class="group.id === 'sdg' ? 'size-16' : 'size-12', group.id === 'sdg' ? 'bg-white shadow-[0_8px_20px_-12px_rgb(19_17_47/0.5)] ring-1 ring-line' : 'bg-brand-50 text-brand-700 ring-1 ring-brand-100 group-hover/ov:bg-brand-100'">
           <NavGroupIcon :id="group.id" :label="group.id === 'sdg' ? '17' : undefined" :class="group.id === 'sdg' ? 'size-[3.25rem]' : 'size-[30px] text-[30px]'" />
         </span>
         <span class="mt-5 flex items-center gap-2.5 font-display text-3xl font-semibold text-ink transition-colors group-hover/ov:text-brand-700">
@@ -27,7 +27,7 @@ const columns = computed(() => {
         </span>
       </NuxtLink>
       <template v-else>
-        <span class="grid place-items-center rounded-2xl" :class="group.id === 'sdg' ? 'size-16' : 'size-12', group.id === 'sdg' ? 'bg-white shadow-[0_8px_20px_-12px_rgb(19_17_47/0.5)] ring-1 ring-line' : 'bg-brand-800 text-accent-400'">
+        <span class="grid place-items-center rounded-2xl" :class="group.id === 'sdg' ? 'size-16' : 'size-12', group.id === 'sdg' ? 'bg-white shadow-[0_8px_20px_-12px_rgb(19_17_47/0.5)] ring-1 ring-line' : 'bg-brand-50 text-brand-700 ring-1 ring-brand-100'">
           <NavGroupIcon :id="group.id" :label="group.id === 'sdg' ? '17' : undefined" :class="group.id === 'sdg' ? 'size-[3.25rem]' : 'size-[30px] text-[30px]'" />
         </span>
         <p class="mt-5 font-display text-3xl font-semibold text-ink">{{ group.title }}</p>
