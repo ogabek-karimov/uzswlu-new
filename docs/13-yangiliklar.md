@@ -2,6 +2,12 @@
 
 Eng yangisi tepada. **Har bir o‘zgarishdan keyin shu yerga yozing** (qoida: `CLAUDE.md`). Format: sana sarlavha, so‘ng toifa bo‘yicha qisqa punktlar; har yozuv oxirida commit.
 
+## 2026-11-27
+
+- **Sayt (bosh sahifa, Davlat ramzlari)** — «Davlat madhiyasi» kartasida ramz rasmi (gerb bayroq fonida) tagida kichik musiqa (nota) belgisi — oltin doirada, ramka uslubida; kursor kelganda nota yengil sakraydi (harakatni kamaytirish yoqilsa — harakatsiz). `components/home/StateSymbols.vue`.
+- **Sayt (bosh sahifa, video tur)** — «Universitet haqida» yonidagi video tur bosilganda endi alohida qora oyna (dialog) ochilmaydi: video shu kartaning o'zida o'ynaydi. Qora joy umuman yo'q: rolik keng formatda (~2,1:1) yozilgan va YouTube unga tepa/pastdan qora polosa qo'shadi — ramka tasvir nisbatida, polosalar kesiladi; atrofida old (muqova) rasm; video yuklanguncha qora pleyer o'rniga yaltiraydigan shisha panel; muqova bo'lmasa yoki ochilmasa — animatsiyali shisha fon (kursor kelganda shisha ramka ustidan nur o'tadi); o'ng burchakdagi «Yopiş» tugmasi bilan yana muqovaga qaytadi (klaviatura fokusi ham shunga mos o'tadi). `components/home/About.vue`.
+- **Versiya — 1.19.0** (yangi ish kunining birinchi push'i: minor +1). `admin/src/lib/constants.ts`, `admin/package.json`.
+
 ## 2026-11-26
 
 - **Sayt (kartali havolalar soyasi)** — Sahifadagi kartali ro'yxatlarda (masalan, «Ilmiy faoliyat»: Ilmiy kengaş, Ixtisoslaştirilgan kengaş…) kursor kelganda chiqadigan soya faqat pastki qatorda ko'rinardi — yuqori qatorlardagi kartalar soyasini keyingi qator yopib qo'yardi. Endi kursor kelgan karta qo'shnilaridan yuqori qatlamga chiqadi va soya kuchliroq (mint, kartaning ostida va yon tomonlarida aniq ko'rinadi) — barcha qatorlarda bir xil. Xuddi shu tuzatish ichki sahifalar kartalari va hujjat kartalarida ham. `PageShowcase.vue`, `PageChildCards.vue`, `PageDocs.vue`.

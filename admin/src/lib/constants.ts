@@ -28,4 +28,4 @@ export const PDF_MODES = [
 export const SITE_URL = import.meta.env.VITE_SITE_URL ?? 'http://localhost:3000'
 /** Fayllarning ochiq manzili (backend) — "Havolani nusxalash" uchun */
 export const MEDIA_BASE = import.meta.env.VITE_MEDIA_BASE ?? 'http://localhost:8000'
-export const VERSION = '1.18.0'
+export const VERSION = '1.19.0'

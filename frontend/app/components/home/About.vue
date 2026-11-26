@@ -8,6 +8,22 @@ const props = defineProps<{ stats: Stat[]; videoTour?: HomeVideoTour | null }>()
 const { t } = useI18n()
 const localePath = useLocalePath()
 const playing = ref(false)
+// Video kartaning o'zida: bosilganda o'ynaydi, fokus yopish tugmasiga; yopilganda fokus yana «o'ynatish» tugmasiga qaytadi
+const closeBtn = ref<HTMLButtonElement>()
+const playBtn = ref<HTMLButtonElement>()
+const posterOk = ref(true)
+const videoReady = ref(false)
+async function play() {
+  videoReady.value = false
+  playing.value = true
+  await nextTick()
+  closeBtn.value?.focus()
+}
+async function stop() {
+  playing.value = false
+  await nextTick()
+  playBtn.value?.focus()
+}
 
 // «Universitet haqida» kartasi ekranda ko'rinib turganda — davriy yaltirash (main.css: .shine-loop.is-in-view); ekrandan chiqsa to'xtaydi
 const aboutCard = ref<HTMLElement>()
@@ -68,14 +84,37 @@ const facts = computed(() => FACTS.flatMap((fact) => {
         </NuxtLink>
       </article>
 
-      <!-- Video tur: admin panelda («Universitet haqida» bo'limi) havola kiritilsa — shu yerning o'zida ochiladi, aks holda video sahifasiga olib boradi -->
-      <template v-if="videoTour">
+      <!-- Video tur: admin panelda («Universitet haqida» bo'limi) havola kiritilsa — bosilganda shu kartaning o'zida o'ynaydi
+           (alohida oyna ochilmaydi), burchakdagi tugma bilan yopiladi -->
+      <div v-if="videoTour" data-reveal-item class="relative min-h-[300px] overflow-hidden rounded-[28px] bg-brand-600 lg:col-span-7">
+        <!-- O'ynayotganda: fonda old (muqova) rasm, video uning ustida 16:9 nisbatda markazda. Qora joy yo'q: video yuklanguncha
+             o'rnida yaltiraydigan shisha panel; muqova bo'lmasa yoki ochilmasa — shisha fon (kursor kelganda yaltiraydi) -->
+        <div v-if="playing" class="video-stage group/stage absolute inset-0 grid place-items-center overflow-hidden">
+          <img v-if="videoTour.poster && posterOk" :src="videoTour.poster" alt="" class="absolute inset-0 size-full object-cover" loading="lazy" aria-hidden="true" @error="posterOk = false">
+          <span v-else class="glass-bg absolute inset-0" aria-hidden="true" />
+          <div class="video-fit glass-frame relative overflow-hidden rounded-2xl bg-white/15 shadow-[0_24px_50px_-24px_rgb(28_21_72/0.55)] ring-1 ring-white/50 backdrop-blur-xl">
+            <span v-if="!videoReady" class="glass-sheen absolute inset-0" aria-hidden="true" />
+            <video v-if="videoTour.kind === 'file'" :src="videoTour.url" :poster="videoTour.poster || undefined" class="transition-opacity duration-500" :class="videoReady ? 'opacity-100' : 'opacity-0'" controls autoplay playsinline @loadeddata="videoReady = true" />
+            <iframe v-else :src="videoTour.url" :title="videoTour.title || t('about.videoTitle')" class="transition-opacity duration-500" :class="videoReady ? 'opacity-100' : 'opacity-0'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" @load="videoReady = true" />
+          </div>
+          <button
+            ref="closeBtn"
+            type="button"
+            class="absolute top-3 right-3 grid size-10 place-items-center rounded-full bg-white/25 text-white ring-1 ring-white/50 backdrop-blur-md transition-colors hover:bg-white hover:text-ink"
+            :aria-label="t('nav.close')"
+            :title="t('nav.close')"
+            @click="stop"
+          >
+            <Icon name="lucide:x" class="size-5" />
+          </button>
+        </div>
         <button
+          v-else
+          ref="playBtn"
           type="button"
-          data-reveal-item
-          class="oz-stripes group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[28px] bg-brand-600 p-6 text-left text-white transition duration-300 hover:shadow-[0_30px_60px_-30px_var(--color-brand-700)] lg:col-span-7 motion-reduce:transition-none"
+          class="oz-stripes group relative flex size-full min-h-[300px] flex-col justify-between p-6 text-left text-white transition duration-300 hover:shadow-[0_30px_60px_-30px_var(--color-brand-700)] motion-reduce:transition-none"
           :aria-label="`${t('about.videoLabel')}: ${videoTour.title || t('about.videoTitle')}`"
-          @click="playing = true"
+          @click="play"
         >
           <img v-if="videoTour.poster" :src="videoTour.poster" alt="" class="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none" loading="lazy">
           <span class="absolute inset-0 bg-gradient-to-t from-brand-950/85 via-brand-950/25 to-brand-950/30" aria-hidden="true" />
@@ -88,13 +127,7 @@ const facts = computed(() => FACTS.flatMap((fact) => {
             <span v-if="videoTour.text" class="mt-1 line-clamp-2 block text-sm text-white/80">{{ videoTour.text }}</span>
           </span>
         </button>
-        <AppDialog v-model:open="playing" class="max-w-4xl" :title="videoTour.title || t('about.videoTitle')" body-class="p-0">
-          <div v-if="playing" class="aspect-video w-full bg-black">
-            <video v-if="videoTour.kind === 'file'" :src="videoTour.url" :poster="videoTour.poster || undefined" class="size-full" controls autoplay playsinline />
-            <iframe v-else :src="videoTour.url" :title="videoTour.title || t('about.videoTitle')" class="size-full" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" />
-          </div>
-        </AppDialog>
-      </template>
+      </div>
       <!-- Video tur hali kiritilmagan: «Video darsliklar» ga olib bormaydi — admin panelda havola kiritilgach ochiladi -->
       <div v-else data-reveal-item class="oz-stripes relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[28px] bg-brand-600 p-6 text-white lg:col-span-7">
         <span class="text-sm text-white/80">{{ t('about.videoLabel') }}</span>
@@ -111,6 +144,48 @@ const facts = computed(() => FACTS.flatMap((fact) => {
 </template>
 
 <style scoped>
+/* Video karta ichiga sig'adigan eng katta 16:9 o'lcham (kartaning eni ham, bo'yi ham hisobga olinadi) */
+.video-stage { container-type: size; }
+/* Video tur roligi keng formatda (~2,12:1; zaxira bilan 2,16) yozilgan, YouTube uni 16:9 pleyerga tepa/pastdan qora polosa bilan joylaydi.
+   Ramka tasvir nisbatida, 16:9 pleyer uning markazida — polosalar ramkadan tashqarida qoladi (kesiladi), qora joy ko'rinmaydi.
+   Ramka karta ichiga sig'adigan eng katta o'lchamda (eni ham, bo'yi ham hisobga olinadi). */
+.video-fit { --ratio: 2.16; aspect-ratio: var(--ratio) / 1; width: min(100%, 100cqh * var(--ratio)); }
+.video-fit > iframe, .video-fit > video { position: absolute; left: 0; top: 50%; width: 100%; height: auto; aspect-ratio: 16 / 9; transform: translateY(-50%); }
+.video-fit > video { object-fit: cover; }
+/* Muqova yo'q / ochilmadi: shisha fon — yumshoq indigo → mint, suzuvchi yog'dular */
+.glass-bg {
+  background:
+    radial-gradient(40% 60% at 15% 20%, rgb(0 252 180 / 0.45), transparent 70%),
+    radial-gradient(45% 65% at 85% 80%, rgb(125 108 230 / 0.55), transparent 70%),
+    linear-gradient(135deg, #5b4bbe, #7d6ce6 50%, #2fb894);
+  background-size: 160% 160%;
+  animation: glass-drift 12s ease-in-out infinite alternate;
+}
+@keyframes glass-drift { to { background-position: 100% 100%; } }
+/* Video yuklanguncha shisha panel ustidan nur o'tib turadi */
+.glass-sheen {
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.45) 50%, transparent 70%) no-repeat;
+  background-size: 250% 100%;
+  animation: glass-sweep 1.6s ease-in-out infinite;
+}
+@keyframes glass-sweep { from { background-position: 130% 0; } to { background-position: -130% 0; } }
+/* Kursor kelganda shisha ramka ustidan bir marta nur o'tadi */
+.glass-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(110deg, transparent 35%, rgb(255 255 255 / 0.35) 50%, transparent 65%) no-repeat;
+  background-size: 250% 100%;
+  background-position: 130% 0;
+  transition: background-position 0.9s ease;
+}
+.group\/stage:hover .glass-frame::after { background-position: -130% 0; }
+@media (prefers-reduced-motion: reduce) {
+  .glass-bg, .glass-sheen { animation: none; }
+  .glass-frame::after { transition: none; }
+}
 /* Rasmdagi kabi diagonal chiziqlar (surat yoki video muqovasi o'rniga) */
 .oz-stripes {
   background-image: repeating-linear-gradient(135deg, rgb(255 255 255 / 0.07) 0 22px, transparent 22px 44px);

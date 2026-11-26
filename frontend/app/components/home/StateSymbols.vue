@@ -109,6 +109,13 @@ const stars = [
                 <span v-if="symbol.image && symbol.key === 'flag'" class="symbols-wave relative block w-[86%] overflow-hidden rounded-sm shadow-sm">
                   <img :src="symbol.image" alt="" loading="lazy" class="block w-full">
                 </span>
+                <!-- Madhiya: ramz rasmi, uning tagida kichik musiqa belgisi -->
+                <span v-else-if="symbol.image && symbol.key === 'anthem'" class="flex size-full flex-col items-center justify-center gap-1">
+                  <img :src="symbol.image" alt="" loading="lazy" class="h-[64%] w-[80%] object-contain">
+                  <span class="symbols-note grid size-6 place-items-center rounded-full bg-gradient-to-br from-[#f3e3a8] to-[#b98f2f] text-[#5a4210] shadow-[0_4px_10px_-4px_rgb(120_90_20/0.8)]" aria-hidden="true">
+                    <Icon name="lucide:music" class="size-3.5" />
+                  </span>
+                </span>
                 <img v-else-if="symbol.image" :src="symbol.image" alt="" loading="lazy" class="size-[86%] object-contain">
                 <span v-else class="grid size-[62%] place-items-center rounded-full bg-brand-900 text-accent-400 shadow-[0_8px_20px_-8px_var(--color-brand-900)]">
                   <Icon name="lucide:music" class="size-7" />
@@ -184,7 +191,11 @@ const stars = [
   from { transform: translateX(0); }
   to { transform: translateX(50%); }
 }
+/* Madhiya kartasiga kursor kelganda nota belgisi yengil sakraydi */
+.group\/sym:hover .symbols-note { animation: symbols-note 0.9s ease-in-out infinite; }
+@keyframes symbols-note { 50% { transform: translateY(-3px) rotate(-8deg); } }
 @media (prefers-reduced-motion: reduce) {
+  .symbols-note { animation: none !important; }
   .symbols-wave, .symbols-wave::after { animation: none; }
 }
 </style>
