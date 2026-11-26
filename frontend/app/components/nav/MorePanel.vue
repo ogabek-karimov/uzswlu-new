@@ -47,14 +47,14 @@ const gridCols = computed(() => ['grid-cols-1', 'grid-cols-2', 'grid-cols-3'][pr
 
         <NavSdgGrid v-else-if="group.links.some(l => l.sdg)" :links="group.links" compact class="mt-4" />
 
-        <ul v-else class="mt-3 grid max-h-80 gap-1.5 overflow-y-auto">
+        <ul v-else class="mt-3 -mx-2 max-h-80 overflow-y-auto">
           <li v-for="link in group.links" :key="link.url">
             <NavMenuLink
               :link="link"
-              class="group/link flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm transition duration-300 hover:bg-[linear-gradient(135deg,#382b85,#13112f)] hover:text-white"
-              :class="link.highlight ? 'bg-[linear-gradient(135deg,#effff9,#f4f2fd)] font-semibold text-brand-800 ring-1 ring-accent-400/50' : 'bg-brand-50/70 text-ink/85'"
+              class="flex items-center gap-2.5 rounded-lg px-2 py-2 text-sm transition-colors hover:bg-brand-50"
+              :class="link.highlight ? 'font-semibold text-brand-800' : 'text-ink/85 hover:text-ink'"
             >
-              <span class="size-1.5 shrink-0 rounded-full transition-colors group-hover/link:bg-accent-400" :class="link.highlight ? 'bg-accent-500' : 'bg-brand-300'" />
+              <span class="size-1 shrink-0 rounded-full" :class="link.highlight ? 'bg-accent-500' : 'bg-brand-300'" />
               <span class="flex-1">{{ link.title }}</span>
               <span v-if="link.file" class="rounded bg-red-50 px-1 py-px text-[9px] font-bold text-red-700 uppercase">{{ link.file }}</span>
             </NavMenuLink>

@@ -725,23 +725,6 @@ html[data-scheme] [data-speaking] {
   .page-hero, .page-hero * { color: #13112f !important; }
 }
 
-/* Yuqori menyu: joriy sahifa tegişli bölim — yozuv ostida yaşil (mint) çiziq (TheHeader.vue → isCurrent) */
-.nav-current { position: relative; color: var(--color-ink); }
-.nav-current::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: 1px;
-  width: calc(100% - 1.75rem);
-  min-width: 14px;
-  height: 3px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--color-accent-400), #0fb98f);
-  transform: translateX(-50%);
-  pointer-events: none;
-}
-@media print { .nav-current::after { display: none; } }
-
 
 /* Sahifa boshidagi (page-hero) tugmalar: gradientning mint tomonida ham körinsin — to'q yarim shaffof «şişa», oq belgi */
 .hero-btn {

@@ -157,17 +157,6 @@ function submitSearch() {
 }
 
 const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-full px-3.5 text-[15px] font-medium text-ink/85 transition-colors hover:bg-brand-50 hover:text-ink'
-
-// Joriy sahifa qaysi bölimga tegişli — menyu yozuvi ostida yaşil çiziq (main.css → .nav-current)
-const EXTRA: Record<string, string[]> = { news: ['/news', '/events', '/announcements'] }
-const here = computed(() => route.path.replace(/^\/(ru|en|zh)(?=\/|$)/, '').replace(/\/+$/, '') || '/')
-const under = (url?: string | null) => {
-  if (!url || /^https?:/i.test(url)) return false
-  const u = url.split(/[?#]/)[0]!.replace(/\/+$/, '')
-  return !!u && u !== '/' && (here.value === u || here.value.startsWith(`${u}/`))
-}
-const isCurrent = (g: MenuGroup) => under(g.url) || under(g.overview) || g.links.some(l => under(l.url)) || (EXTRA[g.id] ?? []).some(under)
-const currentHidden = computed(() => hiddenGroups.value.some(isCurrent))
 </script>
 
 <template>
@@ -290,11 +279,11 @@ const currentHidden = computed(() => hiddenGroups.value.some(isCurrent))
               class="relative"
               @mouseenter="group.url ? scheduleClose() : show(group.id)"
             >
-              <NuxtLink v-if="group.url" :to="localePath(group.url)" :class="[navItem, isCurrent(group) && 'nav-current']">{{ group.title }}</NuxtLink>
+              <NuxtLink v-if="group.url" :to="localePath(group.url)" :class="navItem">{{ group.title }}</NuxtLink>
               <button
                 v-else
                 type="button"
-                :class="[navItem, open === group.id && 'bg-brand-50 text-ink', isCurrent(group) && 'nav-current']"
+                :class="[navItem, open === group.id && 'bg-brand-50 text-ink']"
                 :aria-expanded="open === group.id"
                 aria-haspopup="true"
                 @click="toggle(group.id)"
@@ -346,7 +335,7 @@ const currentHidden = computed(() => hiddenGroups.value.some(isCurrent))
               <button
                 type="button"
                 class="grid size-10 place-items-center rounded-full transition-colors"
-                :class="[open === 'more' ? 'bg-ink text-white' : 'bg-brand-50 text-ink hover:bg-brand-100', currentHidden && 'nav-current']"
+                :class="open === 'more' ? 'bg-ink text-white' : 'bg-brand-50 text-ink hover:bg-brand-100'"
                 :aria-expanded="open === 'more'"
                 aria-haspopup="true"
                 :aria-label="`${t('nav.more')}: ${hiddenGroups.map(g => g.title).join(', ')}`"
@@ -434,12 +423,12 @@ const currentHidden = computed(() => hiddenGroups.value.some(isCurrent))
                 <Icon name="lucide:arrow-right" class="size-4" />
               </NuxtLink>
               <NavSdgGrid v-if="group.links.some(l => l.sdg)" :links="group.links" compact class="pb-5" />
-              <ul v-else class="grid gap-1.5 pb-4 sm:grid-cols-2">
+              <ul v-else class="grid gap-0.5 pb-4 sm:grid-cols-2">
                 <li v-for="link in group.links" :key="link.url">
                   <NavMenuLink
                     :link="link"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] transition-colors active:bg-brand-800 active:text-white"
-                    :class="link.highlight ? 'bg-[linear-gradient(135deg,#effff9,#f4f2fd)] font-semibold text-brand-800 ring-1 ring-accent-400/50' : 'bg-brand-50/70 text-ink/85'"
+                    class="flex items-center gap-3 rounded-xl px-2 py-2.5 text-[15px] hover:bg-brand-50"
+                    :class="link.highlight ? 'font-semibold text-brand-800' : 'text-ink/85'"
                   >
                     <span class="size-1.5 shrink-0 rounded-full" :class="link.highlight ? 'bg-accent-500' : 'bg-brand-300'" />
                     <span class="flex-1">{{ link.title }}</span>
