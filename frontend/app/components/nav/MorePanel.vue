@@ -52,7 +52,7 @@ const gridCols = computed(() => ['grid-cols-1', 'grid-cols-2', 'grid-cols-3'][pr
             <NavMenuLink
               :link="link"
               class="group/link flex items-center gap-2.5 rounded-lg px-2 py-2 text-sm transition-colors hover:bg-brand-50"
-              :class="link.highlight ? 'font-semibold text-brand-800' : 'text-ink/85 hover:text-ink'"
+              :class="link.highlight ? 'font-semibold text-brand-800' : 'font-medium text-ink/85 hover:text-ink'"
             >
               <NavLinkIcon v-if="link.icon" :icon="link.icon" small />
               <span v-else class="size-1 shrink-0 rounded-full" :class="link.highlight ? 'bg-accent-500' : 'bg-brand-300'" />

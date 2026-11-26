@@ -52,7 +52,7 @@ const columns = computed(() => {
           <NavMenuLink
             :link="link"
             class="group/link flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] transition-colors hover:bg-brand-50"
-            :class="link.highlight ? 'font-semibold text-brand-800' : 'text-ink/85 hover:text-ink'"
+            :class="link.highlight ? 'font-semibold text-brand-800' : 'font-medium text-ink/85 hover:text-ink'"
           >
             <NavLinkIcon v-if="link.icon" :icon="link.icon" />
             <span v-else class="size-1.5 shrink-0 rounded-full transition-colors" :class="link.highlight ? 'bg-accent-500' : 'bg-brand-200 group-hover/link:bg-brand-600'" />

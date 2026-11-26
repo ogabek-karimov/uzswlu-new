@@ -426,7 +426,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
                   <NavMenuLink
                     :link="link"
                     class="group/link flex items-center gap-3 rounded-xl px-2 py-2.5 text-[15px] hover:bg-brand-50"
-                    :class="link.highlight ? 'font-semibold text-brand-800' : 'text-ink/85'"
+                    :class="link.highlight ? 'font-semibold text-brand-800' : 'font-medium text-ink/85'"
                   >
                     <NavLinkIcon v-if="link.icon" :icon="link.icon" small />
                     <span v-else class="size-1.5 shrink-0 rounded-full" :class="link.highlight ? 'bg-accent-500' : 'bg-brand-300'" />
