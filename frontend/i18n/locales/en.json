@@ -1054,7 +1054,7 @@
     "errorText": "An error occurred while loading the page. Please try again a little later."
   },
   "a11y": {
-    "title": "Display",
+    "title": "Accessibility",
     "font": "Font",
     "reset": "Restore default view",
     "color": "Colour",

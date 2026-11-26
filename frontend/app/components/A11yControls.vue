@@ -1,6 +1,6 @@
 <script setup lang="ts">
-// Maxsus imkoniyatlar: bitta "Ko'rinish" tugmasi — shrift, kontrast/rang va ovoz hammasi uning panelida.
-// nav — menyu qatorida, katta va yaqqol (kompyuter/planshet); bar — yuqori to'q panelda, ixcham (telefon)
+// Maxsus imkoniyatlar: bitta tugma (xalqaro belgi) — shrift, kontrast/rang va ovoz hammasi uning panelida.
+// nav — menyu qatorida, faqat belgi, kursor kelganda nomi chiqadi (kompyuter/planshet); bar — yuqori to'q panelda, faqat belgi (telefon; nomi aria-label/title da)
 const props = withDefaults(defineProps<{ variant?: 'bar' | 'nav' }>(), { variant: 'bar' })
 
 const { t } = useI18n()
@@ -14,24 +14,31 @@ const isNav = computed(() => props.variant === 'nav')
     <button
       v-if="isNav"
       type="button"
-      class="flex h-11 items-center gap-2 rounded-full border-2 border-brand-800 bg-brand-800 pr-4 pl-3 text-sm font-bold text-white transition-colors hover:bg-brand-700"
+      class="group/a11y relative grid size-11 place-items-center rounded-full bg-brand-800 text-white transition-colors hover:bg-brand-700"
       aria-haspopup="dialog"
       :aria-expanded="open"
+      :aria-label="t('a11y.title')"
       @click="open = !open"
     >
-      <Icon name="lucide:eye" class="size-5" />
-      {{ t('a11y.title') }}
+      <A11yIcon class="size-6" />
+      <!-- Kursor kelganda (yoki klaviatura bilan tanlanganda) nomi chiqadi -->
+      <span
+        v-if="!open"
+        class="pointer-events-none absolute top-full right-0 z-10 mt-2 translate-y-1 rounded-lg bg-ink px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-white opacity-0 shadow-lg transition duration-200 group-hover/a11y:translate-y-0 group-hover/a11y:opacity-100 group-focus-visible/a11y:translate-y-0 group-focus-visible/a11y:opacity-100"
+        aria-hidden="true"
+      >{{ t('a11y.title') }}</span>
     </button>
     <button
       v-else
       type="button"
-      class="flex h-7 items-center gap-1.5 rounded-full bg-white/12 px-2.5 text-xs font-bold text-white transition-colors hover:bg-white/20"
+      class="grid size-7 place-items-center rounded-full bg-white/12 text-white transition-colors hover:bg-white/20"
       aria-haspopup="dialog"
       :aria-expanded="open"
+      :aria-label="t('a11y.title')"
+      :title="t('a11y.title')"
       @click="open = !open"
     >
-      <Icon name="lucide:eye" class="size-4" />
-      {{ t('a11y.title') }}
+      <A11yIcon class="size-[18px]" />
     </button>
 
     <A11yPanel v-if="open && isNav" class="absolute top-full right-0 z-[60] mt-2" @close="open = false" />
