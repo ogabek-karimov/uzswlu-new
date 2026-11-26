@@ -1,6 +1,6 @@
 {
   "name": "uzswlu-admin",
-  "version": "1.0.0",
+  "version": "1.18.0",
   "private": true,
   "type": "module",
   "description": "ÖzDJTU boshqaruv paneli — Vue 3 + Tailwind (TailAdmin asosida)",

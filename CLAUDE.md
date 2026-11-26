@@ -12,3 +12,4 @@ Foydalanuvchi bilan **o‘zbekcha** gaplashing.
 3. Testlar: `cd backend && python manage.py test`; frontend/admin: `npm test`.
 4. Commit → `git push origin HEAD:azik` → `git ls-remote origin azik` bilan push borligini tekshiring → CI natijasini kuzating (`gh run list --branch azik`).
 5. Foydalanuvchiga hisobotda: nima o‘zgardi, push qilindimi (commit raqami), CI holati.
+6. **Versiya (admin panel pastida «Versiya X.Y.Z»)** — `admin/src/lib/constants.ts` (`VERSION`) va `admin/package.json` (`version`) da bir xil. Qoida: **yangi ish kunining birinchi push'ida Y (minor) +1, Z = 0**; shu kunning keyingi push'larida faqat tuzatish bo‘lsa Z (patch) +1; X faqat katta qayta qurishda. Yangi versiya changelog'da o‘sha kun yozuvida ko‘rsatiladi. (1.0.0 — 2026-11-08, birinchi ish kuni; har ish kuni +1 minor → 2026-11-26 = 1.18.0.)
