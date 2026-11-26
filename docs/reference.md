@@ -74,6 +74,7 @@ Docker'da: `docker compose exec backend python manage.py <buyruq>`. Parametrlar:
 | `python manage.py restore` | Zaxira nusxadan bazani va fayllarni tiklash | `apps/core/management/commands/restore.py` |
 | `python manage.py run_nightly` | Kechki vazifalar: HEMIS sinxronlash, eski sessiya va yozuvlarni tozalash | `apps/core/management/commands/run_nightly.py` |
 | `python manage.py seed_activity` | «Faoliyat» sahifalari va PDF'larini eski sayt ma'lumotlaridan ulaydi; --part 3 — BRM (SDG report, Ta’lim va barqarorlik, 1–17 maqsadlar). Takror işlatiş xavfsiz. | `apps/pages/management/commands/seed_activity.py` |
+| `python manage.py seed_admission` | Qabul bo'limi va Tuzilma sahifalari PDF'lari (eski saytdan); katta fayllar files-large'ga qo'yilgach qayta ishga tushiring | `apps/pages/management/commands/seed_admission.py` |
 | `python manage.py seed_demo` | Boshlang‘ich ma’lumotlarni yuklaydi (bo‘sh bo‘limlarga) | `apps/core/management/commands/seed_demo.py` |
 | `python manage.py sync_hemis` | HEMIS’dan xodimlar, bo‘limlar va sonlarni olib bazaga yozadi (kechki oynada) | `apps/hemis/management/commands/sync_hemis.py` |
 
@@ -507,7 +508,9 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/apps/hemis/urls.py` | — |
 | `backend/apps/hemis/views.py` | HEMIS orqali kirish (OAuth2): xodim universitet login-paroli bilan kiradi. |
 | `backend/apps/pages/activity_seed.py` | «Faoliyat» bölimi sahifalari eski saytdan (seed_data/activity_pages_*.json): sahifalar, kartalar va PDF hujjatlar. |
+| `backend/apps/pages/admission_seed.py` | Qabul bo'limi eski saytdan (uzswlu.uz/qabul-20262027): «Qabul bo'yicha ma'lumotlar» sahifasi va uning ichki sahifalari — |
 | `backend/apps/pages/models.py` | — |
+| `backend/apps/pages/structure_seed.py` | «Tuzilma» sahifasi eski saytdan (uzswlu.uz/tuzilma): kirish matni (4 tilda) va 2 ta PDF — sayt ichida («Ichi ko'rinadi»). |
 | `backend/apps/panel/auth.py` | Vue admin panel kirishi: Django sessiyasi + Payload'dagi kabi Origin tekshiruvi, bloklash va kirish tarixi. |
 | `backend/apps/panel/cabinet.py` | Xodim kabineti → admin panel ko'prigi: sayt ichidagi kabinetdan turib rolga ruxsat etilgan ma'lumotlar bilan ishlash. |
 | `backend/apps/panel/collections.py` | Vue admin panel kolleksiyalari: Django modeli ↔ Payload shaklidagi JSON. |
