@@ -320,10 +320,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
                     :link="link"
                     class="group/link flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-medium text-ink transition-colors hover:bg-brand-50"
                   >
-                    <span class="grid size-9 place-items-center rounded-lg bg-brand-50 text-brand-700 transition-colors group-hover/link:bg-brand-800 group-hover/link:text-accent-400">
-                      <Icon v-if="link.icon" :name="`lucide:${link.icon}`" class="size-6 text-2xl" />
-                      <NavGroupIcon v-else :id="group.id" class="size-[18px]" />
-                    </span>
+                    <NavLinkIcon :icon="link.icon" :group="group.id" />
                     <span class="flex-1">{{ link.title }}</span>
                     <Icon name="lucide:arrow-right" class="size-4 text-brand-600 opacity-0 transition-opacity group-hover/link:opacity-100" />
                   </NavMenuLink>
@@ -428,10 +425,11 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
                 <li v-for="link in group.links" :key="link.url">
                   <NavMenuLink
                     :link="link"
-                    class="flex items-center gap-3 rounded-xl px-2 py-2.5 text-[15px] hover:bg-brand-50"
+                    class="group/link flex items-center gap-3 rounded-xl px-2 py-2.5 text-[15px] hover:bg-brand-50"
                     :class="link.highlight ? 'font-semibold text-brand-800' : 'text-ink/85'"
                   >
-                    <span class="size-1.5 shrink-0 rounded-full" :class="link.highlight ? 'bg-accent-500' : 'bg-brand-300'" />
+                    <NavLinkIcon v-if="link.icon" :icon="link.icon" small />
+                    <span v-else class="size-1.5 shrink-0 rounded-full" :class="link.highlight ? 'bg-accent-500' : 'bg-brand-300'" />
                     <span class="flex-1">{{ link.title }}</span>
                     <span v-if="link.file" class="rounded bg-red-50 px-1.5 py-0.5 text-[10px] font-bold text-red-700 uppercase">{{ link.file }}</span>
                   </NavMenuLink>

@@ -51,10 +51,11 @@ const gridCols = computed(() => ['grid-cols-1', 'grid-cols-2', 'grid-cols-3'][pr
           <li v-for="link in group.links" :key="link.url">
             <NavMenuLink
               :link="link"
-              class="flex items-center gap-2.5 rounded-lg px-2 py-2 text-sm transition-colors hover:bg-brand-50"
+              class="group/link flex items-center gap-2.5 rounded-lg px-2 py-2 text-sm transition-colors hover:bg-brand-50"
               :class="link.highlight ? 'font-semibold text-brand-800' : 'text-ink/85 hover:text-ink'"
             >
-              <span class="size-1 shrink-0 rounded-full" :class="link.highlight ? 'bg-accent-500' : 'bg-brand-300'" />
+              <NavLinkIcon v-if="link.icon" :icon="link.icon" small />
+              <span v-else class="size-1 shrink-0 rounded-full" :class="link.highlight ? 'bg-accent-500' : 'bg-brand-300'" />
               <span class="flex-1">{{ link.title }}</span>
               <span v-if="link.file" class="rounded bg-red-50 px-1 py-px text-[9px] font-bold text-red-700 uppercase">{{ link.file }}</span>
             </NavMenuLink>
