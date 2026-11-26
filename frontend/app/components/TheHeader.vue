@@ -287,9 +287,9 @@ const currentHidden = computed(() => hiddenGroups.value.some(isCurrent))
           :style="scrolled ? { opacity: 0, pointerEvents: 'none', transform: 'translateY(-6px)' } : undefined"
           :inert="scrolled || undefined"
           :class="{
-            'absolute top-full left-[max(1.5rem,calc((100%-80rem)/2+2rem))] z-10 mt-3 min-[1680px]:top-1/2 min-[1680px]:left-6 min-[1680px]:mt-0 min-[1680px]:-translate-y-1/2': seasonPlace === 'auto',
+            'absolute top-full left-6 z-10 mt-3 min-[1680px]:top-1/2 min-[1680px]:left-6 min-[1680px]:mt-0 min-[1680px]:-translate-y-1/2': seasonPlace === 'auto',
             'absolute top-1/2 left-6 -translate-y-1/2': seasonPlace === 'out',
-            'absolute top-full left-[max(1.5rem,calc((100%-80rem)/2+2rem))] z-10 mt-3': seasonPlace === 'in',
+            'absolute top-full left-6 z-10 mt-3': seasonPlace === 'in',
           }"
         >
           <SeasonButton />
