@@ -729,6 +729,41 @@ html[data-scheme] [data-speaking] {
 }
 
 
+/* Yuqori menyu: joriy sahifa tegişli bölim — yozuv ostida ingiçka çiziq (TheHeader.vue → isCurrent):
+   uçlari eriydigan mint→indigo gradient, örtasida yorug' mint nuqta; oçilganda markazdan ikki yonga çiziladi */
+.nav-current { position: relative; color: var(--color-ink); }
+.nav-current::after,
+.nav-current::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  pointer-events: none;
+}
+.nav-current::after {
+  bottom: 3px;
+  width: calc(100% - 1.5rem);
+  min-width: 18px;
+  height: 1.5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--color-accent-400) 22%, var(--color-brand-500) 78%, transparent);
+  transform: translateX(-50%);
+  animation: nav-line-draw 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.nav-current::before {
+  bottom: 1.75px;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--color-accent-400);
+  box-shadow: 0 0 0 2px rgb(0 252 180 / 0.18), 0 0 8px 1px rgb(0 252 180 / 0.65);
+  transform: translateX(-50%);
+  animation: nav-dot-pop 0.4s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes nav-line-draw { from { transform: translateX(-50%) scaleX(0); opacity: 0; } }
+@keyframes nav-dot-pop { from { transform: translateX(-50%) scale(0); } }
+@media (prefers-reduced-motion: reduce) { .nav-current::after, .nav-current::before { animation: none; } }
+@media print { .nav-current::after, .nav-current::before { display: none; } }
+
 /* Sahifa boshidagi (page-hero) tugmalar: gradientning mint tomonida ham körinsin — to'q yarim shaffof «şişa», oq belgi */
 .hero-btn {
   border: 1px solid rgb(255 255 255 / 0.3);

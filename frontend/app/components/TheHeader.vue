@@ -173,6 +173,17 @@ function submitSearch() {
 }
 
 const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-full px-3.5 text-[15px] font-medium text-ink/85 transition-colors hover:bg-brand-50 hover:text-ink'
+
+// Joriy sahifa qaysi bölimga tegişli — menyu yozuvi ostida ingiçka çiziq (main.css → .nav-current)
+const EXTRA: Record<string, string[]> = { news: ['/news', '/events', '/announcements'] }
+const here = computed(() => route.path.replace(/^\/(ru|en|zh)(?=\/|$)/, '').replace(/\/+$/, '') || '/')
+const under = (url?: string | null) => {
+  if (!url || /^https?:/i.test(url)) return false
+  const u = url.split(/[?#]/)[0]!.replace(/\/+$/, '')
+  return !!u && u !== '/' && (here.value === u || here.value.startsWith(`${u}/`))
+}
+const isCurrent = (g: MenuGroup) => under(g.url) || under(g.overview) || g.links.some(l => under(l.url)) || (EXTRA[g.id] ?? []).some(under)
+const currentHidden = computed(() => hiddenGroups.value.some(isCurrent))
 </script>
 
 <template>
@@ -297,11 +308,11 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
               class="relative"
               @mouseenter="group.url ? scheduleClose() : show(group.id)"
             >
-              <NuxtLink v-if="group.url" :to="localePath(group.url)" :class="navItem">{{ group.title }}</NuxtLink>
+              <NuxtLink v-if="group.url" :to="localePath(group.url)" :class="[navItem, isCurrent(group) && 'nav-current']">{{ group.title }}</NuxtLink>
               <button
                 v-else
                 type="button"
-                :class="[navItem, open === group.id && 'bg-brand-50 text-ink']"
+                :class="[navItem, open === group.id && 'bg-brand-50 text-ink', isCurrent(group) && 'nav-current']"
                 :aria-expanded="open === group.id"
                 aria-haspopup="true"
                 @click="toggle(group.id)"
@@ -351,7 +362,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
               <button
                 type="button"
                 class="grid size-10 place-items-center rounded-full transition-colors"
-                :class="open === 'more' ? 'bg-ink text-white' : 'bg-brand-50 text-ink hover:bg-brand-100'"
+                :class="[open === 'more' ? 'bg-ink text-white' : 'bg-brand-50 text-ink hover:bg-brand-100', currentHidden && 'nav-current']"
                 :aria-expanded="open === 'more'"
                 aria-haspopup="true"
                 :aria-label="`${t('nav.more')}: ${hiddenGroups.map(g => g.title).join(', ')}`"
