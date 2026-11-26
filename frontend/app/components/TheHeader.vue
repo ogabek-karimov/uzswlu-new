@@ -279,16 +279,15 @@ const currentHidden = computed(() => hiddenGroups.value.some(isCurrent))
     <!-- 2-qator: asosiy menyu (planshet va kompyuter) -->
     <div class="relative hidden border-t border-line/70 md:block">
       <div ref="seasonRow" class="mx-auto flex h-14 max-w-7xl items-center overflow-x-clip px-4 sm:px-6 lg:px-8">
-        <!-- Joriy fasl belgisi: menyuning eng boshida -->
-        <!-- Keng ekranda (≥1680px) sahifaning eng chetida, menyudan ajralgan; torroqda menyu oldida, ajratuvchi chiziq bilan -->
-        <!-- Sig'maganda (masalan, şrift 110%+) — menyu oldiga qaytadi: ustiga çiqib ketmaydi -->
+        <!-- Joriy fasl belgisi: keng ekranda (≥1680px) menyu qatorining chap chetida (menyudan tashqarida); torroqda — menyu qatori ostida,
+             chap burchakda (menyu joyini egallamaydi, «Aloqa» gacha hamma band sig'adi) -->
         <div
           ref="seasonWrap"
           class="shrink-0"
           :class="{
-            'mr-5 border-r border-line pr-5 min-[1680px]:absolute min-[1680px]:top-1/2 min-[1680px]:left-6 min-[1680px]:mr-0 min-[1680px]:-translate-y-1/2 min-[1680px]:border-0 min-[1680px]:pr-0': seasonPlace === 'auto',
+            'absolute top-full left-[max(1.5rem,calc((100%-80rem)/2+2rem))] z-10 mt-3 min-[1680px]:top-1/2 min-[1680px]:left-6 min-[1680px]:mt-0 min-[1680px]:-translate-y-1/2': seasonPlace === 'auto',
             'absolute top-1/2 left-6 -translate-y-1/2': seasonPlace === 'out',
-            'mr-5 border-r border-line pr-5': seasonPlace === 'in',
+            'absolute top-full left-[max(1.5rem,calc((100%-80rem)/2+2rem))] z-10 mt-3': seasonPlace === 'in',
           }"
         >
           <SeasonButton />
