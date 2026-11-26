@@ -19,10 +19,10 @@ const current = computed(() => locales.value.find(l => l.code === locale.value))
   <div ref="root" class="relative">
     <button
       type="button"
-      class="flex items-center gap-1.5 font-semibold transition-colors"
+      class="flex items-center font-semibold transition-colors"
       :class="props.variant === 'dark'
-        ? ['rounded-md px-2 py-1 text-[13px] text-white/85 hover:bg-white/10 hover:text-white', open && 'bg-white/10 text-white']
-        : ['h-11 rounded-full px-3.5 text-[16px] text-ink/85 hover:bg-brand-50 hover:text-ink', open && 'bg-brand-50 text-ink']"
+        ? ['gap-1.5 rounded-md px-2 py-1 text-[13px] text-white/85 hover:bg-white/10 hover:text-white', open && 'bg-white/10 text-white']
+        : ['h-11 gap-1 rounded-full px-2 text-[16px] text-ink/85 hover:bg-brand-50 hover:text-ink sm:gap-1.5 sm:px-3.5', open && 'bg-brand-50 text-ink']"
       :aria-expanded="open"
       aria-haspopup="true"
       aria-controls="lang-menu"
@@ -31,7 +31,8 @@ const current = computed(() => locales.value.find(l => l.code === locale.value))
     >
       <LangFlag :code="locale" :class="props.variant === 'dark' ? 'size-[18px]' : 'size-[22px]'" />
       {{ labels[locale] }}
-      <Icon name="lucide:chevron-down" class="size-3.5 opacity-70 transition-transform duration-200" :class="open && 'rotate-180'" />
+      <!-- Telefonda (header tor) strelka yashiriladi -->
+      <Icon name="lucide:chevron-down" class="size-3.5 opacity-70 transition-transform duration-200" :class="[open && 'rotate-180', props.variant !== 'dark' && 'hidden sm:block']" />
     </button>
 
     <Transition

@@ -144,7 +144,7 @@ useSeo({
 
       <ul v-reveal
         v-if="data?.items.length"
-        class="mt-5 grid gap-4 transition-opacity sm:grid-cols-2 lg:grid-cols-3"
+        class="mt-5 grid grid-cols-1 gap-4 transition-opacity sm:grid-cols-2 lg:grid-cols-3"
         :class="status === 'pending' && 'opacity-60'"
       >
         <li data-reveal-item v-for="person in data.items" :key="person.id">

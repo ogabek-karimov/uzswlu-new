@@ -73,6 +73,9 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    /* Telefonda sahifa yon tomonga surilmasin: yondan kirayotgan (.reveal) kartalar, dekor elementlari ekran chetidan
+       chiqsa ham gorizontal aylantirish paydo bo'lmaydi. clip — sticky header'ni buzmaydi (hidden'dan farqli) */
+    overflow-x: clip;
   }
 
   /* Xitoy tilida serif sarlavhalar o'rniga toza sans */

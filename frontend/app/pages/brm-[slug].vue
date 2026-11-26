@@ -213,7 +213,7 @@ useSeo({
         </div>
 
         <!-- Oldingi / keyingi maqsad -->
-        <nav :aria-label="t('sdg.goal.goals')" class="mt-10 grid gap-3.5 sm:grid-cols-2">
+        <nav :aria-label="t('sdg.goal.goals')" class="mt-10 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
           <NuxtLink v-if="prev" :to="localePath(prev.url)" class="flex items-center gap-3.5 rounded-[20px] border border-line bg-white p-[18px] text-ink transition-colors hover:border-accent-500">
             <span class="grid size-11 shrink-0 place-items-center rounded-xl font-extrabold" :style="{ background: sdgColor(prev.n), color: sdgInk(prev.n) }">{{ prev.n }}</span>
             <span class="min-w-0"><span class="block text-xs text-muted">← {{ t('sdg.goal.prev') }}</span><span class="block truncate font-bold">{{ prev.title }}</span></span>

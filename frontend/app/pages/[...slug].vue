@@ -45,6 +45,8 @@ const parts = computed(() => {
 // Hujjatlar: «ichi ko'rinadi» PDF — ko'rgiçda; qolganlari — karta ko'rinişida
 const embedDocs = computed(() => (page.value?.attachments ?? []).filter(f => f.kind === 'pdf' && f.display === 'embed'))
 const listDocs = computed(() => (page.value?.attachments ?? []).filter(f => !(f.kind === 'pdf' && f.display === 'embed')))
+// Ulashish va chop etish tugmalari — faqat sahifada fayl (PDF) bo'lsa
+const hasFiles = computed(() => (page.value?.attachments ?? []).some(f => f.kind === 'pdf'))
 
 const { copied, share } = useShare()
 const feedback = ref<'yes' | 'no' | null>(null)
@@ -66,7 +68,7 @@ useSeo({
             <h1 class="font-display text-[2.25rem] leading-[1.06] font-semibold tracking-tight text-white sm:text-5xl lg:text-[52px]">{{ page.title }}</h1>
             <p v-if="page.lead" class="mt-3 text-base leading-relaxed text-white/75 sm:text-lg">{{ page.lead }}</p>
           </div>
-          <div class="no-print flex gap-2">
+          <div v-if="hasFiles" class="no-print flex gap-2">
             <button
               type="button"
               class="relative grid size-11 place-items-center hero-btn rounded-full"

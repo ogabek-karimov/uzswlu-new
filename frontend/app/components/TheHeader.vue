@@ -172,10 +172,11 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
     @mouseleave="scheduleClose"
   >
     <!-- 1-qator: logo, qidiruv, amallar -->
-    <div class="mx-auto flex h-[72px] max-w-7xl items-center gap-2 px-4 sm:gap-4 sm:px-6 lg:px-8" @mouseenter="scheduleClose">
+    <div class="mx-auto flex h-[72px] max-w-7xl items-center gap-2 px-3 min-[380px]:px-4 sm:gap-4 sm:px-6 lg:px-8" @mouseenter="scheduleClose">
       <NuxtLink :to="localePath('/')" class="flex shrink-0 items-center gap-3" :aria-label="t('university.name')">
-        <BrandMark class="size-12" />
-        <span class="text-[15px] font-semibold text-ink sm:hidden">{{ t('university.short') }}</span>
+        <BrandMark class="size-10 min-[380px]:size-12" />
+        <!-- Juda tor telefonda (<380px) qisqa nom yashiriladi — o'ngdagi tugmalar sig'ishi uchun (logo qoladi) -->
+        <span class="hidden text-[15px] font-semibold text-ink min-[380px]:inline sm:hidden">{{ t('university.short') }}</span>
         <span class="hidden leading-tight sm:block">
           <!-- Sayt nomi — bitta butun nom: ikkala qator bir xil, qalin -->
           <span class="block text-[15px] font-semibold text-ink">{{ t('university.line1') }}</span>

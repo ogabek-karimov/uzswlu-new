@@ -194,7 +194,7 @@ useSeo({
     </article>
 
     <!-- Oldingi / Keyingi (shu turdagi postlar orasida) -->
-    <nav v-if="post.prev || post.next" :aria-label="t('page.sectionNav')" class="no-print mx-auto grid max-w-7xl gap-4 px-4 pt-12 sm:grid-cols-2 sm:px-6 lg:px-8">
+    <nav v-if="post.prev || post.next" :aria-label="t('page.sectionNav')" class="no-print mx-auto grid max-w-7xl grid-cols-1 gap-4 px-4 pt-12 sm:grid-cols-2 sm:px-6 lg:px-8">
       <NuxtLink
         v-if="post.prev"
         :to="localePath(`/${post.prev.type}/${post.prev.slug}`)"

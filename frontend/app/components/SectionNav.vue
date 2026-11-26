@@ -20,7 +20,7 @@ const next = computed(() => (index.value >= 0 ? internal.value[index.value + 1] 
 <template>
   <nav v-if="group && (prev || next)" :aria-label="t('page.sectionNav')" class="no-print mx-auto max-w-7xl px-4 pt-4 pb-16 sm:px-6 lg:px-8">
     <p class="mb-3 text-xs font-semibold tracking-[0.18em] text-muted uppercase">{{ group.title }}</p>
-    <div class="grid gap-4 sm:grid-cols-2">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <NuxtLink
         v-if="prev"
         :to="localePath(prev.url)"

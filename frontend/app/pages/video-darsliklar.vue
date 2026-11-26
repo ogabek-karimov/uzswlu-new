@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { VideoList } from '#shared/types/api'
 
-// Video darsliklar (canvas: "Video darsliklar") + onlayn translatsiya kartasi
+// Video darsliklar (canvas: "Video darsliklar"); onlayn translatsiya — alohida sahifada (/online-translatsiya)
 const { t, locale } = useI18n()
-const formatDate = useFormatDate()
 
 const { data } = await useFetch<VideoList>('/api/videos', { key: 'videos', query: { lang: locale } })
 
@@ -29,43 +28,26 @@ useSeo({ title: () => t('video.title'), description: () => t('video.lead') })
 
 <template>
   <div v-if="data">
-    <section class="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-      <PageBreadcrumbs :items="[{ label: t('video.section') }, { label: t('video.title') }]" />
-      <div class="mt-7 grid items-stretch gap-8 lg:grid-cols-[1fr_1.3fr]">
-        <div class="flex flex-col justify-center">
-          <h1 class="font-display text-[2.75rem] leading-[1.04] font-semibold tracking-tight sm:text-6xl lg:text-[64px]">{{ t('video.title') }}</h1>
-          <p class="mt-4 text-[19px] leading-relaxed text-muted">{{ t('video.lead') }}</p>
-          <a :href="data.channelUrl" target="_blank" rel="noopener" class="mt-6 inline-flex h-12 items-center gap-2 self-start rounded-full border border-ink/20 px-5 font-semibold text-ink transition-colors hover:bg-ink hover:text-white">
-            <Icon name="simple-icons:youtube" class="size-5 text-red-600" />
-            {{ t('video.channel') }}
-          </a>
+    <!-- Yuqori qism — boshqa sahifalar (masalan, Online translatsiya) kabi gradient banner; translatsiya videosi olib tashlangan -->
+    <section class="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
+      <div class="page-hero px-5 py-6 sm:px-8 sm:py-7">
+        <PageBreadcrumbs dark :items="[{ label: t('video.section') }, { label: t('video.title') }]" />
+        <div class="mt-4 flex flex-wrap items-end justify-between gap-5">
+          <div class="max-w-[820px] min-w-0">
+            <h1 class="font-display text-[2.25rem] leading-[1.06] font-semibold tracking-tight text-white sm:text-5xl lg:text-[52px]">{{ t('video.title') }}</h1>
+            <p class="mt-3 text-base leading-relaxed text-white/75 sm:text-lg">{{ t('video.lead') }}</p>
+          </div>
+          <div class="no-print flex flex-wrap gap-2">
+            <a :href="data.channelUrl" target="_blank" rel="noopener" class="hero-btn inline-flex h-11 items-center gap-2 rounded-full px-4 text-sm font-semibold">
+              <Icon name="simple-icons:youtube" class="size-[18px]" />
+              {{ t('video.channel') }}
+            </a>
+          </div>
         </div>
-
-        <!-- Onlayn translatsiya -->
-        <a :href="data.live.url" target="_blank" rel="noopener" class="group relative block aspect-video overflow-hidden rounded-[28px] bg-brand-950 text-white">
-          <span class="decor pointer-events-none absolute -top-32 -right-20 size-[420px] rounded-full border-[42px] border-white/5" aria-hidden="true" />
-          <span class="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-white/12 px-3 py-1.5 text-[13px] font-semibold">
-            <span class="size-2 rounded-full" :class="data.live.isLive ? 'animate-pulse bg-red-500' : 'bg-gray-400'" />
-            {{ t('video.live') }} · {{ data.live.isLive ? t('video.onAir') : t('video.offAir') }}
-          </span>
-          <span class="absolute top-1/2 left-1/2 grid size-[88px] -translate-1/2 place-items-center rounded-full bg-accent-400 text-ink transition-transform group-hover:scale-105">
-            <Icon name="lucide:play" class="ml-1 size-9" />
-          </span>
-          <span class="absolute inset-x-6 bottom-5 flex items-end justify-between gap-4">
-            <span>
-              <span class="block text-[13px] text-white/60">{{ t('video.next') }}</span>
-              <span class="mt-0.5 block font-display text-xl font-semibold sm:text-2xl">
-                <template v-if="data.live.next">{{ data.live.next.title }} · {{ formatDate(data.live.next.startsAt, 'datetime') }}</template>
-                <template v-else>{{ t('video.nextTba') }}</template>
-              </span>
-            </span>
-            <span class="hidden shrink-0 text-[13px] font-semibold text-accent-400 sm:inline">{{ t('video.watch') }} →</span>
-          </span>
-        </a>
       </div>
     </section>
 
-    <div class="mx-auto flex max-w-7xl flex-col gap-10 px-4 pt-14 pb-24 sm:px-6 lg:flex-row lg:items-start lg:px-8">
+    <div class="mx-auto flex max-w-7xl flex-col gap-10 px-4 pt-12 pb-24 sm:px-6 lg:flex-row lg:items-start lg:px-8">
       <SectionSideNav />
       <section class="order-1 min-w-0 flex-1 lg:order-2">
       <div role="group" :aria-label="t('video.categories')" class="flex flex-wrap gap-2">
