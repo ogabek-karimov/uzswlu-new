@@ -92,10 +92,24 @@ function placeSeason() {
 const a11y = useA11y()
 watch(() => a11y.step.value, () => nextTick(() => {
   placeSeason()
+  placeA11y()
   nextTick(measure)
 }))
+// «Maxsus imkoniyatlar» belgisi — pastki qatorda aynan «Qabul» tugmasi tagida: kiriş (profil) tugmasi bilan adaştirilmasin
+const a11yWrap = ref<{ $el: HTMLElement }>()
+const a11yShift = ref(0)
+function placeA11y() {
+  const anchor = document.querySelector<HTMLElement>('header [data-a11y-anchor]')
+  const btn = a11yWrap.value?.$el as HTMLElement | undefined
+  const row = seasonRow.value
+  if (!anchor || !btn || !row || !anchor.offsetWidth) { a11yShift.value = 0; return }
+  const l = anchor.getBoundingClientRect()
+  const rowRight = row.getBoundingClientRect().right - Number.parseFloat(getComputedStyle(row).paddingRight)
+  a11yShift.value = Math.max(0, Math.round(rowRight - (l.left + l.width / 2) - btn.offsetWidth / 2))
+}
 function onResize() {
   placeSeason()
+  placeA11y()
 }
 
 function onScroll() {
@@ -115,6 +129,7 @@ onMounted(() => {
   window.addEventListener('keydown', onKeydown)
   resizeObserver = new ResizeObserver(() => {
     placeSeason()
+    placeA11y()
     measure()
   })
   if (navEl.value) resizeObserver.observe(navEl.value)
@@ -122,6 +137,7 @@ onMounted(() => {
   if (seasonRow.value) resizeObserver.observe(seasonRow.value)
   if (seasonWrap.value?.firstElementChild) resizeObserver.observe(seasonWrap.value.firstElementChild)
   placeSeason()
+  placeA11y()
   // Shrift kattalashtirilganda (A+) o'lchamlar o'zgaradi — o'lchagich ham kuzatiladi
   if (measureEl.value) resizeObserver.observe(measureEl.value)
   measure()
@@ -227,6 +243,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
         </NuxtLink>
         <NuxtLink
           :to="localePath(ADMISSION_PATH)"
+          data-a11y-anchor
           class="hidden items-center gap-1.5 rounded-full bg-accent-400 px-5 py-2.5 text-sm font-semibold whitespace-nowrap text-ink transition-colors hover:bg-accent-300 sm:inline-flex"
         >
           {{ t('nav.admission', { year: admissionYear(site).short }) }}
@@ -348,7 +365,7 @@ const navItem = 'inline-flex h-10 items-center gap-1 whitespace-nowrap rounded-f
         </nav>
 
         <!-- Maxsus imkoniyatlar (shrift, kontrast) — ko'rishi zaif foydalanuvchilar oson topishi uchun menyu qatorida -->
-        <A11yControls variant="nav" class="ml-4 shrink-0" />
+        <A11yControls ref="a11yWrap" variant="nav" class="ml-4 shrink-0" :style="{ marginRight: `${a11yShift}px` }" />
       </div>
     </div>
 

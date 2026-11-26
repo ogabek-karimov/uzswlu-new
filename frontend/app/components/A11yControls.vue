@@ -14,13 +14,13 @@ const isNav = computed(() => props.variant === 'nav')
     <button
       v-if="isNav"
       type="button"
-      class="group/a11y relative grid size-11 place-items-center rounded-full bg-brand-800 text-white transition-colors hover:bg-brand-700"
+      class="group/a11y relative grid size-11 place-items-center rounded-full text-brand-800 transition-colors hover:text-brand-600"
       aria-haspopup="dialog"
       :aria-expanded="open"
       :aria-label="t('a11y.title')"
       @click="open = !open"
     >
-      <A11yIcon class="size-6" />
+      <A11yIcon class="size-8" />
       <!-- Kursor kelganda (yoki klaviatura bilan tanlanganda) nomi chiqadi -->
       <span
         v-if="!open"
