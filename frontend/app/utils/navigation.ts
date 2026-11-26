@@ -4,7 +4,7 @@ import type { MenuLink } from '#shared/types/api'
 const GROUP_ICONS: Record<string, string> = {
   university: 'lucide:landmark',
   applicants: 'lucide:graduation-cap',
-  activity: 'lucide:layers',
+  activity: 'lucide:briefcase-business',
   news: 'lucide:newspaper',
   sdg: 'lucide:sprout',
   programs: 'lucide:book-open',
