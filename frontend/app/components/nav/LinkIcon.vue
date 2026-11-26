@@ -1,12 +1,12 @@
 <script setup lang="ts">
 // Menyu havolasining belgisi — barça menyularda bir xil: yumşoq fonli kvadrat, içida sahifa belgisi (admin → Sahifalar → «Belgi»).
-// Belgisi yöq sahifada — böliming umumiy belgisi. Hover'da (ota element `group/link`) fon töq indigo, belgi mint.
+// Belgisi yöq sahifada — böliming umumiy belgisi. Hover'da özgarmaydi.
 defineProps<{ icon?: string | null; group?: string; small?: boolean }>()
 </script>
 
 <template>
   <span
-    class="grid shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-700 transition-colors group-hover/link:bg-brand-800 group-hover/link:text-accent-400"
+    class="grid shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-700"
     :class="small ? 'size-8' : 'size-9'"
     aria-hidden="true"
   >
