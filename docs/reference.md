@@ -531,7 +531,7 @@ Har faylning boshidagi izohdan olinadi.
 | `backend/config/settings_test.py` | Test sozlamalari — `python manage.py test` avtomatik shuni ishlatadi (manage.py). |
 | `backend/config/urls.py` | — |
 
-### Backend testlari xaritasi (431 ta test)
+### Backend testlari xaritasi (433 ta test)
 
 Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl: `python manage.py test tests.security.test_files`.
 
@@ -543,10 +543,11 @@ Ishga tushirish: `cd backend && python manage.py test --parallel` · bitta fayl:
 | `backend/tests/api/test_contract.py` | 6 | Shartnoma testi: ochiq API javoblari `frontend/docs/openapi.yaml` sxemalariga mos bo'lishi shart (4 til × barcha endpoint). |
 | `backend/tests/api/test_edge_refresh.py` | 7 | Kontent o'zgarganda Nuxt/nginx keshini yangilash (apps/api/edge.py). |
 | `backend/tests/api/test_flows.py` | 14 | Ochiq API oqimlari (demo ma'lumot bilan): sanoqlar, eski /api/site/* manzillari, API token, xodim kabineti, murojaat, statistika. |
-| `backend/tests/api/test_maps.py` | 7 |  |
+| `backend/tests/api/test_maps.py` | 8 |  |
 | `backend/tests/api/test_page_staff.py` | 12 | Sahifadagi bo'lim xodimlari (masalan, «Axborot-resurs markazi»): HEMIS'dan avtomatik, admin zaxirasi, karta kontaktlari. |
 | `backend/tests/api/test_post_neighbors.py` | 1 |  |
 | `backend/tests/api/test_search.py` | 9 | Sayt qidiruvi (GET /search): nima qidiriladi va yozuv farqlari (tutuq, yangi alifbo, kirill, qo'shimchalar). |
+| `backend/tests/api/test_showcase_intro.py` | 1 |  |
 | `backend/tests/api/test_swagger.py` | 13 | Swagger to'liqligi: kodda ishlaydigan har bir amal hujjatda bo'lishi shart (yangi endpoint/kolleksiya qo'shilganda |
 | `backend/tests/api/test_text_quality.py` | 3 |  |
 | `backend/tests/core/test_alphabet.py` | 7 | Yangi alifboga o'girish (apps.core.alphabet) va alifbodan mustaqil qidiruv (fold). |

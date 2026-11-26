@@ -355,7 +355,8 @@ def showcase_out(data, lang: str) -> list[dict]:
             if items:
                 columns.append({'title': tr(col.get('title'), lang) or '', 'icon': col.get('icon') or None,
                                 'style': 'checks' if col.get('style') == 'checks' else 'numbers', 'items': items})
-        intro, outro = tr(block.get('intro'), lang) or None, tr(block.get('outro'), lang) or None
+        # Kirish/xulosa gapi — oddiy matn: unga HTML tushib qolsa (eski saytdan nusxa) teglar ko'rinmasin
+        intro, outro = ((text_of(v) if '<' in v else v) or None for v in (tr(block.get(k), lang) or '' for k in ('intro', 'outro')))
         photos = [{'url': m.size_url('hero') or m.url, 'thumb': m.size_url('card') or m.url, 'alt': tr(m.alt, lang) or '',
                    'width': m.width, 'height': m.height}
                   for m in (media.get(int(x)) for x in (block.get('photos') or []) if str(x).isdigit()) if m]
@@ -588,6 +589,9 @@ def faculty_out(f: Faculty, lang: str) -> dict:
         {'code': p.code, 'title': tr(p.title, lang), 'level': p.level, 'form': form_label(p.form, lang), 'years': p.years}
         for p in f.programs.all()
     ]
+    campus = (Campus.objects.filter(faculty=f).exclude(coords='').first()
+              or Campus.objects.filter(faculty__isnull=True).exclude(coords='').first())
+    map_addr = (tr(campus.address, 'uz') if campus else '') or tr(f.address, 'uz') or contact.get('address', '')
     return {
         'id': str(f.pk),
         'slug': f.slug,
@@ -609,9 +613,11 @@ def faculty_out(f: Faculty, lang: str) -> dict:
             'phone': f.phone or contact.get('phone', ''),
             'email': f.email or contact.get('email') or None,
             # Google havolasi (eski ma'lumot) o'rniga Yandex; qo'lda kiritilgan boshqa havola saqlanadi
-            'mapUrl': (f.map_url if f.map_url and 'google.' not in f.map_url else map_link('', tr(f.address, 'uz') or contact.get('address', '')))
-            if (f.map_url or tr(f.address, 'uz') or contact.get('address')) else None,
-            'mapEmbed': map_embed('', tr(f.address, 'uz') or contact.get('address', ''), lang) if (tr(f.address, 'uz') or contact.get('address')) else None,
+            # Xarita — fakultet joylashgan bino (admin → Binolar, «Fakultet»), bo'lmasa bosh bino koordinatasi; manzil matni
+            # odatda xona («Bosh bino, 2-qavat, 214-xona») — Yandex qidiruvi uni topa olmaydi
+            'mapUrl': (f.map_url if f.map_url and 'google.' not in f.map_url else map_link(campus.coords if campus else '', map_addr))
+            if (f.map_url or campus or map_addr) else None,
+            'mapEmbed': map_embed(campus.coords if campus else '', map_addr, lang) if (campus or map_addr) else None,
         },
     }
 

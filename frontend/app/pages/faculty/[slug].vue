@@ -12,7 +12,7 @@ if (error.value || !faculty.value) {
   throw createError({ statusCode: error.value?.statusCode ?? 404, statusMessage: 'Faculty not found', fatal: true })
 }
 
-const sections = ['about', 'programs', 'departments', 'deanery', 'news'] as const
+const sections = ['about', 'programs', 'departments', 'deanery'] as const
 const active = ref<(typeof sections)[number]>('about')
 
 // Bo'lim ko'rinishga kelganda tab ham almashadi
@@ -149,23 +149,19 @@ useSeo({ title: () => faculty.value?.name ?? '', description: () => faculty.valu
       </ul>
     </section>
 
-    <!-- Yangiliklar va aloqa -->
-    <section id="news" class="mx-auto grid max-w-7xl scroll-mt-40 gap-8 px-4 pt-20 pb-24 sm:px-6 lg:grid-cols-[2fr_1fr] lg:px-8">
-      <div class="min-w-0">
-        <h2 class="font-display text-4xl font-semibold">{{ t('faculty.newsTitle') }}</h2>
-        <ul class="mt-6 grid gap-6 sm:grid-cols-2">
-          <li v-for="(item, i) in faculty.news" :key="item.id"><PostCard :item="item" :tone="i + 1" /></li>
-        </ul>
-      </div>
-      <aside class="rounded-[28px] bg-brand-50 p-8">
+    <!-- Aloqa va xarita (fakultet yangiliklari olib tashlangan) -->
+    <section class="mx-auto max-w-7xl px-4 pt-20 pb-24 sm:px-6 lg:px-8">
+      <div class="grid gap-6 rounded-[28px] bg-brand-50 p-8 lg:grid-cols-[1fr_1.4fr] lg:items-start">
+        <div>
         <h2 class="text-xl font-semibold">{{ t('faculty.contact') }}</h2>
         <ul class="mt-5 flex flex-col gap-4 text-[15px]">
           <li class="flex gap-3"><Icon name="lucide:map-pin" class="mt-0.5 size-5 shrink-0 text-brand-700" />{{ faculty.contact.address }}</li>
           <li class="flex gap-3"><Icon name="lucide:phone" class="mt-0.5 size-5 shrink-0 text-brand-700" /><a :href="tel(faculty.contact.phone)" class="hover:text-brand-700">{{ faculty.contact.phone }}</a></li>
           <li v-if="faculty.contact.email" class="flex gap-3"><Icon name="lucide:mail" class="mt-0.5 size-5 shrink-0 text-brand-700" /><a :href="`mailto:${faculty.contact.email}`" class="break-all hover:text-brand-700">{{ faculty.contact.email }}</a></li>
         </ul>
+        </div>
         <!-- Yandex xaritasi; tugma — to'liq xaritada ochish -->
-        <div v-if="faculty.contact.mapEmbed || faculty.contact.mapUrl" class="relative mt-6 h-52 overflow-hidden rounded-[18px] bg-brand-100">
+        <div v-if="faculty.contact.mapEmbed || faculty.contact.mapUrl" class="relative h-64 overflow-hidden rounded-[18px] bg-brand-100">
           <MapFrame v-if="faculty.contact.mapEmbed" :src="faculty.contact.mapEmbed" :title="t('faculty.map')" />
           <!-- Yandex iframe'ning o'z havolasi bor: ustma-ust tushmasligi uchun bizning tugma faqat xarita yo'q bo'lganda -->
           <a
@@ -179,7 +175,7 @@ useSeo({ title: () => faculty.value?.name ?? '', description: () => faculty.valu
             {{ t('faculty.map') }}
           </a>
         </div>
-      </aside>
+      </div>
     </section>
   </div>
 </template>

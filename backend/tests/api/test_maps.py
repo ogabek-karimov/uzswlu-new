@@ -53,3 +53,19 @@ class SiteCampusMapTests(TestCase):
         seed = json.loads((Path(settings.BASE_DIR) / 'seed_data' / 'mock-data.json').read_text(encoding='utf-8'))
         points = {c['id']: c['coords'] for c in seed['contact']['campuses'] if c.get('coords')}
         self.assertEqual(points, {k: new for k, (old, new) in fix.items()})
+
+
+class FacultyMapTests(TestCase):
+    """Fakultet manzili — xona («Bosh bino, 2-qavat, 214-xona»): xarita fakultet binosi, bo'lmasa bosh bino nuqtasida."""
+
+    def test_faculty_map_uses_its_campus_then_main_building(self):
+        from apps.api.builders_site import faculty_out
+        from apps.structure.models import Campus, Faculty
+        f = Faculty.objects.create(slug='f-map', name={'uz': 'F'}, address={'uz': 'Bosh bino, 2-qavat, 214-xona'})
+        Campus.objects.create(key='main', name={'uz': 'Bosh bino'}, address={'uz': 'Toshkent'}, coords='41.286035, 69.193875', order=1)
+        contact = faculty_out(f, 'uz')['contact']
+        self.assertIn('pt=69.193875,41.286035', contact['mapEmbed'])
+        self.assertIn('pt=69.193875,41.286035', contact['mapUrl'])
+        Campus.objects.create(key='own', name={'uz': 'F binosi'}, address={'uz': 'Lutfiy 8'}, coords='41.297953, 69.205513', faculty=f, order=2)
+        self.assertIn('pt=69.205513,41.297953', faculty_out(f, 'uz')['contact']['mapEmbed'])
+

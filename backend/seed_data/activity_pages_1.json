@@ -89,19 +89,14 @@
    "zh": "“迈向未来”中心"
   },
   "body": {
-   "uz": "<p>[[kartalar-1]]</p>",
-   "ru": "<p>[[kartalar-1]]</p>",
-   "en": "<p>[[kartalar-1]]</p>",
-   "zh": "<p>[[kartalar-1]]</p>"
+   "uz": "<h2>“Kelajakka qadam” — ÖzDJTU talabalari va bitiruvçilarini qöllab-quvvatlaş dasturi</h2><p><strong>Dastur maqsadi:</strong> ÖzDJTU talabalari va bitiruvçilarining ta’lim, kasbiy rivojlaniş, tadbirkorlik, startap, xalqaro tajriba va bandlik imkoniyatlarini kengaytiriş, ularning bilim va salohiyatini amaliy loyihalarga yönaltiriş.</p><p>[[kartalar-1]]</p>",
+   "ru": "<h2>«Шаг в будущее» — программа поддержки студентов и выпускников УзГУМЯ</h2><p><strong>Цель программы:</strong> расширение возможностей студентов и выпускников УзГУМЯ в области образования, профессионального развития, предпринимательства, стартапов, международного опыта и трудоустройства, направление их знаний и потенциала на практические проекты.</p><p>[[kartalar-1]]</p>",
+   "en": "<h2>“Step into the Future” — a support programme for UzSWLU students and graduates</h2><p><strong>Programme goal:</strong> to expand the opportunities of UzSWLU students and graduates in education, professional development, entrepreneurship, start-ups, international experience and employment, and to channel their knowledge and potential into practical projects.</p><p>[[kartalar-1]]</p>",
+   "zh": "<h2>“迈向未来”——乌兹别克斯坦国立世界语言大学学生与毕业生支持计划</h2><p><strong>计划目标：</strong>拓展本校学生和毕业生在教育、职业发展、创业、初创项目、国际经验和就业方面的机会，将他们的知识与潜力引向实际项目。</p><p>[[kartalar-1]]</p>"
   },
   "showcase": [
    {
-    "intro": {
-     "uz": "<h2>“Kelajakka qadam” — ÖzDJTU talabalari va bitiruvçilarini qöllab-quvvatlaş dasturi</h2><p><strong>Dastur maqsadi:</strong> ÖzDJTU talabalari va bitiruvçilarining ta’lim, kasbiy rivojlaniş, tadbirkorlik, startap, xalqaro tajriba va bandlik imkoniyatlarini kengaytiriş, ularning bilim va salohiyatini amaliy loyihalarga yönaltiriş.</p>",
-     "ru": "<h2>«Шаг в будущее» — программа поддержки студентов и выпускников УзГУМЯ</h2><p><strong>Цель программы:</strong> расширение возможностей студентов и выпускников УзГУМЯ в области образования, профессионального развития, предпринимательства, стартапов, международного опыта и трудоустройства, направление их знаний и потенциала на практические проекты.</p>",
-     "en": "<h2>“Step into the Future” — a support programme for UzSWLU students and graduates</h2><p><strong>Programme goal:</strong> to expand the opportunities of UzSWLU students and graduates in education, professional development, entrepreneurship, start-ups, international experience and employment, and to channel their knowledge and potential into practical projects.</p>",
-     "zh": "<h2>“迈向未来”——乌兹别克斯坦国立世界语言大学学生与毕业生支持计划</h2><p><strong>计划目标：</strong>拓展本校学生和毕业生在教育、职业发展、创业、初创项目、国际经验和就业方面的机会，将他们的知识与潜力引向实际项目。</p>"
-    },
+    "intro": {},
     "stats": {},
     "photos": [],
     "cards": [],
