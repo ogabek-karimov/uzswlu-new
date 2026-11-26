@@ -15,13 +15,11 @@ const links = computed(() => site.value?.menu.find(g => g.links.some(l => l.url 
       <ul class="flex flex-col gap-1 text-[15px]">
         <li v-for="link in links" :key="link.url">
           <span v-if="link.url === path" aria-current="page" class="side-nav-item side-nav-active">
-            <Icon v-if="link.icon" :name="`lucide:${link.icon}`" class="size-[18px] shrink-0 text-brand-600" aria-hidden="true" />
-                <span v-else class="side-nav-dot" aria-hidden="true" />
+            <span class="side-nav-dot" aria-hidden="true" />
             <span class="min-w-0 flex-1">{{ link.title }}</span>
           </span>
           <NavMenuLink v-else :link="link" class="side-nav-item group">
-            <Icon v-if="link.icon" :name="`lucide:${link.icon}`" class="size-[18px] shrink-0 text-brand-600" aria-hidden="true" />
-                <span v-else class="side-nav-dot" aria-hidden="true" />
+            <span class="side-nav-dot" aria-hidden="true" />
             <span class="min-w-0 flex-1">{{ link.title }}</span>
             <span v-if="link.file" class="self-center rounded bg-red-50 px-1.5 py-0.5 text-[10px] font-bold text-red-700 uppercase">{{ link.file }}</span>
             <Icon v-else name="lucide:arrow-right" class="side-nav-arrow" />

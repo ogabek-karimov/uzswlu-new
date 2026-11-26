@@ -4,8 +4,8 @@ from django.db import migrations
 
 def forward(apps, schema_editor):
     Page = apps.get_model('pages', 'Page')
-    Page.objects.filter(slug='online-translatsiya', icon='').update(icon='radio-tower')
-    Page.objects.filter(url='/video-darsliklar', icon='').update(icon='clapperboard')
+    Page.objects.filter(slug='online-translatsiya', icon='').update(icon='cctv')
+    Page.objects.filter(url='/video-darsliklar', icon='').update(icon='monitor-play')
 
 
 class Migration(migrations.Migration):
