@@ -96,7 +96,7 @@ useSeo({ title: () => t('calendar.title'), description: () => t('calendar.lead')
 <template>
   <div>
     <PageIntro :crumbs="[{ label: t('posts.tabs.news'), to: '/yangiliklar' }, { label: t('posts.tabs.events') }]" :title="t('calendar.title')" :lead="t('calendar.lead')">
-      <button type="button" class="inline-flex h-12 items-center gap-2 rounded-full border border-white/25 px-5 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-brand-900" :disabled="!data?.items.length" @click="downloadIcs">
+      <button type="button" class="inline-flex h-12 items-center gap-2 hero-btn rounded-full px-5 text-sm font-semibold" :disabled="!data?.items.length" @click="downloadIcs">
         <Icon name="lucide:calendar-plus" class="size-[18px]" />
         {{ t('calendar.subscribe') }}
       </button>

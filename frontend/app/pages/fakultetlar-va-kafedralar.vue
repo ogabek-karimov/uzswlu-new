@@ -15,12 +15,12 @@ useSeo({ title: () => t('facultyList.title'), description: () => t('faculties.te
     <PageIntro :crumbs="[{ label: t('menu.university.title') }, { label: t('facultyList.title') }]" :title="t('facultyList.title')" :lead="t('faculties.text')">
       <dl v-if="data" class="flex gap-8">
         <div class="flex flex-col-reverse">
-          <dt class="text-[13px] text-white/60">{{ t('facultyList.faculties') }}</dt>
-          <dd class="font-display text-5xl font-semibold text-accent-400">{{ data.summary.faculties }}</dd>
+          <dt class="text-[13px] text-white/85">{{ t('facultyList.faculties') }}</dt>
+          <dd class="font-display text-5xl font-semibold text-white">{{ data.summary.faculties }}</dd>
         </div>
         <div class="flex flex-col-reverse">
-          <dt class="text-[13px] text-white/60">{{ t('facultyList.departments') }}</dt>
-          <dd class="font-display text-5xl font-semibold text-accent-400">{{ data.summary.departments }}</dd>
+          <dt class="text-[13px] text-white/85">{{ t('facultyList.departments') }}</dt>
+          <dd class="font-display text-5xl font-semibold text-white">{{ data.summary.departments }}</dd>
         </div>
       </dl>
     </PageIntro>

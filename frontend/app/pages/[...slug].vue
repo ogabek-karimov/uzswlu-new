@@ -69,14 +69,14 @@ useSeo({
           <div class="no-print flex gap-2">
             <button
               type="button"
-              class="relative grid size-11 place-items-center rounded-full border border-white/15 bg-white/10 text-accent-400 transition-colors hover:border-accent-400 hover:bg-white/15"
+              class="relative grid size-11 place-items-center hero-btn rounded-full"
               :aria-label="t('page.share')"
               @click="share(page.title)"
             >
               <Icon :name="copied ? 'lucide:check' : 'lucide:share-2'" class="size-[18px]" />
               <span v-if="copied" role="status" class="absolute top-1/2 right-full mr-2 -translate-y-1/2 rounded-lg bg-white px-2.5 py-1 text-xs font-medium whitespace-nowrap text-brand-900">{{ t('page.copied') }}</span>
             </button>
-            <button type="button" class="grid size-11 place-items-center rounded-full border border-white/15 bg-white/10 text-accent-400 transition-colors hover:border-accent-400 hover:bg-white/15" :aria-label="t('page.print')" @click="printPage">
+            <button type="button" class="grid size-11 place-items-center hero-btn rounded-full" :aria-label="t('page.print')" @click="printPage">
               <Icon name="lucide:printer" class="size-[18px]" />
             </button>
           </div>

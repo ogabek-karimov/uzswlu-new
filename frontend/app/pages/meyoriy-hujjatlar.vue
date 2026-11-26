@@ -27,7 +27,7 @@ useSeo({ title: () => t('docs.title'), description: () => t('docs.lead') })
   <div>
     <PageIntro :crumbs="[{ label: t('menu.activity.title') }, { label: t('docs.title') }]" :title="t('docs.title')" :lead="t('docs.lead')">
       <div role="search" class="w-full sm:w-[380px]">
-        <label for="doc-search" class="mb-2 block text-[13px] font-semibold text-white/70">{{ t('docs.search') }}</label>
+        <label for="doc-search" class="mb-2 block text-[13px] font-semibold text-white/90">{{ t('docs.search') }}</label>
         <div class="flex h-[52px] items-center gap-2 rounded-2xl border border-line bg-white px-4 focus-within:border-accent-600">
           <Icon name="lucide:search" class="size-[18px] shrink-0 text-muted" />
           <input id="doc-search" v-model="search" type="search" autocomplete="off" :placeholder="t('docs.placeholder')" class="h-full min-w-0 flex-1 bg-transparent text-ink outline-none placeholder:text-muted">

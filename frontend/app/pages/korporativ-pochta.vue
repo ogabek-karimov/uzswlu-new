@@ -14,12 +14,12 @@ useSeo({ title: () => t('corpMail.title'), description: () => t('corpMail.lead')
   <div>
     <PageIntro :crumbs="[{ label: t('corpMail.title') }]" :title="t('corpMail.title')" :lead="t('corpMail.lead')">
       <div class="flex flex-col items-start gap-2">
-        <a :href="WEBMAIL" target="_blank" rel="noopener" class="inline-flex h-[56px] items-center gap-2.5 rounded-full bg-accent-400 px-7 text-base font-semibold text-brand-950 transition-colors hover:bg-white">
+        <a :href="WEBMAIL" target="_blank" rel="noopener" class="inline-flex h-[56px] items-center gap-2.5 rounded-full bg-brand-950 px-7 text-base font-semibold text-white shadow-[0_12px_30px_-14px_rgb(19_17_47/0.7)] transition-colors hover:bg-white hover:text-brand-950">
           <Icon name="lucide:mail" class="size-5" />
           {{ t('corpMail.open') }}
           <Icon name="lucide:arrow-up-right" class="size-4" />
         </a>
-        <span class="text-[13px] text-white/60">{{ t('corpMail.openHint') }}</span>
+        <span class="text-[13px] text-white/85">{{ t('corpMail.openHint') }}</span>
       </div>
     </PageIntro>
 
